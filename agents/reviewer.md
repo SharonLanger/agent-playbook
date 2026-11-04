@@ -32,23 +32,45 @@ Apply the reviewer guide's general rules, then project rules, then optional PR r
 
 ## Shared reports in Google Drive
 
-Use the existing Google Drive folder named **Agent Work** as the shared destination. A local workspace path is staging only; another session cannot be assumed to see it.
+Use the existing Google Drive folder [agent-work](https://drive.google.com/drive/folders/11cjNdBxU--Yk9zTn4GSb0a-doMa2iWtW) as the shared destination. Resolve this folder by its ID; the display name is not its identity. A local workspace path is staging only; another session cannot be assumed to see it.
 
 ### Resolve the destination and write boundary
 
-1. Use an Agent Work folder URL/ID explicitly supplied by the user, or discover the exact folder through the connected Drive tools. Verify that it is a folder. If missing, inaccessible, or ambiguous, request its link and report shared delivery as blocked. Do not create a replacement root or select a similarly named folder.
-2. Resolve children by parent folder ID and exact name, creating missing project and PR folders under the verified root as needed: `Agent Work/<exact-project-key>/pr-<number>/`. For this project, use `system-one-harness` exactly. Verify the source repository and PR against the launch before uploading. If that project folder is already associated with another repository, stop and clarify.
-3. Create a new `review-01`, `review-02`, etc. directory under that PR, choosing the next unused number. Record the returned folder ID; Drive paths/names alone are not unique. On an ambiguous name or concurrent collision, resolve it before proceeding rather than use another run's folder.
-4. During this invocation, remote writes are limited to creating the necessary descendant folders and creating/updating review artifacts inside this invocation's review directory. Every file write must specify the verified parent or file ID. Never upload to Drive root by omitting the parent. Do not edit another PR, project, or review run; do not delete, move, or rename existing shared artifacts or alter sharing permissions. On retry, resume only a run whose exact ID is recorded for this invocation; otherwise create a new run.
+1. Use the configured root folder above, or a replacement explicitly supplied by the user. Verify that it is an accessible folder. If missing, inaccessible, or ambiguous, request its link and report shared delivery as blocked. Do not create a replacement root or select a similarly named folder.
+2. Resolve children by parent folder ID and exact name, creating missing project and PR folders under the verified root as needed: `agent-work/<exact-project-key>/pr-<number>/`. For this project, use `system-one-harness` exactly. Verify the source repository and PR against the launch before uploading. If that project folder is already associated with another repository, stop and clarify.
+3. Read the current PR's `reviews.json` and list existing review folders. Allocate one more than the highest number in either location: `review-01`, `review-02`, etc., with at least two digits. Never reuse a number, including an incomplete run. Two reviews of the same commit still get different numbers. Record the returned folder ID; Drive names alone are not unique. Follow the index protocol below before beginning a new run.
+4. During this invocation, remote writes are limited to creating the necessary descendant folders, creating/updating artifacts inside this invocation's review directory, and maintaining its own entry in the current PR's `reviews.json`. Every file write must specify the verified parent or file ID. Never upload to Drive root by omitting the parent. Do not edit another PR, project, or review run; do not delete, move, or rename existing shared artifacts or alter sharing permissions. On retry, resume only a run whose exact ID is recorded for this invocation; otherwise create a new run.
 5. These are reviewer operating instructions, not a Drive access-control mechanism. They authorize storage of review output only, not GitHub comments/reviews, source edits, commits, or merges.
+
+### PR index and sequential runs
+
+Keep `reviews.json` in the PR folder. It records `schema_version: 1`, `source_repository`, `project`, `pr_number`, and a `reviews` array. Each entry includes:
+
+- `review_number`, `folder_id`, and `folder_url`.
+- Full `reviewed_commit` and `base_commit` hashes.
+- `playbook_revision`, `design_revision`, and `rules_revision` identifying the exact instructions used. Record external rule references separately if they do not share the playbook revision.
+- `started_at` and `finished_at` in UTC.
+- `review_status`: null while undecided, then `passed`, `changes_requested`, or `blocked`.
+- `delivery_status`: `pending`, `complete`, or `blocked`.
+- `manifest_url` and `report_url`; null until verified.
+
+Use null for genuinely unavailable revisions and explain the gap in the report; never invent a hash or approval. A blocked review may have complete delivery.
+
+Run only one reviewer at a time for a given PR. Read the index before allocating and reread it immediately before each update. If it changed or another run is active, stop the conflicting write and report it. Google Drive updates replace file content; JSON or JSONL does not supply atomic append or a lock. This protocol reduces accidental overwrites but is not transactional enforcement.
+
+Preserve all earlier entries unchanged. Add the current run as pending when its folder is created, then update only that entry with the final result and delivery state. Read back the index after writing. On an interrupted retry, resume only the exact recorded run ID while it remains incomplete. Completed reports, evidence, and index entries are preserved; corrections require a new numbered run.
+
+If an index does not exist but previous folders do, reconstruct entries only from their verified reports/manifests, preserving those artifacts. Mark delivery blocked when a legacy handoff lacks its manifest or evidence, and use null for unknown metadata. Do not silently label legacy reviews complete. If the existing index is malformed or belongs to a different repository/PR, report the problem rather than replace it.
+
+The latest run is not necessarily a current passing review. Compare its reviewed commit and applicable design/rules revisions with the current inputs before relying on it.
 
 ### Save a complete handoff
 
 Stage the report, its appendices, and supporting evidence locally, then upload them as ordinary files preserving Markdown, JSON, and other required formats. Do not convert them to native Docs or Sheets. Keep an `evidence/` subfolder when useful. Include every artifact referenced by the report, including relevant inventories and audit JSON. Reference repository source with revision-pinned links when sufficient; upload only source extracts actually needed as evidence, not an entire working checkout.
 
-Use `pr-<number>-review.md` for the main report. Include a `manifest.json` that identifies the source repository, PR, reviewed code revision, playbook/design revisions, review status, review-run folder ID, and each artifact's relative path, Drive file ID, and returned link. Record enough information to match the report to its evidence. Use Drive links in the main report for the appendices and evidence, so references do not depend on `/workspace` paths.
+Use `pr-<number>-review.md` for the main report. Include a `manifest.json` that identifies the source repository, PR, full reviewed and base commit hashes, playbook/design/rules revisions, review number, review status, review-run folder ID, and each artifact's relative path, Drive file ID, returned link, byte size, and SHA-256 checksum. The artifact list excludes the manifest itself to avoid a circular checksum. Record enough information to match the report to its evidence. Use Drive links in the main report for the appendices and evidence, so references do not depend on `/workspace` paths.
 
-After upload, list or read metadata for the destination to verify parent IDs and the expected artifact set; read back the main report and manifest. Upload the final manifest only after the referenced artifacts have been saved and checked. Report delivery as complete only when the main report, appendices, evidence, and manifest are available. Preserve existing artifacts on partial failure, retain local copies, and state what failed or is missing. Do not substitute a local path for a shared link.
+After upload, verify each artifact's parent chain is inside this run, fetch its bytes, and compare its size and SHA-256 checksum with the local original. Check every report/appendix artifact reference resolves to a manifest entry and an accessible uploaded file; replace local-only paths and obsolete local-only wording with verified links. Source citations may use accessible revision-pinned GitHub links. Upload the final manifest only after the referenced artifacts have been checked, then read back and parse the manifest. Finally update and read back the PR index. Report delivery as complete only when all of these checks succeed. Preserve existing artifacts on partial failure, retain local copies, and state what failed or is missing. Do not substitute a local path for a shared link.
 
 A review with findings or blockers still needs its report and evidence delivered. Keep the review result separate from delivery status: a missing Drive destination does not erase findings or turn an unperformed review into a pass.
 
@@ -66,10 +88,14 @@ Return a small structured result to the caller:
   "delivery_status": "complete | blocked",
   "review_folder_url": "<verified Drive link or null>",
   "report_url": "<verified Drive link or null>",
-  "manifest_url": "<verified Drive link or null>"
+  "manifest_url": "<verified Drive link or null>",
+  "review_number": "<allocated number or null>",
+  "index_url": "<verified PR index link or null>"
 }
 ```
 
 Return the Drive report and review-folder links in the user-facing response so the user can pass them to another session. If delivery is blocked, include the reason and any verified partial links, clearly labeled incomplete.
 
 Use `passed` when the review is complete, required inputs and evidence are available, and no must-fix findings remain. Optional improvements alone do not request changes. Use `changes_requested` for must-fix findings. Use `blocked` when missing inputs, unresolved instruction conflicts, or missing evidence prevent a trustworthy conclusion. Explain the reason in the report. A passing review does not merge or approve a PR on GitHub; the user decides whether to merge.
+
+For the acceptance walkthrough, use [reviewer handoff verification](../verification/reviewer-handoff.md). Do not claim that checklist has passed without recording actual observations.
