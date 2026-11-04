@@ -28,9 +28,35 @@ To resume, supply the exact feature identifier or design path. The designer read
 
 Copy this into a Codex session and replace the bracketed fields:
 
-> Use the playbook at https://github.com/SharonLanger/agent-playbook. Read `agents/reviewer.md` and review PR #[number] in [owner/repository] for project [project-key]. The approved design is [path or link, including revision]. Write the review report to [workspace path]. Follow the reviewer's file-discovery rules and return its structured status and report path. Do not edit code or post the review to GitHub.
+> Use the playbook at https://github.com/SharonLanger/agent-playbook. Read `agents/reviewer.md` and review PR #[number] in [owner/repository] for project [project-key]. The approved design is [path or link, including revision]. Save the report, appendices, and evidence under the existing Google Drive Agent Work folder [folder URL if known], following the reviewer's storage convention. Return the review status, shared report link, and review-folder link. Do not edit code or post the review to GitHub.
 
-The project key selects optional `projects/<project-key>/review-rules.md` and `projects/<project-key>/reviews/pr-<number>.md`. A missing file adds no extra rules. The approved design is required for a complete design-based review. You can read the report in the session from your phone.
+The project key selects optional `projects/<project-key>/review-rules.md` and `projects/<project-key>/reviews/pr-<number>.md`. A missing file adds no extra rules. The approved design is required for a complete design-based review. The reviewer resolves the existing Agent Work folder or asks for its link if unavailable or ambiguous.
+
+## Share a review between sessions
+
+The reviewer publishes ordinary Markdown reports and JSON evidence to Google Drive:
+
+```text
+Agent Work/
+└── system-one-harness/
+    └── pr-46/
+        └── review-01/
+            ├── pr-46-review.md
+            ├── manifest.json
+            ├── [review appendices]
+            └── evidence/
+                └── [supporting files]
+```
+
+Each invocation owns its review directory. It can create the required project/PR folders but cannot write into another project, PR, or review run, delete shared files, or change Drive sharing. These instructions do not change Drive's technical permissions.
+
+A local workspace is temporary staging, not shared storage. A blocked review still saves its available findings and evidence. The final response reports review status and delivery status separately. If uploads fail, the reviewer must say the handoff is incomplete rather than present a local path as a shared result.
+
+In another session, paste:
+
+> Read the review and its evidence from this Agent Work review folder: [folder link]. Start with manifest.json, confirm the source repository, PR, and reviewed revision, then inspect the report and linked evidence. Explain the findings to me.
+
+This workflow requires both sessions to have access to the same connected Drive folder. It does not require committing review artifacts to GitHub.
 
 ## Agreed design
 
