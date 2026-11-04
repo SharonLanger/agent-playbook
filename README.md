@@ -1,6 +1,6 @@
 # Agent Playbook
 
-Agent instructions, project rules, and workflows for coordinating coding, testing, and review.
+This playbook collects agent instructions, project rules, and workflows for coding, testing, and review.
 
 ## Structure
 
