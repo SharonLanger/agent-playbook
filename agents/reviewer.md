@@ -13,7 +13,7 @@ The launch must identify the playbook root, project key, source repository, PR n
 ## Instructions to load
 
 1. Read this file.
-2. Read `projects/<project>/review-rules.md` relative to the playbook root. If it is missing or unreadable, return `blocked`.
+2. If `projects/<project>/review-rules.md` exists, read it relative to the playbook root. If it is absent, continue with the general rules. If it exists but cannot be read, return `blocked`.
 3. Read the approved design and all linked deviation records. Follow only approved deviations; note proposed or rejected ones as context, not instructions.
 4. If reviewing PR `<number>`, read `projects/<project>/reviews/pr-<number>.md` when present. Its absence means no extra PR rules.
 5. Read applicable instructions in the source repository before inspecting or changing files. This review role does not change source files.
