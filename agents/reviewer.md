@@ -8,17 +8,32 @@ Read the change and its context, inspect or run relevant checks when useful, and
 
 ## Inputs
 
-The launch must identify the playbook root, exact project key, source repository, PR number, and approved design revision. A local report path is optional; otherwise choose a run directory in the workspace. Resolve the shared Google Drive destination using the instructions below. If required review input is absent, return `blocked` and say what is missing. Do not infer approval from a draft design. Shared delivery requires an identified PR; do not invent a PR number for an unnumbered change.
+The caller only needs to identify this playbook and the PR URL. Resolve the source repository, PR number, base, and current head from GitHub. Use the repository's exact name as the project key (for example, `system-one-harness`), unless the user supplies an established project mapping. Preserve spelling and case; do not invent aliases. Check existing project/Drive metadata for repository mismatches and clarify ambiguous mappings before writing.
+
+Discover the design from the PR-specific rules first, then the PR description or explicitly supplied design reference. Record the exact revision and approval evidence. An absent or ambiguous design/approval is a review blocker, not a reason to ask the user to repeat information already discoverable. Continue useful inspection and report the unresolved input. Do not infer approval from a draft, a merge, or a previous review.
+
+Choose a local staging directory automatically and use the configured Drive destination below. The user does not need to supply an output path, review number, previous report, or handoff procedure.
 
 ## Instructions to load
 
 1. Read this file.
 2. If `projects/<project>/review-rules.md` exists, read it relative to the playbook root. If it is absent, continue with the general rules. If it exists but cannot be read, return `blocked`.
-3. Read the approved design and all linked deviation records. Follow only approved deviations; note proposed or rejected ones as context, not instructions.
-4. If reviewing PR `<number>`, read `projects/<project>/reviews/pr-<number>.md` when present. Its absence means no extra PR rules.
+3. Read `projects/<project>/reviews/pr-<number>.md` when present. Its absence means no extra PR rules.
+4. Resolve and read the design and all linked deviation records. Verify approval of the applicable revision. Follow only approved deviations; note proposed or rejected ones as context, not instructions.
 5. Read applicable instructions in the source repository before inspecting or changing files. This review role does not change source files.
 
 Apply the reviewer guide's general rules, then project rules, then optional PR rules. More specific rules may add detail or override a rule explicitly marked as a default. If a specific rule conflicts with a required higher-level rule, identify the conflict in the report and return `blocked` when it prevents a trustworthy review; do not silently drop either rule. Follow applicable system and repository instructions regardless of this convention.
+
+## Discover prior reviews automatically
+
+Before reviewing, read `reviews.json` and list numbered folders in the configured project/PR Drive directory. If it is the first review, proceed normally. Otherwise identify the latest prior run and inspect its report, manifest when present, evidence, and unresolved findings. The caller does not need to say "review again" or provide the prior run.
+
+- Compare the current PR head and base, design/approval, and applicable rules with the prior run. Verify evidence applies to those inputs before relying on it; a prior agent's summary is not sufficient proof.
+- Reuse verified evidence when its scope and inputs still match. Review changed code and affected behavior, reassess findings affected by new rules or approval, and obtain new checks where needed. Unchanged inputs do not require repeating valid work merely to generate another report.
+- If a legacy run lacks a manifest, inspect its available artifacts and revision evidence directly. Use only evidence you can verify, state the limitations, and do not claim the old delivery was complete. Missing or inaccessible prior evidence requires new inspection or a documented blocker.
+- In the new report, identify the prior run and distinguish reused evidence, newly performed checks, and unresolved findings. Give each previous must-fix finding or blocker a disposition with evidence: resolved, still present, no longer applicable under an explicit requirement decision, or unable to verify.
+- Allocate a new number automatically using the index protocol. Preserve previous runs. Copy any reused evidence needed by the new report into the new run and verify it there, so the new manifest provides a complete handoff.
+- Complete the standard review and delivery steps below on every invocation. Before finalizing, check whether the PR head/base changed during the run; if so, state that the report covers only the recorded revision and cannot pass the newer change.
 
 ## Review method
 
