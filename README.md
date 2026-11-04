@@ -12,6 +12,18 @@ Agent instructions, project rules, and workflows for coordinating coding, testin
 
 `project-a` and PR 14 are examples, not configured projects or tasks.
 
+## Design a new feature
+
+Project folder names match the exact supplied project name. For System One Harness, use `system-one-harness`. Features are numbered within each project and use lowercase names with a slug of at most three words, such as `f-01-session-recovery`.
+
+A design is saved at `projects/system-one-harness/features/f-01-session-recovery/design.md`. This is an example path; create a feature folder only for a real feature.
+
+Copy this into a new session and replace the bracketed fields:
+
+> Use https://github.com/SharonLanger/agent-playbook and read `agents/designer.md`. Help me design a new feature for project `system-one-harness`, source repository [repository URL]: [feature request]. Follow the guide to choose the next feature number and save the draft design. Return its exact path so I can review it.
+
+To resume, supply the exact feature identifier or design path. The designer reads its save and lookup conventions from its own guide, so it does not depend on this chat's memory.
+
 ## Run one reviewer directly
 
 Copy this into a Codex session and replace the bracketed fields:
@@ -30,4 +42,4 @@ Role launches do not explicitly load the playbook's `AGENTS.md` as shared role i
 
 Workflows may specify additional parameters, available models, and reasoning effort. Exact role instructions, result formats, routing, retry limits, and model selections are still to be defined. Markdown files describe the behavior; execution requires a supporting agent runtime. A fresh sub-agent context does not restrict workspace access.
 
-The reviewer guide is defined for a trial review once an approved design is available. The designer, implementer, orchestrator, and workflow files remain unimplemented and stop explicitly if invoked. Separate tester and replanner roles are deferred.
+The reviewer guide is defined for a trial review once an approved design is available. The designer guide supports initial design creation and discovery; autonomous replanning is still deferred. The implementer, orchestrator, and workflow files remain unimplemented and stop explicitly if invoked. Separate tester and replanner roles are deferred.
