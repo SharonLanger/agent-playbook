@@ -26,11 +26,11 @@ To resume, supply the exact feature identifier or design path. The designer read
 
 ## Run one reviewer directly
 
-Copy this into a Codex session and replace the bracketed fields:
+Copy this into a new Codex session:
 
-> Use the playbook at https://github.com/SharonLanger/agent-playbook. Read `agents/reviewer.md` and review PR #[number] in [owner/repository] for project [project-key]. The approved design is [path or link, including revision]. Save the report, appendices, and evidence under the existing Google Drive [agent-work folder](https://drive.google.com/drive/folders/11cjNdBxU--Yk9zTn4GSb0a-doMa2iWtW), following the reviewer's storage convention. Return the review status, shared report link, and review-folder link. Do not edit code or post the review to GitHub.
+> Review [PR URL] using `agents/reviewer.md` in https://github.com/SharonLanger/agent-playbook on main.
 
-The project key selects optional `projects/<project-key>/review-rules.md` and `projects/<project-key>/reviews/pr-<number>.md`. A missing file adds no extra rules. The approved design is required for a complete design-based review. The reviewer resolves the existing Agent Work folder or asks for its link if unavailable or ambiguous.
+Use the same prompt for the first review and every follow-up. The reviewer discovers the exact project, applicable rules, linked design, prior runs, and valid reusable evidence. It allocates the next number, writes and verifies the shared handoff, and returns the links automatically. Supply extra context only for something that cannot be discovered or an intentional change of scope. Missing approval is reported rather than invented.
 
 ## Share a review between sessions
 

@@ -2,6 +2,12 @@
 
 Use this checklist for the first run under the updated reviewer guide and after relevant changes. Record actual results as pass, fail, or not run, with the review folder and code/playbook revisions. Do not alter unrelated Drive files or production code to manufacture a test.
 
+## Minimal invocation check
+
+Start a fresh session with only the PR URL and the playbook reviewer-guide URL, using the README prompt. Confirm that it discovers project/PR rules and the design, finds previous review folders/index without being given their links, checks evidence revisions, and chooses the next review number. Record unresolved design approval separately from successfully discovered inputs.
+
+Repeat against a PR with an existing run. The new report must distinguish reused evidence from new checks, reassess findings affected by changed rules, and preserve the old run. Use an existing legacy run without a manifest to verify explicit limitations; do not deliberately damage completed artifacts.
+
 ## Before a review
 
 - Resolve the configured agent-work folder and the exact project, repository, and PR.
