@@ -22,4 +22,4 @@ Role launches do not explicitly load the playbook's `AGENTS.md` as shared role i
 
 Workflows may specify additional parameters, available models, and reasoning effort. Exact role instructions, result formats, routing, retry limits, and model selections are still to be defined. Markdown files describe the behavior; execution requires a supporting agent runtime. A fresh sub-agent context does not restrict workspace access.
 
-The role and workflow files are placeholders, not executable definitions.
+The reviewer guide is defined for a trial review once a real project has review rules and an approved design. The designer, implementer, orchestrator, and workflow files remain unimplemented and stop explicitly if invoked. Separate tester and replanner roles are deferred.

@@ -1,3 +1,3 @@
 # Orchestrator
 
-Placeholder. Define mechanical launching and status routing here; see the agreed design in `../README.md`.
+UNIMPLEMENTED. Stop and report that the orchestrator instructions and routing rules must be defined before this role is used. Do not improvise a workflow. See the agreed design in `../README.md`.
