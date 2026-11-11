@@ -1,16 +1,13 @@
 # Progress and Findings
 
-Status: **00.1 and 00.2 accepted and merged; 00.3 ready for local review**.
+Status: **00.1 and 00.2 accepted/merged; 00.4 prepared in a dependent branch**.
 
 ## Current position — 2026-11-11
 
-- User confirmed CLI help/run and approved merging PR #18; merge commit:
-  `32d7dc89d3ee67f3d4791a1ae9141910dffc4fa8`.
-- User authorized preparing 00.3 through 00.7 sequentially: each branch based on
-  the preceding substage. This supersedes the earlier wait-before-implementation
-  rule for these substages only. Reviews and merges remain one at a time.
-- This branch adds strict Pyright and a small typed class/optional-value exercise.
-- See stage findings for executed checks and unverified platform/IDE behavior.
+User authorized 00.3 → 00.4 → 00.5 → 00.6 → 00.7 to be implemented sequentially,
+each based on the preceding substage, with individual review and merge afterward.
+Current branch adds **pytest**. Review 00.3 first; carry its fixes forward before
+accepting later branches. See findings for executed evidence and limitations.
 
 ## Authority and documentation inconsistencies
 

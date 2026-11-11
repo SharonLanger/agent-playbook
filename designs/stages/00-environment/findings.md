@@ -95,3 +95,12 @@ nonzero with the expected type error; restored source passed again. CLI still
 prints the original main message. Node v24.22.1 was already present: automatic
 Node provisioning and PyCharm UI/editor integration are not claimed verified.
 The type-checking exercise contains explicit PyCharm run-configuration guidance.
+
+## 00.4 — pytest (2026-11-11)
+
+Pinned pytest 8.4.2; added four tests for named/optional greetings and CLI run/error
+behavior. Bootstrap and strict Pyright passed. `agent-playbook test` passed all
+four tests, detected a deliberate guest-message regression (exit 1), then passed
+after restoration. In an isolated editable environment installed without dev
+dependencies, `test` exited 2 with a clear missing-pytest/bootstrap message.
+No Ruff yet. Actual PyCharm test configuration remains for local user verification.

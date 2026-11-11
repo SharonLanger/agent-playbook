@@ -1,4 +1,4 @@
-"""Prepare Stage 00.3 from any working directory using Python 3.10+."""
+"""Prepare Stage 00.4 from any working directory using Python 3.10+."""
 
 import os
 from pathlib import Path
@@ -47,6 +47,7 @@ def main() -> None:
     cli = python.parent / ("agent-playbook.exe" if os.name == "nt" else "agent-playbook")
     run([str(cli), "run"], env=env)
     run([str(python), "-m", "pyright"], env=env)
+    run([str(cli), "test"], env=env)
     print("Ready. PyCharm interpreter: " + str(python))
 
 
