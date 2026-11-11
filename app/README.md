@@ -1,7 +1,7 @@
-# Stage 00.2 — Application CLI
+# Stage 00.3 — Pyright strict
 
 This substage adds `agent-playbook run`, calling the existing `main()`.
-No CrewAI, Langfuse or quality-check tools yet.
+Pyright strict now checks src/ and scripts/. No CrewAI, Langfuse, pytest or Ruff yet.
 
 ## One setup command
 
@@ -105,3 +105,16 @@ The app has no third-party dependencies; its lockfile is intentionally small. Th
 the console entry point during setup; it is not an application dependency.
 
 The first verified release is deferred to 00.7; `0.0.0` is development metadata.
+
+## Stage 00.3: type checking
+
+Bootstrap now installs and runs Pyright strict. From repository root:
+
+```sh
+app/.venv/bin/python -m pyright --project app/pyproject.toml
+```
+
+Follow [the three type-error experiments](../designs/stages/00-environment/learning/00-3-pyright.md).
+Pyright uses Node.js; its Python wrapper can provision Node when absent, requiring
+network access on the first run. A preinstalled Node was used for our Linux checks.
+The application has no runtime dependencies; Pyright is a development dependency.

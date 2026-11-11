@@ -6,11 +6,11 @@ and later agent runtimes.
 ## Where to find things
 
 - [Design inventory](designs/README.md) — target architecture, charter, principles and roadmap.
-- [Executable Python project](app/README.md) — Stage 00.2 setup and PyCharm instructions.
+- [Executable Python project](app/README.md) — Stage 00.3 setup and PyCharm instructions.
 - [Progress](designs/progress.md) — current state and remaining validation.
 - [Historical sandbox](sandbox/) — previous experiments, preserved unchanged.
 
-## Try Stage 00.2
+## Try Stage 00.3
 
 Requires Python 3.10+ with venv/ensurepip. From the repository root:
 
@@ -26,11 +26,11 @@ runs the installed development CLI independently. Windows commands and PyCharm s
 ## How to work
 
 Read [AGENTS.md](AGENTS.md) before making changes. Protected baseline changes
-require explicit approval. Stage 00.2 is implemented for review; user acceptance
-and merge are pending. Stage 00.1 was accepted and merged; later substages remain pending.
+require explicit approval. Stage 00.3 is implemented for review; user acceptance
+and merge are pending. Stages 00.1 and 00.2 were accepted and merged; later substages are being prepared as a sequential PR stack.
 
 ## Local checks
 
-Stage 00.2 uses bootstrap and independent execution as smoke checks. Pyright,
+Stage 00.3 uses bootstrap and independent execution as smoke checks. Pyright strict is available via `app/.venv/bin/python -m pyright --project app/pyproject.toml`.
 pytest and Ruff arrive in later substages; the unified check command arrives in
 00.6. No GitHub Actions CI exists. The only application subcommand is `run`.
