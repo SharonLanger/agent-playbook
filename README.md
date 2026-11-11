@@ -1,36 +1,22 @@
 # Agent Playbook
 
-A local-first learning project for CrewAI orchestration, Langfuse observability,
-and later agent runtimes.
+A gradual Python learning project for agent orchestration. Current branch: **00.4 — pytest**.
 
-## Where to find things
+Stages 00.1 and 00.2 are accepted and merged. 00.3–00.7 are prepared as a sequential
+PR stack at the user's request; review and merge one at a time, starting at 00.3.
 
-- [Design inventory](designs/README.md) — target architecture, charter, principles and roadmap.
-- [Executable Python project](app/README.md) — Stage 00.3 setup and PyCharm instructions.
-- [Progress](designs/progress.md) — current state and remaining validation.
-- [Historical sandbox](sandbox/) — previous experiments, preserved unchanged.
-
-## Try Stage 00.3
-
-Requires Python 3.10+ with venv/ensurepip. From the repository root:
+From repository root (macOS/Linux):
 
 ```sh
 python3 app/scripts/bootstrap.py
-app/.venv/bin/agent-playbook run
+source app/.venv/bin/activate
+agent-playbook run
+agent-playbook test
+python -m pyright --project app/pyproject.toml
 ```
 
-The first command prepares the environment and runs a sanity check. The second
-runs the installed development CLI independently. Windows commands and PyCharm setup are in
-[app/README.md](app/README.md).
+[App setup and checks](app/README.md) · [Progress](designs/progress.md) ·
+[Design inventory](designs/README.md) · [Historical sandbox](sandbox/)
 
-## How to work
-
-Read [AGENTS.md](AGENTS.md) before making changes. Protected baseline changes
-require explicit approval. Stage 00.3 is implemented for review; user acceptance
-and merge are pending. Stages 00.1 and 00.2 were accepted and merged; later substages are being prepared as a sequential PR stack.
-
-## Local checks
-
-Stage 00.3 uses bootstrap and independent execution as smoke checks. Pyright strict is available via `app/.venv/bin/python -m pyright --project app/pyproject.toml`.
-pytest and Ruff arrive in later substages; the unified check command arrives in
-00.6. No GitHub Actions CI exists. The only application subcommand is `run`.
+Read AGENTS.md before changes. Protected baselines remain unchanged. No GitHub
+Actions CI. Adds pytest and a development-only test command; Pyright remains available. No Ruff yet.

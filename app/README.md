@@ -1,7 +1,6 @@
-# Stage 00.3 — Pyright strict
+# Stage 00.4 — pytest
 
-This substage adds `agent-playbook run`, calling the existing `main()`.
-Pyright strict now checks src/ and scripts/. No CrewAI, Langfuse, pytest or Ruff yet.
+Adds pytest and a development-only test command; Pyright remains available. No Ruff yet.
 
 ## One setup command
 
@@ -93,28 +92,32 @@ visible immediately. This is not the isolated release introduced at 00.7.
 5. Put a breakpoint on `print(...)` inside `main()` and choose Debug. Confirm the
    breakpoint is reached, then resume and compare the expected output above.
 
-PyCharm execution/debugging and macOS/Windows setup still require user validation;
+Actual PyCharm UI/debugging and macOS/Windows setup require user validation;
 Linux command-line verification is recorded in the stage findings.
 
-## What to inspect
+## Commands accumulated on this branch
 
-See [the CLI exercise](../designs/stages/00-environment/learning/00-2-application-cli.md).
-Commit `pyproject.toml`, `.python-version`, `uv.lock`, source and docs. Keep
-`.venv`, `.bootstrap-tools`, `.idea`, caches, build outputs and secrets out of Git.
-The app has no third-party dependencies; its lockfile is intentionally small. The pinned `uv_build` backend registers
-the console entry point during setup; it is not an application dependency.
-
-The first verified release is deferred to 00.7; `0.0.0` is development metadata.
-
-## Stage 00.3: type checking
-
-Bootstrap now installs and runs Pyright strict. From repository root:
+From repo root, after bootstrap and `source app/.venv/bin/activate`:
 
 ```sh
-app/.venv/bin/python -m pyright --project app/pyproject.toml
+agent-playbook run
+agent-playbook test
+python -m pyright --project app/pyproject.toml
 ```
 
-Follow [the three type-error experiments](../designs/stages/00-environment/learning/00-3-pyright.md).
-Pyright uses Node.js; its Python wrapper can provision Node when absent, requiring
-network access on the first run. A preinstalled Node was used for our Linux checks.
-The application has no runtime dependencies; Pyright is a development dependency.
+For Windows, bootstrap uses `py -3 app/scripts/bootstrap.py`; executable paths
+are `app/.venv/Scripts/python.exe` and `app/.venv/Scripts/agent-playbook.exe`.
+No activation is necessary when using their explicit paths.
+
+PyCharm commands: module `agent_playbook.cli`, parameters `run` or another command
+listed above; interpreter `app/.venv`, working directory `app`. Pyright alone:
+module `pyright`, no parameters, working directory `app`. These configurations
+use the installed tools; native editor inspections are separate from Pyright.
+
+See [00.4 exercise](../designs/stages/00-environment/learning/00-4-pytest.md)
+and [verification evidence](../designs/stages/00-environment/findings.md).
+
+Bootstrap installs everything introduced so far and checks it. Pyright uses Node;
+its wrapper provisions Node when absent (network access needed). That fallback
+and non-Linux platforms are unverified here. Python runtime dependencies remain
+empty; the tools are development dependencies. No CrewAI, Langfuse or CI.
