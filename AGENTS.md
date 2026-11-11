@@ -1,6 +1,6 @@
 # Agent Playbook — Agent Instructions
 
-This repository has one active design workspace in `designs/` and an executable project planned in `app/`. `sandbox/` contains historical experiments and must not be changed without a separate request.
+This repository has one active design workspace in `designs/` and an executable project in `app/`. `sandbox/` contains historical experiments and must not be changed without a separate request.
 
 ## Read before working
 1. Read `designs/README.md` for the document inventory.
@@ -22,4 +22,4 @@ This repository has one active design workspace in `designs/` and an executable 
 - Do not create detailed designs for future stages ahead of their turn.
 
 ## Status
-Stage 00 has not yet been designed or implemented. Existing proposed architecture documents are drafts; do not treat them as locked.
+Stage 00 is designed and under implementation. See `designs/progress.md` for current acceptance and open PRs. The top-level architecture describes the target system; stage architectures describe incremental end states. Review architecture changes through their PR; do not infer implementation completion from target diagrams.
