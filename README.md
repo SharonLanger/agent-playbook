@@ -20,3 +20,5 @@ agent-playbook check
 
 Read AGENTS.md before changes. Protected baselines remain unchanged. No GitHub
 Actions CI. Adds one fail-fast check command: Pyright, Ruff lint, Ruff format verification, then pytest.
+Numbered sections show each tool's diagnostics. The final summary distinguishes
+PASS, FAIL and NOT RUN; later checks do not run after a failure.

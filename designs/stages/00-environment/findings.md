@@ -123,3 +123,19 @@ Six tests include gate exit-code propagation/stopping and missing-tool behavior.
 Executed real type, format and behavior mutations through the combined command:
 each returned nonzero; restored source passed all four checks and six tests.
 No files are automatically changed by check. PyCharm execution remains unverified.
+
+### 00.6 output clarity (2026-11-11)
+
+Added numbered tool sections, flushed headings before subprocess output, per-tool
+PASS/FAIL and a final PASS/FAIL/NOT RUN summary. Tool diagnostics remain visible;
+stderr joins stdout so it appears in the same section. The first failure still
+stops execution and its exit code is preserved. Missing tools and launch errors
+produce an explicit failed summary, without claiming later tools passed.
+
+Executed against the pinned 00.6 app snapshot on Linux, using the existing pinned
+development environment and an explicit source path. Strict Pyright, Ruff lint,
+Ruff format and all 11 pytest tests passed. Regression tests cover failures at
+each position, execution order, incomplete tool setup and a subprocess launch error.
+Real temporary source mutations separately failed types, lint, formatting and
+tests, producing respectively 3, 2, 1 and 0 NOT RUN results. Restored source passed
+the complete gate. Actual PyCharm rendering and macOS execution remain unverified.
