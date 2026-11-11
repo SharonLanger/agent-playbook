@@ -6,6 +6,36 @@ import sys
 from pathlib import Path
 
 
+def tool_label(command: list[str]) -> str:
+    if command[0] == "pyright":
+        return "Pyright (types)"
+    if command[:2] == ["ruff", "check"]:
+        return "Ruff (lint)"
+    if command[:2] == ["ruff", "format"]:
+        return "Ruff (formatting)"
+    if command[0] == "pytest":
+        return "pytest (tests)"
+    return " ".join(command)
+
+
+def print_summary(labels: list[str], results: list[int | None]) -> None:
+    print("\nCheck summary", flush=True)
+    for label, code in zip(labels, results, strict=True):
+        status = "NOT RUN" if code is None else "PASS" if code == 0 else "FAIL"
+        detail = f" (exit {code})" if code else ""
+        print(f"  {status:<8} {label}{detail}", flush=True)
+    passed = results.count(0)
+    skipped = results.count(None)
+    failed = len(results) - passed - skipped
+    overall = "FAIL" if failed or skipped else "PASS"
+    print(
+        f"\nResult: {overall} ({passed} passed, {failed} failed, {skipped} not run)",
+        flush=True,
+    )
+    if failed:
+        print("Fix the reported failure, then rerun this command.", flush=True)
+
+
 def run_tools(commands: list[list[str]]) -> int:
     app = Path(__file__).resolve().parents[2]
     if not (app / "pyproject.toml").is_file() or not (app / "tests").is_dir():
@@ -14,15 +44,38 @@ def run_tools(commands: list[list[str]]) -> int:
             file=sys.stderr,
         )
         return 2
-    for command in commands:
+    labels = [tool_label(command) for command in commands]
+    results: list[int | None] = [None] * len(commands)
+    print("Checks run in order and stop at the first failure.", flush=True)
+    print(f"Project: {app}", flush=True)
+    for index, command in enumerate(commands):
         if importlib.util.find_spec(command[0]) is None:
             print(
                 f"Missing development tool {command[0]}; rerun bootstrap.",
-                file=sys.stderr,
+                flush=True,
             )
+            results[index] = 2
+            print("No checks were started: tool setup is incomplete.", flush=True)
+            print_summary(labels, results)
             return 2
-    for command in commands:
-        result = subprocess.run([sys.executable, "-m", *command], cwd=app)
-        if result.returncode:
-            return result.returncode
+    for index, command in enumerate(commands):
+        print(f"\n[{index + 1}/{len(commands)}] {labels[index]}", flush=True)
+        print("Command: python -m " + " ".join(command), flush=True)
+        print("-" * 60, flush=True)
+        try:
+            result = subprocess.run(
+                [sys.executable, "-m", *command], cwd=app, stderr=subprocess.STDOUT
+            )
+            code = result.returncode
+        except OSError as error:
+            print(f"Could not start {labels[index]}: {error}", flush=True)
+            code = 2
+        results[index] = code
+        status = "PASS" if code == 0 else f"FAIL (exit {code})"
+        print(f"{status}: {labels[index]}", flush=True)
+        if code:
+            print("Stopping here; remaining checks were not run.", flush=True)
+            print_summary(labels, results)
+            return code
+    print_summary(labels, results)
     return 0

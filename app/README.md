@@ -1,6 +1,34 @@
-# Stage 00.5 — Ruff
+# Stage 00.6 — Unified checks
 
-Adds Ruff lint and format checks. The unified check command comes in 00.6.
+Adds one fail-fast check command: Pyright, Ruff lint, Ruff format verification, then pytest.
+
+## Read the check results
+
+Run `agent-playbook check`, or use your PyCharm Python configuration with module
+`agent_playbook.cli`, parameters `check`, interpreter `app/.venv` and working
+directory `<repo>/app`.
+
+The order is always **1. types → 2. lint → 3. formatting → 4. tests**.
+Each numbered section shows the command, its original diagnostics and PASS/FAIL.
+The summary at the bottom distinguishes a failed check from one that never ran.
+For example, if formatting fails:
+
+```text
+Check summary
+  PASS     Pyright (types)
+  PASS     Ruff (lint)
+  FAIL     Ruff (formatting) (exit 1)
+  NOT RUN  pytest (tests)
+
+Result: FAIL (2 passed, 1 failed, 1 not run)
+```
+
+`All checks passed!` inside Ruff's section refers only to lint. Only the final
+`Result: PASS (4 passed, 0 failed, 0 not run)` means the whole gate passed.
+The gate stops at the first failure and preserves its exit code. Fix that failure
+and rerun; the next check may then reveal a separate problem. Nothing is auto-fixed.
+If a tool is missing, no checks start; the summary identifies the missing tool and
+the message directs you to rerun bootstrap.
 
 ## One setup command
 
@@ -102,9 +130,7 @@ From repo root, after bootstrap and `source app/.venv/bin/activate`:
 ```sh
 agent-playbook run
 agent-playbook test
-python -m pyright --project app/pyproject.toml
-python -m ruff check app/src app/scripts app/tests
-python -m ruff format --check app/src app/scripts app/tests
+agent-playbook check
 ```
 
 For Windows, bootstrap uses `py -3 app/scripts/bootstrap.py`; executable paths
@@ -116,7 +142,7 @@ listed above; interpreter `app/.venv`, working directory `app`. Pyright alone:
 module `pyright`, no parameters, working directory `app`. These configurations
 use the installed tools; native editor inspections are separate from Pyright.
 
-See [00.5 exercise](../designs/stages/00-environment/learning/00-5-ruff.md)
+See [00.6 exercise](../designs/stages/00-environment/learning/00-6-unified-checks.md)
 and [verification evidence](../designs/stages/00-environment/findings.md).
 
 Bootstrap installs everything introduced so far and checks it. Pyright uses Node;
