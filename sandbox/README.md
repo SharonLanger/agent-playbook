@@ -74,3 +74,13 @@ Role launches do not explicitly load the playbook's `AGENTS.md` as shared role i
 Workflows may specify additional parameters, available models, and reasoning effort. Exact role instructions, result formats, routing, retry limits, and model selections are still to be defined. Markdown files describe the behavior; execution requires a supporting agent runtime. A fresh sub-agent context does not restrict workspace access.
 
 The reviewer guide is defined for a trial review once an approved design is available. The designer guide supports initial design creation and discovery; autonomous replanning is still deferred. The implementer, orchestrator, and workflow files remain unimplemented and stop explicitly if invoked. Separate tester and replanner roles are deferred.
+
+## Next playbook features
+
+These are draft designs for the playbook itself; they do not activate new roles. Implementation starts after design approval.
+
+1. [f-01-reviewer-trial](projects/agent-playbook/features/f-01-reviewer-trial/design.md): evaluate the first real review and its evidence.
+2. [f-02-implementer-handoff](projects/agent-playbook/features/f-02-implementer-handoff/design.md): implement code writing, testing, and the manual review/fix handoff.
+3. [f-03-design-deviations](projects/agent-playbook/features/f-03-design-deviations/design.md): evaluate and record material deviations within explicit authority.
+
+Each design includes acceptance criteria and verification scenarios. The orchestrator follows after these handoffs have been exercised. Durable recovery, hosted infrastructure, and enforced spending limits remain later work.
