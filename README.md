@@ -1,17 +1,17 @@
 # Agent Playbook
 
-A repository for learning, design, and experiments.
+A local-first learning project for CrewAI orchestration, Langfuse observability, and later agent runtimes.
 
-## Current design work
+## Where to find things
 
-- [Agent Orchestration Learning Lab](designs/agent-orchestration/README.md) — draft target architecture, engineering principles, roadmap, and progress. Its protected baselines are **proposed**, not yet approved or locked.
+- [Design inventory](designs/README.md) — target architecture, charter, principles, roadmap, progress, and future stage learning assignments.
+- [Executable Python project](app/) — created incrementally beginning with Stage 00; source code, configuration and tests will live here.
+- [Historical sandbox](sandbox/) — previous experiments and original agent instructions, preserved unchanged.
 
-## Previous experiments
+## How to work
 
-All earlier playbook content has been preserved under [sandbox/](sandbox/), including its original [README](sandbox/README.md), [AGENTS.md](sandbox/AGENTS.md), roles, projects, workflows, and verification documents.
+Read [AGENTS.md](AGENTS.md) before making changes. Design baselines require explicit approval before being locked or modified. Stage 00 has not been designed or implemented.
 
-The sandbox is historical experimental material and does **not** govern the new design workspace. The new workspace has its own [AGENTS.md](designs/agent-orchestration/AGENTS.md). A new repository-level AGENTS.md may be defined later.
+## Local checks
 
-## Status
-
-Stage 00 has not been designed. No orchestration implementation has begun.
+No GitHub Actions CI is planned for now. During Stage 00 we will define a single repeatable local quality-check command for Pyright, Ruff and pytest and document how to run it from a terminal or a PyCharm/WebStorm run configuration. **No runnable check command exists yet.**
