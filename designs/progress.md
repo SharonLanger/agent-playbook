@@ -1,22 +1,31 @@
 # Progress and Findings
 
-Status: **Planning — implementation not started**
+Status: **Stage 00.1 implemented on its feature branch; user review pending**.
 
-## Current position
-- Repository foundation: draft documents prepared for review.
-- Target architecture and principles: proposed, **not approved or locked**.
-- Stage 00: **not designed**.
-- No implementation or tests have been executed.
+## Current position — 2026-11-11
 
-## Verified observations
-- CrewAI Flows was selected for orchestration and Langfuse for initial observability.
-- Deterministic orchestration exercises precede real agent SDK integration.
-- User wants protected architecture baselines and freely evolving experiment findings.
+- Read all three temporary handoff files in PR #16, then the authoritative main
+  documents and live Stage 00.1 branch. Handoff PR closed without merge.
+- Main baseline inspected: `7662a8488aee978d7536802fac76eb6413ee49ea`.
+- Continued `stage/00-1-python-environment` from
+  `4069bdb468115cf1e47a2898e7f451d033ff0b08`, which contained only three app files.
+- Added a single bootstrap, pinned Python/uv, generated lockfile, runnable main,
+  PyCharm instructions and a short learner exercise.
+- Linux smoke checks passed; see [the evidence](stages/00-environment/findings.md).
+- Pending: user pulls and tries Stage 00.1, including PyCharm debugging, then
+  decides whether to merge. No merge or Stage 00.2 work is authorized here.
 
-## Open decisions
-- Approve initial protected baselines line by line.
-- Review and approve migration of legacy root content to `sandbox/`.
-- Design Stage 00 later.
+## Authority and documentation inconsistencies
 
-## Experiment journal
-No experiments yet. For each experiment record: date, hypothesis, procedure, expected outcome, observed result, evidence, implications, and any proposed (not automatically approved) design change.
+The handoff records Stage 00 approval through PR #15 and the current user request
+explicitly directs continuing 00.1. Several main documents still say Stage 00 is
+not designed or awaiting approval. Stage 00's plan also retains a CrewAI import
+acceptance item despite explicitly excluding CrewAI until Stage 01. This work
+follows the explicit 00.1 scope and introduces no CrewAI. Protected baseline text
+is unchanged; reconcile those status/acceptance lines through a separate exact-diff
+approval. The broader charter/target/principles approval remains unconfirmed.
+
+## Next boundary
+
+Finish local acceptance of 00.1 first. After its review/merge and a request to
+continue, Stage 00.2 introduces only the application CLI on a new branch from main.
