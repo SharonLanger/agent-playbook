@@ -1,21 +1,32 @@
-# Design Inventory
+# Design workspace
 
-This folder is the documentation and learning source for the Agent Playbook project.
+Start with the [target architecture](architecture.md) and its visual collection.
+The architecture describes the completed system. The roadmap describes how we build
+and learn it. Progress records what has actually been accepted.
 
-| File or folder | Purpose | Status |
-|---|---|---|
-| [charter.md](charter.md) | Project learning purpose, scope and selected tools | Proposed protected baseline |
-| [architecture.md](architecture.md) | Target system components, boundaries and diagrams | Proposed protected baseline |
-| [principles.md](principles.md) | Guardrails, approval rules, modularity and configuration | Proposed protected baseline |
-| [roadmap.md](roadmap.md) | Provisional stages and learning progression | Editable |
-| [progress.md](progress.md) | Verified progress, experiments, evidence and findings | Editable |
-| [stages/00-environment/architecture.md](stages/00-environment/architecture.md) | Stage 00 proposed end-state architecture | Awaiting approval |\n| [stages/00-environment/plan.md](stages/00-environment/plan.md) | Stage 00 substages, learning assignments and acceptance criteria | Awaiting approval |\n| [stages/00-environment/findings.md](stages/00-environment/findings.md) | Stage 00 experiment journal | Editable |
-| [../AGENTS.md](../AGENTS.md) | Agent operating instructions and protected-file change protocol | Root instructions |
+| Location | Purpose |
+|---|---|
+| [architecture.md](architecture.md) | Components, ownership, execution, errors, data and integration boundaries |
+| [diagrams/](diagrams/README.md) | Animated SVGs, static SVGs and a local visual viewer |
+| [learning/](learning/README.md) | Plain-language explanations spanning the whole system |
+| [charter.md](charter.md) | Purpose, outcomes and scope |
+| [principles.md](principles.md) | Engineering and approval rules |
+| [roadmap.md](roadmap.md) | Incremental learning and implementation order |
+| [progress.md](progress.md) | Verified state and outstanding acceptance |
+| [stages/00-environment/architecture.md](stages/00-environment/architecture.md) | Stage 00 development-foundation end state |
+| [stages/00-environment/plan.md](stages/00-environment/plan.md) | Stage 00 substages and acceptance criteria |
+| [stages/00-environment/findings.md](stages/00-environment/findings.md) | Executed experiments and limitations |
+| [../AGENTS.md](../AGENTS.md) | Repository operating instructions |
 
-## Stage documentation convention
+## Viewing diagrams
 
-Only the **current stage** gets a detailed design. Create `stages/NN-name/architecture.md`, `plan.md`, `findings.md`, and learner-facing `learning/` materials as needed. Review and explicitly approve its design before implementation, then guard it against unapproved edits. Future stages remain roadmap entries.
+Markdown embeds static SVGs for reliable viewing in PyCharm and GitHub. Each has
+an animated sibling. Open `diagrams/index.html` in a browser to browse the moving
+diagrams and pause/resume them. It needs no server, installation or external requests.
+Some Markdown viewers suppress SVG animation; use the local browser viewer in that case.
 
-The corresponding executable project belongs in [../app/](../app/) once Stage 00 is approved.
+## Stage documents
 
-The older experimental playbook is preserved in [../sandbox/](../sandbox/), outside this design's authority.
+Each stage has its own end-state architecture and plan, plus findings and learning
+exercises. Detailed future-stage design waits until that stage becomes current.
+The historical [sandbox](../sandbox/) is outside the active application architecture.
