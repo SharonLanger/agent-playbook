@@ -2,8 +2,7 @@
 
 A gradual Python learning project for agent orchestration. Current branch: **00.7 — Wheel release**.
 
-Stages 00.1–00.5 are merged. Stage 00.6 is under review; this 00.7 branch builds
-on it. Review and merge one at a time after local acceptance.
+Stages 00.1–00.6 are merged. Stage 00.7 is ready for local review and acceptance.
 
 From repository root (macOS/Linux):
 
