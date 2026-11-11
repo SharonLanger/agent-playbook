@@ -12,7 +12,17 @@ def main() -> int:
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("run", help="Run the existing Python entry point.")
     commands.add_parser("test", help="Run pytest in the development checkout.")
+    commands.add_parser("check", help="Run typing, lint, formatting and tests.")
     args = parser.parse_args()
+    if args.command == "check":
+        return run_tools(
+            [
+                ["pyright"],
+                ["ruff", "check", "src", "scripts", "tests"],
+                ["ruff", "format", "--check", "src", "scripts", "tests"],
+                ["pytest", "-q", "tests"],
+            ]
+        )
     if args.command == "test":
         return run_tools([["pytest", "-q", "tests"]])
     run_main()

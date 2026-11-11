@@ -114,3 +114,12 @@ both passed after restoration. Existing Pyright and four pytest tests remained
 passing. During the earlier isolated missing-tool experiment, the first venv used
 Python 3.12 and installation correctly refused it; retry with pinned Python 3.13.5
 verified the intended missing-pytest error. No non-Linux/IDE validation claimed.
+
+## 00.6 — Unified gate (2026-11-11)
+
+`agent-playbook check` runs Pyright, Ruff lint, Ruff format verification and pytest
+in that order, stopping at the first nonzero code. Bootstrap now invokes that gate.
+Six tests include gate exit-code propagation/stopping and missing-tool behavior.
+Executed real type, format and behavior mutations through the combined command:
+each returned nonzero; restored source passed all four checks and six tests.
+No files are automatically changed by check. PyCharm execution remains unverified.
