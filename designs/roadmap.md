@@ -1,10 +1,10 @@
 # Provisional Learning Roadmap
 
-Status: **DRAFT — flexible; no stage designs approved**
+Learning and implementation sequence; target components are defined in [architecture.md](architecture.md).
 
 | Stage | Focus | Expected learning outcome |
 |---|---|---|
-| 00 | Development environment | Python tooling, strict checking, reproducible tests and sanity checks; design later |
+| 00 | Development environment | Python tooling, IDE tasks, strict checking, deterministic tests, local gate and isolated releases |
 | 01 | CrewAI Flows | Define and execute deterministic workflows; explore routing/state and non-happy paths |
 | 02 | Langfuse | Trace workflow runs, inspect events, errors and execution hierarchy |
 | 03 | Advanced orchestration | Branching, parallel steps, state, and increasingly complex deterministic scenarios |

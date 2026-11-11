@@ -2,6 +2,34 @@
 
 Adds an isolated versioned Wheel release after the local gate, with Git revision and SHA-256 evidence.
 
+## Read the check results
+
+Run `agent-playbook check`, or use your PyCharm Python configuration with module
+`agent_playbook.cli`, parameters `check`, interpreter `app/.venv` and working
+directory `<repo>/app`.
+
+The order is always **1. types → 2. lint → 3. formatting → 4. tests**.
+Each numbered section shows the command, its original diagnostics and PASS/FAIL.
+The summary at the bottom distinguishes a failed check from one that never ran.
+For example, if formatting fails:
+
+```text
+Check summary
+  PASS     Pyright (types)
+  PASS     Ruff (lint)
+  FAIL     Ruff (formatting) (exit 1)
+  NOT RUN  pytest (tests)
+
+Result: FAIL (2 passed, 1 failed, 1 not run)
+```
+
+`All checks passed!` inside Ruff's section refers only to lint. Only the final
+`Result: PASS (4 passed, 0 failed, 0 not run)` means the whole gate passed.
+The gate stops at the first failure and preserves its exit code. Fix that failure
+and rerun; the next check may then reveal a separate problem. Nothing is auto-fixed.
+If a tool is missing, no checks start; the summary identifies the missing tool and
+the message directs you to rerun bootstrap.
+
 ## One setup command
 
 Prerequisite: Python **3.10+ with `venv` and `ensurepip`** (the standard Python

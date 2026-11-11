@@ -1,6 +1,6 @@
-# Charter — Proposed Protected Baseline
+# Project Charter
 
-Status: **DRAFT / AWAITING EXPLICIT APPROVAL**
+Purpose and scope of the target application.
 
 ## Purpose
 Learn open-source agent orchestration incrementally by designing, experimenting, implementing and verifying a real, reusable local-first engineering environment.
