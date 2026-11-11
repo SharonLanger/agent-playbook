@@ -204,3 +204,13 @@ a clean local Git snapshot built and installed an isolated 0.0.1 Wheel, then ran
 and verified that release. Local CLI selection, version filtering, editable run,
 and missing-version errors were exercised. PyCharm/macOS verification remains for
 the user.
+
+### Version update and release diagnostics (2026-11-11)
+
+The user committed version 0.0.2 in pyproject.toml while uv.lock still recorded
+0.0.1. Added app/scripts/version.py to use pinned uv for a coordinated update,
+so version and lockfile move together. Release now lists the dirty paths reported
+by Git and, on a clean checkout, explains a project/lock version mismatch before
+building. The full local gate passed Pyright, Ruff lint/format and 19 tests.
+In a disposable project copy, the version command changed both files to 0.0.7.
+The user's actual macOS checkout and release are not verified here.

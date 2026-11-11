@@ -36,6 +36,26 @@ app/dist/0.0.1-<commit-prefix>/venv/bin/agent-playbook run
 The output folder can end in `-2`, `-3`, and so on. Replace the example with
 the actual printed folder name.
 
+## Change the version
+
+From the repository root, run:
+
+```sh
+python3 app/scripts/version.py 0.0.7
+```
+
+The script locates the pinned uv installed by bootstrap (including its private
+`app/.bootstrap-tools/bin/uv`), changes `app/pyproject.toml`, refreshes `app/uv.lock`,
+and syncs the development environment. Review and commit **both files** in PyCharm
+before Build Release. Pushing is optional for a local build; a clean committed
+checkout is required. Editing only the TOML file leaves the lockfile at the old
+version, and Release now reports that mismatch explicitly.
+
+If Release reports a dirty checkout, run `git status --short` from the repository
+root to see what Git still considers modified or untracked. Commit the intended
+changes. The release error lists those same paths. Do not discard an unrelated
+file just to make the release pass.
+
 ## Build a release
 
 Use a clean, committed Git checkout and the bootstrapped interpreter:
@@ -83,7 +103,9 @@ Use interpreter `<repo>/app/.venv/bin/python` and working directory `<repo>/app`
 For Run, Dev Run, Check, Test, and Version, choose a **Python** configuration with
 module `agent_playbook.cli` and parameters `run`, `dev-run`, `check`, `test`, or
 `version`. To run a particular version, set parameters to `run --version 0.0.1`.
-For Build Release, choose script `<repo>/app/scripts/release.py` and leave
+For Set Version, choose script `<repo>/app/scripts/version.py` and set parameters
+to the desired version, such as `0.0.7`. For Build Release, choose script
+`<repo>/app/scripts/release.py` and leave
 parameters empty. For Ruff Format, choose module `ruff` and parameters
 `format src scripts tests`. To run Pyright alone, choose module `pyright` with no
 parameters. The release path printed by Build Release lets you invoke an exact

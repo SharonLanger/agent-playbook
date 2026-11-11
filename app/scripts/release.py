@@ -47,13 +47,28 @@ def release_destination(output: Path | None, version: str, commit: str) -> Path:
 
 def build_release(output: Path | None) -> None:
     repo = Path(capture(["git", "rev-parse", "--show-toplevel"], APP))
-    if capture(["git", "status", "--porcelain"], repo):
+    changes = capture(["git", "status", "--short", "--untracked-files=all"], repo)
+    if changes:
         raise RuntimeError(
-            "Release requires a clean committed checkout. Commit or restore your edits first."
+            "Release requires a clean committed checkout. Git still sees:\n"
+            f"{changes}\nCommit these changes or restore only the edits you intended "
+            "to discard. Pushing is not required."
         )
     commit = capture(["git", "rev-parse", "HEAD"], repo)
     project = tomllib.loads((APP / "pyproject.toml").read_text())
     version = str(project["project"]["version"])
+    lock = tomllib.loads((APP / "uv.lock").read_text())
+    locked_versions = [
+        package["version"]
+        for package in lock["package"]
+        if package["name"] == project["project"]["name"]
+    ]
+    if locked_versions != [version]:
+        raise RuntimeError(
+            f"Version mismatch: pyproject.toml has {version}, uv.lock has "
+            f"{', '.join(locked_versions) or 'no project version'}. "
+            "Run python app/scripts/version.py <version>, then commit both files."
+        )
     destination = release_destination(output, version, commit)
     uv = shutil.which("uv")
     if not uv:
