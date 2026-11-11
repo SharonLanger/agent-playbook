@@ -1,6 +1,6 @@
-# Stage 00.4 — pytest
+# Stage 00.5 — Ruff
 
-Adds pytest and a development-only test command; Pyright remains available. No Ruff yet.
+Adds Ruff lint and format checks. The unified check command comes in 00.6.
 
 ## One setup command
 
@@ -103,6 +103,8 @@ From repo root, after bootstrap and `source app/.venv/bin/activate`:
 agent-playbook run
 agent-playbook test
 python -m pyright --project app/pyproject.toml
+python -m ruff check app/src app/scripts app/tests
+python -m ruff format --check app/src app/scripts app/tests
 ```
 
 For Windows, bootstrap uses `py -3 app/scripts/bootstrap.py`; executable paths
@@ -114,7 +116,7 @@ listed above; interpreter `app/.venv`, working directory `app`. Pyright alone:
 module `pyright`, no parameters, working directory `app`. These configurations
 use the installed tools; native editor inspections are separate from Pyright.
 
-See [00.4 exercise](../designs/stages/00-environment/learning/00-4-pytest.md)
+See [00.5 exercise](../designs/stages/00-environment/learning/00-5-ruff.md)
 and [verification evidence](../designs/stages/00-environment/findings.md).
 
 Bootstrap installs everything introduced so far and checks it. Pyright uses Node;
