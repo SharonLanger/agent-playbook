@@ -84,3 +84,14 @@ are still deferred. Protected baselines and historical sandbox remain unchanged.
 
 References: [uv project configuration](https://docs.astral.sh/uv/concepts/projects/config/)
 and [build backend](https://docs.astral.sh/uv/concepts/build-backend/).
+
+## 00.3 — Pyright strict (2026-11-11)
+
+Installed pinned Pyright 1.1.407 through the same bootstrap. Strict mode checks
+src/ and scripts/, including typed bootstrap helpers. Linux bootstrap and final
+Pyright run passed with zero diagnostics. Each of three temporary mutations to
+typing_example.py (wrong argument, wrong return, missing None guard) returned
+nonzero with the expected type error; restored source passed again. CLI still
+prints the original main message. Node v24.22.1 was already present: automatic
+Node provisioning and PyCharm UI/editor integration are not claimed verified.
+The type-checking exercise contains explicit PyCharm run-configuration guidance.

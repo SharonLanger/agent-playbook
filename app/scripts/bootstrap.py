@@ -1,4 +1,4 @@
-"""Prepare Stage 00.2 from any working directory using Python 3.10+."""
+"""Prepare Stage 00.3 from any working directory using Python 3.10+."""
 
 import os
 from pathlib import Path
@@ -11,12 +11,12 @@ APP = Path(__file__).resolve().parents[1]
 UV_VERSION = "0.13.6"
 
 
-def run(command, **kwargs):
+def run(command: list[str], *, env: dict[str, str] | None = None) -> None:
     print("+ " + " ".join(map(str, command)), flush=True)
-    subprocess.run(command, check=True, cwd=APP, **kwargs)
+    subprocess.run(command, check=True, cwd=APP, env=env)
 
 
-def main():
+def main() -> None:
     if sys.version_info < (3, 10):
         raise RuntimeError("Bootstrap requires Python 3.10+ with venv/ensurepip.")
 
@@ -46,6 +46,7 @@ def main():
     python = APP / ".venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
     cli = python.parent / ("agent-playbook.exe" if os.name == "nt" else "agent-playbook")
     run([str(cli), "run"], env=env)
+    run([str(python), "-m", "pyright"], env=env)
     print("Ready. PyCharm interpreter: " + str(python))
 
 

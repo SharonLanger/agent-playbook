@@ -1,18 +1,16 @@
 # Progress and Findings
 
-Status: **Stage 00.1 accepted and merged; Stage 00.2 implemented for review**.
+Status: **00.1 and 00.2 accepted and merged; 00.3 ready for local review**.
 
 ## Current position — 2026-11-11
 
-- User ran main locally, saw the expected environment-ready message, and explicitly
-  approved merging PR #17 and proceeding to the next substage.
-- PR #17 merged at `d7e4b157db484e74a9d9b79ff73a509aaaff725e`.
-- Stage 00.2 uses branch `stage/00-2-application-cli`, based on that merged main.
-- Added `agent-playbook run` using standard-library argparse and the existing main.
-  The same bootstrap installs the editable package and smoke-runs the CLI.
-- Linux CLI checks passed; see [findings](stages/00-environment/findings.md).
-- Pending: user tries the CLI/PyCharm configuration and reviews the separate 00.2
-  PR. No automatic merge or Stage 00.3 implementation.
+- User confirmed CLI help/run and approved merging PR #18; merge commit:
+  `32d7dc89d3ee67f3d4791a1ae9141910dffc4fa8`.
+- User authorized preparing 00.3 through 00.7 sequentially: each branch based on
+  the preceding substage. This supersedes the earlier wait-before-implementation
+  rule for these substages only. Reviews and merges remain one at a time.
+- This branch adds strict Pyright and a small typed class/optional-value exercise.
+- See stage findings for executed checks and unverified platform/IDE behavior.
 
 ## Authority and documentation inconsistencies
 
@@ -26,5 +24,5 @@ approval. The broader charter/target/principles approval remains unconfirmed.
 
 ## Next boundary
 
-Accept and merge 00.2 before proceeding. Stage 00.3 introduces Pyright strict
-and type-error exercises on a new branch from the then-current main.
+Review 00.3 first. Later staged branches depend on it; propagate any fixes forward.
+Do not merge later substages before their user acceptance. No Stage 01 work.
