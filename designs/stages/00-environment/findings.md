@@ -53,3 +53,34 @@ architecture/plan, historical sandbox, CI, or future-substage tools were changed
 - [uv installation](https://docs.astral.sh/uv/getting-started/installation/)
 - [Python management](https://docs.astral.sh/uv/guides/install-python/)
 - [Locking and syncing](https://docs.astral.sh/uv/concepts/projects/sync/)
+
+## 2026-11-11: Stage 00.1 acceptance and Stage 00.2 CLI
+
+User reported running main and seeing the environment-ready output, then explicitly
+approved merge and continuation. PR #17 merged; no claim of PyCharm breakpoint or
+OS-specific verification is inferred from that report.
+
+**Hypothesis:** the same bootstrap can expose `agent-playbook run` while preserving
+00.1's main behavior. Added argparse CLI, a project console-script mapping and pinned
+`uv_build==0.13.6` for editable installation. Regenerated the lock with uv 0.13.6.
+This setup plumbing does not introduce the release workflow from 00.7.
+
+**Executed on Linux:**
+
+- Existing 00.1 environment: bootstrap installed the editable project, ran the CLI,
+  and succeeded a second time. Output matched the unchanged main message.
+- Installed CLI invoked from `/`: `run` and `--help` exit 0; missing command,
+  unknown command and `run extra` each exit 2 with argparse diagnostics.
+- `.venv/bin/python -m agent_playbook.cli run` from `/`: same output, exit 0.
+- Fresh source/config copy in a path with spaces, no generated environments:
+  bootstrap twice and independent CLI run from `/` all passed.
+- No runtime dependencies or third-party CLI framework added. uv used its bundled
+  compatible build backend. A filesystem hardlink warning fell back to successful
+  file copies; no failure was suppressed.
+
+**Pending:** user CLI acceptance and actual PyCharm UI/debug run. macOS/Windows
+execution and automatic Python download remain unverified. pytest, Pyright and Ruff
+are still deferred. Protected baselines and historical sandbox remain unchanged.
+
+References: [uv project configuration](https://docs.astral.sh/uv/concepts/projects/config/)
+and [build backend](https://docs.astral.sh/uv/concepts/build-backend/).

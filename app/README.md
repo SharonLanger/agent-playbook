@@ -1,7 +1,7 @@
-# Stage 00.1 — Python environment
+# Stage 00.2 — Application CLI
 
-This substage introduces a virtual environment and a runnable `main()` only.
-No application CLI, CrewAI, Langfuse or quality-check tools yet.
+This substage adds `agent-playbook run`, calling the existing `main()`.
+No CrewAI, Langfuse or quality-check tools yet.
 
 ## One setup command
 
@@ -20,7 +20,7 @@ On Windows, use `py -3 app/scripts/bootstrap.py`.
 The script also works from another directory if given its absolute path.
 It reuses uv **0.13.6** from PATH or installs that version in
 `app/.bootstrap-tools/`, then uses uv to prepare Python **3.13.5**, sync the
-committed lockfile into `app/.venv/`, and run the entry point. It does not modify
+committed lockfile into `app/.venv/`, install the project in editable development mode, and run `agent-playbook run`. It does not modify
 global Python packages. The prerequisite Python launches setup; `.venv` runs
 the application. uv can download the application interpreter if needed.
 
@@ -36,7 +36,29 @@ The final setup line prints the interpreter path. Any failed setup step exits
 nonzero; fix the reported prerequisite/network problem and rerun the same command.
 Concurrent bootstrap runs in one checkout are not supported.
 
-## Run independently
+## Run the CLI
+
+From the repository root, macOS/Linux:
+
+```sh
+app/.venv/bin/agent-playbook run
+app/.venv/bin/agent-playbook --help
+```
+
+Windows PowerShell: `& app/.venv/Scripts/agent-playbook.exe run`.
+To use the short command, activate the environment in your terminal:
+
+```sh
+source app/.venv/bin/activate
+agent-playbook run
+```
+
+On Windows PowerShell activation is `app/.venv/Scripts/Activate.ps1`; using
+the explicit executable path avoids any activation-policy requirements.
+Missing/unknown commands and unexpected arguments exit with code 2. The output
+still says Stage 00.1 because `run` invokes that unchanged sample main.
+
+## Run main independently
 
 From the repository root, macOS/Linux:
 
@@ -50,8 +72,9 @@ Windows PowerShell:
 & app/.venv/Scripts/python.exe app/src/agent_playbook/__main__.py
 ```
 
-No environment activation is necessary. This is source execution, not an installed
-package or release. `agent-playbook run` is introduced in Stage 00.2.
+No environment activation is necessary for the explicit paths above.
+The project is now installed in editable development mode, so source edits are
+visible immediately. This is not the isolated release introduced at 00.7.
 
 ## PyCharm
 
@@ -63,7 +86,11 @@ package or release. `agent-playbook run` is introduced in Stage 00.2.
 3. Open `src/agent_playbook/__main__.py`; run the file with that interpreter.
    If creating a Python run configuration manually, use this file as Script path
    and `<repo>/app` as Working directory.
-4. Put a breakpoint on `print(...)` inside `main()` and choose Debug. Confirm the
+4. For the CLI, create another Python configuration: **Module name** =
+   `agent_playbook.cli`, **Parameters** = `run`, working directory = `<repo>/app`,
+   interpreter = the same `.venv` Python. This executes the same CLI function
+   registered by the console command.
+5. Put a breakpoint on `print(...)` inside `main()` and choose Debug. Confirm the
    breakpoint is reached, then resume and compare the expected output above.
 
 PyCharm execution/debugging and macOS/Windows setup still require user validation;
@@ -71,9 +98,10 @@ Linux command-line verification is recorded in the stage findings.
 
 ## What to inspect
 
-See [the short exercise](../designs/stages/00-environment/learning/00-1-python-environment.md).
+See [the CLI exercise](../designs/stages/00-environment/learning/00-2-application-cli.md).
 Commit `pyproject.toml`, `.python-version`, `uv.lock`, source and docs. Keep
 `.venv`, `.bootstrap-tools`, `.idea`, caches, build outputs and secrets out of Git.
-The app has no third-party dependencies; its lockfile is intentionally small.
+The app has no third-party dependencies; its lockfile is intentionally small. The pinned `uv_build` backend registers
+the console entry point during setup; it is not an application dependency.
 
 The first verified release is deferred to 00.7; `0.0.0` is development metadata.
