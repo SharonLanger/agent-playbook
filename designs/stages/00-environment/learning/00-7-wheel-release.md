@@ -18,12 +18,14 @@ and installs it non-editably into a clean environment. It runs the installed cod
 and checks its metadata, import location, and refusal of developer commands.
 The source checkout's _build_info.py is not modified.
 
-The final line identifies `app/dist/0.0.1-<commit-prefix>/`. It contains:
+The final line identifies `app/dist/0.0.1-<commit-prefix>/`, or a numbered
+`-2`, `-3`, and so on when you run Release again. It contains:
 
 - The Wheel, `SHA256SUMS`, and `release.json` (version, source commit, file, hash).
 - `venv/`, the independent installed release. `test` and `check` intentionally fail.
 
-Existing output is preserved; choose a new directory with `--output` to repeat.
+Run the same command again without changing parameters; it chooses the next free
+folder and preserves existing output. An explicit `--output` must name a new folder.
 No package registry upload or GitHub release is created.
 
 ## Verify and demonstrate independence

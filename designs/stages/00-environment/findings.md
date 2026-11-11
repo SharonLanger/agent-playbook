@@ -171,10 +171,9 @@ or GitHub release. macOS, Windows and actual PyCharm UI remain unverified.
 
 ## Prepared PR stack
 
-00.3 is the next user lesson. 00.4–00.7 are prebuilt dependent branches as explicitly
-requested, not accepted stages. Review and merge one at a time. After each preceding
-PR merges, retarget its successor to main and propagate any review changes forward
-before acceptance. Stage architecture/plan and historical sandbox remain unchanged.
+00.1–00.6 are accepted and merged. Stage 00.7 is the current local release
+exercise and remains open for review. Stage architecture/plan and historical
+sandbox remain unchanged.
 
 ### 00.7 carry-forward of check output (2026-11-11)
 
@@ -182,3 +181,12 @@ Carried the 00.6 output/reporting fix and merged architecture documentation into
 this dependent branch. Strict Pyright, Ruff lint/format and 13 tests passed on
 Linux after integration. Wheel build/install experiments above were not rerun
 for this console-reporting change.
+
+### Repeatable Release button (2026-11-11)
+
+Default output selects the first unused directory using the commit prefix followed
+by `-2`, `-3`, and so on. Prior output remains unchanged. Explicit `--output`
+rejects an existing directory. Regression tests covered both cases; the full
+Linux gate passed Pyright, Ruff lint and formatting, and 15 tests. The Wheel
+build/install experiment was not rerun for this path selection change; user
+PyCharm/macOS verification remains pending.

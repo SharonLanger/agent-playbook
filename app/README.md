@@ -156,7 +156,8 @@ empty; the tools are development dependencies. No CrewAI, Langfuse or CI.
 
 Run release.py with the bootstrapped interpreter from a clean committed Git checkout.
 It uses Git plus uv 0.13.6 (PATH or the bootstrap's private installation). The output
-includes a Wheel, release.json, SHA256SUMS and an isolated venv. Existing output is
-never overwritten; use a new `--output` directory for a repeat. Dev metadata says
+includes a Wheel, release.json, SHA256SUMS and an isolated venv. Repeating the same
+run picks a numbered folder (`-2`, `-3`, ...); existing output is never overwritten.
+An explicit `--output` directory must be unused. Dev metadata says
 `development`; the built release records the actual source commit. See the lesson
 for the source-change and corrupted-Wheel experiments. Nothing is published externally.

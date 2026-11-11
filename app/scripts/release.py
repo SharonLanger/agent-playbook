@@ -27,6 +27,24 @@ def run(command: list[str], cwd: Path, env: dict[str, str] | None = None) -> Non
     subprocess.run(command, cwd=cwd, env=env, check=True)
 
 
+def release_destination(output: Path | None, version: str, commit: str) -> Path:
+    if output is not None:
+        destination = output.resolve()
+        if destination.exists():
+            raise RuntimeError(
+                "Output already exists; choose an unused --output directory."
+            )
+        return destination
+
+    base = APP / "dist" / f"{version}-{commit[:12]}"
+    destination = base
+    attempt = 2
+    while destination.exists():
+        destination = base.with_name(f"{base.name}-{attempt}")
+        attempt += 1
+    return destination.resolve()
+
+
 def build_release(output: Path | None) -> None:
     repo = Path(capture(["git", "rev-parse", "--show-toplevel"], APP))
     if capture(["git", "status", "--porcelain"], repo):
@@ -36,11 +54,7 @@ def build_release(output: Path | None) -> None:
     commit = capture(["git", "rev-parse", "HEAD"], repo)
     project = tomllib.loads((APP / "pyproject.toml").read_text())
     version = str(project["project"]["version"])
-    destination = (output or APP / "dist" / f"{version}-{commit[:12]}").resolve()
-    if destination.exists():
-        raise RuntimeError(
-            "Output already exists. Choose a new --output directory; existing releases are preserved."
-        )
+    destination = release_destination(output, version, commit)
     uv = shutil.which("uv")
     if not uv:
         uv = str(
