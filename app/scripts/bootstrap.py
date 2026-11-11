@@ -1,11 +1,11 @@
-"""Prepare Stage 00.4 from any working directory using Python 3.10+."""
+"""Prepare Stage 00.5 from any working directory using Python 3.10+."""
 
 import os
-from pathlib import Path
 import shutil
 import subprocess
 import sys
 import venv
+from pathlib import Path
 
 APP = Path(__file__).resolve().parents[1]
 UV_VERSION = "0.13.6"
@@ -23,8 +23,9 @@ def main() -> None:
     # Reuse only the pinned uv; otherwise provision it without changing global tools.
     uv = shutil.which("uv")
     if uv:
-        version = subprocess.run([uv, "--version"], check=True, capture_output=True,
-                                 text=True).stdout.split()
+        version = subprocess.run(
+            [uv, "--version"], check=True, capture_output=True, text=True
+        ).stdout.split()
         if version[1] != UV_VERSION:
             uv = None
     if not uv:
@@ -34,8 +35,16 @@ def main() -> None:
         uv = str(scripts / ("uv.exe" if os.name == "nt" else "uv"))
         if not python.exists():
             venv.EnvBuilder(with_pip=True).create(tools)
-        run([str(python), "-m", "pip", "install", "--disable-pip-version-check",
-             "uv==" + UV_VERSION])
+        run(
+            [
+                str(python),
+                "-m",
+                "pip",
+                "install",
+                "--disable-pip-version-check",
+                "uv==" + UV_VERSION,
+            ]
+        )
 
     # Keep setup pointed at this checkout, even from an activated foreign venv.
     env = os.environ.copy()
@@ -44,10 +53,17 @@ def main() -> None:
     pin = (APP / ".python-version").read_text().strip()
     run([uv, "sync", "--locked", "--python", pin], env=env)
     python = APP / ".venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
-    cli = python.parent / ("agent-playbook.exe" if os.name == "nt" else "agent-playbook")
+    cli = python.parent / (
+        "agent-playbook.exe" if os.name == "nt" else "agent-playbook"
+    )
     run([str(cli), "run"], env=env)
     run([str(python), "-m", "pyright"], env=env)
     run([str(cli), "test"], env=env)
+    run([str(python), "-m", "ruff", "check", "src", "scripts", "tests"], env=env)
+    run(
+        [str(python), "-m", "ruff", "format", "--check", "src", "scripts", "tests"],
+        env=env,
+    )
     print("Ready. PyCharm interpreter: " + str(python))
 
 

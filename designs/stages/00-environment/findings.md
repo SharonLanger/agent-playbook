@@ -104,3 +104,13 @@ four tests, detected a deliberate guest-message regression (exit 1), then passed
 after restoration. In an isolated editable environment installed without dev
 dependencies, `test` exited 2 with a clear missing-pytest/bootstrap message.
 No Ruff yet. Actual PyCharm test configuration remains for local user verification.
+
+## 00.5 — Ruff (2026-11-11)
+
+Pinned Ruff 0.14.4, selected E4/E7/E9/F/I lint rules and formatted existing source,
+scripts and tests. Bootstrap executes read-only lint and format checks. An unused
+import mutation failed lint; a quote-style mutation failed format verification;
+both passed after restoration. Existing Pyright and four pytest tests remained
+passing. During the earlier isolated missing-tool experiment, the first venv used
+Python 3.12 and installation correctly refused it; retry with pinned Python 3.13.5
+verified the intended missing-pytest error. No non-Linux/IDE validation claimed.
