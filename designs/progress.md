@@ -1,25 +1,38 @@
-# Progress and Findings
+# Progress and acceptance
 
-Status: **00.1 and 00.2 accepted/merged; 00.6 prepared in a dependent branch**.
+Updated 2026-11-11. This file records implemented behavior; architecture.md describes
+the target system.
 
-## Current position — 2026-11-11
+| Work | Verified state |
+|---|---|
+| 00.1 environment | PR #17 merged after user ran main |
+| 00.2 CLI | PR #18 merged after user ran help and run |
+| 00.3 Pyright | PR #19 merged; user ran Pyright in PyCharm and observed a type error |
+| 00.4 pytest | PR #20 merged; user ran Tests in PyCharm and reported four passing tests |
+| 00.5 Ruff | PR #21 merged; local IDE configuration was the latest user task |
+| 00.6 local gate | PR #22 under local review; clearer check output verified on Linux; user acceptance pending |
+| 00.7 Wheel release | PR #23 prepared on 00.6; acceptance pending |
+| Shared IDE tasks | Issue #24; required before Stage 00 completion |
+| Target architecture and visuals | PR #25 merged; diagrams and architecture are in main |
 
-User authorized 00.3 → 00.4 → 00.5 → 00.6 → 00.7 to be implemented sequentially,
-each based on the preceding substage, with individual review and merge afterward.
-Current branch adds **Unified checks**. Review 00.3 first; carry its fixes forward before
-accepting later branches. See findings for executed evidence and limitations.
+The user authorized preparing 00.3–00.7 sequentially. Their review and merge remain
+one at a time. After each predecessor merges, retarget its successor to main and
+carry any accepted corrections forward. Later stage branches contain older copies
+of progress documents; reconcile them instead of restoring obsolete status text.
 
-## Authority and documentation inconsistencies
+## Architecture documentation
 
-The handoff records Stage 00 approval through PR #15 and the current user request
-explicitly directs continuing 00.1. Several main documents still say Stage 00 is
-not designed or awaiting approval. Stage 00's plan also retains a CrewAI import
-acceptance item despite explicitly excluding CrewAI until Stage 01. This work
-follows the explicit 00.1 scope and introduces no CrewAI. Protected baseline text
-is unchanged; reconcile those status/acceptance lines through a separate exact-diff
-approval. The broader charter/target/principles approval remains unconfirmed.
+The target architecture now separates components, execution/failure flow, and
+observation flow. Static and animated SVGs share one generator; a local browser
+viewer provides playback controls. PR #25 is merged; browser animation verification
+remains pending.
 
-## Next boundary
+Earlier Stage 00 approval is recorded by merged PR #15. Its architecture/plan still
+contain historical approval wording, and its acceptance list retains a CrewAI import
+item despite excluding CrewAI. Those protected stage files are unchanged in this
+visual-documentation PR; their exact correction requires separate review.
 
-Review 00.3 first. Later staged branches depend on it; propagate any fixes forward.
-Do not merge later substages before their user acceptance. No Stage 01 work.
+## Next actions
+
+Review the remaining Stage 00 PRs in order, starting with 00.6.
+Finish shared PyCharm task configurations before Stage 00 sign-off.

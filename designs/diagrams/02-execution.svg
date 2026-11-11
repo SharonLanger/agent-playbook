@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1030" viewBox="0 0 1200 1030" role="img" aria-labelledby="title desc">
+<title id="title">One workflow run</title><desc id="desc">Control flow • validate, execute, inspect a result, and finish or handle failure. Animation illustrates direction only; this is an architecture diagram, not live execution data.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0c1725"/><stop offset="1" stop-color="#15263a"/></linearGradient>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<style>text{font-family:Inter,Arial,sans-serif} .pulse{filter:none} @media(prefers-reduced-motion:reduce){.pulse{display:none}}</style>
+<rect width="1200" height="1030" rx="24" fill="url(#bg)"/>
+<text x="40" y="43" fill="#69d9ce" font-size="13" font-weight="700" letter-spacing="2">AGENT PLAYBOOK  /  02</text>
+<text x="40" y="91" fill="#f1f6fc" font-size="34" font-weight="700">One workflow run</text>
+<text x="40" y="125" fill="#a2b7ca" font-size="17">Control flow • validate, execute, inspect a result, and finish or handle failure</text>
+<path d="M600 250 V300" fill="none" stroke="#69d9ce" stroke-opacity=".65" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M750 340 H860" fill="none" stroke="#ff8d9a" stroke-opacity=".65" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="767" y="311" width="69.9" height="24" rx="5" fill="#101e2e"/><text x="775" y="328" fill="#ff8d9a" font-size="14">invalid</text>
+<path d="M600 380 V440" fill="none" stroke="#69d9ce" stroke-opacity=".65" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="607" y="400" width="54.5" height="24" rx="5" fill="#101e2e"/><text x="615" y="417" fill="#69d9ce" font-size="14">valid</text>
+<path d="M600 520 V570" fill="none" stroke="#69d9ce" stroke-opacity=".65" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M600 650 V700" fill="none" stroke="#f5ba77" stroke-opacity=".65" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="607" y="668" width="123.8" height="24" rx="5" fill="#101e2e"/><text x="615" y="685" fill="#f5ba77" font-size="14">result / error</text>
+<path d="M750 740 H860" fill="none" stroke="#ff8d9a" stroke-opacity=".65" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="777" y="710" width="54.5" height="24" rx="5" fill="#101e2e"/><text x="785" y="727" fill="#ff8d9a" font-size="14">error</text>
+<path d="M450 740 H340 V480 H450" fill="none" stroke="#69d9ce" stroke-opacity=".65" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="252" y="533" width="85.3" height="24" rx="5" fill="#101e2e"/><text x="260" y="550" fill="#69d9ce" font-size="14">next step</text>
+<path d="M600 780 V840" fill="none" stroke="#69d9ce" stroke-opacity=".65" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="607" y="806" width="77.6" height="24" rx="5" fill="#101e2e"/><text x="615" y="823" fill="#69d9ce" font-size="14">complete</text>
+<path d="M1010 700 V610 H750" fill="none" stroke="#ff8d9a" stroke-opacity=".65" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="844" y="582" width="154.6" height="24" rx="5" fill="#101e2e"/><text x="852" y="599" fill="#ff8d9a" font-size="14">retry if permitted</text>
+<path d="M1010 800 V880 H750" fill="none" stroke="#ff8d9a" stroke-opacity=".65" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="879" y="851" width="100.7" height="24" rx="5" fill="#101e2e"/><text x="887" y="868" fill="#ff8d9a" font-size="14">unrecovered</text>
+<rect x="450" y="170" width="300" height="80" rx="12" fill="#192b40" stroke="#69d9ce" stroke-opacity=".6"/><rect x="451" y="187" width="4" height="46" rx="2" fill="#69d9ce"/><text x="470" y="202" fill="#f1f6fc" font-size="19" font-weight="700">Start run</text>
+<text x="470" y="228" fill="#b9cada" font-size="15">Workflow selection + input</text>
+<rect x="450" y="300" width="300" height="80" rx="12" fill="#192b40" stroke="#69d9ce" stroke-opacity=".6"/><rect x="451" y="317" width="4" height="46" rx="2" fill="#69d9ce"/><text x="470" y="332" fill="#f1f6fc" font-size="19" font-weight="700">Validate and configure</text>
+<text x="470" y="358" fill="#b9cada" font-size="15">Input, required settings, provider</text>
+<rect x="860" y="300" width="300" height="80" rx="12" fill="#192b40" stroke="#ff8d9a" stroke-opacity=".6"/><rect x="861" y="317" width="4" height="46" rx="2" fill="#ff8d9a"/><text x="880" y="332" fill="#f1f6fc" font-size="19" font-weight="700">Reject request</text>
+<text x="880" y="358" fill="#b9cada" font-size="15">Return actionable error</text>
+<rect x="450" y="440" width="300" height="80" rx="12" fill="#192b40" stroke="#69d9ce" stroke-opacity=".6"/><rect x="451" y="457" width="4" height="46" rx="2" fill="#69d9ce"/><text x="470" y="472" fill="#f1f6fc" font-size="19" font-weight="700">Select workflow step</text>
+<text x="470" y="498" fill="#b9cada" font-size="15">Use state and routing rules</text>
+<rect x="450" y="570" width="300" height="80" rx="12" fill="#192b40" stroke="#f5ba77" stroke-opacity=".6"/><rect x="451" y="587" width="4" height="46" rx="2" fill="#f5ba77"/><text x="470" y="602" fill="#f1f6fc" font-size="19" font-weight="700">Execute step</text>
+<text x="470" y="628" fill="#b9cada" font-size="15">Python logic or agent adapter</text>
+<rect x="450" y="700" width="300" height="80" rx="12" fill="#192b40" stroke="#69d9ce" stroke-opacity=".6"/><rect x="451" y="717" width="4" height="46" rx="2" fill="#69d9ce"/><text x="470" y="732" fill="#f1f6fc" font-size="19" font-weight="700">Validate step result</text>
+<text x="470" y="758" fill="#b9cada" font-size="15">Update state; evaluate route</text>
+<rect x="860" y="700" width="300" height="100" rx="12" fill="#192b40" stroke="#ff8d9a" stroke-opacity=".6"/><rect x="861" y="717" width="4" height="66" rx="2" fill="#ff8d9a"/><text x="880" y="732" fill="#f1f6fc" font-size="19" font-weight="700">Failure policy</text>
+<text x="880" y="758" fill="#b9cada" font-size="15">Bounded retry, fallback or fail</text>
+<text x="880" y="780" fill="#b9cada" font-size="15">Never silently report success</text>
+<rect x="450" y="840" width="300" height="80" rx="12" fill="#192b40" stroke="#69d9ce" stroke-opacity=".6"/><rect x="451" y="857" width="4" height="46" rx="2" fill="#69d9ce"/><text x="470" y="872" fill="#f1f6fc" font-size="19" font-weight="700">Finish run</text>
+<text x="470" y="898" fill="#b9cada" font-size="15">Output, run ID and exit status</text>
+<line x1="40" y1="930" x2="1160" y2="930" stroke="#34475c"/>
+<text x="40" y="960" fill="#b9cada" font-size="15">Workflow policy decides retries and fallback. Exact retry counts and SDK cancellation behavior are explicit integration decisions.</text>
+<text x="40" y="984" fill="#b9cada" font-size="15">This is a conceptual execution model, not a claim that crash recovery or durable checkpoints already exist.</text>
+</svg>

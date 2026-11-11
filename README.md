@@ -2,8 +2,8 @@
 
 A gradual Python learning project for agent orchestration. Current branch: **00.6 — Unified checks**.
 
-Stages 00.1 and 00.2 are accepted and merged. 00.3–00.7 are prepared as a sequential
-PR stack at the user's request; review and merge one at a time, starting at 00.3.
+Stages 00.1–00.5 are merged. Stage 00.6 is under review; 00.7 is prepared on top
+of it. Review and merge one at a time after local acceptance.
 
 From repository root (macOS/Linux):
 
