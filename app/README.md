@@ -1,6 +1,6 @@
-# Stage 00.6 — Unified checks
+# Stage 00.7 — Wheel release
 
-Adds one fail-fast check command: Pyright, Ruff lint, Ruff format verification, then pytest.
+Adds an isolated versioned Wheel release after the local gate, with Git revision and SHA-256 evidence.
 
 ## One setup command
 
@@ -103,6 +103,8 @@ From repo root, after bootstrap and `source app/.venv/bin/activate`:
 agent-playbook run
 agent-playbook test
 agent-playbook check
+agent-playbook version
+python app/scripts/release.py
 ```
 
 For Windows, bootstrap uses `py -3 app/scripts/bootstrap.py`; executable paths
@@ -114,10 +116,19 @@ listed above; interpreter `app/.venv`, working directory `app`. Pyright alone:
 module `pyright`, no parameters, working directory `app`. These configurations
 use the installed tools; native editor inspections are separate from Pyright.
 
-See [00.6 exercise](../designs/stages/00-environment/learning/00-6-unified-checks.md)
+See [00.7 exercise](../designs/stages/00-environment/learning/00-7-wheel-release.md)
 and [verification evidence](../designs/stages/00-environment/findings.md).
 
 Bootstrap installs everything introduced so far and checks it. Pyright uses Node;
 its wrapper provisions Node when absent (network access needed). That fallback
 and non-Linux platforms are unverified here. Python runtime dependencies remain
 empty; the tools are development dependencies. No CrewAI, Langfuse or CI.
+
+## Release requirements
+
+Run release.py with the bootstrapped interpreter from a clean committed Git checkout.
+It uses Git plus uv 0.13.6 (PATH or the bootstrap's private installation). The output
+includes a Wheel, release.json, SHA256SUMS and an isolated venv. Existing output is
+never overwritten; use a new `--output` directory for a repeat. Dev metadata says
+`development`; the built release records the actual source commit. See the lesson
+for the source-change and corrupted-Wheel experiments. Nothing is published externally.

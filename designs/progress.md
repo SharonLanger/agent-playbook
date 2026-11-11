@@ -1,12 +1,12 @@
 # Progress and Findings
 
-Status: **00.1 and 00.2 accepted/merged; 00.6 prepared in a dependent branch**.
+Status: **00.1 and 00.2 accepted/merged; 00.7 prepared in a dependent branch**.
 
 ## Current position — 2026-11-11
 
 User authorized 00.3 → 00.4 → 00.5 → 00.6 → 00.7 to be implemented sequentially,
 each based on the preceding substage, with individual review and merge afterward.
-Current branch adds **Unified checks**. Review 00.3 first; carry its fixes forward before
+Current branch adds **Wheel release**. Review 00.3 first; carry its fixes forward before
 accepting later branches. See findings for executed evidence and limitations.
 
 ## Authority and documentation inconsistencies

@@ -1,4 +1,4 @@
-"""Prepare Stage 00.6 from any working directory using Python 3.10+."""
+"""Prepare Stage 00.7 from any working directory using Python 3.10+."""
 
 import os
 import shutil

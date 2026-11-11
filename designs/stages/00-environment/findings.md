@@ -123,3 +123,39 @@ Six tests include gate exit-code propagation/stopping and missing-tool behavior.
 Executed real type, format and behavior mutations through the combined command:
 each returned nonzero; restored source passed all four checks and six tests.
 No files are automatically changed by check. PyCharm execution remains unverified.
+
+## 00.7 — Versioned Wheel release (2026-11-11)
+
+Version 0.0.1. Added `version`, release.py and verify_wheel.py. Release creation
+requires a clean Git checkout, runs the unified gate, archives the exact source
+commit, injects commit metadata only into that archive, builds the Wheel, records
+and verifies SHA-256, installs into a new isolated environment, verifies metadata
+and import location, and confirms development commands are rejected.
+
+Executed on Linux:
+
+- Dirty checkout refused before building.
+- Clean local verification snapshot passed all checks and 8 tests, then built
+  agent_playbook-0.0.1-py3-none-any.whl and installed it non-editably in a fresh venv.
+- Installed `run` and `version` worked from outside the repository. Import location
+  was under the isolated environment's site-packages; `test` and `check` exited 2.
+- Changed the development main message: development output changed, installed
+  release output remained identical. Restored source afterward.
+- A corrupted copy of the actual Wheel failed SHA-256 verification (exit 1).
+- Final bootstrap passed the unified gate and 8 tests after restoration.
+
+Evidence from this local verification build (not a published release):
+source commit `e5acf5a5db4b8aaa4996d0c0233b8c765e659683`, Wheel SHA-256
+`2c83fd5aa2c15d31d7d2b8a0b2517cc0f780ac8504bd9e17d0f08761834bd273`.
+The local Git history is a verification snapshot, not the GitHub branch history;
+GitHub cloning was unavailable, so source publishing uses its connected API.
+Running release.py in the user's checkout will embed that checkout's actual Git
+revision and produce its own digest. No artifact was uploaded to a package registry
+or GitHub release. macOS, Windows and actual PyCharm UI remain unverified.
+
+## Prepared PR stack
+
+00.3 is the next user lesson. 00.4–00.7 are prebuilt dependent branches as explicitly
+requested, not accepted stages. Review and merge one at a time. After each preceding
+PR merges, retarget its successor to main and propagate any review changes forward
+before acceptance. Stage architecture/plan and historical sandbox remain unchanged.
