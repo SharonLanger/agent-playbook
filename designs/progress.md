@@ -10,8 +10,8 @@ the target system.
 | 00.3 Pyright | PR #19 merged; user ran Pyright in PyCharm and observed a type error |
 | 00.4 pytest | PR #20 merged; user ran Tests in PyCharm and reported four passing tests |
 | 00.5 Ruff | PR #21 merged; local IDE configuration was the latest user task |
-| 00.6 local gate | PR #22 under local review; clearer check output verified on Linux; user acceptance pending |
-| 00.7 Wheel release | PR #23 prepared on 00.6; acceptance pending |
+| 00.6 local gate | PR #22 merged after user accepted the improved check output |
+| 00.7 Wheel release | PR #23 open against main; local release exercise and acceptance pending |
 | Shared IDE tasks | Issue #24; required before Stage 00 completion |
 | Target architecture and visuals | PR #25 merged; diagrams and architecture are in main |
 
@@ -34,5 +34,5 @@ visual-documentation PR; their exact correction requires separate review.
 
 ## Next actions
 
-Review the remaining Stage 00 PRs in order, starting with 00.6.
+Review and run Stage 00.7 from PR #23 before merging it.
 Finish shared PyCharm task configurations before Stage 00 sign-off.

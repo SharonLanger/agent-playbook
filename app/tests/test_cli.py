@@ -4,9 +4,9 @@ import subprocess
 import sys
 
 
-def test_run() -> None:
+def test_dev_run() -> None:
     result = subprocess.run(
-        [sys.executable, "-m", "agent_playbook.cli", "run"],
+        [sys.executable, "-m", "agent_playbook.cli", "dev-run"],
         capture_output=True,
         text=True,
     )

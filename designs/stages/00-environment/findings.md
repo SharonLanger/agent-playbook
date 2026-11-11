@@ -139,3 +139,78 @@ each position, execution order, incomplete tool setup and a subprocess launch er
 Real temporary source mutations separately failed types, lint, formatting and
 tests, producing respectively 3, 2, 1 and 0 NOT RUN results. Restored source passed
 the complete gate. Actual PyCharm rendering and macOS execution remain unverified.
+
+## 00.7 — Versioned Wheel release (2026-11-11)
+
+Version 0.0.1. Added `version`, release.py and verify_wheel.py. Release creation
+requires a clean Git checkout, runs the unified gate, archives the exact source
+commit, injects commit metadata only into that archive, builds the Wheel, records
+and verifies SHA-256, installs into a new isolated environment, verifies metadata
+and import location, and confirms development commands are rejected.
+
+Executed on Linux:
+
+- Dirty checkout refused before building.
+- Clean local verification snapshot passed all checks and 8 tests, then built
+  agent_playbook-0.0.1-py3-none-any.whl and installed it non-editably in a fresh venv.
+- Installed `run` and `version` worked from outside the repository. Import location
+  was under the isolated environment's site-packages; `test` and `check` exited 2.
+- Changed the development main message: development output changed, installed
+  release output remained identical. Restored source afterward.
+- A corrupted copy of the actual Wheel failed SHA-256 verification (exit 1).
+- Final bootstrap passed the unified gate and 8 tests after restoration.
+
+Evidence from this local verification build (not a published release):
+source commit `e5acf5a5db4b8aaa4996d0c0233b8c765e659683`, Wheel SHA-256
+`2c83fd5aa2c15d31d7d2b8a0b2517cc0f780ac8504bd9e17d0f08761834bd273`.
+The local Git history is a verification snapshot, not the GitHub branch history;
+GitHub cloning was unavailable, so source publishing uses its connected API.
+Running release.py in the user's checkout will embed that checkout's actual Git
+revision and produce its own digest. No artifact was uploaded to a package registry
+or GitHub release. macOS, Windows and actual PyCharm UI remain unverified.
+
+## Prepared PR stack
+
+00.1–00.6 are accepted and merged. Stage 00.7 is the current local release
+exercise and remains open for review. Stage architecture/plan and historical
+sandbox remain unchanged.
+
+### 00.7 carry-forward of check output (2026-11-11)
+
+Carried the 00.6 output/reporting fix and merged architecture documentation into
+this dependent branch. Strict Pyright, Ruff lint/format and 13 tests passed on
+Linux after integration. Wheel build/install experiments above were not rerun
+for this console-reporting change.
+
+### Repeatable Release button (2026-11-11)
+
+Default output selects the first unused directory using the commit prefix followed
+by `-2`, `-3`, and so on. Prior output remains unchanged. Explicit `--output`
+rejects an existing directory. Regression tests covered both cases; the full
+Linux gate passed Pyright, Ruff lint and formatting, and 15 tests. The Wheel
+build/install experiment was not rerun for this path selection change; user
+PyCharm/macOS verification remains pending.
+
+### CLI release selection and command documentation (2026-11-11)
+
+The editable CLI selects the newest verified installed release with `run`; its
+`run --version` filters by version first. `dev-run` keeps the editable execution
+path, and release installations execute their own code directly. Bootstrap uses
+`dev-run`, so a fresh checkout does not require a release. A completed new build
+marks its release manifest verified; older installed releases remain selectable.
+CLI instructions and release rules moved to `app/docs/cli.md`, linked from both
+READMEs. Linux verification: strict Pyright, Ruff lint/format and 17 tests passed;
+a clean local Git snapshot built and installed an isolated 0.0.1 Wheel, then ran
+and verified that release. Local CLI selection, version filtering, editable run,
+and missing-version errors were exercised. PyCharm/macOS verification remains for
+the user.
+
+### Version update and release diagnostics (2026-11-11)
+
+The user committed version 0.0.2 in pyproject.toml while uv.lock still recorded
+0.0.1. Added app/scripts/version.py to use pinned uv for a coordinated update,
+so version and lockfile move together. Release now lists the dirty paths reported
+by Git and, on a clean checkout, explains a project/lock version mismatch before
+building. The full local gate passed Pyright, Ruff lint/format and 19 tests.
+In a disposable project copy, the version command changed both files to 0.0.7.
+The user's actual macOS checkout and release are not verified here.

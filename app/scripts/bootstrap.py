@@ -1,4 +1,4 @@
-"""Prepare Stage 00.6 from any working directory using Python 3.10+."""
+"""Prepare Stage 00.7 from any working directory using Python 3.10+."""
 
 import os
 import shutil
@@ -56,7 +56,7 @@ def main() -> None:
     cli = python.parent / (
         "agent-playbook.exe" if os.name == "nt" else "agent-playbook"
     )
-    run([str(cli), "run"], env=env)
+    run([str(cli), "dev-run"], env=env)
     run([str(cli), "check"], env=env)
     print("Ready. PyCharm interpreter: " + str(python))
 
