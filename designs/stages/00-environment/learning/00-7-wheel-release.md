@@ -28,6 +28,11 @@ Run the same command again without changing parameters; it chooses the next free
 folder and preserves existing output. An explicit `--output` must name a new folder.
 No package registry upload or GitHub release is created.
 
+After building, `agent-playbook run` selects the newest installed release. Use
+`agent-playbook run --version 0.0.1` for the newest matching version, or
+`agent-playbook dev-run` to run editable source. See [CLI and releases](../../../../app/docs/cli.md)
+for all commands and selection rules.
+
 ## Verify and demonstrate independence
 
 Replace `<release-dir>`, `<wheel>` and `<recorded-sha256>` with the printed values:

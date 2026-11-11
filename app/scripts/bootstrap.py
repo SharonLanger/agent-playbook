@@ -56,7 +56,7 @@ def main() -> None:
     cli = python.parent / (
         "agent-playbook.exe" if os.name == "nt" else "agent-playbook"
     )
-    run([str(cli), "run"], env=env)
+    run([str(cli), "dev-run"], env=env)
     run([str(cli), "check"], env=env)
     print("Ready. PyCharm interpreter: " + str(python))
 

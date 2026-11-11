@@ -99,6 +99,7 @@ def build_release(output: Path | None) -> None:
         "source_commit": commit,
         "wheel": wheel.name,
         "sha256": digest,
+        "verified": False,
     }
     (destination / "release.json").write_text(json.dumps(evidence, indent=2) + "\n")
     (destination / "SHA256SUMS").write_text(f"{digest}  {wheel.name}\n")
@@ -152,6 +153,8 @@ def build_release(output: Path | None) -> None:
             raise RuntimeError(
                 f"Release unexpectedly accepted development command {command}."
             )
+    evidence["verified"] = True
+    (destination / "release.json").write_text(json.dumps(evidence, indent=2) + "\n")
     print(reported)
     print(
         f"Verified release: {destination}\nSHA-256: {digest}\nInstalled source: {location}"

@@ -190,3 +190,17 @@ rejects an existing directory. Regression tests covered both cases; the full
 Linux gate passed Pyright, Ruff lint and formatting, and 15 tests. The Wheel
 build/install experiment was not rerun for this path selection change; user
 PyCharm/macOS verification remains pending.
+
+### CLI release selection and command documentation (2026-11-11)
+
+The editable CLI selects the newest verified installed release with `run`; its
+`run --version` filters by version first. `dev-run` keeps the editable execution
+path, and release installations execute their own code directly. Bootstrap uses
+`dev-run`, so a fresh checkout does not require a release. A completed new build
+marks its release manifest verified; older installed releases remain selectable.
+CLI instructions and release rules moved to `app/docs/cli.md`, linked from both
+READMEs. Linux verification: strict Pyright, Ruff lint/format and 17 tests passed;
+a clean local Git snapshot built and installed an isolated 0.0.1 Wheel, then ran
+and verified that release. Local CLI selection, version filtering, editable run,
+and missing-version errors were exercised. PyCharm/macOS verification remains for
+the user.
