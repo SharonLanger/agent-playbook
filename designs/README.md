@@ -9,7 +9,7 @@ This folder is the documentation and learning source for the Agent Playbook proj
 | [principles.md](principles.md) | Guardrails, approval rules, modularity and configuration | Proposed protected baseline |
 | [roadmap.md](roadmap.md) | Provisional stages and learning progression | Editable |
 | [progress.md](progress.md) | Verified progress, experiments, evidence and findings | Editable |
-| [stages/](stages/) | Stage-specific architecture, plans, learner explanations and findings | Create when each stage begins |
+| [stages/00-environment/architecture.md](stages/00-environment/architecture.md) | Stage 00 proposed end-state architecture | Awaiting approval |\n| [stages/00-environment/plan.md](stages/00-environment/plan.md) | Stage 00 substages, learning assignments and acceptance criteria | Awaiting approval |\n| [stages/00-environment/findings.md](stages/00-environment/findings.md) | Stage 00 experiment journal | Editable |
 | [../AGENTS.md](../AGENTS.md) | Agent operating instructions and protected-file change protocol | Root instructions |
 
 ## Stage documentation convention
