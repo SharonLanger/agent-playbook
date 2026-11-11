@@ -1,19 +1,18 @@
 # Progress and Findings
 
-Status: **Stage 00.1 implemented on its feature branch; user review pending**.
+Status: **Stage 00.1 accepted and merged; Stage 00.2 implemented for review**.
 
 ## Current position — 2026-11-11
 
-- Read all three temporary handoff files in PR #16, then the authoritative main
-  documents and live Stage 00.1 branch. Handoff PR closed without merge.
-- Main baseline inspected: `7662a8488aee978d7536802fac76eb6413ee49ea`.
-- Continued `stage/00-1-python-environment` from
-  `4069bdb468115cf1e47a2898e7f451d033ff0b08`, which contained only three app files.
-- Added a single bootstrap, pinned Python/uv, generated lockfile, runnable main,
-  PyCharm instructions and a short learner exercise.
-- Linux smoke checks passed; see [the evidence](stages/00-environment/findings.md).
-- Pending: user pulls and tries Stage 00.1, including PyCharm debugging, then
-  decides whether to merge. No merge or Stage 00.2 work is authorized here.
+- User ran main locally, saw the expected environment-ready message, and explicitly
+  approved merging PR #17 and proceeding to the next substage.
+- PR #17 merged at `d7e4b157db484e74a9d9b79ff73a509aaaff725e`.
+- Stage 00.2 uses branch `stage/00-2-application-cli`, based on that merged main.
+- Added `agent-playbook run` using standard-library argparse and the existing main.
+  The same bootstrap installs the editable package and smoke-runs the CLI.
+- Linux CLI checks passed; see [findings](stages/00-environment/findings.md).
+- Pending: user tries the CLI/PyCharm configuration and reviews the separate 00.2
+  PR. No automatic merge or Stage 00.3 implementation.
 
 ## Authority and documentation inconsistencies
 
@@ -27,5 +26,5 @@ approval. The broader charter/target/principles approval remains unconfirmed.
 
 ## Next boundary
 
-Finish local acceptance of 00.1 first. After its review/merge and a request to
-continue, Stage 00.2 introduces only the application CLI on a new branch from main.
+Accept and merge 00.2 before proceeding. Stage 00.3 introduces Pyright strict
+and type-error exercises on a new branch from the then-current main.
