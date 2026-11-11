@@ -6,7 +6,7 @@ Open the **repository root** (`agent-playbook`) as the PyCharm project. First
 run bootstrap from the repository root:
 
 ```sh
-python3 app/scripts/bootstrap.py
+python3 app/tooling/bootstrap.py
 ```
 
 Then choose **Add Interpreter → Existing environment** and select
@@ -28,3 +28,5 @@ release selection, build output, exact release paths, and the quality gate.
 
 [Stage 00.7 learning exercise](../designs/stages/00-environment/learning/00-7-wheel-release.md)
 · [Verification findings](../designs/stages/00-environment/findings.md)
+
+Project layout: [guarded project structure](../designs/project-structure.md).

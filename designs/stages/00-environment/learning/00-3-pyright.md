@@ -5,16 +5,16 @@ Goal: see a type error before executing Python. Keep your CLI from 00.2.
 From repository root, macOS/Linux:
 
 ```sh
-python3 app/scripts/bootstrap.py
+python3 app/tooling/bootstrap.py
 source app/.venv/bin/activate
 cd app
 python -m pyright
 ```
 
-Windows: `py -3 app/scripts/bootstrap.py`, then use `app/.venv/Scripts/python.exe`
+Windows: `py -3 app/tooling/bootstrap.py`, then use `app/.venv/Scripts/python.exe`
 with `-m pyright --project app/pyproject.toml` from repository root.
 
-Edit `app/src/agent_playbook/typing_example.py`. Make **one change at a time**,
+Edit `app/examples/typing_example.py`. Make **one change at a time**,
 run Pyright, observe its diagnostic, then undo that change and rerun to zero errors.
 
 | Experiment | Change | Expected diagnostic |

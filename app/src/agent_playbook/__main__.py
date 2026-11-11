@@ -1,9 +1,6 @@
-"""Stage 00.1: a runnable Python entry point."""
+"""Run the application through the module entry point."""
 
-
-def main() -> None:
-    print("Agent Playbook — Stage 00.1: Python environment ready.")
-
+from agent_playbook.application.runner import main
 
 if __name__ == "__main__":
     main()

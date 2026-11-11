@@ -67,7 +67,7 @@ def build_release(output: Path | None) -> None:
         raise RuntimeError(
             f"Version mismatch: pyproject.toml has {version}, uv.lock has "
             f"{', '.join(locked_versions) or 'no project version'}. "
-            "Run python app/scripts/version.py <version>, then commit both files."
+            "Run python app/tooling/version.py <version>, then commit both files."
         )
     destination = release_destination(output, version, commit)
     uv = shutil.which("uv")

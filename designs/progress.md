@@ -12,7 +12,7 @@ the target system.
 | 00.5 Ruff | PR #21 merged; local IDE configuration was the latest user task |
 | 00.6 local gate | PR #22 merged after user accepted the improved check output |
 | 00.7 Wheel release | PR #23 merged after user built a release and accepted 00.7 |
-| Shared IDE tasks | Issue #24; six shared configurations proposed, PyCharm discovery pending |
+| Shared IDE tasks | PR #26 merged; user restored configurations and accepted Stage 00 |
 | Target architecture and visuals | PR #25 merged; diagrams and architecture are in main |
 
 The user authorized preparing 00.3–00.7 sequentially. Their review and merge remain
@@ -34,5 +34,7 @@ visual-documentation PR; their exact correction requires separate review.
 
 ## Next actions
 
-Verify the six shared PyCharm configurations in the user's project before
-Stage 00 sign-off. Stage 01 begins after that setup gate.
+Sharon accepted Stage 00 and approved the pre-Stage 01 folder refactor.
+`project-structure.md` records the guarded layout. The refactor separates runtime
+components from checkout-only tooling and examples, with reserved future folders.
+Stage 01 implementation has not started; review its design before adding CrewAI.

@@ -1,6 +1,6 @@
 # CLI and releases
 
-Run these commands from the repository root after `python3 app/scripts/bootstrap.py`.
+Run these commands from the repository root after `python3 app/tooling/bootstrap.py`.
 You can either activate `source app/.venv/bin/activate` and use `agent-playbook`,
 or replace it with `app/.venv/bin/agent-playbook` in each example.
 
@@ -41,7 +41,7 @@ the actual printed folder name.
 From the repository root, run:
 
 ```sh
-python3 app/scripts/version.py 0.0.7
+python3 app/tooling/version.py 0.0.7
 ```
 
 The script locates the pinned uv installed by bootstrap (including its private
@@ -61,7 +61,7 @@ file just to make the release pass.
 Use a clean, committed Git checkout and the bootstrapped interpreter:
 
 ```sh
-app/.venv/bin/python app/scripts/release.py
+app/.venv/bin/python app/tooling/release.py
 ```
 
 Release first runs the full local gate, archives the exact Git commit, builds a
@@ -70,14 +70,14 @@ environment, and runs it. The output in `app/dist/` contains the Wheel,
 `release.json`, `SHA256SUMS`, and `venv/`. Repeating Build Release chooses the
 next unused numbered directory without changing earlier builds. An explicit
 `--output <new-directory>` can select a location; an existing directory is
-rejected. The version remains `0.0.1` until project version metadata changes;
+rejected. The version stays at the value in `pyproject.toml` until you change it;
 different builds can have the same version and distinct commit hashes. Nothing
 is uploaded or published by this command.
 
 To verify the recorded Wheel digest manually, use the values printed by Release:
 
 ```sh
-app/.venv/bin/python app/scripts/verify_wheel.py <release-dir>/<wheel> <sha256>
+app/.venv/bin/python app/tooling/verify_wheel.py <release-dir>/<wheel> <sha256>
 ```
 
 ## Checks and formatting
@@ -91,10 +91,10 @@ passed. Fix a failure and rerun; nothing is automatically formatted.
 To format all application Python files from the `app` working directory:
 
 ```sh
-.venv/bin/python -m ruff format src scripts tests
+.venv/bin/python -m ruff format src tooling examples tests
 ```
 
-From the repository root, use `app/src app/scripts app/tests` as the three paths.
+From the repository root, use `app/src app/tooling app/examples app/tests` as the four paths.
 Ruff lint is a separate check; `ruff check --fix` applies eligible lint fixes.
 
 ## PyCharm configurations
@@ -103,11 +103,11 @@ Use interpreter `<repo>/app/.venv/bin/python` and working directory `<repo>/app`
 For Run, Dev Run, Check, Test, and Version, choose a **Python** configuration with
 module `agent_playbook.cli` and parameters `run`, `dev-run`, `check`, `test`, or
 `version`. To run a particular version, set parameters to `run --version 0.0.1`.
-For Set Version, choose script `<repo>/app/scripts/version.py` and set parameters
+For Set Version, choose script `<repo>/app/tooling/version.py` and set parameters
 to the desired version, such as `0.0.7`. For Build Release, choose script
-`<repo>/app/scripts/release.py` and leave
+`<repo>/app/tooling/release.py` and leave
 parameters empty. For Ruff Format, choose module `ruff` and parameters
-`format src scripts tests`. To run Pyright alone, choose module `pyright` with no
+`format src tooling examples tests`. To run Pyright alone, choose module `pyright` with no
 parameters. The release path printed by Build Release lets you invoke an exact
 installed build in a terminal.
 
@@ -121,14 +121,26 @@ project interpreter, with no machine-specific interpreter path in Git.
 
 | Button | Action |
 |---|---|
-| Setup | Rerun `app/scripts/bootstrap.py` using the selected project interpreter |
+| Setup | Rerun `app/tooling/bootstrap.py` using the selected project interpreter |
 | Run | `agent-playbook run` — newest verified local release |
 | Types | Pyright strict |
 | Tests | `agent-playbook test` |
 | Check | Full local quality gate |
-| Release | `app/scripts/release.py` — build and verify an isolated release |
+| Release | `app/tooling/release.py` — build and verify an isolated release |
 
 If PyCharm does not show them, confirm the repository **root** is the open project,
 not the `app` subfolder, and check Run → Edit Configurations. Choose the project
 interpreter locally; do not store your home directory or `.idea` settings in Git.
 The first bootstrap still uses the terminal because `.venv` does not exist yet.
+
+## Folder migration before Stage 01
+
+Developer scripts now live in `app/tooling/` (formerly `app/scripts/`). Pull the
+refactor, then run `python3 app/tooling/bootstrap.py`. Shared Setup and Release
+configurations already point there; update any manually saved configurations to
+the same paths. CLI module `agent_playbook.cli` and command names are unchanged.
+
+Typing exercises moved to `app/examples/typing_example.py`. Formatting/checks now
+cover `src`, `tooling`, `examples`, and `tests`. Tests are grouped by component.
+Runtime CLI, application runner and release selection are separate subpackages.
+See [project structure](../../designs/project-structure.md) for all folder rules.

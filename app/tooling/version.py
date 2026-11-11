@@ -35,7 +35,7 @@ def main() -> None:
                 return
         except (OSError, IndexError, subprocess.CalledProcessError) as error:
             parser.exit(1, f"Could not update version: {error}\n")
-    parser.exit(1, "uv 0.13.6 was not found; run app/scripts/bootstrap.py first.\n")
+    parser.exit(1, "uv 0.13.6 was not found; run app/tooling/bootstrap.py first.\n")
 
 
 if __name__ == "__main__":

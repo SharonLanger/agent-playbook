@@ -8,7 +8,7 @@ From repository root:
 ```sh
 agent-playbook check
 agent-playbook version
-python app/scripts/release.py
+python app/tooling/release.py
 ```
 
 Development reports version 0.0.1 and source `development`. The script checks the
@@ -38,7 +38,7 @@ for all commands and selection rules.
 Replace `<release-dir>`, `<wheel>` and `<recorded-sha256>` with the printed values:
 
 ```sh
-python app/scripts/verify_wheel.py <release-dir>/<wheel> <recorded-sha256>
+python app/tooling/verify_wheel.py <release-dir>/<wheel> <recorded-sha256>
 <release-dir>/venv/bin/agent-playbook version
 <release-dir>/venv/bin/agent-playbook run
 ```

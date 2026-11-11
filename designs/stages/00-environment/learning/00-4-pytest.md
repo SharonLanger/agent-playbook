@@ -6,8 +6,8 @@ From repository root, run the same bootstrap and activate app/.venv.
 agent-playbook test
 ```
 
-Read app/tests/test_greeting.py. Temporarily change the `greeting(None)` result in
-src/agent_playbook/typing_example.py from `Hello, guest!` to `Hello, visitor!`.
+Read app/tests/examples/test_greeting.py. Temporarily change the `greeting(None)` result in
+app/examples/typing_example.py from `Hello, guest!` to `Hello, visitor!`.
 Run `agent-playbook test`: the regression should fail. Undo just that edit and
 rerun: all tests pass. This tests behavior; Pyright can accept either string.
 

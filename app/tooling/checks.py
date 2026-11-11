@@ -1,5 +1,6 @@
 """Development-only commands; installed releases have no checkout or dev tools."""
 
+import argparse
 import importlib.util
 import subprocess
 import sys
@@ -37,7 +38,7 @@ def print_summary(labels: list[str], results: list[int | None]) -> None:
 
 
 def run_tools(commands: list[list[str]]) -> int:
-    app = Path(__file__).resolve().parents[2]
+    app = Path(__file__).resolve().parents[1]
     if not (app / "pyproject.toml").is_file() or not (app / "tests").is_dir():
         print(
             "Development command requires a source checkout; run its bootstrap.",
@@ -79,3 +80,25 @@ def run_tools(commands: list[list[str]]) -> int:
             return code
     print_summary(labels, results)
     return 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "command", choices=("check", "test"), nargs="?", default="check"
+    )
+    args = parser.parse_args()
+    if args.command == "test":
+        return run_tools([["pytest", "-q", "tests"]])
+    return run_tools(
+        [
+            ["pyright"],
+            ["ruff", "check", "src", "tooling", "examples", "tests"],
+            ["ruff", "format", "--check", "src", "tooling", "examples", "tests"],
+            ["pytest", "-q", "tests"],
+        ]
+    )
+
+
+if __name__ == "__main__":
+    sys.exit(main())

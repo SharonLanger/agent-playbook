@@ -5,7 +5,8 @@ This repository has one active design workspace in `designs/` and an executable 
 ## Read before working
 1. Read `designs/README.md` for the document inventory.
 2. Read `designs/charter.md`, `designs/architecture.md`, `designs/principles.md`, `designs/roadmap.md`, and `designs/progress.md`.
-3. For an active stage, read its approved architecture and plan before implementation.
+3. Read `designs/project-structure.md`; it is the guarded authority for code placement and dependency boundaries.
+4. For an active stage, read its approved architecture and plan before implementation.
 
 ## Governance
 - Charter, target architecture, and principles are proposed baselines until explicitly approved. Once approved, they are protected.
@@ -13,6 +14,8 @@ This repository has one active design workspace in `designs/` and an executable 
 - Never change protected text without presenting **each exact added, edited, or deleted line** and obtaining explicit user approval beforehand.
 - Stop when a proposed implementation contradicts the target or locked stage design. Experiments may explore alternatives without silently changing baselines.
 - Progress, learning explanations, and findings may evolve with verified evidence. Distinguish hypotheses from observations.
+
+- The approved project structure is protected. Follow its change rules before moving component boundaries.
 
 ## Engineering
 - Keep external integrations isolated behind explicit contracts/adapters. Configure provider endpoints, credentials, and environment-specific settings externally; never commit secrets.
@@ -22,4 +25,4 @@ This repository has one active design workspace in `designs/` and an executable 
 - Do not create detailed designs for future stages ahead of their turn.
 
 ## Status
-Stage 00 is designed and under implementation. See `designs/progress.md` for current acceptance and open PRs. The top-level architecture describes the target system; stage architectures describe incremental end states. Review architecture changes through their PR; do not infer implementation completion from target diagrams.
+Stage 00 has been accepted by the user. The approved structure refactor prepares for Stage 01; Stage 01 behavior still requires its own approved design. See `designs/progress.md` for current acceptance and open PRs. The top-level architecture describes the target system; stage architectures describe incremental end states. Review architecture changes through their PR; do not infer implementation completion from target diagrams.
