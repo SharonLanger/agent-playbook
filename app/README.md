@@ -2,13 +2,19 @@
 
 ## Setup
 
-Open this repository in PyCharm and select the project interpreter at
-`app/.venv/bin/python` after running the bootstrap command once from the
-repository root:
+Open the **repository root** (`agent-playbook`) as the PyCharm project. First
+run bootstrap from the repository root:
 
 ```sh
 python3 app/scripts/bootstrap.py
 ```
+
+Then choose **Add Interpreter → Existing environment** and select
+`<repo>/app/.venv/bin/python` as the project interpreter. PyCharm's project
+interpreter setting is local to your machine; the committed configurations in
+[`.run/`](../.run/) use that project interpreter and `$PROJECT_DIR$/app` paths.
+After pulling them, the Run menu should show Setup, Run, Types, Tests, Check and
+Release. `Run` selects the latest built release; use `dev-run` for editable code.
 
 Bootstrap provisions the pinned Python and development tools, installs the project
 in `app/.venv`, and runs the editable example and local quality checks. Run the

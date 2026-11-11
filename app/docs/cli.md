@@ -110,3 +110,25 @@ parameters empty. For Ruff Format, choose module `ruff` and parameters
 `format src scripts tests`. To run Pyright alone, choose module `pyright` with no
 parameters. The release path printed by Build Release lets you invoke an exact
 installed build in a terminal.
+
+## Shared PyCharm buttons
+
+Open the repository root (`agent-playbook`) in PyCharm. Run bootstrap once, then
+register `<repo>/app/.venv/bin/python` as the **project interpreter**. The six
+project files in [`.run/`](../../.run/) should appear in the Run dropdown after
+pulling this branch. They use `$PROJECT_DIR$/app` as working directory and the
+project interpreter, with no machine-specific interpreter path in Git.
+
+| Button | Action |
+|---|---|
+| Setup | Rerun `app/scripts/bootstrap.py` using the selected project interpreter |
+| Run | `agent-playbook run` — newest verified local release |
+| Types | Pyright strict |
+| Tests | `agent-playbook test` |
+| Check | Full local quality gate |
+| Release | `app/scripts/release.py` — build and verify an isolated release |
+
+If PyCharm does not show them, confirm the repository **root** is the open project,
+not the `app` subfolder, and check Run → Edit Configurations. Choose the project
+interpreter locally; do not store your home directory or `.idea` settings in Git.
+The first bootstrap still uses the terminal because `.venv` does not exist yet.
