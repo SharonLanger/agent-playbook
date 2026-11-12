@@ -18,6 +18,16 @@ This repository has one active design workspace in `designs/` and an executable 
 
 - The approved project structure is protected. Follow its change rules before moving component boundaries.
 
+## Principle compliance
+Before implementation and before marking a PR ready, review the applicable charter,
+principles, and approved designs. Record brief evidence of compliance and raise
+conflicts before proceeding. Passing tests alone does not establish compliance.
+
+- At design time, check every principle; identify the applicable ones and explain any non-applicable items briefly.
+- Before review, compare the actual changes with that assessment. In the PR description or findings, link concrete files, checks, or decisions supporting compliance.
+- Resolve conflicts with the user before implementing them; a stage plan cannot silently override a project principle.
+- Automate suitable checks where practical, while retaining human review for architectural and security decisions.
+
 ## Documentation retention
 - Keep stage designs, plans, lessons, examples, findings and diagrams permanently under `designs/stages/<stage>/`, including during review. Follow `designs/README.md` to locate them.
 - Reserve `designs/temporary/` only for disposable agent-to-agent handoffs. Preserve lasting decisions in permanent documents before deleting a handoff. Never delete stage material as part of handoff cleanup.

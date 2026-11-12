@@ -3,12 +3,13 @@
 Rules for developing and evolving the application.
 
 1. **Explicit approvals:** Never change an approved protected file without presenting each changed line and receiving explicit approval before editing.
-2. **No design drift:** Implementation must conform to both the approved target architecture and the active stage's approved architecture. Conflicts pause implementation.
-3. **Learning first:** Each stage includes learn, design, approval/lock, experiment, implementation, verification, and findings. Experiments are permitted without silently altering baselines.
-4. **Isolated integrations:** Put each external provider behind a small, explicit interface/adapter. Workflow logic must not depend directly on provider-specific clients.
-5. **Configurable environments:** Inject or load configuration for URLs, credentials, provider selection and settings. Use environment variables for secrets and environment overrides; do not commit secrets. Validate required settings on startup.
-6. **Reproducible quality gates:** Strict static typing (Pyright), lint/format checks (Ruff), deterministic tests (pytest), and pinned dependencies (uv) form the development foundation.
-7. **Evidence over claims:** Record actual test results, known limitations, and observed behavior. Never mark unverified work complete.
-8. **Incremental scope:** Design future stages only when they become current. The roadmap is provisional and may be revised deliberately.
-9. **Local-first:** Support local development and configurable service deployment; do not assume that using a remote model is offline.
-10. **No silent migration:** Preserve historical playbook files and semantics during the proposed sandbox migration; do not delete or rewrite history without review.
+2. **Security from the start:** Never commit secrets or expose them in logs or release artifacts. Keep credentials external, use safe defaults, and avoid shortcuts that would require a security redesign later.
+3. **No design drift:** Implementation must conform to both the approved target architecture and the active stage's approved architecture. Conflicts pause implementation.
+4. **Learning first:** Each stage includes learn, design, approval/lock, experiment, implementation, verification, and findings. Experiments are permitted without silently altering baselines.
+5. **Isolated integrations:** Put each external provider behind a small, explicit interface/adapter. Workflow logic must not depend directly on provider-specific clients.
+6. **External configuration:** Keep third-party integration settings in configuration files, with documented environment overrides and startup validation. Keep workflow-specific settings separate; these may be named constants or workflow configuration.
+7. **Reproducible quality gates:** Strict static typing (Pyright), lint/format checks (Ruff), deterministic tests (pytest), and pinned dependencies (uv) form the development foundation.
+8. **Evidence over claims:** Record actual test results, known limitations, and observed behavior. Never mark unverified work complete.
+9. **Incremental scope:** Design future stages only when they become current. The roadmap is provisional and may be revised deliberately.
+10. **Local-first:** Support local development and configurable service deployment; do not assume that using a remote model is offline.
+11. **No silent migration:** Preserve historical playbook files and semantics during the proposed sandbox migration; do not delete or rewrite history without review.
