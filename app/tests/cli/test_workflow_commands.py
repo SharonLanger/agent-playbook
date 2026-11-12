@@ -59,3 +59,13 @@ def test_direct_module_default() -> None:
     )
     assert result.returncode == 0
     assert "[WF-01] result: [Hello, workflow!]" in result.stdout
+
+
+def test_explicit_configuration_is_forwarded_to_selected_release() -> None:
+    with patch.object(commands, "run_release", return_value=0) as launch:
+        assert (
+            commands.main(["run", "--config", "/path with spaces/settings.yaml"]) == 0
+        )
+        launch.assert_called_once_with(
+            None, ["--config", "/path with spaces/settings.yaml"]
+        )

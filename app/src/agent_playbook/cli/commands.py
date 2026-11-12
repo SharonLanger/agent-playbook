@@ -12,6 +12,7 @@ from agent_playbook.application.results import (
 )
 from agent_playbook.application.runner import run_workflow
 from agent_playbook.cli.development import run_development
+from agent_playbook.config.errors import ConfigurationError
 from agent_playbook.releases.selection import run_release
 
 
@@ -35,6 +36,10 @@ def build_parser() -> argparse.ArgumentParser:
             "--input",
             dest="workflow_input",
             help="JSON object: wf-01 {}; wf-02 initial/increment/multiplier; wf-03 score.",
+        )
+        workflow_parser.add_argument(
+            "--config",
+            help="External YAML configuration (overrides AGENT_PLAYBOOK_CONFIG).",
         )
     commands.add_parser("test", help="Run pytest in the development checkout.")
     check_parser = commands.add_parser(
@@ -79,17 +84,19 @@ def main(argv: list[str] | None = None) -> int:
                 "agent-playbook"
             ):
                 parser.error("This release can run only its own version.")
-            return present_workflow(args.workflow, args.workflow_input)
+            return present_workflow(args.workflow, args.workflow_input, args.config)
         forwarded: list[str] = []
         if args.workflow is not None:
             forwarded.extend(["--workflow", args.workflow])
         if args.workflow_input is not None:
             forwarded.extend(["--input", args.workflow_input])
+        if args.config is not None:
+            forwarded.extend(["--config", args.config])
         return run_release(args.release_version, forwarded)
     if args.command == "dev-run":
         if SOURCE_COMMIT != "development":
             parser.error("dev-run requires a source checkout.")
-        return present_workflow(args.workflow, args.workflow_input)
+        return present_workflow(args.workflow, args.workflow_input, args.config)
     if args.command == "check":
         flags = [
             f"--{name}" for name in ("types", "lint", "format") if getattr(args, name)
@@ -106,13 +113,20 @@ def main(argv: list[str] | None = None) -> int:
 
 
 def present_workflow(
-    workflow_id: str | None = None, raw_input: str | None = None
+    workflow_id: str | None = None,
+    raw_input: str | None = None,
+    config_path: str | None = None,
 ) -> int:
     """Map input and execution failures separately; presentation belongs to the CLI."""
     try:
         result = run_workflow(
-            "wf-01" if workflow_id is None else workflow_id, raw_input
+            "wf-01" if workflow_id is None else workflow_id,
+            raw_input,
+            config_path=config_path,
         )
+    except ConfigurationError as error:
+        print(f"Configuration error: {error}", file=sys.stderr)
+        return 2
     except WorkflowInputError as error:
         print(f"Input error: {error}", file=sys.stderr)
         return 2

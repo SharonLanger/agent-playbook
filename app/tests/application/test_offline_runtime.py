@@ -14,7 +14,9 @@ def test_fresh_process_offline_runtime(tmp_path: Path) -> None:
         if not k.endswith("_API_KEY")
         and k not in ("CREWAI_TOKEN", "PYTHONPATH", "PYTHONHOME")
     }
-    # Deliberately hostile inherited preferences: the local stage overrides them.
+    # Verification selects its own explicit offline fixture; user settings are separate.
+    env["AGENT_PLAYBOOK_CREWAI_TRACING_ENABLED"] = "true"
+    env["AGENT_PLAYBOOK_CONFIG"] = str(tmp_path / "missing-user-config.yaml")
     env["CREWAI_DISABLE_TELEMETRY"] = "false"
     env["CREWAI_TRACING_ENABLED"] = "true"
     result = subprocess.run(

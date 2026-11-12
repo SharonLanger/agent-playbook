@@ -7,7 +7,12 @@ from agent_playbook.application.results import (
 )
 
 
-def run_workflow(workflow_id: str = "wf-01", raw_input: str | None = None) -> RunResult:
+def run_workflow(
+    workflow_id: str = "wf-01",
+    raw_input: str | None = None,
+    *,
+    config_path: str | None = None,
+) -> RunResult:
     if workflow_id not in ("wf-01", "wf-02", "wf-03"):
         raise WorkflowInputError(
             f"Unknown workflow {workflow_id!r}; use wf-01, wf-02 or wf-03."
@@ -15,6 +20,12 @@ def run_workflow(workflow_id: str = "wf-01", raw_input: str | None = None) -> Ru
 
     # Keep help, version, tooling and release selection free of framework imports.
     from pydantic import TypeAdapter, ValidationError
+
+    from agent_playbook.config.crewai import configure_crewai
+    from agent_playbook.config.loader import load_configuration
+
+    settings = load_configuration(config_path).integrations.crewai
+    configure_crewai(settings)
 
     from agent_playbook.workflows.wf_01_step_sequence.flow import StepSequenceFlow
     from agent_playbook.workflows.wf_02_shared_state.flow import SharedStateFlow
@@ -39,7 +50,10 @@ def run_workflow(workflow_id: str = "wf-01", raw_input: str | None = None) -> Ru
                 raise WorkflowInputError(
                     "wf-01 accepts no input fields; use {} or omit --input."
                 )
-            flow = StepSequenceFlow(tracing=False, suppress_flow_events=True)
+            flow = StepSequenceFlow(
+                tracing=settings.tracing_enabled,
+                suppress_flow_events=not settings.show_framework_events,
+            )
         elif workflow_id == "wf-02":
             numbers = NumberInput.model_validate(data)
             flow = SharedStateFlow(
@@ -48,15 +62,15 @@ def run_workflow(workflow_id: str = "wf-01", raw_input: str | None = None) -> Ru
                     increment=numbers.increment,
                     multiplier=numbers.multiplier,
                 ),
-                tracing=False,
-                suppress_flow_events=True,
+                tracing=settings.tracing_enabled,
+                suppress_flow_events=not settings.show_framework_events,
             )
         else:
             score = ScoreInput.model_validate(data)
             flow = ConditionalRouteFlow(
                 initial_state=ScoreState(score=score.score),
-                tracing=False,
-                suppress_flow_events=True,
+                tracing=settings.tracing_enabled,
+                suppress_flow_events=not settings.show_framework_events,
             )
     except ValidationError as error:
         raise WorkflowInputError(f"Invalid {workflow_id} input: {error}") from error

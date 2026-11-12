@@ -6,6 +6,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from agent_playbook.config.paths import configuration_path
+
 
 def find_release(
     requested_version: str | None, releases_dir: Path | None = None
@@ -59,6 +61,10 @@ def run_release(
     env = os.environ.copy()
     env.pop("PYTHONPATH", None)
     env.pop("PYTHONHOME", None)
+    # Pass the shared external path, never a copy inside a versioned release.
+    # Environment forwarding preserves old releases that do not accept --config.
+    if "--config" not in (arguments or []) and "AGENT_PLAYBOOK_CONFIG" not in env:
+        env["AGENT_PLAYBOOK_CONFIG"] = str(configuration_path())
     return subprocess.run(
         [str(executable), "-I", "-m", "agent_playbook.cli", "run", *(arguments or [])],
         env=env,

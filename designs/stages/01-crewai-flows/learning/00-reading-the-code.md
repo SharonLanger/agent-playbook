@@ -1,5 +1,7 @@
 # Stage 01 — Verify first, then read the code
 
+New to CrewAI? Read [Lesson 1: Flow basics](01-flow-basics.md), then WF-01's `steps.py` and `flow.py`. Return to this shared CLI/runner map afterward.
+
 This is the starting point for learning the three implemented examples. All are available
 in one implementation PR at Sharon's request; learn them in order. There are no model keys,
 prompts, real agents or Langfuse services to configure. Each workflow is independent and
@@ -50,7 +52,7 @@ or framework internals. The diagram describes ownership; the table describes an 
 | [cli/commands.py](../../../../app/src/agent_playbook/cli/commands.py) | `build_parser`, `main`, `present_workflow`: parse, select source/release, print and return status | Yes |
 | [application/runner.py](../../../../app/src/agent_playbook/application/runner.py) | `run_workflow`: validate JSON and selected input, construct a fresh flow, call kickoff | Yes |
 | [application/results.py](../../../../app/src/agent_playbook/application/results.py) | Immutable RunResult; different input/execution error classes | Yes |
-| [workflows/__init__.py](../../../../app/src/agent_playbook/workflows/__init__.py) | Disable CrewAI usage telemetry and AMP tracing before importing flow modules | Stage-wide local policy |
+| [config/](../../../../app/src/agent_playbook/config/README.md) | Load external settings, validate them, and configure CrewAI before flow imports | Shared integration configuration |
 | Selected workflow's `flow.py` | Decorators describe step dependencies; messages show real execution | Specific to that workflow |
 | Selected workflow's `steps.py` | Ordinary Python computations independent of scheduling | Specific to that workflow |
 
@@ -118,3 +120,4 @@ relevant failure → restore it → run Check. Keep each session focused on one 
 No additional setup decisions are needed from Sharon before reviewing this implementation.
 The remaining local acceptance is running Setup, Check and the three workflow buttons in
 macOS PyCharm and confirming the embedded animations display as expected.
+

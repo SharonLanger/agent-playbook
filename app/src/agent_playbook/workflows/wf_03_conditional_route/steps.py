@@ -2,6 +2,8 @@
 
 from agent_playbook.workflows.wf_03_conditional_route.state import Decision
 
+PASS_THRESHOLD = 60
+
 
 def decide(score: int) -> Decision:
-    return "pass" if score >= 60 else "needs_work"
+    return "pass" if score >= PASS_THRESHOLD else "needs_work"

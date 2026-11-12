@@ -56,3 +56,17 @@ Acceptance includes starting all three flows from the release venv with no edita
 on its import path, then editing source and proving the old release remains unchanged. A
 passing source test suite alone does not establish a usable release. Network may be needed
 for dependency downloads; successful offline workflow execution is a separate verification.
+
+
+## Configuration stays outside the release
+
+The source CLI passes the chosen external YAML path to installed runs. Edit settings
+and rerun the same version; code remains installed and isolated while settings are
+read again. `--config PATH` selects another file. For direct installed execution,
+provide that option or `AGENT_PLAYBOOK_CONFIG`. See the
+[configuration guide](../../../../app/configs/README.md) for local overrides,
+environment references, startup order and the PyCharm exercise.
+
+Integration settings belong under `integrations.crewai`; WF-03's threshold remains
+its own named code constant. Tests and release verification use offline fixture settings,
+so personal configuration does not change the verification network policy.

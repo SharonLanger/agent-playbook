@@ -1,5 +1,8 @@
 # Stage 01 — Implementation verification
 
+Configuration follow-up evidence is recorded separately in [configuration-findings.md](configuration-findings.md).
+The 97-test/release measurements below describe the earlier implementation before external configuration.
+
 Verified 2026-11-12 on Linux x86_64, Python 3.13.5. Sharon authorized all three independent
 workflows in one implementation PR after merging the design. Mac/PyCharm acceptance and the
 learning sessions remain pending; implementation verification is not a claim that learning
@@ -160,3 +163,4 @@ The authoring policy now requires direct animated SVG embeds for future explanat
 Actual playback in Sharon's Markdown/PyCharm viewer is not verified here. A viewer that suppresses
 SVG motion, or a reduced-motion preference, can still display a static diagram. This limitation
 is separate from the prior mistake of embedding the deliberately static files by default.
+

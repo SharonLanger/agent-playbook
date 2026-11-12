@@ -13,6 +13,9 @@ use underscores. Each named workflow has its own test directory.
 | `src/agent_playbook/application/results.py` | Small immutable successful RunResult | Reused; no workflow state here |
 | `src/agent_playbook/releases/selection.py` | Forward workflow/input argv to selected installation | Reused; preserve version selection and isolation |
 | `src/agent_playbook/__main__.py` | Preserve direct-module default run | Reused entry point; defaults to WF-01 in Stage 01 |
+| `configs/` | Shared YAML, ignored local overrides and operating rules | Reused across application releases |
+| `src/agent_playbook/config/` | Paths, validated settings, YAML loading and CrewAI startup mapping | Reused; workflow rules stay separate |
+| `tests/config/` | Precedence, validation, private errors and startup/reload tests | Shared configuration tests |
 | `tooling/` | Existing setup/check/version/release machinery | Reused; runtime dependency installation added deliberately |
 | `tests/application/test_runner.py` | Selection, input rejection, fresh invocation, normalized outcomes | Shared application tests |
 | `tests/cli/test_workflow_commands.py` | Parsing, argv forwarding, exit codes, help | Shared CLI tests |
@@ -39,7 +42,7 @@ actual merged tree before extending these owners. No workflow imports `tooling` 
 
 WF-01 intentionally has no empty state.py. Workflow functions may be called directly in unit
 tests, but end-to-end flow tests use kickoff. Similar tiny formulas are not grounds for a shared
-utils module. Future execution/observability/config folders stay reserved until needed.
+utils module. Future execution/observability folders stay reserved until needed; configuration is now implemented.
 
 ## Tests: the folder identifies the subject
 
@@ -66,3 +69,4 @@ instructions belong in each lesson; the durable CLI guide lists public options c
 The implementation also adds `tooling/verify_runtime.py` for installed/offline checks and
 shared CLI/application tests, all within the approved component boundaries. Three Test WF
 PyCharm tasks accompany the three run tasks so each example can be verified independently.
+

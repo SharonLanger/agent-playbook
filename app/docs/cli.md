@@ -34,7 +34,7 @@ Review its edits and rerun `check`.
 
 ## Select a workflow
 
-Both `dev-run` and `run` accept `--workflow` and `--input`. The default is wf-01.
+Both `dev-run` and `run` accept `--workflow`, `--input` and `--config PATH`. The default is wf-01.
 `--input` must be one JSON-object argument. These options are available from version 0.1.0.
 
 | Workflow | Input fields/defaults | Result |
@@ -51,7 +51,7 @@ agent-playbook run --version 0.1.0 --workflow wf-03 --input '{"score":80}'
 
 Unknown fields, numeric strings, booleans as integers and malformed/non-object JSON are
 rejected before steps start. Exit codes: 0 for success (including needs_work), 2 for invalid
-input/usage or missing release, 1 for a workflow execution failure. Every run gets a new flow.
+input/configuration/usage or missing release, 1 for a workflow execution failure. Every run gets a new flow.
 `python -m agent_playbook` executes default WF-01 directly.
 
 The editable release launcher forwards explicit workflow/input arguments unchanged as argv
@@ -59,8 +59,23 @@ entries; the selected release validates its own schema. A bare run can still lau
 Stage 00 release. Sending new options to an older release surfaces its usage error rather than
 silently ignoring them or running editable code.
 
-Read the [overall code guide](../../designs/stages/01-crewai-flows/learning/00-reading-the-code.md)
+Read [CrewAI basics](../../designs/stages/01-crewai-flows/learning/01-flow-basics.md) first, then the [overall code guide](../../designs/stages/01-crewai-flows/learning/00-reading-the-code.md)
 and its per-workflow guides for code, debugging exercises and expected test outputs.
+
+## Runtime configuration
+
+See [configuration rules and examples](../configs/README.md). Runtime settings live
+in `app/configs/application.yaml`, separate from package/version metadata. Source
+runs use that file by default; the source release launcher passes its path to the
+selected installation. `--config PATH` overrides `AGENT_PLAYBOOK_CONFIG`; both
+allow another external file. Installed releases invoked directly need one of those
+selectors. An optional sibling `.local.yaml` overrides shared fields, followed by
+explicitly documented environment overrides.
+
+Edit the file and rerun the same release: no rebuild or version bump is needed.
+Configuration is read per invocation, not hot-reloaded mid-run. Missing/invalid settings
+fail with exit 2 before workflow steps. Settings are validated by the selected release,
+so an old release may reject a newer schema. Help/version need no configuration.
 
 ## Editable source versus releases
 
@@ -79,7 +94,7 @@ that exact release rather than searching for another. For an exact build:
 
 ```sh
 app/dist/<actual-release-folder>/venv/bin/agent-playbook version
-app/dist/<actual-release-folder>/venv/bin/agent-playbook run
+app/dist/<actual-release-folder>/venv/bin/agent-playbook run --config "$PWD/app/configs/application.yaml"
 ```
 
 Developer commands (`check`, `test`, `format`, `version patch`, `release`) require
@@ -114,7 +129,7 @@ Release runs the full gate, archives the exact Git commit, builds a Wheel,
 exports production dependencies with hashes from that same archived lockfile, installs them
 in an isolated environment, then installs the hash-verified application wheel with no new
 dependency resolution. It checks dependency consistency, every workflow/both routes, invalid
-input, a network-denied fresh-process probe, import isolation and version/source metadata. It also verifies rejection of developer
+input, a network-denied fresh-process probe using a dedicated offline fixture, import isolation and version/source metadata. It also verifies rejection of developer
 commands. A release is marked complete only after verification succeeds.
 
 Default output is `app/dist/<version>-<commit-prefix>/`, containing the wheel,
@@ -122,7 +137,7 @@ Default output is `app/dist/<version>-<commit-prefix>/`, containing the wheel,
 The manifest records wheel, requirements and lock hashes. The wheel contains the application
 package, not the repository or the entire dependency tree. The venv contains the installed
 runtime dependencies; CrewAI makes it much larger than the application wheel. Dev-only pytest,
-Pyright and Ruff are excluded. Dependency downloads may need network; workflow runs do not. Repeated builds choose `-2`, `-3`, etc.
+Pyright and Ruff are excluded. Dependency downloads may need network; workflow runs with telemetry/tracing disabled do not. Repeated builds choose `-2`, `-3`, etc.
 An explicit output directory must not exist. Builds preserve the committed version;
 no automatic bump, commit, push or upload occurs. The script remains available:
 
@@ -168,3 +183,4 @@ Scripts moved from `app/scripts/` to `app/tooling/`; typing exercises now live i
 The gate covers `src`, `tooling`, `examples`, and `tests`. For direct Ruff usage,
 run `python -m ruff format src tooling examples tests` from `app`.
 See the [guarded project structure](../../designs/project-structure.md).
+

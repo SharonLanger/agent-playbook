@@ -7,7 +7,9 @@ regression probe for these Python workflow paths, not an OS network sandbox.
 
 import contextlib
 import io
+import os
 import sys
+from pathlib import Path
 
 
 def main() -> None:
@@ -23,6 +25,14 @@ def main() -> None:
             attempts.append(event)
             raise RuntimeError(f"Unexpected network attempt: {event}")
 
+    # Verification uses committed fixture data, never the user's active settings.
+    configuration = Path(__file__).resolve().parents[1] / "tests/fixtures/offline.yaml"
+    for name in (
+        "AGENT_PLAYBOOK_CREWAI_USAGE_TELEMETRY_ENABLED",
+        "AGENT_PLAYBOOK_CREWAI_TRACING_ENABLED",
+        "AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS",
+    ):
+        os.environ.pop(name, None)
     sys.addaudithook(block_network)
     from agent_playbook.cli.commands import main as cli_main
 
@@ -38,7 +48,17 @@ def main() -> None:
     for workflow, raw, expected in cases:
         output = io.StringIO()
         with contextlib.redirect_stdout(output):
-            code = cli_main([command, "--workflow", workflow, "--input", raw])
+            code = cli_main(
+                [
+                    command,
+                    "--config",
+                    str(configuration),
+                    "--workflow",
+                    workflow,
+                    "--input",
+                    raw,
+                ]
+            )
         if (
             code != 0
             or f"[{workflow.upper()}] result: {expected}"
@@ -48,7 +68,17 @@ def main() -> None:
         print(f"PASS {workflow} {raw} -> {expected}")
     output = io.StringIO()
     with contextlib.redirect_stderr(output):
-        code = cli_main([command, "--workflow", "wf-03", "--input", '{"score":101}'])
+        code = cli_main(
+            [
+                command,
+                "--config",
+                str(configuration),
+                "--workflow",
+                "wf-03",
+                "--input",
+                '{"score":101}',
+            ]
+        )
     if code != 2 or "Input error" not in output.getvalue():
         raise RuntimeError("Invalid input did not produce exit 2.")
     if attempts:

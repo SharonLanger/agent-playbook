@@ -27,6 +27,9 @@ with `venv` and `ensurepip`; initial provisioning may require network access.
 starts the learning sessions, with per-workflow guides, expected outputs and test buttons.
 
 
+**[Runtime configuration](configs/README.md)** explains shared YAML, local overrides,
+environment settings and using the same configuration across releases.
+
 **[CLI and releases](docs/cli.md)** explains every command, PyCharm configuration,
 release selection, build output, exact release paths, and the quality gate.
 
@@ -36,3 +39,4 @@ release selection, build output, exact release paths, and the quality gate.
 Project layout: [guarded project structure](../designs/project-structure.md).
 
 Use **Dev Run** for source edits, **Run** for the latest release, and **Check** for all checks. **Bump Patch** updates version metadata; review and commit before **Release**. See the CLI guide for individual checks and **Format**.
+
