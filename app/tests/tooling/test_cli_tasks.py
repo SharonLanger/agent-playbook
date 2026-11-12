@@ -1,5 +1,6 @@
 """Selective checks and version bumps preserve their distinct responsibilities."""
 
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -70,3 +71,15 @@ def test_installed_release_cannot_mutate_checkout(task: str) -> None:
     ):
         assert development.run_development(task) == 2
         run.assert_not_called()
+
+
+def test_release_output_is_resolved_at_cli_boundary(tmp_path: Path) -> None:
+    with (
+        patch.object(commands, "run_development", return_value=0) as forward,
+        patch("os.getcwd", return_value=str(tmp_path)),
+    ):
+        assert commands.main(["release", "--output", "new folder"]) == 0
+    assert forward.call_args.args == (
+        "release",
+        ["--output", str(tmp_path / "new folder")],
+    )

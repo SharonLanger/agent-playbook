@@ -7,10 +7,13 @@ import sys
 from pathlib import Path
 
 
-def find_release(requested_version: str | None) -> tuple[Path, str] | None:
-    app = Path(__file__).resolve().parents[3]
+def find_release(
+    requested_version: str | None, releases_dir: Path | None = None
+) -> tuple[Path, str] | None:
+    if releases_dir is None:
+        releases_dir = Path(__file__).resolve().parents[3] / "dist"
     candidates: list[tuple[int, str, Path, str]] = []
-    for manifest in (app / "dist").glob("*/release.json"):
+    for manifest in releases_dir.glob("*/release.json"):
         try:
             data = json.loads(manifest.read_text())
             release_version = data["version"]

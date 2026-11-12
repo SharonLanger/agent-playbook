@@ -1,14 +1,17 @@
 """Prepare Stage 00.7 from any working directory using Python 3.10+."""
 
 import os
-import shutil
 import subprocess
 import sys
 import venv
 from pathlib import Path
 
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from tooling.toolchain import UV_VERSION, pinned_uv, private_uv_path
+
 APP = Path(__file__).resolve().parents[1]
-UV_VERSION = "0.13.6"
 
 
 def run(command: list[str], *, env: dict[str, str] | None = None) -> None:
@@ -21,18 +24,12 @@ def main() -> None:
         raise RuntimeError("Bootstrap requires Python 3.10+ with venv/ensurepip.")
 
     # Reuse only the pinned uv; otherwise provision it without changing global tools.
-    uv = shutil.which("uv")
-    if uv:
-        version = subprocess.run(
-            [uv, "--version"], check=True, capture_output=True, text=True
-        ).stdout.split()
-        if version[1] != UV_VERSION:
-            uv = None
+    uv = pinned_uv(APP)
     if not uv:
         tools = APP / ".bootstrap-tools"
         scripts = tools / ("Scripts" if os.name == "nt" else "bin")
         python = scripts / ("python.exe" if os.name == "nt" else "python")
-        uv = str(scripts / ("uv.exe" if os.name == "nt" else "uv"))
+        uv = str(private_uv_path(APP))
         if not python.exists():
             venv.EnvBuilder(with_pip=True).create(tools)
         run(

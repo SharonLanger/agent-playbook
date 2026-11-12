@@ -36,6 +36,11 @@ def test_latest_release_and_version_filter(tmp_path: Path) -> None:
         assert first.exists()
 
 
+def test_explicit_release_directory(tmp_path: Path) -> None:
+    installed = add_release(tmp_path, "0.2.0-abc", "0.2.0", 100)
+    assert selection.find_release(None, tmp_path / "dist") == (installed, "0.2.0")
+
+
 def test_incomplete_release_is_skipped_and_exit_code_propagates(tmp_path: Path) -> None:
     app = tmp_path / "app"
     with patch.object(
