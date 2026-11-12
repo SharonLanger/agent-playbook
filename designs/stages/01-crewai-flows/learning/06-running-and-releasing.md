@@ -1,9 +1,9 @@
 # Lesson 6 — Run the same workflow from source and a release
 
-**All workflow options below are proposed Stage 01 syntax, not current commands.**
+**These workflow options are implemented in Stage 01.**
 Current checks, formatting, version and release commands already exist and remain unchanged.
 
-## Proposed workflow invocation
+## Workflow invocation
 
 ```sh
 agent-playbook dev-run --workflow wf-01
@@ -43,14 +43,14 @@ independent choices. `version` reports the executable invoked, not the selected 
 6. Build `release`, then use `run` to execute the installed artifact.
 
 For first Stage 01 release, explicitly set 0.1.0 using the existing version script. Future
-patches use `version patch`. The documentation PR does not bump the project version.
+patches use `version patch`. The Stage 01 implementation uses version 0.1.0.
 
 ## Why release needs extra work for CrewAI
 
 The old application has no runtime dependencies. A new wheel imports CrewAI/Pydantic, so the
 release environment must contain their locked production dependency closure. Keeping only
 `pip install --no-deps <wheel>` would produce an incomplete installation. See architecture.md
-for the proposed locked export/install process and the 01.1 compatibility gate.
+for the locked export/install contract, and findings.md for the actual verification.
 
 Acceptance includes starting all three flows from the release venv with no editable source
 on its import path, then editing source and proving the old release remains unchanged. A

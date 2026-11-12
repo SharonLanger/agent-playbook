@@ -1,11 +1,16 @@
 """Parse commands and present application outcomes."""
 
 import argparse
+import sys
 from importlib.metadata import version
 from pathlib import Path
 
 from agent_playbook._build_info import SOURCE_COMMIT
-from agent_playbook.application.runner import main as run_main
+from agent_playbook.application.results import (
+    WorkflowExecutionError,
+    WorkflowInputError,
+)
+from agent_playbook.application.runner import run_workflow
 from agent_playbook.cli.development import run_development
 from agent_playbook.releases.selection import run_release
 
@@ -19,9 +24,18 @@ def build_parser() -> argparse.ArgumentParser:
         dest="release_version",
         help="Select the newest installed release of this version.",
     )
-    commands.add_parser(
+    dev_parser = commands.add_parser(
         "dev-run", help="Run editable source in the development checkout."
     )
+    for workflow_parser in (run_parser, dev_parser):
+        workflow_parser.add_argument(
+            "--workflow", help="Workflow ID: wf-01 (default), wf-02 or wf-03."
+        )
+        workflow_parser.add_argument(
+            "--input",
+            dest="workflow_input",
+            help="JSON object: wf-01 {}; wf-02 initial/increment/multiplier; wf-03 score.",
+        )
     commands.add_parser("test", help="Run pytest in the development checkout.")
     check_parser = commands.add_parser(
         "check", help="Run all checks, or selected checks."
@@ -65,14 +79,17 @@ def main(argv: list[str] | None = None) -> int:
                 "agent-playbook"
             ):
                 parser.error("This release can run only its own version.")
-            run_main()
-            return 0
-        return run_release(args.release_version)
+            return present_workflow(args.workflow, args.workflow_input)
+        forwarded: list[str] = []
+        if args.workflow is not None:
+            forwarded.extend(["--workflow", args.workflow])
+        if args.workflow_input is not None:
+            forwarded.extend(["--input", args.workflow_input])
+        return run_release(args.release_version, forwarded)
     if args.command == "dev-run":
         if SOURCE_COMMIT != "development":
             parser.error("dev-run requires a source checkout.")
-        run_main()
-        return 0
+        return present_workflow(args.workflow, args.workflow_input)
     if args.command == "check":
         flags = [
             f"--{name}" for name in ("types", "lint", "format") if getattr(args, name)
@@ -86,3 +103,21 @@ def main(argv: list[str] | None = None) -> int:
     if args.command in ("test", "format"):
         return run_development(args.command)
     parser.error("Unknown command")
+
+
+def present_workflow(
+    workflow_id: str | None = None, raw_input: str | None = None
+) -> int:
+    """Map input and execution failures separately; presentation belongs to the CLI."""
+    try:
+        result = run_workflow(
+            "wf-01" if workflow_id is None else workflow_id, raw_input
+        )
+    except WorkflowInputError as error:
+        print(f"Input error: {error}", file=sys.stderr)
+        return 2
+    except WorkflowExecutionError as error:
+        print(f"Workflow failed: {error}", file=sys.stderr)
+        return 1
+    print(f"[{result.workflow_id.upper()}] result: {result.output}")
+    return 0

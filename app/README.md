@@ -13,15 +13,19 @@ Then choose **Add Interpreter → Existing environment** and select
 `<repo>/app/.venv/bin/python` as the project interpreter. PyCharm's project
 interpreter setting is local to your machine; the committed configurations in
 [`.run/`](../.run/) use that project interpreter and `$PROJECT_DIR$/app` paths.
-After pulling them, the Run menu should show the twelve shared tasks listed in
+After pulling them, the Run menu should show the eighteen shared tasks listed in
 the CLI guide, including individual checks, Format, Bump Patch and Release. `Run` selects the latest built release; use `dev-run` for editable code.
 
 Bootstrap provisions the pinned Python and development tools, installs the project
-in `app/.venv`, and runs the editable example and local quality checks. Run the
+in `app/.venv`, and runs default WF-01 and local quality checks. Run the
 same command again to refresh the environment. The prerequisite is Python 3.10+
 with `venv` and `ensurepip`; initial provisioning may require network access.
 
 ## Documentation
+
+**[Stage 01: verify and read the code](../designs/stages/01-crewai-flows/learning/00-reading-the-code.md)**
+starts the learning sessions, with per-workflow guides, expected outputs and test buttons.
+
 
 **[CLI and releases](docs/cli.md)** explains every command, PyCharm configuration,
 release selection, build output, exact release paths, and the quality gate.

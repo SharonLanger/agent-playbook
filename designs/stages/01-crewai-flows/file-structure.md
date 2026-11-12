@@ -1,6 +1,6 @@
 # File ownership — reusable versus workflow-specific
 
-**Proposed end-of-stage layout. These runtime files are not created in this PR.**
+**Approved file ownership, implemented in the Stage 01 code PR.**
 Paths are relative to `app/`; `WF-01` is a display/CLI identifier, while Python package names
 use underscores. Each named workflow has its own test directory.
 
@@ -51,7 +51,7 @@ utils module. Future execution/observability/config folders stay reserved until 
 
 Because repeated test filenames will exist, add `__init__.py` consistently in `tests/`,
 `tests/workflows/` and each named workflow test package (or explicitly adopt pytest importlib
-mode after a compatibility check). Proposed default: package markers, preserving current
+mode after a compatibility check). Implemented choice: package markers, preserving current
 pytest mode. Verify collection alongside existing `tests/tooling` and `tests/cli`; no sys.path
 patches inside individual tests. These package markers are structural files, not shared logic.
 
@@ -62,3 +62,7 @@ README/architecture/plan/learning/workflows/diagrams structure. Approval updates
 named **WF-01 Sequence**, **WF-02 State**, **WF-03 Route**, invoking `agent_playbook.cli`
 with `dev-run --workflow wf-01`, etc. Existing Run/Dev Run default to WF-01. Workflow-specific
 instructions belong in each lesson; the durable CLI guide lists public options centrally.
+
+The implementation also adds `tooling/verify_runtime.py` for installed/offline checks and
+shared CLI/application tests, all within the approved component boundaries. Three Test WF
+PyCharm tasks accompany the three run tasks so each example can be verified independently.

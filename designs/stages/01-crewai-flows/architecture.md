@@ -1,8 +1,8 @@
 # Stage 01 — Completed-stage architecture
 
-**Review proposal. No Stage 01 implementation is included.**
+**Approved Stage 01 baseline — Sharon authorized implementation on 2026-11-12.**
 This is the intended final architecture for this stage; later Langfuse and agent stages
-retain their separate scope. Approval locks this document and the implementation plan.
+retain their separate scope. The behavioral baseline is locked; verification is recorded in findings.
 
 ![Stage ownership and selection](diagrams/00-architecture-animated.svg)
 [Optional pause controls](diagrams/00-architecture.html)
@@ -15,9 +15,9 @@ behavior works from PyCharm, the editable CLI and a clean isolated release. No m
 agent SDK, external business service or Langfuse server is required for a workflow run.
 Dependency installation can require network access; runtime offline behavior must be tested.
 
-## Responsibilities and proposed interfaces
+## Responsibilities and interfaces
 
-All signatures here are design contracts, not claims about existing symbols.
+These are the approved contracts; implementation and verification are linked from the learning guide.
 
 | Owner | Contract | Reuse |
 |---|---|---|
@@ -89,8 +89,8 @@ stage. These simple examples are intentionally not a production workflow engine.
 
 ## Dependencies, telemetry and release boundary
 
-The current Python target is 3.13; CrewAI is not installed in main. During 01.1, select and
-pin a compatible CrewAI distribution and explicitly declare Pydantic if imported directly.
+The Python target is 3.13. The implementation pins CrewAI 1.15.40 and explicitly declares
+Pydantic 2.12.5 because it is imported directly.
 Record resolved versions and import/typing behavior. Do not copy an unverified latest version
 into the baseline or weaken global Pyright strictness to hide third-party typing problems.
 
@@ -100,7 +100,7 @@ CrewAI telemetry and AMP tracing have separate disable controls. Verify the sele
 calls. Avoid globally disabling all OpenTelemetry as an architectural policy: Stage 02 needs it.
 Tests plus an isolated no-credentials/offline run must support any offline-runtime claim.
 
-**Release dependency proposal:** export the production dependency closure from the archived
+**Release dependency contract:** export the production dependency closure from the archived
 commit's lockfile, excluding the project and dev group, with hashes. Install those locked
 requirements into the fresh release venv, then install the separately hash-verified application
 wheel without resolving new dependencies. Preserve the lock/export and its hash as release

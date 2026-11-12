@@ -27,7 +27,7 @@ class NumberState(BaseModel):
     increment: int = 2
     multiplier: int = 4
     value: int = 0
-    history: list[int] = Field(default_factory=list)
+    history: list[int] = Field(default_factory=list[int])
 ```
 
 This excerpt explains ownership, not the finalized constructor/kickoff wiring. Validate
@@ -57,7 +57,7 @@ of value in both a mutable global and the flow state.
 - Input `{ "history": [999] }`: reject unknown external field, exit 2.
 - Run twice: each run has its own history; neither becomes `[3,5,20,3,5,20]`.
 
-Use `default_factory=list` to make per-instance ownership explicit. Test independent objects,
+Use `default_factory=list[int]` to make per-instance ownership explicit. Test independent objects,
 not Python list identity alone: run both flows and assert their real histories and outcomes.
 
 Tests live in `tests/workflows/wf_02_shared_state/test_state.py` and `test_flow.py`.

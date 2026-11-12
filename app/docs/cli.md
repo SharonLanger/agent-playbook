@@ -12,7 +12,7 @@ module entry point is `python -m agent_playbook.cli`.
 | `agent-playbook --help` | List commands; each command also accepts `--help` |
 | `agent-playbook dev-run` | Run current editable source; edits take effect immediately |
 | `agent-playbook run` | Run the latest completed local release |
-| `agent-playbook run --version 0.0.8` | Run the latest completed release of that version |
+| `agent-playbook run --version 0.1.0` | Run the latest completed release of that version |
 | `agent-playbook version` | Show version/source metadata of the CLI you invoked |
 | `agent-playbook check` | Types, lint, formatting verification, then tests |
 | `agent-playbook check --types` | Pyright only |
@@ -31,6 +31,36 @@ first failure and show PASS/FAIL/NOT RUN plus a final summary. A selected check'
 PASS means only that selection passed. Release always runs the complete gate.
 `format` changes formatting only; it does not automatically fix lint errors.
 Review its edits and rerun `check`.
+
+## Select a workflow
+
+Both `dev-run` and `run` accept `--workflow` and `--input`. The default is wf-01.
+`--input` must be one JSON-object argument. These options are available from version 0.1.0.
+
+| Workflow | Input fields/defaults | Result |
+|---|---|---|
+| wf-01 | No fields; omit input or `{}` | `[Hello, workflow!]` |
+| wf-02 | Strict integers initial=3, increment=2, multiplier=4; each -1000..1000 | `(initial + increment) * multiplier` |
+| wf-03 | Strict integer score=80, range 0..100 | `pass` for >=60; otherwise `needs_work` |
+
+```sh
+agent-playbook dev-run --workflow wf-02 --input '{"initial":10,"increment":-2,"multiplier":3}'
+agent-playbook dev-run --workflow wf-03 --input '{"score":40}'
+agent-playbook run --version 0.1.0 --workflow wf-03 --input '{"score":80}'
+```
+
+Unknown fields, numeric strings, booleans as integers and malformed/non-object JSON are
+rejected before steps start. Exit codes: 0 for success (including needs_work), 2 for invalid
+input/usage or missing release, 1 for a workflow execution failure. Every run gets a new flow.
+`python -m agent_playbook` executes default WF-01 directly.
+
+The editable release launcher forwards explicit workflow/input arguments unchanged as argv
+entries; the selected release validates its own schema. A bare run can still launch an older
+Stage 00 release. Sending new options to an older release surfaces its usage error rather than
+silently ignoring them or running editable code.
+
+Read the [overall code guide](../../designs/stages/01-crewai-flows/learning/00-reading-the-code.md)
+and its per-workflow guides for code, debugging exercises and expected test outputs.
 
 ## Editable source versus releases
 
@@ -58,7 +88,7 @@ checkout tooling is not bundled into the wheel.
 
 ## Patch, commit, release
 
-1. Run `agent-playbook version patch`, for example changing `0.0.8` to `0.0.9`.
+1. Run `agent-playbook version patch`, for example changing `0.1.0` to `0.1.1`.
 2. Review `app/pyproject.toml` and `app/uv.lock`, then commit the intended changes.
 3. Run `agent-playbook release` to build and verify that committed version.
 4. Run `agent-playbook run` to execute the new release.
@@ -81,12 +111,18 @@ do not discard unrelated edits just to make the build pass.
 ## Release behavior
 
 Release runs the full gate, archives the exact Git commit, builds a Wheel,
-records and verifies SHA-256, installs in an isolated environment, then checks
-execution and version/source metadata. It also verifies rejection of developer
+exports production dependencies with hashes from that same archived lockfile, installs them
+in an isolated environment, then installs the hash-verified application wheel with no new
+dependency resolution. It checks dependency consistency, every workflow/both routes, invalid
+input, a network-denied fresh-process probe, import isolation and version/source metadata. It also verifies rejection of developer
 commands. A release is marked complete only after verification succeeds.
 
 Default output is `app/dist/<version>-<commit-prefix>/`, containing the wheel,
-`release.json`, `SHA256SUMS` and `venv/`. Repeated builds choose `-2`, `-3`, etc.
+`release.json`, `SHA256SUMS`, `requirements.txt`, the archived `uv.lock`, and `venv/`.
+The manifest records wheel, requirements and lock hashes. The wheel contains the application
+package, not the repository or the entire dependency tree. The venv contains the installed
+runtime dependencies; CrewAI makes it much larger than the application wheel. Dev-only pytest,
+Pyright and Ruff are excluded. Dependency downloads may need network; workflow runs do not. Repeated builds choose `-2`, `-3`, etc.
 An explicit output directory must not exist. Builds preserve the committed version;
 no automatic bump, commit, push or upload occurs. The script remains available:
 
@@ -116,7 +152,10 @@ working directory and the selected interpreter, with no machine-specific paths.
 | Release | `release` |
 
 These are Python configurations using module `agent_playbook.cli`.
-**Setup**, the twelfth task, runs script `app/tooling/bootstrap.py`.
+**Setup**, the twelfth original task, runs script `app/tooling/bootstrap.py`.
+Stage 01 adds **WF-01 Sequence**, **WF-02 State**, **WF-03 Route** with `dev-run --workflow wf-0N`.
+It also adds **Test WF-01**, **Test WF-02**, **Test WF-03**, using module `pytest` with
+`-q tests/workflows/<named-workflow-folder>`. All 18 tasks use the project interpreter.
 For an exact major/minor version, manually run `app/tooling/version.py` with the
 version as its parameter. If tasks are missing, confirm the repository root is
 open and inspect Run → Edit Configurations. Existing manually saved tasks may

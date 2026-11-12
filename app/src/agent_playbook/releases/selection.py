@@ -42,7 +42,9 @@ def find_release(
     return executable, release_version
 
 
-def run_release(requested_version: str | None) -> int:
+def run_release(
+    requested_version: str | None, arguments: list[str] | None = None
+) -> int:
     selected = find_release(requested_version)
     if selected is None:
         detail = f" version {requested_version}" if requested_version else ""
@@ -58,7 +60,7 @@ def run_release(requested_version: str | None) -> int:
     env.pop("PYTHONPATH", None)
     env.pop("PYTHONHOME", None)
     return subprocess.run(
-        [str(executable), "-I", "-m", "agent_playbook.cli", "run"],
+        [str(executable), "-I", "-m", "agent_playbook.cli", "run", *(arguments or [])],
         env=env,
         check=False,
     ).returncode

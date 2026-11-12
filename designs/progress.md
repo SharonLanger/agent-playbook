@@ -1,6 +1,6 @@
 # Progress and acceptance
 
-Updated 2026-11-11. This file records implemented behavior; architecture.md describes
+Updated 2026-11-12. This file records implemented behavior; architecture.md describes
 the target system.
 
 | Work | Verified state |
@@ -37,4 +37,9 @@ visual-documentation PR; their exact correction requires separate review.
 Sharon accepted Stage 00 and approved the pre-Stage 01 folder refactor.
 `project-structure.md` records the guarded layout. The refactor separates runtime
 components from checkout-only tooling and examples, with reserved future folders.
-Stage 01 implementation has not started; review its design before adding CrewAI.
+PR #28 (CLI/tooling refactor) and PR #29 (Stage 01 design) are merged. Sharon approved
+implementing all three workflows together and learning them sequentially. Stage 01 code
+implements WF-01 sequence, WF-02 typed state and WF-03 exclusive routing, with strict inputs,
+shared CLI dispatch and dependency-aware releases. See the permanent Stage 01 findings for
+verification evidence and the code-reading guide for the learning order. Final Mac PyCharm
+acceptance remains pending; implementation readiness does not mark the learning stage complete.

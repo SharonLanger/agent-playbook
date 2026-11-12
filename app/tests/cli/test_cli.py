@@ -11,7 +11,7 @@ def test_dev_run() -> None:
         text=True,
     )
     assert result.returncode == 0
-    assert "Python environment ready." in result.stdout
+    assert "[WF-01] result: [Hello, workflow!]" in result.stdout
 
 
 def test_unknown_command() -> None:

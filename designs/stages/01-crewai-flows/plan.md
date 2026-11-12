@@ -1,8 +1,10 @@
 # Stage 01 — Implementation and learning sequence
 
-**Proposal for review. The documentation PR is complete before code starts.**
-All lesson and workflow contracts are available now. Implement one substage per reviewable PR;
-retain the runnable predecessor and update findings after each real verification.
+**Approved plan. Design PR #29 merged before implementation.**
+All lesson and workflow contracts are available. On 2026-11-12 Sharon authorized implementing
+all three independent workflows in one next PR. Keep the substage order below for learning
+and verification; update findings after real checks. This supersedes the earlier one-PR-per-
+substage packaging choice, without changing the three workflow contracts.
 
 | Substage | Principal task | Read first | Acceptance gate |
 |---|---|---|---|
@@ -37,7 +39,7 @@ PyCharm, and the next small step. Do not mark later substages implemented in adv
 
 ## Completion and version
 
-Current reviewed main is 0.0.10; this documentation PR does not change it. First Stage 01
-release is 0.1.0 using the existing exact-version script; later verified iterations can use
+The implementation starts from main 0.0.11 (preserving Sharon's patch update). First Stage 01
+release is 0.1.0 using the existing exact-version command; later verified iterations can use
 `version patch`. Choose the bump in its implementation PR, review/commit metadata, then build.
 No automatic commit/push, no GitHub Actions, no Langfuse, no real agents in Stage 01.
