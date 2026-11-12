@@ -10,8 +10,6 @@ from agent_playbook._build_info import SOURCE_COMMIT
 def run_development(command: str, arguments: list[str] | None = None) -> int:
     app = Path(__file__).resolve().parents[3]
     arguments = list(arguments or [])
-    if command == "release" and arguments:
-        arguments[1] = str(Path(arguments[1]).resolve())
     script_name = {"release": "release.py", "version": "version.py"}.get(
         command, "checks.py"
     )

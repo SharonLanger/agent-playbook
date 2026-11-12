@@ -2,13 +2,17 @@
 
 import argparse
 import re
-import shutil
 import subprocess
+import sys
 import tomllib
 from pathlib import Path
 
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from tooling.toolchain import pinned_uv
+
 APP = Path(__file__).resolve().parents[1]
-UV_VERSION = "0.13.6"
 
 
 def next_patch(current: str) -> str:
@@ -35,25 +39,17 @@ def main() -> None:
     if not re.fullmatch(r"\d+\.\d+\.\d+", args.version):
         parser.error("Use MAJOR.MINOR.PATCH, for example 0.0.7.")
 
-    private_uv = APP / ".bootstrap-tools" / "bin" / "uv"
-    candidates = [shutil.which("uv"), str(private_uv) if private_uv.is_file() else None]
-    for uv in candidates:
-        if uv is None:
-            continue
-        try:
-            reported = subprocess.check_output([uv, "--version"], text=True).split()
-            if reported[1] == UV_VERSION:
-                subprocess.run(
-                    [uv, "version", args.version, "--project", str(APP)], check=True
-                )
-                print(
-                    "Updated app/pyproject.toml and app/uv.lock. Review and commit "
-                    "both files, then run agent-playbook release. No commit, push or build was performed."
-                )
-                return
-        except (OSError, IndexError, subprocess.CalledProcessError) as error:
-            parser.exit(1, f"Could not update version: {error}\n")
-    parser.exit(1, "uv 0.13.6 was not found; run app/tooling/bootstrap.py first.\n")
+    uv = pinned_uv(APP)
+    if uv is None:
+        parser.exit(1, "Pinned uv was not found; run app/tooling/bootstrap.py first.\n")
+    try:
+        subprocess.run([uv, "version", args.version, "--project", str(APP)], check=True)
+    except (OSError, subprocess.CalledProcessError) as error:
+        parser.exit(1, f"Could not update version: {error}\n")
+    print(
+        "Updated app/pyproject.toml and app/uv.lock. Review and commit "
+        "both files, then run agent-playbook release. No commit, push or build was performed."
+    )
 
 
 if __name__ == "__main__":

@@ -2,6 +2,7 @@
 
 import argparse
 from importlib.metadata import version
+from pathlib import Path
 
 from agent_playbook._build_info import SOURCE_COMMIT
 from agent_playbook.application.runner import main as run_main
@@ -9,7 +10,7 @@ from agent_playbook.cli.development import run_development
 from agent_playbook.releases.selection import run_release
 
 
-def main() -> int:
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="agent-playbook")
     commands = parser.add_subparsers(dest="command", required=True)
     run_parser = commands.add_parser("run", help="Run the newest installed release.")
@@ -47,7 +48,12 @@ def main() -> int:
         choices=("patch",),
         help="Update TOML and lockfile; review and commit before release.",
     )
-    args = parser.parse_args()
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
     if args.command == "version":
         if args.action == "patch":
             return run_development("version", ["patch"])
@@ -74,7 +80,8 @@ def main() -> int:
         return run_development("check", flags)
     if args.command == "release":
         return run_development(
-            "release", ["--output", args.output] if args.output else []
+            "release",
+            ["--output", str(Path(args.output).resolve())] if args.output else [],
         )
     if args.command in ("test", "format"):
         return run_development(args.command)

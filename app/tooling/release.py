@@ -5,7 +5,6 @@ import hashlib
 import io
 import json
 import os
-import shutil
 import subprocess
 import sys
 import tarfile
@@ -13,7 +12,11 @@ import tempfile
 import tomllib
 from pathlib import Path
 
-from verify_wheel import verify_wheel
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from tooling.toolchain import pinned_uv
+from tooling.verify_wheel import verify_wheel
 
 APP = Path(__file__).resolve().parents[1]
 
@@ -45,7 +48,7 @@ def release_destination(output: Path | None, version: str, commit: str) -> Path:
     return destination.resolve()
 
 
-def build_release(output: Path | None) -> None:
+def validate_release_source() -> tuple[Path, str, str]:
     repo = Path(capture(["git", "rev-parse", "--show-toplevel"], APP))
     changes = capture(["git", "status", "--short", "--untracked-files=all"], repo)
     if changes:
@@ -69,25 +72,19 @@ def build_release(output: Path | None) -> None:
             f"{', '.join(locked_versions) or 'no project version'}. "
             "Run python app/tooling/version.py <version>, then commit both files."
         )
-    destination = release_destination(output, version, commit)
-    uv = shutil.which("uv")
-    if not uv:
-        uv = str(
-            APP
-            / ".bootstrap-tools"
-            / ("Scripts/uv.exe" if os.name == "nt" else "bin/uv")
-        )
-    if capture([uv, "--version"], APP).split()[1] != "0.13.6":
-        raise RuntimeError(
-            "Release requires uv 0.13.6; use the bootstrap-provisioned uv on PATH."
-        )
-    run([sys.executable, "-m", "agent_playbook.cli", "check"], APP)
+    return repo, commit, version
+
+
+def assert_source_unchanged(repo: Path, commit: str) -> None:
     if (
         capture(["git", "status", "--porcelain"], repo)
         or capture(["git", "rev-parse", "HEAD"], repo) != commit
     ):
         raise RuntimeError("Checkout changed during checks; release aborted.")
 
+
+def build_wheel(repo: Path, commit: str, destination: Path, uv: str) -> Path:
+    """Build the exact committed app tree, with embedded source metadata."""
     archive = subprocess.check_output(
         ["git", "archive", "--format=tar", f"{commit}:app"], cwd=repo
     )
@@ -107,19 +104,14 @@ def build_release(output: Path | None) -> None:
     wheels = list(destination.glob("*.whl"))
     if len(wheels) != 1:
         raise RuntimeError("Expected exactly one Wheel.")
-    wheel = wheels[0]
-    digest = hashlib.sha256(wheel.read_bytes()).hexdigest()
-    evidence = {
-        "version": version,
-        "source_commit": commit,
-        "wheel": wheel.name,
-        "sha256": digest,
-        "verified": False,
-    }
-    (destination / "release.json").write_text(json.dumps(evidence, indent=2) + "\n")
-    (destination / "SHA256SUMS").write_text(f"{digest}  {wheel.name}\n")
-    verify_wheel(wheel, digest)
+    return wheels[0]
 
+
+def write_release_manifest(destination: Path, evidence: dict[str, str | bool]) -> None:
+    (destination / "release.json").write_text(json.dumps(evidence, indent=2) + "\n")
+
+
+def install_release(destination: Path, wheel: Path, uv: str) -> Path:
     environment = destination / "venv"
     run([uv, "venv", "--python", sys.executable, str(environment)], destination)
     python = environment / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
@@ -127,6 +119,14 @@ def build_release(output: Path | None) -> None:
         [uv, "pip", "install", "--python", str(python), "--no-deps", str(wheel)],
         destination,
     )
+    return python
+
+
+def verify_installed_release(
+    destination: Path, python: Path, version: str, commit: str
+) -> tuple[str, Path]:
+    """Verify application behavior, identity, isolation and checkout-only guards."""
+    environment = destination / "venv"
     clean_env = os.environ.copy()
     for key in ("PYTHONPATH", "PYTHONHOME"):
         clean_env.pop(key, None)
@@ -174,8 +174,36 @@ def build_release(output: Path | None) -> None:
             raise RuntimeError(
                 f"Release unexpectedly accepted development command {arguments}."
             )
+    return reported, location
+
+
+def build_release(output: Path | None) -> None:
+    repo, commit, version = validate_release_source()
+    destination = release_destination(output, version, commit)
+    uv = pinned_uv(APP)
+    if uv is None:
+        raise RuntimeError(
+            "Pinned uv was not found; run app/tooling/bootstrap.py first."
+        )
+    run([sys.executable, "-m", "agent_playbook.cli", "check"], APP)
+    assert_source_unchanged(repo, commit)
+    wheel = build_wheel(repo, commit, destination, uv)
+    digest = hashlib.sha256(wheel.read_bytes()).hexdigest()
+    evidence = {
+        "version": version,
+        "source_commit": commit,
+        "wheel": wheel.name,
+        "sha256": digest,
+        "verified": False,
+    }
+    write_release_manifest(destination, evidence)
+    (destination / "SHA256SUMS").write_text(f"{digest}  {wheel.name}\n")
+    verify_wheel(wheel, digest)
+
+    python = install_release(destination, wheel, uv)
+    reported, location = verify_installed_release(destination, python, version, commit)
     evidence["verified"] = True
-    (destination / "release.json").write_text(json.dumps(evidence, indent=2) + "\n")
+    write_release_manifest(destination, evidence)
     print(reported)
     print(
         f"Verified release: {destination}\nSHA-256: {digest}\nInstalled source: {location}"

@@ -1,19 +1,14 @@
 """Release errors identify the files and metadata blocking a build."""
 
-import sys
 from pathlib import Path
 from unittest.mock import patch
 
 import pytest
 
+from tooling import release
+
 
 def test_dirty_checkout_lists_the_paths(tmp_path: Path) -> None:
-    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tooling"))
-    try:
-        from tooling import release
-    finally:
-        sys.path.pop(0)
-
     with (
         patch.object(release, "APP", tmp_path),
         patch.object(
@@ -30,12 +25,6 @@ def test_dirty_checkout_lists_the_paths(tmp_path: Path) -> None:
 
 
 def test_committed_version_mismatch_is_actionable(tmp_path: Path) -> None:
-    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tooling"))
-    try:
-        from tooling import release
-    finally:
-        sys.path.pop(0)
-
     (tmp_path / "pyproject.toml").write_text(
         '[project]\nname="agent-playbook"\nversion="0.0.2"\n'
     )
