@@ -1,5 +1,7 @@
 # Runtime configuration
 
+[User documentation](README.md) · [Running workflows](workflows.md) · [Troubleshooting](troubleshooting.md#configuration-does-not-seem-to-change-anything)
+
 Edit [app/configs/application.yaml](../configs/application.yaml) to configure integrations. It is separate
 from `pyproject.toml`, which owns the application version, dependencies and build settings.
 Changing runtime settings takes effect on the next invocation of the same release:

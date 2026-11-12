@@ -23,7 +23,7 @@ with `venv` and `ensurepip`; initial provisioning may require network access.
 
 ## Documentation
 
-[User documentation index](docs/README.md) links the CLI, configuration guide and learning entry points.
+[User documentation index](docs/README.md) links the CLI, configuration, workflow-running and troubleshooting guides.
 
 **[Stage 01: verify and read the code](../designs/stages/01-crewai-flows/learning/00-reading-the-code.md)**
 starts the learning sessions, with per-workflow guides, expected outputs and test buttons.

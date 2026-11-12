@@ -1,5 +1,7 @@
 # CLI and releases
 
+[User documentation](README.md) · [Running workflows](workflows.md) · [Troubleshooting](troubleshooting.md)
+
 From the repository root, run `python3 app/tooling/bootstrap.py` once.
 Activate `source app/.venv/bin/activate` to use `agent-playbook`, or replace it
 with `app/.venv/bin/agent-playbook` in the commands below. The equivalent Python

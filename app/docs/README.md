@@ -6,6 +6,8 @@ Start here when you want to run or configure Agent Playbook.
 |---|---|
 | [CLI and releases](cli.md) | Commands, source versus installed runs, checks, formatting, version changes and releases |
 | [Configuration](configuration.md) | Which settings file is loaded, local/environment overrides, CrewAI controls, secrets and PyCharm examples |
+| [Running workflows](workflows.md) | Choose integrated workflows or standalone examples, provide input and read results |
+| [Troubleshooting](troubleshooting.md) | Resolve interpreter, configuration, workflow, check and release problems |
 
 ## Setup and learning
 
