@@ -45,7 +45,7 @@ def run_release(requested_version: str | None) -> int:
         detail = f" version {requested_version}" if requested_version else ""
         print(
             f"No installed release{detail} found in app/dist. Build one with "
-            "python app/tooling/release.py, or run editable code with agent-playbook dev-run.",
+            "agent-playbook release, or run editable code with agent-playbook dev-run.",
             file=sys.stderr,
         )
         return 2

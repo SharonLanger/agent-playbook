@@ -19,3 +19,5 @@ Try one defect at a time in typing_example.py:
 Lint detects selected coding problems; formatting checks layout. Neither replaces
 behavioral tests or static typing. No auto-fix is hidden in bootstrap. PyCharm can
 run module `ruff` with the same arguments (paths relative to its working directory).
+
+Current CLI: `agent-playbook check --lint` checks lint; `check --format` verifies formatting; `agent-playbook format` applies formatting fixes. Review changes, then run the complete `agent-playbook check`.

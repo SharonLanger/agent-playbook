@@ -153,9 +153,15 @@ def build_release(output: Path | None) -> None:
     )
     if not location.is_relative_to(environment):
         raise RuntimeError("Release imported code outside its isolated environment.")
-    for command in ("test", "check"):
+    for arguments in (
+        ["test"],
+        ["check"],
+        ["format"],
+        ["release"],
+        ["version", "patch"],
+    ):
         result = subprocess.run(
-            [str(python), "-I", "-m", "agent_playbook.cli", command],
+            [str(python), "-I", "-m", "agent_playbook.cli", *arguments],
             cwd=destination,
             env=clean_env,
             capture_output=True,
@@ -166,7 +172,7 @@ def build_release(output: Path | None) -> None:
             or "Development command requires" not in result.stderr
         ):
             raise RuntimeError(
-                f"Release unexpectedly accepted development command {command}."
+                f"Release unexpectedly accepted development command {arguments}."
             )
     evidence["verified"] = True
     (destination / "release.json").write_text(json.dumps(evidence, indent=2) + "\n")

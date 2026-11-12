@@ -1,7 +1,7 @@
 # Agent Playbook
 
 A gradual Python learning project for agent orchestration. Stage 00.1–00.7 are
-merged. Shared PyCharm configurations are the remaining Stage 00 setup item.
+merged. Stage 00 is accepted; the project structure and CLI refinements prepare for Stage 01.
 
 From the repository root, prepare the application:
 

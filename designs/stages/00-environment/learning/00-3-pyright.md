@@ -36,3 +36,5 @@ The Python Pyright distribution wraps Microsoft's checker and uses Node.js. It
 uses an available Node installation or provisions one through its dependency;
 initial provisioning needs network access. Bootstrap executes Pyright so this
 happens within the single setup command. No mypy, pytest or Ruff in this substage.
+
+Current CLI shortcut: `agent-playbook check --types`. The shared PyCharm **Types** task uses this command.

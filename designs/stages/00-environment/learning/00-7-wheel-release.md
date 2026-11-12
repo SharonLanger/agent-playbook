@@ -8,7 +8,7 @@ From repository root:
 ```sh
 agent-playbook check
 agent-playbook version
-python app/tooling/release.py
+agent-playbook release
 ```
 
 Development reports version 0.0.1 and source `development`. The script checks the
@@ -56,3 +56,5 @@ A Wheel packages files; it is not a Java-like compiled binary. Version/commit
 metadata is self-reporting. SHA-256 checks exact bytes against a trusted recorded
 digest; it is not a signature or proof of who built the artifact. Keep digest and
 artifact evidence together, and trust the digest source before installation.
+
+For a new patch, run `agent-playbook version patch`, review and commit TOML and lockfile, then run `agent-playbook release`. Exact stage versions still use `python3 app/tooling/version.py 0.1.0`. Neither command commits or pushes automatically.

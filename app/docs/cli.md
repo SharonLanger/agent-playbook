@@ -1,146 +1,131 @@
 # CLI and releases
 
-Run these commands from the repository root after `python3 app/tooling/bootstrap.py`.
-You can either activate `source app/.venv/bin/activate` and use `agent-playbook`,
-or replace it with `app/.venv/bin/agent-playbook` in each example.
+From the repository root, run `python3 app/tooling/bootstrap.py` once.
+Activate `source app/.venv/bin/activate` to use `agent-playbook`, or replace it
+with `app/.venv/bin/agent-playbook` in the commands below. The equivalent Python
+module entry point is `python -m agent_playbook.cli`.
 
-| Command | Result |
+## Commands
+
+| Command | Action |
 |---|---|
-| `agent-playbook version` | Show the version of the CLI you launched and its source metadata |
-| `agent-playbook run` | Run the newest completed local release, across all versions |
-| `agent-playbook run --version 0.0.1` | Run the newest completed local 0.0.1 release |
-| `agent-playbook dev-run` | Run the editable source in this checkout |
-| `agent-playbook check` | Run Pyright, Ruff lint, Ruff format verification, and pytest in order |
-| `agent-playbook test` | Run the development tests |
+| `agent-playbook --help` | List commands; each command also accepts `--help` |
+| `agent-playbook dev-run` | Run current editable source; edits take effect immediately |
+| `agent-playbook run` | Run the latest completed local release |
+| `agent-playbook run --version 0.0.8` | Run the latest completed release of that version |
+| `agent-playbook version` | Show version/source metadata of the CLI you invoked |
+| `agent-playbook check` | Types, lint, formatting verification, then tests |
+| `agent-playbook check --types` | Pyright only |
+| `agent-playbook check --lint` | Ruff lint only |
+| `agent-playbook check --format` | Verify formatting without modifying files |
+| `agent-playbook check --types --lint` | Combine selected checks, in normal gate order |
+| `agent-playbook test` | Run pytest |
+| `agent-playbook format` | Apply Ruff formatting to source, tooling, examples and tests |
+| `agent-playbook version patch` | Increase patch version; update TOML and lockfile |
+| `agent-playbook release` | Build and verify the current committed version |
+| `agent-playbook release --output <new-directory>` | Build into an unused directory; relative to your invocation directory |
 
-`run` and `run --version` select from `app/dist/*/release.json` with an installed
-release interpreter and CLI. New builds are marked verified only after their
-installation checks pass; older releases are recognized by their installed CLI. Newest means the most recently written manifest, with the
-folder name breaking timestamp ties. An incomplete folder is ignored. When no
-matching release exists, the command fails clearly; build one first. A release
-launch reports the exact folder it selected and returns that program's exit code.
-`version` by itself reports the CLI you invoked, so the editable CLI reports
-`development` and a release CLI reports its source commit. A release's own `run`
-executes that exact release; it does not select another folder.
+`check` never fixes files. Selected checks run only those checks, excluding tests;
+use `test` for tests or plain `check` for the complete gate. Checks stop at the
+first failure and show PASS/FAIL/NOT RUN plus a final summary. A selected check's
+PASS means only that selection passed. Release always runs the complete gate.
+`format` changes formatting only; it does not automatically fix lint errors.
+Review its edits and rerun `check`.
 
-Editing source affects `dev-run` immediately. `run` continues to use the last
-completed release until you build again. `--version` selects a version number;
-it does not select a commit or a numbered attempt. For an exact build, use the
-folder printed by Release:
+## Editable source versus releases
+
+`dev-run` executes the source you are editing. `run` uses a previously built
+release, so source changes require another build before they appear there.
+
+The editable CLI selects from `app/dist/*/release.json`, requiring an installed
+interpreter/CLI and a completed verification marker (legacy manifests are supported).
+Newest means the most recently written manifest, with folder name breaking ties.
+Incomplete releases are skipped; missing versions fail with an actionable error.
+The selected folder is printed and the launched program's exit code is returned.
+
+`version` reports the invoked CLI: development reports `development` as its source;
+a built release reports its source commit. An installed release's own `run` runs
+that exact release rather than searching for another. For an exact build:
 
 ```sh
-app/dist/0.0.1-<commit-prefix>/venv/bin/agent-playbook version
-app/dist/0.0.1-<commit-prefix>/venv/bin/agent-playbook run
+app/dist/<actual-release-folder>/venv/bin/agent-playbook version
+app/dist/<actual-release-folder>/venv/bin/agent-playbook run
 ```
 
-The output folder can end in `-2`, `-3`, and so on. Replace the example with
-the actual printed folder name.
+Developer commands (`check`, `test`, `format`, `version patch`, `release`) require
+the source checkout and its environment. Installed wheels reject them clearly;
+checkout tooling is not bundled into the wheel.
 
-## Change the version
+## Patch, commit, release
 
-From the repository root, run:
+1. Run `agent-playbook version patch`, for example changing `0.0.8` to `0.0.9`.
+2. Review `app/pyproject.toml` and `app/uv.lock`, then commit the intended changes.
+3. Run `agent-playbook release` to build and verify that committed version.
+4. Run `agent-playbook run` to execute the new release.
+
+The version command finds bootstrap's pinned uv, updates project metadata and
+lockfile, and syncs the editable environment. It does not commit, push or build.
+The bump reads the current TOML version, so repeated calls increment again.
+There is no automatic major/minor bump command. Set an exact version with:
 
 ```sh
-python3 app/tooling/version.py 0.0.7
+python3 app/tooling/version.py 0.1.0
 ```
 
-The script locates the pinned uv installed by bootstrap (including its private
-`app/.bootstrap-tools/bin/uv`), changes `app/pyproject.toml`, refreshes `app/uv.lock`,
-and syncs the development environment. Review and commit **both files** in PyCharm
-before Build Release. Pushing is optional for a local build; a clean committed
-checkout is required. Editing only the TOML file leaves the lockfile at the old
-version, and Release now reports that mismatch explicitly.
+Review and commit both metadata files afterward. Do not edit TOML alone and leave
+the lockfile stale; release rejects mismatched versions. Pushing is optional for
+a local release. A clean committed checkout is mandatory: if release fails,
+inspect the listed paths or run `git status --short`. Commit intended changes;
+do not discard unrelated edits just to make the build pass.
 
-If Release reports a dirty checkout, run `git status --short` from the repository
-root to see what Git still considers modified or untracked. Commit the intended
-changes. The release error lists those same paths. Do not discard an unrelated
-file just to make the release pass.
+## Release behavior
 
-## Build a release
+Release runs the full gate, archives the exact Git commit, builds a Wheel,
+records and verifies SHA-256, installs in an isolated environment, then checks
+execution and version/source metadata. It also verifies rejection of developer
+commands. A release is marked complete only after verification succeeds.
 
-Use a clean, committed Git checkout and the bootstrapped interpreter:
+Default output is `app/dist/<version>-<commit-prefix>/`, containing the wheel,
+`release.json`, `SHA256SUMS` and `venv/`. Repeated builds choose `-2`, `-3`, etc.
+An explicit output directory must not exist. Builds preserve the committed version;
+no automatic bump, commit, push or upload occurs. The script remains available:
 
 ```sh
 app/.venv/bin/python app/tooling/release.py
+app/.venv/bin/python app/tooling/verify_wheel.py <wheel-path> <recorded-sha256>
 ```
 
-Release first runs the full local gate, archives the exact Git commit, builds a
-Wheel, records and checks its SHA-256, installs it into a separate virtual
-environment, and runs it. The output in `app/dist/` contains the Wheel,
-`release.json`, `SHA256SUMS`, and `venv/`. Repeating Build Release chooses the
-next unused numbered directory without changing earlier builds. An explicit
-`--output <new-directory>` can select a location; an existing directory is
-rejected. The version stays at the value in `pyproject.toml` until you change it;
-different builds can have the same version and distinct commit hashes. Nothing
-is uploaded or published by this command.
+## Shared PyCharm tasks
 
-To verify the recorded Wheel digest manually, use the values printed by Release:
+Open the repository root, run bootstrap, and select `<repo>/app/.venv/bin/python`
+as the project interpreter. Shared `.run/` files use `$PROJECT_DIR$/app` as their
+working directory and the selected interpreter, with no machine-specific paths.
 
-```sh
-app/.venv/bin/python app/tooling/verify_wheel.py <release-dir>/<wheel> <sha256>
-```
-
-## Checks and formatting
-
-`agent-playbook check` shows numbered sections for types, lint, formatting and
-tests. It stops on the first failure and finishes with PASS/FAIL/NOT RUN for each
-section. A tool saying "All checks passed" inside one section only means that
-part passed. `Result: PASS (4 passed, 0 failed, 0 not run)` means the whole gate
-passed. Fix a failure and rerun; nothing is automatically formatted.
-
-To format all application Python files from the `app` working directory:
-
-```sh
-.venv/bin/python -m ruff format src tooling examples tests
-```
-
-From the repository root, use `app/src app/tooling app/examples app/tests` as the four paths.
-Ruff lint is a separate check; `ruff check --fix` applies eligible lint fixes.
-
-## PyCharm configurations
-
-Use interpreter `<repo>/app/.venv/bin/python` and working directory `<repo>/app`.
-For Run, Dev Run, Check, Test, and Version, choose a **Python** configuration with
-module `agent_playbook.cli` and parameters `run`, `dev-run`, `check`, `test`, or
-`version`. To run a particular version, set parameters to `run --version 0.0.1`.
-For Set Version, choose script `<repo>/app/tooling/version.py` and set parameters
-to the desired version, such as `0.0.7`. For Build Release, choose script
-`<repo>/app/tooling/release.py` and leave
-parameters empty. For Ruff Format, choose module `ruff` and parameters
-`format src tooling examples tests`. To run Pyright alone, choose module `pyright` with no
-parameters. The release path printed by Build Release lets you invoke an exact
-installed build in a terminal.
-
-## Shared PyCharm buttons
-
-Open the repository root (`agent-playbook`) in PyCharm. Run bootstrap once, then
-register `<repo>/app/.venv/bin/python` as the **project interpreter**. The six
-project files in [`.run/`](../../.run/) should appear in the Run dropdown after
-pulling this branch. They use `$PROJECT_DIR$/app` as working directory and the
-project interpreter, with no machine-specific interpreter path in Git.
-
-| Button | Action |
+| Button | Module parameters |
 |---|---|
-| Setup | Rerun `app/tooling/bootstrap.py` using the selected project interpreter |
-| Run | `agent-playbook run` — newest verified local release |
-| Types | Pyright strict |
-| Tests | `agent-playbook test` |
-| Check | Full local quality gate |
-| Release | `app/tooling/release.py` — build and verify an isolated release |
+| Dev Run | `dev-run` |
+| Run | `run` |
+| Types | `check --types` |
+| Lint | `check --lint` |
+| Format Check | `check --format` |
+| Format | `format` (changes files) |
+| Tests | `test` |
+| Check | `check` |
+| Version | `version` |
+| Bump Patch | `version patch` (changes version metadata) |
+| Release | `release` |
 
-If PyCharm does not show them, confirm the repository **root** is the open project,
-not the `app` subfolder, and check Run → Edit Configurations. Choose the project
-interpreter locally; do not store your home directory or `.idea` settings in Git.
-The first bootstrap still uses the terminal because `.venv` does not exist yet.
+These are Python configurations using module `agent_playbook.cli`.
+**Setup**, the twelfth task, runs script `app/tooling/bootstrap.py`.
+For an exact major/minor version, manually run `app/tooling/version.py` with the
+version as its parameter. If tasks are missing, confirm the repository root is
+open and inspect Run → Edit Configurations. Existing manually saved tasks may
+need their module/parameters updated; avoid duplicate names.
 
-## Folder migration before Stage 01
+## Folder migration
 
-Developer scripts now live in `app/tooling/` (formerly `app/scripts/`). Pull the
-refactor, then run `python3 app/tooling/bootstrap.py`. Shared Setup and Release
-configurations already point there; update any manually saved configurations to
-the same paths. CLI module `agent_playbook.cli` and command names are unchanged.
-
-Typing exercises moved to `app/examples/typing_example.py`. Formatting/checks now
-cover `src`, `tooling`, `examples`, and `tests`. Tests are grouped by component.
-Runtime CLI, application runner and release selection are separate subpackages.
-See [project structure](../../designs/project-structure.md) for all folder rules.
+Scripts moved from `app/scripts/` to `app/tooling/`; typing exercises now live in
+`app/examples/`. Bootstrap, CLI dispatch, shared tasks and the gate use those paths.
+The gate covers `src`, `tooling`, `examples`, and `tests`. For direct Ruff usage,
+run `python -m ruff format src tooling examples tests` from `app`.
+See the [guarded project structure](../../designs/project-structure.md).

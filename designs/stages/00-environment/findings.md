@@ -244,3 +244,22 @@ Verified on Linux/Python 3.13.5 in a local snapshot of the changed source:
 
 Local release evidence refers to the local verification snapshot commit, not the
 GitHub PR commit. No generated release or virtual environment is committed.
+
+## Unified CLI tasks — 2026-11-12
+
+Added approved `check --types|--lint|--format` selectors (combinable), `format`,
+`version patch`, and `release [--output]`. Plain check still runs the complete gate;
+format verification does not edit files. Version patch reads the current TOML,
+updates metadata/lockfile via pinned uv, and leaves review/commit to the developer.
+Release builds the committed version without bumping it. All developer commands
+are rejected by installed releases. Twelve shared PyCharm tasks use the public
+CLI except Setup, which still bootstraps the environment.
+
+Verified in Linux/Python 3.13.5: Pyright, Ruff lint/format and all 37 tests passed.
+A separate temporary checkout exercised a real 0.0.8→0.0.9 bump, verified both
+metadata files and unchanged Git HEAD, rejected release before committing, detected
+an unformatted probe without editing it, fixed it through `format`, ran combined
+selected checks, then committed and built/verified/ran the isolated 0.0.9 release.
+The repository version remains 0.0.8; no test artifact or version bump is included.
+Shared XML parsed and task targets were validated; updated Mac PyCharm UI behavior
+still requires Sharon's local review. CLI help and app/docs/cli.md document all tasks.

@@ -66,8 +66,8 @@ state and steps with that workflow rather than in global `models` or `utils` fol
 - Workflows own routing/state and invoke execution contracts; provider clients stay in adapters.
 - Observability events are provider-neutral; only exporters depend on backend clients.
 - Runtime modules must not import checkout-only tooling or learning examples.
-- The CLI's development bridge may invoke `app/tooling/checks.py` as a subprocess
-  only in a development checkout. Installed releases reject `test` and `check` clearly.
+- The CLI's development bridge may invoke checks, version and release scripts in `app/tooling/` as subprocesses
+  only in a development checkout. Installed releases reject all developer commands clearly.
 - Tooling may invoke the application CLI. Building a release and selecting a release
   are separate responsibilities.
 
