@@ -64,7 +64,7 @@ The source CLI passes the chosen external YAML path to installed runs. Edit sett
 and rerun the same version; code remains installed and isolated while settings are
 read again. `--config PATH` selects another file. For direct installed execution,
 provide that option or `AGENT_PLAYBOOK_CONFIG`. See the
-[configuration guide](../../../../app/configs/README.md) for local overrides,
+[configuration guide](../../../../app/docs/configuration.md) for local overrides,
 environment references, startup order and the PyCharm exercise.
 
 Integration settings belong under `integrations.crewai`; WF-03's threshold remains

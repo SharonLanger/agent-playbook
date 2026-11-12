@@ -1,17 +1,25 @@
 # Runtime configuration
 
-Edit [application.yaml](application.yaml) to configure integrations. It is separate
+Edit [app/configs/application.yaml](../configs/application.yaml) to configure integrations. It is separate
 from `pyproject.toml`, which owns the application version, dependencies and build settings.
 Changing runtime settings takes effect on the next invocation of the same release:
 no version bump or rebuild is needed. There is no background configuration server.
+
+## Which configuration does this guide cover?
+
+This guide describes the integrated application (`dev-run` and installed `run`).
+The [independent workflow sandboxes](../examples/workflows/README.md) deliberately own
+separate `settings.toml`, `input.json` and startup code inside each example folder.
+They do not load `app/configs/application.yaml` or use the application's override variables.
+Follow an example's README when running its `run.py` directly.
 
 ## Files and selection
 
 | File | Purpose |
 |---|---|
-| `application.yaml` | Shared settings, reviewed and versioned in Git |
-| `application.local.yaml` | Optional partial overrides for this machine; Git-ignored |
-| `src/agent_playbook/config/` | Python loader, typed validation and CrewAI initialization |
+| `app/configs/application.yaml` | Shared settings, reviewed and versioned in Git |
+| `app/configs/application.local.yaml` | Optional partial overrides for this machine; Git-ignored |
+| `app/src/agent_playbook/config/` | Python loader, typed validation and CrewAI initialization |
 
 Both `dev-run` and `run` accept `--config PATH`. The file selection order is:
 

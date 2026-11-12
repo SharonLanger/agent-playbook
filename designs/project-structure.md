@@ -25,12 +25,13 @@ approval wording and CrewAI acceptance discrepancy are tracked in progress.md.
 | `designs/diagrams/` | Diagram sources, static/animated SVG and viewer |
 | `.run/` | Shared portable PyCharm tasks |
 | `app/pyproject.toml`, `app/uv.lock` | Package metadata, dependency pins and check configuration |
-| `app/configs/` | Shared external runtime YAML, ignored machine overrides and configuration documentation |
+| `app/configs/` | Shared external runtime YAML and ignored machine overrides; user guide in `app/docs/configuration.md` |
 | `app/src/agent_playbook/` | Installed runtime Python package |
 | `app/tooling/` | Bootstrap, quality checks, version changes, release build and verification |
 | `app/examples/` | Learning exercises; excluded from the installed package |
-| `app/tests/` | Tests grouped by component, plus tooling and examples |
-| `app/docs/` | User-facing operating instructions; CLI/build/release rules in `cli.md` |
+| `app/examples/workflows/` | Eight self-contained workflow sandboxes; each owns its run.py, input, settings, tests and diagrams |
+| `app/tests/` | Tests grouped by component, plus tooling and examples; workflow sandbox tests also live beside their examples |
+| `app/docs/` | User-facing operating guides; index in `README.md`, CLI/build/release in `cli.md`, runtime settings in `configuration.md` |
 | `app/dist/` | Generated local releases; ignored by Git |
 | `sandbox/` | Historical experiments; outside active application work |
 
