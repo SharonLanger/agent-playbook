@@ -18,7 +18,7 @@ Linux x86_64; bootstrap launcher Python 3.12.14; app Python 3.13.5:
 | Check | Observed result |
 |---|---|
 | `uv lock --project agent-playbook/app` | Generated lockfile; one virtual project, zero third-party dependencies |
-| `python3 app/scripts/bootstrap.py`, twice | First created `.venv`; second reused it; both printed the expected main message |
+| `python3 app/tooling/bootstrap.py`, twice | First created `.venv`; second reused it; both printed the expected main message |
 | `app/.venv/bin/python app/src/agent_playbook/__main__.py` from root | Expected message; exit 0 |
 | Bootstrap with uv removed from PATH | Installed uv 0.13.6 into `.bootstrap-tools`; synced and ran main |
 | Fresh app copy with no generated environments; path containing spaces; working directory `/`; PATH `/usr/bin:/bin` | Bootstrap installed private uv and created app environment; exit 0 on both first and second runs |
@@ -208,9 +208,58 @@ the user.
 ### Version update and release diagnostics (2026-11-11)
 
 The user committed version 0.0.2 in pyproject.toml while uv.lock still recorded
-0.0.1. Added app/scripts/version.py to use pinned uv for a coordinated update,
+0.0.1. Added app/tooling/version.py to use pinned uv for a coordinated update,
 so version and lockfile move together. Release now lists the dirty paths reported
 by Git and, on a clean checkout, explains a project/lock version mismatch before
 building. The full local gate passed Pyright, Ruff lint/format and 19 tests.
 In a disposable project copy, the version command changed both files to 0.0.7.
 The user's actual macOS checkout and release are not verified here.
+
+## Pre-Stage 01 structure refactor — 2026-11-11
+
+Sharon approved separating checkout-only tooling from runtime components and
+recording a guarded project structure. `designs/project-structure.md` is the current
+layout authority. Existing Stage 00 locked documents remain historical baselines.
+
+Moved bootstrap/release/version/hash tools into `app/tooling`, moved quality-gate
+implementation out of the installed package, and moved the typing exercise into
+`app/examples`. Split CLI dispatch, application runner and release selection.
+Tests now follow component ownership. Future runtime/test folders contain explicit
+responsibility notes only: no CrewAI dependency or Stage 01 workflow was introduced.
+The package version remains 0.0.8 and the lockfile is unchanged.
+
+Verified on Linux/Python 3.13.5 in a local snapshot of the changed source:
+- Bootstrap completed with the new paths; repeated locked dependency sync succeeded.
+- Full gate: Pyright 0 errors/warnings; Ruff lint and format passed; 19 pytest tests passed.
+- A clean committed snapshot built a Wheel, verified its SHA-256, installed it in
+  isolation and verified version/source metadata and rejection of developer commands.
+- Wheel inspection found no tooling, tests or learning examples in the artifact.
+- Console and module entry points ran from an unrelated working directory; latest
+  release, matching version and missing-version behavior were checked.
+- Temporarily changing the application runner changed `dev-run` but not `run`;
+  the source was then restored.
+- Shared PyCharm XML parsed, all referenced script/working-directory paths exist,
+  and new Markdown links resolve. Updated Mac PyCharm tasks still need local UI
+  confirmation; no Mac UI execution is claimed here.
+
+Local release evidence refers to the local verification snapshot commit, not the
+GitHub PR commit. No generated release or virtual environment is committed.
+
+## Unified CLI tasks — 2026-11-12
+
+Added approved `check --types|--lint|--format` selectors (combinable), `format`,
+`version patch`, and `release [--output]`. Plain check still runs the complete gate;
+format verification does not edit files. Version patch reads the current TOML,
+updates metadata/lockfile via pinned uv, and leaves review/commit to the developer.
+Release builds the committed version without bumping it. All developer commands
+are rejected by installed releases. Twelve shared PyCharm tasks use the public
+CLI except Setup, which still bootstraps the environment.
+
+Verified in Linux/Python 3.13.5: Pyright, Ruff lint/format and all 37 tests passed.
+A separate temporary checkout exercised a real 0.0.8→0.0.9 bump, verified both
+metadata files and unchanged Git HEAD, rejected release before committing, detected
+an unformatted probe without editing it, fixed it through `format`, ran combined
+selected checks, then committed and built/verified/ran the isolated 0.0.9 release.
+The repository version remains 0.0.8; no test artifact or version bump is included.
+Shared XML parsed and task targets were validated; updated Mac PyCharm UI behavior
+still requires Sharon's local review. CLI help and app/docs/cli.md document all tasks.

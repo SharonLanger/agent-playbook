@@ -6,15 +6,15 @@ Open the **repository root** (`agent-playbook`) as the PyCharm project. First
 run bootstrap from the repository root:
 
 ```sh
-python3 app/scripts/bootstrap.py
+python3 app/tooling/bootstrap.py
 ```
 
 Then choose **Add Interpreter → Existing environment** and select
 `<repo>/app/.venv/bin/python` as the project interpreter. PyCharm's project
 interpreter setting is local to your machine; the committed configurations in
 [`.run/`](../.run/) use that project interpreter and `$PROJECT_DIR$/app` paths.
-After pulling them, the Run menu should show Setup, Run, Types, Tests, Check and
-Release. `Run` selects the latest built release; use `dev-run` for editable code.
+After pulling them, the Run menu should show the twelve shared tasks listed in
+the CLI guide, including individual checks, Format, Bump Patch and Release. `Run` selects the latest built release; use `dev-run` for editable code.
 
 Bootstrap provisions the pinned Python and development tools, installs the project
 in `app/.venv`, and runs the editable example and local quality checks. Run the
@@ -28,3 +28,7 @@ release selection, build output, exact release paths, and the quality gate.
 
 [Stage 00.7 learning exercise](../designs/stages/00-environment/learning/00-7-wheel-release.md)
 · [Verification findings](../designs/stages/00-environment/findings.md)
+
+Project layout: [guarded project structure](../designs/project-structure.md).
+
+Use **Dev Run** for source edits, **Run** for the latest release, and **Check** for all checks. **Bump Patch** updates version metadata; review and commit before **Release**. See the CLI guide for individual checks and **Format**.

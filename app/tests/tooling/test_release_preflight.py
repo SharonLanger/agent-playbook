@@ -8,9 +8,9 @@ import pytest
 
 
 def test_dirty_checkout_lists_the_paths(tmp_path: Path) -> None:
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tooling"))
     try:
-        from scripts import release
+        from tooling import release
     finally:
         sys.path.pop(0)
 
@@ -30,9 +30,9 @@ def test_dirty_checkout_lists_the_paths(tmp_path: Path) -> None:
 
 
 def test_committed_version_mismatch_is_actionable(tmp_path: Path) -> None:
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tooling"))
     try:
-        from scripts import release
+        from tooling import release
     finally:
         sys.path.pop(0)
 

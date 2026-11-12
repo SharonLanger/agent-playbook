@@ -5,12 +5,12 @@ from unittest.mock import patch
 
 import pytest
 
-from agent_playbook.development import run_tools
+from tooling.checks import run_tools
 
 COMMANDS = [
     ["pyright"],
-    ["ruff", "check", "src", "scripts", "tests"],
-    ["ruff", "format", "--check", "src", "scripts", "tests"],
+    ["ruff", "check", "src", "tooling", "examples", "tests"],
+    ["ruff", "format", "--check", "src", "tooling", "examples", "tests"],
     ["pytest", "-q", "tests"],
 ]
 LABELS = ["Pyright (types)", "Ruff (lint)", "Ruff (formatting)", "pytest (tests)"]
@@ -21,9 +21,9 @@ def test_gate_propagates_failure_and_stops(
     failed_index: int, capsys: pytest.CaptureFixture[str]
 ) -> None:
     with (
-        patch("agent_playbook.development.importlib.util.find_spec"),
+        patch("tooling.checks.importlib.util.find_spec"),
         patch(
-            "agent_playbook.development.subprocess.run",
+            "tooling.checks.subprocess.run",
             side_effect=[subprocess.CompletedProcess([], 0)] * failed_index
             + [subprocess.CompletedProcess([], 23)],
         ) as runner,
@@ -42,9 +42,9 @@ def test_gate_propagates_failure_and_stops(
 
 def test_gate_runs_all_checks_in_order(capsys: pytest.CaptureFixture[str]) -> None:
     with (
-        patch("agent_playbook.development.importlib.util.find_spec"),
+        patch("tooling.checks.importlib.util.find_spec"),
         patch(
-            "agent_playbook.development.subprocess.run",
+            "tooling.checks.subprocess.run",
             return_value=subprocess.CompletedProcess([], 0),
         ) as runner,
     ):
@@ -59,10 +59,10 @@ def test_gate_runs_all_checks_in_order(capsys: pytest.CaptureFixture[str]) -> No
 def test_missing_tool_is_an_error(capsys: pytest.CaptureFixture[str]) -> None:
     with (
         patch(
-            "agent_playbook.development.importlib.util.find_spec",
+            "tooling.checks.importlib.util.find_spec",
             side_effect=[object(), None],
         ),
-        patch("agent_playbook.development.subprocess.run") as runner,
+        patch("tooling.checks.subprocess.run") as runner,
     ):
         assert run_tools(COMMANDS) == 2
         runner.assert_not_called()
@@ -75,9 +75,9 @@ def test_missing_tool_is_an_error(capsys: pytest.CaptureFixture[str]) -> None:
 
 def test_tool_launch_failure_has_a_summary(capsys: pytest.CaptureFixture[str]) -> None:
     with (
-        patch("agent_playbook.development.importlib.util.find_spec"),
+        patch("tooling.checks.importlib.util.find_spec"),
         patch(
-            "agent_playbook.development.subprocess.run",
+            "tooling.checks.subprocess.run",
             side_effect=OSError("Unable to launch interpreter"),
         ) as runner,
     ):

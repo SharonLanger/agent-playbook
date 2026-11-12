@@ -1,6 +1,6 @@
 """Regression checks for the typed example's observable behavior."""
 
-from agent_playbook.typing_example import Greeter, greeting
+from examples.typing_example import Greeter, greeting
 
 
 def test_named_greeting() -> None:

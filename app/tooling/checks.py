@@ -1,5 +1,6 @@
 """Development-only commands; installed releases have no checkout or dev tools."""
 
+import argparse
 import importlib.util
 import subprocess
 import sys
@@ -37,7 +38,7 @@ def print_summary(labels: list[str], results: list[int | None]) -> None:
 
 
 def run_tools(commands: list[list[str]]) -> int:
-    app = Path(__file__).resolve().parents[2]
+    app = Path(__file__).resolve().parents[1]
     if not (app / "pyproject.toml").is_file() or not (app / "tests").is_dir():
         print(
             "Development command requires a source checkout; run its bootstrap.",
@@ -79,3 +80,36 @@ def run_tools(commands: list[list[str]]) -> int:
             return code
     print_summary(labels, results)
     return 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "command", choices=("check", "test", "format"), nargs="?", default="check"
+    )
+    for name in ("types", "lint", "format"):
+        parser.add_argument(f"--{name}", action="store_true")
+    args = parser.parse_args()
+    selected = [name for name in ("types", "lint", "format") if getattr(args, name)]
+    if selected and args.command != "check":
+        parser.error("Check selectors apply only to check.")
+    return run_tools(select_commands(args.command, selected))
+
+
+def select_commands(command: str, selected: list[str]) -> list[list[str]]:
+    paths = ["src", "tooling", "examples", "tests"]
+    if command == "test":
+        return [["pytest", "-q", "tests"]]
+    if command == "format":
+        return [["ruff", "format", *paths]]
+    checks = {
+        "types": ["pyright"],
+        "lint": ["ruff", "check", *paths],
+        "format": ["ruff", "format", "--check", *paths],
+        "tests": ["pytest", "-q", "tests"],
+    }
+    return [value for name, value in checks.items() if not selected or name in selected]
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.verify_wheel import verify_wheel
+from tooling.verify_wheel import verify_wheel
 
 
 def test_wheel_corruption_is_detected(tmp_path: Path) -> None:
