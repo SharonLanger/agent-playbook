@@ -18,7 +18,9 @@ when that step completes.” CrewAI coordinates the graph. The application start
 
 ## Read the graph before the code
 
-Open [WF-01 animation](../diagrams/01-sequence.html). A pulse means direction of transfer;
+![WF-01 — Returned value moving between steps](../diagrams/01-sequence-animated.svg)
+
+A pulse means direction of transfer;
 it is a teaching animation, not a measured runtime speed or proof that steps run concurrently.
 
 Illustrative minimal example (API shape must be verified against the pin selected in 01.1):

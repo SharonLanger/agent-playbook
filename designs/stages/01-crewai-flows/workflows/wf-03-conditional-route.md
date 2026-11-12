@@ -4,8 +4,12 @@
 
 New capability: Exclusive routing from validated state.
 
-![WF-03 — Conditional Route](../diagrams/03-route-pass.svg)
-[Animated version](../diagrams/03-route-pass.html) · [Lesson](../learning/04-routing.md)
+![WF-03 — Conditional Route](../diagrams/03-route-pass-animated.svg)
+[Optional pause controls](../diagrams/03-route-pass.html) · [Lesson](../learning/04-routing.md)
+
+### Alternative valid outcome: score 40
+
+![WF-03 — Needs work route](../diagrams/04-route-needs-work-animated.svg)
 
 ## Ownership
 

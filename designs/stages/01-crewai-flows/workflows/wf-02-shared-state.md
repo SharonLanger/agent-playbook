@@ -4,8 +4,8 @@
 
 New capability: Typed mutable state scoped to one execution.
 
-![WF-02 — Shared State](../diagrams/02-state.svg)
-[Animated version](../diagrams/02-state.html) · [Lesson](../learning/03-typed-state.md)
+![WF-02 — Shared State](../diagrams/02-state-animated.svg)
+[Optional pause controls](../diagrams/02-state.html) · [Lesson](../learning/03-typed-state.md)
 
 ## Ownership
 

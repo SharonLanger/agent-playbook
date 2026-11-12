@@ -14,3 +14,5 @@ Read [the permanent diagram policy](../../diagrams/AUTHORING.md) before future v
 Illustrative snippets are original lesson examples. They are not imported by the app, run as
 tests, or certified against a selected CrewAI package. Implementation verification belongs
 in findings after approval. Documentation generation scripts are not application implementation.
+
+- [W3C SVG processing modes](https://www.w3.org/TR/SVG/latest/conform.html): SVG used as an image can support declarative animation while scripts and interactivity are disabled. The embedded assets therefore use CSS/SMIL and no JavaScript; viewer-specific playback is not assumed.

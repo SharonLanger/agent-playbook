@@ -23,10 +23,10 @@ and learn it. Progress records what has actually been accepted.
 
 ## Viewing diagrams
 
-Markdown embeds static SVGs for reliable viewing in PyCharm and GitHub. Each has
-an animated sibling. Open `diagrams/index.html` in a browser to browse the moving
-diagrams and pause/resume them. It needs no server, installation or external requests.
-Some Markdown viewers suppress SVG animation; use the local browser viewer in that case.
+New and updated visual explanations embed animated SVGs directly in Markdown, including
+the Stage 01 architecture and lessons. Static siblings remain available. The optional local
+HTML viewers add pause/resume controls without a server, installation or external requests.
+Some Markdown viewers suppress SVG animation; the browser viewer remains a fallback.
 
 ## Stage documents
 

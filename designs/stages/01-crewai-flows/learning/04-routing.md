@@ -1,7 +1,15 @@
 # Lesson 4 — WF-03: select exactly one route
 
 Scope: `workflows/wf_03_conditional_route/`. New concept: the next step depends on validated
-state. Compare [pass](../diagrams/03-route-pass.html) with [needs work](../diagrams/04-route-needs-work.html).
+state. Compare the two routes below.
+
+**Score 80: pass**
+
+![WF-03 — Pass route](../diagrams/03-route-pass-animated.svg)
+
+**Score 40: needs work**
+
+![WF-03 — Needs work route](../diagrams/04-route-needs-work-animated.svg)
 
 The rule is fixed for this workflow: score >= 60 passes. A score below 60 is a valid result;
 it does not mean Python or CrewAI failed. The CLI exits 0 for either business outcome.

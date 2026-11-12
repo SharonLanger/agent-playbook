@@ -2,7 +2,8 @@
 
 Scope: `workflows/wf_02_shared_state/`. New concept: a typed state object persists between
 steps of one execution. It is not a database and is not shared between workflow invocations.
-Open [the state animation](../diagrams/02-state.html).
+
+![WF-02 — State changes across steps](../diagrams/02-state-animated.svg)
 
 ## External input versus internal state
 

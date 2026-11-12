@@ -7,7 +7,7 @@ No runtime files, dependencies, versions, tests or IDE configurations are change
 
 ## Start here
 
-1. Open [the animated diagram gallery](diagrams/index.html) locally in a browser.
+1. Read [the diagram guide](diagrams/README.md); its animations appear directly in Markdown.
 2. Read [the mental model](learning/01-flow-basics.md).
 3. Read [the stage architecture](architecture.md) and [file ownership map](file-structure.md).
 4. Work through [WF-01](workflows/wf-01-step-sequence.md), [WF-02](workflows/wf-02-shared-state.md), then [WF-03](workflows/wf-03-conditional-route.md).
@@ -16,8 +16,12 @@ No runtime files, dependencies, versions, tests or IDE configurations are change
 
 The diagrams are illustrative simulations, not traces of an implemented application.
 Moving connectors show direction; the lesson's numbered execution table states actual order.
-Static SVGs are embedded in Markdown because GitHub does not run these HTML animations.
-Download/check out the branch and open `diagrams/index.html`; no server is needed.
+Animated SVGs are embedded directly in the Markdown architecture, lessons and workflow guides.
+The optional HTML gallery provides pause controls and expanded notes; it needs no server.
+SVG animation depends on the Markdown viewer and its motion settings; static siblings remain
+available for viewers that suppress motion.
+
+![Stage 01 — Shared shell and independent workflows](diagrams/00-architecture-animated.svg)
 
 ## Three workflows, one new concept each
 

@@ -3,6 +3,8 @@
 Scope: `workflows/wf_01_step_sequence/`; tests in the same named folder under `tests/workflows/`.
 Read [the contract](../workflows/wf-01-step-sequence.md) beside the animation.
 
+![WF-01 — Step Sequence](../diagrams/01-sequence-animated.svg)
+
 | Order | Flow method | Pure function | Receives | Returns |
 |---|---|---|---|---|
 | 1 | produce | `make_message()` | nothing | `Hello, workflow!` |

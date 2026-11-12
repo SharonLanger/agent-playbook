@@ -53,3 +53,20 @@ agent instructions reserve `designs/temporary/` for disposable handoffs only. Ap
 implementation do not make this package eligible for deletion. Relative directory depth is
 unchanged, so the existing lesson/diagram/policy links retain their targets. Local links were
 rechecked after relocation; the diagram asset contents are unchanged from the checked versions.
+
+## Animations embedded in Markdown
+
+At Sharon's request, added five standalone `*-animated.svg` files and changed all 16 diagram
+image embeds in the stage Markdown to use them. The reading guide, architecture, relevant
+lessons, workflow contracts and diagram guide now show the animated assets in place. HTML
+links are optional pause-control views; static SVG siblings are retained separately.
+
+All five animated SVGs passed the Dashmotion checker with 0 violations. XML and local-link
+checks passed (109 links). The SVGs preserve their HTML originals' connector and motion paths,
+contain no scripts, event handlers or external references, and handle reduced motion in CSS.
+This avoids reliance on the HTML viewer's JavaScript when an SVG is loaded as a Markdown image.
+The authoring policy now requires direct animated SVG embeds for future explanations.
+
+Actual playback in Sharon's Markdown/PyCharm viewer is not verified here. A viewer that suppresses
+SVG motion, or a reduced-motion preference, can still display a static diagram. This limitation
+is separate from the prior mistake of embedding the deliberately static files by default.

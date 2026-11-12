@@ -4,8 +4,8 @@
 
 New capability: Start/listen dependencies and return-value passing.
 
-![WF-01 — Step Sequence](../diagrams/01-sequence.svg)
-[Animated version](../diagrams/01-sequence.html) · [Lesson](../learning/02-sequence-and-values.md)
+![WF-01 — Step Sequence](../diagrams/01-sequence-animated.svg)
+[Optional pause controls](../diagrams/01-sequence.html) · [Lesson](../learning/02-sequence-and-values.md)
 
 ## Ownership
 

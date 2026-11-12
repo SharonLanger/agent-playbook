@@ -9,7 +9,7 @@ change architecture decisions or authorize implementation.
 
 | Need | Use | Deliverable |
 |---|---|---|
-| Normal architecture, component boundaries, request/data paths | **Dashmotion, architecture mode** | Local HTML with inline animated SVG, plus static SVG for Markdown |
+| Normal architecture, component boundaries, request/data paths | **Dashmotion, architecture mode** | Animated SVG embedded directly in Markdown; optional HTML controls and static fallback |
 | Step order, branching, state transitions, one workflow's execution | **Dashmotion, flow mode** | Same format, with numbered explanations of inputs and outputs |
 | Timed story, narrated/code walkthrough, sequence animation, pan/zoom through a large diagram | **Animated SVG** | Its supported HTML/video workflow, with a static diagram and readable text alternative |
 | A small static relationship adequately explained in Markdown | Mermaid | A compact diagram; animation is optional when motion teaches nothing |
@@ -53,11 +53,13 @@ is not an installation. Do not claim a skill's rendering pipeline was used unles
 ## Delivery and verification
 
 - Keep artifacts beside their owning design/lesson under `diagrams/`, with an `index.html`
-  when there are several. Embed static SVGs in Markdown and link the animated HTML.
-  GitHub source pages do not run HTML animations; open the local HTML in a browser.
+  when there are several. **Embed the animated SVG directly in Markdown** with image syntax;
+  do not make a separate HTML link the only way to see motion. Keep optional HTML controls
+  and static SVG fallbacks. An animated SVG must be self-contained and script-free, with
+  reduced-motion behavior in its own CSS. Viewer support determines playback.
 - Local review viewers must work without a server, external fonts, CDN or network requests.
-  Provide pause/resume, reduced-motion handling, accessible titles/descriptions and readable
-  static fallbacks. For video, retain the companion text/static explanation.
+  Provide pause/resume in the HTML viewer, reduced-motion handling in both formats, accessible
+  titles/descriptions and readable static fallbacks. For video, retain the companion text/static explanation.
 - For Dashmotion, use the bundled layout tool when Python is available. Keep intermediate
   graph JSON outside delivered output. Run the bundled checker to **0 violations** after
   every final edit; use its mandated numeric review for labels/padding beyond checker coverage.

@@ -4,8 +4,8 @@
 This is the intended final architecture for this stage; later Langfuse and agent stages
 retain their separate scope. Approval locks this document and the implementation plan.
 
-![Stage ownership and selection](diagrams/00-architecture.svg)
-[Animated architecture](diagrams/00-architecture.html)
+![Stage ownership and selection](diagrams/00-architecture-animated.svg)
+[Optional pause controls](diagrams/00-architecture.html)
 
 ## Outcome
 
