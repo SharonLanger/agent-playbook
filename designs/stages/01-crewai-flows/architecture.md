@@ -102,7 +102,7 @@ package imports have no configuration side effects. Import-time telemetry/tracin
 changes after framework initialization require a new process. WF-03 keeps its named
 `PASS_THRESHOLD` constant; no workflow rule becomes a CrewAI setting. The loader is
 an in-process component, not a configuration server. See
-[operating rules](../../../app/configs/README.md).
+[operating rules](../../../app/docs/configuration.md).
 
 ## Dependencies, telemetry and release boundary
 

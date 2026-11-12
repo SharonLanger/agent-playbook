@@ -1,9 +1,10 @@
-# Stage 01 — CrewAI Flows: review package
+# Stage 01 — CrewAI Flows
 
-**Design approved; all three workflows are implemented for review.**
-The design PR merged before implementation. Start with the code-reading guide, then learn
-the independent workflows one at a time. Verification results and remaining Mac acceptance
-are recorded in findings.
+**Implementation and independent sandboxes accepted and merged.**
+PR #30 provides the three integrated workflows and external configuration; PR #32 adds
+self-contained experiments. Sharon reported everything working and approved the merges.
+Start with the code-reading guide, then learn the workflows one at a time. Verification
+snapshots remain in findings; current acceptance is recorded in [progress](../../progress.md).
 
 ## Start here
 

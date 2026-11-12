@@ -14,6 +14,9 @@ the target system.
 | 00.7 Wheel release | PR #23 merged after user built a release and accepted 00.7 |
 | Shared IDE tasks | PR #26 merged; user restored configurations and accepted Stage 00 |
 | Target architecture and visuals | PR #25 merged; diagrams and architecture are in main |
+| Stage 01 implementation | PR #30 merged after user acceptance; WF-01/02/03, runtime configuration and release verification |
+| Principles and compliance | PR #31 merged; security, external settings and principle-review rules |
+| Independent workflow examples | PR #32 merged after Sharon reported everything working, including resized diagrams; 132 tests plus type/lint/format checks passed |
 
 The user authorized preparing 00.3–00.7 sequentially. Their review and merge remain
 one at a time. After each predecessor merges, retarget its successor to main and
@@ -41,5 +44,15 @@ PR #28 (CLI/tooling refactor) and PR #29 (Stage 01 design) are merged. Sharon ap
 implementing all three workflows together and learning them sequentially. Stage 01 code
 implements WF-01 sequence, WF-02 typed state and WF-03 exclusive routing, with strict inputs,
 shared CLI dispatch and dependency-aware releases. See the permanent Stage 01 findings for
-verification evidence and the code-reading guide for the learning order. Final Mac PyCharm
-acceptance remains pending; implementation readiness does not mark the learning stage complete.
+verification evidence and the code-reading guide for the learning order. Sharon accepted the
+implementation and independent examples, reporting that everything works. The learning
+material remains available for continued experiments; acceptance does not claim every topic
+has been studied exhaustively.
+
+The independent examples live in `app/examples/workflows/`, with colocated inputs, settings,
+tests and compact diagrams. User-facing configuration instructions live in
+`app/docs/configuration.md`; YAML stays in `app/configs/`. Documentation navigation is in
+`app/docs/README.md`.
+
+Next: discuss Stage 02 (Langfuse observability), agree on the first visible run/step/error
+experiment, and approve its design before implementation. No Stage 02 integration has been built.

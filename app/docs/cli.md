@@ -1,5 +1,7 @@
 # CLI and releases
 
+[User documentation](README.md) · [Running workflows](workflows.md) · [Troubleshooting](troubleshooting.md)
+
 From the repository root, run `python3 app/tooling/bootstrap.py` once.
 Activate `source app/.venv/bin/activate` to use `agent-playbook`, or replace it
 with `app/.venv/bin/agent-playbook` in the commands below. The equivalent Python
@@ -64,7 +66,7 @@ and its per-workflow guides for code, debugging exercises and expected test outp
 
 ## Runtime configuration
 
-See [configuration rules and examples](../configs/README.md). Runtime settings live
+See [configuration rules and examples](configuration.md). Runtime settings live
 in `app/configs/application.yaml`, separate from package/version metadata. Source
 runs use that file by default; the source release launcher passes its path to the
 selected installation. `--config PATH` overrides `AGENT_PLAYBOOK_CONFIG`; both
