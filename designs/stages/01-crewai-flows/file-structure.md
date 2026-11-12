@@ -57,8 +57,8 @@ patches inside individual tests. These package markers are structural files, not
 
 ## Documentation and task placement
 
-After approval this review folder becomes `designs/stages/01-crewai-flows/` with the same
-README/architecture/plan/learning/workflows/diagrams structure. Add three shared Python tasks,
+This package is permanently stored in `designs/stages/01-crewai-flows/` with its
+README/architecture/plan/learning/workflows/diagrams structure. Approval updates status in place. Add three shared Python tasks,
 named **WF-01 Sequence**, **WF-02 State**, **WF-03 Route**, invoking `agent_playbook.cli`
 with `dev-run --workflow wf-01`, etc. Existing Run/Dev Run default to WF-01. Workflow-specific
 instructions belong in each lesson; the durable CLI guide lists public options centrally.

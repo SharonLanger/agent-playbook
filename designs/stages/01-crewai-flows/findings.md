@@ -44,3 +44,12 @@ compatibility, real kickoff return/error semantics, typing, state initialization
 controls, offline runtime probe, locked dependency installation and measured artifact sizes.
 Record macOS IDE results separately from any Linux verification. Reconcile PR #28 again before
 starting code. Do not turn these pending checks into success claims without execution evidence.
+
+## Permanent-location correction
+
+At Sharon's request, the complete package was moved to `designs/stages/01-crewai-flows/`.
+All 30 stage files were retained. The design inventory now links its permanent reading guide;
+agent instructions reserve `designs/temporary/` for disposable handoffs only. Approval and
+implementation do not make this package eligible for deletion. Relative directory depth is
+unchanged, so the existing lesson/diagram/policy links retain their targets. Local links were
+rechecked after relocation; the diagram asset contents are unchanged from the checked versions.

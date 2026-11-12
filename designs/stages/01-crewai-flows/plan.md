@@ -21,7 +21,7 @@ WF-02 and WF-03 remain separate examples and never replace WF-01.
 
 1. Review this complete package with Sharon and resolve proposed CLI/input semantics.
 2. Re-read main and PR #28; record its final commit or any still-open compatibility issue.
-3. Promote this folder into the permanent stage path; mark architecture/plan approved only
+3. Keep this package in its permanent stage path. Mark architecture/plan approved only
    after approval. Do not replace the top-level target architecture.
 4. Probe CrewAI compatibility with Python 3.13, synchronous kickoff return/errors, strict
    input validation, telemetry disablement and exact locked release dependency installation.

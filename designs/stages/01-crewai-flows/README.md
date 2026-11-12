@@ -44,12 +44,14 @@ it does not contain workflow formulas, threshold rules or workflow-specific stat
 | `findings.md` | Verified documentation checks and unresolved implementation probes | Evidence only |
 | `sources.md` | Official references and diagram provenance | Reference material |
 
-## Temporary lifecycle
+## Permanent project material
 
-This folder is a review workspace under the same `designs/temporary/` parent as the
-other agent's handoff, but owns only its own files. Do not delete or edit that handoff.
-After approval, move this complete folder to `designs/stages/01-crewai-flows/`, repair
-relative links and add it to the permanent design inventory. Preserve the approved
-architecture/plan and lessons; this material is not disposable after implementation.
-Do not make application imports or tests depend on the temporary location.
-The permanent diagram policy lives separately at [AUTHORING.md](../../diagrams/AUTHORING.md).
+This package lives permanently in `designs/stages/01-crewai-flows/`. Keep its architecture,
+plan, lessons, workflow contracts, examples, tests specification and diagrams for future
+contributors and agents. Review status does not make a document temporary. Approval updates
+its status in place; implementation does not trigger deletion or relocation.
+
+`designs/temporary/` is only for disposable agent-to-agent handoffs. Before deleting a handoff,
+ensure any lasting decisions or required knowledge are captured in permanent project documents.
+Do not treat this stage package as a handoff or remove it during handoff cleanup.
+The shared diagram policy lives at [AUTHORING.md](../../diagrams/AUTHORING.md).

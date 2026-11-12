@@ -2,7 +2,7 @@
 
 Sharon adopted **Dashmotion** and **Animated SVG** for architecture explanations and learning
 material. Use this policy for future stages as well as the system architecture. It persists
-independently of temporary review documents. Diagrams explain the approved design; they do not
+independently of disposable agent handoffs. Diagrams explain the approved design; they do not
 change architecture decisions or authorize implementation.
 
 ## Which one to use
@@ -67,5 +67,6 @@ is not an installation. Do not claim a skill's rendering pipeline was used unles
 - Validate local links, SVG XML and inline JavaScript syntax where applicable. Record what
   actually ran and remaining limitations in the stage's findings. A structural pass is not
   evidence of application behavior or a claim that Sharon reviewed the visuals in PyCharm.
-- On approval/promotion of temporary design material, move the diagrams with their lessons
-  and repair links. Keep this policy in its permanent location.
+- Keep stage diagrams and their lessons permanently in `designs/stages/<stage>/`, including
+  during design review. `designs/temporary/` is only for disposable agent handoffs; never
+  remove stage diagrams during handoff cleanup. Keep this policy in its permanent location.
