@@ -51,8 +51,21 @@ has been studied exhaustively.
 
 The independent examples live in `app/examples/workflows/`, with colocated inputs, settings,
 tests and compact diagrams. User-facing configuration instructions live in
-`app/docs/configuration.md`; YAML stays in `app/configs/`. Documentation navigation is in
+`app/docs/configuration.md`; YAML is `app/application.yaml`. Documentation navigation is in
 `app/docs/README.md`.
 
 Next: discuss Stage 02 (Langfuse observability), agree on the first visible run/step/error
 experiment, and approve its design before implementation. No Stage 02 integration has been built.
+
+
+## Runtime structure refactor — pending review
+
+Sharon requested the discussed code cleanup and future file-tree document in an
+unmerged PR. This branch separates release discovery/launch and application
+assembly/factory/execution, extracts the CLI parser, and moves shared YAML directly
+under app with an old-local-override guard. Existing flow behavior and dependencies
+are preserved. Role/harness/tool packages remain future proposals.
+
+The [review entry point](refactors/2026-11-12-runtime-structure/README.md) links the
+complete proposal, verification commands and executed evidence. Guarded-document
+updates are proposed in the PR; they do not record acceptance or authorize Stage 02.

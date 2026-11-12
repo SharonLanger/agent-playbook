@@ -67,7 +67,7 @@ and its per-workflow guides for code, debugging exercises and expected test outp
 ## Runtime configuration
 
 See [configuration rules and examples](configuration.md). Runtime settings live
-in `app/configs/application.yaml`, separate from package/version metadata. Source
+in `app/application.yaml`, separate from package/version metadata. Source
 runs use that file by default; the source release launcher passes its path to the
 selected installation. `--config PATH` overrides `AGENT_PLAYBOOK_CONFIG`; both
 allow another external file. Installed releases invoked directly need one of those
@@ -96,7 +96,7 @@ that exact release rather than searching for another. For an exact build:
 
 ```sh
 app/dist/<actual-release-folder>/venv/bin/agent-playbook version
-app/dist/<actual-release-folder>/venv/bin/agent-playbook run --config "$PWD/app/configs/application.yaml"
+app/dist/<actual-release-folder>/venv/bin/agent-playbook run --config "$PWD/app/application.yaml"
 ```
 
 Developer commands (`check`, `test`, `format`, `version patch`, `release`) require

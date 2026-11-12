@@ -20,3 +20,7 @@ release rules are in [app/docs/cli.md](app/docs/cli.md).**
 
 Project layout: [guarded project structure](designs/project-structure.md).
 
+
+The proposed runtime structure cleanup and completed-system file tree are documented
+in the [refactor review](designs/refactors/2026-11-12-runtime-structure/README.md).
+Use the [verification guide](app/docs/refactor-review.md) to check this branch before acceptance.

@@ -2,7 +2,7 @@
 
 [User documentation](README.md) · [Running workflows](workflows.md) · [Troubleshooting](troubleshooting.md#configuration-does-not-seem-to-change-anything)
 
-Edit [app/configs/application.yaml](../configs/application.yaml) to configure integrations. It is separate
+Edit [app/application.yaml](../application.yaml) to configure integrations. It is separate
 from `pyproject.toml`, which owns the application version, dependencies and build settings.
 Changing runtime settings takes effect on the next invocation of the same release:
 no version bump or rebuild is needed. There is no background configuration server.
@@ -12,22 +12,22 @@ no version bump or rebuild is needed. There is no background configuration serve
 This guide describes the integrated application (`dev-run` and installed `run`).
 The [independent workflow sandboxes](../examples/workflows/README.md) deliberately own
 separate `settings.toml`, `input.json` and startup code inside each example folder.
-They do not load `app/configs/application.yaml` or use the application's override variables.
+They do not load `app/application.yaml` or use the application's override variables.
 Follow an example's README when running its `run.py` directly.
 
 ## Files and selection
 
 | File | Purpose |
 |---|---|
-| `app/configs/application.yaml` | Shared settings, reviewed and versioned in Git |
-| `app/configs/application.local.yaml` | Optional partial overrides for this machine; Git-ignored |
+| `app/application.yaml` | Shared settings, reviewed and versioned in Git |
+| `app/application.local.yaml` | Optional partial overrides for this machine; Git-ignored |
 | `app/src/agent_playbook/config/` | Python loader, typed validation and CrewAI initialization |
 
 Both `dev-run` and `run` accept `--config PATH`. The file selection order is:
 
 1. Explicit `--config PATH`.
 2. `AGENT_PLAYBOOK_CONFIG` environment variable.
-3. In the source checkout, `app/configs/application.yaml`, found relative to the
+3. In the source checkout, `app/application.yaml`, found relative to the
    installed editable package, independently of the terminal's working directory.
 
 The source CLI's `run` passes the selected external path to its installed child.
@@ -42,7 +42,7 @@ From the repository root, using the CLI installed by bootstrap:
 ```sh
 app/.venv/bin/agent-playbook dev-run
 app/.venv/bin/agent-playbook run
-app/.venv/bin/agent-playbook run --version 0.1.0 --config "$PWD/app/configs/application.yaml"
+app/.venv/bin/agent-playbook run --version 0.1.0 --config "$PWD/app/application.yaml"
 ```
 
 To use another shared file for both source and releases, set once in your terminal
@@ -56,6 +56,15 @@ For a selected `name.yaml`, an optional sibling `name.local.yaml` is merged by k
 Local files are partial overrides, not standalone base files. Missing optional local
 files are fine; unreadable or invalid existing files fail. Value precedence is:
 **shared file → local file → documented environment overrides**.
+
+## Moving from the old configs folder
+
+The refactor moves shared YAML from `app/configs/application.yaml` directly under
+`app/`. Move an existing ignored `app/configs/application.local.yaml` to
+`app/application.local.yaml`; if both exist, merge deliberately, then remove the old
+file. Default startup rejects a detected old override instead of silently ignoring it.
+No files are overwritten or migrated automatically. Explicit configuration selectors
+still take precedence; update any scripts or IDE parameters that use the old path.
 
 ## CrewAI settings
 
@@ -117,8 +126,9 @@ or file. This stage adds no unused workflow configuration framework or speculati
 
 ## Why initialization order matters
 
-The runner loads/validates configuration, applies CrewAI startup environment settings,
-and only then imports flow modules. Python imports can initialize library services,
+The runner calls `application/assembly.py` to load/validate configuration and apply
+CrewAI startup settings. Only afterward does `application/workflow_factory.py` import
+and construct the selected flow. Python imports can initialize library services,
 so applying a setting afterward may be too late. Flow-instance options are also passed
 explicitly. Importing the workflow package itself no longer changes the environment.
 
@@ -135,7 +145,7 @@ network activity; the offline guarantee applies to the documented disabled confi
 ## Try it in PyCharm
 
 1. Run **Dev Run** with the committed file: application step messages appear.
-2. Create `app/configs/application.local.yaml` with only
+2. Create `app/application.local.yaml` with only
    `integrations: {crewai: {show_framework_events: true}}`.
 3. Run **Dev Run** again: additional CrewAI output appears; the workflow result is unchanged.
 4. Run **Run** with an already built configuration-capable release: it reads that same file.

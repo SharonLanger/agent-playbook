@@ -40,4 +40,11 @@ conflicts before proceeding. Passing tests alone does not establish compliance.
 - Do not create detailed designs for future stages ahead of their turn.
 
 ## Status
-Stage 00 is accepted. Stage 01 design (#29), workflow/configuration implementation (#30), principles follow-up (#31), and independent sandboxes (#32) are merged. Sharon reported the examples working and accepted #32 after the diagram-size correction. The sandboxes live in `app/examples/workflows/` and run through their own run.py files, independently of the CLI/application runner. User-facing operating guides live in `app/docs/`; active configuration files remain in `app/configs/`. See `designs/progress.md` for verification evidence and acceptance. The next planned stage is Stage 02 (Langfuse); discuss and approve its design before implementation. Keep completed-stage learning material available. The top-level architecture remains the target system; do not infer future implementation from target diagrams.
+Stage 00 is accepted. Stage 01 design (#29), workflow/configuration implementation (#30), principles follow-up (#31), and independent sandboxes (#32) are merged. Sharon reported the examples working and accepted #32 after the diagram-size correction. The sandboxes live in `app/examples/workflows/` and run through their own run.py files, independently of the CLI/application runner. User-facing operating guides live in `app/docs/`; the active configuration is `app/application.yaml`. See `designs/progress.md` for verification evidence and acceptance. The next planned stage is Stage 02 (Langfuse); discuss and approve its design before implementation. Keep completed-stage learning material available. The top-level architecture remains the target system; do not infer future implementation from target diagrams.
+
+
+The runtime structure refactor is prepared for review in
+`designs/refactors/2026-11-12-runtime-structure/`. Sharon requested the code changes and
+future-layout proposal in an unmerged PR. Its guarded-document updates remain proposed
+until his review; do not treat future role/harness/tool paths as implemented or accepted.
+Use `app/docs/refactor-review.md` for repeatable verification before acceptance.

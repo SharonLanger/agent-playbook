@@ -6,6 +6,7 @@ and learn it. Progress records what has actually been accepted.
 
 | Location | Purpose |
 |---|---|
+| [Runtime structure refactor](refactors/2026-11-12-runtime-structure/README.md) | Draft review map, complete future-tree proposal and verification evidence |
 | [project-structure.md](project-structure.md) | Guarded folder ownership, dependency rules and current source layout |
 | [architecture.md](architecture.md) | Components, ownership, execution, errors, data and integration boundaries |
 | [diagrams/](diagrams/README.md) | Animated SVGs, static SVGs and a local visual viewer |

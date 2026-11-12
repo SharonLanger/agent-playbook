@@ -16,7 +16,16 @@ def configuration_path(explicit: str | None = None) -> Path:
             raise ConfigurationError("Configuration path must not be empty.")
         return Path(selected).expanduser().resolve()
     if SOURCE_COMMIT == "development":
-        return Path(__file__).resolve().parents[3] / "configs" / "application.yaml"
+        app = Path(__file__).resolve().parents[3]
+        legacy_local = app / "configs/application.local.yaml"
+        if legacy_local.exists():
+            raise ConfigurationError(
+                f"Legacy local override found at {legacy_local}. Move or merge it "
+                f"into {app / 'application.local.yaml'}, then remove the old file. "
+                "No files were changed. An explicit configuration selector still "
+                "takes precedence."
+            )
+        return app / "application.yaml"
     raise ConfigurationError(
         "Select an external configuration with --config PATH or AGENT_PLAYBOOK_CONFIG."
     )
