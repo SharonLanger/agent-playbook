@@ -8,7 +8,7 @@ The working directory can be anywhere: inputs/settings are resolved next to run.
 
 Adapted from Routing Patterns section 3. check_amount follows receive. Only a large_order label invokes the second router. check_country then reads country from state and emits its own distinct label. Try amount 500, then 5000 with country US, then 5000 with DE. The second router does not run for a small order. Exactly 1000 is a small order.
 
-![Trigger graph](diagram-animated.svg)
+<img src="diagram-animated.svg" alt="Trigger graph" width="354" height="420">
 
 [Pause/resume viewer](diagram.html) · [Static diagram](diagram.svg)
 

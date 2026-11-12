@@ -8,7 +8,7 @@ The working directory can be anywhere: inputs/settings are resolved next to run.
 
 Compare this with example 02: choose has @router, so its returned string selects a label listener. begin returns a bool; choose receives it as its argument. Change approved to false in input.json to take the other route. Literal declares possible labels for typing/plot metadata; the actual returned string selects the path.
 
-![Trigger graph](diagram-animated.svg)
+<img src="diagram-animated.svg" alt="Trigger graph" width="318" height="322">
 
 [Pause/resume viewer](diagram.html) · [Static diagram](diagram.svg)
 

@@ -8,7 +8,7 @@ The working directory can be anywhere: inputs/settings are resolved next to run.
 
 Adapted from Routing Patterns section 2. All three starts run; joined requires A plus either B or C. This does not cancel the remaining start. joined receives one triggering output, not an automatic tuple of all results. Read state.joined_count and calls rather than expecting kickoff's final result to be "joined": a remaining start may finish last. The small async sleeps are deliberate sandbox controls. Swap delays to inspect different arrival orders; no exact duration is promised. started/finished entries reveal logical overlap across awaits, not simultaneous CPU execution.
 
-![Trigger graph](diagram-animated.svg)
+<img src="diagram-animated.svg" alt="Trigger graph" width="458" height="322">
 
 [Pause/resume viewer](diagram.html) · [Static diagram](diagram.svg)
 

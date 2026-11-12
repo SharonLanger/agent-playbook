@@ -8,7 +8,7 @@ The working directory can be anywhere: inputs/settings are resolved next to run.
 
 This deliberately retains your collision. begin triggers choose AND the method needs_work. At score 80 the router emits pass, while completion of the method needs_work triggers revise. Therefore both accept and revise run. These are two trigger paths, not two decisions from choose. Names and route labels share a namespace. Change ONLY needs_work's return string to "different_payload": revise should still run because the method NAME matches. Then rename ONLY that method to extra_step: at score 80 revise should stop running. Changing only self.state.decision does not emit a routing label. At score 40, explore how often revise runs when both sources emit the matching name. Exact observed ordering is version evidence, not a promised scheduler contract. calls is our explicit list, not a CrewAI trace, and cannot prove overlapping method bodies.
 
-![Trigger graph](diagram-animated.svg)
+<img src="diagram-animated.svg" alt="Trigger graph" width="323" height="322">
 
 [Pause/resume viewer](diagram.html) · [Static diagram](diagram.svg)
 

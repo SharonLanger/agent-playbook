@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="flowsvg" width="100%" viewBox="0 0 178 322" role="img" aria-roledescription="flowchart" aria-labelledby="flowsvg-title" aria-describedby="flowsvg-desc" style="background:#020617;border-radius:12px"><style>
+<svg xmlns="http://www.w3.org/2000/svg" id="flowsvg" width="178" height="322" viewBox="0 0 178 322" role="img" aria-roledescription="flowchart" aria-labelledby="flowsvg-title" aria-describedby="flowsvg-desc" style="background:#020617;border-radius:12px"><style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace; background: #020617;
          min-height: 100vh; padding: 2rem; color: #e2e8f0; }

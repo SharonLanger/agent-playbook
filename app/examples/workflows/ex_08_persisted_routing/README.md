@@ -8,7 +8,7 @@ The working directory can be anywhere: inputs/settings are resolved next to run.
 
 Adapted from Routing Patterns section 4. This keeps structured state, routing, or_ join and SQLite persistence. The upstream Crew/LLM call is intentionally replaced by deterministic enrich logic, so no account or model key is needed. run.py creates a first flow, then a fresh flow seeded from its saved state ID. The second flow starts again from enrich with runs incremented to 2; this is state restoration, not resuming at an interrupted program line. Saved calls are carried over too. Data stays in this folder's ignored .runtime directory. Each click starts a new pair, rather than choosing an older run automatically.
 
-![Trigger graph](diagram-animated.svg)
+<img src="diagram-animated.svg" alt="Trigger graph" width="346" height="420">
 
 [Pause/resume viewer](diagram.html) · [Static diagram](diagram.svg)
 

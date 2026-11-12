@@ -8,7 +8,7 @@ The working directory can be anywhere: inputs/settings are resolved next to run.
 
 Adapted from Routing Patterns section 1. The first review is triggered by write_draft completion. Later reviews are triggered by the needs_revision router label. Count increases in state until approval. The condition is bounded to 1–10 reviews. or_ and router re-arming are version-sensitive; this example tests our pinned CrewAI rather than assuming every historical version behaves the same.
 
-![Trigger graph](diagram-animated.svg)
+<img src="diagram-animated.svg" alt="Trigger graph" width="315" height="420">
 
 [Pause/resume viewer](diagram.html) · [Static diagram](diagram.svg)
 

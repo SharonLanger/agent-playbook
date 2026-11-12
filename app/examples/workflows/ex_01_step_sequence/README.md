@@ -8,7 +8,7 @@ The working directory can be anywhere: inputs/settings are resolved next to run.
 
 Read produce, decorate, finish in flow.py. Each listener receives the previous method's return value. Expected calls: produce, decorate, finish. Expected result: "[Hello]". Change the message and observe it travel through the methods.
 
-![Trigger graph](diagram-animated.svg)
+<img src="diagram-animated.svg" alt="Trigger graph" width="178" height="322">
 
 [Pause/resume viewer](diagram.html) · [Static diagram](diagram.svg)
 

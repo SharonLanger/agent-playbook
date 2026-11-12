@@ -8,7 +8,7 @@ The working directory can be anywhere: inputs/settings are resolved next to run.
 
 produce is an ordinary start method. Both @listen(produce) and @listen("produce") react to its completion and receive "route_green" as data. The listener for "route_green" does NOT run: an ordinary return does not emit a router label. The two completion listeners have no ordering dependency between them. Their relative order and the final return value are not the lesson's contract. A method reference resolves in Python; CrewAI still matches its name. It does not isolate that name from router labels.
 
-![Trigger graph](diagram-animated.svg)
+<img src="diagram-animated.svg" alt="Trigger graph" width="336" height="222">
 
 [Pause/resume viewer](diagram.html) · [Static diagram](diagram.svg)
 
