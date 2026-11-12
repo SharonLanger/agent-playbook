@@ -9,6 +9,7 @@ and learn it. Progress records what has actually been accepted.
 | [project-structure.md](project-structure.md) | Guarded folder ownership, dependency rules and current source layout |
 | [architecture.md](architecture.md) | Components, ownership, execution, errors, data and integration boundaries |
 | [diagrams/](diagrams/README.md) | Animated SVGs, static SVGs and a local visual viewer |
+| [Diagram authoring](diagrams/AUTHORING.md) | When and how future agents use Dashmotion and Animated SVG |
 | [learning/](learning/README.md) | Plain-language explanations spanning the whole system |
 | [charter.md](charter.md) | Purpose, outcomes and scope |
 | [principles.md](principles.md) | Engineering and approval rules |
