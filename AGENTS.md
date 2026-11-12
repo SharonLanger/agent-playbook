@@ -7,6 +7,7 @@ This repository has one active design workspace in `designs/` and an executable 
 2. Read `designs/charter.md`, `designs/architecture.md`, `designs/principles.md`, `designs/roadmap.md`, and `designs/progress.md`.
 3. Read `designs/project-structure.md`; it is the guarded authority for code placement and dependency boundaries.
 4. For an active stage, read its approved architecture and plan before implementation.
+5. For diagrams and visual explanations, read `designs/diagrams/AUTHORING.md`: Dashmotion is the default; Animated SVG handles timed/narrated walkthroughs.
 
 ## Governance
 - Charter, target architecture, and principles are proposed baselines until explicitly approved. Once approved, they are protected.
@@ -16,6 +17,10 @@ This repository has one active design workspace in `designs/` and an executable 
 - Progress, learning explanations, and findings may evolve with verified evidence. Distinguish hypotheses from observations.
 
 - The approved project structure is protected. Follow its change rules before moving component boundaries.
+
+## Documentation retention
+- Keep stage designs, plans, lessons, examples, findings and diagrams permanently under `designs/stages/<stage>/`, including during review. Follow `designs/README.md` to locate them.
+- Reserve `designs/temporary/` only for disposable agent-to-agent handoffs. Preserve lasting decisions in permanent documents before deleting a handoff. Never delete stage material as part of handoff cleanup.
 
 ## Engineering
 - Keep external integrations isolated behind explicit contracts/adapters. Configure provider endpoints, credentials, and environment-specific settings externally; never commit secrets.
