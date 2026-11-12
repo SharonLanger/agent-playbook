@@ -63,3 +63,7 @@ its status in place; implementation does not trigger deletion or relocation.
 ensure any lasting decisions or required knowledge are captured in permanent project documents.
 Do not treat this stage package as a handoff or remove it during handoff cleanup.
 The shared diagram policy lives at [AUTHORING.md](../../diagrams/AUTHORING.md).
+
+## Optional independent experiments
+
+[Self-contained workflow sandboxes](../../../app/examples/workflows/README.md) explore method triggers, router labels, deliberate collisions and the official routing patterns. Each has its own run.py and README. These experiments do not change the integrated workflow contracts.

@@ -40,3 +40,7 @@ Project layout: [guarded project structure](../designs/project-structure.md).
 
 Use **Dev Run** for source edits, **Run** for the latest release, and **Check** for all checks. **Bump Patch** updates version metadata; review and commit before **Release**. See the CLI guide for individual checks and **Format**.
 
+
+## Independent workflow experiments
+
+[Workflow examples — start here](examples/workflows/README.md). Open an example's run.py directly in PyCharm; no CLI selection or release is needed.
