@@ -1,0 +1,4 @@
+[crewai]
+usage_telemetry_enabled = false
+tracing_enabled = false
+suppress_flow_events = true

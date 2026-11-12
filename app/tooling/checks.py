@@ -99,14 +99,14 @@ def main() -> int:
 def select_commands(command: str, selected: list[str]) -> list[list[str]]:
     paths = ["src", "tooling", "examples", "tests"]
     if command == "test":
-        return [["pytest", "-q", "tests"]]
+        return [["pytest", "-q", "tests", "examples/workflows"]]
     if command == "format":
         return [["ruff", "format", *paths]]
     checks = {
         "types": ["pyright"],
         "lint": ["ruff", "check", *paths],
         "format": ["ruff", "format", "--check", *paths],
-        "tests": ["pytest", "-q", "tests"],
+        "tests": ["pytest", "-q", "tests", "examples/workflows"],
     }
     return [value for name, value in checks.items() if not selected or name in selected]
 
