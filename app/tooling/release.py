@@ -97,6 +97,24 @@ def build_wheel(repo: Path, commit: str, destination: Path, uv: str) -> Path:
             f'SOURCE_COMMIT = "{commit}"\n'
         )
         destination.mkdir(parents=True)
+        # Export while the exact committed source and lock still exist together.
+        capture(
+            [
+                uv,
+                "export",
+                "--locked",
+                "--no-dev",
+                "--no-emit-project",
+                "--format",
+                "requirements.txt",
+                "--no-header",
+                "--no-annotate",
+                "--output-file",
+                str(destination / "requirements.txt"),
+            ],
+            source,
+        )
+        (destination / "uv.lock").write_bytes((source / "uv.lock").read_bytes())
         run(
             [uv, "build", "--wheel", "--no-sources", "--out-dir", str(destination)],
             source,
@@ -116,9 +134,24 @@ def install_release(destination: Path, wheel: Path, uv: str) -> Path:
     run([uv, "venv", "--python", sys.executable, str(environment)], destination)
     python = environment / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
     run(
+        [
+            uv,
+            "pip",
+            "install",
+            "--python",
+            str(python),
+            "--require-hashes",
+            "--no-deps",
+            "--requirements",
+            str(destination / "requirements.txt"),
+        ],
+        destination,
+    )
+    run(
         [uv, "pip", "install", "--python", str(python), "--no-deps", str(wheel)],
         destination,
     )
+    run([uv, "pip", "check", "--python", str(python)], destination)
     return python
 
 
@@ -131,7 +164,15 @@ def verify_installed_release(
     for key in ("PYTHONPATH", "PYTHONHOME"):
         clean_env.pop(key, None)
     clean_env["PYTHONNOUSERSITE"] = "1"
-    run([str(python), "-I", "-m", "agent_playbook.cli", "run"], destination, clean_env)
+    for key in list(clean_env):
+        if key.endswith("_API_KEY") or key in ("OPENAI_API_KEY", "CREWAI_TOKEN"):
+            clean_env.pop(key)
+    # A fresh process installs the network audit guard before importing the app.
+    run(
+        [str(python), "-I", str(Path(__file__).with_name("verify_runtime.py")), "run"],
+        destination,
+        clean_env,
+    )
     reported = capture(
         [str(python), "-I", "-m", "agent_playbook.cli", "version"],
         destination,
@@ -196,12 +237,29 @@ def build_release(output: Path | None) -> None:
         "sha256": digest,
         "verified": False,
     }
+    requirements_hash = hashlib.sha256(
+        (destination / "requirements.txt").read_bytes()
+    ).hexdigest()
+    lock_hash = hashlib.sha256((destination / "uv.lock").read_bytes()).hexdigest()
+    evidence["requirements_sha256"] = requirements_hash
+    evidence["lock_sha256"] = lock_hash
     write_release_manifest(destination, evidence)
-    (destination / "SHA256SUMS").write_text(f"{digest}  {wheel.name}\n")
+    (destination / "SHA256SUMS").write_text(
+        f"{digest}  {wheel.name}\n{requirements_hash}  requirements.txt\n{lock_hash}  uv.lock\n"
+    )
     verify_wheel(wheel, digest)
 
     python = install_release(destination, wheel, uv)
     reported, location = verify_installed_release(destination, python, version, commit)
+    if (
+        hashlib.sha256((destination / "requirements.txt").read_bytes()).hexdigest()
+        != requirements_hash
+        or hashlib.sha256((destination / "uv.lock").read_bytes()).hexdigest()
+        != lock_hash
+    ):
+        raise RuntimeError("Release dependency evidence changed during installation.")
+    verify_wheel(wheel, digest)
+    assert_source_unchanged(repo, commit)
     evidence["verified"] = True
     write_release_manifest(destination, evidence)
     print(reported)

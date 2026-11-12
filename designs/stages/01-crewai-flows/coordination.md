@@ -1,4 +1,23 @@
-# Coordination with the active CLI refactor
+# Coordination with the CLI refactor
+
+## Implementation baseline — 2026-11-12
+
+PR #28 is merged at `e5438169c620974193ecb88439c79aff8d836bf4`; its final head was
+`48df8160cefcc58b9300427fe3e2a165a62a774c`. Main's package version was 0.0.11.
+PR #29 merged at `4754bf4b03ef122e5e248ce1f6f5f600c2212f15` before this implementation.
+The runtime work starts from that merged tree, preserving the final parser, tooling package,
+pinned-uv resolver, path normalization, release decomposition and discovery parameter.
+
+The release extension exports dependencies inside build_wheel while the committed archive
+still exists, then installs/checks those dependencies through install_release. Completion
+still requires successful installed verification; failed builds remain unverified. The CLI
+forwards raw workflow arguments, leaving validation to the selected installation.
+
+The application changes version from 0.0.11 to 0.1.0 for Stage 01. CrewAI CLI depends on uv;
+a constraint keeps that transitive tool at the project's existing 0.13.6 pin. No refactor
+work or user version increment was reverted. The earlier snapshot below is retained as history.
+
+# Earlier design-review snapshot
 
 Checked 2026-11-12. Repository: SharonLanger/agent-playbook.
 Main reviewed: `4c9e74dcaf6897f6337f367dbbf17177bbada6c1` (version 0.0.10).

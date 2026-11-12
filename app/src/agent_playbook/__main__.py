@@ -1,6 +1,6 @@
-"""Run the application through the module entry point."""
+"""Run default WF-01 directly through the source/installed application."""
 
-from agent_playbook.application.runner import main
+from agent_playbook.cli.commands import present_workflow
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(present_workflow())

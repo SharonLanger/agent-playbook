@@ -11,6 +11,8 @@ from tooling import release
 def test_verification_failure_keeps_manifest_incomplete(tmp_path: Path) -> None:
     wheel = tmp_path / "example.whl"
     wheel.write_bytes(b"wheel")
+    (tmp_path / "requirements.txt").write_text("dependency==1\n")
+    (tmp_path / "uv.lock").write_text("version = 1\n")
     with (
         patch.object(
             release, "validate_release_source", return_value=(tmp_path, "abc", "0.0.1")

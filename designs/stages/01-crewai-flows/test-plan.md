@@ -47,3 +47,15 @@ settings alone is not evidence of zero outbound traffic. Distinguish network set
 from runtime behavior. Actual Mac PyCharm verification belongs to Sharon; Linux checks do not
 certify the Mac UI. Parallel, persistence and retry semantics have no acceptance tests here
 because they are explicitly deferred, not implicitly supported.
+
+
+## External configuration follow-up
+
+- Validate selected shared YAML plus partial local and documented environment overrides.
+- Reject unknown/missing keys, invalid types and unreadable files before workflow execution.
+- Do not echo private values in configuration errors; reject unsafe YAML object tags.
+- Verify explicit path precedence, cwd-independent source defaults and installed path requirements.
+- Apply startup settings before CrewAI import; reject changed startup settings in a reused process.
+- Run the same code with an edited external file and observe changed event display.
+- Forward the shared configuration to installed releases without exposing editable Python imports.
+- Verify releases with a dedicated offline fixture; inspect the wheel for excluded active/local settings.

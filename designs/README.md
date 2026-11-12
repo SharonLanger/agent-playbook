@@ -18,7 +18,7 @@ and learn it. Progress records what has actually been accepted.
 | [stages/00-environment/architecture.md](stages/00-environment/architecture.md) | Stage 00 development-foundation end state |
 | [stages/00-environment/plan.md](stages/00-environment/plan.md) | Stage 00 substages and acceptance criteria |
 | [stages/00-environment/findings.md](stages/00-environment/findings.md) | Executed experiments and limitations |
-| [Stage 01 — CrewAI Flows](stages/01-crewai-flows/README.md) | Permanent architecture, learning, workflow contracts, test specification and diagrams; design under review |
+| [Stage 01 — CrewAI Flows](stages/01-crewai-flows/README.md) | Permanent architecture, learning, workflow contracts, test specification and diagrams; design approved; implementation and code-reading guides available |
 | [../AGENTS.md](../AGENTS.md) | Repository operating instructions |
 
 ## Viewing diagrams

@@ -25,6 +25,7 @@ approval wording and CrewAI acceptance discrepancy are tracked in progress.md.
 | `designs/diagrams/` | Diagram sources, static/animated SVG and viewer |
 | `.run/` | Shared portable PyCharm tasks |
 | `app/pyproject.toml`, `app/uv.lock` | Package metadata, dependency pins and check configuration |
+| `app/configs/` | Shared external runtime YAML, ignored machine overrides and configuration documentation |
 | `app/src/agent_playbook/` | Installed runtime Python package |
 | `app/tooling/` | Bootstrap, quality checks, version changes, release build and verification |
 | `app/examples/` | Learning exercises; excluded from the installed package |
@@ -46,10 +47,10 @@ All paths below are relative to `app/src/agent_playbook/`.
 | Folder | Ownership | Current contents |
 |---|---|---|
 | `cli/` | Parse arguments, display outcomes, delegate commands | Console/module entry points; checkout-tooling bridge |
-| `application/` | Prepare and execute the selected application run | `runner.py` preserves the existing environment-ready example |
+| `application/` | Prepare and execute the selected application run | `runner.py` validates configuration/input and invokes a fresh selected workflow |
 | `releases/` | Discover and launch completed local releases | `selection.py`; build logic stays in tooling |
-| `config/` | Runtime settings and validation | Responsibility note |
-| `workflows/` | Named workflow packages with `flow.py`, `state.py`, `steps.py` | Responsibility note; Stage 01 will add the first workflow |
+| `config/` | Runtime settings and validation | YAML loader, validation, file selection and CrewAI startup mapping |
+| `workflows/` | Named workflow packages with `flow.py`, `state.py`, `steps.py` | Stage 01 sequence, typed-state and conditional-route examples |
 | `execution/` | Provider-independent agent execution contracts | Responsibility note |
 | `execution/adapters/` | Separate SDK/provider implementations | Responsibility note |
 | `observability/` | Provider-neutral events, correlation and redaction | Responsibility note |
@@ -84,8 +85,8 @@ flowchart TD
     OBS --> EXPORT[Export adapters]
 ```
 
-The graph expresses ownership and intended runtime flow, not implemented Stage 01
-features. Configuration and provider contracts will be designed in their own stages.
+The graph expresses ownership and intended runtime flow; execution/observability
+integrations remain future work. Stage 01 adds external integration configuration; future provider contracts remain deferred.
 
 ## Compatibility and validation
 
@@ -95,3 +96,4 @@ Preserve `agent-playbook` and `python -m agent_playbook.cli`, including `run`,
 Tests mirror runtime component folders and separately cover tooling and examples.
 Validate the full local gate, clean bootstrap, wheel contents and isolated release
 execution after structural moves. macOS PyCharm execution of changed paths requires local confirmation by Sharon.
+

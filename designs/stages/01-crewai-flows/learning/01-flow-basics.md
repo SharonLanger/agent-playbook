@@ -1,6 +1,6 @@
 # Lesson 1 — A flow is an execution graph
 
-Read this before WF-01. The application does not yet implement these examples.
+Read this before WF-01. The implementation is linked from each workflow guide.
 
 A normal function call says “do this now.” A Flow declaration says “this step is eligible
 when that step completes.” CrewAI coordinates the graph. The application starts it with
@@ -23,7 +23,7 @@ when that step completes.” CrewAI coordinates the graph. The application start
 A pulse means direction of transfer;
 it is a teaching animation, not a measured runtime speed or proof that steps run concurrently.
 
-Illustrative minimal example (API shape must be verified against the pin selected in 01.1):
+Minimal teaching excerpt (the implementation uses verified CrewAI 1.15.40):
 
 ```python
 from crewai.flow.flow import Flow, listen, start

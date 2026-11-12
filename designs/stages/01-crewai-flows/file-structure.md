@@ -1,6 +1,6 @@
 # File ownership — reusable versus workflow-specific
 
-**Proposed end-of-stage layout. These runtime files are not created in this PR.**
+**Approved file ownership, implemented in the Stage 01 code PR.**
 Paths are relative to `app/`; `WF-01` is a display/CLI identifier, while Python package names
 use underscores. Each named workflow has its own test directory.
 
@@ -13,6 +13,9 @@ use underscores. Each named workflow has its own test directory.
 | `src/agent_playbook/application/results.py` | Small immutable successful RunResult | Reused; no workflow state here |
 | `src/agent_playbook/releases/selection.py` | Forward workflow/input argv to selected installation | Reused; preserve version selection and isolation |
 | `src/agent_playbook/__main__.py` | Preserve direct-module default run | Reused entry point; defaults to WF-01 in Stage 01 |
+| `configs/` | Shared YAML, ignored local overrides and operating rules | Reused across application releases |
+| `src/agent_playbook/config/` | Paths, validated settings, YAML loading and CrewAI startup mapping | Reused; workflow rules stay separate |
+| `tests/config/` | Precedence, validation, private errors and startup/reload tests | Shared configuration tests |
 | `tooling/` | Existing setup/check/version/release machinery | Reused; runtime dependency installation added deliberately |
 | `tests/application/test_runner.py` | Selection, input rejection, fresh invocation, normalized outcomes | Shared application tests |
 | `tests/cli/test_workflow_commands.py` | Parsing, argv forwarding, exit codes, help | Shared CLI tests |
@@ -39,7 +42,7 @@ actual merged tree before extending these owners. No workflow imports `tooling` 
 
 WF-01 intentionally has no empty state.py. Workflow functions may be called directly in unit
 tests, but end-to-end flow tests use kickoff. Similar tiny formulas are not grounds for a shared
-utils module. Future execution/observability/config folders stay reserved until needed.
+utils module. Future execution/observability folders stay reserved until needed; configuration is now implemented.
 
 ## Tests: the folder identifies the subject
 
@@ -51,7 +54,7 @@ utils module. Future execution/observability/config folders stay reserved until 
 
 Because repeated test filenames will exist, add `__init__.py` consistently in `tests/`,
 `tests/workflows/` and each named workflow test package (or explicitly adopt pytest importlib
-mode after a compatibility check). Proposed default: package markers, preserving current
+mode after a compatibility check). Implemented choice: package markers, preserving current
 pytest mode. Verify collection alongside existing `tests/tooling` and `tests/cli`; no sys.path
 patches inside individual tests. These package markers are structural files, not shared logic.
 
@@ -62,3 +65,8 @@ README/architecture/plan/learning/workflows/diagrams structure. Approval updates
 named **WF-01 Sequence**, **WF-02 State**, **WF-03 Route**, invoking `agent_playbook.cli`
 with `dev-run --workflow wf-01`, etc. Existing Run/Dev Run default to WF-01. Workflow-specific
 instructions belong in each lesson; the durable CLI guide lists public options centrally.
+
+The implementation also adds `tooling/verify_runtime.py` for installed/offline checks and
+shared CLI/application tests, all within the approved component boundaries. Three Test WF
+PyCharm tasks accompany the three run tasks so each example can be verified independently.
+

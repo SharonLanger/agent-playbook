@@ -1,5 +1,8 @@
-# Config
+# Runtime configuration
 
-Runtime settings: workflow/provider selection and validated environment settings. Never store secrets here. No configuration loader is implemented yet.
+Reusable runtime boundary for path selection, YAML loading, validation and CrewAI
+startup settings. The application runner loads configuration before importing flows.
+Workflow rules remain owned by their named workflows.
 
-Follow [the guarded project structure](../../../../designs/project-structure.md).
+See [configuration rules and examples](../../../configs/README.md) and
+[the guarded project structure](../../../../designs/project-structure.md).

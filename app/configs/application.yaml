@@ -1,0 +1,5 @@
+integrations:
+  crewai:
+    usage_telemetry_enabled: false
+    tracing_enabled: false
+    show_framework_events: false

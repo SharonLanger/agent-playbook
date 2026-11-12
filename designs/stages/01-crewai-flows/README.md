@@ -1,11 +1,15 @@
 # Stage 01 — CrewAI Flows: review package
 
-**Design and learning material only. Awaiting Sharon's review before implementation.**
-This package describes the completed Stage 01 target, not current application behavior.
-All three workflows and all lessons are prepared together; implementation proceeds gradually.
-No runtime files, dependencies, versions, tests or IDE configurations are changed by this PR.
+**Design approved; all three workflows are implemented for review.**
+The design PR merged before implementation. Start with the code-reading guide, then learn
+the independent workflows one at a time. Verification results and remaining Mac acceptance
+are recorded in findings.
 
 ## Start here
+
+**[Verify first, then read the code](learning/00-reading-the-code.md)** provides setup,
+PyCharm buttons, the common call path and a learning session plan.
+
 
 1. Read [the diagram guide](diagrams/README.md); its animations appear directly in Markdown.
 2. Read [the mental model](learning/01-flow-basics.md).
@@ -38,13 +42,13 @@ it does not contain workflow formulas, threshold rules or workflow-specific stat
 
 | File | Role | Review status |
 |---|---|---|
-| `architecture.md` | Stage end state and behavioral boundaries | Proposed for approval |
-| `file-structure.md` | Exact intended placement and reuse labels | Proposed for approval |
-| `plan.md` | Implementation order and gates | Proposed for approval |
-| `workflows/*.md` | Workflow contracts, examples and expected behavior | Proposed for approval |
-| `learning/*.md` | Full lesson sequence, illustrative code and exercises | Read before implementing |
-| `test-plan.md` | Required tests, scenarios and evidence | Specification, not executed tests |
-| `coordination.md` | Snapshot of PR #28 and integration checks | Recheck before code work |
+| `architecture.md` | Stage end state and behavioral boundaries | Approved baseline |
+| `file-structure.md` | Exact intended placement and reuse labels | Approved baseline |
+| `plan.md` | Implementation order and gates | Approved baseline |
+| `workflows/*.md` | Workflow contracts, examples and expected behavior | Approved baseline |
+| `learning/*.md` | Full lesson sequence, illustrative code and exercises | Read alongside implementation |
+| `test-plan.md` | Required tests, scenarios and evidence | Acceptance specification; results in findings |
+| `coordination.md` | Snapshot of PR #28 and integration checks | Integration snapshot |
 | `findings.md` | Verified documentation checks and unresolved implementation probes | Evidence only |
 | `sources.md` | Official references and diagram provenance | Reference material |
 
