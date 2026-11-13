@@ -61,6 +61,8 @@ project persistence remain local acceptance checks.
 
 ## M1 configurable storage port follow-up — 2026-11-13
 
+Tested implementation commit: `9743c3103d892dce8cd5a5fb26a9cffadabcad83`.
+
 The separate M1 checkpoint `fad8a4f119cab5316529b3ad9239d01b8347368c`
 remains reachable for Sharon's original exercise. This follow-up adds
 `MINIO_PORT`, default 9090, to generated private settings, the host binding and
