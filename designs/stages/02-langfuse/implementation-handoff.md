@@ -1,4 +1,8 @@
-# Codex brief — implement milestone 1 only
+# Codex brief — milestone 1 setup
+
+For the newly authorized connection/playground work, follow the
+[M2/M3 brief](connection-playground-handoff.md). The stop-at-M1 instructions below
+apply to the original setup assignment, not to that later assignment.
 
 Status: **Handoff instructions to use when Sharon requests implementation.**
 This documentation update does not itself start implementation or approve unrelated

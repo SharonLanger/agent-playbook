@@ -86,3 +86,7 @@ setup guide. See [M1 findings](stages/02-langfuse/findings.md) for live
 verification, limits and remaining manual acceptance. This pending PR is
 implemented and agent-verified, not yet accepted or merged. No Python
 integration, playground, workflow or context change is included.
+
+## Stage 02 next implementation assignment
+
+On 2026-11-13 Sharon requested [M2/M3 implementation instructions](stages/02-langfuse/connection-playground-handoff.md) for Codex to work while his M1 local check is pending. M2 connects/authenticates without traces; M3 explicitly sends editable synthetic traces. Separate tested commits and per-milestone Drive text checklists preserve independent verification. Shared configuration files overlap workflow PR #40 and must be reconciled; no zero-conflict claim is made. This handoff update implements neither milestone, changes no guarded meaning, and does not accept M1 or authorize M4. [Verification file status](stages/02-langfuse/user-verification.md).

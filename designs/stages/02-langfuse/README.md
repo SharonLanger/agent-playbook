@@ -3,7 +3,8 @@
 Status: **Milestone direction agreed with Sharon on 2026-11-13; detailed implementation remains a draft for review.**
 Milestone 1 is implemented on PR #36 and awaits Sharon's local acceptance; see
 [findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
-Milestones 2–4 remain unimplemented.
+Milestones 2–4 remain unimplemented. Sharon requested preparing M2/M3 for
+Codex implementation while M1 local acceptance is pending; M4 remains deferred.
 
 ## Start here
 
@@ -11,7 +12,10 @@ Read [the four milestones and local checkpoints](milestones.md), then
 [configuration and ownership](architecture.md) and the
 [playground/manual exercise](smoke-plan.md).
 Implementing agents must follow [verification before handoff](verification.md).
-Use the [milestone 1 Codex brief](implementation-handoff.md) to start only M1.
+The [M1 brief](implementation-handoff.md) covers setup and its remaining port
+follow-up. Use the [M2/M3 Codex handoff](connection-playground-handoff.md) for
+the next authorized work and [separate verification files](user-verification.md)
+for the exact local checkpoints.
 
 The goal is gradual, visible progress: first an empty working UI, then a connection
 check, then editable mock traces, and finally real workflow integration.

@@ -3,9 +3,15 @@
 Status: **Direction agreed; implementation details remain proposed.**
 [Review entry point](README.md) · [Required agent verification](verification.md) · [M1 Codex brief](implementation-handoff.md)
 
-Current state: WF-01/02/03 run without Langfuse. PR #36 contains only this plan.
-The workflow refactor is separate work. Nothing below claims implementation or
-local acceptance yet. Each checkpoint can include several commits.
+Current state: WF-01/02/03 run without Langfuse. PR #36 implements the M1 local
+service; Sharon's Mac/UI acceptance is pending. M2/M3 are authorized next work,
+not implemented yet. See [the Codex handoff](connection-playground-handoff.md).
+The workflow refactor is separate. Each checkpoint can include several commits.
+
+Implementation of M2/M3 may proceed before Sharon completes earlier local gates.
+Acceptance remains sequential: earlier local prerequisites must work before his
+next manual exercise. Keep a tested commit and separate verification file per
+milestone; preserve the fixed M1 checkpoint.
 
 ## 1. Langfuse runs locally
 
@@ -29,7 +35,8 @@ handoff. No volume-deleting reset is part of the normal exercise.
 
 ## 2. Our code can connect
 
-**Starting point:** milestone 1 works locally.
+**Starting point for local acceptance:** milestone 1 works locally. Development
+may use an isolated agent instance while Sharon's acceptance is pending.
 
 **Deliver:** validated external Langfuse settings, a small reusable integration
 module and an explicit standalone connection-check entry point. It loads
@@ -53,7 +60,8 @@ framework or wait for that command to exist.
 
 ## 3. I can see and change mock runs
 
-**Starting point:** milestone 2 can connect.
+**Starting point for local acceptance:** milestone 2 can connect. Development
+follows M2's available agent checks; blocked live checks remain explicit.
 
 **Deliver:** Sharon's explicitly requested `app/examples/langfuse/` playground,
 with a simple `run.py` and a short README. Start with editable inputs and a
