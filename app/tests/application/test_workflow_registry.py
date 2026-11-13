@@ -49,6 +49,8 @@ def test_aliases_create_fresh_instances(tmp_path: Path) -> None:
         ("{implementation: unknown}", ConfigurationError),
         ("{implementation: shared_state, enabled: false}", WorkflowInputError),
         ("{implementation: shared_state, config: null}", ConfigurationError),
+        ("{implementation: shared_state, name: null}", ConfigurationError),
+        ("{implementation: shared_state, name: '  ' }", ConfigurationError),
         ("{implementation: shared_state, surprise: 1}", ConfigurationError),
         (
             "{implementation: shared_state, config: {defaults: {initial: 1001}}}",

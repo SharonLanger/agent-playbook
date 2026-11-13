@@ -30,8 +30,9 @@ def create_workflow(
         )
     if workflow_id not in application.workflows:
         raise WorkflowInputError(f"Unknown workflow {workflow_id!r}.")
+    raw_entry = application.workflows[workflow_id]
     try:
-        entry = WorkflowEntry.model_validate(application.workflows[workflow_id])
+        entry = WorkflowEntry.model_validate(raw_entry)
     except ValidationError as error:
         fields = "; ".join(
             ".".join(str(part) for part in item["loc"]) or "entry"
@@ -42,6 +43,16 @@ def create_workflow(
         raise ConfigurationError(
             f"Invalid {workflow_id} configuration fields: {fields}."
         ) from None
+    if isinstance(raw_entry, dict) and "name" in raw_entry and entry.name is None:
+        raise ConfigurationError(
+            f"Invalid {workflow_id} name; expected a nonempty string."
+        )
+    if entry.name is not None and (
+        not entry.name.strip() or entry.name != entry.name.strip()
+    ):
+        raise ConfigurationError(
+            f"Invalid {workflow_id} name; expected a nonempty string without surrounding whitespace."
+        )
     if not entry.enabled:
         raise WorkflowInputError(f"Workflow {workflow_id!r} is disabled.")
     key = entry.implementation
