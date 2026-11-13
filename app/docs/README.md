@@ -19,3 +19,5 @@ The shared file is `app/application.yaml`; its user guide is here.
 Component ownership notes stay beside source code, and detailed stage lessons stay with
 their stage. This index links them rather than duplicating the same explanation.
 
+
+Configured workflow IDs and defaults are documented in [configuration](configuration.md#configured-workflows); lifecycle errors are covered in [troubleshooting](troubleshooting.md#workflow-selection-or-phase-failure).

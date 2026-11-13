@@ -83,6 +83,39 @@ The review reproduced eager unused-flow import failure, constructor WorkflowInpu
 
 [review-follow-up.md](refactors/workflow-contract/review-follow-up.md) is the current task specification and evidence matrix. This commit changes documentation and Atlas only. PR #40 must incorporate the updated design branch and implement/verify the follow-up before the next review. Both PRs remain unmerged. Context/Langfuse, children, recovery and optional-package installation profiles remain separate. Earlier initial-stop statements above are retained as dated history, not current authorization status.
 
+## Workflow contract implementation PR (2026-11-13)
+
+
+Sharon approved the PR #38 design and the enumerated guarded-file changes. `feat/workflow-contract` starts at design head `cf62b80` while PR #38 remains open. This branch adds the final-method ABC, per-instance lifecycle/failure records, stable class registry, selected YAML configuration, strict YAML key handling, typed native results, and CLI adaptation. CrewAI retains decorated step orchestration. Children (#39), recovery, and context/Langfuse remain separate.
+
+Baseline at `cf62b80`: Pyright, Ruff lint and format passed. Pytest collection failed in the sandbox because CrewAI attempted to create per-user storage in a read-only home directory. Full tests subsequently ran in the approved execution context. Final checks and current-release evidence are recorded below when complete.
+
+### Verification at implementation commit `465a09754dcd3201dbaf925c7b243877141083a8`
+
+- `app/.venv/bin/python -m tooling.checks check`: PASS, Pyright 0 errors/warnings, Ruff lint/format PASS, pytest 166 passed. The release command repeated the same full gate on the committed tree.
+- `python3 designs/atlas/build.py --check` and `git diff --check`: PASS before the implementation commit; Atlas rebuilt from the updated catalog.
+- `app/.venv/bin/python tooling/verify_runtime.py dev-run`: PASS for WF-01, WF-02, both WF-03 routes and zero Python socket/DNS attempts. This is a Python audit, not an OS network sandbox.
+- `app/.venv/bin/python -m tooling.release` with a workspace uv cache: PASS on CPython 3.13.5. Locked dependency export/install with hashes, `uv pip check` (138 installed packages), isolated installed imports, default WF-01, WF-02, WF-03 pass/needs_work and the fresh-process offline audit passed. Verified wheel SHA-256 `2c99ec87c0f2c52faf783c47fbc3194ad6124a950c104f3dc1e1cafc29d2eb19`; requirements SHA-256 `99fb1fc30d3c3b63e7a4b5464eab05a3fc9364f9631edcf6bffd5afbf4779840`; lock SHA-256 `5bb830f9eaf61fb9b67d3d6c6cf07a2084279cb64fa03a26968cb36e4ec36d04`.
+- A configured `wf-02-custom` alias using defaults 10, -2, 3 returned 24 in source and the installed release. The final installed release returned 0 when JSON overrode `initial` with 2.
+
+The Linux verification does not certify Sharon's Mac/PyCharm setup. The release artifact is local and intentionally untracked. Existing releases using an older configuration schema were not tested with this new YAML. No Langfuse or model service was required.
+
+For a manual review from `app/`, run `./.venv/bin/agent-playbook dev-run`, then WF-02 with `--workflow wf-02 --input '{"initial":10,"increment":-2,"multiplier":3}'` and with `--input '{"initial":3,"increment":2,"multiplier":4}'`. Try WF-03 with scores 59 and 60. Add the documented `wf-02-custom` entry to a temporary YAML file and select it with `--config PATH --workflow wf-02-custom`. Try score 101 (exit 2) and an injected step exception through `tests/cli/test_workflow_commands.py` (exit 1); there is no public failure flag.
+
+## Workflow contract follow-up implementation — PR #40 (2026-11-13)
+
+The PR #38 design head `5d6a770` was merged into the implementation branch without resetting its earlier work. The follow-up implementation at `9f75544c47c1b2356a547f54a634c00262edbdc0` defers concrete CrewAI flow imports until the selected wrapper prepares. Selection and actual construction have separate error boundaries; constructor defects exit 1 while explicit invalid settings remain exit 2. Diagnostics identify the configured alias, phase, field and safe validation type. The CLI suppresses CrewAI's raw step-error log while presenting its classified error. CrewAI still owns decorated step execution and routing. No existing regression tests were removed; application tests and gates exclude `app/examples/`.
+
+The exact A1–F6 maintained test mapping is in [review-follow-up.md](refactors/workflow-contract/review-follow-up.md#pr-40-maintained-test-mapping). Focused follow-up suites passed, including 62 lifecycle/boundary cases, 56 selected-YAML cases and 41 concrete-wrapper/real-flow cases. The negative Pyright probe passed by asserting the final-override, incompatible-hook and assignment diagnostics.
+
+Final verification at application commit `9f75544c47c1b2356a547f54a634c00262edbdc0`:
+
+- `cd app && ./.venv/bin/python -m tooling.checks check`: PASS — Pyright 0 errors/warnings, Ruff lint/format PASS, pytest 314 passed. The release command repeated the full gate on the committed tree with the same result.
+- `python3 designs/atlas/build.py --check` and `git diff --check`: PASS after the status/evidence update.
+- `cd app && ./.venv/bin/python tooling/verify_runtime.py dev-run`: PASS — all three built-ins, both configured alias defaults/overrides, execution exit 1 and zero Python socket/DNS attempts.
+- `cd app && UV_CACHE_DIR=/workspace/.uv-cache ./.venv/bin/python -m tooling.release`: PASS on CPython 3.13.5. Locked hash-verified dependency closure installed, `uv pip check` confirmed 138 compatible installed packages, installed imports stayed in the isolated environment, and every built-in plus both aliases passed the installed smoke audit. The installed CLI rejected invalid input with exit 2 and the injected execution failure with exit 1. The release manifest records `verified: true`. Wheel SHA-256: `b4fb6593f02fc000b15f99fcc5262a531e0296e27f1fe3d554bcd2f9b1b12326`; requirements SHA-256: `99fb1fc30d3c3b63e7a4b5464eab05a3fc9364f9631edcf6bffd5afbf4779840`; lock SHA-256: `5bb830f9eaf61fb9b67d3d6c6cf07a2084279cb64fa03a26968cb36e4ec36d04`.
+
+The offline audit is Python socket/DNS auditing, not an OS network sandbox. Linux checks do not establish Mac/PyCharm behavior. The release is local and untracked. Older installed releases were not tested with the new YAML. Optional dependency packaging, context/Langfuse, children and recovery remain outside this PR. Both PRs remain unmerged.
 
 ## Workflow-contract second review and test-quality handoff — 2026-11-13
 
@@ -93,3 +126,17 @@ Four temporary in-memory probes showed ineffective assertions/fixtures: E3 does 
 Sharon requested another detailed Markdown handoff. [review-test-quality.md](refactors/workflow-contract/review-test-quality.md) specifies Q1–Q4 fixes, focused negative controls, replacement/consolidation rules, per-case evidence and next-agent instructions. This update adds the plan and reconciles status/navigation only. Runtime, tests, dependencies and public behavior are unchanged; no new application test/release run is claimed for this documentation update. The implementation agent must preserve the existing A1–F6 mapping and fill the new completion evidence on PR #40. Both PRs remain unmerged.
 
 Documentation verification: Atlas build and freshness/reference checks passed; 64 relative document links were checked against the repository inventory, with the existing historical-sandbox link left untraversed. Changed files passed a trailing-whitespace check. This is documentation evidence only.
+
+## Workflow-contract test-quality corrections — PR #40 (2026-11-13)
+
+The latest PR #38 design head `9edca5f` was merged into `feat/workflow-contract` as `50d5001`, resolving overlapping progress/status prose while preserving the existing implementation and A1–F6 evidence. Sharon authorized Q1–Q4 and the guarded documentation updates. The governing ABC/YAML contract stays in `designs/refactors/workflow-contract/`; maintained regression tests stay beside their application owners. Relevant exploration topics were already consulted in the design follow-up; no exploration changes this test-quality pass. CrewAI still owns flow steps and routing.
+
+At application commit `4775cbea7b3b86dda76de015cbfd282e43df6cf9`, Q1 observes each concrete flow constructor/kickoff across 11 invalid wrapper inputs; Q2 seeds conflicting framework settings and checks both before the first CrewAI import; Q3 uses 14 independently valid base/local YAML controls and asserts the specific loader reason; Q4 injects callable failures across nine boundaries and checks exact cause/call prefix. Temporary negative controls made each corrected test fail on its intended assertion, then were restored. The former exception-object test injection was replaced. Q3 exposed one narrow production fix: merge keys now report their explicit `StrictLoader` reason instead of a generic invalid-key reason. Public errors remain redacted. See [Q1–Q4 evidence](refactors/workflow-contract/review-test-quality.md#completion-evidence--pr-40) and the [A1–F6 maintained mapping](refactors/workflow-contract/review-follow-up.md#pr-40-maintained-test-mapping).
+
+- `cd app && ./.venv/bin/python -m pytest -q tests/workflows/test_wrappers.py tests/application/test_followup_boundaries.py tests/application/test_runner_contract.py tests/config/test_workflow_matrix.py`: **119 passed**.
+- `cd app && ./.venv/bin/python -m tooling.checks check`: **PASS**, Pyright 0 errors/warnings, Ruff lint/format passed, **315 tests passed**. The clean release repeated this gate on the committed tree.
+- `cd app && ./.venv/bin/python tooling/verify_runtime.py dev-run`: **PASS**, every built-in, both configured aliases with default/override cases, execution failure exit 1, zero Python socket/DNS attempts.
+- `cd app && UV_CACHE_DIR=/workspace/.uv-cache ./.venv/bin/python -m tooling.release`: **PASS** from clean source commit `4775cbea7b3b86dda76de015cbfd282e43df6cf9` on CPython 3.13.5. Hash-checked locked installation and `uv pip check` passed for 138 installed packages. The isolated installed verifier passed every built-in, both aliases/defaults/overrides, failure exit and offline audit. `release.json` records `verified: true`. Wheel SHA-256 `150b5d67638642232931b54ac838751fa967edb25c6d1e6cb8451b4f8a3f3fb8`; requirements SHA-256 `99fb1fc30d3c3b63e7a4b5464eab05a3fc9364f9631edcf6bffd5afbf4779840`; lock SHA-256 `5bb830f9eaf61fb9b67d3d6c6cf07a2084279cb64fa03a26968cb36e4ec36d04`.
+- `python3 designs/atlas/build.py --check` and `git diff --check`: **PASS** after the evidence and Atlas update.
+
+The existing public configuration guide already states that merge keys reject and source values are hidden; the new internal `StrictLoader` reason has no user-facing documentation impact. The refactor package, progress, Atlas and PR evidence are updated. No regression scenarios were removed, and maintained gates exclude `app/examples/`. The release artifact remains local and untracked. Python socket/DNS auditing does not provide an OS network sandbox; Linux results do not establish Mac/PyCharm behavior. Compatibility of older installed releases with the new YAML remains untested. Context/Langfuse, optional dependency packaging, children and recovery remain outside PR #40. Both PRs remain open for review.

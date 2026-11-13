@@ -36,7 +36,7 @@ Review its edits and rerun `check`.
 
 ## Select a workflow
 
-Both `dev-run` and `run` accept `--workflow`, `--input` and `--config PATH`. The default is wf-01.
+Both `dev-run` and `run` accept `--workflow`, `--input` and `--config PATH`. The default is wf-01. Any ID configured under `workflows` may be selected; see [configuration](configuration.md#configured-workflows).
 `--input` must be one JSON-object argument. These options are available from version 0.1.0.
 
 | Workflow | Input fields/defaults | Result |
@@ -195,3 +195,9 @@ python -m ruff format examples
 These commands are manual; the last one changes example files.
 See the [guarded project structure](../../designs/project-structure.md).
 
+
+Configured aliases use the same `--workflow` option. The CLI displays serialized output; Python `run_workflow()` returns a typed native `output` and `serialized_output`. Configuration/selection/input errors exit 2; prepare defects, CrewAI execution, output validation and serialization errors exit 1.
+
+The application loads only the selected workflow’s concrete CrewAI flow. A setup or constructor defect exits 1; the failure message names the configured ID and phase. Validation messages report field/type without input values. A release build verifies every built-in workflow despite this per-run loading.
+
+For a CrewAI step failure, the CLI suppresses CrewAI's raw error log and prints its classified workflow/phase message. Python callers can inspect the preserved exception cause locally.

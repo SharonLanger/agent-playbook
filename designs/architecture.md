@@ -25,8 +25,8 @@ Python libraries. Langfuse is accessed through its configurable integration.
 | Component | Owns | Receives → produces |
 |---|---|---|
 | CLI / PyCharm entry point | User invocation and presentation | Workflow choice + input → output and exit status |
-| Application runner | Validation, integration selection, run identity and overall outcome | Run request + configuration → workflow execution and run result |
-| Workflow definition | Typed input/output, steps, branches and completion/failure rules | Input + step results → explicit routing decisions |
+| Application runner | Configuration assembly, selected workflow construction and overall outcome | Run request + configuration → validated native result and serialized presentation |
+| Workflow contract and definition | ABC lifecycle guards, typed input/output validation and serialization; CrewAI steps and branches | Selected input + CrewAI result → validated outcome and display text |
 | CrewAI Flows | Execution of transitions and workflow state | Workflow definition + input → workflow outcome |
 | Python step | Deterministic application logic | Typed step input → typed result or error |
 | Agent execution contract | Provider-independent request/result semantics | Task + execution settings → result, failure and correlation metadata |
@@ -35,7 +35,7 @@ Python libraries. Langfuse is accessed through its configurable integration.
 | Observability boundary | Event normalization, correlation and redaction | Execution events → provider-neutral observations |
 | Langfuse adapter | Publishing observations to the selected backend | Observations + configured endpoint/credentials → traces/spans |
 
-The runner prepares and starts a run. CrewAI executes the workflow's control flow.
+The runner selects a configured class through the registry and calls its final ABC lifecycle methods. The workflow wrapper validates input and output; CrewAI executes the workflow's control flow.
 A workflow can contain ordinary Python steps without invoking an agent.
 Provider adapters become interchangeable only to the extent that they satisfy the
 same contract; incompatible capabilities require an explicit contract decision.
@@ -148,3 +148,5 @@ Langfuse remains the approved initial tracing integration. Alternatives and appl
 PR #34 is accepted and merged at 96cb1f8. Current runtime uses application/assembly.py for setup, workflow_factory.py for construction and workflow_runner.py for execution; releases/discovery.py selects installations and launcher.py starts their interpreter. Shared YAML is app/application.yaml. These implement existing application/release boundaries. The earlier [runtime proposal](refactors/2026-11-12-runtime-structure/proposal.md) remains useful historical reasoning; its detailed role/harness/tool paths are exploratory. Unsupported required provider capabilities must be reported explicitly; exact future contracts remain undecided.
 
 Apply the [mandatory design contract](governance/design-contract.md) before adding responsibilities or changing these boundaries. Preserve all approved historical stage baselines and their protection.
+
+The approved workflow-contract refactor is specified in [the five-file package](refactors/workflow-contract/README.md). It introduces in-memory per-attempt status, phase-specific failures and YAML-selected registry classes without moving step scheduling from CrewAI. Child workflows, recovery and context/Langfuse remain separate work.

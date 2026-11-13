@@ -59,3 +59,7 @@ because they are explicitly deferred, not implicitly supported.
 - Run the same code with an edited external file and observe changed event display.
 - Forward the shared configuration to installed releases without exposing editable Python imports.
 - Verify releases with a dedicated offline fixture; inspect the wheel for excluded active/local settings.
+
+## Approved successor
+
+The [workflow-contract test plan](../../refactors/workflow-contract/test-plan.md) adds ABC, registry, selected YAML and typed-result coverage. The original CrewAI flow regression scenarios above remain required.

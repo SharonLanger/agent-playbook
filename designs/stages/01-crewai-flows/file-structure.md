@@ -74,3 +74,7 @@ The implementation also adds `tooling/verify_runtime.py` for installed/offline c
 shared CLI/application tests, all within the approved component boundaries. Three Test WF
 PyCharm tasks accompany the three run tasks so each example can be verified independently.
 
+
+## Approved successor
+
+The [workflow-contract refactor](../../refactors/workflow-contract/README.md) supersedes the direct-flow factory and shared result contract while retaining the historical Stage 01 acceptance and CrewAI step ownership above. Concrete flow imports occur when the selected wrapper prepares; release verification still runs every built-in.

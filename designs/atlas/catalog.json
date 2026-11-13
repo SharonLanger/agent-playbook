@@ -1,5 +1,5 @@
 {
-  "snapshot": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
+  "snapshot": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -60,7 +60,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "design": {
@@ -95,15 +95,15 @@
               "to": null
             },
             {
-              "name": "Workflow contract and follow-up",
+              "name": "Workflow contract and review evidence",
               "path": "designs/refactors/workflow-contract/README.md",
-              "text": "Approved ABC/YAML contract; I-1–I-4 implemented on unmerged PR #40. Four test-quality gaps and exact next-agent fixes.",
+              "text": "Approved ABC/YAML contract; PR #40 in review with lazy imports, corrected error boundaries, A1–F6 coverage and Q1–Q4 test sensitivity evidence.",
               "to": null
             }
           ],
           "status": "approved-design",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "app": {
@@ -152,7 +152,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "src": {
@@ -201,7 +201,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "application": {
@@ -238,7 +238,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "workflows": {
@@ -263,7 +263,7 @@
           ],
           "status": "implemented",
           "source": "designs/stages/01-crewai-flows/architecture.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "config": {
@@ -288,7 +288,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "release": {
@@ -313,7 +313,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "tooling": {
@@ -338,7 +338,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "tests": {
@@ -357,7 +357,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "integrations": {
@@ -382,7 +382,7 @@
           ],
           "status": "approved-design",
           "source": "designs/architecture.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         }
       },
@@ -1359,13 +1359,13 @@
         },
         {
           "path": "designs/refactors/workflow-contract/review-follow-up.md",
-          "status": "I-1–I-4 implemented on PR #40; test evidence under review",
-          "purpose": "Original review history and A1–F6 acceptance matrix; see Q1–Q4 handoff for current fixes."
+          "status": "Approved follow-up — verified on unmerged PR #40 at 4775cbe",
+          "purpose": "Reproduced review issues, lazy-import scope, test-gap matrix and next-agent instructions."
         },
         {
           "path": "designs/refactors/workflow-contract/review-test-quality.md",
-          "status": "Requested corrections — implementation pending",
-          "purpose": "Second-review evidence and exact Q1–Q4 test fixes, negative controls and next-agent handoff."
+          "status": "Second review corrections — implemented on unmerged PR #40",
+          "purpose": "Q1–Q4 corrected assertions, negative controls and verification evidence."
         }
       ]
     },

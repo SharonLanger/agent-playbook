@@ -50,10 +50,10 @@ All paths below are relative to `app/src/agent_playbook/`.
 | Folder | Ownership | Current contents |
 |---|---|---|
 | `cli/` | Parse arguments, display outcomes, delegate commands | `parser.py` owns arguments; `commands.py` owns dispatch and presentation; checkout-tooling bridge |
-| `application/` | Prepare and execute the selected application run | `assembly.py` initializes integrations; `workflow_factory.py` validates workflow choice and constructs a fresh flow; `workflow_runner.py` coordinates validation, kickoff and result/error normalization; `results.py` owns outcomes |
+| `application/` | Prepare and execute the selected application run | `assembly.py` loads settings before framework imports; `workflow_registry.py` maps implementation keys to classes; `workflow_factory.py` validates a selected YAML entry and constructs a fresh wrapper; `workflow_runner.py` calls the ABC lifecycle; `results.py` owns typed outcomes |
 | `releases/` | Discover and launch completed local releases | `discovery.py` finds a compatible installation; `launcher.py` launches the selected interpreter; CLI owns messages; build logic stays in tooling |
-| `config/` | Runtime settings and validation | YAML loader, validation, file selection and CrewAI startup mapping |
-| `workflows/` | Named workflow packages with `flow.py`, `state.py`, `steps.py` | Stage 01 sequence, typed-state and conditional-route examples |
+| `config/` | Runtime settings and validation | YAML loader with duplicate-key checks, shared validation, raw workflow catalog, file selection and CrewAI startup mapping |
+| `workflows/` | Shared ABC/lifecycle/errors and named packages with `workflow.py`, `flow.py`, `state.py`, `steps.py` | Stage 01 CrewAI flows with application-facing wrappers |
 | `execution/` | Provider-independent agent execution contracts | Responsibility note |
 | `execution/adapters/` | Separate SDK/provider implementations | Responsibility note |
 | `observability/` | Provider-neutral events, correlation and redaction | Responsibility note |
@@ -66,8 +66,8 @@ state and steps with that workflow rather than in global `models` or `utils` fol
 ## Dependency rules
 
 - CLI delegates execution to the workflow runner or release discovery/launcher; it owns no workflow logic.
-- The workflow runner calls assembly before the factory imports a selected flow. Assembly owns
-  integration setup; the factory owns construction; the runner owns execution and result/error handling.
+- The workflow runner calls assembly before the registry imports concrete wrappers. Assembly owns
+  integration setup; the registry owns stable class keys; the factory validates only the selected YAML entry and constructs a fresh wrapper. The ABC owns lifecycle transitions; the runner owns call order and outer result/error handling. CrewAI retains step orchestration.
 - Release discovery does not start a process; the launcher does not select a release or print messages.
   Neither module imports the application runner. Launching a release crosses an interpreter boundary.
 - Workflows own routing/state and invoke execution contracts; provider clients stay in adapters.

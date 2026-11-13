@@ -1,15 +1,19 @@
-"""Coordinate one application run and normalize its outcome."""
+"""Run one selected workflow through the common lifecycle."""
+
+from pydantic import TypeAdapter, ValidationError
 
 from agent_playbook.application.assembly import assemble_runtime
-from agent_playbook.application.results import (
-    RunResult,
-    WorkflowExecutionError,
-    WorkflowInputError,
-)
+from agent_playbook.application.results import RunResult
 from agent_playbook.application.workflow_factory import (
-    create_workflow,
-    validate_workflow_id,
+    construct_workflow,
+    select_workflow,
 )
+from agent_playbook.application.workflow_registry import workflow_registry
+from agent_playbook.config.diagnostics import validation_fields
+from agent_playbook.config.errors import ConfigurationError
+from agent_playbook.workflows.errors import WorkflowExecutionError, WorkflowInputError
+
+_INPUT = TypeAdapter(dict[str, object])
 
 
 def run_workflow(
@@ -17,26 +21,57 @@ def run_workflow(
     raw_input: str | None = None,
     *,
     config_path: str | None = None,
-) -> RunResult:
-    selected = validate_workflow_id(workflow_id)
-    settings = assemble_runtime(config_path)
-
-    from pydantic import TypeAdapter, ValidationError
-
+) -> RunResult[object]:
     try:
-        data = TypeAdapter(dict[str, object]).validate_json(
+        application = assemble_runtime(config_path)
+    except ConfigurationError:
+        raise
+    except Exception as error:
+        raise WorkflowExecutionError(f"{workflow_id} SETUP failed.") from error
+    try:
+        registry = workflow_registry()
+    except Exception as error:
+        raise WorkflowExecutionError(f"{workflow_id} SETUP failed.") from error
+    implementation, config = select_workflow(
+        workflow_id, application, application.integrations.crewai, registry
+    )
+    try:
+        workflow = construct_workflow(
+            workflow_id, implementation, application.integrations.crewai, config
+        )
+    except ConfigurationError:
+        raise
+    except Exception as error:
+        raise WorkflowExecutionError(f"{workflow_id} CONSTRUCTION failed.") from error
+    try:
+        data = _INPUT.validate_json(
             "{}" if raw_input is None else raw_input, strict=True
         )
-        flow = create_workflow(selected, data, settings)
     except ValidationError as error:
-        raise WorkflowInputError(f"Invalid {workflow_id} input: {error}") from error
+        raise WorkflowInputError(
+            f"{workflow_id} INPUT: {validation_fields(error)}."
+        ) from error
 
     try:
-        output: object = flow.kickoff()
-        if not isinstance(output, (str, int)) or isinstance(output, bool):
-            raise TypeError("Workflow returned an unsupported result.")
+        workflow.prepare(data)
+    except WorkflowInputError as error:
+        raise WorkflowInputError(f"{workflow_id} PREPARE: {error}") from error
+    except Exception as error:
+        raise WorkflowExecutionError(f"{workflow_id} PREPARE failed.") from error
+    try:
+        raw = workflow.execute()
+    except Exception as error:
+        raise WorkflowExecutionError(f"{workflow_id} EXECUTE failed.") from error
+    try:
+        output = workflow.validate_output(raw)
     except Exception as error:
         raise WorkflowExecutionError(
-            f"{workflow_id} execution failed: {error}"
+            f"{workflow_id} VALIDATE_OUTPUT failed."
         ) from error
-    return RunResult(workflow_id, str(output))
+    try:
+        serialized = workflow.serialize_output()
+    except Exception as error:
+        raise WorkflowExecutionError(
+            f"{workflow_id} SERIALIZE_OUTPUT failed."
+        ) from error
+    return RunResult(workflow_id, output, serialized)

@@ -1,6 +1,6 @@
 # Workflow contract refactor
 
-Status: **Approved workflow-contract design. PR #40 at f61683c implements I-1–I-4; four second-review test-quality gaps remain. Neither PR is merged.**
+Status: **Approved workflow-contract design. Implementation PR #40 is in review; I-1–I-4 and Q1–Q4 are implemented on its branch, with final verification recorded in the follow-up evidence; pending review.**
 Updated: 2026-11-13. Source baseline: main at `a4264ac985005b6e9c104bf8a8c4c1f1492abfb1` (PR #35 merged; PR #34 runtime split preserved).
 
 ## Goal
@@ -9,7 +9,7 @@ Adding a workflow should require its own implementation, a stable registry entry
 
 CrewAI retains orchestration, decorated steps, routing and business state. Our workflow ABC owns application-facing preparation, execution, output validation, serialization and their call-order guards.
 
-Start the current follow-up at [review-test-quality.md](review-test-quality.md): four reproduced test-evidence gaps, exact fixes, negative controls, replacement rules and next-agent instructions. Reviewed implementation: PR #40 at f61683c. The original [review-follow-up.md](review-follow-up.md) retains I-1–I-4 and the full A1–F6 acceptance matrix. The runtime on this design branch remains the original baseline.
+Start with [review-follow-up.md](review-follow-up.md) for the A1–F6 test matrix, then [review-test-quality.md](review-test-quality.md) for the second review's Q1–Q4 corrections and sensitivity evidence. The original review assessed PR #40 at b3d279b; the second review assessed it at f61683c. The implementation branch preserves both rounds of corrections.
 
 ## Read in order
 
@@ -19,8 +19,8 @@ Start the current follow-up at [review-test-quality.md](review-test-quality.md):
 | [File structure](file-structure.md) | Proposed folders, files, ownership and dependencies |
 | [Test plan](test-plan.md) | Lifecycle, isolated runner, configuration, real flows, CLI and release scenarios |
 | [Implementation plan](implementation-plan.md) | Milestones, risks, guarded changes and Langfuse handoff |
-| [First review follow-up](review-follow-up.md) | I-1–I-4 corrections and the complete A1–F6 acceptance matrix |
-| [Second review: test quality](review-test-quality.md) | Current Q1–Q4 fixes, regression-sensitivity checks and next-agent handoff |
+| [Review follow-up](review-follow-up.md) | Current corrections, test-gap matrix, release checks and implementation-agent instructions |
+| [Second review and Q1–Q4 evidence](review-test-quality.md) | Corrected test assertions, negative controls and final review evidence |
 
 The [living discussion record](https://chatgpt.com/space/page_c032a077e22c8191b5c91d3b96a38d23) retains the decision history. This repository package is the implementation contract. The review follow-up records the latest decision to add lazy dependency imports before context integration.
 
@@ -43,6 +43,6 @@ The [living discussion record](https://chatgpt.com/space/page_c032a077e22c8191b5
 
 Sharon approved the workflow ABC design and the enumerated guarded changes for implementation in PR #40. After the review he requested lazy dependency loading now, constructor and diagnostic fixes, and completion of the planned tests. The precise follow-up and evidence requirements are in [review-follow-up.md](review-follow-up.md).
 
-The second independent review at f61683c passed 314 tests, type/lint/format and Atlas checks, and verified an independently rebuilt installed artifact matching the reported wheel hash. Four tests still fail to prove the behavior their matrix entries claim. The next agent must correct Q1–Q4 and supply assertion-level evidence before another review. The new handoff records the original review and artifact-verification limits; no merge is authorized.
+The reviewer independently verified the original PR #40 head with 166 passing tests and passing type/lint/format checks, but identified coverage gaps and three reproduced issues. That evidence does not establish follow-up completion. The follow-up implementation is being verified on PR #40; neither PR is authorized to merge by this document.
 
 This package is permanent refactor material under designs/refactors. Children, recovery, optional-package installation profiles and context/Langfuse remain separate scopes.
