@@ -1,8 +1,8 @@
 """Review the refactor with the quality gate, CLI smoke checks and optional release.
 
 Run with app/.venv/bin/python. Uses the offline test fixture and never edits source,
-local configuration or existing releases. --build-release creates a new installation
-from a clean commit. This review helper may be removed after refactor acceptance.
+local configuration or existing releases. An existing versioned release can be
+verified with --release PATH. This helper may be removed after refactor acceptance.
 """
 
 import argparse
@@ -11,7 +11,6 @@ import os
 import subprocess
 import sys
 import tempfile
-import time
 import zipfile
 from pathlib import Path
 
@@ -179,13 +178,7 @@ def verify_release(destination: Path, env: dict[str, str], cwd: Path) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    release = parser.add_mutually_exclusive_group()
-    release.add_argument(
-        "--build-release",
-        action="store_true",
-        help="Build and verify a new release; requires a clean committed checkout.",
-    )
-    release.add_argument(
+    parser.add_argument(
         "--release",
         type=Path,
         help="Also verify an existing refactored release directory.",
@@ -196,17 +189,7 @@ def main() -> int:
     try:
         with tempfile.TemporaryDirectory(prefix="agent-playbook-review-") as temporary:
             cwd = Path(temporary)
-            if args.build_release:
-                destination = APP / "dist" / f"refactor-review-{time.time_ns()}"
-                check(
-                    "release build (includes full quality gate)",
-                    [*CLI, "release", "--output", str(destination)],
-                    env,
-                    cwd,
-                    timeout=1800,
-                )
-            else:
-                check("full quality gate", [*CLI, "check"], env, cwd, timeout=600)
+            check("full quality gate", [*CLI, "check"], env, cwd, timeout=600)
             check("CLI help", [*CLI, "--help"], env, cwd, contains="dev-run")
             check(
                 "version", [*CLI, "version"], env, cwd, contains="source: development"
@@ -272,17 +255,9 @@ def main() -> int:
             )
             if destination is not None:
                 verify_release(destination, env, cwd)
-                if args.build_release:
-                    check(
-                        "source launcher selects the new release",
-                        [*CLI, "run"],
-                        env,
-                        cwd,
-                        contains=f"from {destination}",
-                    )
         print("\nPASS all requested refactor checks.")
         if destination is None:
-            print("Release checks NOT RUN. Use --build-release or --release PATH.")
+            print("Release checks NOT RUN. Use --release PATH for an existing versioned release.")
         else:
             print(f"Verified release: {destination}")
         return 0

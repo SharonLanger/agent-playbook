@@ -10,7 +10,7 @@ are resolved from each script's location.
 | `checks.py` | Run the quality gate; accepts `check` (default) with selectors, `test`, or `format` |
 | `version.py` | Update project and lockfile version together; exact version or `patch` |
 | `release.py` | Gate, build, hash and verify an isolated release |
-| `verify_refactor.py` | Removable review helper: full gate, CLI smoke checks and optional isolated release |
+| `verify_refactor.py` | Removable review helper: full gate, CLI smoke checks and optional check of an existing release |
 | `verify_runtime.py` | Run all integrated workflow paths with a Python socket/DNS audit probe |
 | `verify_wheel.py` | Verify an artifact's SHA-256 hash |
 

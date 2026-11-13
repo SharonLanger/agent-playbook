@@ -19,30 +19,18 @@ Any failed check produces a nonzero exit. Default mode explicitly reports that
 installed-release checks were **NOT RUN**. The helper is checkout-only and can be
 removed after review; it is not shipped in the wheel.
 
-## Include an isolated release
+## Verify a normal versioned release
 
-With a clean, committed checkout:
-
-```sh
-app/.venv/bin/python app/tooling/verify_refactor.py --build-release
-```
-
-This runs the gate through the normal release builder, builds and installs a new
-release under a unique `app/dist/refactor-review-*` directory, and verifies hashes,
-installed workflows, import isolation, wheel contents, developer-command rejection
-and selection through the source CLI. Installing locked dependencies may download
-packages. Existing releases are retained. Because `run` selects the newest completed
-release, the newly built review release becomes the default selection in this checkout.
-
-To check an existing release made from this refactor instead:
+After building a release with `agent-playbook release`, verify its directory:
 
 ```sh
-app/.venv/bin/python app/tooling/verify_refactor.py --release /absolute/path/to/release
+app/.venv/bin/python app/tooling/verify_refactor.py --release /absolute/path/to/app/dist/0.1.1-<commit>
 ```
 
-This verifies that exact installation; it does not assert that it is the newest
-release selected by the source CLI. A pre-refactor wheel deliberately fails the
-new module-layout check.
+Use the actual directory reported by the release command. This checks the
+existing installation, hashes, workflows, import isolation, wheel contents
+and developer-command rejection. The helper does not build another release
+or change which release `run` selects.
 
 All automated smoke checks select `tests/fixtures/offline.yaml` and remove application
 environment overrides. They do not edit your settings or validate your chosen live
@@ -63,7 +51,7 @@ parameters that explicitly reference the old shared path.
 
 1. Run **Setup**, **Check** and **Verify Refactor** using the project interpreter.
 2. Run **WF-01 Sequence**, **WF-02 State** and **WF-03 Route**; compare their existing outputs.
-3. Run the build-release command above, then **Run**; confirm the chosen release path.
+3. Build a normal versioned **Release**, verify its directory with `--release PATH`, then run **Run**; confirm the chosen release path.
 4. Try your local override and any explicit configuration paths.
 5. Inspect the proposed folder ownership and future role/harness/tool placement.
 
