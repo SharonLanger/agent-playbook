@@ -159,3 +159,25 @@ explicitly labeled in the design. Main integration with conflict choices agreed
 with Sharon is still the first execution step. All four review findings remain
 open. Existing charter, ownership, secrets, sandbox and evidence rules apply; no
 guarded baseline or broader event/harness design changes.
+
+
+## Langfuse CLI agreement and Codex handoff — 2026-11-13
+
+Sharon selected double-dash action flags under `agent-playbook langfuse`:
+`--start`, `--stop`, `--status`, `--logs`, `--open`, `--check`, with `--follow`
+only for logs and normal `--help`. He requested the Markdown update and complete
+Codex context before starting. The [plan and handoff](stages/02-langfuse/verification-simplification-plan.md)
+now define exclusive actions, responsibilities, exits, existing configuration
+selectors, development-checkout dispatch, direct-script fallback, newcomer
+guides and independent verification. A fresh Codex instruction starts with
+reading and conflict presentation; resolving conflicts still requires Sharon's
+agreement. No execution, conflict resolution, main merge or runtime change was
+performed by this update. PR #36 remains draft and all four review findings open.
+
+The existing CLI on main was inspected to make the handoff concrete: its
+development bridge defaults to checks.py, so the new command needs an explicit
+tooling mapping. Main's source-checkout boundary and lazy workflow execution
+remain in force. Root `agent-playbook check` stays the quality gate; the planned
+Langfuse `--check` reuses project authentication. No general doctor, workflow
+context or agent runtime was added. Public guides will document working commands
+when implemented; this change updates permanent design/navigation/Atlas only.

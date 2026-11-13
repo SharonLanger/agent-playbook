@@ -15,8 +15,11 @@ main integration conflicts and stale design status. The new plan proposes one
 combined manual exercise and simpler start/stop commands. Sharon agreed with
 the Docker usability direction and requested a complete newcomer setup guide,
 explicit installation/version requirements and management scripts. Those
-requirements are recorded in the plan; implementation remains paused for joint
-main-conflict decisions. No fixes, helper implementation or conflict resolutions have
+requirements are recorded in the plan. It now specifies the agreed
+`agent-playbook langfuse --start` interface (six action flags plus log following)
+and a complete Codex handoff: reading order, code ownership, tests, delivery and
+mandatory conflict discussion. Implementation remains paused before execution
+and joint main-conflict decisions. No fixes, helper implementation or conflict resolutions have
 been applied by this documentation update. Earlier checkpoint instructions below
 remain historical context; do not treat M3 as ready for acceptance until the
 delivery findings are resolved.

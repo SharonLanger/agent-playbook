@@ -2213,15 +2213,15 @@
               "to": null
             },
             {
-              "name": "Simpler verification proposal",
+              "name": "CLI plan and Codex handoff",
               "path": "designs/stages/02-langfuse/verification-simplification-plan.md",
-              "text": "Docker usability direction agreed; newcomer prerequisites, versions, guides and management scripts specified. Resolve main conflicts together before implementation.",
+              "text": "Six agreed action flags, log following, newcomer setup, code ownership and verification gates. First present main conflicts and agree on resolutions.",
               "to": null
             }
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "PR #36 is unmerged and unaccepted. Four review findings remain open. Docker usability direction is agreed; newcomer setup/scripts are specified, with implementation paused for joint main-conflict decisions. Workflow/context integration remains deferred.",
+          "note": "PR #36 is unmerged and unaccepted; four review findings remain open. Docker usability and double-dash CLI direction are agreed and specified with a Codex handoff. Execution has not started; resolve main conflicts together first. Workflow/context integration remains deferred.",
           "diagram": null
         }
       },
@@ -4028,8 +4028,8 @@
         },
         {
           "path": "designs/stages/02-langfuse/verification-simplification-plan.md",
-          "status": "Docker direction agreed; implementation pending",
-          "purpose": "Newcomer setup, version evidence, simple management scripts and one final-revision exercise; joint main-conflict decisions first."
+          "status": "CLI direction agreed; execution pending",
+          "purpose": "Flag-based CLI and management specification, newcomer guides, independent checks and complete Codex handoff; joint conflict decisions first."
         }
       ]
     }
