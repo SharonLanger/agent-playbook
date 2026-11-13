@@ -108,3 +108,54 @@ def test_hook_failure_is_terminal_and_preserves_cause(phase: WorkflowPhase) -> N
 
 def test_abstract_hooks_required() -> None:
     assert isabstract(Workflow)
+
+
+@pytest.mark.parametrize("status", list(WorkflowStatus))
+def test_wrong_order_never_mutates_status_or_runs_hook(status: WorkflowStatus) -> None:
+    class AtStatus(Probe):
+        def set_status(self, value: WorkflowStatus) -> None:
+            self._status = value
+
+    probe = AtStatus()
+    probe.set_status(status)
+    before = probe.failure
+    calls = len(probe.seen)
+    for required, method in (
+        (WorkflowStatus.CREATED, lambda: probe.prepare({})),
+        (WorkflowStatus.PREPARED, probe.execute),
+        (WorkflowStatus.EXECUTED, lambda: probe.validate_output(None)),
+        (WorkflowStatus.OUTPUT_VALIDATED, probe.serialize_output),
+    ):
+        if status is required:
+            continue
+        with pytest.raises(WorkflowOrderError):
+            method()
+        assert probe.status is status and probe.failure is before
+        assert len(probe.seen) == calls
+
+
+def test_reentry_is_rejected_in_progress() -> None:
+    class Reentry(Probe):
+        def _prepare(self, data: Mapping[str, object]) -> None:
+            assert self.status is WorkflowStatus.PREPARING
+            with pytest.raises(WorkflowOrderError):
+                self.prepare(data)
+            super()._prepare(data)
+
+    probe = Reentry()
+    probe.prepare({})
+    assert probe.status is WorkflowStatus.PREPARED
+    assert probe.seen == [WorkflowStatus.PREPARING]
+
+
+@pytest.mark.parametrize("interruption", [KeyboardInterrupt, SystemExit])
+def test_interruptions_propagate(interruption: type[BaseException]) -> None:
+    class Interrupted(Probe):
+        def _execute(self) -> object:
+            raise interruption()
+
+    probe = Interrupted()
+    probe.prepare({})
+    with pytest.raises(interruption):
+        probe.execute()
+    assert probe.failure is None

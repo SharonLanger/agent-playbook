@@ -253,3 +253,51 @@ def test_unused_invalid_entry_and_selected_alias(tmp_path: Path) -> None:
     assert (
         run_workflow("custom", '{"initial":2}', config_path=str(selected)).output == 0
     )
+
+
+@pytest.mark.parametrize(
+    "suffix",
+    [
+        "",
+        "workflows: null\n",
+        "workflows: []\n",
+        "workflows: 1\n",
+    ],
+)
+def test_missing_or_nonmapping_workflow_catalog(tmp_path: Path, suffix: str) -> None:
+    selected = tmp_path / "configuration.yaml"
+    selected.write_text(FIXTURE.read_text().split("workflows:")[0] + suffix)
+    with pytest.raises(ConfigurationError):
+        load_configuration(str(selected))
+
+
+def test_empty_catalog_is_valid_but_no_id_is_selected(tmp_path: Path) -> None:
+    selected = tmp_path / "configuration.yaml"
+    selected.write_text(FIXTURE.read_text().split("workflows:")[0] + "workflows: {}\n")
+    assert load_configuration(str(selected)).workflows == {}
+    from agent_playbook.application.workflow_runner import run_workflow
+    from agent_playbook.workflows.errors import WorkflowInputError
+
+    with pytest.raises(WorkflowInputError, match="Unknown workflow"):
+        run_workflow("wf-01", config_path=str(selected))
+
+
+def test_local_duplicate_keys_are_rejected(tmp_path: Path) -> None:
+    selected = copy_config(tmp_path)
+    selected.with_name("application.local.yaml").write_text(
+        "workflows:\n  unused: {config: {x: 1, x: 2}}\n"
+    )
+    with pytest.raises(ConfigurationError):
+        load_configuration(str(selected))
+
+
+def test_invalid_default_cannot_be_hidden_by_input_override(tmp_path: Path) -> None:
+    selected = copy_config(tmp_path)
+    selected.write_text(
+        selected.read_text()
+        + "  bad: {implementation: shared_state, config: {defaults: {initial: 1001}}}\n"
+    )
+    from agent_playbook.application.workflow_runner import run_workflow
+
+    with pytest.raises(ConfigurationError):
+        run_workflow("bad", '{"initial":2}', config_path=str(selected))

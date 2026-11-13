@@ -6,6 +6,7 @@ from agent_playbook.application.assembly import assemble_runtime
 from agent_playbook.application.results import RunResult
 from agent_playbook.application.workflow_factory import create_workflow
 from agent_playbook.application.workflow_registry import workflow_registry
+from agent_playbook.config.errors import ConfigurationError
 from agent_playbook.workflows.errors import WorkflowExecutionError, WorkflowInputError
 from agent_playbook.workflows.lifecycle import WorkflowPhase
 
@@ -24,7 +25,7 @@ def run_workflow(
         workflow = create_workflow(
             workflow_id, application, application.integrations.crewai, registry
         )
-    except (WorkflowInputError, WorkflowExecutionError):
+    except (ConfigurationError, WorkflowInputError, WorkflowExecutionError):
         raise
     except Exception as error:
         raise WorkflowExecutionError(f"{workflow_id} construction failed.") from error
