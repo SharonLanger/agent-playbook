@@ -1,12 +1,12 @@
 # Design workspace
 
-Start with the [target architecture](architecture.md) and its visual collection.
+Start with [AGENTS.md](AGENTS.md) and the [guarded design contract](governance/design-contract.md), then the core documents below. Open the [permanent Atlas](atlas/README.md) for Current and Explorations views.
 The architecture describes the completed system. The roadmap describes how we build
 and learn it. Progress records what has actually been accepted.
 
 | Location | Purpose |
 |---|---|
-| [Runtime structure refactor](refactors/2026-11-12-runtime-structure/README.md) | Draft review map, complete future-tree proposal and verification evidence |
+| [Runtime structure refactor](refactors/2026-11-12-runtime-structure/README.md) | Accepted runtime refactor record, exploratory future-tree proposal and revision-specific verification evidence |
 | [project-structure.md](project-structure.md) | Guarded folder ownership, dependency rules and current source layout |
 | [architecture.md](architecture.md) | Components, ownership, execution, errors, data and integration boundaries |
 | [diagrams/](diagrams/README.md) | Animated SVGs, static SVGs and a local visual viewer |
@@ -32,7 +32,7 @@ Some Markdown viewers suppress SVG animation; the browser viewer remains a fallb
 ## Stage documents
 
 Each stage has its own end-state architecture and plan, plus findings and learning
-exercises. Detailed future-stage design waits until that stage becomes current.
+exercises. Future implementation baselines wait for their stage. Explicitly requested optional research/POCs belong in explorations and must not be mistaken for approved targets.
 The historical [sandbox](../sandbox/) is outside the active application architecture.
 
 ## Permanent material and handoffs
@@ -44,3 +44,15 @@ Approval changes document status, not retention or location.
 `temporary/` is reserved only for disposable agent-to-agent handoffs. Transfer any lasting
 knowledge into permanent documents before deleting a handoff. Handoff cleanup must not remove
 stage designs or learning material.
+
+
+## Mandatory reading and discovery
+
+Read charter, principles, architecture, project structure, roadmap and progress, then the applicable approved stage design. Consult the [exploration topic index](explorations/README.md) for relevant earlier reasoning. Follow the [guarded-file register](governance/guarded-files.md); historical protection survives stale headings and moves.
+
+- [Permanent Atlas](atlas/README.md): maintained Current/Explorations navigation.
+- [Design contract](governance/design-contract.md): mandatory placement, approval and maintenance flow.
+- [Explorations](explorations/README.md): optional research, not project commitments.
+- [Atlas change record](refactors/atlas/README.md): approval scope and verification for #35.
+
+Official product documentation lives in app/docs; internal/refactor review material belongs here. Personal examples are not a source to inspect during architectural discovery.

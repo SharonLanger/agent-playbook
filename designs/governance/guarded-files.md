@@ -1,0 +1,34 @@
+# Guarded-file register
+
+Status: **GUARDED.** The existing protection set is preserved; additions below were approved by Sharon for PR #35 on 2026-11-13. This register is a minimum, not an exhaustive exemption list.
+
+## Core guarded documents
+
+- `designs/charter.md`
+- `designs/principles.md`
+- `designs/architecture.md`
+- `designs/project-structure.md`
+- `designs/governance/design-contract.md` — new guarded process contract.
+- `designs/governance/guarded-files.md` — this register; removing entries requires approval.
+
+## Existing stage protection retained
+
+- `designs/stages/00-environment/architecture.md`
+- `designs/stages/00-environment/plan.md`
+- `designs/stages/01-crewai-flows/architecture.md`
+- `designs/stages/01-crewai-flows/file-structure.md`
+- `designs/stages/01-crewai-flows/plan.md`
+- `designs/stages/01-crewai-flows/test-plan.md` — acceptance requirements within the approved stage design.
+- `designs/stages/01-crewai-flows/workflows/wf-01-step-sequence.md`
+- `designs/stages/01-crewai-flows/workflows/wf-02-shared-state.md`
+- `designs/stages/01-crewai-flows/workflows/wf-03-conditional-route.md`
+
+Stage 00 architecture/plan still have old proposed-status wording. Progress records later approval/acceptance; that inconsistency does not make them editable without approval. They are not rewritten by this PR. Stage 01 README identifies architecture, file structure, plan and workflow contracts as approved baselines. Their protection and historical material remain intact.
+
+## Rules beyond the list
+
+Any other document or portion explicitly approved, locked or guarded remains protected, including future stage baselines. Approved behavioral contracts represented in diagrams or copied into instructions retain protection. A rename, generated view, omission from this register or obsolete status heading never removes it.
+
+Progress, findings, exploration notes and navigation may evolve from verified evidence without becoming frozen baselines. That permission does not permit rewriting historical acceptance, altering guarded meaning through a summary, or labeling a new idea approved.
+
+Use the logical-change approval process in [design-contract.md](design-contract.md). Record additions to this register when a new baseline is approved. Preserve prior guard records during merges, particularly when reconciling PR #34 and #35.

@@ -19,4 +19,7 @@ Learning and implementation sequence; target components are defined in [architec
 4. Experiment and implement within approved boundaries; log findings.
 5. Verify against deterministic tests and stage acceptance criteria; close only with evidence.
 
-Future stage descriptions are intentionally high level. Split, merge or reorder through deliberate roadmap review. A stage architecture is **not** created before the stage becomes current.
+Future stage descriptions are intentionally high level. Split, merge or reorder through deliberate roadmap review. An implementation baseline for a future stage is not committed before that stage becomes current. Explicitly requested non-binding research/POCs live in [explorations](explorations/README.md) and do not become stage commitments.
+
+
+Each stage follows the [design contract](governance/design-contract.md), consults relevant explorations, and updates affected canonical documents, Atlas blocks and official product guides. Exploring an alternative tracing backend does not silently replace the approved Langfuse stage.

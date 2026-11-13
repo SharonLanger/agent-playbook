@@ -2,6 +2,10 @@
 
 This repository has one active design workspace in `designs/` and an executable project in `app/`. `sandbox/` contains historical experiments and must not be changed without a separate request.
 
+## Mandatory design entry
+
+For every repository task, explicitly load `designs/AGENTS.md`, `designs/governance/design-contract.md` and `designs/governance/guarded-files.md`, including work under app/. Follow their required decision flow: identify governing decisions, consult relevant explorations, explain placement, obtain required approval, maintain affected documents/Atlas and verify. A nested instruction file is not assumed to load automatically.
+
 ## Read before working
 1. Read `designs/README.md` for the document inventory.
 2. Read `designs/charter.md`, `designs/architecture.md`, `designs/principles.md`, `designs/roadmap.md`, and `designs/progress.md`.
@@ -10,9 +14,9 @@ This repository has one active design workspace in `designs/` and an executable 
 5. For diagrams and visual explanations, read `designs/diagrams/AUTHORING.md`: Dashmotion is the default; Animated SVG handles timed/narrated walkthroughs.
 
 ## Governance
-- Charter, target architecture, and principles are proposed baselines until explicitly approved. Once approved, they are protected.
+- Charter, architecture and principles are guarded approved baselines. Preserve all existing guards, including approved stage material with stale proposed-status headings. New baselines require explicit approval.
 - Each current stage's architecture and committed design must be explicitly approved and locked **before** implementation.
-- Never change protected text without presenting **each exact added, edited, or deleted line** and obtaining explicit user approval beforehand.
+- Never change protected text without explaining the logical additions/removals and consequences for each affected guarded file and obtaining Sharon’s explicit approval beforehand; retain an inspectable diff.
 - Stop when a proposed implementation contradicts the target or locked stage design. Experiments may explore alternatives without silently changing baselines.
 - Progress, learning explanations, and findings may evolve with verified evidence. Distinguish hypotheses from observations.
 
@@ -35,16 +39,20 @@ conflicts before proceeding. Passing tests alone does not establish compliance.
 ## Engineering
 - Keep external integrations isolated behind explicit contracts/adapters. Configure provider endpoints, credentials, and environment-specific settings externally; never commit secrets.
 - Prefer deterministic regression tests and strict static checking; record actual verification results, not unverified success claims.
-- `app/examples/` is Sharon's personal sandbox. Do not inspect, modify, validate, or execute its contents unless explicitly requested for that task. Application code, automated tests, coverage, checks, setup and releases must not depend on it. Application tests and fixtures belong under `app/tests/` and exercise `app/src/agent_playbook/`. Deleting `app/examples/` must leave application behavior, collected tests and application coverage unchanged. Explicit user-invoked sandbox lint/format is permitted outside automated gates.
 - No GitHub Actions CI is required for now. When Stage 00 defines the local quality-check command, run it before declaring code changes ready and document it in `README.md` and `app/README.md`. Never claim tests ran if they did not.
 - Keep implementation-facing plans distinct from learner-facing Markdown under stage `learning/`. Use Mermaid for static diagrams and self-contained animated SVG where movement clarifies behavior, with a static fallback. Verify rendered assets where possible.
-- Do not create detailed designs for future stages ahead of their turn.
+- Future-stage implementation designs await their stage. Explicitly requested research and POCs may be recorded under designs/explorations/ as non-binding explorations; they do not authorize implementation or replace the guarded architecture.
 
 ## Status
 Stage 00 is accepted. Stage 01 design (#29), workflow/configuration implementation (#30), principles follow-up (#31), and independent sandboxes (#32) are merged. Sharon reported the examples working and accepted #32 after the diagram-size correction. The sandboxes live in `app/examples/workflows/` and run through their own run.py files, independently of the CLI/application runner. User-facing operating guides live in `app/docs/`; the active configuration is `app/application.yaml`. See `designs/progress.md` for verification evidence and acceptance. The next planned stage is Stage 02 (Langfuse); discuss and approve its design before implementation. Keep completed-stage learning material available. The top-level architecture remains the target system; do not infer future implementation from target diagrams.
 
 
-The runtime structure refactor is prepared for review in
-`designs/refactors/2026-11-12-runtime-structure/`. Sharon requested the code changes and
-future-layout proposal in an unmerged PR. Its guarded-document updates remain proposed
-until his review; do not treat future role/harness/tool paths as implemented or accepted.
+## Maintained boundaries
+
+- All existing guarded documents remain guarded, including accepted historical stage documents with stale status headings. Follow the guarded-file register; omission or relocation never removes protection. The logical-change approval procedure replaces mandatory line-by-line presentation, not the approval requirement.
+- `app/examples/` is Sharon’s personal sandbox. Do not read, search, inspect, run, test, lint, format, import, modify or maintain its contents without a specific request. Exclude it from broad searches and automated application gates. Application tests/fixtures belong in `app/tests/` and must not depend on examples. Explicit user-requested sandbox lint/format remains permitted outside automatic gates.
+- `app/docs/` is maintained official product documentation. No internal reviews, temporary notes, handoffs or unapproved proposals belong there. Every change assesses documentation impact and updates affected public guides in the same PR, or records a concrete no-impact reason.
+- Maintain `designs/atlas/` as the Current/Explorations view and `designs/explorations/README.md` as the discovery index. Existing approvals govern decisions; the viewer and research do not grant approval.
+- PR #34 is merged. Preserve its runtime split, app-root YAML and personal-sandbox exclusions. Approved historical stage baselines remain protected.
+
+Deleting the personal examples directory must leave application behavior, collected tests and application coverage unchanged; this is an independence requirement, not an instruction to inspect or delete the sandbox. PR #34 was accepted and merged at 96cb1f8. Detailed role/event/harness proposals remain exploratory.

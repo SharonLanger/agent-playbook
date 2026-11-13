@@ -1,17 +1,16 @@
 # Project structure
 
-Status: **Proposed update to the guarded baseline, pending Sharon's PR review.**
-The pre-Stage 01 structure was approved; the runtime split and YAML move below are
-proposed by this branch. This file governs folder ownership; the target architecture
-continues to govern behavior. See the [refactor review](refactors/2026-11-12-runtime-structure/README.md)
-and [complete future-tree proposal](refactors/2026-11-12-runtime-structure/proposal.md).
-Future paths in that proposal are not implemented or frozen integration contracts.
+Status: **GUARDED.** Existing protection is retained; follow the design contract.
+
+Status: **Approved structure / guarded baseline**. Approved by Sharon before the
+pre-Stage 01 refactor. This file governs folder ownership; the target architecture
+continues to govern behavior. Future component folders are reserved, not implemented.
 
 ## Change rules
 
 Read this file before placing or moving code. Changes to the directory boundaries,
-responsibilities, or dependency rules require presenting the exact proposed diff
-and obtaining Sharon's approval before editing. Ordinary files added within an
+responsibilities, or dependency rules require explaining the logical additions/removals and consequences for each affected guarded file
+and obtaining Sharon’s explicit approval before editing; keep an inspectable diff. Ordinary files added within an
 existing boundary do not require a new structural approval. Never hide new behavior
 inside a folder-only refactor. Keep imports, CLI entry points, PyCharm configurations,
 checks, packaging, tests and documentation aligned when a path changes.
@@ -31,10 +30,10 @@ approval wording and CrewAI acceptance discrepancy are tracked in progress.md.
 | `app/application.yaml`, `app/application.local.yaml` | Shared external runtime YAML and ignored machine overrides; user guide in `app/docs/configuration.md` |
 | `app/src/agent_playbook/` | Installed runtime Python package |
 | `app/tooling/` | Bootstrap, quality checks, version changes, release build and verification |
-| `app/examples/` | Learning exercises; excluded from the installed package |
-| `app/examples/workflows/` | Eight self-contained workflow sandboxes; each owns its run.py, input, settings, tests and diagrams |
-| `app/tests/` | Tests grouped by component, plus tooling and examples; workflow sandbox tests also live beside their examples |
-| `app/docs/` | User-facing operating guides; index in `README.md`, CLI/build/release in `cli.md`, runtime settings in `configuration.md` |
+| `app/examples/` | Sharon’s personal sandbox; no unrequested access/maintenance; excluded from the maintained application boundary |
+| `app/examples/workflows/` | Personal sandbox contents; not catalogued, inspected or maintained by agents without a specific request |
+| `app/tests/` | Maintained application/tooling tests with independent fixtures; no dependency on personal examples |
+| `app/docs/` | Maintained official product documentation; update affected guides/indexes in the same PR; no internal/temporary material |
 | `app/dist/` | Generated local releases; ignored by Git |
 | `sandbox/` | Historical experiments; outside active application work |
 
@@ -100,33 +99,28 @@ integrations remain future work. Stage 01 adds external integration configuratio
 Preserve `agent-playbook` and `python -m agent_playbook.cli`, including `run`,
 `run --version`, `dev-run`, `version`, `test`, and `check`. Preserve the direct
 `python -m agent_playbook` entry point. Update shared Setup/Release paths to tooling.
-Tests mirror runtime component folders and separately cover tooling and examples.
+Tests mirror runtime component folders and separately cover tooling. The maintained target excludes the personal examples sandbox; track implementation of exclusion separately from this ownership rule.
 Validate the full local gate, clean bootstrap, wheel contents and isolated release
 execution after structural moves. macOS PyCharm execution of changed paths requires local confirmation by Sharon.
 
 
-## Proposed future role, harness and tool placement
 
-These paths are a recommendation for the completed system, not new runtime packages
-in this refactor. The complete file inventory and alternatives are in the proposal.
+## Permanent design ownership
 
-| Proposed path | Owns |
+| Path | Responsibility |
 |---|---|
-| `app/src/agent_playbook/agents/reviewer/`, `agents/coder/` | Role-specific task preparation, output schemas, validation and role behavior |
-| `app/src/agent_playbook/execution/` | Provider-neutral execution contracts and invocation boundary |
-| `app/src/agent_playbook/execution/harnesses/` | Reusable runtime policies, hooks, permission/capability enforcement and harness assembly |
-| `app/src/agent_playbook/execution/adapters/` | SDK-specific session/transport/invocation translation |
-| `app/src/agent_playbook/tools/` | Reusable tool implementations and schemas; role selection is outside tool implementation |
-| `app/harnesses/` | External editable harness assets/profiles as introduced by the integration stage |
+| `designs/AGENTS.md` | Mandatory design instructions, explicitly loaded from root instructions |
+| `designs/governance/design-contract.md` | Guarded change/placement/maintenance contract |
+| `designs/governance/guarded-files.md` | Minimum guarded-file register; existing protection is never silently removed |
+| `designs/atlas/` | Permanent generated Current/Explorations viewer, catalog, builder, diagrams and viewing instructions |
+| `designs/explorations/` | Indexed non-binding research, alternatives, POCs and unresolved discussions |
+| `designs/refactors/` | Refactor-specific rationale, approval/review records and verification |
+| `designs/stages/` | Permanent stage contracts, lessons and evidence; existing guards retained |
 
-Workflows choose roles and routing. Roles define what the coder/reviewer does;
-harness policies and supported tools define how it may work; adapters implement
-provider invocation. Application assembly wires the chosen implementations together.
-An unsupported required capability must fail explicitly rather than weaken policy.
-Detailed contracts, transports and permissions await the relevant stage design.
+The Atlas is maintained from canonical Markdown and a navigation catalog. It does not authorize candidate folders. Reviewer/event-adapter/harness details are discoverable explorations, not additions to the approved runtime file tree.
 
-## Review helper
+## Accepted runtime structure
 
-`app/tooling/verify_refactor.py` runs the existing quality gate and source CLI checks,
-with optional isolated-release verification. `app/docs/refactor-review.md` explains
-its modes and the shared Verify Refactor task. This helper is removable after acceptance.
+PR #34 was accepted and merged at `96cb1f8`. The current paths above include the application assembly/factory/runner split, release discovery/launcher split, extracted CLI parser and app-root YAML. Personal examples are excluded from default application tests, types, lint, formatting and release source inputs; explicit manual sandbox lint/format remains possible on request.
+
+The earlier [runtime proposal](refactors/2026-11-12-runtime-structure/proposal.md) preserves optional role/harness/tool thinking; consult the exploration index before extending it. Those candidate paths are not approved implementation contracts. The temporary Verify Refactor task/helper are removed with Sharon's approval; standard application check/test commands remain the maintained verification entry points.

@@ -1,7 +1,6 @@
 # Troubleshooting
 
-Start by identifying what you launched: an integrated workflow, a standalone example,
-or a built release. They use different entry points and, for examples, different settings.
+Start by identifying whether you launched an editable integrated workflow or a built release. They use different entry points. Personal sandbox programs are outside this guide’s supported application scope.
 See [Running workflows](workflows.md) if that distinction is unclear.
 
 ## Interpreter, imports and PyCharm
@@ -11,7 +10,6 @@ See [Running workflows](workflows.md) if that distinction is unclear.
 | `agent-playbook: command not found` | From the repository root, use `app/.venv/bin/agent-playbook --help`. This does not require a PATH change. |
 | `uv: command not found` | Use the project's bootstrap or version/release tasks. You do not need to configure a global uv command to use those tasks; bootstrap locates/provisions the pinned tool. |
 | `No module named crewai` or `agent_playbook` | Check that PyCharm uses this project's `app/.venv/bin/python`. If the environment is missing or stale, rerun setup below. |
-| `No module named flow` or `settings` in a sandbox | Run that folder's `run.py` as a script and keep its sibling files together. It is not an application CLI workflow. |
 | Ruff reports that `src`, `script` or `tests` does not exist | Prefer the shared **Lint** task. For direct Ruff commands use working directory `app`; the folder is `tooling`, not `script` or the old `scripts`. |
 | Shared Run tasks are missing | Open the repository root, not just `app`. Inspect the tracked `.run/` files and Run → Edit Configurations. |
 | A deleted tracked task does not return after pulling | Pulling does not necessarily undo a local deletion. Inspect `git status --short` and restore the specific task you intended to restore; preserve your custom configurations. |
@@ -32,16 +30,12 @@ not evidence that every setup step failed. Read the first failing section.
 from its recorded commit. Use Dev Run while experimenting, or build another release after
 committing the changes you want released.
 
-A standalone example's run.py always runs that example's source. The application release
-does not include those example folders.
-
 ## Configuration does not seem to change anything
 
 First check which path you are using:
 
 - Integrated workflow: [application configuration](configuration.md), selected by `--config`,
   then `AGENT_PLAYBOOK_CONFIG`, then the source checkout's default YAML.
-- Standalone example: that example's `settings.toml` and `input.json`.
 
 For the application, a sibling `.local.yaml` or a documented environment override can
 replace the value you edited in the shared file. Check the PyCharm task's environment
@@ -113,3 +107,4 @@ Share the task name or command, whether it was source/example/release execution,
 error, the exit code, and the relevant non-secret input. For a release, include the selected
 folder and version. A screenshot of the actual error is more useful than only the final
 “process finished” line. Redact credentials and private environment values.
+

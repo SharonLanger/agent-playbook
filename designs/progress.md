@@ -1,6 +1,6 @@
 # Progress and acceptance
 
-Updated 2026-11-12. This file records implemented behavior; architecture.md describes
+Updated 2026-11-13. This file records implemented behavior; architecture.md describes
 the target system.
 
 | Work | Verified state |
@@ -49,8 +49,7 @@ implementation and independent examples, reporting that everything works. The le
 material remains available for continued experiments; acceptance does not claim every topic
 has been studied exhaustively.
 
-The independent examples live in `app/examples/workflows/`, with colocated inputs, settings,
-tests and compact diagrams. User-facing configuration instructions live in
+Historical examples were delivered under `app/examples/workflows/`. Sharon now designates `app/examples/` as his personal sandbox; it is outside maintained agent work and application testing. Do not inspect it without a specific request. Historical example test counts below/above are retained only as historical evidence. User-facing configuration instructions live in
 `app/docs/configuration.md`; YAML is `app/application.yaml`. Documentation navigation is in
 `app/docs/README.md`.
 
@@ -58,21 +57,12 @@ Next: discuss Stage 02 (Langfuse observability), agree on the first visible run/
 experiment, and approve its design before implementation. No Stage 02 integration has been built.
 
 
-## Runtime structure refactor — pending review
+## Atlas/governance update — PR #35
 
-Sharon requested the discussed code cleanup and future file-tree document in an
-unmerged PR. This branch separates release discovery/launch and application
-assembly/factory/execution, extracts the CLI parser, and moves shared YAML directly
-under app with an old-local-override guard. Existing flow behavior and dependencies
-are preserved. Role/harness/tool packages remain future proposals.
+Sharon approved the logical changes to charter, principles, architecture and project structure, the new guarded design contract, preservation of every existing guard, mandatory placement/reading flow, official-doc maintenance and permanent Current/Explorations Atlas on 2026-11-13. This approval authorizes the documentation work; PR #35 remains a draft for merge review. Detailed reviewer/event-adapter/harness designs remain explorations.
 
-The [review entry point](refactors/2026-11-12-runtime-structure/README.md) links the
-complete proposal, verification commands and executed evidence. Guarded-document
-updates are proposed in the PR; they do not record acceptance or authorize Stage 02.
+Current implementation snapshot: main `96cb1f8`, merging accepted PR #34. Runtime discovery/launcher, assembly/factory/runner, CLI parser, app-root YAML and examples isolation are implemented. Sharon reported that Verify Refactor passed after a formatting correction and a normal 0.1.1 release completed; those local results precede the final cleanup commit. Earlier 137-test/release evidence applies to its recorded earlier revision, not automatically to the final head.
 
-Verification completed on the implementation commit: 137 tests, Pyright, Ruff,
-CLI smoke checks, clean bootstrap and isolated-release verification passed. Source
-and installed workflow probes recorded zero Python socket/DNS attempts under the
-offline fixture. Wheel contents, artifact hashes, installed identity/import isolation
-and source release selection passed. macOS/PyCharm and local settings remain for
-Sharon's review; the PR stays draft and unmerged.
+PR #35 reconciles these facts with the approved guarded governance and permanent Atlas. All existing stage files remain unchanged and protected. Personal examples remain outside unrequested agent work. The deleted internal public-doc review guide and temporary handoff stay deleted; Sharon also authorized removing the temporary review helper and PyCharm task. Application tests and normal quality checks remain.
+
+Stage 02 Langfuse design/research may proceed; implementation requires its approved stage design. Role/event/adapter/harness details remain optional explorations. PR #35 is unmerged pending Sharon's review.

@@ -1,4 +1,6 @@
-# Target Architecture
+# Approved Target Architecture
+
+Status: **GUARDED.** The approved component boundaries below remain in force. [Current implementation](progress.md) and [optional explorations](explorations/README.md) are separate records. [Open the permanent Atlas](atlas/README.md).
 
 Revision: 2026-11-11 · Scope: the completed Agent Playbook application.
 
@@ -135,31 +137,14 @@ review. Implementation order is in [roadmap.md](roadmap.md); implemented behavio
 tracked in [progress.md](progress.md).
 
 
-## Proposed ownership refinement — pending refactor review
+## Maintained views and exploratory boundaries
 
-The [runtime refactor proposal](refactors/2026-11-12-runtime-structure/proposal.md)
-expands the completed-system file map. The current implementation splits application
-setup into `assembly.py`, construction into `workflow_factory.py`, and execution into
-`workflow_runner.py`; these are parts of the existing application boundary. Local
-release discovery and process launch remain separate from workflow execution. Shared
-YAML lives directly in `app/application.yaml`.
+The Atlas is a visual projection, not another design authority. Its Current view identifies the implementation revision and labels approved-but-unimplemented capabilities. Explorations contains unfinished alternatives, including reviewer/coder/verifier roles and shared execution events; their detailed classes, schema and candidate folders are not approved implementation commitments.
 
-For future agent integrations, the proposed ownership is:
+The approved agent execution boundary remains provider-independent requests/results and explicitly compatible capabilities. Native SDK types stay inside adapters. The proposed refinement that maps native messages into execution events before projecting telemetry is preserved in the [agent execution exploration](explorations/agent-execution/README.md); its precise event/control schema remains under investigation.
 
-| Responsibility | Proposed owner |
-|---|---|
-| Reviewer/coder task behavior, input preparation and result validation | `agents/<role>/` |
-| Role order, routing, workflow state and failure policy | `workflows/<workflow>/` |
-| Provider-neutral invocation contract | `execution/` |
-| Harness policies, hook lifecycle and capability/permission enforcement | `execution/harnesses/` |
-| Provider-specific invocation and session translation | `execution/adapters/<provider>/` |
-| Reusable tool implementation | `tools/` |
-| Editable harness profiles/assets | External `app/harnesses/` |
-| Wiring roles, policies, tools and providers | `application/assembly.py` |
+Langfuse remains the approved initial tracing integration. Alternatives and application logging requirements are indexed in [observability exploration](explorations/observability.md). Traces and application logs have distinct purposes; their future storage/export choices are not decided by this Atlas update.
 
-A role is independent of whether Claude or Codex executes it. A harness configures
-and constrains execution; an adapter translates supported requirements into its SDK.
-Unsupported required capabilities must be reported explicitly. Future stage design
-must settle the exact contract and enforcement mechanism before claiming interchangeability.
-The existing diagrams show logical baseline responsibilities; this proposed file map
-adds detail without claiming those future components are already implemented.
+PR #34 is accepted and merged at 96cb1f8. Current runtime uses application/assembly.py for setup, workflow_factory.py for construction and workflow_runner.py for execution; releases/discovery.py selects installations and launcher.py starts their interpreter. Shared YAML is app/application.yaml. These implement existing application/release boundaries. The earlier [runtime proposal](refactors/2026-11-12-runtime-structure/proposal.md) remains useful historical reasoning; its detailed role/harness/tool paths are exploratory. Unsupported required provider capabilities must be reported explicitly; exact future contracts remain undecided.
+
+Apply the [mandatory design contract](governance/design-contract.md) before adding responsibilities or changing these boundaries. Preserve all approved historical stage baselines and their protection.
