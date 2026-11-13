@@ -5,6 +5,6 @@ Status: **EXPLORATION**. [Approved architecture](../architecture.md) still selec
 See [agent execution notes](agent-execution/architecture-notes.md) for the distinction between semantic execution events and telemetry projections, correlation, redaction and exporter failure policy. Research references there are historical evidence, not proof of current SDK compatibility. Add new comparisons and their sources here as they are evaluated. Update the guarded architecture only after explicit approval.
 
 
-## First Langfuse milestone draft
+## Langfuse milestones
 
-The [Stage 02 review package](../stages/02-langfuse/README.md) proposes self-hosted configuration and a mock-trace script before real workflow instrumentation. It incorporates Sharon's intended workflow ABC with per-run context while leaving the pending refactor's exact API open. This is a draft, not implemented behavior or approval of a logging backend.
+The [Stage 02 review package](../stages/02-langfuse/README.md) now separates local UI setup, a connection check, a personal mock-data playground and later real workflow integration. Milestones 1–3 require no workflow/context changes; only milestone 4 waits for the refactor. Sharon requested the editable playground under app/examples/langfuse; maintained tests remain independent of it. The milestone direction is agreed, but detailed implementation is still a draft and no capability is implemented by this documentation change. [Doctor #37](https://github.com/SharonLanger/agent-playbook/issues/37) is a separate feature request.

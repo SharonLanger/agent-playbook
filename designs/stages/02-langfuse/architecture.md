@@ -1,58 +1,53 @@
-# First milestone — configuration and run context
+# Langfuse setup and integration boundaries
 
-Status: **DRAFT — proposed responsibilities, not executable configuration.**
-[Review entry point](README.md) · [Smoke plan](smoke-plan.md)
+Status: **DRAFT details supporting the agreed milestone direction; not executable configuration.**
+[Milestones](milestones.md) · [Playground exercise](smoke-plan.md)
 
-## Application lifetime versus workflow lifetime
+## What exists before a workflow context
 
-| Lifetime | Created/owned by | Contents |
-|---|---|---|
-| Application/integration lifetime | Application assembly | Validated Langfuse settings and reusable adapter/client for one configured project |
-| One workflow invocation | Runner, using the merged workflow/context contract | Fresh run identity, workflow identity, correlation and an observability handle bound to that run |
-| One workflow step | Run-bound observation handle | Step observation, parent relationship, timing and selected inputs/outputs |
+Milestone 1 supplies the local service stack. Milestone 2 supplies external
+configuration and a reusable Langfuse connection. Milestone 3 uses that connection
+from a personal mock-data script. None requires the application runner, workflow
+factory, workflow base class or context to change.
 
-Every workflow holds its context, as requested. The context provides everything
-the workflow needs to report observations, but does not construct a separate SDK
-client for each step. Assembly supplies the configured integration; the runner
-creates the per-run binding. The context's ABC/concrete representation remains
-a decision for the workflow refactor. Do not add a competing base class here.
+A standalone entry point owns its client lifetime and cleanup. Avoid a context
+ABC, placeholder workflow fields, a generic event bus or speculative lifecycle
+interfaces. The integration can be reused later without deciding the final
+workflow-facing API now.
 
-Keep workflow business state (for example WF-02's value and history) distinct from
-execution context. Live client/observer objects do not belong in serializable
-workflow state or checkpoints.
+Milestone 4 will decide how the merged workflow context receives an observability
+handle. The intended separation is shared integration setup versus per-run
+observation/correlation; exact classes and signatures wait for that review.
+Live clients are not workflow business state or a recoverability store.
 
-The context's minimum semantic information is workflow ID, run ID and a run-bound
-observer. The adapter records the actual trace ID and current step/span ID for
-correlation. Application run IDs and backend trace IDs are not assumed identical;
-record their mapping rather than passing an arbitrary UUID as an OTel trace ID.
-Routine log records can later carry the same identifiers. This milestone does not
-build log storage or route all Python logger messages into Langfuse.
+## Proposed placement
 
-## Proposed ownership
+Paths are candidates within existing component ownership, not implemented files.
 
-All paths below are candidate placements within existing component boundaries,
-not files or commands already implemented.
-
-| Owner | Responsibility and boundary |
+| Owner | Milestone and responsibility |
 |---|---|
-| `application/assembly.py` | Construct/configure the Langfuse adapter once per application configuration; own shutdown |
-| `application/workflow_runner.py` | Create per-run context, open/finish the root observation and report outcome |
-| Workflow ABC/context from pending refactor | Hold/access the context; no Langfuse SDK imports in workflow logic |
-| `observability/` | Small provider-neutral observation boundary, correlation and selected metadata |
-| `observability/adapters/langfuse/` | SDK-specific creation, updates, export and trace lookup |
-| `config/` | Validate settings and environment references; sanitize configuration errors |
-| `app/tooling/observability/` | Local Compose assets and explicitly invoked smoke/seed script |
-| `app/tests/` | Independent fixtures and offline contract tests; opt-in live integration test |
+| `app/tooling/observability/` | M1 local Compose assets/instructions; M2 standalone connection-check entry point |
+| `observability/adapters/langfuse/` in the runtime package | M2 connection/client setup; M3 narrow observation export needed by the example and independent tests |
+| `config/` in the runtime package | M2 typed settings, environment references and sanitized validation |
+| `app/examples/langfuse/` | M3 explicitly requested personal playground; editable success/failure scenarios |
+| `app/tests/` | Independent fixtures and maintained tests; never imports or executes examples |
+| Application/runner/workflow/context boundaries | M4 only, after the workflow refactor is merged and reconciled |
 
-Do not add a general event bus or copy the future agent event schema for this
-exercise. Use only the observation operations needed for a root, nested steps
-and results. Exact method names and filenames follow the merged refactor.
+The playground may consume installed/public integration helpers, but the runtime,
+test suite, setup, releases and gates must not consume playground code or data.
+Deleting the playground must not change application behavior or check collection.
+Its placement does not authorize inspecting other examples or routine future
+maintenance of Sharon's sandbox.
 
-## Configuration proposal
+The maintained connection checker is separate from the playground and suitable
+for reuse by [doctor #37](https://github.com/SharonLanger/agent-playbook/issues/37).
+Doctor is deferred; it is not a prerequisite or an implemented CLI command.
+
+## Configuration proposal — milestone 2
 
 Extend the existing external configuration system rather than creating a second
-loader. Preserve file selection, local overrides and sanitized validation.
-The following is a **proposed schema example**; today's loader does not accept it:
+application loader. Preserve selection, local overrides and safe validation.
+Today's loader does not accept this **proposed schema example**:
 
 ```yaml
 integrations:
@@ -66,75 +61,73 @@ integrations:
       env: LANGFUSE_SECRET_KEY
 ```
 
-Keep the existing CrewAI settings alongside it. Ordinary application execution
-defaults to observability disabled. Disabled mode must not construct an exporting
-client, require keys or initiate a connection. For the explicit smoke exercise,
-select a dedicated external configuration with Langfuse enabled and valid project
-keys. Use a separate smoke project to keep synthetic traces out of later real runs.
+Keep existing CrewAI settings. Normal workflow behavior remains unchanged;
+a disabled Langfuse integration needs no keys, exporting client or network.
+Use explicit enabled local configuration for the checker/playground. A disabled
+connection check reports skipped, not authenticated success.
 
-Keys come from the self-hosted project's settings. Infrastructure database
-credentials, authentication secrets and object-store credentials are separate
-from these project API keys; keep them in ignored deployment configuration.
-Never copy the complete configuration or context object into trace metadata.
-Only allowlisted workflow/run/source fields are exported.
+Project API keys come from the local project's settings. Infrastructure database,
+authentication and object-store secrets are separate; keep them external and
+untracked. Never dump full configuration, credentials or authorization headers
+into diagnostics or trace metadata. Export only selected synthetic/run fields.
 
-Start with the currently documented compatible family: Langfuse server v4 and
-Python SDK v5. At implementation time choose exact tested server/worker image
-versions or digests and an exact SDK dependency in the lockfile. A floating
-`latest` tag is not the reproducible implementation. Check the current compatibility
-matrix before selecting pins.
+Start with the documented compatible family reviewed on 2026-11-13: server v4 and
+Python SDK v5. At implementation choose and verify exact image versions/digests
+and an exact SDK dependency in the lockfile. Recheck compatibility then; do not
+use floating latest tags as the reproducible baseline.
 
-A later switch to Langfuse Cloud changes the base URL and project credentials,
-with the same adapter/observation contract. Existing self-hosted data does not
-move automatically; historical migration is a separate task.
+Switching to Cloud later changes endpoint and project credentials. Historical
+self-hosted traces do not migrate automatically.
 
-## Self-hosted services and persistence
+## Local deployment and persistence — milestone 1
 
-Use the upstream Docker Compose deployment as the starting point, with local
-loopback access, changed example secrets and named persistent volumes.
+Base the setup on upstream Docker Compose, with local loopback access, replaced
+example secrets and named persistent volumes.
 
-| Component | What it keeps/does |
+| Component | Role |
 |---|---|
 | Langfuse Web | UI and API |
-| Langfuse Worker | Background ingestion and processing |
-| PostgreSQL | Transactional application data such as organizations/projects |
+| Langfuse Worker | Background ingestion |
+| PostgreSQL | Transactional application data, including organizations/projects |
 | ClickHouse | Traces and observations |
-| Redis/Valkey | Cache and job queue |
-| S3-compatible storage (local MinIO) | Ingested events and blob/attachment storage |
+| Redis/Valkey | Queue and cache |
+| Local S3-compatible storage (MinIO) | Ingested events and blob storage |
 
-The UI reads from this service stack; it is not the data store. Container restarts
-must retain named-volume data. The normal stop command preserves volumes. Any
-volume-deleting reset is separate, explicitly destructive and never part of a
-default setup/check command. Local persistence is not a backup or a production
-availability guarantee. No optional AI gateway or LLM provider is required here.
+The UI is not the data store. Normal stop/start preserves volumes; destructive
+reset is separate and never part of the happy path. Persistence is not a backup
+or a production availability guarantee. No optional gateway or LLM is required.
 
-The default browser URL is `http://localhost:3000`. The application and smoke
-script run on the host for this first milestone. If they later run inside Docker,
-configure a reachable service URL; container `localhost` is not the host.
+The initial browser URL is `http://localhost:3000`, with Python examples/checks
+running on the host. A future containerized caller needs a reachable service URL;
+its localhost is not the host machine.
 
-## Lifecycle and failures
+## Reporting success and failure
 
-Open a root for one run, create nested step observations, close them, record the
-root output and end the run. Flush at the smoke script's end and shut down its
-client in a finalization path. A long-lived API would retain its integration
-client across requests and shut it down with the application.
+M2 distinguishes reachable service, authenticated project access, skipped checks
+and failure. Use bounded timeouts and actionable sanitized messages. A successful
+connection check does not claim any trace has been persisted.
 
-For this first milestone, the dedicated smoke command fails visibly and returns
-nonzero on missing configuration, authentication failure, export/read-back timeout
-or mismatched data. It must not claim success merely because the SDK did not raise.
-A transport flush alone is not proof that async server ingestion completed.
+M3 sends real synthetic observations and flushes before exit. A printed trace URL
+or successful SDK call alone is not proof of ingestion; Sharon checks the UI.
+If the example also polls for visibility, report pending/timeout honestly.
+Independent live tests may use bounded read-back and must fail on missing roots,
+children or unexpected values; they use maintained fixtures, not the playground.
 
-Normal workflows remain disabled for Langfuse in this milestone, so their outcomes
-do not depend on telemetry. Decide fail-open versus fail-closed behavior explicitly
-before enabling real workflow instrumentation. No durable retry queue or recovery
-guarantee is introduced here.
+A deliberately failed mock step must be visibly ERROR with a useful message,
+mark its mock root failed and stop later successful steps in that run. This is
+distinct from a configuration/authentication/export failure. The example should
+catch only its explicit simulated-step error for display and preserve unexpected
+technical failures.
+
+Choose actual workflow lifecycle hooks and fail-open/fail-closed behavior in M4.
+No durable retry queue, resume mechanism, automatic filesystem capture or general
+application-log store is introduced by M1–M3.
 
 ## Official references checked 2026-11-13
 
 - [Docker Compose](https://langfuse.com/self-hosting/deployment/docker-compose)
 - [Service architecture and storage](https://langfuse.com/self-hosting)
-- [SDK compatibility and self-host/cloud configuration](https://langfuse.com/docs/observability/sdk/overview)
+- [SDK compatibility and configuration](https://langfuse.com/docs/observability/sdk/overview)
 - [Manual observations and nesting](https://langfuse.com/docs/observability/sdk/instrumentation)
 - [SDK lifecycle and export options](https://langfuse.com/docs/observability/sdk/advanced-features)
-- [Public API and read access](https://langfuse.com/docs/api-and-data-platform/features/public-api)
-
+- [Public API](https://langfuse.com/docs/api-and-data-platform/features/public-api)

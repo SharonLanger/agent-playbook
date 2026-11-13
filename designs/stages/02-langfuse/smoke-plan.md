@@ -1,102 +1,77 @@
-# Happy-path mock workflow exercise
+# Personal Langfuse playground and manual exercise
 
-Status: **DRAFT TEST/SCRIPT CONTRACT — nothing below is implemented yet.**
-[Review entry point](README.md) · [Architecture/configuration](architecture.md)
+Status: **DRAFT for milestone 3; no example has been implemented.**
+[Milestones and gates](milestones.md) · [Configuration](architecture.md)
 
-## Proposed entry point
+This file replaces the earlier test-first seed-script proposal. The main goal is
+for Sharon to see traces, edit the example and learn how changes appear in the UI.
+Automated integration verification remains separate.
 
-A maintained script under `app/tooling/observability/`, callable from the terminal
-and a PyCharm run configuration. A candidate invocation is:
+## Requested example
+
+Create `app/examples/langfuse/` when implementing M3, with a simple `run.py` and
+README. A candidate invocation is:
 
 ```text
-# Proposed command; not available in the repository today.
-python app/tooling/observability/seed_langfuse.py --config /path/to/smoke.yaml --runs 3
+# Proposed entry point; does not exist yet.
+python app/examples/langfuse/run.py
 ```
 
-It loads the same validated configuration and uses the same observability adapter
-that the future workflow context will receive. Reuse the merged context contract
-where applicable; do not make a second workflow/context framework for the script.
-It must not import personal examples or require a model/provider key.
+Provide clear external configuration/key instructions and a small editable set of
+inputs in the example. It may use the maintained Langfuse integration without
+importing application runner/workflow/context code. Do not create a dummy context.
 
-## What the script sends
+Start with arithmetic input `initial=3, increment=2, multiplier=4` and four nested
+steps: initialize, add, multiply, finish. The successful result is 20. This is a
+simulation, not an actual CrewAI run. Label runs `source=mock` and
+`workflow_id=mock-wf-02`; each invocation gets fresh run and trace IDs. Record the
+actual trace identifier rather than assume an arbitrary run ID is an OTel ID.
 
-Use fresh run and trace identities on every invocation. Share a unique
-`fixture_batch_id` across that command's runs for retrieval. Label every observation
-with synthetic provenance such as `source=mock`, `fixture=langfuse-smoke` and
-`workflow_id=mock-wf-02`. Do not label a simulated run as an actual CrewAI execution.
+Make the following easy to change without a framework:
 
-Each root is named `mock-wf-02` and has four sequential children:
+- Inputs: change the initial value, increment or multiplier.
+- Which step fails: `fail_step=None`, then `"add"`, then `"multiply"`.
+- Step names or small output payloads for UI experimentation.
 
-| Observation | Recorded evidence |
+Those are proposed example settings, not a public production configuration API.
+A single scenario per invocation is sufficient; additional mock runs are optional.
+
+## What Sharon sees and does
+
+1. Run the default example and open the printed trace link.
+2. Expand the root and its steps. Inspect input, output and elapsed time.
+3. Change an input and rerun; a new trace shows the new values.
+4. Select failure in add. Inspect the error message and failed step/root; later
+   steps must not appear as completed.
+5. Move failure to multiply and compare the two runs.
+6. Stop/start Langfuse without removing volumes and reopen a previous trace.
+
+The script computes actual fixture values and records real execution timing.
+Any optional teaching delay is explicit, zero by default. Do not invent tokens,
+costs, provider activity or model calls. Input/output is small and synthetic.
+
+Print run ID, trace ID, outcome and URL without secrets. Distinguish an intentional
+simulated error from transport failure and from telemetry not yet visible.
+Success for this milestone includes Sharon actually seeing the expected data,
+not merely the script exiting or creating a URL.
+
+## Independent verification boundary
+
+| Surface | Purpose and acceptance |
 |---|---|
-| initialize | Initial value |
-| add | Value and increment as input; computed sum as output |
-| multiply | Sum and multiplier as input; product as output |
-| finish | Final output |
+| Personal example | Manual exploration; Sharon may edit success/failure scenarios freely |
+| Maintained connection check | M2 diagnostic function/entry point outside examples, later reusable by doctor |
+| Offline application tests | Validate settings/export behavior using their own fixtures under `app/tests/` |
+| Explicit live integration test | If included, emits its own fixed fixture and reads back trace/steps with a bounded timeout |
+| Ordinary application checks | Need no server, never discover/import/run examples, unaffected by playground edits/removal |
 
-The script performs deterministic Python arithmetic and measures actual local
-execution timestamps; no LLM or real agent is invoked. First-run input is
-`initial=3, increment=2, multiplier=4`, giving history `[3, 5, 20]` and output
-`20`. Additional runs may use different explicit fixture inputs. The console
-prints each run ID, trace ID, final value and trace URL.
+A live verification fixture may check nesting, identity and values after a flush
+and bounded polling period (initial proposal: up to 30 seconds). Flush is not
+proof of completed server ingestion. Missing observations or wrong values fail
+that explicit test. Do not move the personal example into tooling merely to make
+it testable, or make maintained tests depend on its editable data.
 
-Any optional slow-demo delay must be explicit and default to zero; never fabricate
-timings, token usage, provider names or costs. The first acceptance scenario is
-successful execution. A clearly labelled simulated failing step can follow later;
-it is not required to establish the initial happy path.
-
-## Happy path from setup to UI
-
-1. Resolve and record compatible pinned images/SDK dependencies.
-2. Start the local stack using the maintained Compose setup.
-3. Open the UI, create an account/project and obtain project API keys.
-   Manual initial setup is sufficient; headless provisioning is optional later.
-4. Supply keys through the documented external configuration and environment.
-5. Run the explicit smoke command; authenticate, then emit the mock batch.
-6. Flush and poll the public read API by the emitted trace IDs until all expected
-   roots and children are present, with a bounded deadline (proposed: 30 seconds).
-7. Verify IDs, hierarchy, input/output and expected final values; print trace URLs
-   only as successful verification after read-back passes.
-8. In the UI inspect the root and four children, their inputs/outputs/durations
-   and the synthetic/run metadata. Document the exact filtering controls present
-   in the pinned UI rather than promising arbitrary custom-field filters.
-9. Stop/start containers without removing volumes; retrieve one previously emitted
-   trace again. It must still exist.
-
-Use the selected server version's supported read endpoints/SDK methods. Read-back
-must verify the child observations as well as a root record. A healthy web page,
-successful auth or SDK flush alone does not satisfy the test. If the deadline
-expires, report unverified/missing trace IDs and exit nonzero without exposing keys.
-A rerun creates a new labelled batch; it never deletes older traces.
-
-## Verification split
-
-| Check | What proves success |
-|---|---|
-| Offline settings tests | Enabled settings require a valid endpoint/key references; disabled mode needs no keys/network; errors redact values |
-| Offline observation contract | Correct parent relationships and per-run isolation; only allowlisted metadata is exported |
-| Opt-in live smoke | API read-back confirms expected roots, children and values within the deadline |
-| UI learning check | Sharon can open a returned URL and inspect nesting and evidence |
-| Persistence check | Earlier trace remains queryable after restart with volumes preserved |
-| Existing application gate | Strict types/lint/tests remain green and independent of Langfuse availability |
-
-The offline gate uses independent test fixtures and a recording/no-export
-implementation. It never starts Docker or depends on the personal sandbox.
-The live smoke is an explicit integration check, not part of every `check`.
-
-## Sequence and review gates
-
-1. **Now:** review this draft and its workflow-refactor dependency.
-2. **After workflow refactor merges:** reconcile context ownership, constructor and
-   lifecycle names; identify any guarded logical changes and get their approval.
-3. **After stage design approval:** implement local deployment/configuration,
-   the narrow adapter and the explicit mock script.
-4. Run offline checks, then the live smoke and persistence probe; record actual
-   versions, commit, results and limitations.
-5. Add official installation/configuration/troubleshooting guidance and the script's
-   PyCharm task with implementation. Then review the UI together.
-6. Only afterward design real workflow instrumentation and ordinary-log storage.
-
-No environment has been provisioned, no project keys have been created and no
-live trace has been exported as part of this draft documentation PR.
-
+Future access to the personal playground remains subject to Sharon's specific
+requests. This PR updates its design only and does not inspect existing examples.
+The historical filename `smoke-plan.md` is retained to preserve PR links; its
+current purpose is this manual playground plan and the separate test boundary.

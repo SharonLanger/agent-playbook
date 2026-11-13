@@ -68,6 +68,8 @@ PR #35 reconciles these facts with the approved guarded governance and permanent
 Stage 02 Langfuse design/research may proceed; implementation requires its approved stage design. Role/event/adapter/harness details remain optional explorations. PR #35 is unmerged pending Sharon's review.
 
 
-## Stage 02 first milestone — draft documentation
+## Stage 02 milestones — documentation review
 
-On 2026-11-13 Sharon requested a configuration-first Langfuse exercise with mock workflow traces, based on the upcoming workflow ABC/context refactor. The [review package](stages/02-langfuse/README.md) records this dependency and proposed self-hosted setup, configuration and read-back/UI acceptance. The refactor API was not available in the inspected main tree/branch searches; reconcile it before implementation and merge. No Stage 02 runtime, deployment, credentials or live telemetry has been created or verified by this documentation change. Existing stage acceptance remains unchanged.
+On 2026-11-13 Sharon agreed to four checkpoints: local Langfuse UI, a connection check, editable mock runs in his requested app/examples/langfuse playground, and real workflow integration last. The [milestone plan](stages/02-langfuse/milestones.md) replaces the earlier blanket dependency on the workflow refactor: milestones 1–3 are independent; only milestone 4 waits for the merged workflow/context design. Milestones are not mandatory separate PRs; reuse the existing PR/review thread and assess actual overlap before splitting work.
+
+The personal playground is for manual UI learning and scenario edits, not automated acceptance fixtures. Application tests remain independent under app/tests. [Doctor #37](https://github.com/SharonLanger/agent-playbook/issues/37) tracks the requested future diagnostic command. No Stage 02 runtime, deployment, credentials, playground or live telemetry is implemented or verified by this documentation update. Existing stage acceptance and guarded baselines remain unchanged.
