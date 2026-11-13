@@ -50,7 +50,18 @@ def release_destination(output: Path | None, version: str, commit: str) -> Path:
 
 def validate_release_source() -> tuple[Path, str, str]:
     repo = Path(capture(["git", "rev-parse", "--show-toplevel"], APP))
-    changes = capture(["git", "status", "--short", "--untracked-files=all", "--", ".", ":(exclude)app/examples"], repo)
+    changes = capture(
+        [
+            "git",
+            "status",
+            "--short",
+            "--untracked-files=all",
+            "--",
+            ".",
+            ":(exclude)app/examples",
+        ],
+        repo,
+    )
     if changes:
         raise RuntimeError(
             "Release requires a clean committed checkout. Git still sees:\n"
@@ -77,7 +88,10 @@ def validate_release_source() -> tuple[Path, str, str]:
 
 def assert_source_unchanged(repo: Path, commit: str) -> None:
     if (
-        capture(["git", "status", "--porcelain", "--", ".", ":(exclude)app/examples"], repo)
+        capture(
+            ["git", "status", "--porcelain", "--", ".", ":(exclude)app/examples"],
+            repo,
+        )
         or capture(["git", "rev-parse", "HEAD"], repo) != commit
     ):
         raise RuntimeError("Checkout changed during checks; release aborted.")
@@ -86,7 +100,16 @@ def assert_source_unchanged(repo: Path, commit: str) -> None:
 def build_wheel(repo: Path, commit: str, destination: Path, uv: str) -> Path:
     """Build the exact committed app tree, with embedded source metadata."""
     archive = subprocess.check_output(
-        ["git", "archive", "--format=tar", f"{commit}:app", "pyproject.toml", "uv.lock", "src"], cwd=repo
+        [
+            "git",
+            "archive",
+            "--format=tar",
+            f"{commit}:app",
+            "pyproject.toml",
+            "uv.lock",
+            "src",
+        ],
+        cwd=repo
     )
     with tempfile.TemporaryDirectory(prefix="agent-playbook-release-") as temporary:
         source = Path(temporary) / "source"

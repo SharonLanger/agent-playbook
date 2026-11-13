@@ -50,7 +50,12 @@ def test_selectors_exclude_tests_and_keep_gate_order() -> None:
     assert select_commands("test", []) == [
         ["pytest", "-q", "tests"]
     ]
-    for command in select_commands("check", []) + select_commands("test", []) + select_commands("format", []):
+    commands = (
+        select_commands("check", [])
+        + select_commands("test", [])
+        + select_commands("format", [])
+    )
+    for command in commands:
         assert all("examples" not in argument for argument in command)
 
 
