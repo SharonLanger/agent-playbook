@@ -1,14 +1,45 @@
 """Read shared YAML, optional local values and documented environment overrides."""
 
 import os
+from collections.abc import Hashable
 from pathlib import Path
+from typing import Any
 
 import yaml
 from pydantic import TypeAdapter, ValidationError
+from yaml.constructor import ConstructorError
+from yaml.nodes import MappingNode
 
 from agent_playbook.config.errors import ConfigurationError
 from agent_playbook.config.models import ApplicationSettings
 from agent_playbook.config.paths import configuration_path
+
+
+class StrictLoader(yaml.SafeLoader):
+    def flatten_mapping(self, node: MappingNode) -> None:
+        if any(key.tag == "tag:yaml.org,2002:merge" for key, _ in node.value):
+            raise ConstructorError(
+                None, None, "YAML merge keys are unsupported", node.start_mark
+            )
+        super().flatten_mapping(node)
+
+    def construct_mapping(
+        self, node: MappingNode, deep: bool = False
+    ) -> dict[Hashable, Any]:
+        seen: set[str] = set()
+        for key_node, _ in node.value:
+            if key_node.tag != "tag:yaml.org,2002:str":
+                raise ConstructorError(
+                    None, None, "Invalid YAML key", key_node.start_mark
+                )
+            key = key_node.value
+            if key in seen:
+                raise ConstructorError(
+                    None, None, "Duplicate YAML key", key_node.start_mark
+                )
+            seen.add(key)
+        return super().construct_mapping(node, deep=deep)
+
 
 _MAPPING = TypeAdapter(dict[str, object])
 _OVERRIDES = {
@@ -25,7 +56,7 @@ def _mapping(value: object) -> dict[str, object]:
 def _read(path: Path) -> dict[str, object]:
     try:
         with path.open(encoding="utf-8") as source:
-            value: object = yaml.safe_load(source)
+            value: object = yaml.load(source, Loader=StrictLoader)
         return _mapping(value)
     except (OSError, UnicodeError, yaml.YAMLError, ValidationError):
         # YAML/parser errors can include source lines containing private values.

@@ -17,7 +17,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     for workflow_parser in (run_parser, dev_parser):
         workflow_parser.add_argument(
-            "--workflow", help="Workflow ID: wf-01 (default), wf-02 or wf-03."
+            "--workflow", help="Configured workflow ID (default: wf-01)."
         )
         workflow_parser.add_argument(
             "--input",

@@ -195,3 +195,5 @@ python -m ruff format examples
 These commands are manual; the last one changes example files.
 See the [guarded project structure](../../designs/project-structure.md).
 
+
+Configured aliases use the same `--workflow` option. The CLI displays serialized output; Python `run_workflow()` returns a typed native `output` and `serialized_output`. Configuration/selection/input errors exit 2; prepare defects, CrewAI execution, output validation and serialization errors exit 1.

@@ -3,3 +3,13 @@ integrations:
     usage_telemetry_enabled: false
     tracing_enabled: false
     show_framework_events: false
+workflows:
+  wf-01:
+    name: Step sequence
+    implementation: step_sequence
+  wf-02:
+    name: Shared state
+    implementation: shared_state
+  wf-03:
+    name: Conditional route
+    implementation: conditional_route

@@ -74,3 +74,9 @@ Main was read at `a4264ac985005b6e9c104bf8a8c4c1f1492abfb1`, the merge of PR #35
 Sharon requested the [workflow contract design package](refactors/workflow-contract/README.md) before Langfuse integration: final public ABC lifecycle methods with abstract hooks, per-instance status, explicit error phases, stable implementation registry and selected YAML validation. He authorized the narrow Stage 01 base-class restriction update. Other guarded changes are enumerated for final review in the implementation plan.
 
 This update contains documentation and generated Atlas navigation only. Application code, tests, dependencies, configuration and releases are unchanged. No runtime verification result is claimed for the proposed refactor. Implementation remains explicitly stopped pending Sharon's go-ahead. Context/Langfuse follows separately; child workflows and recovery are future feature requests.
+
+## Workflow contract implementation PR (2026-11-13)
+
+Sharon approved the PR #38 design and the enumerated guarded-file changes. `feat/workflow-contract` starts at design head `cf62b80` while PR #38 remains open. This branch adds the final-method ABC, per-instance lifecycle/failure records, stable class registry, selected YAML configuration, strict YAML key handling, typed native results, and CLI adaptation. CrewAI retains decorated step orchestration. Children (#39), recovery, and context/Langfuse remain separate.
+
+Baseline at `cf62b80`: Pyright, Ruff lint and format passed. Pytest collection failed in the sandbox because CrewAI attempted to create per-user storage in a read-only home directory. Full tests subsequently ran in the approved execution context. Final checks and current-release evidence are recorded below when complete.

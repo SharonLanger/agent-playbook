@@ -32,7 +32,7 @@ def test_input_and_execution_exit_codes(capsys: pytest.CaptureFixture[str]) -> N
     with patch.object(steps, "decorate_message", side_effect=ValueError("broken step")):
         assert commands.main(["dev-run"]) == 1
     output = capsys.readouterr()
-    assert "wf-01 execution failed" in output.err
+    assert "wf-01 EXECUTE failed" in output.err
     assert "result:" not in output.out
 
 

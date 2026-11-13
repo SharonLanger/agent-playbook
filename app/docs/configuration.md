@@ -19,7 +19,7 @@ Follow an example's README when running its `run.py` directly.
 
 | File | Purpose |
 |---|---|
-| `app/application.yaml` | Shared settings, reviewed and versioned in Git |
+| `app/application.yaml` | CrewAI settings and configured workflow IDs, reviewed and versioned in Git |
 | `app/application.local.yaml` | Optional partial overrides for this machine; Git-ignored |
 | `app/src/agent_playbook/config/` | Python loader, typed validation and CrewAI initialization |
 
@@ -118,17 +118,27 @@ lines. Active configuration/local overrides are not bundled into wheels or relea
 directories. Git history records shared changes; ignored local overrides have no Git
 history. These controls are boundaries, not a claim of comprehensive secret scanning.
 
-## Workflow rules stay separate
+## Configured workflows
 
-WF-03's `PASS_THRESHOLD = 60` lives in its `steps.py`; score is per-run input. Neither
-belongs under CrewAI. A future tunable workflow can own a separate validated section
-or file. This stage adds no unused workflow configuration framework or speculative keys.
+`workflows` is a required mapping in the shared YAML. Each ID selects an implementation key, not a Python import path. The built-in keys are `step_sequence`, `shared_state`, and `conditional_route`. An entry can also have a nonempty `name`, `enabled: false`, and an implementation-specific `config` mapping. Missing `config` means empty settings. A local file can add or override an ID; an empty local mapping retains inherited entries.
+
+```yaml
+workflows:
+  wf-02-custom:
+    name: Custom arithmetic
+    implementation: shared_state
+    config:
+      defaults: {initial: 10, increment: -2, multiplier: 3}
+```
+
+`shared_state` defaults accept strict integers from -1000 to 1000. `conditional_route` accepts `config: {defaults: {score: 59}}`, with score from 0 to 100. Explicit JSON input fields override these defaults. Invalid defaults fail even when a request would replace them. `step_sequence` accepts only empty config. WF-03's `PASS_THRESHOLD = 60` remains in `steps.py`.
+
+Only the selected entry and its implementation settings are validated. Invalid unused entries do not block a valid ID, but malformed YAML, duplicate keys at any depth, unsafe tags, merge keys, and invalid shared settings reject the file before execution. Unknown or disabled selected IDs return exit 2. Workflow configuration has no environment-variable overlay beyond the existing file selection rules.
 
 ## Why initialization order matters
 
 The runner calls `application/assembly.py` to load/validate configuration and apply
-CrewAI startup settings. Only afterward does `application/workflow_factory.py` import
-and construct the selected flow. Python imports can initialize library services,
+CrewAI startup settings. Only afterward does the registry import concrete wrappers and the factory construct the selected workflow. Python imports can initialize library services,
 so applying a setting afterward may be too late. Flow-instance options are also passed
 explicitly. Importing the workflow package itself no longer changes the environment.
 

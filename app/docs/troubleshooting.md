@@ -108,3 +108,7 @@ error, the exit code, and the relevant non-secret input. For a release, include 
 folder and version. A screenshot of the actual error is more useful than only the final
 “process finished” line. Redact credentials and private environment values.
 
+
+## Workflow selection or phase failure
+
+Check that the selected ID exists and is enabled under `workflows` in the active YAML. An unknown implementation key or invalid selected defaults is a configuration error (exit 2). Invalid JSON or explicit workflow input rejection also exits 2. A prepare, execute, output validation or serialization failure exits 1 and names its phase; inspect the local exception cause for debugging. Error messages omit input and configuration values.

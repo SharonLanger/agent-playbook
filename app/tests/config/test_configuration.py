@@ -216,3 +216,40 @@ def test_same_code_reads_edited_configuration_on_next_invocation(
     assert "result: [Hello, workflow!]" in first.stdout
     assert "result: [Hello, workflow!]" in second.stdout
     assert first.stdout != second.stdout
+
+
+@pytest.mark.parametrize(
+    "fragment",
+    [
+        "workflows:\n  wf-01: {}\n  wf-01: {}\n",
+        "workflows:\n  unused:\n    config:\n      x: 1\n      x: 2\n",
+        "workflows:\n  unused: {config: {x: 1, x: 2}}\n",
+        "workflows:\n  unused: {config: {<<: {x: 1}}}\n",
+        "workflows:\n  3: {}\n",
+    ],
+)
+def test_invalid_yaml_keys_even_in_unused_entries(
+    tmp_path: Path, fragment: str
+) -> None:
+    selected = copy_config(tmp_path)
+    selected.write_text(selected.read_text().replace("workflows:\n", fragment, 1))
+    with pytest.raises(ConfigurationError):
+        load_configuration(str(selected))
+
+
+def test_unused_invalid_entry_and_selected_alias(tmp_path: Path) -> None:
+    selected = copy_config(tmp_path)
+    selected.write_text(
+        selected.read_text()
+        + "  unused: {implementation: unknown, config: null}\n  custom: {implementation: shared_state, config: {defaults: {initial: 10, increment: -2, multiplier: 3}}}\n"
+    )
+    from agent_playbook.application.workflow_runner import run_workflow
+
+    assert (
+        run_workflow("wf-01", config_path=str(selected)).output == "[Hello, workflow!]"
+    )
+    result = run_workflow("custom", config_path=str(selected))
+    assert result.output == 24 and result.serialized_output == "24"
+    assert (
+        run_workflow("custom", '{"initial":2}', config_path=str(selected)).output == 0
+    )

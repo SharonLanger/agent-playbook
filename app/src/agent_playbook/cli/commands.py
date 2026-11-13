@@ -9,7 +9,6 @@ from agent_playbook.application.results import (
     WorkflowExecutionError,
     WorkflowInputError,
 )
-from agent_playbook.application.workflow_runner import run_workflow
 from agent_playbook.cli.development import run_development
 from agent_playbook.cli.parser import build_parser
 from agent_playbook.config.errors import ConfigurationError
@@ -86,6 +85,8 @@ def present_workflow(
     config_path: str | None = None,
 ) -> int:
     """Map input and execution failures separately; presentation belongs to the CLI."""
+    from agent_playbook.application.workflow_runner import run_workflow
+
     try:
         result = run_workflow(
             "wf-01" if workflow_id is None else workflow_id,
@@ -101,5 +102,5 @@ def present_workflow(
     except WorkflowExecutionError as error:
         print(f"Workflow failed: {error}", file=sys.stderr)
         return 1
-    print(f"[{result.workflow_id.upper()}] result: {result.output}")
+    print(f"[{result.workflow_id.upper()}] result: {result.serialized_output}")
     return 0

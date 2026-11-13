@@ -8,6 +8,7 @@ from agent_playbook.application.results import (
     WorkflowInputError,
 )
 from agent_playbook.application.workflow_runner import run_workflow
+from agent_playbook.config.errors import ConfigurationError
 from agent_playbook.workflows.wf_01_step_sequence import steps
 
 
@@ -34,12 +35,12 @@ def test_invalid_input_starts_no_steps(
 
 def test_selected_results_and_fresh_runs(capsys: pytest.CaptureFixture[str]) -> None:
     assert run_workflow().output == "[Hello, workflow!]"
-    assert run_workflow("wf-02").output == "20"
+    assert run_workflow("wf-02").output == 20
     assert (
         run_workflow("wf-02", '{"initial":10,"increment":-2,"multiplier":3}').output
-        == "24"
+        == 24
     )
-    assert run_workflow("wf-02").output == "20"
+    assert run_workflow("wf-02").output == 20
     capsys.readouterr()
     result = run_workflow("wf-03", '{"score":40}')
     assert result.workflow_id == "wf-03" and result.output == "needs_work"
@@ -55,6 +56,6 @@ def test_step_value_error_keeps_execution_category_and_cause() -> None:
     assert failure.value.__cause__ is original
 
 
-def test_unknown_workflow_is_rejected_before_configuration(tmp_path: Path) -> None:
-    with pytest.raises(WorkflowInputError, match="Unknown workflow"):
+def test_configuration_precedes_unknown_workflow(tmp_path: Path) -> None:
+    with pytest.raises(ConfigurationError, match="Cannot read"):
         run_workflow("unknown", config_path=str(tmp_path / "missing.yaml"))

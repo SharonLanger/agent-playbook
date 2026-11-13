@@ -1,6 +1,6 @@
 # Workflow contract refactor
 
-Status: **Design prepared for review. Implementation has not started and is not authorized by this document.**
+Status: **Design approved by Sharon for implementation on 2026-11-13. Implementation is in review on `feat/workflow-contract`.**
 Updated: 2026-11-13. Source baseline: main at `a4264ac985005b6e9c104bf8a8c4c1f1492abfb1` (PR #35 merged; PR #34 runtime split preserved).
 
 ## Goal
@@ -36,8 +36,8 @@ The [living discussion record](https://chatgpt.com/space/page_c032a077e22c8191b5
 
 ## Authority and readiness
 
-Sharon approved the direction and lifecycle/error behavior in the 13 November discussion and requested documentation only. He explicitly authorized revising Stage 01's base-class restriction. The narrow Stage 01 clarification is included; the remaining per-file guarded changes are specified in the implementation plan and await review before application.
+Sharon approved the direction and lifecycle/error behavior in the 13 November discussion and requested documentation only. He explicitly authorized revising Stage 01's base-class restriction. The narrow Stage 01 clarification is included; Sharon approved the remaining per-file guarded changes listed in the implementation plan for this implementation PR.
 
-There are no unresolved product decisions preventing review of this package. Precise typing, import-order and framework failure behavior have explicit implementation gates; passing them is not claimed here. Do not start implementation until Sharon gives the go-ahead.
+There are no unresolved product decisions preventing review of this package. Precise typing, import-order and framework failure behavior have explicit implementation gates; passing them is not claimed here. Sharon gave the implementation go-ahead on 2026-11-13.
 
 This package is permanent refactor material under `designs/refactors/`. It is not a product guide, a new framework, or authorization to implement future observability or recovery designs.

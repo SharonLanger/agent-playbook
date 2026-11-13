@@ -25,6 +25,16 @@ Status: **GUARDED.** The existing protection set is preserved; additions below w
 
 Stage 00 architecture/plan still have old proposed-status wording. Progress records later approval/acceptance; that inconsistency does not make them editable without approval. They are not rewritten by this PR. Stage 01 README identifies architecture, file structure, plan and workflow contracts as approved baselines. Their protection and historical material remain intact.
 
+## Approved workflow-contract baseline
+
+- `designs/refactors/workflow-contract/README.md`
+- `designs/refactors/workflow-contract/design.md`
+- `designs/refactors/workflow-contract/file-structure.md`
+- `designs/refactors/workflow-contract/test-plan.md`
+- `designs/refactors/workflow-contract/implementation-plan.md`
+
+Sharon approved this design and its enumerated guarded-file changes for the implementation PR on 2026-11-13. Historical status wording in the package describes its pre-approval review state.
+
 ## Rules beyond the list
 
 Any other document or portion explicitly approved, locked or guarded remains protected, including future stage baselines. Approved behavioral contracts represented in diagrams or copied into instructions retain protection. A rename, generated view, omission from this register or obsolete status heading never removes it.

@@ -1,6 +1,6 @@
 # Workflow contract implementation plan
 
-Status: **Plan only. Do not begin implementation until Sharon explicitly authorizes it.**
+Status: **Approved implementation plan; Sharon authorized implementation and enumerated guarded changes on 2026-11-13.**
 
 ## Scope and authorization record
 

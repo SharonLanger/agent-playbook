@@ -1,6 +1,6 @@
 # Workflow contract design
 
-Status: **Proposed implementation contract reflecting the agreed scope. Awaiting final document review and implementation authorization.**
+Status: **Approved design; implementation in review on `feat/workflow-contract`.**
 
 ## Ownership
 

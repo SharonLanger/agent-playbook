@@ -1,6 +1,6 @@
 # Workflow contract test plan
 
-Status: **Specification for implementation. These new tests have not been written or run.**
+Status: **Approved test specification; implementation evidence is recorded in progress.**
 
 Preserve existing regression scenarios. Add focused tests for the new contract without replacing real CrewAI integration coverage with mocks. Application fixtures must not read, import or depend on app/examples.
 

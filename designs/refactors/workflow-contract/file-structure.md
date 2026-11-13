@@ -1,6 +1,6 @@
 # Proposed file structure
 
-Status: **Design only. The paths marked new below are not implemented.**
+Status: **Approved design; implementation in review on `feat/workflow-contract`.**
 
 Keep the accepted component boundaries. Add the shared contract within workflows, the registry within application, and a wrapper beside each existing CrewAI flow. No code moves to a generic framework package.
 
