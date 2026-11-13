@@ -1,10 +1,10 @@
 # Workflow contract implementation plan
 
-Status: **Approved plan. Initial implementation is in PR #40; the requested corrections and test completion are governed by [review-follow-up.md](review-follow-up.md).**
+Status: **Approved plan. Initial implementation is in PR #40; the requested corrections and test completion were implemented under [review-follow-up.md](review-follow-up.md).**
 
 ## Current handoff
 
-Sharon approved initial implementation and the enumerated guarded changes after this plan was first written. PR #40 implements that baseline and awaits review corrections. On 2026-11-13 he requested lazy imports now, constructor and diagnostic fixes, all test gaps, and a written handoff for the next agent. Follow [review-follow-up.md](review-follow-up.md), reconcile the updated PR #38 branch into PR #40, and leave both PRs unmerged.
+Sharon approved initial implementation and the enumerated guarded changes after this plan was first written. PR #40 implements that baseline; the review corrections are incorporated on its branch. On 2026-11-13 he requested lazy imports now, constructor and diagnostic fixes, all test gaps, and a written handoff for the next agent. Follow [review-follow-up.md](review-follow-up.md), reconcile the updated PR #38 branch into PR #40, and leave both PRs unmerged.
 
 The sections below preserve the original planning/approval record. Their initial documentation-only and pending-approval wording describes that earlier point in time; it is superseded by this current handoff. Historical verification results are not follow-up acceptance evidence.
 

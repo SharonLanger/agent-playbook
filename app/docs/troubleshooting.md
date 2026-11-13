@@ -112,3 +112,5 @@ folder and version. A screenshot of the actual error is more useful than only th
 ## Workflow selection or phase failure
 
 Check that the selected ID exists and is enabled under `workflows` in the active YAML. An unknown implementation key or invalid selected defaults is a configuration error (exit 2). Invalid JSON or explicit workflow input rejection also exits 2. A prepare, execute, output validation or serialization failure exits 1 and names its phase; inspect the local exception cause for debugging. Error messages omit input and configuration values.
+
+A `SETUP` or `CONSTRUCTION` failure is an application defect (exit 1); `PREPARE`, `EXECUTE`, `VALIDATE_OUTPUT` and `SERIALIZE_OUTPUT` identify later phases. A selected implementation settings error remains a configuration error (exit 2). Input/schema diagnostics use the configured workflow ID, including aliases, and safe field/error types. If a required built-in flow dependency is broken, normal runs of other IDs can still work, but release verification fails when it exercises that built-in.

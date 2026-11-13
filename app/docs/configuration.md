@@ -138,7 +138,7 @@ Only the selected entry and its implementation settings are validated. Invalid u
 ## Why initialization order matters
 
 The runner calls `application/assembly.py` to load/validate configuration and apply
-CrewAI startup settings. Only afterward does the registry import concrete wrappers and the factory construct the selected workflow. Python imports can initialize library services,
+CrewAI startup settings. Only afterward does the registry import lightweight wrapper classes and the factory construct the selected workflow. The selected wrapper imports its CrewAI flow during preparation; unused flow modules remain unloaded. Python imports can initialize library services,
 so applying a setting afterward may be too late. Flow-instance options are also passed
 explicitly. Importing the workflow package itself no longer changes the environment.
 
@@ -163,3 +163,5 @@ network activity; the offline guarantee applies to the documented disabled confi
 
 No new PyCharm task is required. Existing Run/WF tasks use the default selection;
 add `--config` to their parameters only when selecting another file.
+
+A selected entry or defaults error names the configured ID, field and validation type (for example, `customer-job CONFIGURATION: defaults.initial (int_type)`). A selected flow import or construction defect exits 1 with its phase; invalid implementation settings explicitly reported as configuration exit 2. Release creation still prepares and executes every built-in implementation, even though normal runs load only the selected flow.

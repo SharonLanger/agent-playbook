@@ -159,3 +159,123 @@ def test_interruptions_propagate(interruption: type[BaseException]) -> None:
     with pytest.raises(interruption):
         probe.execute()
     assert probe.failure is None
+
+
+@pytest.mark.parametrize(
+    "missing", ["_prepare", "_execute", "_validate_output", "_serialize_output"]
+)
+def test_each_missing_hook_prevents_instantiation(missing: str) -> None:
+    names = ("_prepare", "_execute", "_validate_output", "_serialize_output")
+    incomplete = type(
+        "Incomplete",
+        (Workflow,),
+        {name: getattr(Probe, name) for name in names if name != missing},
+    )
+    with pytest.raises(TypeError, match="abstract"):
+        incomplete(settings=SETTINGS, config={})
+
+
+@pytest.mark.parametrize("target", list(WorkflowPhase))
+@pytest.mark.parametrize("caught", [True, False])
+def test_reentry_in_every_phase(target: WorkflowPhase, caught: bool) -> None:
+    class Reentry(Probe):
+        def _record(self, phase: WorkflowPhase) -> None:
+            if phase is target:
+                invoke = {
+                    WorkflowPhase.PREPARE: lambda: self.prepare({}),
+                    WorkflowPhase.EXECUTE: self.execute,
+                    WorkflowPhase.VALIDATE_OUTPUT: lambda: self.validate_output(None),
+                    WorkflowPhase.SERIALIZE_OUTPUT: self.serialize_output,
+                }[phase]
+                if caught:
+                    with pytest.raises(WorkflowOrderError):
+                        invoke()
+                else:
+                    invoke()
+            super()._record(phase)
+
+    probe = Reentry()
+    if caught:
+        probe.prepare({})
+        probe.validate_output(probe.execute())
+        probe.serialize_output()
+        assert probe.status is WorkflowStatus.COMPLETED
+    else:
+        with pytest.raises(WorkflowOrderError):
+            probe.prepare({})
+            probe.validate_output(probe.execute())
+            probe.serialize_output()
+        assert probe.failure is not None and probe.failure.phase is target
+        assert probe.status is WorkflowStatus.FAILED
+
+
+@pytest.mark.parametrize("target", list(WorkflowPhase))
+@pytest.mark.parametrize("interruption", [KeyboardInterrupt, SystemExit])
+def test_same_interruption_object_propagates(
+    target: WorkflowPhase, interruption: type[BaseException]
+) -> None:
+    original = interruption()
+
+    class Interrupted(Probe):
+        def _record(self, phase: WorkflowPhase) -> None:
+            if phase is target:
+                raise original
+            super()._record(phase)
+
+    probe = Interrupted()
+    with pytest.raises(interruption) as caught:
+        probe.prepare({})
+        probe.validate_output(probe.execute())
+        probe.serialize_output()
+    assert caught.value is original and probe.failure is None
+
+
+def test_serialization_failure_retains_rich_result() -> None:
+    probe = Probe(fail=WorkflowPhase.SERIALIZE_OUTPUT)
+    probe.prepare({})
+    result = probe.validate_output(probe.execute())
+    with pytest.raises(ValueError):
+        probe.serialize_output()
+    assert probe.result is result and probe.status is WorkflowStatus.FAILED
+
+
+def test_genuine_terminal_instances_reject_every_repeat_without_mutation() -> None:
+    completed = Probe()
+    completed.prepare({})
+    completed.validate_output(completed.execute())
+    completed.serialize_output()
+    failed = Probe(fail=WorkflowPhase.EXECUTE)
+    failed.prepare({})
+    with pytest.raises(ValueError):
+        failed.execute()
+    assert failed.failure is not None
+    for probe in (completed, failed):
+        status, failure, calls = probe.status, probe.failure, len(probe.seen)
+        for invoke in (
+            lambda: probe.prepare({}),
+            probe.execute,
+            lambda: probe.validate_output(None),
+            probe.serialize_output,
+        ):
+            with pytest.raises(WorkflowOrderError):
+                invoke()
+        assert (probe.status, probe.failure, len(probe.seen)) == (
+            status,
+            failure,
+            calls,
+        )
+
+
+def test_independent_mutable_domain_state_and_failure() -> None:
+    first = Probe(fail=WorkflowPhase.EXECUTE)
+    second = Probe()
+    first.prepare({})
+    second.prepare({})
+    with pytest.raises(ValueError):
+        first.execute()
+    result = second.validate_output(second.execute())
+    second.serialize_output()
+    first.seen.append(WorkflowStatus.FAILED)
+    assert first.failure is not None and second.failure is None
+    assert second.status is WorkflowStatus.COMPLETED
+    assert second.result is result and WorkflowStatus.FAILED not in second.seen

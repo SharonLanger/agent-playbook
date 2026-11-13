@@ -9,7 +9,13 @@ from agent_playbook.workflows.wf_02_shared_state.state import NumberState
 
 @pytest.mark.parametrize(
     ("initial", "increment", "multiplier", "history"),
-    [(3, 2, 4, [3, 5, 20]), (10, -2, 3, [10, 8, 24]), (3, 2, 0, [3, 5, 0])],
+    [
+        (3, 2, 4, [3, 5, 20]),
+        (10, -2, 3, [10, 8, 24]),
+        (3, 2, 0, [3, 5, 0]),
+        (-1000, 0, 1, [-1000, -1000, -1000]),
+        (1000, 0, -1, [1000, 1000, -1000]),
+    ],
 )
 def test_kickoff_state(
     initial: int, increment: int, multiplier: int, history: list[int]

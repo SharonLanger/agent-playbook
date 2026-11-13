@@ -1,6 +1,6 @@
 # Proposed file structure
 
-Status: **Approved target structure, implemented in PR #40 and under review. NEW labels describe additions relative to the original baseline; [review-follow-up.md](review-follow-up.md) identifies remaining tests and corrections.**
+Status: **Approved target structure, implemented in PR #40 and under review. NEW labels describe additions relative to the original baseline; [review-follow-up.md](review-follow-up.md) records follow-up tests and corrections.**
 
 Keep the accepted component boundaries. Add the shared contract within workflows, the registry within application, and a wrapper beside each existing CrewAI flow. No code moves to a generic framework package.
 

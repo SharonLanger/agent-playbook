@@ -77,4 +77,4 @@ PyCharm tasks accompany the three run tasks so each example can be verified inde
 
 ## Approved successor
 
-The [workflow-contract refactor](../../refactors/workflow-contract/README.md) supersedes the direct-flow factory and shared result contract while retaining the historical Stage 01 acceptance and CrewAI step ownership above.
+The [workflow-contract refactor](../../refactors/workflow-contract/README.md) supersedes the direct-flow factory and shared result contract while retaining the historical Stage 01 acceptance and CrewAI step ownership above. Concrete flow imports occur when the selected wrapper prepares; release verification still runs every built-in.

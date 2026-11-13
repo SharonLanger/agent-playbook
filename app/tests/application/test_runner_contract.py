@@ -31,17 +31,28 @@ def test_runner_calls_public_methods_in_order_and_returns_native_object() -> Non
         patch(
             "agent_playbook.application.workflow_runner.assemble_runtime",
             return_value=APPLICATION,
-        ),
+        ) as assembly,
         patch(
             "agent_playbook.application.workflow_runner.workflow_registry",
             return_value={},
-        ),
+        ) as registry,
         patch(
-            "agent_playbook.application.workflow_runner.create_workflow",
+            "agent_playbook.application.workflow_runner.select_workflow",
+            return_value=(Mock, {"defaults": 1}),
+        ) as select,
+        patch(
+            "agent_playbook.application.workflow_runner.construct_workflow",
             return_value=workflow,
-        ),
+        ) as construct,
     ):
-        result = run_workflow("alias", '{"x": 3}')
+        result = run_workflow("alias", '{"x": 3}', config_path="/tmp/selected.yaml")
+    assembly.assert_called_once_with("/tmp/selected.yaml")
+    registry.assert_called_once_with()
+    selected_class = select.return_value[0]
+    select.assert_called_once_with("alias", APPLICATION, SETTINGS, {})
+    construct.assert_called_once_with(
+        "alias", selected_class, SETTINGS, {"defaults": 1}
+    )
     assert result.output is value and result.serialized_output == "display"
     assert [call[0] for call in workflow.method_calls] == [
         "prepare",
@@ -50,6 +61,7 @@ def test_runner_calls_public_methods_in_order_and_returns_native_object() -> Non
         "serialize_output",
     ]
     workflow.prepare.assert_called_once_with({"x": 3})
+    workflow.validate_output.assert_called_once_with("raw")
     workflow.serialize_output.assert_called_once_with()
 
 
@@ -72,7 +84,11 @@ def test_failure_stops_later_methods(method: str) -> None:
             return_value={},
         ),
         patch(
-            "agent_playbook.application.workflow_runner.create_workflow",
+            "agent_playbook.application.workflow_runner.select_workflow",
+            return_value=(Mock, {}),
+        ),
+        patch(
+            "agent_playbook.application.workflow_runner.construct_workflow",
             return_value=workflow,
         ),
     ):
@@ -101,7 +117,11 @@ def test_prepare_input_error_is_exit_two_category() -> None:
             return_value={},
         ),
         patch(
-            "agent_playbook.application.workflow_runner.create_workflow",
+            "agent_playbook.application.workflow_runner.select_workflow",
+            return_value=(Mock, {}),
+        ),
+        patch(
+            "agent_playbook.application.workflow_runner.construct_workflow",
             return_value=workflow,
         ),
     ):

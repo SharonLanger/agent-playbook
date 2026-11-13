@@ -197,3 +197,5 @@ See the [guarded project structure](../../designs/project-structure.md).
 
 
 Configured aliases use the same `--workflow` option. The CLI displays serialized output; Python `run_workflow()` returns a typed native `output` and `serialized_output`. Configuration/selection/input errors exit 2; prepare defects, CrewAI execution, output validation and serialization errors exit 1.
+
+The application loads only the selected workflow’s concrete CrewAI flow. A setup or constructor defect exits 1; the failure message names the configured ID and phase. Validation messages report field/type without input values. A release build verifies every built-in workflow despite this per-run loading.

@@ -2,7 +2,7 @@
 
 Open **[index.html](index.html)** from a local checkout in your browser. No server or installation is needed. GitHub displays HTML source; download/checkout the folder first. Markdown guide links open separately in your editor or repository viewer.
 
-- **Current** starts at repository ownership and zooms into current application responsibilities. It uses main `a4264ac` (PR #35 merged, PR #34 runtime preserved) for runtime paths. Approved future integration boundaries are explicitly labeled. The workflow-contract package is approved design; PR #40 is implemented and under review, with lazy-import/error/test follow-up pending. Its unmerged runtime is not presented as the merged baseline.
+- **Current** starts at repository ownership and zooms into current application responsibilities. It uses main `a4264ac` (PR #35 merged, PR #34 runtime preserved) for runtime paths. Approved future integration boundaries are explicitly labeled. The workflow-contract package is approved design; PR #40 is implemented and under review, with lazy-import/error/test follow-up implemented and full gate passing; release verification is pending. Its unmerged runtime is not presented as the merged baseline.
 - **Explorations** preserves candidate roles, executions, shared events, adapters, tools and deferred harness ideas. These may never be adopted. They are not approved architecture or a request to create all candidate files.
 - **Reviewer run** switches to Explorations and walks through one candidate invocation.
 - **Full file structure** searches and expands the selected view's inventory. Current excludes personal and historical sandbox contents; candidate paths are based on the older PR #34 snapshot `30c8d96` and are historical possibilities.

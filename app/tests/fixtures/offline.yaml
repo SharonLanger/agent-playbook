@@ -10,3 +10,11 @@ workflows:
     implementation: shared_state
   wf-03:
     implementation: conditional_route
+  wf-02-custom:
+    implementation: shared_state
+    config:
+      defaults: {initial: 10, increment: -2, multiplier: 3}
+  wf-03-custom:
+    implementation: conditional_route
+    config:
+      defaults: {score: 59}

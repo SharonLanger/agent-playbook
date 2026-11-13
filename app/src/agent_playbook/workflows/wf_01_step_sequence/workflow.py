@@ -6,7 +6,6 @@ from agent_playbook.config.errors import ConfigurationError
 from agent_playbook.config.models import CrewAISettings
 from agent_playbook.workflows.contracts import Workflow
 from agent_playbook.workflows.errors import WorkflowInputError
-from agent_playbook.workflows.wf_01_step_sequence.flow import StepSequenceFlow
 
 
 class StepSequenceWorkflow(Workflow[str]):
@@ -22,6 +21,8 @@ class StepSequenceWorkflow(Workflow[str]):
             raise WorkflowInputError(
                 "wf-01 accepts no input fields; use {} or omit --input."
             )
+        from agent_playbook.workflows.wf_01_step_sequence.flow import StepSequenceFlow
+
         self._flow = StepSequenceFlow(
             tracing=self._settings.tracing_enabled,
             suppress_flow_events=not self._settings.show_framework_events,

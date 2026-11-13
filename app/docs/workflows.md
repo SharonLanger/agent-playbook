@@ -71,3 +71,5 @@ See [troubleshooting](troubleshooting.md) for unexpected output or startup error
 For an explanation of the code itself, continue with the
 [Stage 01 learning material](../../designs/stages/01-crewai-flows/learning/00-reading-the-code.md).
 
+
+Only the selected workflow loads its CrewAI flow module during preparation. Each run uses a fresh wrapper; a configured alias changes defaults and identity without changing step routing.

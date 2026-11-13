@@ -1,6 +1,6 @@
 # Workflow contract refactor
 
-Status: **Approved workflow-contract design. Implementation PR #40 is in review; the requested follow-up is not yet implemented.**
+Status: **Approved workflow-contract design. Implementation PR #40 is in review; the requested follow-up is implemented on the PR branch and full gate verified; installed-release verification pending.**
 Updated: 2026-11-13. Source baseline: main at `a4264ac985005b6e9c104bf8a8c4c1f1492abfb1` (PR #35 merged; PR #34 runtime split preserved).
 
 ## Goal
@@ -9,7 +9,7 @@ Adding a workflow should require its own implementation, a stable registry entry
 
 CrewAI retains orchestration, decorated steps, routing and business state. Our workflow ABC owns application-facing preparation, execution, output validation, serialization and their call-order guards.
 
-Start the review follow-up at [review-follow-up.md](review-follow-up.md): lazy dependency imports now, constructor/error fixes, the complete test-gap matrix and the next-agent instructions. Reviewed implementation: PR #40 at b3d279b; the runtime on this design branch remains the original baseline.
+Start the review follow-up at [review-follow-up.md](review-follow-up.md): lazy dependency imports now, constructor/error fixes, the complete test-gap matrix and the next-agent instructions. The original review assessed PR #40 at b3d279b; this implementation branch has incorporated the updated design and adds the follow-up corrections.
 
 ## Read in order
 
@@ -42,6 +42,6 @@ The [living discussion record](https://chatgpt.com/space/page_c032a077e22c8191b5
 
 Sharon approved the workflow ABC design and the enumerated guarded changes for implementation in PR #40. After the review he requested lazy dependency loading now, constructor and diagnostic fixes, and completion of the planned tests. The precise follow-up and evidence requirements are in [review-follow-up.md](review-follow-up.md).
 
-The reviewer independently verified the original PR #40 head with 166 passing tests and passing type/lint/format checks, but identified coverage gaps and three reproduced issues. That evidence does not establish follow-up completion. The next agent must implement and verify this package before another review; neither PR is authorized to merge by this document.
+The reviewer independently verified the original PR #40 head with 166 passing tests and passing type/lint/format checks, but identified coverage gaps and three reproduced issues. That evidence does not establish follow-up completion. The follow-up implementation is being verified on PR #40; neither PR is authorized to merge by this document.
 
 This package is permanent refactor material under designs/refactors. Children, recovery, optional-package installation profiles and context/Langfuse remain separate scopes.

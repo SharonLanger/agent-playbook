@@ -1,5 +1,5 @@
 {
-  "snapshot": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
+  "snapshot": "main a4264ac remains the merged runtime. Approved workflow-contract follow-up is implemented on unmerged PR #40; full gate passed, release verification pending.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -59,7 +59,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Approved workflow-contract follow-up is implemented on unmerged PR #40; full gate passed, release verification pending.",
           "diagram": null
         },
         "design": {
@@ -96,13 +96,13 @@
             {
               "name": "Workflow contract and follow-up",
               "path": "designs/refactors/workflow-contract/README.md",
-              "text": "Approved ABC/YAML contract; PR #40 in review. Lazy imports, error corrections and test-gap handoff.",
+              "text": "Approved ABC/YAML contract; PR #40 in review with lazy imports, corrected error boundaries and mapped tests.",
               "to": null
             }
           ],
           "status": "approved-design",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Approved workflow-contract follow-up is implemented on unmerged PR #40; full gate passed, release verification pending.",
           "diagram": null
         },
         "app": {
@@ -151,7 +151,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Approved workflow-contract follow-up is implemented on unmerged PR #40; full gate passed, release verification pending.",
           "diagram": null
         },
         "src": {
@@ -200,7 +200,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Approved workflow-contract follow-up is implemented on unmerged PR #40; full gate passed, release verification pending.",
           "diagram": null
         },
         "application": {
@@ -237,7 +237,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Approved workflow-contract follow-up is implemented on unmerged PR #40; full gate passed, release verification pending.",
           "diagram": null
         },
         "workflows": {
@@ -262,7 +262,7 @@
           ],
           "status": "implemented",
           "source": "designs/stages/01-crewai-flows/architecture.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Approved workflow-contract follow-up is implemented on unmerged PR #40; full gate passed, release verification pending.",
           "diagram": null
         },
         "config": {
@@ -287,7 +287,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Approved workflow-contract follow-up is implemented on unmerged PR #40; full gate passed, release verification pending.",
           "diagram": null
         },
         "release": {
@@ -312,7 +312,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Approved workflow-contract follow-up is implemented on unmerged PR #40; full gate passed, release verification pending.",
           "diagram": null
         },
         "tooling": {
@@ -337,7 +337,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Approved workflow-contract follow-up is implemented on unmerged PR #40; full gate passed, release verification pending.",
           "diagram": null
         },
         "tests": {
@@ -356,7 +356,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Approved workflow-contract follow-up is implemented on unmerged PR #40; full gate passed, release verification pending.",
           "diagram": null
         },
         "integrations": {
@@ -381,7 +381,7 @@
           ],
           "status": "approved-design",
           "source": "designs/architecture.md",
-          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
+          "note": "main a4264ac remains the merged runtime. Approved workflow-contract follow-up is implemented on unmerged PR #40; full gate passed, release verification pending.",
           "diagram": null
         }
       },
@@ -1358,7 +1358,7 @@
         },
         {
           "path": "designs/refactors/workflow-contract/review-follow-up.md",
-          "status": "Approved follow-up — implementation pending",
+          "status": "Approved follow-up — implemented on unmerged PR #40, release verification pending",
           "purpose": "Reproduced review issues, lazy-import scope, test-gap matrix and next-agent instructions."
         }
       ]

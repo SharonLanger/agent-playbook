@@ -4,13 +4,12 @@ from typing import Mapping
 
 from pydantic import ValidationError
 
+from agent_playbook.config.diagnostics import validation_fields
 from agent_playbook.config.errors import ConfigurationError
 from agent_playbook.config.models import CrewAISettings
 from agent_playbook.workflows.contracts import Workflow
 from agent_playbook.workflows.errors import WorkflowInputError
 from agent_playbook.workflows.wf_02_shared_state.config import SharedStateConfig
-from agent_playbook.workflows.wf_02_shared_state.flow import SharedStateFlow
-from agent_playbook.workflows.wf_02_shared_state.state import NumberInput, NumberState
 
 
 class SharedStateWorkflow(Workflow[int]):
@@ -21,31 +20,26 @@ class SharedStateWorkflow(Workflow[int]):
         try:
             self._defaults = SharedStateConfig.model_validate(config).defaults
         except ValidationError as error:
-            fields = "; ".join(
-                ".".join(str(part) for part in item["loc"])
-                for item in error.errors(
-                    include_input=False, include_context=False, include_url=False
-                )
-            )
             raise ConfigurationError(
-                f"Invalid shared_state config fields: {fields}."
+                f"Invalid settings: {validation_fields(error)}."
             ) from None
 
     def _prepare(self, data: Mapping[str, object]) -> None:
+        from agent_playbook.workflows.wf_02_shared_state.state import (
+            NumberInput,
+            NumberState,
+        )
+
         try:
             numbers = NumberInput.model_validate(
                 {**self._defaults.model_dump(), **data}
             )
         except ValidationError as error:
-            fields = "; ".join(
-                ".".join(str(part) for part in item["loc"])
-                for item in error.errors(
-                    include_input=False, include_context=False, include_url=False
-                )
-            )
             raise WorkflowInputError(
-                f"Invalid wf-02 input fields: {fields}."
+                f"Invalid input: {validation_fields(error)}."
             ) from error
+        from agent_playbook.workflows.wf_02_shared_state.flow import SharedStateFlow
+
         self._flow = SharedStateFlow(
             initial_state=NumberState(
                 initial=numbers.initial,
