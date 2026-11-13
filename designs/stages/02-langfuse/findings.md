@@ -1,6 +1,6 @@
 # Milestone 1 findings
 
-Status: **Implemented on PR #36; awaiting Sharon's acceptance.** Sharon authorized the local UI milestone only. M2–M4 remain unimplemented. These checks apply to the M1 commit on `docs/stage-02-langfuse-setup`, based on `a58bd88`.
+Status: **Implemented on PR #36; awaiting Sharon's acceptance.** Sharon authorized the local UI milestone only. M2–M4 remain unimplemented. The tested implementation revision is `56b70792ac2b0a62834090a3c19c7bc1b971ef8f` on `docs/stage-02-langfuse-setup`, based on `a58bd88`. This evidence-only follow-up changes no deployment files.
 
 ## Decision and placement
 
