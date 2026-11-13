@@ -66,3 +66,8 @@ Current implementation snapshot: main `96cb1f8`, merging accepted PR #34. Runtim
 PR #35 reconciles these facts with the approved guarded governance and permanent Atlas. All existing stage files remain unchanged and protected. Personal examples remain outside unrequested agent work. The deleted internal public-doc review guide and temporary handoff stay deleted; Sharon also authorized removing the temporary review helper and PyCharm task. Application tests and normal quality checks remain.
 
 Stage 02 Langfuse design/research may proceed; implementation requires its approved stage design. Role/event/adapter/harness details remain optional explorations. PR #35 is unmerged pending Sharon's review.
+
+
+## Stage 02 first milestone — draft documentation
+
+On 2026-11-13 Sharon requested a configuration-first Langfuse exercise with mock workflow traces, based on the upcoming workflow ABC/context refactor. The [review package](stages/02-langfuse/README.md) records this dependency and proposed self-hosted setup, configuration and read-back/UI acceptance. The refactor API was not available in the inspected main tree/branch searches; reconcile it before implementation and merge. No Stage 02 runtime, deployment, credentials or live telemetry has been created or verified by this documentation change. Existing stage acceptance remains unchanged.

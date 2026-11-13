@@ -14,7 +14,10 @@
     "designs/governance/guarded-files.md",
     "designs/explorations/README.md",
     "designs/explorations/agent-execution/architecture-notes.md",
-    "designs/explorations/agent-execution/candidate-file-structure.md"
+    "designs/explorations/agent-execution/candidate-file-structure.md",
+    "designs/stages/02-langfuse/README.md",
+    "designs/stages/02-langfuse/architecture.md",
+    "designs/stages/02-langfuse/smoke-plan.md"
   ],
   "views": {
     "current": {
@@ -1856,6 +1859,12 @@
               "path": "app/src/agent_playbook/observability/adapters/noop.py",
               "text": "Defined no-op behavior for offline learning and tests.",
               "to": null
+            },
+            {
+              "name": "Langfuse first milestone draft",
+              "path": "designs/stages/02-langfuse/README.md",
+              "text": "Self-hosted configuration and mock traces; pending workflow/context refactor and design approval.",
+              "to": "langfuse_setup"
             }
           ],
           "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. Traces are evidence. They are not the workflow state store or a durable recovery mechanism.",
@@ -2096,6 +2105,37 @@
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "langfuse_setup": {
+          "name": "Langfuse setup draft",
+          "parent": "observability",
+          "label": "Draft / not approved",
+          "title": "Configuration and mock traces",
+          "text": "First visible Langfuse exercise before real workflows are instrumented.",
+          "blocks": [
+            {
+              "name": "Review and dependency",
+              "path": "designs/stages/02-langfuse/README.md",
+              "text": "Workflow ABC holds context; exact API awaits the refactor.",
+              "to": null
+            },
+            {
+              "name": "Configuration and ownership",
+              "path": "designs/stages/02-langfuse/architecture.md",
+              "text": "Shared adapter, per-run context, external keys and persistent local services.",
+              "to": null
+            },
+            {
+              "name": "Mock trace acceptance",
+              "path": "designs/stages/02-langfuse/smoke-plan.md",
+              "text": "Emit synthetic runs, read back roots and steps, inspect UI and verify restart persistence.",
+              "to": null
+            }
+          ],
+          "status": "exploration",
+          "source": "designs/stages/02-langfuse/README.md",
+          "note": "Draft documentation only. No Langfuse integration or deployment is implemented by this package.",
+          "diagram": null
         }
       },
       "files": [
@@ -3853,6 +3893,21 @@
           "path": "app/examples/",
           "status": "Historical Excluded sandbox",
           "purpose": "Personal sandbox boundary only. Do not inspect contents without a specific request."
+        },
+        {
+          "path": "designs/stages/02-langfuse/README.md",
+          "status": "Draft stage proposal",
+          "purpose": "Unapproved first Langfuse milestone; configuration and mock-data acceptance."
+        },
+        {
+          "path": "designs/stages/02-langfuse/architecture.md",
+          "status": "Draft stage proposal",
+          "purpose": "Unapproved first Langfuse milestone; configuration and mock-data acceptance."
+        },
+        {
+          "path": "designs/stages/02-langfuse/smoke-plan.md",
+          "status": "Draft stage proposal",
+          "purpose": "Unapproved first Langfuse milestone; configuration and mock-data acceptance."
         }
       ]
     }
