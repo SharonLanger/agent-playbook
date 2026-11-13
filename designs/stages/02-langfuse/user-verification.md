@@ -1,6 +1,8 @@
 # Per-milestone local verification
 
-Status: **M1–M3 files updated with tested implementation checkpoints; Sharon's local acceptance remains pending.**
+Status: **One combined PR #36 acceptance guide is current; M1–M3 files remain historical checkpoints. Sharon's local acceptance remains pending.**
+
+Use the [combined Langfuse acceptance checklist](https://drive.google.com/file/d/1vxH9napBHThAPX7ELtdTFoO0ONI8jBgE/view?usp=drivesdk) for the final tested revision. It gives one copyable Mac flow. The three files below retain their original checkpoint SHAs/results and now point to this guide.
 Sharon requested a separate Google Drive text file per milestone with its exact
 commit and copyable commands. Keep these identities when updating the files.
 

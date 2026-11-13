@@ -25,7 +25,7 @@ Read [the four milestones and local checkpoints](milestones.md), then
 Implementing agents must follow [verification before handoff](verification.md).
 The [M1 brief](implementation-handoff.md) covers setup and its port follow-up.
 The [M2/M3 handoff](connection-playground-handoff.md) and
-[separate verification files](user-verification.md) record their scope and
+[combined current verification guide and historical milestone files](user-verification.md) record their scope and
 exact local checkpoints.
 
 The goal is gradual, visible progress: first an empty working UI, then a connection

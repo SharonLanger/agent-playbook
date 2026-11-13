@@ -17,7 +17,7 @@ Placement follows the approved Stage 02 boundaries: Compose and Docker actions r
 
 | Gate | Observation |
 |---|---|
-| Combined maintained gate | PASS on the completed implementation before commit: `app/.venv/bin/python app/tooling/checks.py check` — Pyright 0 errors/warnings, Ruff lint/format PASS, pytest **350 passed**. Final committed gate is recorded separately below/with the Drive guide. |
+| Combined maintained gate | PASS on the completed implementation before commit: `app/.venv/bin/python app/tooling/checks.py check` — Pyright 0 errors/warnings, Ruff lint/format PASS, pytest **350 passed**. The release command repeated the 350-test gate at implementation commit `bd48e01d6db7d98d29a798c21c4eb37f57063ff2`; the combined Drive guide is updated to the final tested documentation revision after its gate. |
 | Actual SDK | PASS: two real SDK loopback cases, successful same-process preflight/export/readback and HTTP 400 export with unconfirmed readback. Previous review contains the negative controls on the original code. Loopback evidence does not prove real Langfuse persistence. |
 | CLI/helper offline | PASS: all six parser dispatches, invalid/help side-effect guards, config/env-file paths with spaces, release rejection, first/repeated start, preserved settings, idempotent stop, ready/non-ready, missing/stopped engine, unhealthy/timeout, redacted logs, follow interruption and browser failure. |
 | Requested playground targeted smoke | PASS against an independent local OTLP fixture in three fresh processes: success spans `initialize, add, multiply, finish, mock-wf-02`; add failure spans `initialize, add(ERROR), mock-wf-02(ERROR)`; multiply failure spans `initialize, add, multiply(ERROR), mock-wf-02(ERROR)`. All three sent one POST, exited 0 with `delivery: verified` from fixture readback. The fixture cannot prove the real UI layout. |
@@ -26,3 +26,9 @@ Placement follows the approved Stage 02 boundaries: Compose and Docker actions r
 | Mac acceptance | **MANUAL:** Docker Desktop readiness, UI/account/project, project-key check, synthetic trace detail and stop/start persistence await Sharon. |
 
 The loopback smoke's `delivery: verified` is fixture response evidence; it must not be quoted as live server ingestion. The new helper's first-start Linux path was attempted but did not reach health. Private settings for the isolated attempt lived under `/tmp`, separate from the default ignored `.env`; no existing data or configuration was changed. Docker Desktop 4.99.0 / Engine 29.9.3 / Compose 5.7.0 is an upstream candidate awaiting Mac project verification; the official download and release-note URLs returned HTTP 200 on 2026-11-13.
+
+## Release and current local handoff
+
+At implementation commit `bd48e01d6db7d98d29a798c21c4eb37f57063ff2`, `UV_CACHE_DIR=/workspace/.uv-cache .venv/bin/python -m tooling.release` from `app/` passed its repeated 350-test gate, hashed locked dependency installation, 141-package compatibility check, isolated installed built-in/alias/failure/offline verifier and source identity. Wheel SHA-256: `2c835c6c9b6affd77715f6f037b976b76684efa9247a5629fffc710dc5886bd2`. Direct installed `langfuse --status` rejected checkout-only tooling with exit 2. The code is unchanged by the later guide-link documentation commit.
+
+The [single combined Drive checklist](https://drive.google.com/file/d/1vxH9napBHThAPX7ELtdTFoO0ONI8jBgE/view?usp=drivesdk) is the current Mac exercise. The three old milestone guides remain historical and link to it. The final Drive file is pinned to the last gate-tested commit, independent of this document's historical code commit.

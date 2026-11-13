@@ -2253,7 +2253,7 @@
             {
               "name": "Separate local verification files",
               "path": "designs/stages/02-langfuse/user-verification.md",
-              "text": "Historical M1–M3 Drive checklists remain; one combined tested-revision guide is the current handoff.",
+              "text": "One combined tested-revision Drive guide is current; M1–M3 files retain historical checkpoint evidence.",
               "to": null
             },
             {
@@ -4081,7 +4081,7 @@
         {
           "path": "designs/stages/02-langfuse/user-verification.md",
           "status": "Requested implementation handoff",
-          "purpose": "Historical M1–M3 Drive checklists remain; one combined tested-revision guide is the current handoff."
+          "purpose": "One combined tested-revision Drive guide is current; M1–M3 files retain historical checkpoint evidence."
         },
         {
           "path": "designs/stages/02-langfuse/review-2026-11-13.md",
