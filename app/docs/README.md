@@ -8,6 +8,7 @@ This is the maintained official product documentation for new and existing users
 | [Configuration](configuration.md) | Which settings file is loaded, local/environment overrides, CrewAI controls, secrets and PyCharm examples |
 | [Running workflows](workflows.md) | Choose supported integrated workflows, provide input and read results |
 | [Troubleshooting](troubleshooting.md) | Resolve interpreter, configuration, workflow, check and release problems |
+| [Local Langfuse UI](langfuse-local.md) | Start, check, restart and troubleshoot the self-hosted milestone 1 service |
 
 ## Setup and learning
 

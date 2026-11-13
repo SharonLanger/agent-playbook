@@ -77,3 +77,12 @@ The personal playground is for manual UI learning and scenario edits, not automa
 ### Agent verification and implementation handoff
 
 Sharon requested practical sanity checks before an implementation reaches his manual review, while leaving simple UI/account steps to him when automation would be disproportionate. The stage now has [verification requirements](stages/02-langfuse/verification.md) and a [milestone 1 Codex brief](stages/02-langfuse/implementation-handoff.md). They require actual available checks, explicit blocked/unrun results, targeted smoke runs of the specifically requested new Langfuse playground during M3, and independent automated fixtures. This update is documentation only; no milestone implementation or live verification has been performed.
+
+## Stage 02 milestone 1 — implementation on PR #36
+
+Sharon authorized milestone 1 only. The PR branch now includes a pinned local
+Langfuse Compose stack, one-time ignored secret generation and an official UI
+setup guide. See [M1 findings](stages/02-langfuse/findings.md) for live
+verification, limits and remaining manual acceptance. This pending PR is
+implemented and agent-verified, not yet accepted or merged. No Python
+integration, playground, workflow or context change is included.

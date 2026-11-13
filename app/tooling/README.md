@@ -14,6 +14,6 @@ are resolved from each script's location.
 | `verify_wheel.py` | Verify an artifact's SHA-256 hash |
 
 Usage and CLI commands: [CLI documentation](../docs/cli.md).
-Deployment and CI tooling can live here when separately introduced; none is configured today.
+The [local Langfuse deployment](observability/README.md) is the Stage 02 milestone 1 service setup.
 
 Daily entry points: `agent-playbook check`, `format`, `version patch`, and `release`. Scripts remain callable directly.

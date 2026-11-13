@@ -323,6 +323,12 @@
               "to": null
             },
             {
+              "name": "Local Langfuse service (M1 on PR #36)",
+              "path": "app/tooling/observability/README.md",
+              "text": "Pinned loopback Compose stack and private local settings; pending Sharon acceptance.",
+              "to": null
+            },
+            {
               "name": "Generated artifacts",
               "path": "app/dist/",
               "text": "Generated releases, not the runtime releases package.",
@@ -2155,7 +2161,7 @@
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "Documentation only. M1\u2013M3 can proceed independently; M4 depends on the workflow refactor. No implementation is claimed.",
+          "note": "M1 local deployment is implemented on PR #36 and awaits Sharon acceptance. M2\u2013M3 are still planned; M4 depends on the workflow refactor.",
           "diagram": null
         }
       },
