@@ -58,3 +58,33 @@ rerun here: `docker compose version` and `docker info` both fail with
 `docker: command not found`. Earlier Linux runtime evidence above is retained as
 prior-agent evidence, not claimed as a new live test. Mac startup and actual
 project persistence remain local acceptance checks.
+
+## M1 configurable storage port follow-up — 2026-11-13
+
+The separate M1 checkpoint `fad8a4f119cab5316529b3ad9239d01b8347368c`
+remains reachable for Sharon's original exercise. This follow-up adds
+`MINIO_PORT`, default 9090, to generated private settings, the host binding and
+the web media URL. Existing `.env` files without it retain port 9090; repeated
+setup does not overwrite them. Internal MinIO URLs stay on the Compose network.
+
+On managed Linux x86_64, Docker Engine 29.9.2 / Compose 2.40.3, an isolated
+`agent_playbook_port_verify` project passed first and repeated setup (unchanged
+file hash, mode 600), quiet Compose validation, resolved loopback ports 33010
+and 33011, media endpoint 33011, and backward-compatible 9090 resolution for
+an old `.env`. It started with six services and returned Langfuse 4.80.0 health
+HTTP 200. Repeated `up -d`, `restart` and normal `down`/`up -d` commands
+completed with isolated named volumes retained.
+
+Applying changed ports 33012/33013 via `up -d` is **BLOCKED** here: the Docker
+daemon uses `vfs`, and recreating the web/worker images filled its 32 GiB
+filesystem (`no space left on device` while copying image files). A later start
+after `down` met the same limit. The isolated project and volumes were removed.
+The changed-port resolved configuration passed, but live readiness after that
+change is unverified. Mac architecture support and Docker Desktop behavior are
+also unverified. Sharon's original M1 acceptance remains pending.
+
+The existing application gate passed Pyright (0 errors), Ruff lint and format.
+Pytest initially had 26 errors while Docker filled the filesystem; after removing
+the disposable stack, `XDG_DATA_HOME=/tmp/agent-playbook-xdg app/.venv/bin/python
+-m pytest -xq app/tests` passed 119 tests. No Docker service was needed by those
+tests. The follow-up changes no Python dependency or workflow behavior.

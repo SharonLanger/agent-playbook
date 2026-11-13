@@ -21,6 +21,7 @@ old_umask = os.umask(0o077)
 try:
     with target.open("x", encoding="utf-8") as output:
         output.write("LANGFUSE_PORT=3000\n")
+        output.write("MINIO_PORT=9090\n")
         for name, value in values.items():
             output.write(f"{name}={value}\n")
 except FileExistsError:

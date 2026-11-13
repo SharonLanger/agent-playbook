@@ -75,10 +75,11 @@ Restarting or recreating containers does not reset the database. Never use
 | [setup.py](../tooling/observability/setup.py) | One-time generation of local credentials |
 | [.env.example](../tooling/observability/.env.example) | Settings reference; generated `.env` holds your private values |
 
-Edit `LANGFUSE_PORT` in `.env` to change the UI port, then run `docker compose
-up -d`. Do not rotate the generated secrets merely to change a port. The current
-MinIO browser-access port is fixed at **9090** in Compose; it has no `.env`
-setting yet. Image versions are pinned in Compose, not automatically upgraded.
+Edit `LANGFUSE_PORT` and/or `MINIO_PORT` in `.env` to change the local UI and
+browser media ports, then run `docker compose up -d`. Existing `.env` files that
+omit `MINIO_PORT` keep the default **9090**. Do not rotate the generated secrets
+merely to change a port. Image versions are pinned in Compose, not automatically
+upgraded.
 
 For a separately prepared private settings file, Compose supports
 `docker compose --env-file /absolute/path/to/private.env up -d`; use the same
@@ -113,7 +114,7 @@ operation from changing a future endpoint.
 ## Troubleshooting
 
 - Cannot connect to Docker: start Docker Desktop and wait until `docker info` succeeds.
-- Port already allocated: choose a free UI port in `.env`; for the currently fixed port 9090, stop the conflicting service before starting this stack.
+- Port already allocated: choose free `LANGFUSE_PORT` and `MINIO_PORT` values in `.env`, then run `docker compose up -d`.
 - Startup stays unhealthy: inspect `docker compose ps` and the failed service's logs, for example `docker compose logs --tail=80 clickhouse`. Check Docker's allocated memory and free disk space.
 - UI looks empty after moving the deployment: check the project identity and retained volumes before creating new data or resetting anything.
 - Keep logs private; do not share credentials or full resolved Compose output.
