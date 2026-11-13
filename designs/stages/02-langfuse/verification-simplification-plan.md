@@ -443,11 +443,14 @@ traces follow on the same tested revision. Real workflow traces remain later.
 
 Suggested first instruction for a fresh Codex session:
 
-> Read PR #36's current head, the repository instructions, the Stage 02 review
-> and verification-simplification-plan.md. First report the refreshed conflicts
-> with main and explain proposed resolutions. Do not resolve them or start
-> implementation until I agree on the conflict choices. Preserve this branch
-> and leave the PR draft and unmerged.
+> Continue PR #36 on docs/stage-02-langfuse-setup. Read repository instructions,
+> main-reconciliation.md, the dated review and this complete implementation plan.
+> The six approved main conflicts are resolved and verified; do not repeat that
+> approval step. Implement steps 2–5: R1/R3 fixes, R4 status correction, the agreed
+> helper/CLI, newcomer guides and independent verification. Refresh refs first;
+> report any new conflicts to Sharon without resolving them. Keep M4 out of scope
+> and PR #36 draft and unmerged. Publish the combined Drive checklist at the final
+> tested revision, with honest live/Mac limitations.
 
 ## Placement, principles and approval boundary
 

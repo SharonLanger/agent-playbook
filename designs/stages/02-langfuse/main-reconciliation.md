@@ -29,13 +29,26 @@ Pyright and Ruff lint/format passed; pytest reported **329 passed**.
 The maintained source runtime verifier passed every built-in, both aliases and
 both conditional routes, invalid input exit 2, execution error exit 1 and zero
 Python socket/DNS attempts. This is not an OS network-isolation guarantee.
-Release verification and final GitHub tree/parent evidence will be recorded
-before the implementation handoff is declared ready.
+The release command passed at merge commit
+`8a8ff2d8bfaed3e76001fb559fc2606895e4295f`: its repeated 329-test gate,
+hashed wheel, locked isolated install, dependency compatibility, installed workflow
+verifier and source identity all passed. Wheel SHA-256:
+`7f93a5652cecfab0d5786ab5bd2b460819eda1075c4f072f8ef578823bb2e23b`.
+This was a reconstructed shallow Git checkout with personal examples omitted:
+Git printed a missing-object diagnostic for an excluded example README, but the
+release command exited 0 and verified the maintained package. A normal full
+checkout remains the appropriate environment for subsequent implementation checks.
+
+The GitHub merge tree is `c2b4caa2023babfd6ac84a2ba3938763734ac902`;
+its parents are the original head and main listed above. All 48 main-only blobs
+match main; all 324 untouched head blobs match the original branch. Local
+maintained files were checked against the exact merge tree; Atlas build/freshness
+passed. The subsequent handoff-evidence commit changes only this record, the
+plan's starter instruction and generated Atlas HTML; no application code changes.
 
 ## Scope and next agent
 
-This addresses review R2 (main integration), subject to completion of the final
-verification above. R1 (SDK lifetime/export), R3 (false delivery-success reporting)
+This addresses review R2 (main integration). R1 (SDK lifetime/export), R3 (false delivery-success reporting)
 and R4 (remaining stale stage prose) are deliberately not fixed by this merge.
 No manage.py, Langfuse CLI action, real workflow/context integration or agent SDK
 execution was added. No live Langfuse ingestion, Mac UI or persistence acceptance
