@@ -3,3 +3,18 @@ integrations:
     usage_telemetry_enabled: false
     tracing_enabled: false
     show_framework_events: false
+workflows:
+  wf-01:
+    implementation: step_sequence
+  wf-02:
+    implementation: shared_state
+  wf-03:
+    implementation: conditional_route
+  wf-02-custom:
+    implementation: shared_state
+    config:
+      defaults: {initial: 10, increment: -2, multiplier: 3}
+  wf-03-custom:
+    implementation: conditional_route
+    config:
+      defaults: {score: 59}

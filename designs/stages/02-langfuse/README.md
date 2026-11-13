@@ -1,6 +1,6 @@
 # Stage 02 — Langfuse milestones
 
-Status: **Milestones 1–3 implemented on PR #36, with four open review findings; Sharon's local acceptance remains pending.**
+Status: **Milestones 1–3 implemented on PR #36, with delivery/status review findings still open; Sharon's local acceptance remains pending.**
 Milestone 1's fixed checkpoint remains available; see
 [findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
 Milestone 2 adds a project connection check, and milestone 3 adds the explicit
@@ -8,21 +8,15 @@ mock playground. Milestone 4 remains deferred and unimplemented.
 
 ## Start here
 
-Latest: [the four review findings](review-2026-11-13.md) and the
-[proposed single-branch verification plan](verification-simplification-plan.md).
-The review found a trace-delivery defect, misleading export-success reporting,
-main integration conflicts and stale design status. The new plan proposes one
-combined manual exercise and simpler start/stop commands. Sharon agreed with
-the Docker usability direction and requested a complete newcomer setup guide,
-explicit installation/version requirements and management scripts. Those
-requirements are recorded in the plan. It now specifies the agreed
-`agent-playbook langfuse --start` interface (six action flags plus log following)
-and a complete Codex handoff: reading order, code ownership, tests, delivery and
-mandatory conflict discussion. Implementation remains paused before execution
-and joint main-conflict decisions. No fixes, helper implementation or conflict resolutions have
-been applied by this documentation update. Earlier checkpoint instructions below
-remain historical context; do not treat M3 as ready for acceptance until the
-delivery findings are resolved.
+Latest: [approved main reconciliation](main-reconciliation.md),
+[the original review](review-2026-11-13.md) and the
+[CLI plan / Codex handoff](verification-simplification-plan.md).
+Sharon approved the six conflict resolutions. Main's workflow refactor and the
+Langfuse branch are combined; verification is recorded in the reconciliation
+file. R1/R3 delivery defects and R4's remaining status corrections are next-agent
+work. The helper and six double-dash CLI actions remain specified, not
+implemented. M3 is not ready for acceptance until its delivery findings are
+resolved. Real workflow/context integration remains later.
 
 Read [the four milestones and local checkpoints](milestones.md), then
 [configuration and ownership](architecture.md) and the

@@ -2,7 +2,14 @@
 
 from urllib.parse import urlsplit
 
-from pydantic import BaseModel, ConfigDict, SecretStr, field_validator, model_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    SecretStr,
+    field_validator,
+    model_validator,
+)
 
 
 class CrewAISettings(BaseModel):
@@ -73,3 +80,4 @@ class ApplicationSettings(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True, frozen=True)
 
     integrations: IntegrationSettings
+    workflows: dict[str, object] = Field()

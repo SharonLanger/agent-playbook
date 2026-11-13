@@ -1,12 +1,13 @@
 # Proposal: verify the current Langfuse branch in one pass
 
-Status: **Docker usability and double-dash CLI direction agreed. Documentation/handoff only; execution has not started and conflict choices must be discussed with Sharon.**
+Status: **Main conflict resolutions approved and applied; remaining Langfuse/CLI implementation is next. See the reconciliation record for verification and remaining issues.**
 
 [Review: four open findings](review-2026-11-13.md) · [Stage entry](README.md)
 
-**Codex: read the [implementation handoff](#codex-implementation-handoff) below
-before taking action. This document is not an instruction to start implementation
-without Sharon's go-ahead.**
+**Codex: first read [main-reconciliation.md](main-reconciliation.md), then the
+[implementation handoff](#codex-implementation-handoff). The six recorded
+conflicts have been agreed and reconciled. Start steps 2–5 when Sharon supplies
+the implementation instruction; only new conflicts require another decision.**
 
 Requested on 2026-11-13. Planning starts from PR #36 head
 `5bfcb889215d000d76629c3d4198d33bea99398d`; inspected main is
@@ -36,6 +37,11 @@ Sharon subsequently selected `agent-playbook langfuse --start`-style flags,
 including `--follow` for logs, and requested this Codex handoff before starting.
 The CLI clarification was recorded from PR head
 `c8640a8d95dcfc0e823d7495488725d4ac0138b6`; main remained at the SHA above.
+
+The instructions below preserve the original plan. Step 1 is now completed as
+recorded in the reconciliation document; earlier statements about waiting on
+these six conflict choices are superseded by that dated update. Other scope and
+verification requirements remain in force.
 
 ## Execution order after agreement
 

@@ -1,5 +1,5 @@
 {
-  "snapshot": "main 96cb1f8: PR #34 accepted and merged; PR #35 governance and review-helper removal approved, merge pending",
+  "snapshot": "Main 53764ab integrated into pending PR #36; workflow contract merged; Langfuse acceptance and CLI implementation pending.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -24,7 +24,15 @@
     "designs/stages/02-langfuse/connection-playground-handoff.md",
     "designs/stages/02-langfuse/user-verification.md",
     "designs/stages/02-langfuse/review-2026-11-13.md",
-    "designs/stages/02-langfuse/verification-simplification-plan.md"
+    "designs/stages/02-langfuse/verification-simplification-plan.md",
+    "designs/refactors/workflow-contract/README.md",
+    "designs/refactors/workflow-contract/design.md",
+    "designs/refactors/workflow-contract/file-structure.md",
+    "designs/refactors/workflow-contract/test-plan.md",
+    "designs/refactors/workflow-contract/implementation-plan.md",
+    "designs/refactors/workflow-contract/review-follow-up.md",
+    "designs/refactors/workflow-contract/review-test-quality.md",
+    "designs/stages/02-langfuse/main-reconciliation.md"
   ],
   "views": {
     "current": {
@@ -63,7 +71,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "design": {
@@ -96,11 +104,17 @@
               "path": "designs/explorations/README.md",
               "text": "Optional prior reasoning, not accepted commitments.",
               "to": null
+            },
+            {
+              "name": "Workflow contract and review evidence",
+              "path": "designs/refactors/workflow-contract/README.md",
+              "text": "Approved ABC/YAML contract; PR #40 in review with lazy imports, corrected error boundaries, A1–F6 coverage and Q1–Q4 test sensitivity evidence.",
+              "to": null
             }
           ],
           "status": "approved-design",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "app": {
@@ -149,7 +163,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "src": {
@@ -198,7 +212,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "application": {
@@ -235,7 +249,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "workflows": {
@@ -260,7 +274,7 @@
           ],
           "status": "implemented",
           "source": "designs/stages/01-crewai-flows/architecture.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "config": {
@@ -285,7 +299,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "release": {
@@ -310,7 +324,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "tooling": {
@@ -347,7 +361,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "tests": {
@@ -366,7 +380,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         },
         "integrations": {
@@ -397,7 +411,7 @@
           ],
           "status": "approved-design",
           "source": "designs/architecture.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
           "diagram": null
         }
       },
@@ -1366,6 +1380,41 @@
           "path": "app/src/agent_playbook/observability/adapters/langfuse/observations.py",
           "status": "PR #36 pending",
           "purpose": "Explicit M3 mock observation adapter."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/README.md",
+          "status": "Approved workflow refactor — merged in main",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/design.md",
+          "status": "Approved workflow refactor — merged in main",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/file-structure.md",
+          "status": "Approved workflow refactor — merged in main",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/test-plan.md",
+          "status": "Approved workflow refactor — merged in main",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/implementation-plan.md",
+          "status": "Approved workflow refactor — merged in main",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/review-follow-up.md",
+          "status": "Approved workflow refactor — merged in main",
+          "purpose": "Reproduced review issues, lazy-import scope, test-gap matrix and next-agent instructions."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/review-test-quality.md",
+          "status": "Approved workflow refactor — merged in main",
+          "purpose": "Q1–Q4 corrected assertions, negative controls and verification evidence."
         }
       ]
     },
@@ -2154,7 +2203,7 @@
         "langfuse_setup": {
           "name": "Langfuse milestones",
           "parent": "observability",
-          "label": "M1–M3 implemented / review findings open",
+          "label": "Main reconciled / delivery and CLI work next",
           "title": "Local UI to real workflows",
           "text": "First configure, connect and explore mock traces; workflow/context integration comes last.",
           "blocks": [
@@ -2217,11 +2266,17 @@
               "path": "designs/stages/02-langfuse/verification-simplification-plan.md",
               "text": "Six agreed action flags, log following, newcomer setup, code ownership and verification gates. First present main conflicts and agree on resolutions.",
               "to": null
+            },
+            {
+              "name": "Approved main reconciliation",
+              "path": "designs/stages/02-langfuse/main-reconciliation.md",
+              "text": "Agreed resolutions, combined verification, and the remaining implementation handoff.",
+              "to": null
             }
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "PR #36 is unmerged and unaccepted; four review findings remain open. Docker usability and double-dash CLI direction are agreed and specified with a Codex handoff. Execution has not started; resolve main conflicts together first. Workflow/context integration remains deferred.",
+          "note": "Sharon approved the six main conflict resolutions. PR #36 remains draft and unmerged. Reconciliation verification is recorded; R1/R3/R4 and CLI/helper implementation remain next-agent work. M4 remains deferred.",
           "diagram": null
         }
       },
@@ -4030,6 +4085,11 @@
           "path": "designs/stages/02-langfuse/verification-simplification-plan.md",
           "status": "CLI direction agreed; execution pending",
           "purpose": "Flag-based CLI and management specification, newcomer guides, independent checks and complete Codex handoff; joint conflict decisions first."
+        },
+        {
+          "path": "designs/stages/02-langfuse/main-reconciliation.md",
+          "status": "Approved reconciliation; verification recorded",
+          "purpose": "Preserved main and Langfuse work, combined checks, and next-agent boundary."
         }
       ]
     }

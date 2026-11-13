@@ -10,8 +10,8 @@ For the complete command reference, see [CLI and releases](cli.md).
 | Try the integrated application with editable code | PyCharm **WF-01 Sequence**, **WF-02 State**, **WF-03 Route**, or **Dev Run** | `app/src/agent_playbook/workflows/` |
 | Run a previously built application | PyCharm **Run**, or the CLI `run` command | The selected installation under `app/dist/` |
 
-The integrated application validates input/configuration and selects a workflow through
-its application runner. Personal sandbox contents are outside the supported application workflow catalog.
+The integrated application validates shared configuration and selects a workflow ID through
+its registry and factory. Each wrapper validates input and output while CrewAI runs its steps. Personal sandbox contents are outside the supported application workflow catalog.
 
 Follow [setup](../README.md) and select `app/.venv/bin/python` as the project interpreter.
 
@@ -58,6 +58,8 @@ prints the selected release directory. Editing source does not modify that insta
 build a new release when you want those edits available through `run`.
 See [release selection](cli.md#editable-source-versus-releases).
 
+A YAML entry may give the same implementation a new ID and different defaults; see [configured workflows](configuration.md#configured-workflows). The native result is retained for Python callers, while the CLI prints the workflow’s serialized text.
+
 ## Errors and checks
 
 For the integrated CLI, exit 0 means success, exit 2 means invalid input/configuration/usage
@@ -69,3 +71,5 @@ See [troubleshooting](troubleshooting.md) for unexpected output or startup error
 For an explanation of the code itself, continue with the
 [Stage 01 learning material](../../designs/stages/01-crewai-flows/learning/00-reading-the-code.md).
 
+
+Only the selected workflow loads its CrewAI flow module during preparation. Each run uses a fresh wrapper; a configured alias changes defaults and identity without changing step routing.

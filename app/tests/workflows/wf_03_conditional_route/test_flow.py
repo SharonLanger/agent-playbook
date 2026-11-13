@@ -9,6 +9,8 @@ from agent_playbook.workflows.wf_03_conditional_route.state import Decision, Sco
     ("score", "expected", "chosen", "skipped"),
     [
         (80, "pass", "accept", "revise"),
+        (100, "pass", "accept", "revise"),
+        (0, "needs_work", "revise", "accept"),
         (60, "pass", "accept", "revise"),
         (59, "needs_work", "revise", "accept"),
         (40, "needs_work", "revise", "accept"),

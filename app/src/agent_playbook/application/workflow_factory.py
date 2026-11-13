@@ -1,72 +1,82 @@
-"""Select and construct a fresh workflow; import only after runtime assembly."""
+"""Resolve a selected YAML entry and construct a fresh workflow instance."""
 
-from __future__ import annotations
+from typing import Mapping
 
-from typing import TYPE_CHECKING, Literal
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
-from agent_playbook.application.results import WorkflowInputError
-
-if TYPE_CHECKING:
-    from agent_playbook.config.models import CrewAISettings
-    from agent_playbook.workflows.wf_01_step_sequence.flow import StepSequenceFlow
-    from agent_playbook.workflows.wf_02_shared_state.flow import SharedStateFlow
-    from agent_playbook.workflows.wf_03_conditional_route.flow import (
-        ConditionalRouteFlow,
-    )
-
-type WorkflowId = Literal["wf-01", "wf-02", "wf-03"]
+from agent_playbook.config.diagnostics import validation_fields
+from agent_playbook.config.errors import ConfigurationError
+from agent_playbook.config.models import ApplicationSettings, CrewAISettings
+from agent_playbook.workflows.contracts import Workflow
+from agent_playbook.workflows.errors import WorkflowInputError
 
 
-def validate_workflow_id(workflow_id: str) -> WorkflowId:
-    if workflow_id == "wf-01" or workflow_id == "wf-02" or workflow_id == "wf-03":
-        return workflow_id
-    raise WorkflowInputError(
-        f"Unknown workflow {workflow_id!r}; use wf-01, wf-02 or wf-03."
-    )
+class WorkflowEntry(BaseModel):
+    model_config = ConfigDict(strict=True, extra="forbid", frozen=True)
+    implementation: str = Field(min_length=1)
+    name: str | None = Field(default=None, min_length=1)
+    enabled: bool = True
+    config: dict[str, object] = Field(default_factory=dict)
+
+
+def select_workflow(
+    workflow_id: str,
+    application: ApplicationSettings,
+    settings: CrewAISettings,
+    registry: Mapping[str, type[Workflow[object]]],
+) -> tuple[type[Workflow[object]], dict[str, object]]:
+    if not workflow_id or workflow_id != workflow_id.strip():
+        raise WorkflowInputError(
+            "Workflow ID must be a nonempty string without surrounding whitespace."
+        )
+    if workflow_id not in application.workflows:
+        raise WorkflowInputError(f"Unknown workflow {workflow_id!r}.")
+    raw_entry = application.workflows[workflow_id]
+    try:
+        entry = WorkflowEntry.model_validate(raw_entry)
+    except ValidationError as error:
+        raise ConfigurationError(
+            f"{workflow_id} CONFIGURATION: {validation_fields(error)}."
+        ) from error
+    if isinstance(raw_entry, dict) and "name" in raw_entry and entry.name is None:
+        raise ConfigurationError(
+            f"{workflow_id} CONFIGURATION: invalid name; expected a nonempty string."
+        )
+    if entry.name is not None and (
+        not entry.name.strip() or entry.name != entry.name.strip()
+    ):
+        raise ConfigurationError(
+            f"{workflow_id} CONFIGURATION: invalid name; expected a nonempty string without surrounding whitespace."
+        )
+    if not entry.enabled:
+        raise WorkflowInputError(f"Workflow {workflow_id!r} is disabled.")
+    key = entry.implementation
+    if key != key.strip() or key not in registry:
+        raise ConfigurationError(
+            f"{workflow_id} CONFIGURATION: unknown implementation."
+        )
+    return registry[key], entry.config
+
+
+def construct_workflow(
+    workflow_id: str,
+    implementation: type[Workflow[object]],
+    settings: CrewAISettings,
+    config: Mapping[str, object],
+) -> Workflow[object]:
+    try:
+        return implementation(settings=settings, config=config)
+    except ConfigurationError as error:
+        raise ConfigurationError(f"{workflow_id} CONFIGURATION: {error}") from error
 
 
 def create_workflow(
-    workflow_id: WorkflowId, data: dict[str, object], settings: CrewAISettings
-) -> StepSequenceFlow | SharedStateFlow | ConditionalRouteFlow:
-    if workflow_id == "wf-01":
-        from agent_playbook.workflows.wf_01_step_sequence.flow import StepSequenceFlow
-
-        if data:
-            raise WorkflowInputError(
-                "wf-01 accepts no input fields; use {} or omit --input."
-            )
-        return StepSequenceFlow(
-            tracing=settings.tracing_enabled,
-            suppress_flow_events=not settings.show_framework_events,
-        )
-    if workflow_id == "wf-02":
-        from agent_playbook.workflows.wf_02_shared_state.flow import SharedStateFlow
-        from agent_playbook.workflows.wf_02_shared_state.state import (
-            NumberInput,
-            NumberState,
-        )
-
-        numbers = NumberInput.model_validate(data)
-        return SharedStateFlow(
-            initial_state=NumberState(
-                initial=numbers.initial,
-                increment=numbers.increment,
-                multiplier=numbers.multiplier,
-            ),
-            tracing=settings.tracing_enabled,
-            suppress_flow_events=not settings.show_framework_events,
-        )
-    from agent_playbook.workflows.wf_03_conditional_route.flow import (
-        ConditionalRouteFlow,
+    workflow_id: str,
+    application: ApplicationSettings,
+    settings: CrewAISettings,
+    registry: Mapping[str, type[Workflow[object]]],
+) -> Workflow[object]:
+    implementation, config = select_workflow(
+        workflow_id, application, settings, registry
     )
-    from agent_playbook.workflows.wf_03_conditional_route.state import (
-        ScoreInput,
-        ScoreState,
-    )
-
-    score = ScoreInput.model_validate(data)
-    return ConditionalRouteFlow(
-        initial_state=ScoreState(score=score.score),
-        tracing=settings.tracing_enabled,
-        suppress_flow_events=not settings.show_framework_events,
-    )
+    return construct_workflow(workflow_id, implementation, settings, config)

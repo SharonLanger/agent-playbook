@@ -1,17 +1,18 @@
-"""Small shared success/error contracts; workflow state stays with its owner."""
+"""Immutable result with a native value and its CLI presentation."""
 
 from dataclasses import dataclass
+from typing import Generic, TypeVar
+
+from agent_playbook.workflows.errors import WorkflowExecutionError, WorkflowInputError
+
+OutputT_co = TypeVar("OutputT_co", covariant=True)
 
 
 @dataclass(frozen=True)
-class RunResult:
+class RunResult(Generic[OutputT_co]):
     workflow_id: str
-    output: str
+    output: OutputT_co
+    serialized_output: str
 
 
-class WorkflowInputError(ValueError):
-    """The request was rejected before executing any workflow steps."""
-
-
-class WorkflowExecutionError(RuntimeError):
-    """A selected workflow failed; __cause__ retains the original exception."""
+__all__ = ["RunResult", "WorkflowExecutionError", "WorkflowInputError"]
