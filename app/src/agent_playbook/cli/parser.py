@@ -37,7 +37,7 @@ def build_parser() -> argparse.ArgumentParser:
             f"--{name}", action="store_true", help=f"Check {name} only (combinable)."
         )
     commands.add_parser(
-        "format", help="Apply formatting fixes to source, tooling, examples and tests."
+        "format", help="Apply formatting fixes to source, tooling and tests."
     )
     release_parser = commands.add_parser(
         "release", help="Build and verify the current committed version."

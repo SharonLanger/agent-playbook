@@ -1,6 +1,6 @@
 # Handoff: exclude the personal examples sandbox
 
-Status: PLAN ONLY — no implementation changes made.
+Status: Implementation in PR #34; final verification and protected structure update pending.
 Requested by Sharon on 2026-11-13.
 Repository: SharonLanger/agent-playbook.
 Context: PR #34, branch `refactor/runtime-structure-and-verification`.
@@ -10,8 +10,8 @@ Inspected implementation: `30c8d96b16252d8c9d3238b2d9e29fea0bcc926e`. Recheck th
 
 Read AGENTS.md and the applicable design documents before implementing. This file
 hands off the requested change; it does not merge PR #34 or approve unrelated work.
-The current agent created only this handoff file. No code, tests, configurations,
-protected documents, or example contents were changed.
+The handoff was initially plan-only. The follow-up implements source/check changes
+in PR #34; review the final diff and recorded verification before acceptance.
 
 ## Required outcome
 
@@ -147,4 +147,4 @@ Use disposable checkouts; never delete Sharon's working examples to test this.
 7. Report any application case migrated and any duplicate avoided. Expect the total test
    count to decrease when sandbox exercises are removed; app coverage must not decrease.
 
-No implementation or verification is claimed by this handoff.
+This handoff records the requested boundary. Verify the actual changes independently.

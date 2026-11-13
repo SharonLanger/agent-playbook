@@ -48,8 +48,10 @@ def test_selectors_exclude_tests_and_keep_gate_order() -> None:
     assert "--check" in select_commands("check", ["format"])[0]
     assert "--check" not in select_commands("format", [])[0]
     assert select_commands("test", []) == [
-        ["pytest", "-q", "tests", "examples/workflows"]
+        ["pytest", "-q", "tests"]
     ]
+    for command in select_commands("check", []) + select_commands("test", []) + select_commands("format", []):
+        assert all("examples" not in argument for argument in command)
 
 
 @pytest.mark.parametrize(

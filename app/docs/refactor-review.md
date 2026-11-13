@@ -11,7 +11,7 @@ app/.venv/bin/python app/tooling/verify_refactor.py
 ```
 
 Or run the shared **Verify Refactor** task in PyCharm with `app/.venv/bin/python`
-as the project interpreter. It runs the full type/lint/format/test gate, help/version,
+as the project interpreter. It runs the application type/lint/format/test gate, help/version,
 console and module entry points, all integrated workflow paths, invalid input and
 offline checks. CLI smoke checks run from an unrelated temporary working directory.
 

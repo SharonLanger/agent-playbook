@@ -22,7 +22,7 @@ module entry point is `python -m agent_playbook.cli`.
 | `agent-playbook check --format` | Verify formatting without modifying files |
 | `agent-playbook check --types --lint` | Combine selected checks, in normal gate order |
 | `agent-playbook test` | Run pytest |
-| `agent-playbook format` | Apply Ruff formatting to source, tooling, examples and tests |
+| `agent-playbook format` | Apply Ruff formatting to source, tooling and tests |
 | `agent-playbook version patch` | Increase patch version; update TOML and lockfile |
 | `agent-playbook release` | Build and verify the current committed version |
 | `agent-playbook release --output <new-directory>` | Build into an unused directory; relative to your invocation directory |
@@ -182,7 +182,16 @@ need their module/parameters updated; avoid duplicate names.
 
 Scripts moved from `app/scripts/` to `app/tooling/`; typing exercises now live in
 `app/examples/`. Bootstrap, CLI dispatch, shared tasks and the gate use those paths.
-The gate covers `src`, `tooling`, `examples`, and `tests`. For direct Ruff usage,
-run `python -m ruff format src tooling examples tests` from `app`.
+The gate covers `src`, `tooling`, and `tests`. The personal `examples/` directory
+is excluded from the application gate and release. From `app/`, you can inspect
+or format it explicitly whenever you choose:
+
+```sh
+python -m ruff check examples
+python -m ruff format --check examples
+python -m ruff format examples
+```
+
+These commands are manual; the last one changes example files.
 See the [guarded project structure](../../designs/project-structure.md).
 

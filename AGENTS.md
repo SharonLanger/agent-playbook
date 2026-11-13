@@ -35,6 +35,7 @@ conflicts before proceeding. Passing tests alone does not establish compliance.
 ## Engineering
 - Keep external integrations isolated behind explicit contracts/adapters. Configure provider endpoints, credentials, and environment-specific settings externally; never commit secrets.
 - Prefer deterministic regression tests and strict static checking; record actual verification results, not unverified success claims.
+- `app/examples/` is Sharon's personal sandbox. Do not inspect, modify, validate, or execute its contents unless explicitly requested for that task. Application code, automated tests, coverage, checks, setup and releases must not depend on it. Application tests and fixtures belong under `app/tests/` and exercise `app/src/agent_playbook/`. Deleting `app/examples/` must leave application behavior, collected tests and application coverage unchanged. Explicit user-invoked sandbox lint/format is permitted outside automated gates.
 - No GitHub Actions CI is required for now. When Stage 00 defines the local quality-check command, run it before declaring code changes ready and document it in `README.md` and `app/README.md`. Never claim tests ran if they did not.
 - Keep implementation-facing plans distinct from learner-facing Markdown under stage `learning/`. Use Mermaid for static diagrams and self-contained animated SVG where movement clarifies behavior, with a static fallback. Verify rendered assets where possible.
 - Do not create detailed designs for future stages ahead of their turn.
