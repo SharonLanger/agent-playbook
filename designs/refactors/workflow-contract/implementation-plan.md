@@ -1,6 +1,8 @@
 # Workflow contract implementation plan
 
-Status: **Approved plan. Initial implementation is in PR #40; the requested corrections and test completion are governed by [review-follow-up.md](review-follow-up.md).**
+Status: **Approved plan. PR #40 at f61683c implements I-1–I-4; current work is Q1–Q4 in [review-test-quality.md](review-test-quality.md). The original plan and [acceptance matrix](review-follow-up.md) remain the governing baseline.**
+
+The authorization and initial handoff below are historical. Do not redo completed fixes; preserve current implementation and test evidence when incorporating the latest design branch.
 
 ## Current handoff
 

@@ -1,6 +1,6 @@
 # Workflow contract test plan
 
-Status: **Approved test specification. PR #40 has partial coverage; the [review follow-up matrix](review-follow-up.md#test-matrix-to-close) identifies remaining work and requires per-case evidence.**
+Status: **Approved test specification. PR #40 at f61683c maps A1–F6 to maintained tests; the [second-review handoff](review-test-quality.md) identifies four assertion/fixture gaps. Preserve the [full acceptance matrix](review-follow-up.md#test-matrix-to-close) and correct its evidence.**
 
 Preserve existing regression scenarios. Add focused tests for the new contract without replacing real CrewAI integration coverage with mocks. Application fixtures must not read, import or depend on app/examples.
 

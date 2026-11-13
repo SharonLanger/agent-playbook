@@ -1,6 +1,6 @@
 # Workflow contract design
 
-Status: **Approved design; PR #40 implementation is in review. Follow-up corrections and tests are specified in [review-follow-up.md](review-follow-up.md).**
+Status: **Approved design; PR #40 implementation is in review. I-1–I-4 are implemented at f61683c; current test-quality corrections are specified in [review-test-quality.md](review-test-quality.md), retaining the original [acceptance matrix](review-follow-up.md).**
 
 ## Ownership
 

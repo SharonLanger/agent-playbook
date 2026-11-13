@@ -1,6 +1,8 @@
 # Workflow contract review follow-up and test-gap plan
 
-Status: **Approved follow-up scope; implementation pending.**
+Status: **Historical first-review plan and current acceptance matrix. I-1–I-4 are implemented on PR #40 at f61683c; the second review found four remaining test-quality gaps.**
+
+Current next-agent work is [review-test-quality.md](review-test-quality.md), Q1–Q4. Preserve the maintained A1–F6 test mapping already present on PR #40 when reconciling this design branch. The original instructions and baseline evidence below remain historical; they do not require reimplementing completed fixes.
 Owner: next implementation agent on PR #40. Requested by Sharon on 2026-11-13.
 This file supplements the original [design](design.md), [test plan](test-plan.md) and [implementation plan](implementation-plan.md). It does not replace or weaken their acceptance requirements.
 
