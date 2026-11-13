@@ -1,8 +1,11 @@
 """Parse commands and present application outcomes."""
 
+import logging
 import sys
+from contextlib import contextmanager
 from importlib.metadata import version
 from pathlib import Path
+from typing import Iterator
 
 from agent_playbook._build_info import SOURCE_COMMIT
 from agent_playbook.application.results import (
@@ -14,6 +17,24 @@ from agent_playbook.cli.parser import build_parser
 from agent_playbook.config.errors import ConfigurationError
 from agent_playbook.releases.discovery import find_release
 from agent_playbook.releases.launcher import launch_release
+
+
+class _SuppressFrameworkErrorLog(logging.Filter):
+    """The CLI emits its classified error instead of CrewAI's raw exception text."""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        return record.levelno < logging.ERROR
+
+
+@contextmanager
+def _safe_framework_errors() -> Iterator[None]:
+    logger = logging.getLogger("crewai.flow.runtime")
+    guard = _SuppressFrameworkErrorLog()
+    logger.addFilter(guard)
+    try:
+        yield
+    finally:
+        logger.removeFilter(guard)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -88,11 +109,12 @@ def present_workflow(
     from agent_playbook.application.workflow_runner import run_workflow
 
     try:
-        result = run_workflow(
-            "wf-01" if workflow_id is None else workflow_id,
-            raw_input,
-            config_path=config_path,
-        )
+        with _safe_framework_errors():
+            result = run_workflow(
+                "wf-01" if workflow_id is None else workflow_id,
+                raw_input,
+                config_path=config_path,
+            )
     except ConfigurationError as error:
         print(f"Configuration error: {error}", file=sys.stderr)
         return 2

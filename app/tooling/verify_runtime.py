@@ -109,6 +109,7 @@ def main() -> None:
     if (
         code != 1
         or "Workflow failed: wf-01 EXECUTE failed." not in error_output.getvalue()
+        or "private step" in error_output.getvalue()
     ):
         raise RuntimeError("Execution failure did not produce safe exit 1.")
     print("PASS execution failure -> exit 1")
