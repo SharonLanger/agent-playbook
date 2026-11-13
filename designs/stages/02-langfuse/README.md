@@ -1,10 +1,10 @@
 # Stage 02 — Langfuse milestones
 
-Status: **Milestone direction agreed with Sharon on 2026-11-13; detailed implementation remains a draft for review.**
-Milestone 1 is implemented on PR #36 and awaits Sharon's local acceptance; see
+Status: **Milestones 1–3 implemented on PR #36; Sharon's local acceptance remains pending.**
+Milestone 1's fixed checkpoint remains available; see
 [findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
-Milestones 2–4 remain unimplemented. Sharon requested preparing M2/M3 for
-Codex implementation while M1 local acceptance is pending; M4 remains deferred.
+Milestone 2 adds a project connection check, and milestone 3 adds the explicit
+mock playground. Milestone 4 remains deferred and unimplemented.
 
 ## Start here
 
@@ -12,10 +12,10 @@ Read [the four milestones and local checkpoints](milestones.md), then
 [configuration and ownership](architecture.md) and the
 [playground/manual exercise](smoke-plan.md).
 Implementing agents must follow [verification before handoff](verification.md).
-The [M1 brief](implementation-handoff.md) covers setup and its remaining port
-follow-up. Use the [M2/M3 Codex handoff](connection-playground-handoff.md) for
-the next authorized work and [separate verification files](user-verification.md)
-for the exact local checkpoints.
+The [M1 brief](implementation-handoff.md) covers setup and its port follow-up.
+The [M2/M3 handoff](connection-playground-handoff.md) and
+[separate verification files](user-verification.md) record their scope and
+exact local checkpoints.
 
 The goal is gradual, visible progress: first an empty working UI, then a connection
 check, then editable mock traces, and finally real workflow integration.
@@ -41,15 +41,15 @@ for review; it is not merged by this update.
 ## Playground versus verification
 
 Sharon explicitly requested a personal playground at `app/examples/langfuse/`.
-Its future `run.py` should let him send mock runs, change inputs and choose which
+Its `run.py` lets him send mock runs, change inputs and choose which
 step fails, then inspect the result in Langfuse. It is a learning tool, not the
 application's test suite or a required release check.
 
 Maintain connection checks outside examples. Tests and deterministic fixtures
 belong in `app/tests/` and must never import, inspect or execute the playground.
 Deleting examples must leave application checks and behavior unchanged. This
-documentation update does not access existing personal examples. Future work is
-limited to the explicitly requested Langfuse example, not the workflow examples.
+implementation accessed only the specifically requested new Langfuse example,
+not the workflow examples.
 
 When implementing the requested playground, the agent must smoke-run its success
 and selected failure scenarios before delivery. This targeted manual verification
@@ -76,7 +76,8 @@ approved stage baseline when approved. Milestone 4 must use the actual merged
 workflow design, including its lifecycle rules, rather than infer them here.
 
 Navigation and Atlas distinguish the pending PR from accepted Current implementation.
-Official `app/docs/langfuse-local.md` documents the implemented local deployment.
+Official `app/docs/langfuse-local.md` and `app/docs/langfuse-connection.md`
+document the implemented local deployment and project check.
 Each implementation checkpoint must provide maintained setup/configuration or
 troubleshooting guidance for the supported behavior; the personal playground has
 its own learning README when created.

@@ -129,6 +129,8 @@ his M1 account/project creation. M2 is implemented but not accepted.
 
 ## M3 editable mock playground — 2026-11-13
 
+Tested implementation commit: `4a41265d5e8ca8e294e5b2f4feab36a12a3fdcf3`.
+
 Sharon authorized creating and manually running only the new
 `app/examples/langfuse/` personal playground. The existing adapter boundary
 owns Langfuse span creation and cleanup; the personal script owns arithmetic

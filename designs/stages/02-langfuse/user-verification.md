@@ -1,14 +1,14 @@
 # Per-milestone local verification
 
-Status: **M1 instructions available; M2/M3 files prepared but not executable yet.**
+Status: **M1–M3 files updated with tested implementation checkpoints; Sharon's local acceptance remains pending.**
 Sharon requested a separate Google Drive text file per milestone with its exact
 commit and copyable commands. Keep these identities when updating the files.
 
 | Milestone | Drive text file | Current checkpoint |
 |---|---|---|
-| 1 | [langfuse-milestone-1-verification.txt](https://drive.google.com/file/d/1ASuYt3GuwGhfnUJW2EvwhJVnKYxv5XEc/view?usp=drivesdk) | `fad8a4f119cab5316529b3ad9239d01b8347368c`; awaiting Mac/UI acceptance |
-| 2 | [langfuse-milestone-2-verification.txt](https://drive.google.com/file/d/18AgG1LrCXiag_cHG5QYev0dpwyrhMzoR/view?usp=drivesdk) | PLANNED — no implementation commit or runnable commands yet |
-| 3 | [langfuse-milestone-3-verification.txt](https://drive.google.com/file/d/1P2nLMatSnBhCBOMUUKpp5PRWzLAYSjvi/view?usp=drivesdk) | PLANNED — no implementation commit or runnable commands yet |
+| 1 | [langfuse-milestone-1-verification.txt](https://drive.google.com/file/d/1ASuYt3GuwGhfnUJW2EvwhJVnKYxv5XEc/view?usp=drivesdk) | Fixed `fad8a4f119cab5316529b3ad9239d01b8347368c`; optional port follow-up `9743c3103d892dce8cd5a5fb26a9cffadabcad83`; awaiting Mac/UI acceptance |
+| 2 | [langfuse-milestone-2-verification.txt](https://drive.google.com/file/d/18AgG1LrCXiag_cHG5QYev0dpwyrhMzoR/view?usp=drivesdk) | Tested `2278ee9c5742d78076f56fb64116abbadc01111b`; local project-key acceptance pending |
+| 3 | [langfuse-milestone-3-verification.txt](https://drive.google.com/file/d/1P2nLMatSnBhCBOMUUKpp5PRWzLAYSjvi/view?usp=drivesdk) | Tested `4a41265d5e8ca8e294e5b2f4feab36a12a3fdcf3`; local trace/UI acceptance pending |
 
 The older combined `agent-playbook-langfuse-local-commands.txt` remains intact;
 use the separate milestone files above going forward. No new M4 checklist is
