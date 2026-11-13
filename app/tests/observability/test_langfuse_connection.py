@@ -26,7 +26,7 @@ def config(tmp_path: Path, addition: str = "") -> Path:
 def test_old_yaml_defaults_to_disabled_without_client(tmp_path: Path) -> None:
     settings = load_configuration(str(config(tmp_path))).integrations.langfuse
     assert not settings.enabled
-    with patch.object(connection, "_new_client", side_effect=AssertionError):
+    with patch.object(connection, "create_client", side_effect=AssertionError):
         assert connection.check_connection(settings).status == "skipped"
 
 
@@ -93,7 +93,7 @@ def enabled() -> LangfuseSettings:
 def test_connection_statuses_and_cleanup() -> None:
     client = Mock()
     client.api.projects.get.return_value.data = [object()]
-    with patch.object(connection, "_new_client", return_value=client):
+    with patch.object(connection, "create_client", return_value=client):
         assert connection.check_connection(enabled()).status == "ok"
     client.api.projects.get.assert_called_once_with()
     client.shutdown.assert_called_once_with()
@@ -105,7 +105,7 @@ def test_connection_statuses_and_cleanup() -> None:
     ):
         client = Mock()
         client.api.projects.get.side_effect = error
-        with patch.object(connection, "_new_client", return_value=client):
+        with patch.object(connection, "create_client", return_value=client):
             result = connection.check_connection(enabled())
         assert result.status == expected
         assert "private-marker" not in repr(result)

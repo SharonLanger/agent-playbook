@@ -10,6 +10,7 @@ This is the maintained official product documentation for new and existing users
 | [Troubleshooting](troubleshooting.md) | Resolve interpreter, configuration, workflow, check and release problems |
 | [Local Langfuse UI](langfuse-local.md) | Start, check, restart and troubleshoot the self-hosted milestone 1 service |
 | [Langfuse connection](langfuse-connection.md) | Supply project keys privately and run the explicit milestone 2 authentication check |
+| [Mock trace playground](../examples/langfuse/README.md) | Explicitly send editable synthetic arithmetic runs and inspect them in the UI |
 
 ## Setup and learning
 

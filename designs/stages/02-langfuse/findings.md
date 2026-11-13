@@ -126,3 +126,32 @@ The checker performs only SDK project GET and sets tracing disabled. This and
 offline tests support intended no-write behavior, not a live ingestion proof.
 Sharon's M2 acceptance is to supply project keys and run the checker once after
 his M1 account/project creation. M2 is implemented but not accepted.
+
+## M3 editable mock playground — 2026-11-13
+
+Sharon authorized creating and manually running only the new
+`app/examples/langfuse/` personal playground. The existing adapter boundary
+owns Langfuse span creation and cleanup; the personal script owns arithmetic
+inputs, intentional failure choice and user-facing output. Inputs are external
+M2 settings and editable mock numbers; output is a new trace ID/link plus small
+synthetic observations. The observability exploration and stage smoke plan
+informed nesting and error behavior. No workflow/context, real CrewAI execution,
+global instrumentation or guarded meaning changed. Official navigation links
+the personal README; maintained tests use independent fixtures.
+
+M3 verification on managed Linux x86_64, Python 3.13.5, SDK 5.2.0:
+
+| Check | Result | Observation or limit |
+|---|---|---|
+| `app/.venv/bin/python -m pytest -q app/tests/observability/test_langfuse_connection.py app/tests/observability/test_langfuse_observations.py` | PASS | 14 independent tests; adapter root/child calls, error level, trace identity, flush and shutdown. No test accesses examples. |
+| Explicit Ruff lint/format on the new `app/examples/langfuse/run.py` | PASS | Personal script checked once for initial delivery; excluded from the normal gate. |
+| Direct disabled `app/.venv/bin/python app/examples/langfuse/run.py` | PASS | Exited 1 with skipped-connection message; emitted no observation. |
+| Targeted manual script smoke, success/add failure/multiply failure, using an in-memory session substitute | PASS | Default result 20 and all four steps; add failure stopped before multiply/finish; multiply failure stopped before finish; failed root/step, distinct IDs, printed matching links, flush/close. This is an offline code-path check, not Langfuse ingestion. |
+| Live observation readback, hierarchy, values and links | BLOCKED | Managed Docker `vfs` disk exhaustion prevented recreating an isolated server/project. No claim of persisted ingestion or browser display. |
+| Full `app/.venv/bin/python app/tooling/checks.py check` | PASS | Pyright 0 errors; Ruff lint/format pass; pytest 133 passed. Normal gate excludes personal examples and needs no Docker. |
+| `python3 designs/atlas/build.py --check`, changed Markdown links/fences and `git diff --check` | PASS | Atlas hierarchy/references/guards/freshness and documentation checks passed. |
+| `uv build --directory app --out-dir /tmp/m3-dist` and wheel inspection | PASS | New runtime observation module is packaged; personal examples are excluded. |
+
+Sharon's M3 acceptance is to run the script with his local project keys, open
+the printed trace, edit inputs, try add/multiply failures and confirm prior
+traces survive a normal service restart. M3 is implemented but not accepted.

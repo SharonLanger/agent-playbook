@@ -68,3 +68,7 @@ The stop preserves named volumes. The checker validates an HTTP(S) origin and
 does not print key values, raw SDK errors, or URL credentials. It uses Langfuse
 Python SDK 5.2.0 with a five-second request timeout. HTTP health alone does not
 prove project authentication; a successful explicit check does.
+
+After a successful check, the optional [personal mock playground](../examples/langfuse/README.md)
+can send synthetic traces when explicitly run. Ordinary application workflows
+remain uninstrumented.

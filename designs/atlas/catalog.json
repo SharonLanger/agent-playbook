@@ -383,7 +383,13 @@
             {
               "name": "Observability boundary",
               "path": "app/src/agent_playbook/observability/",
-              "text": "Langfuse project connection is implemented on pending PR #36; workflow trace export remains future work.",
+              "text": "M2 project connection and M3 mock span writer exist on pending PR #36; workflow trace export remains future work.",
+              "to": null
+            },
+            {
+              "name": "Mock observation adapter (M3 on PR #36)",
+              "path": "app/src/agent_playbook/observability/adapters/langfuse/observations.py",
+              "text": "Narrow explicitly invoked span writer; personal playground is excluded from current inventory.",
               "to": null
             }
           ],
@@ -1353,6 +1359,11 @@
           "path": "app/src/agent_playbook/observability/adapters/langfuse/connection.py",
           "status": "PR #36 pending",
           "purpose": "Langfuse SDK project authentication adapter."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/adapters/langfuse/observations.py",
+          "status": "PR #36 pending",
+          "purpose": "Explicit M3 mock observation adapter."
         }
       ]
     },
@@ -2196,7 +2207,7 @@
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "M1 and M2 are implemented on PR #36 and await Sharon acceptance. M3 remains planned; M4 depends on the workflow refactor.",
+          "note": "M1–M3 are implemented on PR #36 and await Sharon acceptance. M4 depends on the workflow refactor and is not implemented.",
           "diagram": null
         }
       },

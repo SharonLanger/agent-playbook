@@ -98,3 +98,12 @@ disabled-by-default external settings and SDK 5.2.0. Existing workflows are not
 instrumented. [M2 findings](stages/02-langfuse/findings.md) record offline and
 packaging checks plus the blocked live-auth check. Sharon's local acceptance is
 pending. M3 and M4 are not implemented at this checkpoint.
+
+## Stage 02 milestone 3 — pending PR #36 checkpoint
+
+The branch now includes the explicitly invoked personal
+`app/examples/langfuse/run.py` mock playground and a narrow observation writer.
+No ordinary workflow emits traces. [M3 findings](stages/02-langfuse/findings.md)
+record independent adapter tests, targeted personal-script smoke runs and the
+blocked live ingestion/readback check. Sharon's M1, M2 and M3 local acceptance
+remain pending; M4 is not implemented.

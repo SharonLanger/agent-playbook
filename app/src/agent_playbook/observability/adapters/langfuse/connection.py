@@ -18,7 +18,9 @@ class ConnectionResult:
     base_url: str
 
 
-def _new_client(settings: LangfuseSettings) -> Langfuse:
+def create_client(
+    settings: LangfuseSettings, *, tracing_enabled: bool = False
+) -> Langfuse:
     assert settings.public_key is not None and settings.secret_key is not None
     return Langfuse(
         public_key=settings.public_key.get_secret_value(),
@@ -26,7 +28,7 @@ def _new_client(settings: LangfuseSettings) -> Langfuse:
         base_url=settings.base_url,
         environment=settings.environment,
         timeout=5,
-        tracing_enabled=False,
+        tracing_enabled=tracing_enabled,
     )
 
 
@@ -37,7 +39,7 @@ def check_connection(settings: LangfuseSettings) -> ConnectionResult:
 
     client: Langfuse | None = None
     try:
-        client = _new_client(settings)
+        client = create_client(settings)
         projects = client.api.projects.get()
         if not projects.data:
             return ConnectionResult("auth_failed", settings.base_url)
