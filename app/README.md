@@ -21,6 +21,8 @@ in `app/.venv`, and runs default WF-01 and local quality checks. Run the
 same command again to refresh the environment. The prerequisite is Python 3.10+
 with `venv` and `ensurepip`; initial provisioning may require network access.
 
+For the optional local trace UI, see [local Langfuse setup](docs/langfuse-local.md). Docker is required for that local service, not for ordinary workflows or a hosted Langfuse endpoint.
+
 ## Documentation
 
 [User documentation index](docs/README.md) links the CLI, configuration, workflow-running and troubleshooting guides.

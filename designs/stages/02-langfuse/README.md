@@ -1,6 +1,6 @@
 # Stage 02 — Langfuse milestones
 
-Status: **Milestones 1–3 implemented on PR #36, with delivery/status review findings still open; Sharon's local acceptance remains pending.**
+Status: **M1–M3 and review follow-up implemented on draft PR #36; Linux live stack and Sharon's Mac acceptance remain pending.**
 Milestone 1's fixed checkpoint remains available; see
 [findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
 Milestone 2 adds a project connection check, and milestone 3 adds the explicit
@@ -9,14 +9,15 @@ mock playground. Milestone 4 remains deferred and unimplemented.
 ## Start here
 
 Latest: [approved main reconciliation](main-reconciliation.md),
-[the original review](review-2026-11-13.md) and the
+[the original review](review-2026-11-13.md),
+[the follow-up resolution](resolution-2026-11-13.md) and the
 [CLI plan / Codex handoff](verification-simplification-plan.md).
 Sharon approved the six conflict resolutions. Main's workflow refactor and the
 Langfuse branch are combined; verification is recorded in the reconciliation
-file. R1/R3 delivery defects and R4's remaining status corrections are next-agent
-work. The helper and six double-dash CLI actions remain specified, not
-implemented. M3 is not ready for acceptance until its delivery findings are
-resolved. Real workflow/context integration remains later.
+file. R1/R3 delivery reporting and R4 status prose have been corrected on this
+draft branch; the helper and six double-dash CLI actions are implemented.
+Linux live-stack verification hit a `vfs` disk limit, and Sharon's Mac/UI
+acceptance remains pending. Real workflow/context integration remains later.
 
 Read [the four milestones and local checkpoints](milestones.md), then
 [configuration and ownership](architecture.md) and the
@@ -102,4 +103,4 @@ its own learning README when created.
 | 5: isolated integration | Langfuse-specific code stays inside its integration; no speculative event bus. |
 | 7, 8: quality and evidence | Independent offline tests, explicit live checks and Sharon's manual UI gates; no unrun success claims. |
 | 11, 13: preservation and sandbox | Existing examples untouched; requested playground remains outside application checks/releases. |
-| 12, 14, 15: records and status | Canonical stage documents, discovery/Atlas updates, explicit pending implementation and verification. |
+| 12, 14, 15: records and status | Canonical stage documents, discovery/Atlas updates, implemented PR follow-up and pending live/manual verification. |

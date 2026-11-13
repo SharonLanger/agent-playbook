@@ -128,14 +128,16 @@ def main(argv: list[str] | None = None) -> int:
         except SimulatedStepError as error:
             outcome = f"simulated error: {error}"
             root.finish(error=str(error))
-        session.flush()
+        delivery = session.verify_delivery(trace_id)
         url = session.trace_url(trace_id)
         print(f"run_id: {run_id}\ntrace_id: {trace_id}\noutcome: {outcome}")
         print(f"trace_url: {url or 'unavailable; locate the trace ID in the UI'}")
-        print(
-            "Submission completed; confirm visibility and details in the Langfuse UI."
-        )
-        return 0
+        print(f"delivery: {delivery.status}")
+        if delivery.status == "verified":
+            print("Trace is visible through the Langfuse project API; inspect details in the UI.")
+            return 0
+        print("Trace delivery is unconfirmed; check the service and project settings.")
+        return 1
     except Exception:
         print("Trace export failed; check the service and project settings.")
         return 1

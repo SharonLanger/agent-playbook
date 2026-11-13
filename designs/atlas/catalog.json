@@ -1,5 +1,5 @@
 {
-  "snapshot": "Main 53764ab integrated into pending PR #36; workflow contract merged; Langfuse acceptance and CLI implementation pending.",
+  "snapshot": "Main 53764ab integrated into draft PR #36; Langfuse follow-up and CLI implemented, live/Mac acceptance pending.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -32,7 +32,8 @@
     "designs/refactors/workflow-contract/implementation-plan.md",
     "designs/refactors/workflow-contract/review-follow-up.md",
     "designs/refactors/workflow-contract/review-test-quality.md",
-    "designs/stages/02-langfuse/main-reconciliation.md"
+    "designs/stages/02-langfuse/main-reconciliation.md",
+    "designs/stages/02-langfuse/resolution-2026-11-13.md"
   ],
   "views": {
     "current": {
@@ -2252,7 +2253,7 @@
             {
               "name": "Separate local verification files",
               "path": "designs/stages/02-langfuse/user-verification.md",
-              "text": "Drive checklist per milestone; M1 pinned, M2/M3 commands and hashes pending implementation.",
+              "text": "Historical M1–M3 Drive checklists remain; one combined tested-revision guide is the current handoff.",
               "to": null
             },
             {
@@ -2272,11 +2273,17 @@
               "path": "designs/stages/02-langfuse/main-reconciliation.md",
               "text": "Agreed resolutions, combined verification, and the remaining implementation handoff.",
               "to": null
+            },
+            {
+              "name": "Langfuse review follow-up",
+              "path": "designs/stages/02-langfuse/resolution-2026-11-13.md",
+              "text": "R1/R3/R4 fixes, management CLI, checks and live blocker.",
+              "to": null
             }
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "Sharon approved the six main conflict resolutions. PR #36 remains draft and unmerged. Reconciliation verification is recorded; R1/R3/R4 and CLI/helper implementation remain next-agent work. M4 remains deferred.",
+          "note": "Sharon approved the six main conflict resolutions. PR #36 remains draft and unmerged. Reconciliation and follow-up verification are recorded; live Langfuse/Mac acceptance remains pending. M4 remains deferred.",
           "diagram": null
         }
       },
@@ -4074,7 +4081,7 @@
         {
           "path": "designs/stages/02-langfuse/user-verification.md",
           "status": "Requested implementation handoff",
-          "purpose": "Drive checklist per milestone; M1 pinned, M2/M3 commands and hashes pending implementation."
+          "purpose": "Historical M1–M3 Drive checklists remain; one combined tested-revision guide is the current handoff."
         },
         {
           "path": "designs/stages/02-langfuse/review-2026-11-13.md",

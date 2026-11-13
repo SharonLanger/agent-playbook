@@ -1,6 +1,6 @@
 # Langfuse setup and integration boundaries
 
-Status: **DRAFT details supporting the agreed milestone direction; not executable configuration.**
+Status: **Approved milestone boundaries; M1–M3 implemented on draft PR #36, with local Mac acceptance pending. This document retains its original proposal examples as historical design context.**
 [Milestones](milestones.md) · [Playground exercise](smoke-plan.md)
 
 ## What exists before a workflow context
@@ -22,7 +22,7 @@ Live clients are not workflow business state or a recoverability store.
 
 ## Proposed placement
 
-Paths are candidates within existing component ownership, not implemented files.
+The paths below are implemented on PR #36 for M1–M3. The application/runner/workflow/context boundary remains M4 only.
 
 | Owner | Milestone and responsibility |
 |---|---|
@@ -47,7 +47,7 @@ Doctor is deferred; it is not a prerequisite or an implemented CLI command.
 
 Extend the existing external configuration system rather than creating a second
 application loader. Preserve selection, local overrides and safe validation.
-Today's loader does not accept this **proposed schema example**:
+The PR #36 loader accepts this schema; this example records the approved M2 configuration shape:
 
 ```yaml
 integrations:

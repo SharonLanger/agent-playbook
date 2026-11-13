@@ -17,6 +17,7 @@ module entry point is `python -m agent_playbook.cli`.
 | `agent-playbook run --version 0.1.0` | Run the latest completed release of that version |
 | `agent-playbook version` | Show version/source metadata of the CLI you invoked |
 | `agent-playbook check` | Types, lint, formatting verification, then tests |
+| `agent-playbook langfuse --help` | Local Langfuse management and project check options |
 | `agent-playbook check --types` | Pyright only |
 | `agent-playbook check --lint` | Ruff lint only |
 | `agent-playbook check --format` | Verify formatting without modifying files |
@@ -33,6 +34,21 @@ first failure and show PASS/FAIL/NOT RUN plus a final summary. A selected check'
 PASS means only that selection passed. Release always runs the complete gate.
 `format` changes formatting only; it does not automatically fix lint errors.
 Review its edits and rerun `check`.
+
+## Optional local Langfuse
+
+From a source checkout after bootstrap, use `app/.venv/bin/agent-playbook langfuse` with **exactly one** action flag:
+
+| Flag | Action |
+|---|---|
+| `--start` | Initialize private local settings if missing, start/apply Compose and wait for UI readiness |
+| `--stop` | Stop this stack; retain settings and volumes |
+| `--status` | Report service state and UI readiness |
+| `--logs` | Show recent Docker service logs; add `--follow` to stream until Ctrl-C |
+| `--open` | Print and open the UI URL without starting services |
+| `--check` | Check selected application/project authentication without sending a trace or requiring local Docker |
+
+`--env-file PATH` selects private Compose settings for local actions; `--config PATH` selects application YAML for `--check`. Relative paths resolve from the invocation directory. The files have separate owners. `--help`, invalid combinations and missing action perform no external action. Exit 0 means the selected action completed or status is ready; 1 means operational failure/non-ready; 2 means invalid invocation/configuration; 3 means the project check was disabled and skipped. Root `agent-playbook check` remains the application quality gate, separate from Langfuse `--check`. These are development-checkout commands; installed releases reject them with exit 2 and contain no deployment assets. The [setup guide](langfuse-local.md) includes the Python 3.10+ direct-script fallback for UI-only use before bootstrap.
 
 ## Select a workflow
 
@@ -99,7 +115,7 @@ app/dist/<actual-release-folder>/venv/bin/agent-playbook version
 app/dist/<actual-release-folder>/venv/bin/agent-playbook run --config "$PWD/app/application.yaml"
 ```
 
-Developer commands (`check`, `test`, `format`, `version patch`, `release`) require
+Developer commands (`check`, `test`, `format`, `version patch`, `release`, `langfuse`) require
 the source checkout and its environment. Installed wheels reject them clearly;
 checkout tooling is not bundled into the wheel.
 

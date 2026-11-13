@@ -1,6 +1,6 @@
 # Personal Langfuse playground and manual exercise
 
-Status: **DRAFT for milestone 3; no example has been implemented.**
+Status: **M3 example exists on draft PR #36; real-server delivery verification and Sharon's Mac acceptance remain pending. The original proposal wording below is historical.**
 [Milestones and gates](milestones.md) · [Configuration](architecture.md)
 
 This file replaces the earlier test-first seed-script proposal. The main goal is
@@ -12,11 +12,10 @@ manual run does not put examples in the automated application gate.
 
 ## Requested example
 
-Create `app/examples/langfuse/` when implementing M3, with a simple `run.py` and
-README. A candidate invocation is:
+The M3 implementation provides `app/examples/langfuse/run.py` and a README. Invoke it after configuration:
 
 ```text
-# Proposed entry point; does not exist yet.
+ # Existing explicit playground entry point.
 python app/examples/langfuse/run.py
 ```
 

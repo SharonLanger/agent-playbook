@@ -1,6 +1,6 @@
 # Langfuse local deployment
 
-This checkout-only deployment implements Stage 02 milestone 1. Follow the
+This checkout-only deployment supplies the optional local Langfuse stack. `manage.py` is its standard-library lifecycle/browser helper and the direct-script fallback; it reuses `setup.py` for one-time private settings creation and `compose.yaml` for Docker operations. The CLI dispatches to the same helper. Follow the
 [official setup and troubleshooting guide](../../docs/langfuse-local.md).
 
 The Compose services follow the required web, worker, PostgreSQL, ClickHouse,
@@ -10,4 +10,4 @@ Images are pinned in `compose.yaml`; `.env` is generated once and ignored.
 
 The explicitly invoked [project connection check](../../docs/langfuse-connection.md)
 belongs here. It uses installed application configuration and Langfuse SDK 5.2.0;
-the Docker-only M1 commands do not require a Python dependency installation.
+UI-only direct-script commands do not require the application environment. The authenticated `--check` does.

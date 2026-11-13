@@ -68,8 +68,7 @@ for the supported precedence and reference syntax.
   Method completion and a router label provide two trigger paths; its README explains them.
 - **Output ordering differs in an example:** check its documented dependencies. Do not infer
   a universal scheduling order from one terminal run or from the animated diagram.
-- **No trace UI or causal logs:** the current teaching prints/calls lists are not a Langfuse
-  integration. Stage 02 is still a design discussion.
+- **No workflow traces:** ordinary workflows are not instrumented yet. For local Docker/UI issues, see [Langfuse setup and troubleshooting](langfuse-local.md). For project access, use [the explicit connection check](langfuse-connection.md). The mock playground can send synthetic traces separately.
 
 An intentional code experiment can make its tests fail. Review the expected assertion and
 the change you made; the failure may be the behavior you are exploring. Keep changes you

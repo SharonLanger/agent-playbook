@@ -1,125 +1,68 @@
-# Local Langfuse
+# Local Langfuse: first setup and daily use
 
-This guide starts a self-hosted Langfuse UI on your machine. Milestone 1 does
-not connect Agent Playbook or send traces; the trace list will be empty.
+Langfuse is an **optional local trace UI**. Docker is needed to run its six local services; ordinary Agent Playbook workflows and a hosted Langfuse endpoint do not require local Docker. Work from the repository root (`agent-playbook`) for all commands below.
 
-## First setup on a Mac
+## Before the first start on a Mac
 
-1. Install and start [Docker Desktop for Mac](https://docs.docker.com/desktop/setup/install/mac-install/), choosing the download for your Mac's processor. It includes Docker Compose. Allow at least 8 GiB of memory for the stack.
-2. Check that Docker is running and Python 3 is available:
+1. Download [Docker Desktop for Mac](https://docs.docker.com/desktop/setup/install/mac-install/). Choose **Apple silicon** for M-series chips or **Intel** for an Intel Mac. Check Docker's current [macOS support requirements](https://docs.docker.com/desktop/setup/install/mac-install/#system-requirements) for your machine. Install it, launch Docker Desktop once, accept its permissions, and wait for the engine to finish starting. The Docker command being installed does not mean its engine or socket is ready.
+2. Allow **at least 8 GiB memory** for the stack, several GiB of free disk, and network access for first-time image downloads. PostgreSQL, ClickHouse, Redis and MinIO are included as containers; install none separately.
+3. Check `docker info` and `docker compose version`. Both must succeed. Docker Desktop includes the Compose plugin; do not install legacy `docker-compose`.
+4. In the repository root, run `python3 app/tooling/bootstrap.py` to prepare the application CLI. This needs Python 3.10+ on the host, network for initial provisioning and sufficient disk for the app environment. The app environment uses Python 3.13 and pinned uv 0.13.6.
 
-```sh
-docker info
-docker compose version
-python3 --version
-```
-
-3. From the repository root, enter the deployment folder and initialize it:
-
-```sh
-cd app/tooling/observability
-python3 setup.py
-docker compose config --quiet
-docker compose up -d
-```
-
-All commands below run **inside `app/tooling/observability`**. In a new terminal,
-enter that folder again. Compose reads its `compose.yaml` and `.env` automatically.
-
-Setup creates private, Git-ignored credentials once. Running it again leaves the
-existing `.env` unchanged. Keep that file: replacing database credentials or
-Langfuse encryption settings can prevent access to existing data.
-
-The first start downloads prebuilt images and initializes the databases; allow
-several minutes. No custom Dockerfile, image build or local database installation
-is required. Langfuse runs as six services, managed together by Compose.
-
-## Open the UI
-
-Check service state and HTTP readiness:
-
-```sh
-docker compose ps
-curl --fail --silent --show-error http://localhost:3000/api/public/health
-```
-
-Retry the health request for up to five minutes during first startup. Then open
-<http://localhost:3000>, create your account/project and open its empty trace list.
-If you configured a different UI port, use that port in both URLs.
-
-The health endpoint checks service readiness. It does not prove successful login,
-project persistence or trace ingestion. Confirm your project survives a normal
-stop/start in the UI.
-
-## Everyday commands
-
-| What you want | Command |
+| Component | Version/evidence |
 |---|---|
-| Start for the first time or run again | `docker compose up -d` |
-| Stop and remove containers, keeping stored data | `docker compose down` |
-| Restart existing containers with their current settings | `docker compose restart` |
-| Apply an edited configuration | `docker compose up -d` |
-| Check service status | `docker compose ps` |
-| Read recent UI service logs | `docker compose logs --tail=80 langfuse-web` |
-| Validate configuration without printing secrets | `docker compose config --quiet` |
+| Docker Desktop for Mac | 4.99.0 (released 2026-11-09) is an upstream candidate, **awaiting Mac project verification**; an existing working installation need not change. Its listed bundled Engine is 29.9.3 and Compose is 5.7.0. Record the versions reported on your Mac. |
+| Docker Engine / Compose | A working `docker info` and `docker compose` plugin are functional prerequisites. The project-tested Linux versions and final results are recorded in [Stage 02 findings](../../designs/stages/02-langfuse/findings.md); they do not certify Mac. |
+| Host Python / app | Management script: Python 3.10+ standard library. App bootstrap: host Python 3.10+; app Python 3.13, uv 0.13.6. |
+| Langfuse and stores | Pinned [Compose images and digest](../tooling/observability/compose.yaml): Langfuse web/worker 4.80.0, PostgreSQL 17.7, ClickHouse 26.3.62.3, Redis 7.4.7 and pinned MinIO digest. No floating `latest`. |
 
-`restart` does not apply changed environment settings; use `up -d` after edits.
-Restarting or recreating containers does not reset the database. Never use
-`down -v` for an ordinary stop: it deletes persistent volumes.
+## Start and open
 
-## Files and configuration
+From the repository root:
 
-| File | Purpose |
-|---|---|
-| [compose.yaml](../tooling/observability/compose.yaml) | Pinned service images, network ports, health checks and persistent volumes |
-| [setup.py](../tooling/observability/setup.py) | One-time generation of local credentials |
-| [.env.example](../tooling/observability/.env.example) | Settings reference; generated `.env` holds your private values |
+```sh
+app/.venv/bin/agent-playbook langfuse --start
+app/.venv/bin/agent-playbook langfuse --status
+app/.venv/bin/agent-playbook langfuse --open
+```
 
-Edit `LANGFUSE_PORT` and/or `MINIO_PORT` in `.env` to change the local UI and
-browser media ports, then run `docker compose up -d`. Existing `.env` files that
-omit `MINIO_PORT` keep the default **9090**. Do not rotate the generated secrets
-merely to change a port. Image versions are pinned in Compose, not automatically
-upgraded.
+`--start` creates ignored, private `app/tooling/observability/.env` only if missing, applies the pinned Compose configuration, then waits up to five minutes for six services and HTTP health. Expect `Langfuse ready. UI: http://localhost:3000` (or your configured port). First download and database startup can take minutes. `--status` should say `ready`. `--open` prints the URL and opens your default browser. Create a local account and project if this is a new installation; on an existing M1 stack, sign in to the same account/project. A new project has an empty trace list.
 
-For a separately prepared private settings file, Compose supports
-`docker compose --env-file /absolute/path/to/private.env up -d`; use the same
-file for every lifecycle command. Setup currently creates only the adjacent
-`.env`. Shell variables can override file values, so remove stale overrides when
-troubleshooting unexpected settings.
+For **UI-only setup before app bootstrap**, use the same implementation directly:
 
-Keep the Compose project identity stable. By default it comes from this folder's
-name (`observability`); changing it selects a different set of volumes and can
-make the UI appear empty. A separate instance needs its own project name, free
-ports and private settings. Do not change identity to repair an existing instance.
+```sh
+python3 app/tooling/observability/manage.py --start
+python3 app/tooling/observability/manage.py --status
+python3 app/tooling/observability/manage.py --open
+```
 
-## Data and independence from Agent Playbook
+This fallback needs host Python 3.10+, Docker and Compose, but no CrewAI or Langfuse Python SDK. The project connection `--check` requires the bootstrapped app environment.
 
-Docker-managed named volumes store PostgreSQL, ClickHouse, Redis and MinIO data
-(and ClickHouse logs). The browser UI is not the data store. On Docker Desktop,
-these volumes live in Docker's managed Linux environment, not in this checkout.
-Preserving volumes is not a backup.
+## Everyday commands and private settings
 
-The deployment lives entirely under `app/tooling/observability/`. Milestone 1
-adds no SDK dependency, workflow import or startup hook to Agent Playbook.
-You can run the application while this stack is stopped. To stop using local
-Langfuse, run `docker compose down` and keep `.env` and volumes if you want to
-return later. Removing the checkout does not itself remove Docker volumes; stop
-its containers first and retain the configuration needed to reopen the data.
+```sh
+app/.venv/bin/agent-playbook langfuse --logs
+app/.venv/bin/agent-playbook langfuse --logs --follow
+app/.venv/bin/agent-playbook langfuse --stop
+app/.venv/bin/agent-playbook langfuse --start
+```
 
-The optional [project connection check](langfuse-connection.md) is milestone 2.
-It runs only when invoked; ordinary application runs do not connect or send
-traces. Moving historical data is separate from selecting a future endpoint.
+`--logs` shows the recent Docker service log tail; Ctrl-C ends `--follow` without stopping containers. `--stop` removes this stack's containers but retains the `.env` and named data volumes. Repeated `--start`, an already-stopped `--stop`, and start after stop are safe. Docker Desktop and unrelated containers stay untouched. Do not rotate `.env` secrets or delete the volumes to troubleshoot. Keep service logs private.
+
+The deployment file is [compose.yaml](../tooling/observability/compose.yaml); [setup.py](../tooling/observability/setup.py) generates secrets once. Edit `LANGFUSE_PORT` (default 3000) and `MINIO_PORT` (default 9090) in the ignored `.env` to change loopback ports, then run `--start` to apply. An older `.env` without `MINIO_PORT` still defaults to 9090. Shell environment variables override file values; remove stale overrides if the URL or port differs unexpectedly. Use `--env-file /absolute/path/to/private.env` on **every local action** for a separately prepared private file. A first `--start --env-file PATH` creates it if its parent directory exists. Keep the file and project directory stable: Compose's project identity is `observability`, so its five named volumes remain associated with the same data. The UI and MinIO bind to loopback. This is a local learning deployment, not a backup or production setup.
+
+The project API keys used by [connection checking](langfuse-connection.md) are separate from `.env` deployment secrets. `--check` can address a hosted endpoint without local Docker. Workflows remain uninstrumented; the [mock playground](../examples/langfuse/README.md) explicitly creates synthetic traces.
 
 ## Troubleshooting
 
-- Cannot connect to Docker: start Docker Desktop and wait until `docker info` succeeds.
-- Port already allocated: choose free `LANGFUSE_PORT` and `MINIO_PORT` values in `.env`, then run `docker compose up -d`.
-- Startup stays unhealthy: inspect `docker compose ps` and the failed service's logs, for example `docker compose logs --tail=80 clickhouse`. Check Docker's allocated memory and free disk space.
-- UI looks empty after moving the deployment: check the project identity and retained volumes before creating new data or resetting anything.
-- Keep logs private; do not share credentials or full resolved Compose output.
+| Symptom | Try this |
+|---|---|
+| `docker: command not found` or no Compose plugin | Install Docker Desktop for your Mac processor, launch it once, then reopen the terminal. Check `docker compose version`. |
+| Docker socket/engine unavailable | Open Docker Desktop and wait for its engine indicator; finish first-launch permissions. Run `docker info`, then retry `--start`. |
+| First start times out or download fails | Check network and free disk space; run `--status` and `--logs`, then retry `--start`. Existing settings/data are retained. |
+| Port already allocated | Choose free `LANGFUSE_PORT` and `MINIO_PORT` in the private `.env`, then run `--start`. Keep old secrets unchanged. |
+| Service unhealthy or UI not ready | Run `--status` and `--logs`; check Docker's memory allocation (at least 8 GiB) and disk. Do not delete volumes. |
+| UI appears empty after an earlier successful install | Check that the same `.env`, `--env-file` selection, Docker context and `observability` project/volumes are in use before making a new project. |
+| Browser does not open | Copy the URL printed by `--open` into your browser. `--open` does not start services. |
 
-This setup is for local learning. The UI and MinIO API bind only to loopback;
-this guide does not configure internet access or production backups.
-[Image versions and upstream reference](../tooling/observability/README.md).
-[Docker environment settings](https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/)
-and [restart behavior](https://docs.docker.com/reference/cli/docker/compose/restart/).
+See [Docker's official installation guide](https://docs.docker.com/desktop/setup/install/mac-install/), [Docker Desktop release notes](https://docs.docker.com/desktop/release-notes/#4990), and [Langfuse's Compose guide](https://langfuse.com/self-hosting/deployment/docker-compose).

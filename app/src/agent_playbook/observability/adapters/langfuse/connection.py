@@ -7,6 +7,7 @@ import httpx
 
 from agent_playbook.config.models import LangfuseSettings
 from langfuse import Langfuse
+from langfuse.api import LangfuseAPI
 from langfuse.api.core.api_error import ApiError
 
 ConnectionStatus = Literal["ok", "skipped", "auth_failed", "unreachable", "failed"]
@@ -37,10 +38,18 @@ def check_connection(settings: LangfuseSettings) -> ConnectionResult:
     if not settings.enabled:
         return ConnectionResult("skipped", settings.base_url)
 
-    client: Langfuse | None = None
+    assert settings.public_key is not None and settings.secret_key is not None
     try:
-        client = create_client(settings)
-        projects = client.api.projects.get()
+        # A Langfuse client caches its tracing resource manager by public key.
+        # A disabled preflight client would poison a later exporting client.
+        with httpx.Client(timeout=5) as transport:
+            api = LangfuseAPI(
+                base_url=settings.base_url,
+                username=settings.public_key.get_secret_value(),
+                password=settings.secret_key.get_secret_value(),
+                httpx_client=transport,
+            )
+            projects = api.projects.get()
         if not projects.data:
             return ConnectionResult("auth_failed", settings.base_url)
         return ConnectionResult("ok", settings.base_url)
@@ -54,9 +63,3 @@ def check_connection(settings: LangfuseSettings) -> ConnectionResult:
     except Exception:
         # SDK messages may contain credentials, URLs or response bodies.
         return ConnectionResult("failed", settings.base_url)
-    finally:
-        if client is not None:
-            try:
-                client.shutdown()
-            except Exception:
-                pass

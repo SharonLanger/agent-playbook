@@ -10,7 +10,7 @@ From the repository root, prepare the application:
 python3 app/tooling/bootstrap.py
 ```
 
-The [app setup](app/README.md) explains the environment. **All CLI commands and
+The [app setup](app/README.md) explains the environment. The optional [local Langfuse setup](app/docs/langfuse-local.md) needs Docker only for a local trace UI, not for ordinary workflows or a hosted endpoint. **All CLI commands and
 release rules are in [app/docs/cli.md](app/docs/cli.md).**
 [Runtime configuration](app/docs/configuration.md) covers shared YAML and environment overrides.
 

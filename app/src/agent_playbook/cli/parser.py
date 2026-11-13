@@ -29,6 +29,20 @@ def build_parser() -> argparse.ArgumentParser:
             help="External YAML configuration (overrides AGENT_PLAYBOOK_CONFIG).",
         )
     commands.add_parser("test", help="Run pytest in the development checkout.")
+    langfuse = commands.add_parser(
+        "langfuse",
+        help="Manage local Langfuse or check project access (source checkout).",
+    )
+    actions = langfuse.add_mutually_exclusive_group(required=True)
+    for name in ("start", "stop", "status", "logs", "open", "check"):
+        actions.add_argument(f"--{name}", action="store_true")
+    langfuse.add_argument(
+        "--follow", action="store_true", help="Follow --logs until Ctrl-C."
+    )
+    langfuse.add_argument(
+        "--env-file", help="Private Compose settings for local actions."
+    )
+    langfuse.add_argument("--config", help="Selected application YAML for --check.")
     check_parser = commands.add_parser(
         "check", help="Run all checks, or selected checks."
     )

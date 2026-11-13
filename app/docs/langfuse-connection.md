@@ -1,6 +1,6 @@
 # Check a Langfuse project connection
 
-Milestone 2 adds an explicitly invoked, read-only project authentication check.
+The explicitly invoked, read-only project authentication check
 It sends no traces and does not connect workflows automatically. Start the
 [local Langfuse service](langfuse-local.md), create a project in its UI, and copy
 that project's public and secret API keys from project settings. These keys are
@@ -9,7 +9,7 @@ different from the Docker service secrets in `tooling/observability/.env`.
 From the repository root, install the locked application environment:
 
 ```sh
-uv sync --directory app --locked
+python3 app/tooling/bootstrap.py
 ```
 
 The committed `app/application.yaml` keeps Langfuse disabled. Existing YAML
@@ -21,7 +21,7 @@ terminal from the repository root:
 export AGENT_PLAYBOOK_LANGFUSE_ENABLED=true
 export LANGFUSE_PUBLIC_KEY="$(python3 -c 'import getpass; print(getpass.getpass("Public key: "))')"
 export LANGFUSE_SECRET_KEY="$(python3 -c 'import getpass; print(getpass.getpass("Secret key: "))')"
-app/.venv/bin/python app/tooling/observability/check_connection.py
+app/.venv/bin/agent-playbook langfuse --check
 ```
 
 Expected: `Langfuse project authentication succeeded at
@@ -34,7 +34,7 @@ If your UI uses another port, set
 `AGENT_PLAYBOOK_LANGFUSE_BASE_URL=http://localhost:PORT` in the shell before
 the check, substituting your actual port. HTTPS origins are supported too.
 Configuration selection still follows the [application configuration
-guide](configuration.md): pass `--config PATH` to the checker or set
+guide](configuration.md): pass `--config PATH` to `langfuse --check` or set
 `AGENT_PLAYBOOK_CONFIG`. A selected YAML file can contain:
 
 ```yaml
@@ -59,9 +59,7 @@ the deployment folder:
 
 ```sh
 unset LANGFUSE_PUBLIC_KEY LANGFUSE_SECRET_KEY AGENT_PLAYBOOK_LANGFUSE_ENABLED AGENT_PLAYBOOK_LANGFUSE_BASE_URL
-cd app/tooling/observability
-docker compose down
-cd ../../..
+app/.venv/bin/agent-playbook langfuse --stop
 ```
 
 The stop preserves named volumes. The checker validates an HTTP(S) origin and

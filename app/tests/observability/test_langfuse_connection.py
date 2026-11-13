@@ -26,7 +26,7 @@ def config(tmp_path: Path, addition: str = "") -> Path:
 def test_old_yaml_defaults_to_disabled_without_client(tmp_path: Path) -> None:
     settings = load_configuration(str(config(tmp_path))).integrations.langfuse
     assert not settings.enabled
-    with patch.object(connection, "create_client", side_effect=AssertionError):
+    with patch.object(connection, "LangfuseAPI", side_effect=AssertionError):
         assert connection.check_connection(settings).status == "skipped"
 
 
@@ -92,11 +92,10 @@ def enabled() -> LangfuseSettings:
 
 def test_connection_statuses_and_cleanup() -> None:
     client = Mock()
-    client.api.projects.get.return_value.data = [object()]
-    with patch.object(connection, "create_client", return_value=client):
+    client.projects.get.return_value.data = [object()]
+    with patch.object(connection, "LangfuseAPI", return_value=client):
         assert connection.check_connection(enabled()).status == "ok"
-    client.api.projects.get.assert_called_once_with()
-    client.shutdown.assert_called_once_with()
+    client.projects.get.assert_called_once_with()
 
     for error, expected in (
         (ApiError(status_code=401, body="private-marker"), "auth_failed"),
@@ -104,20 +103,18 @@ def test_connection_statuses_and_cleanup() -> None:
         (RuntimeError("private-marker"), "failed"),
     ):
         client = Mock()
-        client.api.projects.get.side_effect = error
-        with patch.object(connection, "create_client", return_value=client):
+        client.projects.get.side_effect = error
+        with patch.object(connection, "LangfuseAPI", return_value=client):
             result = connection.check_connection(enabled())
         assert result.status == expected
         assert "private-marker" not in repr(result)
-        client.shutdown.assert_called_once_with()
 
 
 def test_client_is_bounded_and_does_not_instrument() -> None:
-    with patch.object(connection, "Langfuse") as sdk:
-        sdk.return_value.api.projects.get.return_value.data = [object()]
+    with patch.object(connection, "LangfuseAPI") as sdk:
+        sdk.return_value.projects.get.return_value.data = [object()]
         assert connection.check_connection(enabled()).status == "ok"
-    assert sdk.call_args.kwargs["timeout"] == 5
-    assert sdk.call_args.kwargs["tracing_enabled"] is False
+    assert sdk.call_args.kwargs["httpx_client"].timeout.read == 5
 
 
 def test_checker_exit_codes(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:

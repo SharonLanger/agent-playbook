@@ -1,20 +1,20 @@
 # Progress and acceptance
 
-## Current state after approved branch reconciliation
+## Current state after PR #36 follow-up
 
 Sharon approved combining all six conflict resolutions on 2026-11-13.
 This branch incorporates main `53764abeb9402d596ee26bef19872fc2ebd7d888`,
 including the merged workflow-contract refactor and application version 0.1.2.
-PR #36 remains draft and unmerged. Langfuse M1–M3 code exists but local
-acceptance is pending. The management helper/CLI remains specified, not
-implemented; real workflow/context tracing remains deferred.
+PR #36 remains draft and unmerged. Langfuse M1–M3 and the management
+helper/CLI are implemented and independently checked. Live ingestion and Sharon's
+Mac/UI acceptance remain pending; real workflow/context tracing is deferred.
 
 The histories below retain their original revisions and earlier pending/merged
 wording. They are historical evidence, not the current state. Integration
-verification and the next implementation assignment are recorded in the
+verification and the approved conflict choices are in the
 [Stage 02 reconciliation record](stages/02-langfuse/main-reconciliation.md).
-Known SDK delivery/reporting findings remain open; a successful merge does not
-fix or verify those behaviors.
+The [follow-up resolution](stages/02-langfuse/resolution-2026-11-13.md) records
+the SDK/reporting fixes, current checks and live blocker.
 
 ## Historical progress and acceptance records
 
@@ -277,3 +277,7 @@ At application commit `4775cbea7b3b86dda76de015cbfd282e43df6cf9`, Q1 observes ea
 - `python3 designs/atlas/build.py --check` and `git diff --check`: **PASS** after the evidence and Atlas update.
 
 The existing public configuration guide already states that merge keys reject and source values are hidden; the new internal `StrictLoader` reason has no user-facing documentation impact. The refactor package, progress, Atlas and PR evidence are updated. No regression scenarios were removed, and maintained gates exclude `app/examples/`. The release artifact remains local and untracked. Python socket/DNS auditing does not provide an OS network sandbox; Linux results do not establish Mac/PyCharm behavior. Compatibility of older installed releases with the new YAML remains untested. Context/Langfuse, optional dependency packaging, children and recovery remain outside PR #40. Both PRs remain open for review.
+
+## PR #36 Langfuse review follow-up — 2026-11-13
+
+The draft branch implements the R1/R3 fixes, R4 factual status correction, optional management helper/CLI and newcomer guides. [Resolution evidence](stages/02-langfuse/resolution-2026-11-13.md) records 350 passing maintained tests and actual-SDK loopback regressions. An isolated Linux Docker start was stopped because its `vfs` driver consumed nearly all free workspace disk before the six services were created. Live ingestion/persistence and Sharon's Mac acceptance remain pending. No M4 or workflow instrumentation is included; PR #36 is unmerged.
