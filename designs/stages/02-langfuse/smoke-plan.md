@@ -5,7 +5,10 @@ Status: **DRAFT for milestone 3; no example has been implemented.**
 
 This file replaces the earlier test-first seed-script proposal. The main goal is
 for Sharon to see traces, edit the example and learn how changes appear in the UI.
-Automated integration verification remains separate.
+Automated integration verification remains separate. The implementing agent must
+first smoke-run the requested new example on its success and selected failure
+paths, following [the verification requirements](verification.md). This targeted
+manual run does not put examples in the automated application gate.
 
 ## Requested example
 

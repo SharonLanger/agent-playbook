@@ -18,7 +18,9 @@
     "designs/stages/02-langfuse/README.md",
     "designs/stages/02-langfuse/architecture.md",
     "designs/stages/02-langfuse/smoke-plan.md",
-    "designs/stages/02-langfuse/milestones.md"
+    "designs/stages/02-langfuse/milestones.md",
+    "designs/stages/02-langfuse/verification.md",
+    "designs/stages/02-langfuse/implementation-handoff.md"
   ],
   "views": {
     "current": {
@@ -2137,6 +2139,18 @@
               "path": "designs/stages/02-langfuse/README.md",
               "text": "Keep the existing review thread; split PRs only when overlap is checked.",
               "to": null
+            },
+            {
+              "name": "Agent verification",
+              "path": "designs/stages/02-langfuse/verification.md",
+              "text": "Run practical checks before handoff; distinguish PASS from blocked/unrun checks and leave simple UI acceptance to Sharon.",
+              "to": null
+            },
+            {
+              "name": "Implement M1 only",
+              "path": "designs/stages/02-langfuse/implementation-handoff.md",
+              "text": "Codex scope, setup guidance, verification and stop boundary; no implementation by this document.",
+              "to": null
             }
           ],
           "status": "exploration",
@@ -3920,6 +3934,16 @@
           "path": "designs/stages/02-langfuse/milestones.md",
           "status": "Draft stage proposal",
           "purpose": "Four explicit acceptance checkpoints; only real workflow integration waits for the refactor."
+        },
+        {
+          "path": "designs/stages/02-langfuse/verification.md",
+          "status": "Draft stage proposal",
+          "purpose": "Requested agent verification/handoff requirements; not evidence of implementation."
+        },
+        {
+          "path": "designs/stages/02-langfuse/implementation-handoff.md",
+          "status": "Draft stage proposal",
+          "purpose": "Requested agent verification/handoff requirements; not evidence of implementation."
         }
       ]
     }

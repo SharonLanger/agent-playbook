@@ -1,7 +1,7 @@
 # Four milestones and their checkpoints
 
 Status: **Direction agreed; implementation details remain proposed.**
-[Review entry point](README.md)
+[Review entry point](README.md) · [Required agent verification](verification.md) · [M1 Codex brief](implementation-handoff.md)
 
 Current state: WF-01/02/03 run without Langfuse. PR #36 contains only this plan.
 The workflow refactor is separate work. Nothing below claims implementation or
@@ -18,8 +18,10 @@ integration or workflow changes are needed.
 **You try:** start it, open the UI, create an account/project and see an empty
 trace list. Stop/start it normally; the project still exists.
 
-**We check:** Compose configuration validation and a bounded service-readiness
-check. Opening a page is not proof of ingestion; that comes later.
+**We check:** quiet Compose validation and settings/pins/volumes sanity; actual
+stack startup, bounded readiness, a UI-page request and normal stop/start when
+supported. Record precisely what passed and any blocker. Opening a page is not
+proof of authentication, record persistence or ingestion; those need their own checks.
 
 **Gate:** the setup checks pass and Sharon confirms the empty UI/project works.
 Record the exact commands, versions and expected results in the implementation
@@ -34,9 +36,9 @@ module and an explicit standalone connection-check entry point. It loads
 configuration, checks reachability/authentication, reports safe results and exits.
 It does not emit traces, run a workflow or create context objects.
 
-**You try:** run the connection check with your project keys; see endpoint and
-authentication success. Point it at a stopped service or use an invalid key and
-see a clear failure. Restore valid settings afterward.
+**You try:** supply your local project keys and run the connection check once;
+see endpoint and authentication success. The agent checks invalid-key and stopped-
+service failures first; you need not repeat them unless local differences warrant it.
 
 **We check:** offline tests for valid/invalid settings, disabled mode with no
 keys/network, sanitized errors and connection-result handling; an explicitly
@@ -64,10 +66,12 @@ steps, inputs, outputs and durations. Change an input and rerun. Then choose a
 different step to fail and see that error in the UI. Repeat freely; previous runs
 remain available. Restart Langfuse and inspect an earlier trace.
 
-**We check:** the maintained integration has its own independent fixtures/tests.
-An optional explicit live integration test can read back a fixed trace/children,
-but it must not run or import the personal playground. A server read-back check
-does not replace Sharon seeing and understanding the UI.
+**We check:** the implementing agent smoke-runs the explicitly requested new
+playground with success and failures in add/multiply before delivery. Verify live
+observations when a service is available; report a blocked check honestly. This
+manual run is separate from maintained integration tests, whose fixtures live in
+app/tests and never run/import the playground. Read-back checks do not replace
+Sharon seeing and understanding the UI.
 
 **Gate:** Sharon can see successful and failed mock runs and deliberately change
 what appears. Application checks remain unaffected by edits to, or removal of,
@@ -95,6 +99,11 @@ before enabling export for real workflows. Retain independent offline tests.
 failure rules. Real agents are a later step, not part of this milestone.
 
 ## Working and merge agreement
+
+Complete the practical agent checks in [verification.md](verification.md) before
+handoff. Fix observed failures; distinguish passed checks from blocked/unrun checks.
+Leave simple local account/UI acceptance to Sharon instead of building expensive
+automation solely for a few clicks.
 
 At each checkpoint, provide: the exact revision to use, setup/run commands,
 expected visible output, automated results, and any known limitations. Sharon

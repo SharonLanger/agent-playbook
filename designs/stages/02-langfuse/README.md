@@ -8,6 +8,8 @@ This PR contains documentation only. No server, integration, context or playgrou
 Read [the four milestones and local checkpoints](milestones.md), then
 [configuration and ownership](architecture.md) and the
 [playground/manual exercise](smoke-plan.md).
+Implementing agents must follow [verification before handoff](verification.md).
+Use the [milestone 1 Codex brief](implementation-handoff.md) to start only M1.
 
 The goal is gradual, visible progress: first an empty working UI, then a connection
 check, then editable mock traces, and finally real workflow integration.
@@ -42,6 +44,11 @@ belong in `app/tests/` and must never import, inspect or execute the playground.
 Deleting examples must leave application checks and behavior unchanged. This
 documentation update does not access existing personal examples. Future work is
 limited to the explicitly requested Langfuse example, not the workflow examples.
+
+When implementing the requested playground, the agent must smoke-run its success
+and selected failure scenarios before delivery. This targeted manual verification
+is authorized for the new Langfuse example; it is not an automated application
+gate or permission to inspect other examples. See [verification.md](verification.md).
 
 The future CLI diagnostic feature is tracked in
 [issue #37 — doctor](https://github.com/SharonLanger/agent-playbook/issues/37).
