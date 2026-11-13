@@ -1,6 +1,6 @@
 # Workflow contract refactor
 
-Status: **Approved workflow-contract design. Implementation PR #40 is in review; the requested follow-up is implemented on the PR branch and full gate verified; installed-release verification pending.**
+Status: **Approved workflow-contract design. Implementation PR #40 is in review; the requested follow-up is implemented on the PR branch and full gate and installed release verified on the branch; pending review.**
 Updated: 2026-11-13. Source baseline: main at `a4264ac985005b6e9c104bf8a8c4c1f1492abfb1` (PR #35 merged; PR #34 runtime split preserved).
 
 ## Goal

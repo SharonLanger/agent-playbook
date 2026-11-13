@@ -1,6 +1,6 @@
 # Workflow contract review follow-up and test-gap plan
 
-Status: **Approved follow-up implemented on PR #40; full gate passed, current-release verification pending.**
+Status: **Approved follow-up implemented and verified on PR #40 at application commit `9f75544c`; pending review, unmerged.**
 Owner: next implementation agent on PR #40. Requested by Sharon on 2026-11-13.
 This file supplements the original [design](design.md), [test plan](test-plan.md) and [implementation plan](implementation-plan.md). It does not replace or weaken their acceptance requirements.
 
