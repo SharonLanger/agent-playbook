@@ -1,7 +1,9 @@
 # Stage 02 — Langfuse milestones
 
 Status: **Milestone direction agreed with Sharon on 2026-11-13; detailed implementation remains a draft for review.**
-This PR contains documentation only. No server, integration, context or playground is implemented here.
+Milestone 1 is implemented on PR #36 and awaits Sharon's local acceptance; see
+[findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
+Milestones 2–4 remain unimplemented.
 
 ## Start here
 
@@ -69,8 +71,8 @@ logical changes to guarded documents before implementation and register a newly
 approved stage baseline when approved. Milestone 4 must use the actual merged
 workflow design, including its lifecycle rules, rather than infer them here.
 
-Navigation and Atlas proposal summaries are updated; no Current implementation is
-claimed. Official `app/docs/` needs no change in this documentation-only PR.
+Navigation and Atlas distinguish the pending PR from accepted Current implementation.
+Official `app/docs/langfuse-local.md` documents the implemented local deployment.
 Each implementation checkpoint must provide maintained setup/configuration or
 troubleshooting guidance for the supported behavior; the personal playground has
 its own learning README when created.

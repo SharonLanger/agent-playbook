@@ -25,3 +25,36 @@ Checks used a copied Compose file, disposable generated credentials, project `ag
 | Account/project creation and persistence | NOT RUN | Sharon's short UI acceptance exercise. Authentication and trace ingestion are unverified. |
 
 Normal stop from the repository root is `docker compose --env-file app/tooling/observability/.env -f app/tooling/observability/compose.yaml down`; `down -v` deletes data and is not the normal operation. Linux verification cannot establish Mac Docker Desktop resource allocation or browser behavior.
+
+## Setup usability review — documentation follow-up
+
+Reviewed PR head `74c3f11` after Sharon requested easier Docker operation,
+configurability and removal. The public guide now uses the deployment folder's
+short Compose commands and explains installation prerequisites, files, start,
+stop, restart versus configuration changes, data location and removal boundaries.
+No custom Dockerfile is needed because every service uses a prebuilt image.
+The stage README's stale documentation-only status is corrected.
+
+Static review confirms the deployment's isolation from application code in the
+PR diff and the one-time setup's exclusive-create behavior. Configurability is
+not complete: the MinIO host port is hard-coded to 9090. The implementation brief
+records the specific remaining change and lifecycle checks for Codex; this
+follow-up deliberately changes documentation only, preserving Sharon's division
+between design/review and the implementing agent.
+
+Governance/impact: this follows the existing tooling/docs ownership and principles
+2, 5, 6, 8, 10 and 14; no guarded contract, component boundary or runtime code is
+changed. Existing earlier principle assessment still applies. Public documentation
+is updated in place; Atlas generated fingerprints must be refreshed for changed
+sources, without promoting pending implementation to accepted Current. Progress's
+M1 pending-acceptance status remains accurate, so no separate progress edit is
+needed. The architecture proposal's M2–M4 boundaries are unchanged.
+
+Verification for this documentation follow-up: local isolated setup executed twice
+with bytes/permissions checked; 22 relative Markdown links, code fences and whitespace checks passed; Atlas
+build and `--check` passed. No application code changed, so the application
+quality gate was not rerun for this documentation-only update. Docker commands could not be
+rerun here: `docker compose version` and `docker info` both fail with
+`docker: command not found`. Earlier Linux runtime evidence above is retained as
+prior-agent evidence, not claimed as a new live test. Mac startup and actual
+project persistence remain local acceptance checks.

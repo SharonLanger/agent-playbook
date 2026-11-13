@@ -69,3 +69,37 @@ than overwrite or silently choose a different integration target.
 Report the milestone's verification status, exact checkout/run/stop commands,
 expected URL/UI result and any remaining limitation. Leave Sharon only the short
 manual acceptance exercise; do not mark it completed on his behalf.
+
+## Follow-up: simple operation and replaceability
+
+M1 is now implemented on PR #36; inspect the latest branch and findings before
+working. Sharon's follow-up requests easy install/start/stop/rerun and externally
+configurable, removable deployment. The official guide is
+`app/docs/langfuse-local.md`; retain that existing canonical file rather than
+create a competing `langfuse.md`.
+
+Use the guide's short native Compose commands from the deployment folder. Do not
+add a custom Dockerfile or wrapper framework just to wrap `up`, `down` and `ps`.
+The existing prebuilt images and Compose already supply those operations.
+
+The remaining implementation gap is the hard-coded MinIO host port. Expose it as
+one external setting (default 9090), applying it consistently to the host binding
+and the web browser's media endpoint. Keep container-internal endpoints on the
+service network. Update the template, first-time settings generation and official
+guide together; preserve existing `.env` files and default old configurations
+correctly. Keep image pins explicit and reviewed; do not use floating versions
+merely to make them configurable.
+
+Verify first setup, repeated setup without overwriting secrets, repeated start,
+normal stop/start, restart, and applying a UI/storage-port change with `up -d`.
+Check that both published ports stay on loopback and use an isolated verification
+project. If possible on the available platform, check image architecture support
+for Sharon's Mac; report Linux-only testing honestly. Confirm normal application
+checks require neither Docker nor this stack. Keep the existing CLI, bootstrap,
+workflow/context and Python dependency graph unchanged in this follow-up.
+
+Disabling/removing local deployment must leave application execution intact;
+ordinary stop never deletes stored data. Later SDK/configuration milestones must
+keep endpoint/credentials external and a disabled mode without network access.
+Do not implement those later milestones in this follow-up. These instructions
+record requested work, not evidence that the port change or Mac check has run.
