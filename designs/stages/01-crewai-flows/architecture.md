@@ -30,10 +30,16 @@ These are the approved contracts; implementation and verification are linked fro
 | Release launcher | Select a completed installation and forward explicitly supplied workflow arguments unchanged as argv entries | All workflows |
 | Tooling | Pin/setup dependencies, gate, build and verify releases | Development only |
 
-Use a small explicit selection function (three branches is sufficient). No dynamic plugins,
-workflow base-class hierarchy, container, global utility bucket or generic execution engine.
-CrewAI already owns scheduling. A tiny RunResult gives the CLI a stable presentation boundary;
-do not build a generic event/result schema before Stage 02 needs one.
+The original Stage 01 implementation used a small explicit selection function (three branches).
+On 2026-11-13 Sharon authorized a narrow successor design using a workflow ABC and explicit
+implementation registry; see [workflow contract refactor](../../refactors/workflow-contract/README.md).
+That wrapper owns preparation, execution through kickoff, output validation/serialization and
+shared call-order status checks. CrewAI retains step scheduling, routing and business state.
+No dynamic plugins, container, global utility bucket or generic execution engine are introduced.
+The successor is implemented on PR #40, reviewed at b3d279b, and not yet accepted or merged.
+Its [review follow-up](../../refactors/workflow-contract/review-follow-up.md) requires lazy
+imports, constructor/diagnostic corrections and test completion. The contracts below remain
+the historical Stage 01 baseline; current successor behavior is specified in the refactor package.
 
 ## Run contract
 

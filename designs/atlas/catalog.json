@@ -1,5 +1,5 @@
 {
-  "snapshot": "main 96cb1f8: PR #34 accepted and merged; PR #35 governance and review-helper removal approved, merge pending",
+  "snapshot": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -14,7 +14,14 @@
     "designs/governance/guarded-files.md",
     "designs/explorations/README.md",
     "designs/explorations/agent-execution/architecture-notes.md",
-    "designs/explorations/agent-execution/candidate-file-structure.md"
+    "designs/explorations/agent-execution/candidate-file-structure.md",
+    "designs/refactors/workflow-contract/README.md",
+    "designs/refactors/workflow-contract/design.md",
+    "designs/refactors/workflow-contract/file-structure.md",
+    "designs/refactors/workflow-contract/test-plan.md",
+    "designs/refactors/workflow-contract/implementation-plan.md",
+    "designs/refactors/workflow-contract/review-follow-up.md",
+    "designs/refactors/workflow-contract/review-test-quality.md"
   ],
   "views": {
     "current": {
@@ -53,7 +60,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
           "diagram": null
         },
         "design": {
@@ -86,11 +93,17 @@
               "path": "designs/explorations/README.md",
               "text": "Optional prior reasoning, not accepted commitments.",
               "to": null
+            },
+            {
+              "name": "Workflow contract and follow-up",
+              "path": "designs/refactors/workflow-contract/README.md",
+              "text": "Approved ABC/YAML contract; I-1–I-4 implemented on unmerged PR #40. Four test-quality gaps and exact next-agent fixes.",
+              "to": null
             }
           ],
           "status": "approved-design",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
           "diagram": null
         },
         "app": {
@@ -139,7 +152,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
           "diagram": null
         },
         "src": {
@@ -188,7 +201,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
           "diagram": null
         },
         "application": {
@@ -225,7 +238,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
           "diagram": null
         },
         "workflows": {
@@ -250,7 +263,7 @@
           ],
           "status": "implemented",
           "source": "designs/stages/01-crewai-flows/architecture.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
           "diagram": null
         },
         "config": {
@@ -275,7 +288,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
           "diagram": null
         },
         "release": {
@@ -300,7 +313,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
           "diagram": null
         },
         "tooling": {
@@ -325,7 +338,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
           "diagram": null
         },
         "tests": {
@@ -344,7 +357,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
           "diagram": null
         },
         "integrations": {
@@ -369,7 +382,7 @@
           ],
           "status": "approved-design",
           "source": "designs/architecture.md",
-          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at f61683c, with Q1–Q4 test-quality corrections pending.",
           "diagram": null
         }
       },
@@ -1318,6 +1331,41 @@
           "path": "designs/stages/01-crewai-flows/workflows/wf-03-conditional-route.md",
           "status": "Current snapshot",
           "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/README.md",
+          "status": "Approved design — implementation PR #40 in review",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/design.md",
+          "status": "Approved design — implementation PR #40 in review",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/file-structure.md",
+          "status": "Approved design — implementation PR #40 in review",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/test-plan.md",
+          "status": "Approved design — implementation PR #40 in review",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/implementation-plan.md",
+          "status": "Approved design — implementation PR #40 in review",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/review-follow-up.md",
+          "status": "I-1–I-4 implemented on PR #40; test evidence under review",
+          "purpose": "Original review history and A1–F6 acceptance matrix; see Q1–Q4 handoff for current fixes."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/review-test-quality.md",
+          "status": "Requested corrections — implementation pending",
+          "purpose": "Second-review evidence and exact Q1–Q4 test fixes, negative controls and next-agent handoff."
         }
       ]
     },
@@ -1355,7 +1403,7 @@
               "to": null
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. These blocks describe one repository. They are not separate deployed services.",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. These blocks describe one repository. They are not separate deployed services.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1392,7 +1440,7 @@
               "to": null
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1447,7 +1495,7 @@
               "to": "release"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1514,7 +1562,7 @@
               "to": "release"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": "01-source",
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1551,7 +1599,7 @@
               "to": null
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1572,7 +1620,7 @@
             {
               "name": "Code review flow",
               "path": "app/src/agent_playbook/workflows/wf_code_review/flow.py",
-              "text": "Future coder \u2192 reviewer \u2192 report, with bounded revision routing.",
+              "text": "Future coder → reviewer → report, with bounded revision routing.",
               "to": null
             },
             {
@@ -1600,7 +1648,7 @@
               "to": "agents"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1637,7 +1685,7 @@
               "to": "execution"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1652,7 +1700,7 @@
             {
               "name": "Task orchestration",
               "path": "app/src/agent_playbook/agents/reviewer/agent.py",
-              "text": "Input \u2192 request \u2192 event consumption \u2192 validated ReviewResult.",
+              "text": "Input → request → event consumption → validated ReviewResult.",
               "to": null
             },
             {
@@ -1686,7 +1734,7 @@
               "to": null
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. This reviewer layout is also the template for coder and verifier. A role need not create every file before it has relevant behavior.",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. This reviewer layout is also the template for coder and verifier. A role need not create every file before it has relevant behavior.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1729,7 +1777,7 @@
               "to": "harness"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": "02-execution",
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1762,11 +1810,11 @@
             {
               "name": "Event mapping",
               "path": "app/src/agent_playbook/execution/adapters/<provider>/event_mapper.py",
-              "text": "Native messages \u2192 canonical typed events.",
+              "text": "Native messages → canonical typed events.",
               "to": "events"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. Select the Codex transport during its SDK experiment. TypeScript SDK events and app-server notifications are different protocols. A role never selects native message classes.",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. Select the Codex transport during its SDK experiment. TypeScript SDK events and app-server notifications are different protocols. A role never selects native message classes.",
           "diagram": "03-events",
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1815,7 +1863,7 @@
               "to": "observability"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": "03-events",
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1858,7 +1906,7 @@
               "to": null
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. Traces are evidence. They are not the workflow state store or a durable recovery mechanism.",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. Traces are evidence. They are not the workflow state store or a durable recovery mechanism.",
           "diagram": "04-observability",
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1895,7 +1943,7 @@
               "to": "adapters"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. app/tooling/checks.py serves developer maintenance. Installed runtime tools should not import checkout-only tooling.",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. app/tooling/checks.py serves developer maintenance. Installed runtime tools should not import checkout-only tooling.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1932,7 +1980,7 @@
               "to": "tools"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1975,7 +2023,7 @@
               "to": "tools"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -2012,7 +2060,7 @@
               "to": "application"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -2049,7 +2097,7 @@
               "to": null
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": "05-release",
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -2092,7 +2140,7 @@
               "to": null
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -3859,27 +3907,27 @@
   },
   "diagrams": {
     "05-release": {
-      "title": "05 \u00b7 Build and launch are different",
+      "title": "05 · Build and launch are different",
       "static": "diagrams/05-release.svg",
       "animated": "diagrams/05-release.animated.svg"
     },
     "04-observability": {
-      "title": "04 \u00b7 Observability is a projection",
+      "title": "04 · Observability is a projection",
       "static": "diagrams/04-observability.svg",
       "animated": "diagrams/04-observability.animated.svg"
     },
     "02-execution": {
-      "title": "02 \u00b7 Inside execution",
+      "title": "02 · Inside execution",
       "static": "diagrams/02-execution.svg",
       "animated": "diagrams/02-execution.animated.svg"
     },
     "01-source": {
-      "title": "01 \u00b7 Runtime ownership",
+      "title": "01 · Runtime ownership",
       "static": "diagrams/01-source.svg",
       "animated": "diagrams/01-source.animated.svg"
     },
     "03-events": {
-      "title": "03 \u00b7 Native messages to shared events",
+      "title": "03 · Native messages to shared events",
       "static": "diagrams/03-events.svg",
       "animated": "diagrams/03-events.animated.svg"
     }

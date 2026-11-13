@@ -66,3 +66,30 @@ Current implementation snapshot: main `96cb1f8`, merging accepted PR #34. Runtim
 PR #35 reconciles these facts with the approved guarded governance and permanent Atlas. All existing stage files remain unchanged and protected. Personal examples remain outside unrequested agent work. The deleted internal public-doc review guide and temporary handoff stay deleted; Sharon also authorized removing the temporary review helper and PyCharm task. Application tests and normal quality checks remain.
 
 Stage 02 Langfuse design/research may proceed; implementation requires its approved stage design. Role/event/adapter/harness details remain optional explorations. PR #35 is unmerged pending Sharon's review.
+
+## Workflow contract refactor design — 2026-11-13
+
+Main was read at `a4264ac985005b6e9c104bf8a8c4c1f1492abfb1`, the merge of PR #35; the older unmerged wording above is retained as historical review context. The runtime still has the PR #34 direct-flow factory/runner.
+
+Sharon requested the [workflow contract design package](refactors/workflow-contract/README.md) before Langfuse integration: final public ABC lifecycle methods with abstract hooks, per-instance status, explicit error phases, stable implementation registry and selected YAML validation. He authorized the narrow Stage 01 base-class restriction update. Other guarded changes are enumerated for final review in the implementation plan.
+
+This update contains documentation and generated Atlas navigation only. Application code, tests, dependencies, configuration and releases are unchanged. No runtime verification result is claimed for the proposed refactor. Implementation remains explicitly stopped pending Sharon's go-ahead. Context/Langfuse follows separately; child workflows and recovery are future feature requests.
+
+## Workflow-contract review follow-up — 2026-11-13
+
+PR #40 (feat/workflow-contract) implements the approved PR #38 contract and enumerated guarded changes. It was reviewed at b3d279b6826284cd9a0e1aba6f559525e8358f31. The reviewer independently reran the standard check: Pyright and Ruff lint/format passed; pytest reported 166 passed. Fourteen temporary additional probes passed but are not committed regression tests. Existing real workflow tests remain; planned coverage is incomplete. The reviewer did not rebuild the release independently; PR #40 contains the implementer's release evidence.
+
+The review reproduced eager unused-flow import failure, constructor WorkflowInputError misclassification and alias/type information missing from validation diagnostics. The import finding was qualified: the existing release smoke checks should catch that deterministic defect before a release is marked verified. Sharon nevertheless chose lazy dependency imports now, together with exhaustive built-in release verification, and asked for all test gaps and corrections to be handed to the next implementation agent.
+
+[review-follow-up.md](refactors/workflow-contract/review-follow-up.md) is the current task specification and evidence matrix. This commit changes documentation and Atlas only. PR #40 must incorporate the updated design branch and implement/verify the follow-up before the next review. Both PRs remain unmerged. Context/Langfuse, children, recovery and optional-package installation profiles remain separate. Earlier initial-stop statements above are retained as dated history, not current authorization status.
+
+
+## Workflow-contract second review and test-quality handoff — 2026-11-13
+
+PR #40 at f61683c8e2a089b2dc4f008d193dd83618322adf incorporates design head 5d6a770 and implements I-1–I-4. The second independent review passed Pyright, Ruff lint/format, 314 tests and Atlas checks. A wheel rebuilt from the hash-checked application snapshot at 9f75544 matched the implementation agent's SHA-256 and passed isolated installed built-in/alias/failure verification. This reviewer check did not rerun the original Git clean-check/archive release entrypoint; PR #40 records that separate implementer evidence. No Mac/PyCharm or old-release/new-YAML compatibility claim is made; socket/DNS auditing covers Python attempts, not all OS networking.
+
+Four temporary in-memory probes showed ineffective assertions/fixtures: E3 does not observe early flow construction/kickoff; C6 inherits already-correct startup settings; D4 base YAML can reject an unrelated duplicate root workflows key; B2 replaces a hook with an exception object and accidentally raises TypeError. These are test-evidence gaps, not a finding that all four production behaviors are broken.
+
+Sharon requested another detailed Markdown handoff. [review-test-quality.md](refactors/workflow-contract/review-test-quality.md) specifies Q1–Q4 fixes, focused negative controls, replacement/consolidation rules, per-case evidence and next-agent instructions. This update adds the plan and reconciles status/navigation only. Runtime, tests, dependencies and public behavior are unchanged; no new application test/release run is claimed for this documentation update. The implementation agent must preserve the existing A1–F6 mapping and fill the new completion evidence on PR #40. Both PRs remain unmerged.
+
+Documentation verification: Atlas build and freshness/reference checks passed; 64 relative document links were checked against the repository inventory, with the existing historical-sandbox link left untraversed. Changed files passed a trailing-whitespace check. This is documentation evidence only.

@@ -25,6 +25,18 @@ Status: **GUARDED.** The existing protection set is preserved; additions below w
 
 Stage 00 architecture/plan still have old proposed-status wording. Progress records later approval/acceptance; that inconsistency does not make them editable without approval. They are not rewritten by this PR. Stage 01 README identifies architecture, file structure, plan and workflow contracts as approved baselines. Their protection and historical material remain intact.
 
+## Approved workflow-contract baseline
+
+- `designs/refactors/workflow-contract/README.md`
+- `designs/refactors/workflow-contract/design.md`
+- `designs/refactors/workflow-contract/file-structure.md`
+- `designs/refactors/workflow-contract/test-plan.md`
+- `designs/refactors/workflow-contract/implementation-plan.md`
+- `designs/refactors/workflow-contract/review-follow-up.md`
+- `designs/refactors/workflow-contract/review-test-quality.md` — requested second-review test corrections; no new runtime architecture.
+
+Sharon approved this design and the enumerated guarded changes for PR #40. On 2026-11-13 he requested the review follow-up: lazy dependency imports now, constructor and diagnostic corrections, and completion of the agreed test plan. After the second review of f61683c, Sharon requested another detailed handoff for Q1–Q4 and replacement of ineffective tests where coverage is preserved. The added file and companion status/navigation corrections clarify existing acceptance; they do not change runtime contracts. These approval records do not authorize merging either PR or adding deferred features.
+
 ## Rules beyond the list
 
 Any other document or portion explicitly approved, locked or guarded remains protected, including future stage baselines. Approved behavioral contracts represented in diagrams or copied into instructions retain protection. A rename, generated view, omission from this register or obsolete status heading never removes it.
