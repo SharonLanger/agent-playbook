@@ -12,8 +12,11 @@ Latest: [the four review findings](review-2026-11-13.md) and the
 [proposed single-branch verification plan](verification-simplification-plan.md).
 The review found a trace-delivery defect, misleading export-success reporting,
 main integration conflicts and stale design status. The new plan proposes one
-combined manual exercise and simpler start/stop commands; it awaits Sharon's
-agreement. No fixes, helper implementation or main conflict resolutions have
+combined manual exercise and simpler start/stop commands. Sharon agreed with
+the Docker usability direction and requested a complete newcomer setup guide,
+explicit installation/version requirements and management scripts. Those
+requirements are recorded in the plan; implementation remains paused for joint
+main-conflict decisions. No fixes, helper implementation or conflict resolutions have
 been applied by this documentation update. Earlier checkpoint instructions below
 remain historical context; do not treat M3 as ready for acceptance until the
 delivery findings are resolved.

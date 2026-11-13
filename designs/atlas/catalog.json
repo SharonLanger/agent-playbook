@@ -2215,13 +2215,13 @@
             {
               "name": "Simpler verification proposal",
               "path": "designs/stages/02-langfuse/verification-simplification-plan.md",
-              "text": "Agree first; reconcile main together, fix delivery, simplify operation and verify one final branch revision.",
+              "text": "Docker usability direction agreed; newcomer prerequisites, versions, guides and management scripts specified. Resolve main conflicts together before implementation.",
               "to": null
             }
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "PR #36 is unmerged and unaccepted. Four review findings are open. The proposed combined verification/helper plan awaits Sharon agreement; workflow/context integration remains deferred.",
+          "note": "PR #36 is unmerged and unaccepted. Four review findings remain open. Docker usability direction is agreed; newcomer setup/scripts are specified, with implementation paused for joint main-conflict decisions. Workflow/context integration remains deferred.",
           "diagram": null
         }
       },
@@ -4028,8 +4028,8 @@
         },
         {
           "path": "designs/stages/02-langfuse/verification-simplification-plan.md",
-          "status": "Proposal awaiting agreement",
-          "purpose": "Agree first; reconcile main together, fix delivery, simplify operation and verify one final branch revision."
+          "status": "Docker direction agreed; implementation pending",
+          "purpose": "Newcomer setup, version evidence, simple management scripts and one final-revision exercise; joint main-conflict decisions first."
         }
       ]
     }

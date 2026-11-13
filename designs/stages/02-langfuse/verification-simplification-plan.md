@@ -1,6 +1,6 @@
 # Proposal: verify the current Langfuse branch in one pass
 
-Status: **PROPOSED — awaiting Sharon's agreement. Do not execute this plan yet.**
+Status: **Docker usability direction agreed; newcomer requirements requested. Implementation details remain reviewable and execution is paused for joint conflict decisions.**
 
 [Review: four open findings](review-2026-11-13.md) · [Stage entry](README.md)
 
@@ -20,8 +20,13 @@ judge the trace UI. Real CrewAI workflow/context integration remains a separate,
 later change; its prerequisite refactor is now on main. No Claude/Codex runtime,
 general log platform or full CLI doctor is introduced by this plan.
 
-Saving this proposal and the review is authorized. Updating the branch, resolving
-conflicts and implementing the helper/fixes await agreement on this plan.
+Sharon agreed with the simple Docker start/stop and verification direction, then
+requested explicit newcomer documentation, installation/version requirements
+and the scripts needed to make setup easy. This update records those requirements
+only. The main update remains the first execution step, with conflict choices
+discussed before any resolutions. No script implementation or conflict resolution
+is authorized to bypass that discussion. Wider trace-delivery follow-up remains
+as proposed below; Docker-only verification comes first in the manual exercise.
 
 ## Execution order after agreement
 
@@ -99,6 +104,68 @@ The helper delegates to Compose; it is not a new deployment framework, CLI docto
 or application startup hook. Agent Playbook must still run while Langfuse is
 stopped. Choosing a hosted endpoint later remains an application configuration
 change; this local helper stays optional.
+
+#### Newcomer setup documentation and script requirements
+
+Deliver a complete first-use path alongside the helper, not just an internal
+design or a Drive checklist. Use the existing guides instead of creating a
+second competing installation manual:
+
+| File | Required implementation-time change |
+|---|---|
+| `README.md` and `app/README.md` | Link the optional local Langfuse setup from the application setup section. Explain that Docker is needed for local Langfuse, not ordinary workflow execution or a hosted Langfuse endpoint. |
+| `app/docs/langfuse-local.md` | Canonical newcomer guide: prerequisites/downloads, version table, first launch, ready-state output, account/project creation, everyday commands, configuration, persistent data and troubleshooting. |
+| `app/docs/README.md` and `app/docs/troubleshooting.md` | Make setup discoverable and link actionable Docker/Langfuse troubleshooting to the canonical guide. |
+| `app/tooling/observability/README.md` | Explain the management helper and existing `setup.py`/Compose ownership; link the public guide rather than duplicate the full procedure. |
+| `app/docs/langfuse-connection.md` | Continue from a working UI to application bootstrap, project keys and connection verification, then point to the separately requested trace exercise. |
+
+The beginner sequence must say exactly what to install, where to download it,
+which directory to run commands from, the command to run, expected output, and
+what to do if that step fails. Include Apple silicon versus Intel selection,
+supported macOS requirements, first Docker Desktop launch/permissions, a stated
+resource budget, and first-start image-download/network/disk requirements.
+Distinguish Docker being installed from its engine being ready; the missing
+Docker socket in Sharon's screenshot is a case the guide/helper must explain.
+Do not require a separate local PostgreSQL, ClickHouse, Redis or MinIO install.
+
+Record versions precisely without inventing compatibility evidence:
+
+| Component | Design input and publication rule |
+|---|---|
+| Docker Desktop for Mac | Official release notes checked 2026-11-13 list **4.99.0**, released 2026-11-09. This is a candidate installation baseline, **not a project-tested Mac version**. Before the final guide, recheck availability and record the version actually used for the acceptance exercise. |
+| Bundled Docker Engine / Compose plugin | That Desktop release lists **Engine 29.9.3** and **Compose 5.7.0**. Use the bundled `docker compose` plugin; no separate legacy `docker-compose` install. Record actual detected versions and test results. Earlier Linux Engine 29.9.2 / Compose 2.40.3 evidence does not establish Mac support. |
+| Host Python and application tools | Keep the helper standard-library-only and compatible with the existing bootstrap prerequisite, Python 3.10+. The application itself currently requires Python 3.13 and pins uv 0.13.6; use the existing bootstrap to provision its environment. Starting the UI must not require installing CrewAI or the Langfuse Python SDK. Reconfirm these values after integrating main. |
+| Langfuse and storage images | Link to the exact versions/digest in the checked-out `compose.yaml`; keep them pinned. The helper must not silently upgrade the stack or use floating `latest` images. |
+
+In the final public version table, distinguish a **tested combination**, a
+**candidate awaiting platform verification**, and a **minimum requirement**.
+Only claim a minimum if supported by the helper's actual features and checks.
+Do not force an upgrade/downgrade of an existing working Docker installation
+solely to match the candidate above. Refresh download/version links before
+handoff; report a still-unverified Mac combination honestly.
+
+The management script is a required deliverable, not a set of commands left for
+newcomers to assemble. Keep one implementation for `start`, `stop`, `status` and
+`logs`, with `--help` explaining each action and nonzero exits for operational
+failures. `start` reuses the existing secret initializer and handles first use
+and later runs. It may launch installed Docker Desktop on Mac, but must never
+download/install Docker or change global Docker settings automatically. Do not
+make the ordinary application bootstrap start Langfuse implicitly. Additional
+thin launchers are justified only if needed for a verified platform; avoid a
+collection of scripts with duplicated lifecycle logic.
+
+Require a fresh-checkout walkthrough before handoff: no existing generated
+deployment `.env`, no project keys for UI-only startup, explicit prerequisites,
+and the documented single start command. Also verify an existing M1 installation
+keeps its private settings, project identity and volumes. Repeated start, stop
+when already stopped, and start after stop must be safe. Leave account/project
+clicks and final Mac UI acceptance to Sharon; report any agent-side live blocker.
+
+Official references checked for this documentation proposal:
+[Docker Mac installation](https://docs.docker.com/desktop/setup/install/mac-install/),
+[Docker Desktop 4.99.0 release notes](https://docs.docker.com/desktop/release-notes/#4990),
+and [Langfuse local Compose deployment](https://langfuse.com/self-hosting/deployment/docker-compose).
+These are upstream requirements/release evidence, not project acceptance results.
 
 ### 4. Agent verification and documentation before handoff
 

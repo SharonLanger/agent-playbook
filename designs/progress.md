@@ -139,3 +139,23 @@ Documentation-only verification: Atlas build/freshness/reference checks passed;
 scope passed. Hash comparison confirmed other copied source files unchanged.
 Application tests were not rerun for this documentation-only update; the 133-test
 result above belongs to the independent review of `5bfcb889`.
+
+
+## Langfuse newcomer setup requirements — 2026-11-13
+
+Sharon agreed with the simple Docker operation/verification direction and asked
+for the design to include complete newcomer installation guidance and the needed
+management scripts. The [follow-up plan](stages/02-langfuse/verification-simplification-plan.md)
+now assigns public-guide updates, a first-use walkthrough, exact version/evidence
+labels, prerequisite checks, repeated-start/stop behavior, helpful failures and
+existing-installation preservation. Official Docker/Langfuse references were
+checked; Docker Desktop 4.99.0 is recorded as a candidate, not a tested Mac result.
+
+This change documents the requested requirements and updates navigation/Atlas.
+No application or script implementation, main merge, conflict resolution or
+public supported-command change was made. Official guides will be updated with
+working commands alongside implementation; currently proposed commands remain
+explicitly labeled in the design. Main integration with conflict choices agreed
+with Sharon is still the first execution step. All four review findings remain
+open. Existing charter, ownership, secrets, sandbox and evidence rules apply; no
+guarded baseline or broader event/harness design changes.
