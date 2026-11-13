@@ -66,3 +66,11 @@ Current implementation snapshot: main `96cb1f8`, merging accepted PR #34. Runtim
 PR #35 reconciles these facts with the approved guarded governance and permanent Atlas. All existing stage files remain unchanged and protected. Personal examples remain outside unrequested agent work. The deleted internal public-doc review guide and temporary handoff stay deleted; Sharon also authorized removing the temporary review helper and PyCharm task. Application tests and normal quality checks remain.
 
 Stage 02 Langfuse design/research may proceed; implementation requires its approved stage design. Role/event/adapter/harness details remain optional explorations. PR #35 is unmerged pending Sharon's review.
+
+## Workflow contract refactor design — 2026-11-13
+
+Main was read at `a4264ac985005b6e9c104bf8a8c4c1f1492abfb1`, the merge of PR #35; the older unmerged wording above is retained as historical review context. The runtime still has the PR #34 direct-flow factory/runner.
+
+Sharon requested the [workflow contract design package](refactors/workflow-contract/README.md) before Langfuse integration: final public ABC lifecycle methods with abstract hooks, per-instance status, explicit error phases, stable implementation registry and selected YAML validation. He authorized the narrow Stage 01 base-class restriction update. Other guarded changes are enumerated for final review in the implementation plan.
+
+This update contains documentation and generated Atlas navigation only. Application code, tests, dependencies, configuration and releases are unchanged. No runtime verification result is claimed for the proposed refactor. Implementation remains explicitly stopped pending Sharon's go-ahead. Context/Langfuse follows separately; child workflows and recovery are future feature requests.
