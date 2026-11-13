@@ -93,6 +93,8 @@ tests. The follow-up changes no Python dependency or workflow behavior.
 
 ## M2 project connection — 2026-11-13
 
+Tested implementation commit: `2278ee9c5742d78076f56fb64116abbadc01111b`.
+
 Sharon authorized M2 while M1 Mac acceptance remains pending. The guarded
 charter, architecture, principles and project structure require local-first
 configuration, isolated provider details and evidence. The observability
