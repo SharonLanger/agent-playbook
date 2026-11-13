@@ -1,7 +1,8 @@
 # Runtime configuration
 
 Reusable runtime boundary for path selection, YAML loading, validation and CrewAI
-startup settings. The application runner loads configuration before importing flows.
+startup settings and disabled-by-default Langfuse project settings. The
+application runner loads configuration before importing flows.
 Workflow rules remain owned by their named workflows.
 
 See [configuration rules and examples](../../../docs/configuration.md) and

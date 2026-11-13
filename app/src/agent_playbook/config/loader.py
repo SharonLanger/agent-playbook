@@ -2,6 +2,7 @@
 
 import os
 from pathlib import Path
+from typing import cast
 
 import yaml
 from pydantic import TypeAdapter, ValidationError
@@ -15,6 +16,11 @@ _OVERRIDES = {
     "usage_telemetry_enabled": "AGENT_PLAYBOOK_CREWAI_USAGE_TELEMETRY_ENABLED",
     "tracing_enabled": "AGENT_PLAYBOOK_CREWAI_TRACING_ENABLED",
     "show_framework_events": "AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS",
+}
+_LANGFUSE_OVERRIDES = {
+    "enabled": "AGENT_PLAYBOOK_LANGFUSE_ENABLED",
+    "base_url": "AGENT_PLAYBOOK_LANGFUSE_BASE_URL",
+    "environment": "AGENT_PLAYBOOK_LANGFUSE_ENVIRONMENT",
 }
 
 
@@ -77,6 +83,34 @@ def load_configuration(path: str | None = None) -> ApplicationSettings:
                     )
                 crewai[field] = _boolean(os.environ[name], name)
         integration["crewai"] = crewai
+        empty: dict[str, object] = {}
+        langfuse = _mapping(integration.get("langfuse", empty))
+        for field, variable in _LANGFUSE_OVERRIDES.items():
+            if variable in os.environ:
+                langfuse[field] = (
+                    _boolean(os.environ[variable], variable)
+                    if field == "enabled"
+                    else os.environ[variable]
+                )
+        for field in ("public_key", "secret_key"):
+            if field not in langfuse:
+                continue
+            reference = langfuse[field]
+            if not isinstance(reference, dict):
+                raise ConfigurationError(f"Invalid Langfuse {field} reference.")
+            parsed = _mapping(cast(object, reference))
+            name = parsed.get("env")
+            if set(parsed) != {"env"} or not isinstance(name, str) or not name:
+                raise ConfigurationError(f"Invalid Langfuse {field} reference.")
+            if langfuse.get("enabled", False):
+                if name not in os.environ or not os.environ[name]:
+                    raise ConfigurationError(
+                        f"Required Langfuse {field} environment variable is missing."
+                    )
+                langfuse[field] = os.environ[name]
+            else:
+                langfuse[field] = None
+        integration["langfuse"] = langfuse
         data["integrations"] = integration
         return ApplicationSettings.model_validate(data)
     except ValidationError as error:

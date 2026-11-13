@@ -331,6 +331,12 @@
               "to": null
             },
             {
+              "name": "Langfuse connection check (M2 on PR #36)",
+              "path": "app/tooling/observability/check_connection.py",
+              "text": "Explicit project authentication; pending Sharon acceptance.",
+              "to": null
+            },
+            {
               "name": "Generated artifacts",
               "path": "app/dist/",
               "text": "Generated releases, not the runtime releases package.",
@@ -377,7 +383,7 @@
             {
               "name": "Observability boundary",
               "path": "app/src/agent_playbook/observability/",
-              "text": "Initial Langfuse tracing is approved; integration is future work.",
+              "text": "Langfuse project connection is implemented on pending PR #36; workflow trace export remains future work.",
               "to": null
             }
           ],
@@ -1332,6 +1338,21 @@
           "path": "designs/stages/01-crewai-flows/workflows/wf-03-conditional-route.md",
           "status": "Current snapshot",
           "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+        },
+        {
+          "path": "app/docs/langfuse-connection.md",
+          "status": "PR #36 pending",
+          "purpose": "Official M2 connection instructions."
+        },
+        {
+          "path": "app/tooling/observability/check_connection.py",
+          "status": "PR #36 pending",
+          "purpose": "Explicit read-only M2 checker."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/adapters/langfuse/connection.py",
+          "status": "PR #36 pending",
+          "purpose": "Langfuse SDK project authentication adapter."
         }
       ]
     },
@@ -2175,7 +2196,7 @@
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "M1 local deployment exists on PR #36; local acceptance is pending. M2/M3 handoff is authorized but unimplemented. M4 remains deferred.",
+          "note": "M1 and M2 are implemented on PR #36 and await Sharon acceptance. M3 remains planned; M4 depends on the workflow refactor.",
           "diagram": null
         }
       },

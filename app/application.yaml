@@ -3,3 +3,9 @@ integrations:
     usage_telemetry_enabled: false
     tracing_enabled: false
     show_framework_events: false
+  langfuse:
+    enabled: false
+    base_url: http://localhost:3000
+    environment: local
+    public_key: {env: LANGFUSE_PUBLIC_KEY}
+    secret_key: {env: LANGFUSE_SECRET_KEY}

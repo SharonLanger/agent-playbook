@@ -66,6 +66,15 @@ file. Default startup rejects a detected old override instead of silently ignori
 No files are overwritten or migrated automatically. Explicit configuration selectors
 still take precedence; update any scripts or IDE parameters that use the old path.
 
+## Langfuse settings
+
+Langfuse project connection settings are documented in the
+[explicit connection guide](langfuse-connection.md). They are disabled by default
+and do not instrument workflows. Older YAML files without a Langfuse block still
+load with this integration disabled. Project keys are resolved from named
+environment variables only when enabled; they are separate from Docker's local
+service secrets.
+
 ## CrewAI settings
 
 All three fields are required in the merged configuration; no duplicate defaults

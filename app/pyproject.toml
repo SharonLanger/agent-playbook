@@ -5,6 +5,8 @@ description = "Incremental agent orchestration learning sandbox"
 requires-python = ">=3.13,<3.14"
 dependencies = [
     "crewai==1.15.40",
+    "httpx==0.28.1",
+    "langfuse==5.2.0",
     "pydantic==2.12.5",
     "pyyaml==6.0.3",
 ]

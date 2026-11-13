@@ -90,3 +90,11 @@ integration, playground, workflow or context change is included.
 ## Stage 02 next implementation assignment
 
 On 2026-11-13 Sharon requested [M2/M3 implementation instructions](stages/02-langfuse/connection-playground-handoff.md) for Codex to work while his M1 local check is pending. M2 connects/authenticates without traces; M3 explicitly sends editable synthetic traces. Separate tested commits and per-milestone Drive text checklists preserve independent verification. Shared configuration files overlap workflow PR #40 and must be reconciled; no zero-conflict claim is made. This handoff update implements neither milestone, changes no guarded meaning, and does not accept M1 or authorize M4. [Verification file status](stages/02-langfuse/user-verification.md).
+
+## Stage 02 milestone 2 — pending PR #36 checkpoint
+
+The branch implements an explicit Langfuse project authentication checker with
+disabled-by-default external settings and SDK 5.2.0. Existing workflows are not
+instrumented. [M2 findings](stages/02-langfuse/findings.md) record offline and
+packaging checks plus the blocked live-auth check. Sharon's local acceptance is
+pending. M3 and M4 are not implemented at this checkpoint.

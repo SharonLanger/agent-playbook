@@ -1,5 +1,6 @@
 # Adapters
 
-Backend-specific exporters belong here. The planned Langfuse integration will be introduced in its own stage.
+Backend-specific integrations belong here. `langfuse/connection.py` owns a
+read-only, explicitly invoked project check. No workflow exporter exists yet.
 
 Follow [the guarded project structure](../../../../../designs/project-structure.md).

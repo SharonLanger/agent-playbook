@@ -106,10 +106,9 @@ Langfuse, run `docker compose down` and keep `.env` and volumes if you want to
 return later. Removing the checkout does not itself remove Docker volumes; stop
 its containers first and retain the configuration needed to reopen the data.
 
-Connecting the application, selecting a remote endpoint and switching to
-Langfuse Cloud belong to later integration milestones. They are not supported
-application configuration in milestone 1. Moving historical data is a separate
-operation from changing a future endpoint.
+The optional [project connection check](langfuse-connection.md) is milestone 2.
+It runs only when invoked; ordinary application runs do not connect or send
+traces. Moving historical data is separate from selecting a future endpoint.
 
 ## Troubleshooting
 

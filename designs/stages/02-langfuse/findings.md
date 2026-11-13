@@ -90,3 +90,37 @@ Pytest initially had 26 errors while Docker filled the filesystem; after removin
 the disposable stack, `XDG_DATA_HOME=/tmp/agent-playbook-xdg app/.venv/bin/python
 -m pytest -xq app/tests` passed 119 tests. No Docker service was needed by those
 tests. The follow-up changes no Python dependency or workflow behavior.
+
+## M2 project connection — 2026-11-13
+
+Sharon authorized M2 while M1 Mac acceptance remains pending. The guarded
+charter, architecture, principles and project structure require local-first
+configuration, isolated provider details and evidence. The observability
+exploration informed the sequence; its event/harness proposals were not adopted.
+The existing `config/` loader owns YAML/local/environment precedence and private
+key references; `observability/adapters/langfuse/connection.py` owns the SDK,
+bounded read-only project request and cleanup; checkout-only
+`tooling/observability/check_connection.py` owns exit codes and safe output.
+Inputs are application settings and project keys; output is a small status.
+No runner, workflow/context or guarded meaning changed.
+
+Langfuse Python SDK 5.2.0 and its directly used HTTPX transport 0.28.1 are
+pinned in `pyproject.toml` and `uv.lock` for the previously pinned server 4.80.0.
+Wheel metadata includes both exact requirements. M1's Docker commands need no Python
+install. Official instructions are in `app/docs/langfuse-connection.md`;
+older YAML without Langfuse stays disabled.
+
+M2 verification on managed Linux x86_64, Python 3.13.5:
+
+| Check | Result | Observation or limit |
+|---|---|---|
+| `uv lock --directory app --check`, `uv build --directory app --out-dir /tmp/m2-dist` | PASS | 150 locked packages; wheel built with exact Langfuse SDK dependency. |
+| Focused `pytest` in `app/tests/observability/test_langfuse_connection.py` | PASS | Old YAML, precedence, malformed/missing references, private errors, disabled/no-client behavior, auth/network/other results, cleanup, timeout/no instrumentation and checker exit codes. |
+| Explicit checker disabled, missing-key and unreachable endpoint invocations | PASS | Exit codes 3, 2 and 1 with sanitized output; no trace write call. |
+| Full `app/.venv/bin/python app/tooling/checks.py check` | PASS | Pyright 0 errors; Ruff lint/format pass; pytest 132 passed. |
+| Valid/rejected keys against real Langfuse project | BLOCKED | Docker `vfs` exhausted the managed 32 GiB filesystem while recreating the isolated stack. No personal credentials or volumes were used. Live authentication and absence of live traces remain unverified. |
+
+The checker performs only SDK project GET and sets tracing disabled. This and
+offline tests support intended no-write behavior, not a live ingestion proof.
+Sharon's M2 acceptance is to supply project keys and run the checker once after
+his M1 account/project creation. M2 is implemented but not accepted.

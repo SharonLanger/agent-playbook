@@ -1,3 +1,4 @@
 # Observability tests
 
-Place deterministic tests for `observability/` here as behavior is introduced. This folder reserves the agreed test boundary; it contains no new feature implementation.
+Deterministic tests for `observability/` live here. Langfuse connection tests
+use independent fixtures and do not need the Docker service or personal examples.
