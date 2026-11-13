@@ -27,7 +27,7 @@ approval wording and CrewAI acceptance discrepancy are tracked in progress.md.
 | `designs/diagrams/` | Diagram sources, static/animated SVG and viewer |
 | `.run/` | Shared portable PyCharm tasks |
 | `app/pyproject.toml`, `app/uv.lock` | Package metadata, dependency pins and check configuration |
-| `app/configs/` | Shared external runtime YAML and ignored machine overrides; user guide in `app/docs/configuration.md` |
+| `app/application.yaml`, `app/application.local.yaml` | Shared external runtime YAML and ignored machine overrides; user guide in `app/docs/configuration.md` |
 | `app/src/agent_playbook/` | Installed runtime Python package |
 | `app/tooling/` | Bootstrap, quality checks, version changes, release build and verification |
 | `app/examples/` | Sharon’s personal sandbox; no unrequested access/maintenance; excluded from the maintained application boundary |
@@ -49,9 +49,9 @@ All paths below are relative to `app/src/agent_playbook/`.
 
 | Folder | Ownership | Current contents |
 |---|---|---|
-| `cli/` | Parse arguments, display outcomes, delegate commands | Console/module entry points; checkout-tooling bridge |
-| `application/` | Prepare and execute the selected application run | `runner.py` validates configuration/input and invokes a fresh selected workflow |
-| `releases/` | Discover and launch completed local releases | `selection.py`; build logic stays in tooling |
+| `cli/` | Parse arguments, display outcomes, delegate commands | `parser.py` owns arguments; `commands.py` owns dispatch and presentation; checkout-tooling bridge |
+| `application/` | Prepare and execute the selected application run | `assembly.py` initializes integrations; `workflow_factory.py` validates workflow choice and constructs a fresh flow; `workflow_runner.py` coordinates validation, kickoff and result/error normalization; `results.py` owns outcomes |
+| `releases/` | Discover and launch completed local releases | `discovery.py` finds a compatible installation; `launcher.py` launches the selected interpreter; CLI owns messages; build logic stays in tooling |
 | `config/` | Runtime settings and validation | YAML loader, validation, file selection and CrewAI startup mapping |
 | `workflows/` | Named workflow packages with `flow.py`, `state.py`, `steps.py` | Stage 01 sequence, typed-state and conditional-route examples |
 | `execution/` | Provider-independent agent execution contracts | Responsibility note |
@@ -65,8 +65,11 @@ state and steps with that workflow rather than in global `models` or `utils` fol
 
 ## Dependency rules
 
-- CLI delegates execution to application and release selection; it owns no workflow logic.
-- The application layer assembles workflows and integrations using runtime configuration.
+- CLI delegates execution to the workflow runner or release discovery/launcher; it owns no workflow logic.
+- The workflow runner calls assembly before the factory imports a selected flow. Assembly owns
+  integration setup; the factory owns construction; the runner owns execution and result/error handling.
+- Release discovery does not start a process; the launcher does not select a release or print messages.
+  Neither module imports the application runner. Launching a release crosses an interpreter boundary.
 - Workflows own routing/state and invoke execution contracts; provider clients stay in adapters.
 - Observability events are provider-neutral; only exporters depend on backend clients.
 - Runtime modules must not import checkout-only tooling or learning examples.
@@ -77,8 +80,8 @@ state and steps with that workflow rather than in global `models` or `utils` fol
 
 ```mermaid
 flowchart TD
-    CLI[CLI] --> APP[Application runner]
-    CLI --> REL[Release selection]
+    CLI[CLI] --> APP[Application assembly and runner]
+    CLI --> REL[Release discovery and launcher]
     CLI -. Development checkout .-> TOOLS[Tooling subprocess]
     APP --> WF[Workflows]
     APP --> CFG[Runtime configuration]
@@ -116,16 +119,8 @@ execution after structural moves. macOS PyCharm execution of changed paths requi
 
 The Atlas is maintained from canonical Markdown and a navigation catalog. It does not authorize candidate folders. Reviewer/event-adapter/harness details are discoverable explorations, not additions to the approved runtime file tree.
 
-## Current paths and pending PR #34
+## Accepted runtime structure
 
-The Current view records main at `6f16508`. PR #34 head `59c6fff` remains open at this update. Preserve both states accurately until integration:
+PR #34 was accepted and merged at `96cb1f8`. The current paths above include the application assembly/factory/runner split, release discovery/launcher split, extracted CLI parser and app-root YAML. Personal examples are excluded from default application tests, types, lint, formatting and release source inputs; explicit manual sandbox lint/format remains possible on request.
 
-| Responsibility | Current main | Pending PR #34 |
-|---|---|---|
-| Runtime YAML | `app/configs/application.yaml` | `app/application.yaml` plus optional local sibling |
-| Application execution | `application/runner.py` | `assembly.py`, `workflow_factory.py`, `workflow_runner.py` |
-| Runtime release selection/launch | `releases/selection.py` | `releases/discovery.py`, `releases/launcher.py` |
-| CLI argument parsing | Within existing CLI | Extracted `cli/parser.py` |
-| Examples isolation | Legacy gate connections remain | Excluded from default tests/types/lint/format and release inputs; follow-up verification pending |
-
-After #34 merges, reconcile this table, progress, the Atlas snapshot and public docs in one change. Do not retain old paths as current or restore old example-test ownership. Explicit user-invoked sandbox lint/format stays available outside automated gates. Move #34’s internal refactor-review guide to its owning designs/refactors directory when integrating it.
+The earlier [runtime proposal](refactors/2026-11-12-runtime-structure/proposal.md) preserves optional role/harness/tool thinking; consult the exploration index before extending it. Those candidate paths are not approved implementation contracts. The temporary Verify Refactor task/helper are removed with Sharon's approval; standard application check/test commands remain the maintained verification entry points.

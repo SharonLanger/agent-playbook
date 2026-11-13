@@ -50,7 +50,7 @@ material remains available for continued experiments; acceptance does not claim 
 has been studied exhaustively.
 
 Historical examples were delivered under `app/examples/workflows/`. Sharon now designates `app/examples/` as his personal sandbox; it is outside maintained agent work and application testing. Do not inspect it without a specific request. Historical example test counts below/above are retained only as historical evidence. User-facing configuration instructions live in
-`app/docs/configuration.md`; YAML stays in `app/configs/`. Documentation navigation is in
+`app/docs/configuration.md`; YAML is `app/application.yaml`. Documentation navigation is in
 `app/docs/README.md`.
 
 Next: discuss Stage 02 (Langfuse observability), agree on the first visible run/step/error
@@ -61,8 +61,8 @@ experiment, and approve its design before implementation. No Stage 02 integratio
 
 Sharon approved the logical changes to charter, principles, architecture and project structure, the new guarded design contract, preservation of every existing guard, mandatory placement/reading flow, official-doc maintenance and permanent Current/Explorations Atlas on 2026-11-13. This approval authorizes the documentation work; PR #35 remains a draft for merge review. Detailed reviewer/event-adapter/harness designs remain explorations.
 
-Current implementation snapshot: main `6f16508`. PR #34 is open at inspected head `59c6fff`; it includes examples isolation in default quality gates/release inputs and retains explicit manual lint/format. Its PR description says the follow-up verification has not run. The earlier 137-test and release evidence does not certify that head. Preserve the WF-01/02/03 production probes; verification/merge of #34 is handled separately.
+Current implementation snapshot: main `96cb1f8`, merging accepted PR #34. Runtime discovery/launcher, assembly/factory/runner, CLI parser, app-root YAML and examples isolation are implemented. Sharon reported that Verify Refactor passed after a formatting correction and a normal 0.1.1 release completed; those local results precede the final cleanup commit. Earlier 137-test/release evidence applies to its recorded earlier revision, not automatically to the final head.
 
-PR #35 adds documentation and Atlas tooling, not agent runtime integrations. Its guard audit explicitly retains Stage 00 architecture/plan despite stale proposed-status headings and retains the approved Stage 01 package contracts. Existing stage files are not rewritten. Atlas verification is recorded in refactors/atlas/verification.md and must not be described as application tests.
+PR #35 reconciles these facts with the approved guarded governance and permanent Atlas. All existing stage files remain unchanged and protected. Personal examples remain outside unrequested agent work. The deleted internal public-doc review guide and temporary handoff stay deleted; Sharon also authorized removing the temporary review helper and PyCharm task. Application tests and normal quality checks remain.
 
-After #34 is accepted/merged, reconcile current paths, pending notes, public guides and catalog revision; do not overwrite newer sandbox rules when merging. Internal refactor-review.md belongs with its refactor rather than in app/docs. The latest temporary examples-isolation handoff remains a separate coordination record until its lasting decisions/evidence are transferred.
+Stage 02 Langfuse design/research may proceed; implementation requires its approved stage design. Role/event/adapter/harness details remain optional explorations. PR #35 is unmerged pending Sharon's review.

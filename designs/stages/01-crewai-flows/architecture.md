@@ -90,7 +90,7 @@ stage. These simple examples are intentionally not a production workflow engine.
 ## External configuration (approved follow-up)
 
 Sharon approved an external YAML file independent of application releases, with
-separate integration/workflow ownership. `app/configs/application.yaml` provides
+separate integration/workflow ownership. `app/application.yaml` provides
 shared CrewAI settings; a sibling `.local.yaml` and documented environment overrides
 may replace values. `--config` selects a file ahead of `AGENT_PLAYBOOK_CONFIG`.
 The source launcher passes the external path to the installed release; no active

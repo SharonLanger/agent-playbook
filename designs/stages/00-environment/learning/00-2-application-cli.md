@@ -8,7 +8,7 @@ Use the same bootstrap command: `python3 app/tooling/bootstrap.py` from repo roo
 | `[project.scripts]` in pyproject.toml | Maps `agent-playbook` to `agent_playbook.cli:main` |
 | Bootstrap's `uv sync --locked` | Installs an editable project and creates the environment's command launcher |
 | `cli/commands.py` | Parses arguments with Python's built-in argparse; `run` calls the existing main |
-| `application/runner.py` | Existing sample behavior, also called by the root module entry point |
+| `application/workflow_runner.py` | Existing sample behavior, also called by the root module entry point |
 
 1. Run `app/.venv/bin/agent-playbook --help` (Windows: `app/.venv/Scripts/agent-playbook.exe --help`).
 2. Run that executable with `run`. Expect the familiar Stage 00.1 message: we added

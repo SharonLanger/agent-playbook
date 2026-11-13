@@ -145,6 +145,6 @@ The approved agent execution boundary remains provider-independent requests/resu
 
 Langfuse remains the approved initial tracing integration. Alternatives and application logging requirements are indexed in [observability exploration](explorations/observability.md). Traces and application logs have distinct purposes; their future storage/export choices are not decided by this Atlas update.
 
-PR #34 proposes application assembly/factory/runner separation, release discovery/launcher separation and app-root YAML. It is pending at the recorded review revision; refer to project-structure.md for current-versus-pending paths. Do not treat an open PR as merged runtime behavior.
+PR #34 is accepted and merged at 96cb1f8. Current runtime uses application/assembly.py for setup, workflow_factory.py for construction and workflow_runner.py for execution; releases/discovery.py selects installations and launcher.py starts their interpreter. Shared YAML is app/application.yaml. These implement existing application/release boundaries. The earlier [runtime proposal](refactors/2026-11-12-runtime-structure/proposal.md) remains useful historical reasoning; its detailed role/harness/tool paths are exploratory. Unsupported required provider capabilities must be reported explicitly; exact future contracts remain undecided.
 
 Apply the [mandatory design contract](governance/design-contract.md) before adding responsibilities or changing these boundaries. Preserve all approved historical stage baselines and their protection.

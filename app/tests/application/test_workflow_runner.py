@@ -1,3 +1,4 @@
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -6,7 +7,7 @@ from agent_playbook.application.results import (
     WorkflowExecutionError,
     WorkflowInputError,
 )
-from agent_playbook.application.runner import run_workflow
+from agent_playbook.application.workflow_runner import run_workflow
 from agent_playbook.workflows.wf_01_step_sequence import steps
 
 
@@ -52,3 +53,8 @@ def test_step_value_error_keeps_execution_category_and_cause() -> None:
         with pytest.raises(WorkflowExecutionError) as failure:
             run_workflow()
     assert failure.value.__cause__ is original
+
+
+def test_unknown_workflow_is_rejected_before_configuration(tmp_path: Path) -> None:
+    with pytest.raises(WorkflowInputError, match="Unknown workflow"):
+        run_workflow("unknown", config_path=str(tmp_path / "missing.yaml"))

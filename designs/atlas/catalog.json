@@ -1,5 +1,5 @@
 {
-  "snapshot": "main 6f16508; PR #34 59c6fff pending, latest follow-up unverified; PR #35 governance approved, merge pending",
+  "snapshot": "main 96cb1f8: PR #34 accepted and merged; PR #35 governance and review-helper removal approved, merge pending",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -53,7 +53,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
           "diagram": null
         },
         "design": {
@@ -90,7 +90,7 @@
           ],
           "status": "approved-design",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
           "diagram": null
         },
         "app": {
@@ -109,7 +109,7 @@
             {
               "name": "Tests",
               "path": "app/tests/",
-              "text": "Maintained application tests. Legacy examples coupling is being removed in PR #34.",
+              "text": "Maintained application tests. Personal examples are excluded.",
               "to": "tests"
             },
             {
@@ -120,8 +120,8 @@
             },
             {
               "name": "Configuration",
-              "path": "app/configs/application.yaml",
-              "text": "Current external YAML; PR #34 proposes app/application.yaml.",
+              "path": "app/application.yaml",
+              "text": "Shared external YAML with optional local sibling.",
               "to": "config"
             },
             {
@@ -139,7 +139,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
           "diagram": null
         },
         "src": {
@@ -152,7 +152,7 @@
             {
               "name": "Application",
               "path": "app/src/agent_playbook/application/",
-              "text": "Current runner assembles and runs workflows.",
+              "text": "Assembly, factory and runner have separate owners.",
               "to": "application"
             },
             {
@@ -188,7 +188,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
           "diagram": null
         },
         "application": {
@@ -196,24 +196,36 @@
           "parent": "src",
           "label": "Current / implemented",
           "title": "Application runner",
-          "text": "Current runner.py; assembly/factory/runner split is pending in PR #34.",
+          "text": "Assembly configures integrations, the factory constructs a selected workflow, and the runner coordinates execution and outcomes.",
           "blocks": [
             {
-              "name": "Runner",
-              "path": "app/src/agent_playbook/application/runner.py",
-              "text": "Workflow construction and invocation.",
+              "name": "Assembly",
+              "path": "app/src/agent_playbook/application/assembly.py",
+              "text": "Initialize configured integrations before constructing a flow.",
               "to": null
             },
             {
-              "name": "Workflow inputs",
-              "path": "app/src/agent_playbook/workflows/",
-              "text": "Owned by selected workflow.",
-              "to": "workflows"
+              "name": "Workflow factory",
+              "path": "app/src/agent_playbook/application/workflow_factory.py",
+              "text": "Validate workflow choice and construct a fresh flow.",
+              "to": null
+            },
+            {
+              "name": "Workflow runner",
+              "path": "app/src/agent_playbook/application/workflow_runner.py",
+              "text": "Coordinate validation, kickoff and result/error normalization.",
+              "to": null
+            },
+            {
+              "name": "Results",
+              "path": "app/src/agent_playbook/application/results.py",
+              "text": "Application outcomes for presentation.",
+              "to": null
             }
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
           "diagram": null
         },
         "workflows": {
@@ -238,7 +250,7 @@
           ],
           "status": "implemented",
           "source": "designs/stages/01-crewai-flows/architecture.md",
-          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
           "diagram": null
         },
         "config": {
@@ -250,8 +262,8 @@
           "blocks": [
             {
               "name": "Shared YAML",
-              "path": "app/configs/application.yaml",
-              "text": "Current path on main.",
+              "path": "app/application.yaml",
+              "text": "Current shared configuration, with optional application.local.yaml override.",
               "to": null
             },
             {
@@ -263,7 +275,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
           "diagram": null
         },
         "release": {
@@ -271,24 +283,24 @@
           "parent": "src",
           "label": "Current / implemented",
           "title": "Runtime release selection",
-          "text": "Runtime selection differs from building artifacts.",
+          "text": "Discovery selects an installation; the launcher starts its interpreter; the CLI owns presentation.",
           "blocks": [
             {
-              "name": "Selection",
-              "path": "app/src/agent_playbook/releases/selection.py",
-              "text": "Current discovery/launch implementation. PR #34 splits discovery.py and launcher.py.",
+              "name": "Discovery",
+              "path": "app/src/agent_playbook/releases/discovery.py",
+              "text": "Find a compatible installation without starting a process.",
               "to": null
             },
             {
-              "name": "Build tooling",
-              "path": "app/tooling/",
-              "text": "Builds and verifies wheel/metadata artifacts.",
-              "to": "tooling"
+              "name": "Launcher",
+              "path": "app/src/agent_playbook/releases/launcher.py",
+              "text": "Launch the selected interpreter without choosing a release or printing messages.",
+              "to": null
             }
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
           "diagram": null
         },
         "tooling": {
@@ -313,7 +325,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
           "diagram": null
         },
         "tests": {
@@ -321,7 +333,7 @@
           "parent": "app",
           "label": "Current / implemented",
           "title": "Application tests",
-          "text": "Tests mirror production owners. Sandbox exclusion is required policy; PR #34 follow-up verification is still pending.",
+          "text": "Application tests use independent fixtures; personal examples are excluded from tests, coverage and automated gates.",
           "blocks": [
             {
               "name": "Tests",
@@ -332,7 +344,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
           "diagram": null
         },
         "integrations": {
@@ -357,7 +369,7 @@
           ],
           "status": "approved-design",
           "source": "designs/architecture.md",
-          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "note": "Runtime snapshot: merged PR #34 at main 96cb1f8. PR #35 governance additions and approved review-helper removal await merge.",
           "diagram": null
         }
       },
@@ -365,917 +377,947 @@
         {
           "path": ".gitignore",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Bump Patch.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Check.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Dev Run.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Format Check.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Format.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Lint.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Release.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Run.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Setup.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Test WF-01.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Test WF-02.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Test WF-03.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Tests.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Types.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/Version.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/WF-01 Sequence.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/WF-02 State.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": ".run/WF-03 Route.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "AGENTS.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/.gitignore",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/.python-version",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
-          "path": "app/configs/application.yaml",
+          "path": "app/application.yaml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/docs/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/docs/cli.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/docs/configuration.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/docs/troubleshooting.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/docs/workflows.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/pyproject.toml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/__main__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/_build_info.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/application/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+        },
+        {
+          "path": "app/src/agent_playbook/application/assembly.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/application/results.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
-          "path": "app/src/agent_playbook/application/runner.py",
+          "path": "app/src/agent_playbook/application/workflow_factory.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+        },
+        {
+          "path": "app/src/agent_playbook/application/workflow_runner.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/cli/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/cli/__main__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/cli/commands.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/cli/development.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+        },
+        {
+          "path": "app/src/agent_playbook/cli/parser.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/config/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/config/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/config/crewai.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/config/errors.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/config/loader.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/config/models.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/config/paths.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/execution/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/execution/adapters/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/observability/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/observability/adapters/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/releases/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
-          "path": "app/src/agent_playbook/releases/selection.py",
+          "path": "app/src/agent_playbook/releases/discovery.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+        },
+        {
+          "path": "app/src/agent_playbook/releases/launcher.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/workflows/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/workflows/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/flow.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/steps.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_02_shared_state/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_02_shared_state/flow.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_02_shared_state/state.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_02_shared_state/steps.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/flow.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/state.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/steps.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/application/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/application/test_offline_runtime.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
-          "path": "app/tests/application/test_runner.py",
+          "path": "app/tests/application/test_workflow_runner.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/cli/test_cli.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/cli/test_workflow_commands.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/config/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/config/test_configuration.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/conftest.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
-        },
-        {
-          "path": "app/tests/examples/test_greeting.py",
-          "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/execution/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/fixtures/offline.yaml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/observability/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/releases/test_release_selection.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/releases/test_workflow_launch.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/tooling/test_cli_tasks.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/tooling/test_development.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/tooling/test_release_completion.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/tooling/test_release_dependencies.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/tooling/test_release_destination.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/tooling/test_release_preflight.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/tooling/test_toolchain.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/tooling/test_wheel_hash.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/conftest.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/wf_01_step_sequence/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/wf_01_step_sequence/test_flow.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/wf_01_step_sequence/test_steps.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/wf_02_shared_state/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/wf_02_shared_state/test_flow.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/wf_02_shared_state/test_state.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/wf_02_shared_state/test_steps.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/wf_03_conditional_route/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/wf_03_conditional_route/test_flow.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/wf_03_conditional_route/test_state.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tests/workflows/wf_03_conditional_route/test_steps.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tooling/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tooling/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tooling/bootstrap.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tooling/checks.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tooling/release.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tooling/toolchain.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tooling/verify_runtime.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tooling/verify_wheel.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/tooling/version.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "app/uv.lock",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/architecture.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/charter.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/diagrams/01-system.animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/diagrams/01-system.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/diagrams/02-execution.animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/diagrams/02-execution.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/diagrams/03-observability.animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/diagrams/03-observability.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/diagrams/AUTHORING.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/diagrams/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/diagrams/build_viewer.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/diagrams/index.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/diagrams/render.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/learning/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/learning/architecture-walkthrough.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/principles.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/progress.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/project-structure.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+        },
+        {
+          "path": "designs/refactors/2026-11-12-runtime-structure/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+        },
+        {
+          "path": "designs/refactors/2026-11-12-runtime-structure/proposal.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+        },
+        {
+          "path": "designs/refactors/2026-11-12-runtime-structure/verification.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/roadmap.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/00-environment/architecture.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/00-environment/findings.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/00-environment/learning/00-1-python-environment.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/00-environment/learning/00-2-application-cli.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/00-environment/learning/00-3-pyright.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/00-environment/learning/00-4-pytest.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/00-environment/learning/00-5-ruff.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/00-environment/learning/00-6-unified-checks.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/00-environment/learning/00-7-wheel-release.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/00-environment/plan.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/architecture.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/configuration-findings.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/coordination.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/00-architecture-animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/00-architecture.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/00-architecture.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/01-sequence-animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/01-sequence.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/01-sequence.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/02-state-animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/02-state.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/02-state.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/03-route-pass-animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/03-route-pass.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/03-route-pass.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/04-route-needs-work-animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/04-route-needs-work.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/04-route-needs-work.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/THIRD-PARTY-NOTICES.txt",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/index.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/file-structure.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/findings.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/00-reading-the-code.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/01-flow-basics.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/02-sequence-and-values.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/03-typed-state.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/04-routing.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/05-failures-and-tests.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/06-running-and-releasing.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/08-independent-sandboxes.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/plan.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/sources.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/test-plan.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/workflows/wf-01-step-sequence.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/workflows/wf-02-shared-state.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         },
         {
           "path": "designs/stages/01-crewai-flows/workflows/wf-03-conditional-route.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
         }
       ]
     },

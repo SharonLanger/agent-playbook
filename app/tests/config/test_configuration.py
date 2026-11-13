@@ -55,7 +55,7 @@ def test_explicit_path_wins_and_development_default_ignores_cwd(
     monkeypatch.chdir(tmp_path)
     assert (
         paths.configuration_path()
-        == Path(paths.__file__).resolve().parents[3] / "configs/application.yaml"
+        == Path(paths.__file__).resolve().parents[3] / "application.yaml"
     )
     with patch.object(paths, "SOURCE_COMMIT", "installed-commit"):
         with pytest.raises(ConfigurationError, match="Select an external"):
@@ -141,6 +141,29 @@ def test_invalid_configuration_precedes_framework_import(tmp_path: Path) -> None
         timeout=30,
     )
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_legacy_local_override_is_not_silently_ignored(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.delenv("AGENT_PLAYBOOK_CONFIG", raising=False)
+    legacy = tmp_path / "configs/application.local.yaml"
+    legacy.parent.mkdir()
+    legacy.write_text("private-local-values")
+    with patch.object(
+        paths, "__file__", str(tmp_path / "src/agent_playbook/config/paths.py")
+    ):
+        with pytest.raises(ConfigurationError, match="Legacy local override"):
+            paths.configuration_path()
+        assert paths.configuration_path("explicit.yaml").name == "explicit.yaml"
+        assert legacy.read_text() == "private-local-values"
+        target = tmp_path / "application.local.yaml"
+        target.write_text("current-local-values")
+        with pytest.raises(ConfigurationError, match="Move or merge"):
+            paths.configuration_path()
+        assert target.read_text() == "current-local-values"
+        legacy.unlink()
+        assert paths.configuration_path() == tmp_path / "application.yaml"
 
 
 def test_import_settings_are_applied_before_framework_import(tmp_path: Path) -> None:

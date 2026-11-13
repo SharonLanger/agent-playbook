@@ -20,3 +20,7 @@ dist/
 # Machine-specific runtime overrides; never include in release artifacts.
 configs/*.local.yaml
 configs/*.local.yml
+
+# Current root-level overrides; retain old ignores during migration.
+/application.local.yaml
+/application.local.yml

@@ -1,6 +1,6 @@
 # PR #35 verification
 
-Documentation/Atlas scope only. No application runtime, SDK execution, application tests or personal examples were read or executed for verification. No existing stage contract was edited. Runtime snapshot is main `6f16508`; PR #34 is a separate pending change at inspected head `59c6fff`.
+Atlas checks below cover the documentation update; runtime preservation is checked separately against merged main `96cb1f8`. No personal examples were accessed and no existing stage contract was edited. PR #34 is accepted and merged.
 
 ## Checks performed on the final documentation change
 
@@ -25,4 +25,4 @@ Browser rendering was not visually verified: Chromium launch was blocked by the 
 
 No new CI job is introduced. The required PR record and explicit local check make the procedure reviewable; they do not guarantee every agent client loads AGENTS automatically.
 
-PR #34's latest examples-isolation follow-up is unverified according to its description. Its older test/release results are not evidence for that new head. Reconcile current paths, public docs and Atlas after #34 integrates; move its internal refactor guide out of app/docs. Keep PR #35 unmerged until Sharon reviews it.
+PR #34 is merged; historical test evidence remains revision-specific. Current verification is reported in the PR review summary. Keep PR #35 unmerged until Sharon reviews it.

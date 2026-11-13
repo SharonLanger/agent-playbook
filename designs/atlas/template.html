@@ -9,7 +9,7 @@
 </style>
 </head>
 <body>
-<header><div class="eyebrow">Agent Playbook / Architecture Atlas</div><h1>From repository to agent event</h1><p>Open a block to zoom into its responsibilities. Choose Current for the implementation snapshot or Explorations for candidate agents, events and adapters.</p><span class="badge">Maintained architecture views</span><span class="badge">PR #34 remains a draft</span><span class="badge">No application changes</span></header>
+<header><div class="eyebrow">Agent Playbook / Architecture Atlas</div><h1>From repository to agent event</h1><p>Open a block to zoom into its responsibilities. Choose Current for the implementation snapshot or Explorations for candidate agents, events and adapters.</p><span class="badge">Maintained architecture views</span><span class="badge">PR #34 merged</span><span class="badge">No application changes</span></header>
 <nav class="tabs" aria-label="Atlas views"><button data-tab="explore" aria-selected="true">Architecture blocks</button><button data-tab="scenario" aria-selected="false">Reviewer run</button><button data-tab="files" aria-selected="false">Full file structure</button><button data-tab="guide" aria-selected="false">Detailed guide</button></nav>
 <main class="wrap"><div class="notes"><button class="btn primary" data-view="current" aria-pressed="true">Current</button> <button class="btn" data-view="explorations" aria-pressed="false">Explorations</button><p id="view-status" aria-live="polite"></p></div>
 <section id="explore" class="tab"><nav id="crumb" class="crumb" aria-label="Architecture location"></nav><div id="level"></div></section>
@@ -32,7 +32,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)r
 $('file-search').addEventListener('input',e=>buildTree(e.target.value));$('expand-all').addEventListener('click',()=>document.querySelectorAll('#tree details').forEach(d=>d.open=true));$('collapse-all').addEventListener('click',()=>document.querySelectorAll('#tree details').forEach(d=>d.open=false));
 document.querySelectorAll('#guide a[href^="#"]').forEach(a=>a.addEventListener('click',()=>tab('guide')));
 let mode='current';
-function switchView(next){mode=next;data.levels=data.views[mode].levels;data.files=data.views[mode].files;document.querySelectorAll('[data-view]').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.view===mode);b.classList.toggle('primary',b.dataset.view===mode);});$('view-status').textContent=mode==='current'?'CURRENT: runtime snapshot on main 6f16508. Approved design may await implementation. PR #34 remains pending; PR #35 governance awaits merge.':'EXPLORATIONS: optional agent/event/harness candidates. Not approved architecture, implementation or a promised destination.';$('file-search').value='';buildTree();render('repo',false);}
+function switchView(next){mode=next;data.levels=data.views[mode].levels;data.files=data.views[mode].files;document.querySelectorAll('[data-view]').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.view===mode);b.classList.toggle('primary',b.dataset.view===mode);});$('view-status').textContent=mode==='current'?'CURRENT: runtime snapshot on main 96cb1f8. Approved design may await implementation. PR #34 is merged; PR #35 governance awaits merge.':'EXPLORATIONS: optional agent/event/harness candidates. Not approved architecture, implementation or a promised destination.';$('file-search').value='';buildTree();render('repo',false);}
 $('scenario-diagram').innerHTML=diagram('03-events');switchView('current');
 })();
 </script>

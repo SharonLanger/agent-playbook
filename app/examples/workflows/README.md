@@ -29,9 +29,10 @@ agent_playbook or another example. Small settings loaders are intentionally dupl
 make each experiment independent. Existing integrated WF-01/02/03 remain separate.
 
 The location is `app/examples/workflows/`: the project's existing checkout-only examples
-boundary. Examples do not ship in the application wheel. Tests live beside each example;
-the existing **Test** and **Check** tasks include them. Run any `test_ex_XX.py` individually
-in PyCharm as pytest. Formatting and strict type checking include these files too.
+boundary. Examples do not ship in the application wheel. Tests live beside each example for manual exploration. The application **Test**, **Check**,
+**Setup**, **Release**, and **Verify Refactor** tasks ignore this directory. Run a
+`test_ex_XX.py` individually in PyCharm as pytest only if you want to explore it.
+Optional manual Ruff commands are listed in `app/docs/cli.md`.
 
 ## Read the graph correctly
 
