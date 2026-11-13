@@ -1,10 +1,10 @@
 # Stage 01 — CrewAI Flows
 
-**Implementation and independent sandboxes accepted and merged.**
-PR #30 provides the three integrated workflows and external configuration; PR #32 adds
-self-contained experiments. Sharon reported everything working and approved the merges.
+**Stage 01 completed and accepted.**
+PR #30 provides the three integrated workflows and external configuration; PR #32 added
+self-contained experiments. The [runtime structure refactor](../../refactors/2026-11-12-runtime-structure/README.md) in PR #34 and the [workflow contract refactor](../../refactors/workflow-contract/README.md) in design PR #38 and implementation PR #40 are also merged. Sharon confirmed Stage 01 completion after those merges.
 Start with the code-reading guide, then learn the workflows one at a time. Verification
-snapshots remain in findings; current acceptance is recorded in [progress](../../progress.md).
+snapshots remain in findings and the refactor evidence records; current acceptance is recorded in [progress](../../progress.md).
 
 ## Start here
 

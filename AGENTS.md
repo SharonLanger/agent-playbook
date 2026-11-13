@@ -43,8 +43,9 @@ conflicts before proceeding. Passing tests alone does not establish compliance.
 - Keep implementation-facing plans distinct from learner-facing Markdown under stage `learning/`. Use Mermaid for static diagrams and self-contained animated SVG where movement clarifies behavior, with a static fallback. Verify rendered assets where possible.
 - Future-stage implementation designs await their stage. Explicitly requested research and POCs may be recorded under designs/explorations/ as non-binding explorations; they do not authorize implementation or replace the guarded architecture.
 
-## Status
-Stage 00 is accepted. Stage 01 design (#29), workflow/configuration implementation (#30), principles follow-up (#31), and independent sandboxes (#32) are merged. Sharon reported the examples working and accepted #32 after the diagram-size correction. The sandboxes live in `app/examples/workflows/` and run through their own run.py files, independently of the CLI/application runner. User-facing operating guides live in `app/docs/`; the active configuration is `app/application.yaml`. See `designs/progress.md` for verification evidence and acceptance. The next planned stage is Stage 02 (Langfuse); discuss and approve its design before implementation. Keep completed-stage learning material available. The top-level architecture remains the target system; do not infer future implementation from target diagrams.
+## Status and reconciliation
+
+Read `designs/progress.md` for current project and stage status, and the applicable stage/refactor summaries for milestone detail. Before reporting work ready, reconcile those records, relevant design documents and Atlas with the actual implementation and PR state under the guarded design contract. Preserve dated evidence as history. The roadmap describes intended sequencing; the target architecture does not itself establish current implementation.
 
 
 ## Maintained boundaries
@@ -53,6 +54,6 @@ Stage 00 is accepted. Stage 01 design (#29), workflow/configuration implementati
 - `app/examples/` is Sharon’s personal sandbox. Do not read, search, inspect, run, test, lint, format, import, modify or maintain its contents without a specific request. Exclude it from broad searches and automated application gates. Application tests/fixtures belong in `app/tests/` and must not depend on examples. Explicit user-requested sandbox lint/format remains permitted outside automatic gates.
 - `app/docs/` is maintained official product documentation. No internal reviews, temporary notes, handoffs or unapproved proposals belong there. Every change assesses documentation impact and updates affected public guides in the same PR, or records a concrete no-impact reason.
 - Maintain `designs/atlas/` as the Current/Explorations view and `designs/explorations/README.md` as the discovery index. Existing approvals govern decisions; the viewer and research do not grant approval.
-- PR #34 is merged. Preserve its runtime split, app-root YAML and personal-sandbox exclusions. Approved historical stage baselines remain protected.
+- Preserve the merged runtime split, app-root YAML and personal-sandbox exclusions. Approved historical stage baselines remain protected.
 
-Deleting the personal examples directory must leave application behavior, collected tests and application coverage unchanged; this is an independence requirement, not an instruction to inspect or delete the sandbox. PR #34 was accepted and merged at 96cb1f8. Detailed role/event/harness proposals remain exploratory.
+Deleting the personal examples directory must leave application behavior, collected tests and application coverage unchanged; this is an independence requirement, not an instruction to inspect or delete the sandbox. Detailed role/event/harness proposals remain exploratory.
