@@ -1,5 +1,5 @@
 {
-  "snapshot": "main a4264ac: PR #35 merged; PR #34 runtime preserved. Workflow contract design proposed; implementation not started.",
+  "snapshot": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -19,7 +19,8 @@
     "designs/refactors/workflow-contract/design.md",
     "designs/refactors/workflow-contract/file-structure.md",
     "designs/refactors/workflow-contract/test-plan.md",
-    "designs/refactors/workflow-contract/implementation-plan.md"
+    "designs/refactors/workflow-contract/implementation-plan.md",
+    "designs/refactors/workflow-contract/review-follow-up.md"
   ],
   "views": {
     "current": {
@@ -58,7 +59,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac: PR #35 merged; PR #34 runtime preserved. Workflow contract design proposed; implementation not started.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
           "diagram": null
         },
         "design": {
@@ -93,15 +94,15 @@
               "to": null
             },
             {
-              "name": "Workflow contract proposal",
+              "name": "Workflow contract and follow-up",
               "path": "designs/refactors/workflow-contract/README.md",
-              "text": "Proposed ABC lifecycle, YAML selection, tests and Langfuse handoff. Implementation not started.",
+              "text": "Approved ABC/YAML contract; PR #40 in review. Lazy imports, error corrections and test-gap handoff.",
               "to": null
             }
           ],
           "status": "approved-design",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac: PR #35 merged; PR #34 runtime preserved. Workflow contract design proposed; implementation not started.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
           "diagram": null
         },
         "app": {
@@ -150,7 +151,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac: PR #35 merged; PR #34 runtime preserved. Workflow contract design proposed; implementation not started.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
           "diagram": null
         },
         "src": {
@@ -199,7 +200,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac: PR #35 merged; PR #34 runtime preserved. Workflow contract design proposed; implementation not started.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
           "diagram": null
         },
         "application": {
@@ -236,7 +237,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac: PR #35 merged; PR #34 runtime preserved. Workflow contract design proposed; implementation not started.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
           "diagram": null
         },
         "workflows": {
@@ -261,7 +262,7 @@
           ],
           "status": "implemented",
           "source": "designs/stages/01-crewai-flows/architecture.md",
-          "note": "main a4264ac: PR #35 merged; PR #34 runtime preserved. Workflow contract design proposed; implementation not started.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
           "diagram": null
         },
         "config": {
@@ -286,7 +287,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac: PR #35 merged; PR #34 runtime preserved. Workflow contract design proposed; implementation not started.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
           "diagram": null
         },
         "release": {
@@ -311,7 +312,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac: PR #35 merged; PR #34 runtime preserved. Workflow contract design proposed; implementation not started.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
           "diagram": null
         },
         "tooling": {
@@ -336,7 +337,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac: PR #35 merged; PR #34 runtime preserved. Workflow contract design proposed; implementation not started.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
           "diagram": null
         },
         "tests": {
@@ -355,7 +356,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac: PR #35 merged; PR #34 runtime preserved. Workflow contract design proposed; implementation not started.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
           "diagram": null
         },
         "integrations": {
@@ -380,7 +381,7 @@
           ],
           "status": "approved-design",
           "source": "designs/architecture.md",
-          "note": "main a4264ac: PR #35 merged; PR #34 runtime preserved. Workflow contract design proposed; implementation not started.",
+          "note": "main a4264ac remains the merged runtime. Workflow contract approved; PR #40 reviewed at b3d279b with follow-up corrections pending.",
           "diagram": null
         }
       },
@@ -1332,28 +1333,33 @@
         },
         {
           "path": "designs/refactors/workflow-contract/README.md",
-          "status": "Proposed design — unimplemented",
-          "purpose": "Workflow contract refactor design and review package."
+          "status": "Approved design — implementation PR #40 in review",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
         },
         {
           "path": "designs/refactors/workflow-contract/design.md",
-          "status": "Proposed design — unimplemented",
-          "purpose": "Workflow contract refactor design and review package."
+          "status": "Approved design — implementation PR #40 in review",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
         },
         {
           "path": "designs/refactors/workflow-contract/file-structure.md",
-          "status": "Proposed design — unimplemented",
-          "purpose": "Workflow contract refactor design and review package."
+          "status": "Approved design — implementation PR #40 in review",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
         },
         {
           "path": "designs/refactors/workflow-contract/test-plan.md",
-          "status": "Proposed design — unimplemented",
-          "purpose": "Workflow contract refactor design and review package."
+          "status": "Approved design — implementation PR #40 in review",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
         },
         {
           "path": "designs/refactors/workflow-contract/implementation-plan.md",
-          "status": "Proposed design — unimplemented",
-          "purpose": "Workflow contract refactor design and review package."
+          "status": "Approved design — implementation PR #40 in review",
+          "purpose": "Workflow contract and current review-follow-up acceptance."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/review-follow-up.md",
+          "status": "Approved follow-up — implementation pending",
+          "purpose": "Reproduced review issues, lazy-import scope, test-gap matrix and next-agent instructions."
         }
       ]
     },

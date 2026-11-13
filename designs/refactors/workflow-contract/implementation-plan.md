@@ -1,8 +1,14 @@
 # Workflow contract implementation plan
 
-Status: **Plan only. Do not begin implementation until Sharon explicitly authorizes it.**
+Status: **Approved plan. Initial implementation is in PR #40; the requested corrections and test completion are governed by [review-follow-up.md](review-follow-up.md).**
 
-## Scope and authorization record
+## Current handoff
+
+Sharon approved initial implementation and the enumerated guarded changes after this plan was first written. PR #40 implements that baseline and awaits review corrections. On 2026-11-13 he requested lazy imports now, constructor and diagnostic fixes, all test gaps, and a written handoff for the next agent. Follow [review-follow-up.md](review-follow-up.md), reconcile the updated PR #38 branch into PR #40, and leave both PRs unmerged.
+
+The sections below preserve the original planning/approval record. Their initial documentation-only and pending-approval wording describes that earlier point in time; it is superseded by this current handoff. Historical verification results are not follow-up acceptance evidence.
+
+## Original scope and authorization record
 
 On 13 November 2026 Sharon accepted the workflow ABC/registry/YAML direction, required strict input/output validation and error boundaries, then explicitly added shared lifecycle statuses with final public methods and abstract underscore hooks. He authorized updating the design documents and the Stage 01 restriction. His latest instruction is to report readiness without beginning implementation.
 

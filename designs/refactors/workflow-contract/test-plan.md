@@ -1,6 +1,6 @@
 # Workflow contract test plan
 
-Status: **Specification for implementation. These new tests have not been written or run.**
+Status: **Approved test specification. PR #40 has partial coverage; the [review follow-up matrix](review-follow-up.md#test-matrix-to-close) identifies remaining work and requires per-case evidence.**
 
 Preserve existing regression scenarios. Add focused tests for the new contract without replacing real CrewAI integration coverage with mocks. Application fixtures must not read, import or depend on app/examples.
 
@@ -46,7 +46,7 @@ Mock assembly, selection/factory and workflow public methods. Do not use CrewAI 
 - Two IDs selecting shared_state with different defaults instantiate independent objects of the same class.
 - New configured alias runs without modifying the runner, parser choices or workflow ID Literal.
 - An invalid unused entry, unknown unused implementation and unused implementation-specific invalid settings do not block a valid selected entry.
-- Do not resolve/import/construct unused configured implementations.
+- Do not resolve configuration-specific unused implementations or construct unused wrappers. Lightweight wrapper classes may be imported for the explicit registry; unused concrete flow/dependency modules must remain unloaded.
 - Fresh-process test proves integration configuration precedes any CrewAI import. Keep current import-order regression protection.
 
 ## 4. Configuration tests
@@ -93,6 +93,7 @@ Changing RunResult.output from display text to a typed value intentionally chang
 - Exit 2 for configuration/selection/input; exit 1 for execution/output/serialization; exit 0 for valid needs_work.
 - Raw arguments including spaces/quotes remain individual argv values; no shell interpolation.
 - Current source and newly built current release agree. No old-release/new-config compatibility matrix.
+- The release verifier covers every registered built-in implementation, exercises deferred imports, and leaves the release unverified if any supported case fails.
 - Preserve isolated interpreter flags, no editable/source import leakage, production dependency closure and dedicated offline settings.
 - Maintain the fresh-process offline audit; describe it accurately as Python socket auditing, not an OS network sandbox.
 - Keep normal check/test/lint/type/release gates and existing test collection; exclude personal examples.

@@ -1,6 +1,6 @@
 # Proposed file structure
 
-Status: **Design only. The paths marked new below are not implemented.**
+Status: **Approved target structure, implemented in PR #40 and under review. NEW labels describe additions relative to the original baseline; [review-follow-up.md](review-follow-up.md) identifies remaining tests and corrections.**
 
 Keep the accepted component boundaries. Add the shared contract within workflows, the registry within application, and a wrapper beside each existing CrewAI flow. No code moves to a generic framework package.
 
@@ -13,6 +13,7 @@ designs:
       file-structure.md: this placement proposal
       test-plan.md: acceptance scenarios by test layer
       implementation-plan.md: milestones, risks, guarded changes and handoff
+      review-follow-up.md: review findings, corrections, test-gap matrix and agent handoff
 
 app:
   application.yaml: add configured workflow entries
@@ -89,7 +90,7 @@ Package markers and unrelated files are omitted from this focused tree. No new d
 
 - Workflow contracts/lifecycle/errors do not import application, CLI, release tooling or Langfuse. Concrete wrappers can use config model types and their own flow/state modules.
 - Application imports the common workflow contract; only its registry names concrete wrapper classes.
-- The registry stores class references, not shared instances. Its imports must preserve assembly-before-CrewAI initialization.
+- The registry stores class references, not shared instances. Lightweight wrapper imports must not load concrete flow dependencies. Selected preparation performs runtime imports after assembly has applied integration settings; TYPE_CHECKING may support annotations.
 - Lifecycle methods and transition guards live in the ABC once. The enum/data records live in lifecycle.py; that file is not an execution engine.
 - Each wrapper owns strict implementation configuration; shared config only understands the common entry envelope.
 - Public guides describe supported behavior after implementation. This proposal remains under designs.
