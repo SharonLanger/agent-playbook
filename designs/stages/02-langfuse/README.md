@@ -1,12 +1,22 @@
 # Stage 02 — Langfuse milestones
 
-Status: **Milestones 1–3 implemented on PR #36; Sharon's local acceptance remains pending.**
+Status: **Milestones 1–3 implemented on PR #36, with four open review findings; Sharon's local acceptance remains pending.**
 Milestone 1's fixed checkpoint remains available; see
 [findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
 Milestone 2 adds a project connection check, and milestone 3 adds the explicit
 mock playground. Milestone 4 remains deferred and unimplemented.
 
 ## Start here
+
+Latest: [the four review findings](review-2026-11-13.md) and the
+[proposed single-branch verification plan](verification-simplification-plan.md).
+The review found a trace-delivery defect, misleading export-success reporting,
+main integration conflicts and stale design status. The new plan proposes one
+combined manual exercise and simpler start/stop commands; it awaits Sharon's
+agreement. No fixes, helper implementation or main conflict resolutions have
+been applied by this documentation update. Earlier checkpoint instructions below
+remain historical context; do not treat M3 as ready for acceptance until the
+delivery findings are resolved.
 
 Read [the four milestones and local checkpoints](milestones.md), then
 [configuration and ownership](architecture.md) and the

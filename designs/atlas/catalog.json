@@ -22,7 +22,9 @@
     "designs/stages/02-langfuse/verification.md",
     "designs/stages/02-langfuse/implementation-handoff.md",
     "designs/stages/02-langfuse/connection-playground-handoff.md",
-    "designs/stages/02-langfuse/user-verification.md"
+    "designs/stages/02-langfuse/user-verification.md",
+    "designs/stages/02-langfuse/review-2026-11-13.md",
+    "designs/stages/02-langfuse/verification-simplification-plan.md"
   ],
   "views": {
     "current": {
@@ -2152,7 +2154,7 @@
         "langfuse_setup": {
           "name": "Langfuse milestones",
           "parent": "observability",
-          "label": "M1 pending acceptance / M2–M3 authorized next",
+          "label": "M1–M3 implemented / review findings open",
           "title": "Local UI to real workflows",
           "text": "First configure, connect and explore mock traces; workflow/context integration comes last.",
           "blocks": [
@@ -2203,11 +2205,23 @@
               "path": "designs/stages/02-langfuse/user-verification.md",
               "text": "Drive checklist per milestone; M1 pinned, M2/M3 commands and hashes pending implementation.",
               "to": null
+            },
+            {
+              "name": "Four review findings",
+              "path": "designs/stages/02-langfuse/review-2026-11-13.md",
+              "text": "SDK lifecycle, unresolved main conflicts, export reporting and stale status; revision-specific evidence.",
+              "to": null
+            },
+            {
+              "name": "Simpler verification proposal",
+              "path": "designs/stages/02-langfuse/verification-simplification-plan.md",
+              "text": "Agree first; reconcile main together, fix delivery, simplify operation and verify one final branch revision.",
+              "to": null
             }
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "M1–M3 are implemented on PR #36 and await Sharon acceptance. M4 depends on the workflow refactor and is not implemented.",
+          "note": "PR #36 is unmerged and unaccepted. Four review findings are open. The proposed combined verification/helper plan awaits Sharon agreement; workflow/context integration remains deferred.",
           "diagram": null
         }
       },
@@ -4006,6 +4020,16 @@
           "path": "designs/stages/02-langfuse/user-verification.md",
           "status": "Requested implementation handoff",
           "purpose": "Drive checklist per milestone; M1 pinned, M2/M3 commands and hashes pending implementation."
+        },
+        {
+          "path": "designs/stages/02-langfuse/review-2026-11-13.md",
+          "status": "Open review findings",
+          "purpose": "SDK lifecycle, unresolved main conflicts, export reporting and stale status; revision-specific evidence."
+        },
+        {
+          "path": "designs/stages/02-langfuse/verification-simplification-plan.md",
+          "status": "Proposal awaiting agreement",
+          "purpose": "Agree first; reconcile main together, fix delivery, simplify operation and verify one final branch revision."
         }
       ]
     }

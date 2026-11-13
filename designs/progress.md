@@ -107,3 +107,35 @@ No ordinary workflow emits traces. [M3 findings](stages/02-langfuse/findings.md)
 record independent adapter tests, targeted personal-script smoke runs and the
 blocked live ingestion/readback check. Sharon's M1, M2 and M3 local acceptance
 remain pending; M4 is not implemented.
+
+
+## PR #36 independent review and verification proposal — 2026-11-13
+
+Sharon requested a permanent record of the four review findings and a simpler
+manual exercise before implementation resumes. The [review](stages/02-langfuse/review-2026-11-13.md)
+applies to PR head `5bfcb889215d000d76629c3d4198d33bea99398d`: a real-SDK
+connection/tracing lifecycle defect prevents mock export; rejected export can
+still print submission success; latest-main integration remains unresolved;
+and some canonical stage status is stale. The review independently passed
+Pyright, Ruff and 133 tests, but its actual-SDK HTTP probes reproduced the two
+delivery defects. No live server ingestion, Mac UI or persistence acceptance is
+claimed. Prior checkpoint results above remain revision-specific history.
+
+Read-only comparison with main `53764abeb9402d596ee26bef19872fc2ebd7d888`
+found conflicts in the three configuration files, progress, Atlas catalog and
+generated HTML. No merge or resolution was applied. The [proposed follow-up](stages/02-langfuse/verification-simplification-plan.md)
+starts with updating from main and agreeing on conflict choices with Sharon,
+then delivery fixes, a small lifecycle helper, agent verification and one
+current-revision Drive checklist. It awaits agreement; its commands are proposed,
+not implemented. Workflow/context integration remains separate.
+
+This update saves review/proposal documents and updates navigation/progress/Atlas
+only. It changes no runtime, dependency, guarded baseline or supported product
+command; official product guides therefore remain unchanged at this proposal
+stage. PR #36 remains draft and unmerged, with all four review items open.
+
+Documentation-only verification: Atlas build/freshness/reference checks passed;
+39 relative Markdown links, fenced blocks, whitespace and the six-file change
+scope passed. Hash comparison confirmed other copied source files unchanged.
+Application tests were not rerun for this documentation-only update; the 133-test
+result above belongs to the independent review of `5bfcb889`.
