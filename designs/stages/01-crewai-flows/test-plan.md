@@ -19,8 +19,8 @@ have separate owners. Use actual kickoff for framework integration cases.
 | F06 | wf_03_conditional_route/test_flow.py | Score 80 | accept exactly once; revise never |
 | F07 | wf_03_conditional_route/test_flow.py | Score 40 | revise exactly once; accept never; successful result |
 | F08 | wf_03_conditional_route/test_flow.py | Chosen step raises | Execution error, not business outcome |
-| A01 | application/test_runner.py | Unknown ID or malformed/non-object JSON | Input error; no step executes |
-| A02 | application/test_runner.py | Three workflow IDs | Fresh selected flow only; common result wrapper |
+| A01 | application/test_workflow_runner.py | Unknown ID or malformed/non-object JSON | Input error; no step executes |
+| A02 | application/test_workflow_runner.py | Three workflow IDs | Fresh selected flow only; common result wrapper |
 | C01 | cli/test_workflow_commands.py | Defaults and each explicit input | Correct dispatch/help and exit 0 |
 | C02 | cli/test_workflow_commands.py | Invalid input / injected execution failure | Exit 2 / exit 1, no success message |
 | R01 | releases/test_workflow_launch.py | JSON with spaces and quotes | One preserved argv entry, no shell interpolation |

@@ -5,20 +5,19 @@ from unittest.mock import patch
 import pytest
 
 from agent_playbook.config.paths import configuration_path
-from agent_playbook.releases import selection
+from agent_playbook.releases import launcher
 
 
 def test_json_remains_one_argument_and_error_is_propagated(tmp_path: Path) -> None:
     python = tmp_path / "release with spaces/venv/bin/python"
     raw = '{"future": "quoted "value" with spaces"}'
     with (
-        patch.object(selection, "find_release", return_value=(python, "0.0.11")),
         patch.object(
-            selection.subprocess, "run", return_value=subprocess.CompletedProcess([], 2)
+            launcher.subprocess, "run", return_value=subprocess.CompletedProcess([], 2)
         ) as run,
     ):
         assert (
-            selection.run_release("0.0.11", ["--workflow", "wf-03", "--input", raw])
+            launcher.launch_release(python, ["--workflow", "wf-03", "--input", raw])
             == 2
         )
     args = run.call_args.args[0]
@@ -44,12 +43,11 @@ def test_launcher_passes_shared_path_without_adding_options_to_old_releases(
     monkeypatch.delenv("AGENT_PLAYBOOK_CONFIG", raising=False)
     python = tmp_path / "venv/bin/python"
     with (
-        patch.object(selection, "find_release", return_value=(python, "0.0.11")),
         patch.object(
-            selection.subprocess, "run", return_value=subprocess.CompletedProcess([], 0)
+            launcher.subprocess, "run", return_value=subprocess.CompletedProcess([], 0)
         ) as run,
     ):
-        assert selection.run_release(None) == 0
+        assert launcher.launch_release(python) == 0
     assert run.call_args.args[0] == [
         str(python),
         "-I",
@@ -69,12 +67,11 @@ def test_launcher_preserves_explicit_configuration_and_environment(
     python = tmp_path / "venv/bin/python"
     explicit = "/explicit path/settings.yaml"
     with (
-        patch.object(selection, "find_release", return_value=(python, "0.1.0")),
         patch.object(
-            selection.subprocess, "run", return_value=subprocess.CompletedProcess([], 0)
+            launcher.subprocess, "run", return_value=subprocess.CompletedProcess([], 0)
         ) as run,
     ):
-        assert selection.run_release(None, ["--config", explicit]) == 0
+        assert launcher.launch_release(python, ["--config", explicit]) == 0
     assert run.call_args.args[0][-2:] == ["--config", explicit]
     assert (
         run.call_args.kwargs["env"]["AGENT_PLAYBOOK_CONFIG"]

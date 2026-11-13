@@ -1,8 +1,11 @@
 # Project structure
 
-Status: **Approved structure / guarded baseline**. Approved by Sharon before the
-pre-Stage 01 refactor. This file governs folder ownership; the target architecture
-continues to govern behavior. Future component folders are reserved, not implemented.
+Status: **Proposed update to the guarded baseline, pending Sharon's PR review.**
+The pre-Stage 01 structure was approved; the runtime split and YAML move below are
+proposed by this branch. This file governs folder ownership; the target architecture
+continues to govern behavior. See the [refactor review](refactors/2026-11-12-runtime-structure/README.md)
+and [complete future-tree proposal](refactors/2026-11-12-runtime-structure/proposal.md).
+Future paths in that proposal are not implemented or frozen integration contracts.
 
 ## Change rules
 
@@ -25,7 +28,7 @@ approval wording and CrewAI acceptance discrepancy are tracked in progress.md.
 | `designs/diagrams/` | Diagram sources, static/animated SVG and viewer |
 | `.run/` | Shared portable PyCharm tasks |
 | `app/pyproject.toml`, `app/uv.lock` | Package metadata, dependency pins and check configuration |
-| `app/configs/` | Shared external runtime YAML and ignored machine overrides; user guide in `app/docs/configuration.md` |
+| `app/application.yaml`, `app/application.local.yaml` | Shared external runtime YAML and ignored machine overrides; user guide in `app/docs/configuration.md` |
 | `app/src/agent_playbook/` | Installed runtime Python package |
 | `app/tooling/` | Bootstrap, quality checks, version changes, release build and verification |
 | `app/examples/` | Learning exercises; excluded from the installed package |
@@ -47,9 +50,9 @@ All paths below are relative to `app/src/agent_playbook/`.
 
 | Folder | Ownership | Current contents |
 |---|---|---|
-| `cli/` | Parse arguments, display outcomes, delegate commands | Console/module entry points; checkout-tooling bridge |
-| `application/` | Prepare and execute the selected application run | `runner.py` validates configuration/input and invokes a fresh selected workflow |
-| `releases/` | Discover and launch completed local releases | `selection.py`; build logic stays in tooling |
+| `cli/` | Parse arguments, display outcomes, delegate commands | `parser.py` owns arguments; `commands.py` owns dispatch and presentation; checkout-tooling bridge |
+| `application/` | Prepare and execute the selected application run | `assembly.py` initializes integrations; `workflow_factory.py` validates workflow choice and constructs a fresh flow; `workflow_runner.py` coordinates validation, kickoff and result/error normalization; `results.py` owns outcomes |
+| `releases/` | Discover and launch completed local releases | `discovery.py` finds a compatible installation; `launcher.py` launches the selected interpreter; CLI owns messages; build logic stays in tooling |
 | `config/` | Runtime settings and validation | YAML loader, validation, file selection and CrewAI startup mapping |
 | `workflows/` | Named workflow packages with `flow.py`, `state.py`, `steps.py` | Stage 01 sequence, typed-state and conditional-route examples |
 | `execution/` | Provider-independent agent execution contracts | Responsibility note |
@@ -63,8 +66,11 @@ state and steps with that workflow rather than in global `models` or `utils` fol
 
 ## Dependency rules
 
-- CLI delegates execution to application and release selection; it owns no workflow logic.
-- The application layer assembles workflows and integrations using runtime configuration.
+- CLI delegates execution to the workflow runner or release discovery/launcher; it owns no workflow logic.
+- The workflow runner calls assembly before the factory imports a selected flow. Assembly owns
+  integration setup; the factory owns construction; the runner owns execution and result/error handling.
+- Release discovery does not start a process; the launcher does not select a release or print messages.
+  Neither module imports the application runner. Launching a release crosses an interpreter boundary.
 - Workflows own routing/state and invoke execution contracts; provider clients stay in adapters.
 - Observability events are provider-neutral; only exporters depend on backend clients.
 - Runtime modules must not import checkout-only tooling or learning examples.
@@ -75,8 +81,8 @@ state and steps with that workflow rather than in global `models` or `utils` fol
 
 ```mermaid
 flowchart TD
-    CLI[CLI] --> APP[Application runner]
-    CLI --> REL[Release selection]
+    CLI[CLI] --> APP[Application assembly and runner]
+    CLI --> REL[Release discovery and launcher]
     CLI -. Development checkout .-> TOOLS[Tooling subprocess]
     APP --> WF[Workflows]
     APP --> CFG[Runtime configuration]
@@ -98,3 +104,29 @@ Tests mirror runtime component folders and separately cover tooling and examples
 Validate the full local gate, clean bootstrap, wheel contents and isolated release
 execution after structural moves. macOS PyCharm execution of changed paths requires local confirmation by Sharon.
 
+
+## Proposed future role, harness and tool placement
+
+These paths are a recommendation for the completed system, not new runtime packages
+in this refactor. The complete file inventory and alternatives are in the proposal.
+
+| Proposed path | Owns |
+|---|---|
+| `app/src/agent_playbook/agents/reviewer/`, `agents/coder/` | Role-specific task preparation, output schemas, validation and role behavior |
+| `app/src/agent_playbook/execution/` | Provider-neutral execution contracts and invocation boundary |
+| `app/src/agent_playbook/execution/harnesses/` | Reusable runtime policies, hooks, permission/capability enforcement and harness assembly |
+| `app/src/agent_playbook/execution/adapters/` | SDK-specific session/transport/invocation translation |
+| `app/src/agent_playbook/tools/` | Reusable tool implementations and schemas; role selection is outside tool implementation |
+| `app/harnesses/` | External editable harness assets/profiles as introduced by the integration stage |
+
+Workflows choose roles and routing. Roles define what the coder/reviewer does;
+harness policies and supported tools define how it may work; adapters implement
+provider invocation. Application assembly wires the chosen implementations together.
+An unsupported required capability must fail explicitly rather than weaken policy.
+Detailed contracts, transports and permissions await the relevant stage design.
+
+## Review helper
+
+`app/tooling/verify_refactor.py` runs the existing quality gate and source CLI checks,
+with optional isolated-release verification. `app/docs/refactor-review.md` explains
+its modes and the shared Verify Refactor task. This helper is removable after acceptance.

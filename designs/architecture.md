@@ -133,3 +133,33 @@ These open decisions must remain visible; they must not become implied guarantee
 in diagrams or implementation. Proposed changes to agreed boundaries receive explicit
 review. Implementation order is in [roadmap.md](roadmap.md); implemented behavior is
 tracked in [progress.md](progress.md).
+
+
+## Proposed ownership refinement — pending refactor review
+
+The [runtime refactor proposal](refactors/2026-11-12-runtime-structure/proposal.md)
+expands the completed-system file map. The current implementation splits application
+setup into `assembly.py`, construction into `workflow_factory.py`, and execution into
+`workflow_runner.py`; these are parts of the existing application boundary. Local
+release discovery and process launch remain separate from workflow execution. Shared
+YAML lives directly in `app/application.yaml`.
+
+For future agent integrations, the proposed ownership is:
+
+| Responsibility | Proposed owner |
+|---|---|
+| Reviewer/coder task behavior, input preparation and result validation | `agents/<role>/` |
+| Role order, routing, workflow state and failure policy | `workflows/<workflow>/` |
+| Provider-neutral invocation contract | `execution/` |
+| Harness policies, hook lifecycle and capability/permission enforcement | `execution/harnesses/` |
+| Provider-specific invocation and session translation | `execution/adapters/<provider>/` |
+| Reusable tool implementation | `tools/` |
+| Editable harness profiles/assets | External `app/harnesses/` |
+| Wiring roles, policies, tools and providers | `application/assembly.py` |
+
+A role is independent of whether Claude or Codex executes it. A harness configures
+and constrains execution; an adapter translates supported requirements into its SDK.
+Unsupported required capabilities must be reported explicitly. Future stage design
+must settle the exact contract and enforcement mechanism before claiming interchangeability.
+The existing diagrams show logical baseline responsibilities; this proposed file map
+adds detail without claiming those future components are already implemented.

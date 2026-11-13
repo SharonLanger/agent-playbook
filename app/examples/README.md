@@ -1,6 +1,6 @@
 # Learning examples
 
-`typing_example.py` holds the Stage 00 typing/test exercise. Examples are checked and tested but are not shipped in the application Wheel.
+`typing_example.py` holds a personal typing exercise. This directory is a manual sandbox: the application, default checks, test suite and releases do not use it. Run its scripts only when you choose to.
 
 ## Runnable workflow sandboxes
 

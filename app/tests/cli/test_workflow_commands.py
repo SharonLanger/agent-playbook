@@ -38,7 +38,7 @@ def test_input_and_execution_exit_codes(capsys: pytest.CaptureFixture[str]) -> N
 
 def test_forwarding_is_raw_and_only_explicit_options() -> None:
     raw = '{"score": "new schema with spaces"}'
-    with patch.object(commands, "run_release", return_value=17) as launch:
+    with patch.object(commands, "present_release", return_value=17) as launch:
         assert (
             commands.main(
                 ["run", "--version", "0.1.0", "--workflow", "future-id", "--input", raw]
@@ -48,7 +48,7 @@ def test_forwarding_is_raw_and_only_explicit_options() -> None:
         launch.assert_called_once_with(
             "0.1.0", ["--workflow", "future-id", "--input", raw]
         )
-    with patch.object(commands, "run_release", return_value=0) as launch:
+    with patch.object(commands, "present_release", return_value=0) as launch:
         assert commands.main(["run"]) == 0
         launch.assert_called_once_with(None, [])
 
@@ -62,7 +62,7 @@ def test_direct_module_default() -> None:
 
 
 def test_explicit_configuration_is_forwarded_to_selected_release() -> None:
-    with patch.object(commands, "run_release", return_value=0) as launch:
+    with patch.object(commands, "present_release", return_value=0) as launch:
         assert (
             commands.main(["run", "--config", "/path with spaces/settings.yaml"]) == 0
         )

@@ -1,6 +1,6 @@
 # File ownership — reusable versus workflow-specific
 
-**Approved file ownership, implemented in the Stage 01 code PR.**
+**Stage 01 ownership, with path updates proposed by the runtime refactor PR.**
 Paths are relative to `app/`; `WF-01` is a display/CLI identifier, while Python package names
 use underscores. Each named workflow has its own test directory.
 
@@ -8,21 +8,25 @@ use underscores. Each named workflow has its own test directory.
 
 | Path | Purpose | Reuse / change expectation |
 |---|---|---|
-| `src/agent_playbook/cli/commands.py` | Public options, selection forwarding and presentation | Reused; integrate with PR #28's final parser shape |
-| `src/agent_playbook/application/runner.py` | Validate request, select/invoke fresh flow, normalize result | Reused; one explicit selection entry per new workflow |
+| `src/agent_playbook/cli/commands.py` | Command dispatch, selection forwarding and presentation | Reused; arguments live in parser.py |
+| `src/agent_playbook/cli/parser.py` | Define public CLI arguments | Reused |
+| `src/agent_playbook/application/workflow_runner.py` | Coordinate validation, invoke fresh flow, normalize result | Reused orchestration |
+| `src/agent_playbook/application/assembly.py` | Validate config and initialize integrations before flow imports | Reused setup |
+| `src/agent_playbook/application/workflow_factory.py` | Select and construct a fresh flow with typed state/input | One explicit selection entry per new workflow |
 | `src/agent_playbook/application/results.py` | Small immutable successful RunResult | Reused; no workflow state here |
-| `src/agent_playbook/releases/selection.py` | Forward workflow/input argv to selected installation | Reused; preserve version selection and isolation |
+| `src/agent_playbook/releases/discovery.py` | Find a completed matching installation | Reused; preserve version selection |
+| `src/agent_playbook/releases/launcher.py` | Forward workflow/input argv to selected interpreter | Reused; preserve isolation and child exit status |
 | `src/agent_playbook/__main__.py` | Preserve direct-module default run | Reused entry point; defaults to WF-01 in Stage 01 |
-| `configs/` | Shared YAML, ignored local overrides and operating rules | Reused across application releases |
+| `application.yaml`, `application.local.yaml` | Shared YAML, ignored local overrides and operating rules | Reused across application releases |
 | `src/agent_playbook/config/` | Paths, validated settings, YAML loading and CrewAI startup mapping | Reused; workflow rules stay separate |
 | `tests/config/` | Precedence, validation, private errors and startup/reload tests | Shared configuration tests |
 | `tooling/` | Existing setup/check/version/release machinery | Reused; runtime dependency installation added deliberately |
-| `tests/application/test_runner.py` | Selection, input rejection, fresh invocation, normalized outcomes | Shared application tests |
+| `tests/application/test_workflow_runner.py` | Selection, input rejection, fresh invocation, normalized outcomes | Shared application tests |
 | `tests/cli/test_workflow_commands.py` | Parsing, argv forwarding, exit codes, help | Shared CLI tests |
 | `tests/releases/test_workflow_launch.py` | Selected release receives the exact requested workflow/input | Shared release tests |
 
-Do not freeze internal helper filenames from another agent's in-progress refactor. Read PR #28's
-actual merged tree before extending these owners. No workflow imports `tooling` or CLI modules.
+The current structure is documented in the guarded project-structure.md and the
+runtime refactor review; historical proposal inventories retain their baseline names. No workflow imports `tooling` or CLI modules.
 
 ## Workflow files (W = workflow-specific)
 

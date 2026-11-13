@@ -35,9 +35,16 @@ conflicts before proceeding. Passing tests alone does not establish compliance.
 ## Engineering
 - Keep external integrations isolated behind explicit contracts/adapters. Configure provider endpoints, credentials, and environment-specific settings externally; never commit secrets.
 - Prefer deterministic regression tests and strict static checking; record actual verification results, not unverified success claims.
+- `app/examples/` is Sharon's personal sandbox. Do not inspect, modify, validate, or execute its contents unless explicitly requested for that task. Application code, automated tests, coverage, checks, setup and releases must not depend on it. Application tests and fixtures belong under `app/tests/` and exercise `app/src/agent_playbook/`. Deleting `app/examples/` must leave application behavior, collected tests and application coverage unchanged. Explicit user-invoked sandbox lint/format is permitted outside automated gates.
 - No GitHub Actions CI is required for now. When Stage 00 defines the local quality-check command, run it before declaring code changes ready and document it in `README.md` and `app/README.md`. Never claim tests ran if they did not.
 - Keep implementation-facing plans distinct from learner-facing Markdown under stage `learning/`. Use Mermaid for static diagrams and self-contained animated SVG where movement clarifies behavior, with a static fallback. Verify rendered assets where possible.
 - Do not create detailed designs for future stages ahead of their turn.
 
 ## Status
-Stage 00 is accepted. Stage 01 design (#29), workflow/configuration implementation (#30), principles follow-up (#31), and independent sandboxes (#32) are merged. Sharon reported the examples working and accepted #32 after the diagram-size correction. The sandboxes live in `app/examples/workflows/` and run through their own run.py files, independently of the CLI/application runner. User-facing operating guides live in `app/docs/`; active configuration files remain in `app/configs/`. See `designs/progress.md` for verification evidence and acceptance. The next planned stage is Stage 02 (Langfuse); discuss and approve its design before implementation. Keep completed-stage learning material available. The top-level architecture remains the target system; do not infer future implementation from target diagrams.
+Stage 00 is accepted. Stage 01 design (#29), workflow/configuration implementation (#30), principles follow-up (#31), and independent sandboxes (#32) are merged. Sharon reported the examples working and accepted #32 after the diagram-size correction. The sandboxes live in `app/examples/workflows/` and run through their own run.py files, independently of the CLI/application runner. User-facing operating guides live in `app/docs/`; the active configuration is `app/application.yaml`. See `designs/progress.md` for verification evidence and acceptance. The next planned stage is Stage 02 (Langfuse); discuss and approve its design before implementation. Keep completed-stage learning material available. The top-level architecture remains the target system; do not infer future implementation from target diagrams.
+
+
+The runtime structure refactor is prepared for review in
+`designs/refactors/2026-11-12-runtime-structure/`. Sharon requested the code changes and
+future-layout proposal in an unmerged PR. Its guarded-document updates remain proposed
+until his review; do not treat future role/harness/tool paths as implemented or accepted.

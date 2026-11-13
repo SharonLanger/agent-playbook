@@ -45,7 +45,7 @@ test, and restore it. The full quality gate remains required before release.
 |---|---|---|
 | [steps.py](../../../../app/src/agent_playbook/workflows/wf_01_step_sequence/steps.py) | `make_message`, `decorate_message` | WF-01 string rules only |
 | [flow.py](../../../../app/src/agent_playbook/workflows/wf_01_step_sequence/flow.py) | `StepSequenceFlow.produce`, `decorate`, `finish` | WF-01 scheduling and messages |
-| [runner.py](../../../../app/src/agent_playbook/application/runner.py) | wf-01 selection and empty-input rule | Shared selection boundary |
+| [workflow_factory.py](../../../../app/src/agent_playbook/application/workflow_factory.py) | wf-01 selection and empty-input rule | Shared selection boundary |
 | [test_steps.py](../../../../app/tests/workflows/wf_01_step_sequence/test_steps.py) | Default and empty-string behavior | WF-01 unit tests |
 | [test_flow.py](../../../../app/tests/workflows/wf_01_step_sequence/test_flow.py) | Real kickoff, exact order, failure skip | WF-01 framework tests |
 

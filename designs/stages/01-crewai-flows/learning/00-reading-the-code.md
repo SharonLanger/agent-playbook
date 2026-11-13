@@ -49,14 +49,17 @@ or framework internals. The diagram describes ownership; the table describes an 
 
 | Read in this order | What to find | Reused? |
 |---|---|---|
-| [cli/commands.py](../../../../app/src/agent_playbook/cli/commands.py) | `build_parser`, `main`, `present_workflow`: parse, select source/release, print and return status | Yes |
-| [application/runner.py](../../../../app/src/agent_playbook/application/runner.py) | `run_workflow`: validate JSON and selected input, construct a fresh flow, call kickoff | Yes |
+| [cli/parser.py](../../../../app/src/agent_playbook/cli/parser.py) | `build_parser`: define public CLI arguments | Yes |
+| [cli/commands.py](../../../../app/src/agent_playbook/cli/commands.py) | `main`, `present_workflow`, `present_release`: select source/release, print and return status | Yes |
+| [application/workflow_runner.py](../../../../app/src/agent_playbook/application/workflow_runner.py) | `run_workflow`: coordinate startup/input validation, delegate construction, call kickoff and normalize outcome | Yes |
+| [application/assembly.py](../../../../app/src/agent_playbook/application/assembly.py) | `assemble_runtime`: configure integrations before flow imports | Yes |
+| [application/workflow_factory.py](../../../../app/src/agent_playbook/application/workflow_factory.py) | Validate workflow ID and construct fresh typed flow/input/state | Yes |
 | [application/results.py](../../../../app/src/agent_playbook/application/results.py) | Immutable RunResult; different input/execution error classes | Yes |
 | [config/](../../../../app/src/agent_playbook/config/README.md) | Load external settings, validate them, and configure CrewAI before flow imports | Shared integration configuration |
 | Selected workflow's `flow.py` | Decorators describe step dependencies; messages show real execution | Specific to that workflow |
 | Selected workflow's `steps.py` | Ordinary Python computations independent of scheduling | Specific to that workflow |
 
-The runner has three explicit cases rather than a plugin framework. Adding a fourth workflow
+The factory has three explicit cases rather than a plugin framework. Adding a fourth workflow
 later adds another named package, its own tests and a selection case. It does not edit the
 first three workflows' formulas. A fresh flow is created each time: mutable history is never
 stored in a shared runner singleton. Do not subclass another example merely to reuse a graph;
