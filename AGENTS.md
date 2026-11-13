@@ -32,6 +32,15 @@ conflicts before proceeding. Passing tests alone does not establish compliance.
 - Keep stage designs, plans, lessons, examples, findings and diagrams permanently under `designs/stages/<stage>/`, including during review. Follow `designs/README.md` to locate them.
 - Reserve `designs/temporary/` only for disposable agent-to-agent handoffs. Preserve lasting decisions in permanent documents before deleting a handoff. Never delete stage material as part of handoff cleanup.
 
+## Personal sandbox and official documentation
+
+- `app/examples/` is Sharon's personal sandbox. Unless explicitly requested for a specific task, do not read, search, inspect, execute, test, lint, format, import, modify or maintain its contents. Exclude it from broad searches and application quality gates. Authorization there is limited to the requested task.
+- Do not add tests to examples or make application tests depend on it. Keep maintained tests and independent fixtures in `app/tests/`. Existing exclusions/cleanup must be handled explicitly without inspecting or modifying the sandbox unasked.
+- `app/docs/` is maintained official product documentation for new and existing users. Internal review notes, temporary material, handoffs and unapproved proposals belong under `designs/` with their owning stage/refactor.
+- Every change requires a documentation-impact assessment. Update affected public guides, commands, configuration, examples within guides, links and indexes in the same PR when supported behavior or user-relevant architecture changes. Otherwise state a concrete no-impact reason. Keep docs consistent with approved design and verified implementation; surface conflicts rather than documenting drift.
+- Follow the [architecture placement protocol](designs/refactors/atlas/architecture-placement.md): repository boundary → component → subcomponent → file, with purpose, contracts, stage authorization and documentation impact. Future Atlas boundaries remain proposals until approved.
+- Detailed rationale and pending guarded-document alignment: [sandbox and documentation policy](designs/refactors/atlas/documentation-and-sandbox-policy.md). The explicit sandbox restriction supersedes older descriptions of examples as maintained/tested lessons; those descriptions await the separately reviewed alignment patch.
+
 ## Engineering
 - Keep external integrations isolated behind explicit contracts/adapters. Configure provider endpoints, credentials, and environment-specific settings externally; never commit secrets.
 - Prefer deterministic regression tests and strict static checking; record actual verification results, not unverified success claims.
@@ -41,3 +50,4 @@ conflicts before proceeding. Passing tests alone does not establish compliance.
 
 ## Status
 Stage 00 is accepted. Stage 01 design (#29), workflow/configuration implementation (#30), principles follow-up (#31), and independent sandboxes (#32) are merged. Sharon reported the examples working and accepted #32 after the diagram-size correction. The sandboxes live in `app/examples/workflows/` and run through their own run.py files, independently of the CLI/application runner. User-facing operating guides live in `app/docs/`; active configuration files remain in `app/configs/`. See `designs/progress.md` for verification evidence and acceptance. The next planned stage is Stage 02 (Langfuse); discuss and approve its design before implementation. Keep completed-stage learning material available. The top-level architecture remains the target system; do not infer future implementation from target diagrams.
+

@@ -1,0 +1,60 @@
+--- a/designs/principles.md
++++ b/designs/principles.md
+@@ -14,3 +14,6 @@
+ 10. **Local-first:** Support local development and configurable service deployment; do not assume that using a remote model is offline.
+ 11. **No silent migration:** Preserve historical playbook files and semantics during the proposed sandbox migration; do not delete or rewrite history without review.
+ 
++
++12. **Personal sandbox isolation:** `app/examples/` is Sharon's sandbox. Agents do not access or maintain it without a specific request. Maintained tests and independent fixtures belong in `app/tests/`; application gates must not depend on examples.
++13. **Maintained official documentation:** `app/docs/` contains public product documentation only. Every change assesses documentation impact; update affected guides and navigation in the same PR or record a concrete no-impact reason. Keep public documentation aligned with approved design and verified supported behavior. Internal and temporary material belongs in designs.
+--- a/designs/project-structure.md
++++ b/designs/project-structure.md
+@@ -28,10 +28,10 @@
+ | `app/configs/` | Shared external runtime YAML and ignored machine overrides; user guide in `app/docs/configuration.md` |
+ | `app/src/agent_playbook/` | Installed runtime Python package |
+ | `app/tooling/` | Bootstrap, quality checks, version changes, release build and verification |
+-| `app/examples/` | Learning exercises; excluded from the installed package |
+-| `app/examples/workflows/` | Eight self-contained workflow sandboxes; each owns its run.py, input, settings, tests and diagrams |
+-| `app/tests/` | Tests grouped by component, plus tooling and examples; workflow sandbox tests also live beside their examples |
+-| `app/docs/` | User-facing operating guides; index in `README.md`, CLI/build/release in `cli.md`, runtime settings in `configuration.md` |
++| `app/examples/` | Sharon’s personal sandbox; excluded from agent access/maintenance and application gates unless explicitly requested for a specific task |
++| `app/examples/workflows/` | Personal sandbox contents; not part of maintained application examples or tests |
++| `app/tests/` | Maintained application/tooling tests and independent fixtures; no dependencies on personal examples |
++| `app/docs/` | Maintained official product documentation; update affected guides/indexes with every relevant change; no internal or temporary review material |
+ | `app/dist/` | Generated local releases; ignored by Git |
+ | `sandbox/` | Historical experiments; outside active application work |
+ 
+@@ -94,7 +94,7 @@
+ Preserve `agent-playbook` and `python -m agent_playbook.cli`, including `run`,
+ `run --version`, `dev-run`, `version`, `test`, and `check`. Preserve the direct
+ `python -m agent_playbook` entry point. Update shared Setup/Release paths to tooling.
+-Tests mirror runtime component folders and separately cover tooling and examples.
++Tests mirror runtime component folders and separately cover tooling; exclude the personal examples sandbox.
+ Validate the full local gate, clean bootstrap, wheel contents and isolated release
+ execution after structural moves. macOS PyCharm execution of changed paths requires local confirmation by Sharon.
+ 
+--- a/app/docs/README.md
++++ b/app/docs/README.md
+@@ -1,18 +1,19 @@
+ # User documentation
+ 
+-Start here when you want to run or configure Agent Playbook.
++Start here when you want to run or configure Agent Playbook. This is the maintained official product documentation for new and existing users.
++
++Keep affected guides, commands, configuration explanations and navigation synchronized in the same PR as changes to supported behavior or user-relevant architecture. Internal refactor reviews, temporary notes, handoffs and unapproved proposals belong under `designs/`.
+ 
+ | Guide | What you will learn |
+ |---|---|
+ | [CLI and releases](cli.md) | Commands, source versus installed runs, checks, formatting, version changes and releases |
+ | [Configuration](configuration.md) | Which settings file is loaded, local/environment overrides, CrewAI controls, secrets and PyCharm examples |
+-| [Running workflows](workflows.md) | Choose integrated workflows or standalone examples, provide input and read results |
++| [Running workflows](workflows.md) | Choose supported integrated workflows, provide input and read results |
+ | [Troubleshooting](troubleshooting.md) | Resolve interpreter, configuration, workflow, check and release problems |
+ 
+ ## Setup and learning
+ 
+ - [Application setup](../README.md): bootstrap and the project interpreter.
+-- [Independent workflow examples](../examples/workflows/README.md): start one example directly with its run.py.
+ - [Stage 01 learning guide](../../designs/stages/01-crewai-flows/learning/00-reading-the-code.md): understand the integrated workflows and read their code.
+ - [Target architecture](../../designs/architecture.md) and [current progress](../../designs/progress.md): distinguish the intended system from what is implemented.
+ 

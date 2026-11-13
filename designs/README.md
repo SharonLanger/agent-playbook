@@ -43,3 +43,8 @@ Approval changes document status, not retention or location.
 `temporary/` is reserved only for disposable agent-to-agent handoffs. Transfer any lasting
 knowledge into permanent documents before deleting a handoff. Handoff cleanup must not remove
 stage designs or learning material.
+
+
+## Atlas review
+
+[Architecture Atlas and governance review](refactors/atlas/README.md): zoom levels, placement protocol, sandbox/public-docs boundaries and proposed future structure. Future components are proposals, not approved implementation.
