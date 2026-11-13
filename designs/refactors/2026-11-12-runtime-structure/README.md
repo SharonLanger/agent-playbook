@@ -11,13 +11,11 @@ The proposed completed system is documented separately from what exists today.
    future file tree, role/harness/tool ownership and staged migration.
 2. [Current project structure](../../project-structure.md): actual boundaries on
    this branch. Changes to guarded documents are part of the review diff.
-3. [Review commands](../../../app/docs/refactor-review.md): automated checks and
-   the short PyCharm checklist.
-4. [Verification evidence](verification.md): executed checks and remaining limits.
+3. [Verification evidence](verification.md): executed checks and remaining limits.
 
 The proposal is preserved as the planning snapshot. Its source inventory describes
 main before this refactor; its proposed names are not a claim that future files exist.
-The current structure and review guide describe the implemented subset.
+The current structure and verification record describe the implemented subset.
 
 ## Included now
 

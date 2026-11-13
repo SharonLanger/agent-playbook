@@ -47,8 +47,3 @@ Use **Dev Run** for source edits, **Run** for the latest release, and **Check** 
 
 [Workflow examples — start here](examples/workflows/README.md). Open an example's run.py directly in PyCharm; no CLI selection or release is needed.
 
-## Review the runtime structure change
-
-Run `app/.venv/bin/python app/tooling/verify_refactor.py` from the repository root,
-or the shared **Verify Refactor** task. See the [review guide](docs/refactor-review.md)
-for isolated-release checks and the configuration-path migration.

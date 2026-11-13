@@ -48,4 +48,3 @@ The runtime structure refactor is prepared for review in
 `designs/refactors/2026-11-12-runtime-structure/`. Sharon requested the code changes and
 future-layout proposal in an unmerged PR. Its guarded-document updates remain proposed
 until his review; do not treat future role/harness/tool paths as implemented or accepted.
-Use `app/docs/refactor-review.md` for repeatable verification before acceptance.
