@@ -109,7 +109,7 @@ def build_wheel(repo: Path, commit: str, destination: Path, uv: str) -> Path:
             "uv.lock",
             "src",
         ],
-        cwd=repo
+        cwd=repo,
     )
     with tempfile.TemporaryDirectory(prefix="agent-playbook-release-") as temporary:
         source = Path(temporary) / "source"
