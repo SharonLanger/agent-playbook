@@ -80,3 +80,15 @@ This update contains documentation and generated Atlas navigation only. Applicat
 Sharon approved the PR #38 design and the enumerated guarded-file changes. `feat/workflow-contract` starts at design head `cf62b80` while PR #38 remains open. This branch adds the final-method ABC, per-instance lifecycle/failure records, stable class registry, selected YAML configuration, strict YAML key handling, typed native results, and CLI adaptation. CrewAI retains decorated step orchestration. Children (#39), recovery, and context/Langfuse remain separate.
 
 Baseline at `cf62b80`: Pyright, Ruff lint and format passed. Pytest collection failed in the sandbox because CrewAI attempted to create per-user storage in a read-only home directory. Full tests subsequently ran in the approved execution context. Final checks and current-release evidence are recorded below when complete.
+
+### Verification at implementation commit `c2247baf55990e2194fd091eec41d10ddb299a15`
+
+- `app/.venv/bin/python -m tooling.checks check`: PASS, Pyright 0 errors/warnings, Ruff lint/format PASS, pytest 146 passed. The release command repeated the same full gate on the committed tree.
+- `python3 designs/atlas/build.py --check` and `git diff --check`: PASS before the implementation commit; Atlas rebuilt from the updated catalog.
+- `app/.venv/bin/python tooling/verify_runtime.py dev-run`: PASS for WF-01, WF-02, both WF-03 routes and zero Python socket/DNS attempts. This is a Python audit, not an OS network sandbox.
+- `app/.venv/bin/python -m tooling.release` with a workspace uv cache: PASS on CPython 3.13.5. Locked dependency export/install with hashes, `uv pip check` (138 installed packages), isolated installed imports, default WF-01, WF-02, WF-03 pass/needs_work and the fresh-process offline audit passed. Verified wheel SHA-256 `34d6b4683179ab17593257d99711a3101167e317f25deb8789a703bbf5e44910`; requirements SHA-256 `99fb1fc30d3c3b63e7a4b5464eab05a3fc9364f9631edcf6bffd5afbf4779840`; lock SHA-256 `5bb830f9eaf61fb9b67d3d6c6cf07a2084279cb64fa03a26968cb36e4ec36d04`.
+- A configured `wf-02-custom` alias using defaults 10, -2, 3 returned 24 in source and the installed release. The final installed release returned 0 when JSON overrode `initial` with 2.
+
+The Linux verification does not certify Sharon's Mac/PyCharm setup. The release artifact is local and intentionally untracked. Existing releases using an older configuration schema were not tested with this new YAML. No Langfuse or model service was required.
+
+For a manual review from `app/`, run `./.venv/bin/agent-playbook dev-run`, then WF-02 with `--workflow wf-02 --input '{"initial":10,"increment":-2,"multiplier":3}'` and with `--input '{"initial":3,"increment":2,"multiplier":4}'`. Try WF-03 with scores 59 and 60. Add the documented `wf-02-custom` entry to a temporary YAML file and select it with `--config PATH --workflow wf-02-custom`. Try score 101 (exit 2) and an injected step exception through `tests/cli/test_workflow_commands.py` (exit 1); there is no public failure flag.

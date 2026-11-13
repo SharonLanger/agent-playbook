@@ -1,5 +1,5 @@
 {
-  "snapshot": "feat/workflow-contract: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
+  "snapshot": "feat/workflow-contract c2247ba: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -58,7 +58,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "feat/workflow-contract: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
+          "note": "feat/workflow-contract c2247ba: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
           "diagram": null
         },
         "design": {
@@ -101,7 +101,7 @@
           ],
           "status": "approved-design",
           "source": "designs/project-structure.md",
-          "note": "feat/workflow-contract: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
+          "note": "feat/workflow-contract c2247ba: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
           "diagram": null
         },
         "app": {
@@ -150,7 +150,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "feat/workflow-contract: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
+          "note": "feat/workflow-contract c2247ba: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
           "diagram": null
         },
         "src": {
@@ -199,7 +199,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "feat/workflow-contract: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
+          "note": "feat/workflow-contract c2247ba: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
           "diagram": null
         },
         "application": {
@@ -236,7 +236,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "feat/workflow-contract: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
+          "note": "feat/workflow-contract c2247ba: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
           "diagram": null
         },
         "workflows": {
@@ -261,7 +261,7 @@
           ],
           "status": "implemented",
           "source": "designs/stages/01-crewai-flows/architecture.md",
-          "note": "feat/workflow-contract: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
+          "note": "feat/workflow-contract c2247ba: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
           "diagram": null
         },
         "config": {
@@ -286,7 +286,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "feat/workflow-contract: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
+          "note": "feat/workflow-contract c2247ba: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
           "diagram": null
         },
         "release": {
@@ -311,7 +311,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "feat/workflow-contract: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
+          "note": "feat/workflow-contract c2247ba: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
           "diagram": null
         },
         "tooling": {
@@ -336,7 +336,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "feat/workflow-contract: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
+          "note": "feat/workflow-contract c2247ba: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
           "diagram": null
         },
         "tests": {
@@ -355,7 +355,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "feat/workflow-contract: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
+          "note": "feat/workflow-contract c2247ba: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
           "diagram": null
         },
         "integrations": {
@@ -380,7 +380,7 @@
           ],
           "status": "approved-design",
           "source": "designs/architecture.md",
-          "note": "feat/workflow-contract: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
+          "note": "feat/workflow-contract c2247ba: approved ABC lifecycle, YAML registry and typed results implemented for review; release verification recorded in progress.",
           "diagram": null
         }
       },

@@ -36,7 +36,7 @@ Review its edits and rerun `check`.
 
 ## Select a workflow
 
-Both `dev-run` and `run` accept `--workflow`, `--input` and `--config PATH`. The default is wf-01.
+Both `dev-run` and `run` accept `--workflow`, `--input` and `--config PATH`. The default is wf-01. Any ID configured under `workflows` may be selected; see [configuration](configuration.md#configured-workflows).
 `--input` must be one JSON-object argument. These options are available from version 0.1.0.
 
 | Workflow | Input fields/defaults | Result |
