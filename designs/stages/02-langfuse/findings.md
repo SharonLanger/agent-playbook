@@ -82,8 +82,10 @@ daemon uses `vfs`, and recreating the web/worker images filled its 32 GiB
 filesystem (`no space left on device` while copying image files). A later start
 after `down` met the same limit. The isolated project and volumes were removed.
 The changed-port resolved configuration passed, but live readiness after that
-change is unverified. Mac architecture support and Docker Desktop behavior are
-also unverified. Sharon's original M1 acceptance remains pending.
+change is unverified. Read-only image-manifest inspection found `amd64` and
+`arm64` variants for pinned Langfuse web/worker and MinIO images. This is not a
+Mac Docker Desktop run or a check of all dependency image manifests. Sharon's
+original M1 acceptance remains pending.
 
 The existing application gate passed Pyright (0 errors), Ruff lint and format.
 Pytest initially had 26 errors while Docker filled the filesystem; after removing
