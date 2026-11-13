@@ -1,6 +1,6 @@
 # Workflow contract refactor
 
-Status: **Design approved by Sharon for implementation on 2026-11-13. Implementation is in review on `feat/workflow-contract`.**
+Status: **Approved workflow-contract design. Implementation PR #40 is in review; the requested follow-up is not yet implemented.**
 Updated: 2026-11-13. Source baseline: main at `a4264ac985005b6e9c104bf8a8c4c1f1492abfb1` (PR #35 merged; PR #34 runtime split preserved).
 
 ## Goal
@@ -9,6 +9,8 @@ Adding a workflow should require its own implementation, a stable registry entry
 
 CrewAI retains orchestration, decorated steps, routing and business state. Our workflow ABC owns application-facing preparation, execution, output validation, serialization and their call-order guards.
 
+Start the review follow-up at [review-follow-up.md](review-follow-up.md): lazy dependency imports now, constructor/error fixes, the complete test-gap matrix and the next-agent instructions. Reviewed implementation: PR #40 at b3d279b; the runtime on this design branch remains the original baseline.
+
 ## Read in order
 
 | Document | Purpose |
@@ -16,9 +18,10 @@ CrewAI retains orchestration, decorated steps, routing and business state. Our w
 | [Design](design.md) | Contracts, lifecycle transitions, configuration, typed results and errors |
 | [File structure](file-structure.md) | Proposed folders, files, ownership and dependencies |
 | [Test plan](test-plan.md) | Lifecycle, isolated runner, configuration, real flows, CLI and release scenarios |
-| [Implementation plan](implementation-plan.md) | Review gate, milestones, estimates, risks, guarded changes and Langfuse handoff |
+| [Implementation plan](implementation-plan.md) | Milestones, risks, guarded changes and Langfuse handoff |
+| [Review follow-up](review-follow-up.md) | Current corrections, test-gap matrix, release checks and implementation-agent instructions |
 
-The [living discussion record](https://chatgpt.com/space/page_c032a077e22c8191b5c91d3b96a38d23) retains the decision history. This repository package contains the concrete proposal for implementation review.
+The [living discussion record](https://chatgpt.com/space/page_c032a077e22c8191b5c91d3b96a38d23) retains the decision history. This repository package is the implementation contract. The review follow-up records the latest decision to add lazy dependency imports before context integration.
 
 ## Decisions carried forward
 
@@ -31,13 +34,14 @@ The [living discussion record](https://chatgpt.com/space/page_c032a077e22c8191b5
 - Preserve rich validated results internally. CLI presentation remains a separate string produced by the workflow.
 - Preserve WF-01/02/03 computations, routing, inputs, CLI text and exit codes.
 - No compatibility work for old installed releases consuming new configuration.
+- Load concrete flow dependencies only for the selected workflow; release verification still exercises every built-in implementation.
 - Context and Langfuse are the next separate integration step.
 - Child/composite workflows and recovery are future features.
 
 ## Authority and readiness
 
-Sharon approved the direction and lifecycle/error behavior in the 13 November discussion and requested documentation only. He explicitly authorized revising Stage 01's base-class restriction. The narrow Stage 01 clarification is included; Sharon approved the remaining per-file guarded changes listed in the implementation plan for this implementation PR.
+Sharon approved the workflow ABC design and the enumerated guarded changes for implementation in PR #40. After the review he requested lazy dependency loading now, constructor and diagnostic fixes, and completion of the planned tests. The precise follow-up and evidence requirements are in [review-follow-up.md](review-follow-up.md).
 
-There are no unresolved product decisions preventing review of this package. Precise typing, import-order and framework failure behavior have explicit implementation gates; passing them is not claimed here. Sharon gave the implementation go-ahead on 2026-11-13.
+The reviewer independently verified the original PR #40 head with 166 passing tests and passing type/lint/format checks, but identified coverage gaps and three reproduced issues. That evidence does not establish follow-up completion. The next agent must implement and verify this package before another review; neither PR is authorized to merge by this document.
 
-This package is permanent refactor material under `designs/refactors/`. It is not a product guide, a new framework, or authorization to implement future observability or recovery designs.
+This package is permanent refactor material under designs/refactors. Children, recovery, optional-package installation profiles and context/Langfuse remain separate scopes.

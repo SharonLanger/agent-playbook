@@ -1,6 +1,6 @@
 # Workflow contract design
 
-Status: **Approved design; implementation in review on `feat/workflow-contract`.**
+Status: **Approved design; PR #40 implementation is in review. Follow-up corrections and tests are specified in [review-follow-up.md](review-follow-up.md).**
 
 ## Ownership
 
@@ -72,6 +72,10 @@ Catch Exception for normal lifecycle failure bookkeeping and re-raise with the o
 7. Return immutable RunResult containing the validated object and serialized text.
 
 Assembly may be arranged internally to return both application and CrewAI settings without loading twice. No public runner call may import concrete flows before configuration has been applied. Build the class registry lazily after assembly; wrapper modules defer CrewAI flow imports until needed. Unknown unused implementation strings do not trigger imports or validation.
+
+Lazy loading means the explicit registry may import lightweight wrapper class modules, while concrete CrewAI flows and implementation dependencies load only for the selected workflow during prepare. Audit transitive state/schema imports and type annotations. No string import loader, plugin discovery, context object or optional-package installation profile is required. An ordinary registry setup error is normalized at the outer execution boundary; a selected flow import error during prepare is a PREPARE execution failure. Integration settings must precede any actual framework initialization.
+
+Release verification deliberately prepares and executes every supported built-in implementation in the installed artifact. Its case inventory must cover the registry, so deferred imports do not hide broken packaged workflows. Normal selected execution and exhaustive release verification serve different purposes.
 
 The ordering changes the old unknown-ID-before-configuration behavior deliberately: shared configuration must be readable before configured IDs can be resolved. Replace that obsolete assertion with tests for the new sequence.
 
@@ -148,6 +152,8 @@ WorkflowFailure records the failing lifecycle phase and original exception for i
 | Serialization defect | SERIALIZE_OUTPUT failure; no success result | 1 |
 | Wrong method order | WorkflowOrderError; no hook/state mutation; programming error | 1 |
 | Valid needs_work decision | Successful business result | 0 |
+
+Selection validation and actual constructor invocation require distinct exception boundaries. Explicit invalid implementation settings reported as ConfigurationError remain configuration failures. An unexpected constructor WorkflowInputError, raw ValueError or raw Pydantic ValidationError is an execution failure, not an input error. The outer boundary must identify the configured alias and phase; validators supply safe field locations and error types without embedding built-in IDs or raw values. Preserve causes without redundant same-category wrapping. See I-1 through I-3 in the follow-up for precise acceptance.
 
 Within _prepare, translate only input-schema errors into WorkflowInputError. Do not classify every ValueError or Pydantic ValidationError as bad user input: state/flow-construction defects are execution failures. During _execute, every ordinary exception is an execution failure even if it happens to be named WorkflowInputError. Translate at phase boundaries, not through one broad try/except covering the entire run.
 

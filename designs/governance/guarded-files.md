@@ -32,8 +32,9 @@ Stage 00 architecture/plan still have old proposed-status wording. Progress reco
 - `designs/refactors/workflow-contract/file-structure.md`
 - `designs/refactors/workflow-contract/test-plan.md`
 - `designs/refactors/workflow-contract/implementation-plan.md`
+- `designs/refactors/workflow-contract/review-follow-up.md`
 
-Sharon approved this design and its enumerated guarded-file changes for the implementation PR on 2026-11-13. Historical status wording in the package describes its pre-approval review state.
+Sharon approved this design and the enumerated guarded changes for PR #40. On 2026-11-13 he requested the review follow-up: lazy dependency imports now, constructor and diagnostic corrections, and completion of the agreed test plan. These approval records do not authorize merging either PR or adding deferred features.
 
 ## Rules beyond the list
 

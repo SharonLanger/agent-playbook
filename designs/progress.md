@@ -75,7 +75,16 @@ Sharon requested the [workflow contract design package](refactors/workflow-contr
 
 This update contains documentation and generated Atlas navigation only. Application code, tests, dependencies, configuration and releases are unchanged. No runtime verification result is claimed for the proposed refactor. Implementation remains explicitly stopped pending Sharon's go-ahead. Context/Langfuse follows separately; child workflows and recovery are future feature requests.
 
+## Workflow-contract review follow-up — 2026-11-13
+
+PR #40 (feat/workflow-contract) implements the approved PR #38 contract and enumerated guarded changes. It was reviewed at b3d279b6826284cd9a0e1aba6f559525e8358f31. The reviewer independently reran the standard check: Pyright and Ruff lint/format passed; pytest reported 166 passed. Fourteen temporary additional probes passed but are not committed regression tests. Existing real workflow tests remain; planned coverage is incomplete. The reviewer did not rebuild the release independently; PR #40 contains the implementer's release evidence.
+
+The review reproduced eager unused-flow import failure, constructor WorkflowInputError misclassification and alias/type information missing from validation diagnostics. The import finding was qualified: the existing release smoke checks should catch that deterministic defect before a release is marked verified. Sharon nevertheless chose lazy dependency imports now, together with exhaustive built-in release verification, and asked for all test gaps and corrections to be handed to the next implementation agent.
+
+[review-follow-up.md](refactors/workflow-contract/review-follow-up.md) is the current task specification and evidence matrix. This commit changes documentation and Atlas only. PR #40 must incorporate the updated design branch and implement/verify the follow-up before the next review. Both PRs remain unmerged. Context/Langfuse, children, recovery and optional-package installation profiles remain separate. Earlier initial-stop statements above are retained as dated history, not current authorization status.
+
 ## Workflow contract implementation PR (2026-11-13)
+
 
 Sharon approved the PR #38 design and the enumerated guarded-file changes. `feat/workflow-contract` starts at design head `cf62b80` while PR #38 remains open. This branch adds the final-method ABC, per-instance lifecycle/failure records, stable class registry, selected YAML configuration, strict YAML key handling, typed native results, and CLI adaptation. CrewAI retains decorated step orchestration. Children (#39), recovery, and context/Langfuse remain separate.
 
