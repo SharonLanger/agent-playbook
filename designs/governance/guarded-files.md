@@ -33,8 +33,9 @@ Stage 00 architecture/plan still have old proposed-status wording. Progress reco
 - `designs/refactors/workflow-contract/test-plan.md`
 - `designs/refactors/workflow-contract/implementation-plan.md`
 - `designs/refactors/workflow-contract/review-follow-up.md`
+- `designs/refactors/workflow-contract/review-test-quality.md` — requested second-review test corrections; no new runtime architecture.
 
-Sharon approved this design and the enumerated guarded changes for PR #40. On 2026-11-13 he requested the review follow-up: lazy dependency imports now, constructor and diagnostic corrections, and completion of the agreed test plan. These approval records do not authorize merging either PR or adding deferred features.
+Sharon approved this design and the enumerated guarded changes for PR #40. On 2026-11-13 he requested the review follow-up: lazy dependency imports now, constructor and diagnostic corrections, and completion of the agreed test plan. After the second review of f61683c, Sharon requested another detailed handoff for Q1–Q4 and replacement of ineffective tests where coverage is preserved. The added file and companion status/navigation corrections clarify existing acceptance; they do not change runtime contracts. These approval records do not authorize merging either PR or adding deferred features.
 
 ## Rules beyond the list
 
