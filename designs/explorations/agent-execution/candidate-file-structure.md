@@ -1,4 +1,6 @@
-# Candidate file structure
+# Candidate file structure — historical exploration
+
+Status: **EXPLORATION, not an approved target.** Based on PR #34 at `30c8d96`; later PR changes are not represented. Paths are possibilities, not a scaffold request. Current main is shown separately in the Atlas.
 
 The PR #34 snapshot provides runtime context. Personal examples contents are intentionally excluded; `app/examples/` is an opaque boundary. Existing examples tests are excluded from the maintained target. This inventory is a future proposal, not current main.
 

@@ -1,10 +1,12 @@
-# Agent Playbook — future architecture atlas
+# Agent execution — exploration notes
 
 Prepared for Sharon · 13 November 2026 · **Design proposal, not an implementation or an approved baseline**
 
 The recommendation is one modular Python application, with a small, owned execution contract between role code and provider runtimes. CrewAI owns workflow orchestration. A reviewer owns review instructions, evidence interpretation and review-result validation. A Claude or Codex adapter owns native invocation, message translation and supported controls. Langfuse receives an observability projection of what happened.
 
 These are folders and in-process boundaries. They do not imply separate services, a message broker, a plugin framework, or a second agent loop above the native SDK. Add concrete modules when a stage needs them; this atlas shows their future homes in advance.
+
+> **NON-BINDING EXPLORATION.** This preserves the 13 November discussion and its historical PR #34 snapshot. It may never be adopted. Use the current guarded architecture and progress for authority and implementation status. Langfuse remains the approved initial tracing choice; alternatives are unresolved.
 
 ## 1. What this is based on
 
@@ -22,7 +24,7 @@ The current roadmap is Stage 00 environment, Stage 01 deterministic CrewAI workf
 
 ## 2. How to zoom through the architecture
 
-Use the accompanying **architecture-atlas.html**. Open its large blocks to move down a level; use the breadcrumb to move back. The Guide tab contains this explanation, and Files contains the complete expandable candidate tree with search.
+Use the accompanying **../../atlas/index.html**. Open its large blocks to move down a level; use the breadcrumb to move back. The Guide tab contains this explanation, and Files contains the complete expandable candidate tree with search.
 
 | Level | Question answered | What is visible |
 |---|---|---|
@@ -56,17 +58,17 @@ Putting `application.yaml` directly under `app/` is appropriate for the current 
 
 `app/src/agent_playbook/releases/` contains runtime source that discovers and launches a selected built release. `app/tooling/release.py` builds one. `app/dist/` holds the generated artifacts. The similar names describe three different responsibilities; only the artifacts and tooling belong beside `src`.
 
-![Build versus launch](diagrams/05-release.animated.svg)
+![Build versus launch](../../atlas/diagrams/05-release.animated.svg)
 
-[Static diagram](diagrams/05-release.svg) · [Pause/resume viewer](diagrams/05-release.html)
+[Static diagram](../../atlas/diagrams/05-release.svg) · [Pause/resume viewer](../../atlas/diagrams/05-release.html)
 
 Discovery returns structured release information and selection failures. Launcher starts the selected release environment. CLI formats messages and exit codes. Neither discovery nor launcher should absorb build/version-bump logic or workflow routing.
 
 ## 4. Zoom into `app/src/agent_playbook/`
 
-![Runtime ownership](diagrams/01-source.animated.svg)
+![Runtime ownership](../../atlas/diagrams/01-source.animated.svg)
 
-[Static diagram](diagrams/01-source.svg) · [Pause/resume viewer](diagrams/01-source.html)
+[Static diagram](../../atlas/diagrams/01-source.svg) · [Pause/resume viewer](../../atlas/diagrams/01-source.html)
 
 | Folder | Owns | Does not decide |
 |---|---|---|
@@ -132,9 +134,9 @@ Role-specific logging follows the same rule: the role emits meaningful facts suc
 
 ## 6. Zoom into execution and adapters
 
-![Execution request path](diagrams/02-execution.animated.svg)
+![Execution request path](../../atlas/diagrams/02-execution.animated.svg)
 
-[Static diagram](diagrams/02-execution.svg) · [Pause/resume viewer](diagrams/02-execution.html)
+[Static diagram](../../atlas/diagrams/02-execution.svg) · [Pause/resume viewer](../../atlas/diagrams/02-execution.html)
 
 | Candidate file under `execution/` | Purpose |
 |---|---|
@@ -160,9 +162,9 @@ The exact Codex transport remains an SDK-stage choice. Its TypeScript SDK and it
 
 ### Event translation is stateful when necessary
 
-![Native messages to events](diagrams/03-events.animated.svg)
+![Native messages to events](../../atlas/diagrams/03-events.animated.svg)
 
-[Static diagram](diagrams/03-events.svg) · [Pause/resume viewer](diagrams/03-events.html)
+[Static diagram](../../atlas/diagrams/03-events.svg) · [Pause/resume viewer](../../atlas/diagrams/03-events.html)
 
 An event mapper may consume several native messages to assemble one event, or emit multiple events from one native message. It tracks native message/tool identifiers, distinguishes snapshots from deltas and normalizes completion evidence. It is not necessarily a pure one-line rename function.
 
@@ -327,9 +329,9 @@ Prefer an application-owned verification operation when it gives stronger eviden
 
 ## 10. Observability and the deferred harness boundary
 
-![Observability projection](diagrams/04-observability.animated.svg)
+![Observability projection](../../atlas/diagrams/04-observability.animated.svg)
 
-[Static diagram](diagrams/04-observability.svg) · [Pause/resume viewer](diagrams/04-observability.html)
+[Static diagram](../../atlas/diagrams/04-observability.svg) · [Pause/resume viewer](../../atlas/diagrams/04-observability.html)
 
 The approved design currently describes provider-neutral event normalization under observability in broad terms. This atlas proposes a sharper ownership split: **native runtime semantics → execution events** belongs in execution adapters; **execution/workflow/role facts → telemetry spans and logs** belongs in observability. Updating the guarded document to say this would be a future reviewable change.
 
@@ -354,11 +356,11 @@ If an external normalizer later satisfies our needs, put its integration behind 
 
 ## 12. Complete file structure and ownership
 
-The **Files** tab in the atlas is the complete expandable hierarchy. [full-file-structure.md](full-file-structure.md) contains every path and its status. The personal examples sandbox is shown only as an excluded boundary; its files are intentionally not catalogued. Existing examples tests are not part of the proposed maintained application structure. Proposed filenames are concrete examples of future ownership, not a request to create empty files now.
+The **Files** tab in the atlas is the complete expandable hierarchy. [full-file-structure.md](candidate-file-structure.md) contains every path and its status. The personal examples sandbox is shown only as an excluded boundary; its files are intentionally not catalogued. Existing examples tests are not part of the proposed maintained application structure. Proposed filenames are concrete examples of future ownership, not a request to create empty files now.
 
 | Group | Future shape |
 |---|---|
-| Design navigation | `designs/refactors/atlas/README.md`, `architecture-guide.md`, `full-file-structure.md`, `architecture-atlas.html`, `diagrams/` |
+| Design navigation | `designs/atlas/`, `designs/explorations/`, `designs/governance/` |
 | Role packages | `agents/coder/`, `agents/reviewer/`, `agents/verifier/` with code, typed models, instructions, prompts and handlers |
 | Execution | Shared contracts, requests, events, results, capabilities, service; provider adapter packages |
 | Workflows | Existing three workflows plus a future code-review workflow with its own state, routing and steps |
@@ -366,7 +368,7 @@ The **Files** tab in the atlas is the complete expandable hierarchy. [full-file-
 | Observability | Projection/redaction plus Langfuse/no-op exporters |
 | Tests | Mirror each owner; shared contract tests across providers; recorded native fixtures; opt-in live integration tests |
 
-Generated local overrides and `dist/` examples are marked generated/illustrative. The atlas's sample wheel name is not a promised future release version. The suggested design destination is also a proposal; this package is proposed under `designs/refactors/atlas/`.
+Generated local overrides and `dist/` examples are marked generated/illustrative. The atlas's sample wheel name is not a promised future release version. The permanent viewer now lives in designs/atlas; these preserved runtime candidates remain non-binding in designs/explorations.
 
 ### Dependency rules that make the folders meaningful
 
@@ -383,7 +385,7 @@ Generated local overrides and `dist/` examples are marked generated/illustrative
 | Timing | Recommendation |
 |---|---|
 | Existing PR review | Review PR #34's application split, discovery/launcher split, CLI parser separation and YAML relocation as one behavior-preserving refactor. Keep its temporary verification helper while reviewing; decide removal explicitly later. |
-| Documentation now | Review this future map separately. Once accepted, update the guarded ownership explanation with an exact diff and links to the zoom levels. |
+| Documentation now | Review this future map separately. Governance and navigation were approved for PR #35; runtime candidates were not. Future guarded changes require logical per-file explanation and approval, with an inspectable diff. |
 | Observability stage | Implement workflow/run telemetry first, with execution-event projection added when real executions exist. |
 | SDK experiment stage | Capture native fixtures, choose transport, document capability gaps and test a minimal mapping per provider. |
 | Role integration stage | Add a real reviewer and only the event/result fields it consumes; add coder/verifier as their workflows require. |
@@ -439,8 +441,8 @@ External primary references:
 - S6: [Codex TypeScript event types](https://github.com/openai/codex/blob/main/sdk/typescript/src/events.ts).
 - S7: [Codex TypeScript item types](https://github.com/openai/codex/blob/main/sdk/typescript/src/items.ts).
 
-The diagrams were rendered with the repository's chosen Dashmotion renderer. Artifact validation is recorded in `verification.md`. It checks the documents/viewer, not application behavior. No live Claude/Codex run or application regression suite was executed as part of this design-only work.
+The diagrams were rendered with the repository's chosen Dashmotion renderer. Artifact validation is recorded in [verification](../../refactors/atlas/verification.md). It checks the documents/viewer, not application behavior. No live Claude/Codex run or application regression suite was executed as part of this design-only work.
 
-## 15. Current sandbox and documentation constraints
+## 15. Governing constraints
 
-See [policy](documentation-and-sandbox-policy.md), [placement protocol](architecture-placement.md) and the exact [guarded-document proposal](governance-proposal.patch). These supersede earlier Atlas descriptions of examples as maintained/tested lessons. The HTML is a view of the design, not a new architectural authority.
+The [design contract](../../governance/design-contract.md) is binding. This exploration is not. Personal examples remain opaque and excluded from unrequested work. Public app/docs contains maintained product documentation. Consult [the topic index](../README.md) before extending this discussion.

@@ -1,4 +1,6 @@
-# Target Architecture
+# Approved Target Architecture
+
+Status: **GUARDED.** The approved component boundaries below remain in force. [Current implementation](progress.md) and [optional explorations](explorations/README.md) are separate records. [Open the permanent Atlas](atlas/README.md).
 
 Revision: 2026-11-11 · Scope: the completed Agent Playbook application.
 
@@ -133,3 +135,16 @@ These open decisions must remain visible; they must not become implied guarantee
 in diagrams or implementation. Proposed changes to agreed boundaries receive explicit
 review. Implementation order is in [roadmap.md](roadmap.md); implemented behavior is
 tracked in [progress.md](progress.md).
+
+
+## Maintained views and exploratory boundaries
+
+The Atlas is a visual projection, not another design authority. Its Current view identifies the implementation revision and labels approved-but-unimplemented capabilities. Explorations contains unfinished alternatives, including reviewer/coder/verifier roles and shared execution events; their detailed classes, schema and candidate folders are not approved implementation commitments.
+
+The approved agent execution boundary remains provider-independent requests/results and explicitly compatible capabilities. Native SDK types stay inside adapters. The proposed refinement that maps native messages into execution events before projecting telemetry is preserved in the [agent execution exploration](explorations/agent-execution/README.md); its precise event/control schema remains under investigation.
+
+Langfuse remains the approved initial tracing integration. Alternatives and application logging requirements are indexed in [observability exploration](explorations/observability.md). Traces and application logs have distinct purposes; their future storage/export choices are not decided by this Atlas update.
+
+PR #34 proposes application assembly/factory/runner separation, release discovery/launcher separation and app-root YAML. It is pending at the recorded review revision; refer to project-structure.md for current-versus-pending paths. Do not treat an open PR as merged runtime behavior.
+
+Apply the [mandatory design contract](governance/design-contract.md) before adding responsibilities or changing these boundaries. Preserve all approved historical stage baselines and their protection.

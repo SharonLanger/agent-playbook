@@ -1,29 +1,30 @@
-# Architecture Atlas — review package
+# PR #35 — Atlas and design-governance change record
 
-Status: draft proposal. This is a separate documentation PR based on main; PR #34 is being handled independently. Future runtime ownership uses its explicitly labeled snapshot. No future runtime code is implemented.
+Status: logical scope explicitly approved by Sharon on 13 November 2026; implementation in this draft PR awaits merge review. Do not merge automatically. The permanent viewer is now [designs/atlas](../../atlas/README.md); optional reasoning lives in [explorations](../../explorations/README.md). Earlier proposal patches are superseded by these approved edits, not retained as competing instructions.
 
-## Read and review
+## Approved logical changes per guarded file
 
-1. [Sandbox and official documentation policy](documentation-and-sandbox-policy.md): Sharon’s current constraints and gaps in older wording.
-2. [Architecture placement protocol](architecture-placement.md): how agents move from purpose and high-level ownership to a file.
-3. [Architecture guide](architecture-guide.md): components, events, adapters, reviewer/verifier scenarios and research.
-4. [File structure](full-file-structure.md): candidate paths; personal examples contents are excluded.
-5. [Exact governance proposal](governance-proposal.patch): proposed principle/structure/public-index edits against the recorded main snapshot. Review and reconcile with #34 before applying; it has not been applied to guarded files.
+| Guarded file | Addition/change | Removal or consequence |
+|---|---|---|
+| charter.md | Maintained official documentation and Atlas; personal-sandbox boundary; requested research kept non-binding | Replaces blanket future-document prohibition with explicitly requested exploration; purpose/stage scope and approved initial integrations preserved |
+| principles.md | Mandatory discovery/placement/maintenance; honest statuses; docs and sandbox ownership | Logical per-file approval replaces mandatory line-by-line presentation; explicit approval still required |
+| architecture.md | Clearly labels approved target; links current implementation evidence and optional agent/event ideas | Does not adopt candidate role/event/harness layouts; Langfuse remains approved initial tracing |
+| project-structure.md | Permanent governance/Atlas/explorations ownership; correct docs/tests/sandbox boundaries; current-versus-pending #34 paths | Removes maintained examples-test ownership; does not pretend #34 is merged or promote future runtime folders |
+| governance/design-contract.md (new) | Guarded mandatory seven-step flow, authority, approval and maintenance rules | No agent self-approval; applies across repository via root instructions |
+| governance/guarded-files.md (new) | Minimum protection register, including historical Stage 00/01 and catch-all for other approved content | Omission, moves, generated summaries and stale headings cannot remove existing guards |
 
-## Open the interactive atlas
+All previously guarded files stay guarded. Stage designs/contracts are not rewritten. Sharon approved logical changes, not a mandatory line-by-line presentation; reviewable diffs remain. Approval of this process does not approve implementation of reviewer/event/harness explorations.
 
-After checking out this PR, open `designs/refactors/atlas/architecture-atlas.html` in a browser. On macOS, from the repository root:
+## Supporting changes
 
-```sh
-open designs/refactors/atlas/architecture-atlas.html
-```
+Root AGENTS explicitly requires designs/AGENTS and the guarded contract for work anywhere in the repository. The nested instructions list the required reading and flow. This is a mandatory repository constraint, not a claim that every client automatically loads nested instructions. Progress records approval, revision-specific evidence and pending integration; roadmap retains stage sequence; the designs index provides discovery.
 
-No server, installation or external assets are required. GitHub shows HTML as source; use a local checkout or download this directory. Architecture blocks drill into owners; breadcrumbs return upward. The Reviewer run tab explains a concrete invocation; Files searches the proposed hierarchy; Detailed guide contains the complete explanation. Diagram controls select motion and zoom. Static and animated SVGs and standalone viewers are in `diagrams/`.
+The permanent offline Atlas has Current/Explorations views, architecture zoom levels, a candidate reviewer walkthrough, source references and searchable file trees. A standard-library builder checks references/hierarchy/guards and generated freshness. Detailed prior research is indexed under explorations with status and unresolved questions.
 
-## What this PR changes
+Public documentation removes sandbox-specific guides/index entries and states the maintained product-doc boundary. Product commands are unchanged. Internal `app/docs/refactor-review.md` exists only in pending PR #34; move it to its owning designs/refactors folder during coordination rather than inventing or deleting a file absent from this base.
 
-Adds this review package, links it from designs/README.md, and adds the directly requested sandbox/public-docs instructions to AGENTS.md. It does not alter sandbox contents, application code, quality-gate configuration or PR #34. Existing test/gate cleanup is a separate coordinated task; this PR does not claim it is complete.
+## Integration with #34
 
-Public documentation impact: no supported runtime behavior changes in this PR. Internal architecture review belongs here. PR #34’s refactor-review.md should move into its own design/refactor directory in the thread handling that PR.
+Main runtime snapshot remains `6f16508`; #34 head `59c6fff` is open and its latest sandbox isolation follow-up is unverified. Keep this PR's governance and documentation changes when resolving overlap. After #34 merges, refresh project structure, progress, catalog/current paths and affected public docs together. Do not restore personal-sandbox dependencies or use older verification to certify the new head.
 
-The Markdown authorities govern design. The atlas illustrates them and clearly labels proposals. See [verification](verification.md) and [third-party notices](THIRD-PARTY-NOTICES.txt).
+[Verification](verification.md)

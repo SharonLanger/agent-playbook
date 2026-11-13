@@ -1,0 +1,3845 @@
+{
+  "snapshot": "main 6f16508; PR #34 59c6fff pending, latest follow-up unverified; PR #35 governance approved, merge pending",
+  "sources": [
+    "AGENTS.md",
+    "designs/AGENTS.md",
+    "designs/README.md",
+    "designs/charter.md",
+    "designs/principles.md",
+    "designs/architecture.md",
+    "designs/project-structure.md",
+    "designs/roadmap.md",
+    "designs/progress.md",
+    "designs/governance/design-contract.md",
+    "designs/governance/guarded-files.md",
+    "designs/explorations/README.md",
+    "designs/explorations/agent-execution/architecture-notes.md",
+    "designs/explorations/agent-execution/candidate-file-structure.md"
+  ],
+  "views": {
+    "current": {
+      "levels": {
+        "repo": {
+          "name": "Repository",
+          "parent": null,
+          "label": "Current / implemented",
+          "title": "Repository",
+          "text": "Start with ownership; then zoom into the relevant component.",
+          "blocks": [
+            {
+              "name": "Designs",
+              "path": "designs/",
+              "text": "Approved decisions, stages, explorations and maintained Atlas.",
+              "to": "design"
+            },
+            {
+              "name": "Application",
+              "path": "app/",
+              "text": "Executable package, tooling, tests and public docs.",
+              "to": "app"
+            },
+            {
+              "name": "IDE tasks",
+              "path": ".run/",
+              "text": "Shared developer run configurations.",
+              "to": null
+            },
+            {
+              "name": "Historical sandbox",
+              "path": "sandbox/",
+              "text": "Outside active work; no inspection performed.",
+              "to": null
+            }
+          ],
+          "status": "implemented",
+          "source": "designs/project-structure.md",
+          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "diagram": null
+        },
+        "design": {
+          "name": "Design and governance",
+          "parent": "repo",
+          "label": "Current / approved-design",
+          "title": "Design and governance",
+          "text": "Authority and exploration are separate.",
+          "blocks": [
+            {
+              "name": "Guarded contract",
+              "path": "designs/governance/design-contract.md",
+              "text": "Mandatory reading, placement, approval, maintenance and verification.",
+              "to": null
+            },
+            {
+              "name": "Guard register",
+              "path": "designs/governance/guarded-files.md",
+              "text": "Preserves all existing guards; omissions do not unguard files.",
+              "to": null
+            },
+            {
+              "name": "Approved design",
+              "path": "designs/architecture.md",
+              "text": "Component architecture; some integrations await implementation.",
+              "to": null
+            },
+            {
+              "name": "Exploration index",
+              "path": "designs/explorations/README.md",
+              "text": "Optional prior reasoning, not accepted commitments.",
+              "to": null
+            }
+          ],
+          "status": "approved-design",
+          "source": "designs/project-structure.md",
+          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "diagram": null
+        },
+        "app": {
+          "name": "Application directory",
+          "parent": "repo",
+          "label": "Current / implemented",
+          "title": "Application directory",
+          "text": "Source ships; tests verify; tooling develops; docs explain supported behavior.",
+          "blocks": [
+            {
+              "name": "Runtime",
+              "path": "app/src/agent_playbook/",
+              "text": "Installed Python application.",
+              "to": "src"
+            },
+            {
+              "name": "Tests",
+              "path": "app/tests/",
+              "text": "Maintained application tests. Legacy examples coupling is being removed in PR #34.",
+              "to": "tests"
+            },
+            {
+              "name": "Tooling",
+              "path": "app/tooling/",
+              "text": "Developer checks and artifact build, separate from runtime release launch.",
+              "to": "tooling"
+            },
+            {
+              "name": "Configuration",
+              "path": "app/configs/application.yaml",
+              "text": "Current external YAML; PR #34 proposes app/application.yaml.",
+              "to": "config"
+            },
+            {
+              "name": "Public docs",
+              "path": "app/docs/",
+              "text": "Maintained official product documentation.",
+              "to": null
+            },
+            {
+              "name": "Personal examples",
+              "path": "app/examples/",
+              "text": "Opaque sandbox; do not inspect without explicit request.",
+              "to": null
+            }
+          ],
+          "status": "implemented",
+          "source": "designs/project-structure.md",
+          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "diagram": null
+        },
+        "src": {
+          "name": "Runtime package",
+          "parent": "app",
+          "label": "Current / implemented",
+          "title": "Runtime package",
+          "text": "Current application structure; reserved integrations are labeled separately.",
+          "blocks": [
+            {
+              "name": "Application",
+              "path": "app/src/agent_playbook/application/",
+              "text": "Current runner assembles and runs workflows.",
+              "to": "application"
+            },
+            {
+              "name": "Workflows",
+              "path": "app/src/agent_playbook/workflows/",
+              "text": "Deterministic CrewAI workflows, state and routing.",
+              "to": "workflows"
+            },
+            {
+              "name": "CLI",
+              "path": "app/src/agent_playbook/cli/",
+              "text": "Command parsing, presentation and developer-command bridge.",
+              "to": null
+            },
+            {
+              "name": "Config",
+              "path": "app/src/agent_playbook/config/",
+              "text": "Typed external configuration.",
+              "to": "config"
+            },
+            {
+              "name": "Release runtime",
+              "path": "app/src/agent_playbook/releases/",
+              "text": "Select and launch existing built releases.",
+              "to": "release"
+            },
+            {
+              "name": "Execution and observability",
+              "path": "app/src/agent_playbook/execution/ + observability/",
+              "text": "Reserved boundaries; SDK/telemetry integrations await implementation.",
+              "to": "integrations"
+            }
+          ],
+          "status": "implemented",
+          "source": "designs/project-structure.md",
+          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "diagram": null
+        },
+        "application": {
+          "name": "Application runner",
+          "parent": "src",
+          "label": "Current / implemented",
+          "title": "Application runner",
+          "text": "Current runner.py; assembly/factory/runner split is pending in PR #34.",
+          "blocks": [
+            {
+              "name": "Runner",
+              "path": "app/src/agent_playbook/application/runner.py",
+              "text": "Workflow construction and invocation.",
+              "to": null
+            },
+            {
+              "name": "Workflow inputs",
+              "path": "app/src/agent_playbook/workflows/",
+              "text": "Owned by selected workflow.",
+              "to": "workflows"
+            }
+          ],
+          "status": "implemented",
+          "source": "designs/project-structure.md",
+          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "diagram": null
+        },
+        "workflows": {
+          "name": "Workflows",
+          "parent": "src",
+          "label": "Current / implemented",
+          "title": "Workflows",
+          "text": "Stage 01 uses deterministic CrewAI flows; no real reviewer agent is implemented here.",
+          "blocks": [
+            {
+              "name": "Workflow packages",
+              "path": "app/src/agent_playbook/workflows/",
+              "text": "Per-workflow flow/state/step ownership; consult approved Stage 01 file structure.",
+              "to": null
+            },
+            {
+              "name": "Workflow contracts",
+              "path": "designs/stages/01-crewai-flows/workflows/",
+              "text": "WF-01 sequence; WF-02 shared state; WF-03 conditional route.",
+              "to": null
+            }
+          ],
+          "status": "implemented",
+          "source": "designs/stages/01-crewai-flows/architecture.md",
+          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "diagram": null
+        },
+        "config": {
+          "name": "Configuration",
+          "parent": "app",
+          "label": "Current / implemented",
+          "title": "Configuration",
+          "text": "External YAML plus typed Python loading.",
+          "blocks": [
+            {
+              "name": "Shared YAML",
+              "path": "app/configs/application.yaml",
+              "text": "Current path on main.",
+              "to": null
+            },
+            {
+              "name": "Loader",
+              "path": "app/src/agent_playbook/config/",
+              "text": "Select, parse and validate external settings.",
+              "to": null
+            }
+          ],
+          "status": "implemented",
+          "source": "designs/project-structure.md",
+          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "diagram": null
+        },
+        "release": {
+          "name": "Runtime release selection",
+          "parent": "src",
+          "label": "Current / implemented",
+          "title": "Runtime release selection",
+          "text": "Runtime selection differs from building artifacts.",
+          "blocks": [
+            {
+              "name": "Selection",
+              "path": "app/src/agent_playbook/releases/selection.py",
+              "text": "Current discovery/launch implementation. PR #34 splits discovery.py and launcher.py.",
+              "to": null
+            },
+            {
+              "name": "Build tooling",
+              "path": "app/tooling/",
+              "text": "Builds and verifies wheel/metadata artifacts.",
+              "to": "tooling"
+            }
+          ],
+          "status": "implemented",
+          "source": "designs/project-structure.md",
+          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "diagram": null
+        },
+        "tooling": {
+          "name": "Development tooling",
+          "parent": "app",
+          "label": "Current / implemented",
+          "title": "Development tooling",
+          "text": "Checkout-only commands for setup, checks, versioning and release builds.",
+          "blocks": [
+            {
+              "name": "Tooling scripts",
+              "path": "app/tooling/",
+              "text": "Keep outside installed runtime package.",
+              "to": null
+            },
+            {
+              "name": "Generated artifacts",
+              "path": "app/dist/",
+              "text": "Generated releases, not the runtime releases package.",
+              "to": null
+            }
+          ],
+          "status": "implemented",
+          "source": "designs/project-structure.md",
+          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "diagram": null
+        },
+        "tests": {
+          "name": "Application tests",
+          "parent": "app",
+          "label": "Current / implemented",
+          "title": "Application tests",
+          "text": "Tests mirror production owners. Sandbox exclusion is required policy; PR #34 follow-up verification is still pending.",
+          "blocks": [
+            {
+              "name": "Tests",
+              "path": "app/tests/",
+              "text": "Independent maintained fixtures; no personal-sandbox dependency in the required target.",
+              "to": null
+            }
+          ],
+          "status": "implemented",
+          "source": "designs/project-structure.md",
+          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "diagram": null
+        },
+        "integrations": {
+          "name": "Approved integration boundaries",
+          "parent": "src",
+          "label": "Current / approved-design",
+          "title": "Approved integration boundaries",
+          "text": "Approved responsibilities are not proof that integrations exist. Specific shared event and role layouts remain exploratory.",
+          "blocks": [
+            {
+              "name": "Execution boundary",
+              "path": "app/src/agent_playbook/execution/",
+              "text": "SDK integration boundary; precise event contract remains exploratory.",
+              "to": null
+            },
+            {
+              "name": "Observability boundary",
+              "path": "app/src/agent_playbook/observability/",
+              "text": "Initial Langfuse tracing is approved; integration is future work.",
+              "to": null
+            }
+          ],
+          "status": "approved-design",
+          "source": "designs/architecture.md",
+          "note": "Runtime snapshot: main 6f16508. PR #34 is pending, not current. Governance additions are approved in PR #35 and await merge.",
+          "diagram": null
+        }
+      },
+      "files": [
+        {
+          "path": ".gitignore",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Bump Patch.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Check.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Dev Run.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Format Check.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Format.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Lint.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Release.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Run.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Setup.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Test WF-01.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Test WF-02.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Test WF-03.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Tests.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Types.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/Version.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/WF-01 Sequence.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/WF-02 State.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": ".run/WF-03 Route.run.xml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "AGENTS.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/.gitignore",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/.python-version",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/configs/application.yaml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/docs/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/docs/cli.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/docs/configuration.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/docs/troubleshooting.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/docs/workflows.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/pyproject.toml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/__main__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/_build_info.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/application/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/application/results.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/application/runner.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/cli/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/cli/__main__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/cli/commands.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/cli/development.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/config/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/config/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/config/crewai.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/config/errors.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/config/loader.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/config/models.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/config/paths.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/adapters/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/releases/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/releases/selection.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/flow.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/steps.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_02_shared_state/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_02_shared_state/flow.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_02_shared_state/state.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_02_shared_state/steps.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/flow.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/state.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/steps.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/application/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/application/test_offline_runtime.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/application/test_runner.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/cli/test_cli.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/cli/test_workflow_commands.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/config/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/config/test_configuration.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/conftest.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/examples/test_greeting.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/execution/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/fixtures/offline.yaml",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/observability/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/releases/test_release_selection.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/releases/test_workflow_launch.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/tooling/test_cli_tasks.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/tooling/test_development.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/tooling/test_release_completion.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/tooling/test_release_dependencies.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/tooling/test_release_destination.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/tooling/test_release_preflight.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/tooling/test_toolchain.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/tooling/test_wheel_hash.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/conftest.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/wf_01_step_sequence/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/wf_01_step_sequence/test_flow.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/wf_01_step_sequence/test_steps.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/wf_02_shared_state/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/wf_02_shared_state/test_flow.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/wf_02_shared_state/test_state.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/wf_02_shared_state/test_steps.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/wf_03_conditional_route/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/wf_03_conditional_route/test_flow.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/wf_03_conditional_route/test_state.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tests/workflows/wf_03_conditional_route/test_steps.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tooling/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tooling/__init__.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tooling/bootstrap.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tooling/checks.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tooling/release.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tooling/toolchain.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tooling/verify_runtime.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tooling/verify_wheel.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/tooling/version.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "app/uv.lock",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/architecture.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/charter.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/diagrams/01-system.animated.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/diagrams/01-system.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/diagrams/02-execution.animated.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/diagrams/02-execution.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/diagrams/03-observability.animated.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/diagrams/03-observability.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/diagrams/AUTHORING.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/diagrams/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/diagrams/build_viewer.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/diagrams/index.html",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/diagrams/render.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/learning/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/learning/architecture-walkthrough.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/principles.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/progress.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/project-structure.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/roadmap.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/00-environment/architecture.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/00-environment/findings.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-1-python-environment.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-2-application-cli.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-3-pyright.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-4-pytest.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-5-ruff.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-6-unified-checks.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-7-wheel-release.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/00-environment/plan.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/architecture.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/configuration-findings.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/coordination.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/00-architecture-animated.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/00-architecture.html",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/00-architecture.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/01-sequence-animated.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/01-sequence.html",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/01-sequence.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/02-state-animated.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/02-state.html",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/02-state.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/03-route-pass-animated.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/03-route-pass.html",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/03-route-pass.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/04-route-needs-work-animated.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/04-route-needs-work.html",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/04-route-needs-work.svg",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/THIRD-PARTY-NOTICES.txt",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/index.html",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/file-structure.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/findings.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/00-reading-the-code.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/01-flow-basics.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/02-sequence-and-values.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/03-typed-state.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/04-routing.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/05-failures-and-tests.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/06-running-and-releasing.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/08-independent-sandboxes.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/plan.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/sources.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/test-plan.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/workflows/wf-01-step-sequence.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/workflows/wf-02-shared-state.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/workflows/wf-03-conditional-route.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked at main 6f16508; see canonical documents for responsibility."
+        }
+      ]
+    },
+    "explorations": {
+      "levels": {
+        "repo": {
+          "name": "Repository",
+          "parent": null,
+          "label": "Level 0 / Ownership",
+          "title": "Choose the kind of work",
+          "text": "Architecture decisions, executable application work and historical experiments have separate homes.",
+          "blocks": [
+            {
+              "name": "Design",
+              "path": "designs/",
+              "text": "Architecture, guarded decisions, stage plans, learning and diagrams.",
+              "to": "design"
+            },
+            {
+              "name": "Application",
+              "path": "app/",
+              "text": "Runtime source, external config, tests, tooling, operating docs and examples.",
+              "to": "app"
+            },
+            {
+              "name": "IDE tasks",
+              "path": ".run/",
+              "text": "Portable PyCharm tasks for setup, checks, tests and execution.",
+              "to": null
+            },
+            {
+              "name": "Historical experiments",
+              "path": "sandbox/",
+              "text": "Existing experiments remain available and outside active refactoring.",
+              "to": null
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. These blocks describe one repository. They are not separate deployed services.",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "design": {
+          "name": "Design",
+          "parent": "repo",
+          "label": "Level 1 / Design documents",
+          "title": "Design records explain the boundaries",
+          "text": "Use guarded decisions for authority and the exploration index for optional earlier reasoning.",
+          "blocks": [
+            {
+              "name": "Guarded baseline",
+              "path": "designs/architecture.md + project-structure.md",
+              "text": "Behavioral architecture and folder ownership. Changes require a reviewable proposal.",
+              "to": null
+            },
+            {
+              "name": "Stage material",
+              "path": "designs/stages/",
+              "text": "Permanent architecture, lessons, experiments and findings for each stage.",
+              "to": null
+            },
+            {
+              "name": "Future atlas",
+              "path": "designs/refactors/atlas/",
+              "text": "Suggested home for this guide, full tree and zoomable diagrams.",
+              "to": null
+            },
+            {
+              "name": "Diagram convention",
+              "path": "designs/diagrams/AUTHORING.md",
+              "text": "Self-contained animated SVG, static fallback and verified local viewers.",
+              "to": null
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "app": {
+          "name": "Application",
+          "parent": "repo",
+          "label": "Level 1 / Application directory",
+          "title": "Does this ship, test, build, configure or teach?",
+          "text": "Source is a packaging boundary. Development helpers and generated outputs stay beside it.",
+          "blocks": [
+            {
+              "name": "Runtime source",
+              "path": "app/src/agent_playbook/",
+              "text": "Installed application behavior. Open this block for component ownership.",
+              "to": "src"
+            },
+            {
+              "name": "Tests",
+              "path": "app/tests/",
+              "text": "Behavioral tests mirroring the runtime and tooling owners.",
+              "to": "tests"
+            },
+            {
+              "name": "Development tooling",
+              "path": "app/tooling/",
+              "text": "Bootstrap, type/lint/test checks, version changes and release build.",
+              "to": "release"
+            },
+            {
+              "name": "Runtime settings",
+              "path": "app/application.yaml",
+              "text": "PR #34 moves shared YAML to the app root. Python loading code remains in src/config/.",
+              "to": "config"
+            },
+            {
+              "name": "Official documentation",
+              "path": "app/docs/",
+              "text": "Maintained public guides. Update with relevant behavior/architecture changes. Internal and temporary material belongs in designs.",
+              "to": null
+            },
+            {
+              "name": "Personal sandbox",
+              "path": "app/examples/",
+              "text": "Opaque user-owned area. Do not inspect or maintain without explicit request.",
+              "to": null
+            },
+            {
+              "name": "Generated releases",
+              "path": "app/dist/",
+              "text": "Ignored wheel and metadata artifacts; not the runtime releases package.",
+              "to": "release"
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "src": {
+          "name": "Runtime package",
+          "parent": "app",
+          "label": "Level 2 / Source components",
+          "title": "Choose the owner of the behavior",
+          "text": "A new feature first belongs to a responsibility, then to a file.",
+          "blocks": [
+            {
+              "name": "Application",
+              "path": "app/src/agent_playbook/application/",
+              "text": "Validate, assemble dependencies, create workflows and manage a run.",
+              "to": "application"
+            },
+            {
+              "name": "Workflows",
+              "path": "app/src/agent_playbook/workflows/",
+              "text": "CrewAI flow/state, step ordering, routing and workflow retry policy.",
+              "to": "workflows"
+            },
+            {
+              "name": "Agents",
+              "path": "app/src/agent_playbook/agents/",
+              "text": "Per-role code, instructions, result schemas and event reactions.",
+              "to": "agents"
+            },
+            {
+              "name": "Execution",
+              "path": "app/src/agent_playbook/execution/",
+              "text": "Provider-neutral requests, events, outcomes and adapter implementations.",
+              "to": "execution"
+            },
+            {
+              "name": "Observability",
+              "path": "app/src/agent_playbook/observability/",
+              "text": "Correlation, redaction, trace projection and exporters.",
+              "to": "observability"
+            },
+            {
+              "name": "Runtime tools",
+              "path": "app/src/agent_playbook/tools/",
+              "text": "Reusable deterministic operations exposed to agents or called by Python.",
+              "to": "tools"
+            },
+            {
+              "name": "Configuration",
+              "path": "app/src/agent_playbook/config/",
+              "text": "Typed settings and external-file selection.",
+              "to": "config"
+            },
+            {
+              "name": "CLI",
+              "path": "app/src/agent_playbook/cli/",
+              "text": "Parse commands, format results and choose exit codes.",
+              "to": null
+            },
+            {
+              "name": "Release launching",
+              "path": "app/src/agent_playbook/releases/",
+              "text": "Discover and launch completed local releases.",
+              "to": "release"
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "diagram": "01-source",
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "application": {
+          "name": "Application layer",
+          "parent": "src",
+          "label": "Level 3 / Assembly",
+          "title": "Wire implementations once, inject contracts",
+          "text": "Only the composition root needs to choose concrete provider and telemetry adapters.",
+          "blocks": [
+            {
+              "name": "Dependency assembly",
+              "path": "app/src/agent_playbook/application/assembly.py",
+              "text": "Build configured executors, roles and observers.",
+              "to": null
+            },
+            {
+              "name": "Workflow factory",
+              "path": "app/src/agent_playbook/application/workflow_factory.py",
+              "text": "Construct a fresh selected workflow with dependencies.",
+              "to": null
+            },
+            {
+              "name": "Workflow runner",
+              "path": "app/src/agent_playbook/application/workflow_runner.py",
+              "text": "Establish run context, invoke workflow and handle run-level outcomes.",
+              "to": null
+            },
+            {
+              "name": "Application outcomes",
+              "path": "app/src/agent_playbook/application/results.py",
+              "text": "Results for CLI presentation; distinct from role and SDK outcomes.",
+              "to": null
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "workflows": {
+          "name": "Workflows",
+          "parent": "src",
+          "label": "Level 3 / Orchestration",
+          "title": "A workflow decides what happens next",
+          "text": "Keep state, steps, routing and workflow-specific helpers together. A workflow can include both agents and deterministic Python.",
+          "blocks": [
+            {
+              "name": "Existing workflows",
+              "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/ + wf_02_shared_state/ + wf_03_conditional_route/",
+              "text": "Preserve current learning workflows.",
+              "to": null
+            },
+            {
+              "name": "Code review flow",
+              "path": "app/src/agent_playbook/workflows/wf_code_review/flow.py",
+              "text": "Future coder \u2192 reviewer \u2192 report, with bounded revision routing.",
+              "to": null
+            },
+            {
+              "name": "State and routing",
+              "path": "app/src/agent_playbook/workflows/wf_code_review/state.py + routing.py",
+              "text": "Own domain workflow state and transitions.",
+              "to": null
+            },
+            {
+              "name": "Workflow steps",
+              "path": "app/src/agent_playbook/workflows/wf_code_review/steps/",
+              "text": "code.py, review.py and report.py call roles or deterministic operations.",
+              "to": null
+            },
+            {
+              "name": "Shared policies",
+              "path": "app/src/agent_playbook/workflows/policies/retry.py",
+              "text": "Extract only after genuine reuse. No generic utils dumping ground.",
+              "to": null
+            },
+            {
+              "name": "Reusable roles",
+              "path": "app/src/agent_playbook/agents/",
+              "text": "Role code remains reusable across workflows.",
+              "to": "agents"
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "agents": {
+          "name": "Agents",
+          "parent": "src",
+          "label": "Level 3 / Role packages",
+          "title": "An agent role includes code and instructions",
+          "text": "Each role owns task meaning and domain results. Native SDK message classes stay in provider adapters.",
+          "blocks": [
+            {
+              "name": "Coder",
+              "path": "app/src/agent_playbook/agents/coder/",
+              "text": "Prepare a coding task, interpret progress and validate coding output.",
+              "to": "role"
+            },
+            {
+              "name": "Reviewer",
+              "path": "app/src/agent_playbook/agents/reviewer/",
+              "text": "Review criteria, findings, evidence and verdict validation.",
+              "to": "role"
+            },
+            {
+              "name": "Verifier",
+              "path": "app/src/agent_playbook/agents/verifier/",
+              "text": "Verification requirements and authoritative evidence.",
+              "to": "verifier"
+            },
+            {
+              "name": "Execution contract",
+              "path": "app/src/agent_playbook/execution/",
+              "text": "All roles call the same interface subject to their required capabilities.",
+              "to": "execution"
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "role": {
+          "name": "Role internals",
+          "parent": "agents",
+          "label": "Level 4 / Reviewer example",
+          "title": "Where does the reviewer react to messages?",
+          "text": "event_handler.py receives our AgentEvent union. It can update review evidence and progress without importing Claude or Codex types.",
+          "blocks": [
+            {
+              "name": "Task orchestration",
+              "path": "app/src/agent_playbook/agents/reviewer/agent.py",
+              "text": "Input \u2192 request \u2192 event consumption \u2192 validated ReviewResult.",
+              "to": null
+            },
+            {
+              "name": "Typed domain data",
+              "path": "app/src/agent_playbook/agents/reviewer/models.py",
+              "text": "ReviewInput, Finding, severity, verdict and ReviewResult.",
+              "to": null
+            },
+            {
+              "name": "Instructions and context",
+              "path": "app/src/agent_playbook/agents/reviewer/context.py + instructions.md + prompts/system.md",
+              "text": "Build the role task and its scope.",
+              "to": null
+            },
+            {
+              "name": "Event handler",
+              "path": "app/src/agent_playbook/agents/reviewer/event_handler.py",
+              "text": "React to canonical execution evidence.",
+              "to": "events"
+            },
+            {
+              "name": "Validation",
+              "path": "app/src/agent_playbook/agents/reviewer/validation.py",
+              "text": "Check output schema, findings, scope and required evidence.",
+              "to": null
+            },
+            {
+              "name": "Role tools",
+              "path": "app/src/agent_playbook/agents/reviewer/tools.py",
+              "text": "Role-specific deterministic tool behavior; reuse shared operations.",
+              "to": null
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. This reviewer layout is also the template for coder and verifier. A role need not create every file before it has relevant behavior.",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "execution": {
+          "name": "Execution",
+          "parent": "src",
+          "label": "Level 3 / Invocation boundary",
+          "title": "Normalize the semantics you actually need",
+          "text": "One owned contract supports several provider adapters. Capabilities describe honest differences.",
+          "blocks": [
+            {
+              "name": "Contracts and schema",
+              "path": "app/src/agent_playbook/execution/contracts.py + requests.py + results.py",
+              "text": "Typed invocation interface, request and technical outcome.",
+              "to": "events"
+            },
+            {
+              "name": "Capabilities",
+              "path": "app/src/agent_playbook/execution/capabilities.py",
+              "text": "Required features checked against selected version and transport.",
+              "to": null
+            },
+            {
+              "name": "Invocation service",
+              "path": "app/src/agent_playbook/execution/service.py",
+              "text": "Preflight and lifecycle coordination; no second agent loop.",
+              "to": null
+            },
+            {
+              "name": "Provider adapters",
+              "path": "app/src/agent_playbook/execution/adapters/",
+              "text": "Each provider translates requests, events, controls and failures.",
+              "to": "adapters"
+            },
+            {
+              "name": "Harness boundary",
+              "path": "app/src/agent_playbook/execution/harness/",
+              "text": "Potential shared execution policy. Actual interfaces and internals deferred.",
+              "to": "harness"
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "diagram": "02-execution",
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "adapters": {
+          "name": "Provider adapters",
+          "parent": "execution",
+          "label": "Level 4 / Native integration",
+          "title": "The adapter is the entire provider package",
+          "text": "Event mapping is one responsibility inside an adapter, alongside invocation, configuration and control translation.",
+          "blocks": [
+            {
+              "name": "Claude",
+              "path": "app/src/agent_playbook/execution/adapters/claude/",
+              "text": "executor.py, request_mapper.py, event_mapper.py, capabilities.py, controls.py and tool_bindings.py.",
+              "to": null
+            },
+            {
+              "name": "Codex",
+              "path": "app/src/agent_playbook/execution/adapters/codex/",
+              "text": "Same responsibilities plus transport.py when a native process/protocol boundary is needed.",
+              "to": null
+            },
+            {
+              "name": "Deterministic",
+              "path": "app/src/agent_playbook/execution/adapters/deterministic/",
+              "text": "Offline fixture executor for role and contract tests.",
+              "to": null
+            },
+            {
+              "name": "Event mapping",
+              "path": "app/src/agent_playbook/execution/adapters/<provider>/event_mapper.py",
+              "text": "Native messages \u2192 canonical typed events.",
+              "to": "events"
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. Select the Codex transport during its SDK experiment. TypeScript SDK events and app-server notifications are different protocols. A role never selects native message classes.",
+          "diagram": "03-events",
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "events": {
+          "name": "Events and results",
+          "parent": "execution",
+          "label": "Level 4 / Data boundary",
+          "title": "Stable meaning, explicit missing evidence",
+          "text": "Use a typed event union and a shared envelope. Do not force every provider to populate fields it cannot know.",
+          "blocks": [
+            {
+              "name": "Envelope",
+              "path": "app/src/agent_playbook/execution/events.py",
+              "text": "Version, event ID, run/step/execution correlation, local sequence, observation time and source.",
+              "to": null
+            },
+            {
+              "name": "Typed payloads",
+              "path": "app/src/agent_playbook/execution/events.py",
+              "text": "Text delta/snapshot, tool request/start/finish, usage and terminal outcome.",
+              "to": null
+            },
+            {
+              "name": "Technical result",
+              "path": "app/src/agent_playbook/execution/results.py",
+              "text": "Completed/failed/cancelled/indeterminate execution; output, usage and failures.",
+              "to": null
+            },
+            {
+              "name": "Domain result",
+              "path": "app/src/agent_playbook/agents/reviewer/models.py",
+              "text": "Approval, changes required or inconclusive review; validated separately.",
+              "to": "role"
+            },
+            {
+              "name": "Controls",
+              "path": "app/src/agent_playbook/execution/contracts.py",
+              "text": "Permission/cancellation interfaces use request/reply semantics; observing a message cannot veto it.",
+              "to": null
+            },
+            {
+              "name": "Telemetry projection",
+              "path": "app/src/agent_playbook/observability/projection.py",
+              "text": "Turns events into traces without controlling workflow decisions.",
+              "to": "observability"
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "diagram": "03-events",
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "observability": {
+          "name": "Observability",
+          "parent": "src",
+          "label": "Level 3 / Evidence",
+          "title": "Export what happened with correct correlation",
+          "text": "Execution owns native message interpretation. Observability owns telemetry representation, payload policy and backend integration.",
+          "blocks": [
+            {
+              "name": "Projection and correlation",
+              "path": "app/src/agent_playbook/observability/projection.py + correlation.py",
+              "text": "Combine workflow, role and execution facts under correct identities.",
+              "to": null
+            },
+            {
+              "name": "Redaction",
+              "path": "app/src/agent_playbook/observability/redaction.py",
+              "text": "Bound exported payloads and exclude sensitive content.",
+              "to": null
+            },
+            {
+              "name": "Exporter contract",
+              "path": "app/src/agent_playbook/observability/contracts.py",
+              "text": "Backend-independent sink interface.",
+              "to": null
+            },
+            {
+              "name": "Langfuse",
+              "path": "app/src/agent_playbook/observability/adapters/langfuse/exporter.py",
+              "text": "Only this integration depends on the Langfuse client.",
+              "to": null
+            },
+            {
+              "name": "Offline behavior",
+              "path": "app/src/agent_playbook/observability/adapters/noop.py",
+              "text": "Defined no-op behavior for offline learning and tests.",
+              "to": null
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. Traces are evidence. They are not the workflow state store or a durable recovery mechanism.",
+          "diagram": "04-observability",
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "tools": {
+          "name": "Runtime tools",
+          "parent": "src",
+          "label": "Level 3 / Deterministic operations",
+          "title": "A tool is code the runtime can call",
+          "text": "Normal Python helpers can stay ordinary functions. Explicit tool schemas are needed when exposing operations to an agent.",
+          "blocks": [
+            {
+              "name": "Tool contract",
+              "path": "app/src/agent_playbook/tools/contracts.py",
+              "text": "Typed inputs, outputs and invocation requirements.",
+              "to": null
+            },
+            {
+              "name": "Repository operations",
+              "path": "app/src/agent_playbook/tools/repository/read_diff.py",
+              "text": "Shared deterministic repository context.",
+              "to": null
+            },
+            {
+              "name": "Verification",
+              "path": "app/src/agent_playbook/tools/verification/run_tests.py",
+              "text": "Capture actual subprocess outcomes and output artifacts.",
+              "to": null
+            },
+            {
+              "name": "Provider binding",
+              "path": "app/src/agent_playbook/execution/adapters/<provider>/tool_bindings.py",
+              "text": "Expose the same operation using the chosen native mechanism.",
+              "to": "adapters"
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. app/tooling/checks.py serves developer maintenance. Installed runtime tools should not import checkout-only tooling.",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "harness": {
+          "name": "Harness boundary",
+          "parent": "execution",
+          "label": "Reserved / Next discussion",
+          "title": "Keep policy ownership visible; defer its internals",
+          "text": "Native runtimes retain their agent loops. Future shared policy may coordinate tools, permissions, limits, context and hooks.",
+          "blocks": [
+            {
+              "name": "Role intent",
+              "path": "app/src/agent_playbook/agents/",
+              "text": "What coder, reviewer or verifier needs.",
+              "to": "agents"
+            },
+            {
+              "name": "Shared execution policy",
+              "path": "app/src/agent_playbook/execution/harness/",
+              "text": "Provisional ownership only; no new framework or extra loop assumed.",
+              "to": null
+            },
+            {
+              "name": "Provider mechanics",
+              "path": "app/src/agent_playbook/execution/adapters/",
+              "text": "Native settings, callbacks, controls and runtime behavior.",
+              "to": "adapters"
+            },
+            {
+              "name": "Reusable operations",
+              "path": "app/src/agent_playbook/tools/",
+              "text": "Deterministic tools independent of provider registration.",
+              "to": "tools"
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "verifier": {
+          "name": "Verifier extension",
+          "parent": "agents",
+          "label": "Level 4 / New requirement",
+          "title": "Add the smallest boundary change that is true",
+          "text": "A new role does not automatically require a ClaudeVerifier and CodexVerifier hierarchy.",
+          "blocks": [
+            {
+              "name": "Different answer schema",
+              "path": "app/src/agent_playbook/agents/verifier/models.py + validation.py",
+              "text": "Keep domain-specific fields with the role.",
+              "to": null
+            },
+            {
+              "name": "Different event reaction",
+              "path": "app/src/agent_playbook/agents/verifier/event_handler.py",
+              "text": "Use existing event payloads when they already contain the evidence.",
+              "to": null
+            },
+            {
+              "name": "New native evidence",
+              "path": "app/src/agent_playbook/execution/events.py + adapters/<provider>/event_mapper.py",
+              "text": "Extend typed evidence and capability profiles deliberately.",
+              "to": "events"
+            },
+            {
+              "name": "Missing provider evidence",
+              "path": "app/src/agent_playbook/execution/capabilities.py",
+              "text": "Reject required capabilities or mark unavailable. Do not fabricate success.",
+              "to": null
+            },
+            {
+              "name": "Authoritative test results",
+              "path": "app/src/agent_playbook/tools/verification/",
+              "text": "Prefer direct deterministic evidence where practical.",
+              "to": "tools"
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "config": {
+          "name": "Configuration",
+          "parent": "app",
+          "label": "Boundary / External data versus loader",
+          "title": "One app-root YAML, typed runtime loading",
+          "text": "The file relocation is proposed in PR #34. It does not remove the Python config package.",
+          "blocks": [
+            {
+              "name": "Shared settings",
+              "path": "app/application.yaml",
+              "text": "Tracked runtime configuration.",
+              "to": null
+            },
+            {
+              "name": "Local override",
+              "path": "app/application.local.yaml",
+              "text": "Optional ignored local settings. Keep secrets out of tracked files.",
+              "to": null
+            },
+            {
+              "name": "Loader and schema",
+              "path": "app/src/agent_playbook/config/loader.py + models.py + paths.py",
+              "text": "Select files explicitly and validate settings.",
+              "to": null
+            },
+            {
+              "name": "Dependency choice",
+              "path": "app/src/agent_playbook/application/assembly.py",
+              "text": "Use validated settings to select supported implementations.",
+              "to": "application"
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "release": {
+          "name": "Build and launch",
+          "parent": "app",
+          "label": "Boundary / Developer versus runtime",
+          "title": "The release folder name is not the ownership rule",
+          "text": "Building artifacts and selecting an existing artifact happen at different points.",
+          "blocks": [
+            {
+              "name": "Build",
+              "path": "app/tooling/release.py",
+              "text": "Development-only build, metadata and verification.",
+              "to": null
+            },
+            {
+              "name": "Artifacts",
+              "path": "app/dist/",
+              "text": "Generated wheels and metadata beside src/tests/tooling.",
+              "to": null
+            },
+            {
+              "name": "Discovery",
+              "path": "app/src/agent_playbook/releases/discovery.py",
+              "text": "Select a completed local release by request.",
+              "to": null
+            },
+            {
+              "name": "Launcher",
+              "path": "app/src/agent_playbook/releases/launcher.py",
+              "text": "Start the chosen release environment. CLI formats outcomes.",
+              "to": null
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "diagram": "05-release",
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "tests": {
+          "name": "Tests",
+          "parent": "app",
+          "label": "Verification / Behavioral evidence",
+          "title": "Test the shared contract, not folder symmetry",
+          "text": "Deterministic fixtures exercise roles and mappings without credentials. Live provider checks are opt-in.",
+          "blocks": [
+            {
+              "name": "Shared adapter contract",
+              "path": "app/tests/execution/contracts/",
+              "text": "Lifecycle, capability and supported-control behavior for every adapter.",
+              "to": null
+            },
+            {
+              "name": "Native mapper fixtures",
+              "path": "app/tests/execution/adapters/ + fixtures/execution/",
+              "text": "Success/failure, snapshots, incomplete data and unknown notifications.",
+              "to": null
+            },
+            {
+              "name": "Role behavior",
+              "path": "app/tests/agents/",
+              "text": "Canonical event fixtures and domain validation.",
+              "to": null
+            },
+            {
+              "name": "Workflow and telemetry",
+              "path": "app/tests/workflows/ + observability/",
+              "text": "Routing, bounded retries, correlation, redaction and export failure policy.",
+              "to": null
+            },
+            {
+              "name": "Integration smoke checks",
+              "path": "app/tests/integration/",
+              "text": "Opt-in checks for the chosen native versions and transports.",
+              "to": null
+            }
+          ],
+          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/explorations/agent-execution/architecture-notes.md"
+        }
+      },
+      "files": [
+        {
+          "path": ".gitignore",
+          "status": "Historical PR baseline",
+          "purpose": "Retained repository or application configuration/documentation."
+        },
+        {
+          "path": ".run/Bump Patch.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Check.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Dev Run.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Format Check.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Format.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Lint.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Release.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Run.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Setup.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Test WF-01.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Test WF-02.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Test WF-03.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Tests.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Types.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Verify Refactor.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/Version.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/WF-01 Sequence.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/WF-02 State.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": ".run/WF-03 Route.run.xml",
+          "status": "Historical PR baseline",
+          "purpose": "Shared PyCharm run configuration."
+        },
+        {
+          "path": "AGENTS.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained repository or application configuration/documentation."
+        },
+        {
+          "path": "app/.gitignore",
+          "status": "Historical PR baseline",
+          "purpose": "Retained repository or application configuration/documentation."
+        },
+        {
+          "path": "app/.python-version",
+          "status": "Historical PR baseline",
+          "purpose": "Retained repository or application configuration/documentation."
+        },
+        {
+          "path": "app/application.local.yaml",
+          "status": "Historical Generated / illustrative",
+          "purpose": "Optional ignored local override; not committed."
+        },
+        {
+          "path": "app/application.yaml",
+          "status": "Historical PR baseline",
+          "purpose": "External shared runtime settings relocated by PR #34."
+        },
+        {
+          "path": "app/dist/<version>/<package>.whl",
+          "status": "Historical Generated / illustrative",
+          "purpose": "Illustrative generated wheel path; actual version and layout follow release tooling."
+        },
+        {
+          "path": "app/dist/<version>/<release-metadata>",
+          "status": "Historical Generated / illustrative",
+          "purpose": "Illustrative release metadata artifact, not a source file."
+        },
+        {
+          "path": "app/docs/cli.md",
+          "status": "Historical PR baseline",
+          "purpose": "User-facing operating guide."
+        },
+        {
+          "path": "app/docs/configuration.md",
+          "status": "Historical PR baseline",
+          "purpose": "User-facing operating guide."
+        },
+        {
+          "path": "app/docs/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "User-facing operating guide."
+        },
+        {
+          "path": "app/docs/troubleshooting.md",
+          "status": "Historical PR baseline",
+          "purpose": "User-facing operating guide."
+        },
+        {
+          "path": "app/docs/workflows.md",
+          "status": "Historical PR baseline",
+          "purpose": "User-facing operating guide."
+        },
+        {
+          "path": "app/pyproject.toml",
+          "status": "Historical PR baseline",
+          "purpose": "Retained repository or application configuration/documentation."
+        },
+        {
+          "path": "app/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained repository or application configuration/documentation."
+        },
+        {
+          "path": "app/src/agent_playbook/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/__main__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/_build_info.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/coder/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/coder/agent.py",
+          "status": "Exploration candidate",
+          "purpose": "Orchestrate one coding task using the execution contract."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/coder/context.py",
+          "status": "Exploration candidate",
+          "purpose": "Prepare coding scope and context references."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/coder/event_handler.py",
+          "status": "Exploration candidate",
+          "purpose": "React to canonical events for coding; no native SDK imports."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/coder/instructions.md",
+          "status": "Exploration candidate",
+          "purpose": "Stable coding role rules."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/coder/models.py",
+          "status": "Exploration candidate",
+          "purpose": "Typed coding inputs, evidence and domain results."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/coder/prompts/system.md",
+          "status": "Exploration candidate",
+          "purpose": "Coder prompt resource."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/coder/README.md",
+          "status": "Exploration candidate",
+          "purpose": "Coder role contract and capability requirements."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/coder/tools.py",
+          "status": "Exploration candidate",
+          "purpose": "Role-specific deterministic operations when needed; reuse shared runtime tools."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/coder/validation.py",
+          "status": "Exploration candidate",
+          "purpose": "Validate coding output and required evidence."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/contracts.py",
+          "status": "Exploration candidate",
+          "purpose": "Only shared role concepts used by more than one role."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/README.md",
+          "status": "Exploration candidate",
+          "purpose": "Shared role ownership and provider-neutral boundary."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/reviewer/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/reviewer/agent.py",
+          "status": "Exploration candidate",
+          "purpose": "Orchestrate one review task using the execution contract."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/reviewer/context.py",
+          "status": "Exploration candidate",
+          "purpose": "Prepare review scope and context references."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/reviewer/event_handler.py",
+          "status": "Exploration candidate",
+          "purpose": "React to canonical events for review; no native SDK imports."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/reviewer/instructions.md",
+          "status": "Exploration candidate",
+          "purpose": "Stable review role rules."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/reviewer/models.py",
+          "status": "Exploration candidate",
+          "purpose": "Typed review inputs, evidence and domain results."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/reviewer/prompts/system.md",
+          "status": "Exploration candidate",
+          "purpose": "Reviewer prompt resource."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/reviewer/README.md",
+          "status": "Exploration candidate",
+          "purpose": "Reviewer role contract and capability requirements."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/reviewer/tools.py",
+          "status": "Exploration candidate",
+          "purpose": "Role-specific deterministic operations when needed; reuse shared runtime tools."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/reviewer/validation.py",
+          "status": "Exploration candidate",
+          "purpose": "Validate review output and required evidence."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/verifier/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/verifier/agent.py",
+          "status": "Exploration candidate",
+          "purpose": "Orchestrate one verification task using the execution contract."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/verifier/context.py",
+          "status": "Exploration candidate",
+          "purpose": "Prepare verification scope and context references."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/verifier/event_handler.py",
+          "status": "Exploration candidate",
+          "purpose": "React to canonical events for verification; no native SDK imports."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/verifier/instructions.md",
+          "status": "Exploration candidate",
+          "purpose": "Stable verification role rules."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/verifier/models.py",
+          "status": "Exploration candidate",
+          "purpose": "Typed verification inputs, evidence and domain results."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/verifier/prompts/system.md",
+          "status": "Exploration candidate",
+          "purpose": "Verifier prompt resource."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/verifier/README.md",
+          "status": "Exploration candidate",
+          "purpose": "Verifier role contract and capability requirements."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/verifier/tools.py",
+          "status": "Exploration candidate",
+          "purpose": "Role-specific deterministic operations when needed; reuse shared runtime tools."
+        },
+        {
+          "path": "app/src/agent_playbook/agents/verifier/validation.py",
+          "status": "Exploration candidate",
+          "purpose": "Validate verification output and required evidence."
+        },
+        {
+          "path": "app/src/agent_playbook/application/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/application/assembly.py",
+          "status": "Historical PR baseline",
+          "purpose": "Dependency construction split out by PR #34."
+        },
+        {
+          "path": "app/src/agent_playbook/application/results.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/application/workflow_factory.py",
+          "status": "Historical PR baseline",
+          "purpose": "Selected workflow construction split out by PR #34."
+        },
+        {
+          "path": "app/src/agent_playbook/application/workflow_runner.py",
+          "status": "Historical PR baseline",
+          "purpose": "Run lifecycle split out by PR #34."
+        },
+        {
+          "path": "app/src/agent_playbook/cli/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/cli/__main__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/cli/commands.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/cli/development.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/cli/parser.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/config/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/config/crewai.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/config/errors.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/config/loader.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/config/models.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/config/paths.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/config/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/claude/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/claude/capabilities.py",
+          "status": "Exploration candidate",
+          "purpose": "Version/transport-specific supported features and limits."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/claude/controls.py",
+          "status": "Exploration candidate",
+          "purpose": "Translate supported permission, input or cancellation controls."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/claude/event_mapper.py",
+          "status": "Exploration candidate",
+          "purpose": "Translate native messages with required mapping state."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/claude/executor.py",
+          "status": "Exploration candidate",
+          "purpose": "Claude native invocation, consumption and cleanup."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/claude/README.md",
+          "status": "Exploration candidate",
+          "purpose": "Claude transport choice, mapping rules and capability gaps."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/claude/request_mapper.py",
+          "status": "Exploration candidate",
+          "purpose": "Map our request to native runtime options."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/claude/tool_bindings.py",
+          "status": "Exploration candidate",
+          "purpose": "Expose runtime tools to this provider when introduced."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/codex/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/codex/capabilities.py",
+          "status": "Exploration candidate",
+          "purpose": "Version/transport-specific supported features and limits."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/codex/controls.py",
+          "status": "Exploration candidate",
+          "purpose": "Translate supported permission, input or cancellation controls."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/codex/event_mapper.py",
+          "status": "Exploration candidate",
+          "purpose": "Translate native messages with required mapping state."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/codex/executor.py",
+          "status": "Exploration candidate",
+          "purpose": "Codex native invocation, consumption and cleanup."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/codex/README.md",
+          "status": "Exploration candidate",
+          "purpose": "Codex transport choice, mapping rules and capability gaps."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/codex/request_mapper.py",
+          "status": "Exploration candidate",
+          "purpose": "Map our request to native runtime options."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/codex/tool_bindings.py",
+          "status": "Exploration candidate",
+          "purpose": "Expose runtime tools to this provider when introduced."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/codex/transport.py",
+          "status": "Exploration candidate",
+          "purpose": "Own the selected Codex SDK/process protocol; selection deferred to experiment."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/deterministic/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/deterministic/executor.py",
+          "status": "Exploration candidate",
+          "purpose": "Offline execution using canonical fixtures."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/deterministic/README.md",
+          "status": "Exploration candidate",
+          "purpose": "Deterministic executor behavior and limits."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/adapters/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/capabilities.py",
+          "status": "Exploration candidate",
+          "purpose": "Capability profiles and requirement compatibility."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/contracts.py",
+          "status": "Exploration candidate",
+          "purpose": "Provider-neutral executor and live invocation interfaces."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/errors.py",
+          "status": "Exploration candidate",
+          "purpose": "Execution-level errors and unsupported feature reporting."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/events.py",
+          "status": "Exploration candidate",
+          "purpose": "Canonical event envelope and discriminated payload union."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/harness/README.md",
+          "status": "Exploration candidate",
+          "purpose": "Provisional shared-policy boundary; internal files deferred."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/requests.py",
+          "status": "Exploration candidate",
+          "purpose": "Instructions, output requirements, limits and required capabilities."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/results.py",
+          "status": "Exploration candidate",
+          "purpose": "Technical outcomes, output, usage and typed failure details."
+        },
+        {
+          "path": "app/src/agent_playbook/execution/service.py",
+          "status": "Exploration candidate",
+          "purpose": "Preflight and local invocation coordination; not another model loop."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/adapters/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/adapters/langfuse/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/adapters/langfuse/exporter.py",
+          "status": "Exploration candidate",
+          "purpose": "Langfuse client integration."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/adapters/langfuse/README.md",
+          "status": "Exploration candidate",
+          "purpose": "Exporter behavior and outage policy."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/adapters/noop.py",
+          "status": "Exploration candidate",
+          "purpose": "Offline no-op exporter."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/adapters/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/contracts.py",
+          "status": "Exploration candidate",
+          "purpose": "Telemetry sink interface."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/correlation.py",
+          "status": "Exploration candidate",
+          "purpose": "Relate run, step, execution and provider-session references."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/events.py",
+          "status": "Exploration candidate",
+          "purpose": "Telemetry records; does not duplicate execution AgentEvent."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/projection.py",
+          "status": "Exploration candidate",
+          "purpose": "Convert workflow, role and execution facts into telemetry."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/redaction.py",
+          "status": "Exploration candidate",
+          "purpose": "Payload filtering and retention policy."
+        },
+        {
+          "path": "app/src/agent_playbook/releases/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/releases/discovery.py",
+          "status": "Historical PR baseline",
+          "purpose": "Completed-release discovery split out by PR #34."
+        },
+        {
+          "path": "app/src/agent_playbook/releases/launcher.py",
+          "status": "Historical PR baseline",
+          "purpose": "Selected-release launch split out by PR #34."
+        },
+        {
+          "path": "app/src/agent_playbook/tools/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/tools/contracts.py",
+          "status": "Exploration candidate",
+          "purpose": "Typed tool definitions and invocation boundaries."
+        },
+        {
+          "path": "app/src/agent_playbook/tools/README.md",
+          "status": "Exploration candidate",
+          "purpose": "Runtime tools, distinct from developer tooling."
+        },
+        {
+          "path": "app/src/agent_playbook/tools/repository/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/tools/repository/read_diff.py",
+          "status": "Exploration candidate",
+          "purpose": "Read repository changes as a reusable deterministic operation."
+        },
+        {
+          "path": "app/src/agent_playbook/tools/verification/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/tools/verification/models.py",
+          "status": "Exploration candidate",
+          "purpose": "Typed verification command evidence."
+        },
+        {
+          "path": "app/src/agent_playbook/tools/verification/run_tests.py",
+          "status": "Exploration candidate",
+          "purpose": "Capture test process outcome and artifacts directly."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/policies/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/policies/retry.py",
+          "status": "Exploration candidate",
+          "purpose": "Shared retry policy only once real cross-workflow reuse exists."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/flow.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/steps.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_02_shared_state/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_02_shared_state/flow.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_02_shared_state/state.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_02_shared_state/steps.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/flow.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/state.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/steps.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing runtime package source or responsibility note."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_code_review/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_code_review/artifacts.py",
+          "status": "Exploration candidate",
+          "purpose": "Workflow-specific artifact naming and references."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_code_review/flow.py",
+          "status": "Exploration candidate",
+          "purpose": "CrewAI transitions through coding, review, bounded revision and report."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_code_review/inputs.py",
+          "status": "Exploration candidate",
+          "purpose": "Public workflow input validation."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_code_review/README.md",
+          "status": "Exploration candidate",
+          "purpose": "Illustrative future workflow; identifier subject to stage approval."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_code_review/routing.py",
+          "status": "Exploration candidate",
+          "purpose": "Decide the next step from validated domain results."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_code_review/state.py",
+          "status": "Exploration candidate",
+          "purpose": "Typed workflow state and outcomes."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_code_review/steps/__init__.py",
+          "status": "Exploration candidate",
+          "purpose": "Python package marker; no behavior."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_code_review/steps/code.py",
+          "status": "Exploration candidate",
+          "purpose": "Invoke coder from this workflow."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_code_review/steps/report.py",
+          "status": "Exploration candidate",
+          "purpose": "Build the final report deterministically."
+        },
+        {
+          "path": "app/src/agent_playbook/workflows/wf_code_review/steps/review.py",
+          "status": "Exploration candidate",
+          "purpose": "Invoke reviewer from this workflow."
+        },
+        {
+          "path": "app/tests/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/agents/coder/test_coding_result.py",
+          "status": "Exploration candidate",
+          "purpose": "Validate coder output and artifact references."
+        },
+        {
+          "path": "app/tests/agents/reviewer/test_event_handler.py",
+          "status": "Exploration candidate",
+          "purpose": "Review behavior driven by canonical event fixtures."
+        },
+        {
+          "path": "app/tests/agents/reviewer/test_review_result.py",
+          "status": "Exploration candidate",
+          "purpose": "Validate review verdict, findings and evidence requirements."
+        },
+        {
+          "path": "app/tests/agents/verifier/test_required_evidence.py",
+          "status": "Exploration candidate",
+          "purpose": "Verifier fails explicitly when required evidence is unavailable."
+        },
+        {
+          "path": "app/tests/application/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/application/test_offline_runtime.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/application/test_workflow_runner.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/cli/test_cli.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/cli/test_workflow_commands.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/config/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/config/test_configuration.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/conftest.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/execution/adapters/claude/test_event_mapper.py",
+          "status": "Exploration candidate",
+          "purpose": "Claude fixture mapping, partial text and terminal failures."
+        },
+        {
+          "path": "app/tests/execution/adapters/codex/test_event_mapper.py",
+          "status": "Exploration candidate",
+          "purpose": "Codex fixture mapping, snapshots and command evidence."
+        },
+        {
+          "path": "app/tests/execution/adapters/deterministic/test_executor.py",
+          "status": "Exploration candidate",
+          "purpose": "Offline executor conformance."
+        },
+        {
+          "path": "app/tests/execution/contracts/test_capabilities.py",
+          "status": "Exploration candidate",
+          "purpose": "Same requirement checks against every adapter profile."
+        },
+        {
+          "path": "app/tests/execution/contracts/test_controls.py",
+          "status": "Exploration candidate",
+          "purpose": "Control semantics only for adapters advertising the capability."
+        },
+        {
+          "path": "app/tests/execution/contracts/test_lifecycle.py",
+          "status": "Exploration candidate",
+          "purpose": "Common adapter suite: ordering, terminal outcomes and cleanup."
+        },
+        {
+          "path": "app/tests/execution/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/execution/test_service.py",
+          "status": "Exploration candidate",
+          "purpose": "Preflight, dispatch ownership and invocation failures."
+        },
+        {
+          "path": "app/tests/fixtures/execution/canonical/reviewer.jsonl",
+          "status": "Exploration candidate",
+          "purpose": "Provider-neutral event fixture for role tests."
+        },
+        {
+          "path": "app/tests/fixtures/execution/claude/failure.jsonl",
+          "status": "Exploration candidate",
+          "purpose": "Sanitized failure fixture; no invented claim of live capture today."
+        },
+        {
+          "path": "app/tests/fixtures/execution/claude/success.jsonl",
+          "status": "Exploration candidate",
+          "purpose": "Sanitized native fixture, captured during SDK experiment."
+        },
+        {
+          "path": "app/tests/fixtures/execution/codex/failure.jsonl",
+          "status": "Exploration candidate",
+          "purpose": "Sanitized native transport/turn failure fixture."
+        },
+        {
+          "path": "app/tests/fixtures/execution/codex/success.jsonl",
+          "status": "Exploration candidate",
+          "purpose": "Sanitized fixture for the chosen Codex transport."
+        },
+        {
+          "path": "app/tests/fixtures/offline.yaml",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/integration/test_claude_smoke.py",
+          "status": "Exploration candidate",
+          "purpose": "Opt-in live provider smoke test, outside offline gates."
+        },
+        {
+          "path": "app/tests/integration/test_codex_smoke.py",
+          "status": "Exploration candidate",
+          "purpose": "Opt-in live provider smoke test, outside offline gates."
+        },
+        {
+          "path": "app/tests/observability/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/observability/test_export_failure.py",
+          "status": "Exploration candidate",
+          "purpose": "Configured telemetry outage behavior."
+        },
+        {
+          "path": "app/tests/observability/test_projection.py",
+          "status": "Exploration candidate",
+          "purpose": "Correct trace correlation without leaking native types."
+        },
+        {
+          "path": "app/tests/observability/test_redaction.py",
+          "status": "Exploration candidate",
+          "purpose": "Sensitive payload filtering."
+        },
+        {
+          "path": "app/tests/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/releases/test_release_selection.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/releases/test_workflow_launch.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/tooling/test_cli_tasks.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/tooling/test_development.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/tooling/test_release_completion.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/tooling/test_release_dependencies.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/tooling/test_release_destination.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/tooling/test_release_preflight.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/tooling/test_toolchain.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/tooling/test_wheel_hash.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/tools/test_run_tests.py",
+          "status": "Exploration candidate",
+          "purpose": "Capture real subprocess exit status and bounded output."
+        },
+        {
+          "path": "app/tests/workflows/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/conftest.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/wf_01_step_sequence/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/wf_01_step_sequence/test_flow.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/wf_01_step_sequence/test_steps.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/wf_02_shared_state/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/wf_02_shared_state/test_flow.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/wf_02_shared_state/test_state.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/wf_02_shared_state/test_steps.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/wf_03_conditional_route/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/wf_03_conditional_route/test_flow.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/wf_03_conditional_route/test_state.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/wf_03_conditional_route/test_steps.py",
+          "status": "Historical PR baseline",
+          "purpose": "Existing test or test fixture retained from PR baseline."
+        },
+        {
+          "path": "app/tests/workflows/wf_code_review/test_routing.py",
+          "status": "Exploration candidate",
+          "purpose": "Approve, revise, fail and exhausted-budget outcomes."
+        },
+        {
+          "path": "app/tooling/__init__.py",
+          "status": "Historical PR baseline",
+          "purpose": "Development/build/verification code, excluded from installed runtime."
+        },
+        {
+          "path": "app/tooling/bootstrap.py",
+          "status": "Historical PR baseline",
+          "purpose": "Development/build/verification code, excluded from installed runtime."
+        },
+        {
+          "path": "app/tooling/checks.py",
+          "status": "Historical PR baseline",
+          "purpose": "Development/build/verification code, excluded from installed runtime."
+        },
+        {
+          "path": "app/tooling/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Development/build/verification code, excluded from installed runtime."
+        },
+        {
+          "path": "app/tooling/release.py",
+          "status": "Historical PR baseline",
+          "purpose": "Development/build/verification code, excluded from installed runtime."
+        },
+        {
+          "path": "app/tooling/toolchain.py",
+          "status": "Historical PR baseline",
+          "purpose": "Development/build/verification code, excluded from installed runtime."
+        },
+        {
+          "path": "app/tooling/verify_refactor.py",
+          "status": "Historical PR baseline",
+          "purpose": "Temporary review helper in PR #34; later removal is an explicit decision."
+        },
+        {
+          "path": "app/tooling/verify_runtime.py",
+          "status": "Historical PR baseline",
+          "purpose": "Development/build/verification code, excluded from installed runtime."
+        },
+        {
+          "path": "app/tooling/verify_wheel.py",
+          "status": "Historical PR baseline",
+          "purpose": "Development/build/verification code, excluded from installed runtime."
+        },
+        {
+          "path": "app/tooling/version.py",
+          "status": "Historical PR baseline",
+          "purpose": "Development/build/verification code, excluded from installed runtime."
+        },
+        {
+          "path": "app/uv.lock",
+          "status": "Historical PR baseline",
+          "purpose": "Retained repository or application configuration/documentation."
+        },
+        {
+          "path": "designs/architecture.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/charter.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/diagrams/01-system.animated.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/diagrams/01-system.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/diagrams/02-execution.animated.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/diagrams/02-execution.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/diagrams/03-observability.animated.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/diagrams/03-observability.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/diagrams/AUTHORING.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/diagrams/build_viewer.py",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/diagrams/index.html",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/diagrams/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/diagrams/render.py",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/refactors/atlas/architecture-atlas.html",
+          "status": "Exploration candidate",
+          "purpose": "Offline drill-down block viewer and file explorer."
+        },
+        {
+          "path": "designs/refactors/atlas/architecture-guide.md",
+          "status": "Exploration candidate",
+          "purpose": "Detailed ownership, contracts, worked scenario and research."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/01-source.animated.svg",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/01-source.html",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/01-source.svg",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/02-execution.animated.svg",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/02-execution.html",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/02-execution.svg",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/03-events.animated.svg",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/03-events.html",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/03-events.svg",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/04-observability.animated.svg",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/04-observability.html",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/04-observability.svg",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/05-release.animated.svg",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/05-release.html",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/diagrams/05-release.svg",
+          "status": "Exploration candidate",
+          "purpose": "Architecture view with accessible text and static/animated alternatives."
+        },
+        {
+          "path": "designs/refactors/atlas/full-file-structure.md",
+          "status": "Exploration candidate",
+          "purpose": "Complete candidate file inventory with status."
+        },
+        {
+          "path": "designs/refactors/atlas/README.md",
+          "status": "Exploration candidate",
+          "purpose": "Entry point, status and navigation levels."
+        },
+        {
+          "path": "designs/refactors/atlas/THIRD-PARTY-NOTICES.txt",
+          "status": "Exploration candidate",
+          "purpose": "Diagram renderer attribution and license."
+        },
+        {
+          "path": "designs/refactors/atlas/verification.md",
+          "status": "Exploration candidate",
+          "purpose": "Artifact checks and limits of evidence."
+        },
+        {
+          "path": "designs/learning/architecture-walkthrough.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/learning/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/principles.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/progress.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/project-structure.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/refactors/2026-11-12-runtime-structure/proposal.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/refactors/2026-11-12-runtime-structure/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/refactors/2026-11-12-runtime-structure/verification.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/roadmap.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained architecture, governance or design material."
+        },
+        {
+          "path": "designs/stages/00-environment/architecture.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/00-environment/findings.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-1-python-environment.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-2-application-cli.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-3-pyright.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-4-pytest.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-5-ruff.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-6-unified-checks.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/00-environment/learning/00-7-wheel-release.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/00-environment/plan.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/architecture.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/configuration-findings.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/coordination.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/00-architecture-animated.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/00-architecture.html",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/00-architecture.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/01-sequence-animated.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/01-sequence.html",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/01-sequence.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/02-state-animated.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/02-state.html",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/02-state.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/03-route-pass-animated.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/03-route-pass.html",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/03-route-pass.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/04-route-needs-work-animated.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/04-route-needs-work.html",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/04-route-needs-work.svg",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/index.html",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/diagrams/THIRD-PARTY-NOTICES.txt",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/file-structure.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/findings.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/00-reading-the-code.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/01-flow-basics.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/02-sequence-and-values.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/03-typed-state.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/04-routing.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/05-failures-and-tests.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/06-running-and-releasing.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/learning/08-independent-sandboxes.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/plan.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/sources.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/test-plan.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/workflows/wf-01-step-sequence.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/workflows/wf-02-shared-state.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "designs/stages/01-crewai-flows/workflows/wf-03-conditional-route.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained stage design, lesson, diagram or verification record."
+        },
+        {
+          "path": "README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained repository or application configuration/documentation."
+        },
+        {
+          "path": "sandbox/AGENTS.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/agents/code-writer.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/agents/designer.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/agents/orchestrator.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/agents/replanner.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/agents/reviewer.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/agents/tester.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/projects/agent-playbook/features/f-01-reviewer-trial/design.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/projects/agent-playbook/features/f-02-implementer-handoff/design.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/projects/agent-playbook/features/f-03-design-deviations/design.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/projects/project-a/review-rules.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/projects/project-a/reviews/pr-14.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/projects/system-one-harness/features/f-01-offline-test-suite/design.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/projects/system-one-harness/reviews/pr-46.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/README.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/verification/reviewer-handoff.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "sandbox/workflows/implement-change.md",
+          "status": "Historical PR baseline",
+          "purpose": "Retained historical experiment; outside active application work."
+        },
+        {
+          "path": "app/examples/",
+          "status": "Historical Excluded sandbox",
+          "purpose": "Personal sandbox boundary only. Do not inspect contents without a specific request."
+        }
+      ]
+    }
+  },
+  "diagrams": {
+    "05-release": {
+      "title": "05 \u00b7 Build and launch are different",
+      "static": "diagrams/05-release.svg",
+      "animated": "diagrams/05-release.animated.svg"
+    },
+    "04-observability": {
+      "title": "04 \u00b7 Observability is a projection",
+      "static": "diagrams/04-observability.svg",
+      "animated": "diagrams/04-observability.animated.svg"
+    },
+    "02-execution": {
+      "title": "02 \u00b7 Inside execution",
+      "static": "diagrams/02-execution.svg",
+      "animated": "diagrams/02-execution.animated.svg"
+    },
+    "01-source": {
+      "title": "01 \u00b7 Runtime ownership",
+      "static": "diagrams/01-source.svg",
+      "animated": "diagrams/01-source.animated.svg"
+    },
+    "03-events": {
+      "title": "03 \u00b7 Native messages to shared events",
+      "static": "diagrams/03-events.svg",
+      "animated": "diagrams/03-events.animated.svg"
+    }
+  }
+}

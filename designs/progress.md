@@ -1,6 +1,6 @@
 # Progress and acceptance
 
-Updated 2026-11-12. This file records implemented behavior; architecture.md describes
+Updated 2026-11-13. This file records implemented behavior; architecture.md describes
 the target system.
 
 | Work | Verified state |
@@ -49,10 +49,20 @@ implementation and independent examples, reporting that everything works. The le
 material remains available for continued experiments; acceptance does not claim every topic
 has been studied exhaustively.
 
-The independent examples live in `app/examples/workflows/`, with colocated inputs, settings,
-tests and compact diagrams. User-facing configuration instructions live in
+Historical examples were delivered under `app/examples/workflows/`. Sharon now designates `app/examples/` as his personal sandbox; it is outside maintained agent work and application testing. Do not inspect it without a specific request. Historical example test counts below/above are retained only as historical evidence. User-facing configuration instructions live in
 `app/docs/configuration.md`; YAML stays in `app/configs/`. Documentation navigation is in
 `app/docs/README.md`.
 
 Next: discuss Stage 02 (Langfuse observability), agree on the first visible run/step/error
 experiment, and approve its design before implementation. No Stage 02 integration has been built.
+
+
+## Atlas/governance update — PR #35
+
+Sharon approved the logical changes to charter, principles, architecture and project structure, the new guarded design contract, preservation of every existing guard, mandatory placement/reading flow, official-doc maintenance and permanent Current/Explorations Atlas on 2026-11-13. This approval authorizes the documentation work; PR #35 remains a draft for merge review. Detailed reviewer/event-adapter/harness designs remain explorations.
+
+Current implementation snapshot: main `6f16508`. PR #34 is open at inspected head `59c6fff`; it includes examples isolation in default quality gates/release inputs and retains explicit manual lint/format. Its PR description says the follow-up verification has not run. The earlier 137-test and release evidence does not certify that head. Preserve the WF-01/02/03 production probes; verification/merge of #34 is handled separately.
+
+PR #35 adds documentation and Atlas tooling, not agent runtime integrations. Its guard audit explicitly retains Stage 00 architecture/plan despite stale proposed-status headings and retains the approved Stage 01 package contracts. Existing stage files are not rewritten. Atlas verification is recorded in refactors/atlas/verification.md and must not be described as application tests.
+
+After #34 is accepted/merged, reconcile current paths, pending notes, public guides and catalog revision; do not overwrite newer sandbox rules when merging. Internal refactor-review.md belongs with its refactor rather than in app/docs. The latest temporary examples-isolation handoff remains a separate coordination record until its lasting decisions/evidence are transferred.
