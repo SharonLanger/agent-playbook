@@ -1,13 +1,13 @@
 """Concrete wrappers preserve CrewAI behavior and classify phase failures."""
 
 from typing import Mapping
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import pytest
 
 from agent_playbook.config.models import CrewAISettings
 from agent_playbook.workflows.contracts import Workflow
-from agent_playbook.workflows.errors import WorkflowInputError
+from agent_playbook.workflows.errors import WorkflowInputError, WorkflowOrderError
 from agent_playbook.workflows.lifecycle import WorkflowPhase, WorkflowStatus
 from agent_playbook.workflows.wf_01_step_sequence.workflow import StepSequenceWorkflow
 from agent_playbook.workflows.wf_02_shared_state.workflow import SharedStateWorkflow
@@ -82,33 +82,90 @@ def test_wrapper_failure_is_terminal_and_blocks_later_phases(
 
 
 @pytest.mark.parametrize(
-    "implementation,invalid",
+    "implementation,flow_module,flow_class,invalid",
     [
-        (StepSequenceWorkflow, {"extra": 1}),
-        (SharedStateWorkflow, {"initial": True}),
-        (SharedStateWorkflow, {"initial": 1001}),
-        (SharedStateWorkflow, {"initial": "2"}),
-        (SharedStateWorkflow, {"other": 1}),
-        (ConditionalRouteWorkflow, {"score": -1}),
-        (ConditionalRouteWorkflow, {"score": 101}),
-        (ConditionalRouteWorkflow, {"score": "80"}),
-        (ConditionalRouteWorkflow, {"score": True}),
-        (ConditionalRouteWorkflow, {"score": 2.5}),
-        (ConditionalRouteWorkflow, {"extra": 1}),
+        (StepSequenceWorkflow, "wf_01_step_sequence", "StepSequenceFlow", {"extra": 1}),
+        (
+            SharedStateWorkflow,
+            "wf_02_shared_state",
+            "SharedStateFlow",
+            {"initial": True},
+        ),
+        (
+            SharedStateWorkflow,
+            "wf_02_shared_state",
+            "SharedStateFlow",
+            {"initial": 1001},
+        ),
+        (
+            SharedStateWorkflow,
+            "wf_02_shared_state",
+            "SharedStateFlow",
+            {"initial": "2"},
+        ),
+        (SharedStateWorkflow, "wf_02_shared_state", "SharedStateFlow", {"other": 1}),
+        (
+            ConditionalRouteWorkflow,
+            "wf_03_conditional_route",
+            "ConditionalRouteFlow",
+            {"score": -1},
+        ),
+        (
+            ConditionalRouteWorkflow,
+            "wf_03_conditional_route",
+            "ConditionalRouteFlow",
+            {"score": 101},
+        ),
+        (
+            ConditionalRouteWorkflow,
+            "wf_03_conditional_route",
+            "ConditionalRouteFlow",
+            {"score": "80"},
+        ),
+        (
+            ConditionalRouteWorkflow,
+            "wf_03_conditional_route",
+            "ConditionalRouteFlow",
+            {"score": True},
+        ),
+        (
+            ConditionalRouteWorkflow,
+            "wf_03_conditional_route",
+            "ConditionalRouteFlow",
+            {"score": 2.5},
+        ),
+        (
+            ConditionalRouteWorkflow,
+            "wf_03_conditional_route",
+            "ConditionalRouteFlow",
+            {"extra": 1},
+        ),
     ],
 )
 def test_invalid_input_never_constructs_or_kicks_off(
-    implementation: type[Workflow[object]], invalid: Mapping[str, object]
+    implementation: type[Workflow[object]],
+    flow_module: str,
+    flow_class: str,
+    invalid: Mapping[str, object],
 ) -> None:
     workflow = implementation(settings=SETTINGS, config={})
-    with pytest.raises(WorkflowInputError):
-        workflow.prepare(invalid)
-    assert workflow.status is WorkflowStatus.FAILED
-    assert (
-        workflow.failure is not None and workflow.failure.phase is WorkflowPhase.PREPARE
-    )
-    with pytest.raises(Exception):
-        workflow.execute()
+    flow = Mock()
+    target = f"agent_playbook.workflows.{flow_module}.flow.{flow_class}"
+    with patch(target, return_value=flow) as constructor:
+        with pytest.raises(WorkflowInputError) as caught:
+            workflow.prepare(invalid)
+        assert workflow.status is WorkflowStatus.FAILED
+        assert workflow.failure is not None
+        assert workflow.failure.phase is WorkflowPhase.PREPARE
+        assert workflow.failure.cause is caught.value
+        constructor.assert_not_called()
+        flow.kickoff.assert_not_called()
+        failure = workflow.failure
+        with pytest.raises(WorkflowOrderError):
+            workflow.execute()
+        assert workflow.failure is failure and workflow.status is WorkflowStatus.FAILED
+        constructor.assert_not_called()
+        flow.kickoff.assert_not_called()
 
 
 def test_shared_state_rejects_boolean_output() -> None:

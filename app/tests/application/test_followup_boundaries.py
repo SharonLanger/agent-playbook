@@ -5,7 +5,7 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Mapping
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import pytest
 from pydantic import ValidationError
@@ -132,6 +132,7 @@ def test_explicit_constructor_config_error_stays_configuration() -> None:
         "assembly",
         "registry",
         "selection",
+        "construction",
         "json",
         "prepare",
         "execute",
@@ -140,52 +141,84 @@ def test_explicit_constructor_config_error_stays_configuration() -> None:
     ],
 )
 def test_failure_stops_before_success(boundary: str) -> None:
-    original = ValueError("private")
-    workflow = RichWorkflow(settings=SETTINGS, config={})
-    patches = [
-        patch(
-            "agent_playbook.application.workflow_runner.assemble_runtime",
-            return_value=APPLICATION,
-        ),
-        patch(
-            "agent_playbook.application.workflow_runner.workflow_registry",
-            return_value={"test": RichWorkflow},
-        ),
-    ]
-    if boundary == "assembly":
-        patches[0] = patch(
-            "agent_playbook.application.workflow_runner.assemble_runtime",
-            side_effect=original,
-        )
-    elif boundary == "registry":
-        patches[1] = patch(
-            "agent_playbook.application.workflow_runner.workflow_registry",
-            side_effect=original,
-        )
-    elif boundary == "selection":
-        patches[1] = patch(
-            "agent_playbook.application.workflow_runner.workflow_registry",
-            return_value={},
-        )
-    elif boundary in {"prepare", "execute", "validate_output", "serialize_output"}:
-        setattr(workflow, f"_{boundary}", original)
+    original = ValueError("private failure")
+    calls: list[str] = []
+    workflow = Mock()
+    output = Review((2, 3))
+
+    def step(name: str, value: object) -> Mock:
+        def invoke(*_args: object, **_kwargs: object) -> object:
+            calls.append(name)
+            if boundary == name:
+                if name == "selection":
+                    raise ConfigurationError("selected entry invalid")
+                raise original
+            return value
+
+        return Mock(side_effect=invoke)
+
+    assembly = step("assembly", APPLICATION)
+    registry = step("registry", {"test": RichWorkflow})
+    selection = step("selection", (RichWorkflow, dict[str, object]()))
+    construction = step("construction", workflow)
+    workflow.prepare = step("prepare", None)
+    workflow.execute = step("execute", "raw")
+    workflow.validate_output = step("validate_output", output)
+    workflow.serialize_output = step("serialize_output", "5")
+    result = step("result", object())
     with (
-        patches[0],
-        patches[1],
+        patch("agent_playbook.application.workflow_runner.assemble_runtime", assembly),
+        patch("agent_playbook.application.workflow_runner.workflow_registry", registry),
+        patch("agent_playbook.application.workflow_runner.select_workflow", selection),
         patch(
             "agent_playbook.application.workflow_runner.construct_workflow",
-            return_value=workflow,
+            construction,
         ),
+        patch("agent_playbook.application.workflow_runner.RunResult", result),
     ):
-        if boundary == "json":
-            with pytest.raises(WorkflowInputError):
+        if boundary == "selection":
+            with pytest.raises(ConfigurationError, match="selected entry invalid"):
+                run_workflow("customer-job")
+        elif boundary == "json":
+            with pytest.raises(
+                WorkflowInputError, match="customer-job INPUT"
+            ) as failure:
                 run_workflow("customer-job", "[")
-        elif boundary == "selection":
-            with pytest.raises(ConfigurationError):
-                run_workflow("customer-job")
+            assert isinstance(failure.value.__cause__, ValidationError)
         else:
-            with pytest.raises(WorkflowExecutionError):
+            phase = {
+                "assembly": "SETUP",
+                "registry": "SETUP",
+                "construction": "CONSTRUCTION",
+                "prepare": "PREPARE",
+                "execute": "EXECUTE",
+                "validate_output": "VALIDATE_OUTPUT",
+                "serialize_output": "SERIALIZE_OUTPUT",
+            }[boundary]
+            with pytest.raises(
+                WorkflowExecutionError, match=f"customer-job {phase} failed"
+            ) as failure:
                 run_workflow("customer-job")
+            assert failure.value.__cause__ is original
+            assert "private failure" not in str(failure.value)
+    sequence = [
+        "assembly",
+        "registry",
+        "selection",
+        "construction",
+        "prepare",
+        "execute",
+        "validate_output",
+        "serialize_output",
+        "result",
+    ]
+    expected = (
+        sequence[:4] if boundary == "json" else sequence[: sequence.index(boundary) + 1]
+    )
+    assert calls == expected
+    result.assert_not_called()
+    if boundary in {"construction", "json"}:
+        workflow.prepare.assert_not_called()
 
 
 def test_alias_input_phase_and_type_are_safe(tmp_path: Path) -> None:
@@ -203,19 +236,28 @@ def test_alias_input_phase_and_type_are_safe(tmp_path: Path) -> None:
 def test_real_runner_import_order_and_unused_flows_in_fresh_process() -> None:
     script = """
 import builtins, os, sys
+for key in ('AGENT_PLAYBOOK_CREWAI_USAGE_TELEMETRY_ENABLED', 'AGENT_PLAYBOOK_CREWAI_TRACING_ENABLED', 'AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS'):
+    os.environ.pop(key, None)
+os.environ['CREWAI_DISABLE_TELEMETRY'] = 'false'
+os.environ['CREWAI_TRACING_ENABLED'] = 'true'
 original = builtins.__import__
+framework_attempts = []
 def guard(name, *args, **kwargs):
     if name in ('agent_playbook.workflows.wf_02_shared_state.flow', 'agent_playbook.workflows.wf_03_conditional_route.flow'):
         raise AssertionError('unused flow imported: ' + name)
-    if name.startswith('crewai'):
-        assert os.environ.get('CREWAI_DISABLE_TELEMETRY') == 'true'
+    if name == 'crewai' or name.startswith('crewai.') or name == 'crewai_core' or name.startswith('crewai_core.'):
+        framework_attempts.append(name)
+        assert os.environ['CREWAI_DISABLE_TELEMETRY'] == 'true', 'telemetry not configured before framework import'
+        assert os.environ['CREWAI_TRACING_ENABLED'] == 'false', 'tracing not configured before framework import'
     return original(name, *args, **kwargs)
 builtins.__import__ = guard
 from agent_playbook.application.workflow_registry import workflow_registry
 assert set(workflow_registry()) == {'step_sequence', 'shared_state', 'conditional_route'}
-assert 'crewai' not in sys.modules
+assert not framework_attempts
+assert not any(name == 'crewai' or name.startswith('crewai.') or name == 'crewai_core' or name.startswith('crewai_core.') for name in sys.modules)
 from agent_playbook.application.workflow_runner import run_workflow
 assert run_workflow(config_path=sys.argv[1]).serialized_output == '[Hello, workflow!]'
+assert framework_attempts, 'framework import guard was never reached'
 assert 'agent_playbook.workflows.wf_02_shared_state.flow' not in sys.modules
 assert 'agent_playbook.workflows.wf_03_conditional_route.flow' not in sys.modules
 """

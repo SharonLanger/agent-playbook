@@ -224,7 +224,7 @@ This mapping is for the implementation branch. Each reference names a maintained
 | A8 | `test_contract.py::test_complete_sequence_and_independent_results`, `test_independent_mutable_domain_state_and_failure`, `tests/workflows/wf_02_shared_state/test_flow.py::test_independent_runs` |
 | A9 | `tests/workflows/test_typing_contract.py::concrete_type_contract` (normal Pyright scan), `test_negative_contract_diagnostics` |
 | B1 | `tests/application/test_runner_contract.py::test_runner_calls_public_methods_in_order_and_returns_native_object` |
-| B2 | `test_runner_contract.py::test_failure_stops_later_methods`, `tests/application/test_followup_boundaries.py::test_failure_stops_before_success` |
+| B2 | `test_runner_contract.py::test_failure_stops_later_methods`; `tests/application/test_followup_boundaries.py::test_failure_stops_before_success` injects callable failures at assembly/registry/selection/construction/JSON and all four lifecycle boundaries, checks exact cause/phase, exact call prefix and no `RunResult` |
 | B3 | `test_followup_boundaries.py::test_unexpected_constructor_errors_are_execution_failures`, `test_explicit_constructor_config_error_stays_configuration` |
 | B4 | `test_runner_contract.py::test_prepare_input_error_is_exit_two_category`, `test_followup_boundaries.py::test_prepare_state_construction_validation_error_is_execution_failure`, `test_execute_input_named_exception_is_execution_failure` |
 | B5 | `tests/workflows/test_wrappers.py::test_wrapper_failure_is_terminal_and_blocks_later_phases`, `test_followup_boundaries.py::test_alias_output_phase_is_safe_and_precise` |
@@ -236,16 +236,16 @@ This mapping is for the implementation branch. Each reference names a maintained
 | C3 | `test_workflow_matrix.py::test_unused_invalid_entries_are_inert`, `test_followup_boundaries.py::test_unused_implementation_constructor_never_runs` |
 | C4 | `test_followup_boundaries.py::test_real_runner_import_order_and_unused_flows_in_fresh_process` |
 | C5 | `test_followup_boundaries.py::test_blocked_selected_flow_is_prepare_error_and_cli_exit_one`, `test_failure_stops_before_success` |
-| C6 | `test_followup_boundaries.py::test_real_runner_import_order_and_unused_flows_in_fresh_process` |
+| C6 | `test_followup_boundaries.py::test_real_runner_import_order_and_unused_flows_in_fresh_process` starts from telemetry=false/tracing=true, checks telemetry=true/tracing=false at the first real CrewAI import, proves the import guard ran, and leaves unused flows unloaded |
 | D1 | `tests/config/test_configuration.py::test_missing_or_nonmapping_workflow_catalog`, `test_empty_catalog_is_valid_but_no_id_is_selected`, `test_invalid_configuration_is_private_and_starts_no_steps`, `test_explicit_path_wins_and_development_default_ignores_cwd`, `test_nested_local_overlay_environment_precedence_and_reload` |
 | D2 | `tests/config/test_workflow_matrix.py::test_invalid_selected_entry`, `test_invalid_or_missing_selected_id`, `test_overlays_and_alias_defaults_are_independent` |
 | D3 | `test_workflow_matrix.py::test_invalid_selected_implementation_settings`, `test_overlays_and_alias_defaults_are_independent`, `test_score_alias_default_and_override`; `tests/workflows/test_wrappers.py::test_real_wrapper_result` |
-| D4 | `test_workflow_matrix.py::test_yaml_parse_rejects_keys_and_tags_in_both_files`, `test_configuration.py::test_invalid_yaml_keys_even_in_unused_entries` |
+| D4 | `test_workflow_matrix.py::test_yaml_parse_rejects_keys_and_tags_in_both_files` uses 14 independent base/local single-defect cases with matching valid controls, checks `StrictLoader` reason and public redaction; `test_configuration.py::test_invalid_yaml_keys_even_in_unused_entries` retains existing unused-key coverage |
 | D5 | `test_workflow_matrix.py::test_overlays_and_alias_defaults_are_independent`, `test_unused_invalid_entries_are_inert`; `test_configuration.py::test_nested_local_overlay_environment_precedence_and_reload` |
 | D6 | `test_workflow_matrix.py::test_alias_configuration_error_redacts_source_values`, `test_followup_boundaries.py::test_alias_input_phase_and_type_are_safe` |
 | E1 | `tests/workflows/wf_01_step_sequence/test_flow.py::test_real_kickoff_and_order`, `test_failure_skips_finish`; `tests/workflows/test_wrappers.py::test_real_wrapper_result`, `test_invalid_input_never_constructs_or_kicks_off` |
 | E2 | `tests/workflows/wf_02_shared_state/test_flow.py::test_kickoff_state`, `tests/workflows/test_wrappers.py::test_real_wrapper_result` |
-| E3 | `tests/workflows/test_wrappers.py::test_invalid_input_never_constructs_or_kicks_off`; `wf_02_shared_state/test_state.py::test_rejects_invalid_external_input` and `wf_03_conditional_route/test_state.py::test_invalid_score_input` |
+| E3 | `tests/workflows/test_wrappers.py::test_invalid_input_never_constructs_or_kicks_off` observes each concrete flow constructor/kickoff across 11 invalid wrapper inputs, checks FAILED/PREPARE/cause and later `WorkflowOrderError` without work; `wf_02_shared_state/test_state.py::test_rejects_invalid_external_input` and `wf_03_conditional_route/test_state.py::test_invalid_score_input` retain model-level coverage |
 | E4 | `tests/config/test_workflow_matrix.py::test_overlays_and_alias_defaults_are_independent`, `test_score_alias_default_and_override` |
 | E5 | `tests/workflows/wf_03_conditional_route/test_flow.py::test_exactly_one_route`, `test_terminal_failure_is_not_a_decision` |
 | E6 | `tests/workflows/test_wrappers.py::test_wrapper_failure_is_terminal_and_blocks_later_phases`, `test_shared_state_rejects_boolean_output` |

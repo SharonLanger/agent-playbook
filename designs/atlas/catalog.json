@@ -20,7 +20,8 @@
     "designs/refactors/workflow-contract/file-structure.md",
     "designs/refactors/workflow-contract/test-plan.md",
     "designs/refactors/workflow-contract/implementation-plan.md",
-    "designs/refactors/workflow-contract/review-follow-up.md"
+    "designs/refactors/workflow-contract/review-follow-up.md",
+    "designs/refactors/workflow-contract/review-test-quality.md"
   ],
   "views": {
     "current": {
@@ -94,9 +95,9 @@
               "to": null
             },
             {
-              "name": "Workflow contract and follow-up",
+              "name": "Workflow contract and review evidence",
               "path": "designs/refactors/workflow-contract/README.md",
-              "text": "Approved ABC/YAML contract; PR #40 in review with lazy imports, corrected error boundaries and mapped tests.",
+              "text": "Approved ABC/YAML contract; PR #40 in review with lazy imports, corrected error boundaries, A1–F6 coverage and Q1–Q4 test sensitivity evidence.",
               "to": null
             }
           ],
@@ -1360,6 +1361,11 @@
           "path": "designs/refactors/workflow-contract/review-follow-up.md",
           "status": "Approved follow-up — verified on unmerged PR #40 at 9f75544",
           "purpose": "Reproduced review issues, lazy-import scope, test-gap matrix and next-agent instructions."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/review-test-quality.md",
+          "status": "Second review corrections — implemented on unmerged PR #40",
+          "purpose": "Q1–Q4 corrected assertions, negative controls and verification evidence."
         }
       ]
     },

@@ -1,7 +1,9 @@
 # Workflow contract: second-review test-quality handoff
 
-Status: **Requested follow-up plan; the test corrections below are pending.**
-Requested by Sharon on 2026-11-13. This document records the second independent review and gives the next implementation agent concrete work. It does not mark that work complete or authorize merging either PR.
+Status: **Q1–Q4 implemented on PR #40; verification evidence below; pending review.**
+Requested by Sharon on 2026-11-13. This document records the second independent review and its implementation follow-up. It does not authorize merging either PR.
+
+Implementation update on PR #40: Q1–Q4 corrections below are in place and their negative controls failed on the intended assertions. The completion table near the end records current evidence. The review findings below describe the historical handoff at `f61683c`.
 
 ## Start here and preserve the current work
 
@@ -182,10 +184,12 @@ Include any additional loader test module modified by Q3 in the focused run. For
 
 | Item | Maintained test node IDs | Behavior/assertions proved | Negative control and intended failure | Verified revision/result |
 |---|---|---|---|---|
-| Q1 / E3 | Pending | Pending | Pending | Pending |
-| Q2 / C6 | Pending | Pending | Pending | Pending |
-| Q3 / D4 | Pending | Pending | Pending | Pending |
-| Q4 / B2 | Pending | Pending | Pending | Pending |
+| Q1 / E3 | `tests/workflows/test_wrappers.py::test_invalid_input_never_constructs_or_kicks_off` (11 invalid inputs) | Real `prepare` rejects, records FAILED/PREPARE and exact cause; patched deferred-import flow constructor and kickoff have zero calls before/after `WorkflowOrderError` | Temporarily constructed WF-01 flow before input validation; the constructor no-call assertion failed with one call; restored source | Focused cases passed; final gate below |
+| Q2 / C6 | `tests/application/test_followup_boundaries.py::test_real_runner_import_order_and_unused_flows_in_fresh_process` | Child seeds telemetry disabled=false and tracing=true; first intercepted CrewAI import sees telemetry disabled=true and tracing=false; guard ran; registry/unused flows remain lazy; real WF-01 succeeds | Temporarily bypassed `configure_crewai`, then separately skipped only tracing assignment. Each run failed the corresponding first-import guard assertion before framework initialization; restored both files | Focused case passed; final gate below |
+| Q3 / D4 | `tests/config/test_workflow_matrix.py::test_yaml_parse_rejects_keys_and_tags_in_both_files` (7 defects × base/local) | Each otherwise valid file has one defect and a matching valid control; `StrictLoader` gives the intended safe reason, public load returns a redacted error; includes unused blocks and inert Python tag | Temporarily disabled merge-key rejection; the expected-reason assertion failed. Separately disabled duplicate detection; root and unused-nested duplicate cases failed at `pytest.raises(yaml.YAMLError)`; restored loader | Focused cases passed; final gate below |
+| Q4 / B2 | `tests/application/test_followup_boundaries.py::test_failure_stops_before_success` (9 boundaries) | Callable collaborators fail with exact cause and phase; recorded calls stop at the failing boundary, `RunResult` is never called, invalid JSON never prepares | Temporarily called `execute` from failing `prepare`; exact call-prefix assertion failed because of the extra `execute`; restored test | Focused cases passed; final gate below |
+
+Q3 revealed one narrow production diagnostic defect: merge-key nodes were rejected as generic invalid keys before the explicit merge-key branch. `StrictLoader.construct_mapping` now reports `YAML merge keys are unsupported`. Public configuration errors remain redacted. No orchestration or package boundary changed. The former Q4 exception-object assignment was replaced by callable failure injection; the other three named tests were strengthened in place. The A1–F6 mapping remains in [review-follow-up.md](review-follow-up.md#pr-40-maintained-test-mapping).
 
 Also record: baseline/final gate results; any old-to-new test mapping; no unresolved failures; Atlas/whitespace checks; whether production files changed; which release evidence applies; and exact environment limitations. A test name without its relevant assertion is not sufficient evidence. Keep historical review findings available after marking them resolved.
 

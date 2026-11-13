@@ -28,6 +28,10 @@ class StrictLoader(yaml.SafeLoader):
     ) -> dict[Hashable, Any]:
         seen: set[str] = set()
         for key_node, _ in node.value:
+            if key_node.tag == "tag:yaml.org,2002:merge":
+                raise ConstructorError(
+                    None, None, "YAML merge keys are unsupported", key_node.start_mark
+                )
             if key_node.tag != "tag:yaml.org,2002:str":
                 raise ConstructorError(
                     None, None, "Invalid YAML key", key_node.start_mark

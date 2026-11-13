@@ -3,10 +3,11 @@
 from pathlib import Path
 
 import pytest
+import yaml
 
 from agent_playbook.application.workflow_runner import run_workflow
 from agent_playbook.config.errors import ConfigurationError
-from agent_playbook.config.loader import load_configuration
+from agent_playbook.config.loader import StrictLoader, load_configuration
 from agent_playbook.workflows.errors import WorkflowInputError
 
 FIXTURE = Path(__file__).parents[1] / "fixtures/offline.yaml"
@@ -132,27 +133,79 @@ def test_score_alias_default_and_override(tmp_path: Path) -> None:
     )
 
 
-@pytest.mark.parametrize(
-    "fragment",
-    [
-        "root: 1\nroot: 2\n",
-        "workflows:\n  unused: {config: {x: 1, x: 2}}\n",
-        "workflows:\n  unused: {config: {<<: {x: 1}}}\n",
-        "workflows:\n  [complex, key]: 1\n",
-        "workflows:\n  3: 1\n",
-        "workflows: [\n",
-        "workflows: !!python/object/apply:os.system ['echo private']\n",
-    ],
+_YAML_DEFECTS = (
+    ("root_duplicate", "Duplicate YAML key"),
+    ("unused_nested_duplicate", "Duplicate YAML key"),
+    ("unused_merge", "YAML merge keys are unsupported"),
+    ("unused_complex_key", "Invalid YAML key"),
+    ("unused_numeric_key", "Invalid YAML key"),
+    ("malformed", None),
+    ("unsupported_tag", "could not determine a constructor"),
 )
-@pytest.mark.parametrize("local", [False, True])
+
+
+def yaml_pair(kind: str, *, local: bool) -> tuple[str, str]:
+    prefix = "workflows:\n" if local else FIXTURE.read_text()
+    if kind == "root_duplicate":
+        return (
+            ("workflows: {}\nworkflows: {}\n", "workflows: {}\n")
+            if local
+            else (prefix + "workflows: {}\n", prefix)
+        )
+    if kind == "unused_nested_duplicate":
+        return (
+            prefix + "  unused: {config: {x: 1, x: 2}}\n",
+            prefix + "  unused: {config: {x: 1}}\n",
+        )
+    if kind == "unused_merge":
+        return (
+            prefix + "  unused: {config: {<<: {x: 1}}}\n",
+            prefix + "  unused: {config: {x: 1}}\n",
+        )
+    if kind == "unused_complex_key":
+        return (
+            prefix + "  unused: {config: {[complex, key]: 1}}\n",
+            prefix + "  unused: {config: {x: 1}}\n",
+        )
+    if kind == "unused_numeric_key":
+        return (
+            prefix + "  unused: {config: {3: 1}}\n",
+            prefix + "  unused: {config: {x: 1}}\n",
+        )
+    if kind == "malformed":
+        return prefix + "  unused: [\n", prefix + "  unused: []\n"
+    if kind == "unsupported_tag":
+        return (
+            prefix + "  unused: !!python/tuple [1, 2]\n",
+            prefix + "  unused: [1, 2]\n",
+        )
+    raise AssertionError(f"Unknown fixture kind: {kind}")
+
+
+@pytest.mark.parametrize("kind,reason", _YAML_DEFECTS)
+@pytest.mark.parametrize("local", [False, True], ids=["base", "local"])
 def test_yaml_parse_rejects_keys_and_tags_in_both_files(
-    tmp_path: Path, fragment: str, local: bool
+    tmp_path: Path, kind: str, reason: str | None, local: bool
 ) -> None:
-    selected = config_file(tmp_path)
-    target = selected.with_name("application.local.yaml") if local else selected
-    target.write_text(fragment + (FIXTURE.read_text() if not local else ""))
-    with pytest.raises(ConfigurationError):
+    selected = tmp_path / "application.yaml"
+    overlay = selected.with_name("application.local.yaml")
+    defect, control = yaml_pair(kind, local=local)
+    selected.write_text(FIXTURE.read_text() if local else control)
+    if local:
+        overlay.write_text(control)
+    assert load_configuration(str(selected)).workflows
+    target = overlay if local else selected
+    target.write_text(defect)
+    with pytest.raises(yaml.YAMLError) as parser_failure:
+        yaml.load(defect, Loader=StrictLoader)
+    if reason is not None:
+        assert reason in str(parser_failure.value)
+    with pytest.raises(ConfigurationError) as public_failure:
         load_configuration(str(selected))
+    assert "Cannot read configuration" in str(public_failure.value)
+    assert "unused:" not in str(public_failure.value)
+    target.write_text(control)
+    assert load_configuration(str(selected)).workflows
 
 
 def test_unused_invalid_entries_are_inert(tmp_path: Path) -> None:
