@@ -1,6 +1,14 @@
 # Context discussion history and ongoing record
 
-Current iteration: **27, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+Current iteration: **28, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+
+## Iteration 28 — copyable implementation brief and return-review contract
+
+Sharon asks for the exact instruction to copy into another Codex session, with links/filenames, and an exact completion-report format he can paste back here for the final review after the two implementation reviews. This adds a handoff/reporting requirement, not another architectural feature or an additional automatic correction round.
+
+Verified PR #43 remains draft/open/unmerged at 06c395b2a63dcf98c8987e40efcdffa9ee457041 before this update. The concrete design and CTX cases are unchanged. Added implementation-plan section 8: final code/test candidate and published report head, approval/base references, each round's four reports/verdicts, all CTX cases, commands/results, release evidence, deviations and blockers. Reports must be committed/pushed with permanent revision-specific GitHub links. READY FOR FINAL REVIEW is not user acceptance or merge permission. Preserve the maximum three rounds and stop if unresolved; this session's later final review does not silently authorize round four.
+
+The outgoing copyable brief pins the published package, identifies the plan/design/tests and shared records, and explicitly scopes the user's prospective implementation authorization to M4.1 and G01–G08 when the user sends it to Codex. Preparing that text does not mark the current draft approved or start application work in this session. No design/test-case schema, guarded source, application code, dependency, agent lifecycle or later tracing scope changes. Earlier records and research remain preserved.
 
 ## Iteration 27 — correlation accepted and detailed context handoff drafted
 

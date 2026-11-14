@@ -1,6 +1,6 @@
 # Decisions and open questions
 
-Updated: 2026-11-14, iteration 27. This register contains **accepted discussion decisions**, not an approved/locked implementation design. D27 accepts application correlation_id; D28 authorizes the detailed review draft; D29 fixes the implementation review procedure. P02–P05 preserve proposal history; the [M4.1 design](01-context-design.md) is the current concrete proposal. [Requirements](requirements.md) is the shared specification; [full history](history/context-discussion.md) preserves reasoning. Read [the entry point](README.md) first.
+Updated: 2026-11-14, iteration 28. This register contains **accepted discussion decisions**, not an approved/locked implementation design. D27 accepts application correlation_id; D28 authorizes the detailed review draft; D29 fixes the implementation review procedure. Iteration 28 adds a copyable return report for final review in this session; it does not approve implementation merely by drafting the instruction. P02–P05 preserve proposal history; the [M4.1 design](01-context-design.md) is the current concrete proposal. [Requirements](requirements.md) is the shared specification; [full history](history/context-discussion.md) preserves reasoning. Read [the entry point](README.md) first.
 
 ## Decision register
 

@@ -1,6 +1,6 @@
 # Workflow context and native Langfuse integration — start here
 
-Updated: 2026-11-14, discussion iteration 27.
+Updated: 2026-11-14, discussion iteration 28.
 Status: **draft documentation workspace; context design/test/review package drafted for Sharon; not approved or implemented; no application implementation in this PR.**
 
 This is the permanent working home for Stage 02 workflow-integration planning, under the existing M4. PR #36's local setup/mock M1–M3 remain accepted and merged. The repository baseline inspected for this opening commit is `d12b5fc2867d3646b6fab2eb71f1447ff177d8c1`; research retains its original `44d6919` baseline. Earlier saved session files are dated snapshots, not a second active specification. Use this PR branch until it merges; do not assume these files are already on main.
@@ -55,5 +55,7 @@ Next: Sharon reviews the three documents and the file-specific G01–G08 amendme
 ## Handoff and closeout
 
 Start another agent at this README on the PR branch. After approval, give it 01-context-implementation-plan.md and the exact approved revision/approval reference; this README alone is not an implementation brief. Record review/acceptance in decisions and history, update affected repository records from the checklist, regenerate Atlas, and verify before reporting readiness. No merge is authorized by the creation of this draft.
+
+Sharon will copy the implementing Codex's final report back to this design session for a final review. Use the implementation plan's section 8 return-report format, with permanent links to the actual candidate and every round's reports. That final review neither resets the three-round cap nor authorizes a merge.
 
 Principle assessment: approval/no drift (1,3,12) is handled by this explicit draft and pending reconciliation; security/configuration/locality (2,6,10) is retained without runtime changes; learning/incremental scope (4,9) uses milestones; evidence/quality (7,8,15) separates preserved research from new documentation checks; history/sandbox (11,13) is preserved; official docs (14) have no supported-behavior change. Principle 5's tracing-specific conflict is recorded for review, while agent provider isolation remains intact.

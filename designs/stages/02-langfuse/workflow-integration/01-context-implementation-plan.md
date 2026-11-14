@@ -1,6 +1,6 @@
 # M4.1 — Codex implementation and review plan
 
-Status: **DRAFT FOR SHARON'S REVIEW. Do not start application implementation until approval is recorded.** Version 1, 2026-11-14.
+Status: **DRAFT FOR SHARON'S REVIEW. Do not start application implementation until approval is recorded.** Version 1.1, 2026-11-14. Iteration 28 adds the return-report format; the implementation contract and three-round cap are unchanged.
 
 [Design](01-context-design.md) · [Test cases](01-context-test-cases.md) · [Shared entry point](README.md) · [Repository reconciliation](repository-updates.md)
 
@@ -158,6 +158,56 @@ No application tests have been run for this design draft. Commands here are futu
 
 Ready for Sharon's acceptance requires: approved baseline/amendments, implementation within scope, both reviews without unresolved required findings on the final candidate, CTX-01–17 satisfied, relevant documentation/Atlas reconciled, and every used round's reports committed. Exact code/test revision and report revision must be clear. Do not mark M4.2/M4.3 or all Stage 02 complete.
 
-The final message links the implementation PR, design/test cases, final candidate and round reports, states rounds used, changes, checks and remaining limitations. If the three-round cap is reached without success, explicitly say STOPPED and list unresolved findings. No fourth round, automatic merge or next-milestone implementation.
+The final message uses section 8's exact return-report structure. Sharon will paste it into the design session for an additional final review after both implementation reviewers finish. That final review does not automatically authorize a fourth correction round or merge. If the three-round cap is reached without success, explicitly say STOPPED and list unresolved findings. No automatic merge or next-milestone implementation.
 
 After Sharon explicitly accepts/authorizes merge, reconcile the resulting main and preserved evidence under the repository contract. Logging/agent runtimes and later tracing remain separate assignments.
+
+## 8. Required return report for the design session
+
+Commit and push all used round reports and final status to the implementation PR before the handoff. Use GitHub links pinned to actual commits, not agent-local or scratch paths. The next reviewer must be able to inspect the source and reports without access to this Codex session. If pushing or a check is blocked, say so and provide whatever verified evidence is available; do not claim readiness.
+
+Return one copyable report using this structure. Replace every placeholder with actual evidence, an explicit none, or NOT RUN/BLOCKED plus the reason. Keep commands/results concise and link detailed output in permanent reports. A report-only head must be distinguished from the candidate actually reviewed/tested; provide the comparison and confirm whether runtime/test files differ.
+
+```text
+M4.1 CONTEXT — FINAL REVIEW HANDOFF
+
+Outcome: READY FOR FINAL REVIEW / STOPPED / BLOCKED
+Implementation PR: <URL; draft/open/unmerged state>
+Design PR: https://github.com/SharonLanger/agent-playbook/pull/43
+Approved design revision and approval reference: <full SHA; user instruction/reference>
+Implementation branch and PR target: <branch; base branch>
+Implementation base commit: <full SHA>
+Final code/test candidate reviewed by both reviewers: <full SHA and commit URL>
+Final published head including reports: <full SHA and commit URL>
+Candidate-to-head differences: <comparison URL; report-only or list actual changes>
+
+Implemented: <short summary of actual behavior and important files>
+Design deviations: <none, or exact approved/unapproved differences and references>
+G01–G08 amendments: <applied/blocked status; approval and diff/report links>
+
+Rounds used: <N>/3
+For EACH round:
+- Candidate SHA: <full SHA>
+- Coder report: <permanent URL>
+- Design-drift review: <verdict; permanent URL>
+- Test-gap review: <verdict; permanent URL>
+- Orchestrator report: <permanent URL; findings fixed/carried forward>
+Final status and CTX-01–17 mapping: <permanent status and test-gap report URLs>
+
+Verification at <candidate SHA>:
+- Focused context tests: <exact command; result and count; evidence URL>
+- Full quality gate: <exact command; pytest/type/lint/format outcomes; evidence URL>
+- CTX-01–17: <passed / missing / weak / failed / skipped / blocked / not-run cases>
+- CTX-17 installed release: <command; artifact/version/source SHA; outcome/evidence>
+- Documentation/Atlas/whitespace: <commands and outcomes>
+- Checks not run and remaining local/manual verification: <list with reasons, or none>
+
+Open findings/blockers/risks: <stable IDs, impact and next action, or none>
+Scope confirmation: <M4.1 only; any exceptions explicitly listed>
+Merge state: <unmerged; no merge performed>
+
+Please perform the final design-session review of the actual diff and linked evidence.
+The two implementation reviews do not replace your final review or authorize merging.
+```
+
+Use READY FOR FINAL REVIEW only when section 7's implementation, test and review conditions pass. This means ready to inspect, not already accepted by Sharon or merged. For STOPPED/BLOCKED, preserve the same report structure and explain what prevents completion. Do not reset the round counter when handing work back.

@@ -1,6 +1,6 @@
 # Repository reconciliation checklist
 
-Status: **review checklist, not permission to edit guarded meaning**. Updated 2026-11-14, iteration 27. PR #43 includes the detailed M4.1 review package; no application implementation. [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
+Status: **review checklist, not permission to edit guarded meaning**. Updated 2026-11-14, iteration 28. PR #43 includes the detailed M4.1 review package; no application implementation. [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
 
 ## This documentation PR
 
@@ -51,5 +51,7 @@ M4.1 closeout proves context identity/propagation/isolation and existing behavio
 Iteration 21 opening checks passed at their recorded revision: Atlas build/freshness, 67 relative links, prior record/probe preservation and unchanged guarded baselines. This is historical evidence, not validation of the new draft.
 
 Iteration 27 checks passed: Atlas build/freshness and its reference/guard/sandbox checks; 140 relative Markdown links; balanced fences and current-edit whitespace; R01–R30, D01–D29 and Q01–Q25 retained; all CTX-01–17/G01–G08 entries present; complete prior discussion and all 13 probe files preserved; guarded baselines unchanged. No application code, dependencies or guarded sources changed; no application tests, research rerun or live Langfuse verification claimed.
+
+Iteration 28 added the exact final-review return template and preserved the three-round cap. Atlas freshness, 140 relative links, record/CTX/G IDs, historical discussion/probe preservation, unchanged guarded baselines and current-edit whitespace checks passed. Runtime design/test cases and application code remain unchanged.
 
 Preservation detail: the opening PR copied eight unchanged Flow fixture modules with blank-at-EOF warnings. Keep their bytes/hashes unchanged. Check current edits normally; for the full preserved snapshot only, disabling that warning category is acceptable and must not conceal other whitespace errors.
