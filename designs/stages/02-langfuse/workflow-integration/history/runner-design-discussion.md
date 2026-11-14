@@ -2,7 +2,7 @@
 
 **MERGE LAST — ONGOING DOCUMENTATION WORKSPACE.** Keep PR #47 open and draft while its implementation work is in progress. Merge it only after all implementation work covered by this workspace has been implemented and its implementation PRs merged, the documentation reflects the final results, and Sharon explicitly authorizes merging this documentation PR. Approval or merge instructions for an implementation PR do not authorize merging #47.
 
-Status: **M4.2 DRAFT PREPARATION authorized; M4.1 final review completed in iteration 33, accepted and merged via PR #44; documentation integration completed. No M4.2 approved contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 37.
+Status: **M4.2 DRAFT PREPARATION authorized; M4.1 final review completed in iteration 33, accepted and merged via PR #44; documentation integration completed. No M4.2 approved contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 38.
 
 This file supplements the [complete discussion through iteration 29](context-discussion.md), [shared requirements](../requirements.md) and [decisions](../decisions.md). It records new instructions, proposals, open decisions and possible follow-ups while another Codex implements M4.1. It is not a competing application specification. Read this entire record on each new M4.2 discussion iteration and preserve earlier decisions when updating it.
 
@@ -124,3 +124,19 @@ Official documentation checked this iteration:
 - https://langfuse.com/docs/observability/features/metadata notes the SDK's metadata size limits; these are SDK behavior, not authorization to build a new application-level policy.
 
 No application code, M4.1 contract, CrewAI instrumentation or implementation authorization changes in this iteration. PR #47 remains draft and must merge last. Next step: revise the detailed M4.2 package to the minimal scope, with its tests and review process retained and any truly necessary unresolved choices explicit.
+
+## Iteration 38 — native scope isolation and final flush verified
+
+Sharon agrees to native SDK usage and the final flush direction, explicitly requiring exception-path coverage. He requests verification of runner/factory/workflow propagation and future agent-specific attributes before proceeding; CrewAI instrumentation remains out of scope. This approves the direction, not the superseded detailed draft policies.
+
+Inspected the merged M4.1 review snapshot: application/workflow_runner.py creates context after configuration/selection, constructs through workflow_factory.py, then prepares, executes, validates and serializes. Factory forwards the same context; Workflow retains it; maintained Flow constructors receive it as a private attribute outside business state. for_agent uses dataclasses.replace for a separate outer and observability context, preserving parent fields. No M4.1 modification is needed.
+
+Verified Langfuse 5.2.0 locally with an in-memory exporter: workflow → A → A-tool → workflow checkpoint → B → B-tool → workflow checkpoint, in success and controlled exception cases. Both cases exported seven observations; every observation retained correlation_id, A and its tool retained only A-run, B and its tool only B-run, and workflow/checkpoints had no agent_run_id. Root status was UNSET on success and ERROR on escaping exception. Finally invoked flush once in each case. This is native SDK behavior verification, not implemented runner tests or live server ingestion acceptance.
+
+Important ordering: enter the child agent observation FIRST, then propagate its agent fields. propagate_attributes updates the active observation as well as future children; entering agent propagation while the workflow is active would stamp the workflow. SDK scope exit restores propagation for subsequent work; existing span attributes are not retroactively erased. CrewAI does not automatically translate our ExecutionContext or invent our application agent_run_id; future integration must provide these values at the actual agent invocation boundary, using native SDK propagation, without duplicating auto-created observations.
+
+Use try/finally at the selected short-lived CLI delivery boundary, outside completed observation scopes. Catch is not required merely to run finally; retain existing application exception handling. A flush failure must not replace the workflow's original exception. “Always” means an attempt on normal returns and Python stack-unwinding paths; hard process termination/power loss cannot run finally, and attempted flush is not guaranteed server delivery.
+
+Probe setup notes: initial attempts were blocked by inherited SOCKS proxy configuration and disabled tracing environment. The passing isolated run removed proxy variables and explicitly enabled tracing/ALWAYS_ON sampling with the in-memory exporter; dummy keys and localhost URL only. No application/CrewAI code was changed. No current-main refresh or full application suite was claimed.
+
+References: https://python.reference.langfuse.com/langfuse and https://langfuse.com/docs/observability/features/metadata. Native SDK propagation source confirmed context detach in finally. Next: simplify the design/test/implementation package using this verified behavior. PR #47 stays draft and merges last.
