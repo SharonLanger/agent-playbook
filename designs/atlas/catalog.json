@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 01 completed, accepted and locked; PR #40 merged. Stage 02 local Langfuse/mock exercise accepted on Mac; PR #36 unmerged, delivery-readback limitation recorded; M4 deferred.",
+  "snapshot": "Stage 01 completed, accepted and locked; PR #40 merged. Stage 02 local Langfuse/mock exercise accepted on Mac; PR #36 merged as 44d6919, delivery-readback limitation recorded; M4 deferred.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -357,13 +357,13 @@
             {
               "name": "Local Langfuse service (M1 on PR #36)",
               "path": "app/tooling/observability/README.md",
-              "text": "Pinned loopback Compose stack; Sharon confirmed Mac setup and stop/start persistence; PR #36 unmerged.",
+              "text": "Pinned loopback Compose stack; Sharon confirmed Mac setup and stop/start persistence; PR #36 merged as 44d6919.",
               "to": null
             },
             {
               "name": "Langfuse connection check (M2 on PR #36)",
               "path": "app/tooling/observability/check_connection.py",
-              "text": "Explicit project authentication with YAML-selected external credentials; locally exercised; PR #36 unmerged.",
+              "text": "Explicit project authentication with YAML-selected external credentials; locally exercised; PR #36 merged as 44d6919.",
               "to": null
             },
             {
@@ -413,7 +413,7 @@
             {
               "name": "Observability boundary",
               "path": "app/src/agent_playbook/observability/",
-              "text": "M2 project connection and M3 mock span writer exist on pending PR #36; workflow trace export remains future work.",
+              "text": "M2 project connection and M3 mock span writer merged through PR #36; workflow trace export remains future work.",
               "to": null
             },
             {
@@ -1377,22 +1377,22 @@
         },
         {
           "path": "app/docs/langfuse-connection.md",
-          "status": "PR #36 pending",
+          "status": "Merged PR #36",
           "purpose": "Official M2 connection instructions."
         },
         {
           "path": "app/tooling/observability/check_connection.py",
-          "status": "PR #36 pending",
+          "status": "Merged PR #36",
           "purpose": "Explicit read-only M2 checker."
         },
         {
           "path": "app/src/agent_playbook/observability/adapters/langfuse/connection.py",
-          "status": "PR #36 pending",
+          "status": "Merged PR #36",
           "purpose": "Langfuse SDK project authentication adapter."
         },
         {
           "path": "app/src/agent_playbook/observability/adapters/langfuse/observations.py",
-          "status": "PR #36 pending",
+          "status": "Merged PR #36",
           "purpose": "Explicit M3 mock observation adapter."
         },
         {
@@ -2302,7 +2302,7 @@
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "Sharon approved the six main conflict resolutions. PR #36 remains draft and unmerged. Reconciliation and follow-up verification are recorded; local setup and mock-trace exercise accepted on Mac, with delivery-readback limitation recorded. M4 remains deferred.",
+          "note": "Sharon approved the six main conflict resolutions. PR #36 merged as 44d6919. Reconciliation and follow-up verification are recorded; local setup and mock-trace exercise accepted on Mac, with delivery-readback limitation recorded. M4 remains deferred.",
           "diagram": null
         }
       },
@@ -4119,7 +4119,7 @@
         },
         {
           "path": "designs/stages/02-langfuse/acceptance-2026-11-14.md",
-          "status": "Local exercise accepted; PR #36 unmerged",
+          "status": "Local exercise accepted; PR #36 merged as 44d6919",
           "purpose": "2026-11-14 user-reported Mac acceptance, revision-specific tests and remaining delivery-readback limitation."
         }
       ]

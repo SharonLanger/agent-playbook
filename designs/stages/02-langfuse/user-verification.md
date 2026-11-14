@@ -1,6 +1,6 @@
 # Local verification and retained milestone checklists
 
-Status: **Sharon accepted the local setup and mock-trace exercise on 2026-11-14. PR #36 remains unmerged; M4 is deferred.**
+Status: **Sharon accepted the local setup and mock-trace exercise on 2026-11-14. PR #36 merged as `44d6919`; M4 is deferred.**
 
 The [acceptance record](acceptance-2026-11-14.md) distinguishes observed Mac/UI
 results from automated verification and the remaining delivery-readback limitation.

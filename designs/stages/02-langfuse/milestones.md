@@ -1,6 +1,6 @@
 # Four milestones and their checkpoints
 
-Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on 2026-11-14; PR #36 remains unmerged. Delivery-readback limits are recorded; M4 remains deferred.**
+Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on 2026-11-14; PR #36 merged as `44d6919`. Delivery-readback limits are recorded; M4 remains deferred.**
 [Review entry point](README.md) · [Required agent verification](verification.md) · [M1 Codex brief](implementation-handoff.md)
 
 Current state: WF-01/02/03 still run without Langfuse. PR #36 implements the

@@ -1,6 +1,6 @@
 # Local Langfuse acceptance — 2026-11-14
 
-Status: **Local setup and mock-trace exercise accepted by Sharon on Mac; PR #36 remains unmerged.**
+Status: **Local setup and mock-trace exercise accepted by Sharon on Mac; PR #36 merged as `44d6919`.**
 
 ## Scope and revision
 
@@ -19,7 +19,7 @@ The local Docker Desktop/Engine/Compose versions were not captured in this sessi
 | Live synthetic ingestion | The example's root `mock-wf-02` and `initialize`, `add`, `multiply`, `finish` observations appeared, with default result 20. |
 | Trace inspection | Sharon opened the trace tree/timeline/graph, enabled the Trace ID column and filtered one trace ID to show its related observations. |
 | Persistence | Sharon stopped and restarted the local service and confirmed his project and earlier traces were still visible. |
-| Acceptance | Sharon said the setup was working and authorized merging after his planned enable/version push and pre-merge record reconciliation. The enable/version push is now recorded below; the merge remains pending. |
+| Acceptance | Sharon said the setup was working and authorized merging after his planned enable/version push and pre-merge record reconciliation. The enable/version push is now recorded below; the merge is recorded below. |
 
 ## Remaining delivery-confirmation limitation
 
@@ -56,8 +56,8 @@ status header, with approved milestone boundaries and all contracts retained.
 Stage 01/PR #40 already records completed acceptance; old review findings remain
 historical. Official product guides already document current behavior, so this
 acceptance-only update does not change their instructions. Progress, stage entry,
-verification status and Atlas are reconciled together. No whole-Stage-02 completion
-or merge is claimed while M4 and the merge itself remain pending.
+verification status and Atlas are reconciled together. No whole-Stage-02 completion is claimed; M4 remains deferred. The actual
+merge is recorded below.
 
 ## Final local-state test correction
 
@@ -74,9 +74,25 @@ no new full-suite result is claimed for this test-only follow-up.
 
 ## Next-agent boundary
 
-After an explicitly authorized merge, reconcile the resulting main revision and
-merge state in progress and Atlas. The next agent should read the governing
+The authorized merge is recorded below and reconciled in progress and Atlas.
+The next agent should read the governing
 documents, this acceptance record and the actual merged workflow contract before
 reviewing logging/context design. Existing research is not implementation approval.
 Real workflow tracing, context propagation, logging schema and telemetry-outage
 policy remain separate design work. This session does not implement them.
+
+## Merge confirmed — 2026-11-14
+
+Sharon explicitly authorized merging PR #36 after the final test correction and
+record updates. GitHub confirmed merge commit `44d69194f6add6f646795b14f7c3f43c656baeda`;
+the PR is closed/merged and the resulting main was inspected. Version 0.1.3 and
+Sharon's enabled YAML default are preserved. The complete maintained gate at
+`dafeaed` and targeted regression at `0a5bf88` remain the exact verification
+checkpoints; no additional application test run is claimed for this status-only
+follow-up. Atlas is regenerated and checked after the canonical status updates.
+
+For the next agent, this record is an operational baseline and limitation list.
+It does not replace or approve the separate logging/context discussions and designs.
+Review those sources with Sharon before implementing M4. No logging/context work
+was implemented in this merge session. Existing official guides already describe
+the merged behavior, so these merge-status edits do not change their instructions.

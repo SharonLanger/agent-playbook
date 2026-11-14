@@ -1,6 +1,6 @@
 # Personal Langfuse playground and manual exercise
 
-Status: **M3 example exists on draft PR #36; Sharon confirmed visible local ingestion, trace inspection and persistence on 2026-11-14. Bounded readback remains unreliable for one visible run; see [acceptance and limits](acceptance-2026-11-14.md). The original proposal wording below is historical.**
+Status: **M3 example merged through PR #36; Sharon confirmed visible local ingestion, trace inspection and persistence on 2026-11-14. Bounded readback remains unreliable for one visible run; see [acceptance and limits](acceptance-2026-11-14.md). The original proposal wording below is historical.**
 [Milestones and gates](milestones.md) · [Configuration](architecture.md)
 
 This file replaces the earlier test-first seed-script proposal. The main goal is

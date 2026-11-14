@@ -1,6 +1,6 @@
 # Stage 02 — Langfuse milestones
 
-Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on Mac on 2026-11-14; PR #36 remains unmerged. Delivery readback has a recorded limitation; M4 remains deferred.**
+Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on Mac on 2026-11-14; PR #36 merged as `44d6919`. Delivery readback has a recorded limitation; M4 remains deferred.**
 Milestone 1's fixed checkpoint remains available; see
 [findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
 Milestone 2 adds a project connection check, and milestone 3 adds the explicit
@@ -16,7 +16,7 @@ Latest: [local acceptance and remaining limitation](acceptance-2026-11-14.md),
 Sharon approved the six conflict resolutions. Main's workflow refactor and the
 Langfuse branch are combined; verification is recorded in the reconciliation
 file. R1/R3 delivery reporting and R4 status prose have been corrected on this
-draft branch; the helper and six double-dash CLI actions are implemented.
+merged implementation; the helper and six double-dash CLI actions are implemented.
 Earlier Linux live-stack verification hit a `vfs` disk limit. Sharon has now
 confirmed local project access, visible mock traces and normal stop/start
 persistence on Mac. Bounded delivery readback returned unconfirmed for one visible
@@ -49,8 +49,7 @@ the generated Atlas can still overlap with other work. Recheck the actual branch
 before proposing a split or merge.
 
 The earlier blanket instruction to hold all Langfuse work until the workflow
-refactor merges is superseded by this milestone separation. This PR remains draft
-for review; it is not merged by this update.
+refactor merges is superseded by this milestone separation. PR #36 is merged; its earlier planning and review checkpoints remain historical.
 
 ## Playground versus verification
 
@@ -89,7 +88,7 @@ logical changes to guarded documents before implementation and register a newly
 approved stage baseline when approved. Milestone 4 must use the actual merged
 workflow design, including its lifecycle rules, rather than infer them here.
 
-Navigation and Atlas distinguish the pending PR from accepted Current implementation.
+Navigation and Atlas now record merged M1–M3 separately from deferred workflow/context integration.
 Official `app/docs/langfuse-local.md` and `app/docs/langfuse-connection.md`
 document the implemented local deployment and project check.
 Each implementation checkpoint must provide maintained setup/configuration or

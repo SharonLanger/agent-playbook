@@ -4,7 +4,7 @@ The [2026-11-14 acceptance record](acceptance-2026-11-14.md) supersedes pending
 Mac/UI acceptance statements in the historical checkpoints below. Sharon confirmed
 local synthetic ingestion, trace inspection and stop/start persistence. The 363-test
 gate passed at `b80b22b`; a delivery-readback limitation remains recorded. PR #36
-is unmerged and M4 is deferred.
+is merged as `44d6919` and M4 is deferred.
 
 The following milestone findings retain their original revisions and limitations;
 their pending/blocked labels describe those historical checkpoints.
