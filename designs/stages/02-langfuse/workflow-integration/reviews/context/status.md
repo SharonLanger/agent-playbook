@@ -1,3 +1,9 @@
+<!-- Current disposition supersedes the dated pre-merge report below. -->
+
+## Current acceptance — 2026-11-14
+
+M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred. Two of three implementation rounds used. [Final review](../../history/context-final-review.md) passed; duplicate D30 and target-document conflicts are reconciled. No runtime/test correction or new review round.
+
 # M4.1 implementation review status
 
 Date: 2026-11-14. Round: 2 completed of at most 3; READY FOR SHARON'S FINAL REVIEW, pending his acceptance. Final code/test candidate `16c1580e96bd36945fa96b6ecfa8f9a563d53913`.

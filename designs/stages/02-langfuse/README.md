@@ -4,11 +4,11 @@ Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on Mac 
 Milestone 1's fixed checkpoint remains available; see
 [findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
 Milestone 2 adds a project connection check, and milestone 3 adds the explicit
-mock playground. M4.1 is approved and being implemented on an unmerged review branch; M4.2/M4.3 remain deferred.
+mock playground. M4.1 is implemented, final-reviewed and accepted; merge pending. M4.2 design is active; M4.3 remains deferred.
 
 ## Start here
 
-M4 planning now has a [permanent workflow-integration workspace](workflow-integration/README.md): current requirements, decisions, CrewAI research and the pending repository-update checklist. PR #43 now includes a [detailed M4.1 context draft](workflow-integration/01-context-design.md), separate test cases and a capped implementation/review plan. They await Sharon's review; M4 implementation remains deferred. The earlier PR #36 milestone/branch policy below records M1–M3; M4 uses the separate milestone PR direction in the new workspace.
+M4 planning now has a [permanent workflow-integration workspace](workflow-integration/README.md): current requirements, decisions, CrewAI research and the pending repository-update checklist. PR #43 now includes a [detailed M4.1 context draft](workflow-integration/01-context-design.md), separate test cases and a capped implementation/review plan. M4.1 candidate 16c1580 passed implementation and final review; Sharon accepted it and authorized merging. M4.2 preliminary design is active, including shared correlation metadata. The earlier PR #36 milestone/branch policy below records M1–M3; M4 uses the separate milestone PR direction in the new workspace.
 
 Latest: [local acceptance and remaining limitation](acceptance-2026-11-14.md),
 [approved main reconciliation](main-reconciliation.md),
@@ -110,7 +110,7 @@ its own learning README when created.
 | 12, 14, 15: records and status | Canonical stage documents, discovery/Atlas updates, implemented PR follow-up, local acceptance and explicit remaining limitations. |
 
 
-## M4.1 implementation review — 2026-11-14
+## Historical M4.1 implementation review — 2026-11-14
 
 Sharon approved the M4.1 package at `11bba581291c1b166973848ea8db6a9e2a142413`
 and G01–G08 in his implementation instruction. The data-only context and actual

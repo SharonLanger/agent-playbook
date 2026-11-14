@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 01 completed, accepted and locked; PR #40 merged. Stage 02 local Langfuse/mock exercise accepted on Mac; PR #36 merged as 44d6919, delivery-readback limitation recorded; M4.1 context implementation on unmerged review branch; later M4 tracing deferred.",
+  "snapshot": "Stage 01 accepted and locked. Stage 02 M1–M3 accepted/merged; M4.1 implemented, verified and accepted, merge pending. M4.2 design active; M4.3/logging deferred.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -1980,7 +1980,9 @@
               "name": "Langfuse milestones",
               "path": "designs/stages/02-langfuse/README.md",
               "text": "Local UI, connection check and editable mock runs first; real workflows last.",
-              "to": "langfuse_setup"
+              "to": "langfuse_setup",
+              "label": "M1–M3 accepted / M4.1 accepted",
+              "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred."
             }
           ],
           "note": "EXPLORATION ONLY — optional candidate, not an approved target. Traces are evidence. They are not the workflow state store or a durable recovery mechanism.",
@@ -2225,7 +2227,7 @@
         "langfuse_setup": {
           "name": "Langfuse milestones",
           "parent": "observability",
-          "label": "M1–M3 accepted / M4.1 review",
+          "label": "M1–M3 accepted / M4.1 accepted",
           "title": "Local UI to real workflows",
           "text": "First configure, connect and explore mock traces; workflow/context integration comes last.",
           "blocks": [
@@ -2316,15 +2318,15 @@
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "PR #36 merged as 44d6919; local setup/mock acceptance and readback limitation retained. M4.1 approved at 11bba581; data-only implementation is on unmerged review branch, pending checks and independent review.",
+          "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred.",
           "diagram": null
         },
         "workflow_observability": {
           "name": "Workflow observability draft",
           "parent": "langfuse_setup",
-          "label": "M4.1 approved context / implementation review",
+          "label": "M4.1 accepted / M4.2 design",
           "title": "Context, runner, then automatic CrewAI tracing",
-          "text": "Context design, separate test cases and Codex implementation/review plan are drafted for Sharon. Stable application correlation; native tracing later without a broker.",
+          "text": "M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred.",
           "blocks": [
             {
               "name": "Context design",
@@ -2363,7 +2365,7 @@
               "to": null
             }
           ],
-          "note": "DRAFT FOR REVIEW, not approved or implemented. Two independent reviewers and permanent reports; maximum three implementation rounds. CrewAI research does not prove actual application/UI acceptance.",
+          "note": "M4.1 candidate 16c1580: two review rounds, final review PASS. D30/R31 retained; M4.2 draft policies await agreement.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/stages/02-langfuse/workflow-integration/README.md"
@@ -4212,17 +4214,17 @@
         },
         {
           "path": "designs/stages/02-langfuse/workflow-integration/01-context-design.md",
-          "status": "Draft for Sharon's review; no implementation approval",
+          "status": "Approved M4.1 contract; implemented, verified and accepted; merge pending",
           "purpose": "Draft typed context contract and full runner/Flow propagation."
         },
         {
           "path": "designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md",
-          "status": "Draft for Sharon's review; no implementation approval",
+          "status": "Approved M4.1 contract; implemented, verified and accepted; merge pending",
           "purpose": "Draft CTX-01–17 acceptance and meaningful assertion mapping."
         },
         {
           "path": "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md",
-          "status": "Draft for Sharon's review; no implementation approval",
+          "status": "Approved M4.1 contract; implemented, verified and accepted; merge pending",
           "purpose": "Draft Codex handoff: coder, two reviewers, max three rounds and permanent reports."
         }
       ]

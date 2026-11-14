@@ -9,11 +9,15 @@ describes the target system. Stage summaries own milestone detail and findings r
 |---|---|---|---|---|
 | Stage 00 — development environment | Complete | Recorded in the [Stage 00 findings](stages/00-environment/findings.md) | Accepted | Merged through PR #26 |
 | Stage 01 — CrewAI Flows | Completed and locked; three workflows, CLI/configuration, independent experiments, runtime structure refactor and workflow-contract refactor complete | Revision-specific checks in [Stage 01 findings](stages/01-crewai-flows/findings.md), [runtime refactor evidence](refactors/2026-11-12-runtime-structure/verification.md) and [workflow-contract evidence](refactors/workflow-contract/README.md) | Sharon confirmed Stage 01 completion after PR #38 and PR #40 merged | PR #30, #32, #34, #38 and #40 merged; workflow contract merge `a98e1041c0edb51a447472b6ebd78ab2a650150b` |
-| Stage 02 — Langfuse | M1–M3, management CLI and YAML-selected external credentials implemented on PR #36; M4.1 approved and in progress on unmerged branch; M4.2/M4.3 deferred | 363-test gate at `dafeaed`; Sharon confirmed local project access, synthetic traces, trace-ID inspection and stop/start persistence; delivery readback limitation retained | Local setup and mock-trace exercise accepted on 2026-11-14; whole stage remains in progress | PR #36 merged as `44d6919`; application version 0.1.3; final local-state test fix `0a5bf88` included |
+| Stage 02 — Langfuse | M1–M3, management CLI and YAML-selected external credentials implemented on PR #36; M4.1 implemented, final-reviewed and accepted; merge pending; M4.2 design active, M4.3 deferred | 363-test gate at `dafeaed`; Sharon confirmed local project access, synthetic traces, trace-ID inspection and stop/start persistence; delivery readback limitation retained | Local setup and mock-trace exercise accepted on 2026-11-14; whole stage remains in progress | PR #36 merged as `44d6919`; application version 0.1.3; final local-state test fix `0a5bf88` included |
 
 Stage 01 details and retained learning material are in the [stage summary](stages/01-crewai-flows/README.md). The [roadmap](roadmap.md) owns intended sequencing; later stages remain high-level.
 
-## M4.1 context design — draft review, 2026-11-14
+## M4.1 current closeout — 2026-11-14
+
+M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred. PR #43 merged as c8f129e. Reviewed candidate 16c1580 passed the reported 380-test quality gate/release and final reviewer's independent 43-test rerun. See [final review](stages/02-langfuse/workflow-integration/history/context-final-review.md). Documentation conflicts and duplicate D30 are reconciled without runtime/test changes; the merge result will be recorded after GitHub confirms it.
+
+## Historical M4.1 handoff / M4.2 planning — 2026-11-14
 
 [Draft PR #43](https://github.com/SharonLanger/agent-playbook/pull/43) contains the
 [context design](stages/02-langfuse/workflow-integration/01-context-design.md),
@@ -21,8 +25,11 @@ Stage 01 details and retained learning material are in the [stage summary](stage
 and [Codex implementation/review plan](stages/02-langfuse/workflow-integration/01-context-implementation-plan.md).
 Sharon authorized drafting, accepted a stable application correlation_id and requested
 one coder plus independent design-drift/test reviewers, with permanent reports and
-at most three total rounds. Detailed contract approval and implementation remain pending;
-the implemented/verified Stage 02 status above is unchanged. CrewAI research is bounded
+at most three total rounds. Sharon now reports sending the explicit M4.1 implementation
+authorization at design revision 11bba581291c1b166973848ea8db6a9e2a142413 to Codex.
+Implementation results and final review remain pending; the implemented/verified
+Stage 02 status above is unchanged. M4.2 preliminary design starts in parallel,
+including correlation_id on every workflow-associated Langfuse observation. CrewAI research is bounded
 isolated evidence, not real-application or local-UI acceptance.
 
 ## Local acceptance and merge — 2026-11-14
