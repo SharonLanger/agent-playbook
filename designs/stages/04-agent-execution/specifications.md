@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 14 · Updated: 2026-11-14 · Owner: Sharon
+Revision: 15 · Updated: 2026-11-14 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 ## Status and authority
@@ -231,9 +231,13 @@ Incremental text/deltas mean small arriving fragments (not necessarily one exact
 
 Next design decisions: essential payload fields, event identity/order if required, who emits local start/finish, and how completion relates to the returned ExecutionResult. Callback failure may prevent terminal delivery; guarantees must be explicitly designed rather than inferred from the event name. No runtime files are created here.
 
+## Current field-design checkpoint — revision 15
+
+D35 reaffirms our owned, minimal contract informed by reference projects. Sharon endorses the suggested future event categories as future directions, not additions to the initial five. The new [P12 field proposal](decisions.md#p12--minimal-fields-illustrated-by-a-standalone-reviewer) uses a standalone reviewer reading one file as a design example. Exact fields, model representation, result semantics and envelope identity remain open; no new runtime or milestone scope is approved. Stage 02 context/correlation remains with its owner.
+
 ## Research status
 
-Reference review from revision 12 is preserved; upstream claims were not reverified in this documentation PR. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event payloads and permission settings remain unresolved.
+Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event payloads and permission settings remain unresolved.
 
 The event schema and future control interfaces remain open; P10/P11's minimal ABC/callback declarations are accepted under D25/D26, while execution data and behavioral details remain unresolved. Research confirms that events can cover more than assistant text and that settings/permission responses are different contract categories. Exact SDK versions, payloads and interactive permission support through the chosen Codex surface still require selection and verification.
 
@@ -284,3 +288,4 @@ Maintain both active records in this repository package with matching revision e
 | 12 | 2026-11-14 | Recorded explicit approval of all three ABCs and minimal declarations (D26); reviewed both records and current canonical boundaries, corrected stale statuses, and logged remaining design gaps without adopting new policies. |
 | 13 | 2026-11-14 | Recorded D27–D32, parallel-design/deferred-integration boundaries, deterministic foundation/demo direction and authorized draft PR; introduced plan-first milestone change control and preserved exact revision-12 snapshots. |
 | 14 | 2026-11-14 | D33: PR #45 merges last after all Stage 04 implementation. D34: five event names/basic meanings accepted; schema/ownership remain open; placement and optional future event explanations added. |
+| 15 | 2026-11-14 | Recorded reference-led direction and future-event endorsement; linked unapproved P12 field proposal and refreshed research status. |

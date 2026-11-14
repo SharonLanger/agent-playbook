@@ -34,3 +34,7 @@ This package is ready for planning review. It is not an implementation-ready loc
 PR #45 must remain open and merge last, after all Stage 04 implementation is accepted and merged, with final reconciliation and explicit merge authorization. This update records D33/BC02 and D34; only the five event names/basic meanings are approved. Payloads, lifecycle ownership and delivery guarantees remain open.
 
 Validation for this revision: Atlas regenerated and freshness checked; relative Markdown links, heading anchors, fenced blocks, record continuity and scope checked using the same scoped snapshot validator. Both active records are revision 14; D33/D34 and BC02 are present. Original revision-12 snapshots and guarded source files remain unchanged. No runtime implementation or application tests are included. The PR identifies the published candidate commit.
+
+## Revision 15 field-design proposal
+
+D35 records the requested reference-led direction; P12 remains proposed. Five initial event names are unchanged. This is within the existing M1 boundary, with no native/role implementation or context/logging scope expansion. Full active specification/decision-board and milestone-plan consistency reviewed. Atlas build/freshness and Markdown link/record/guard checks rerun for this update; source research is distinguished from runtime verification. PR #45 remains draft and merges last.

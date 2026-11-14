@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 14 · Updated: 2026-11-14 · Owner: Sharon
+Revision: 15 · Updated: 2026-11-14 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 ## How to read this board
@@ -853,6 +853,47 @@ The user also asks what optional incremental text, reported reasoning, usage upd
 
 Consistency: D33 supplements D31/D32 and is recorded as BC02 in the milestone plan. D34 narrows Q01/P01 within existing M1 scope. D02–D32, native runtime ownership, autonomous permissions, deferred logging and historical alternatives remain intact. Roadmap reconciliation belongs to the separate owner; no other branch is edited.
 
+## Reference-led field proposal — revision 15
+
+D35 — **Approved direction:** Sharon endorses the future-event suggestions, asks to learn event vocabulary from reference projects and keep our owned implementation, and requests one workflow to ground a field proposal. Future categories remain future; no exact field schema, dependency adoption or runtime implementation is approved. This reaffirms D02/D05/D11 and leaves D33 intact.
+
+### P12 — Minimal fields illustrated by a standalone reviewer
+
+**Proposed, not accepted.** Within S04.M1's existing event/data design scope; no milestone boundary change. Reviewer reads one supplied file and returns findings. This is a design example, not a new M3 role deliverable or replacement for DemoAgent.
+
+Each event has a fixed `type` discriminator matching its variant. Its other fields are typed per variant, not an arbitrary common dictionary. `AgentEvent` remains the union in execution/events.py. Immutable data is recommended; dataclass versus Pydantic remains Q08.
+
+| Event | Proposed fields beyond type | Meaning |
+|---|---|---|
+| ExecutionStarted | None yet | Local execution begins; invocation metadata is not repeated in its payload. |
+| TextProduced | text_id: str; text: str | One completed text unit. Stable local text ID leaves room to associate future deltas with the completed snapshot. |
+| ToolCallObserved | call_id: str or None; tool_name: str; input: JSON object or None | A reported call and available arguments. None means unavailable, not empty arguments. Provider names are descriptive; generic consumers must not infer capabilities from spelling. |
+| ToolResultObserved | call_id: str or None; output: JSON value or None; status: succeeded / failed / unknown | Same call ID when pairing is established. Output can carry reported error details. Unknown must not default to success. JSON null/unavailable output is not distinguished in this minimal draft. |
+| ExecutionFinished | result: ExecutionResult | Reuse the result model instead of separate terminal status/output copies. Exact result/delivery relationship still requires approval. |
+
+Proposed smallest result shape for this example: status (completed / failed / cancelled / indeterminate), final_text (str or None), error (str or None). Completed means runtime completion, not an approved reviewer verdict. Role findings stay role-owned. Optional structured output and final usage remain separate design choices; no token/cost zero defaults. Cancellation controls and callback-exception guarantees are not implied by the status enum. These names are candidates carried forward from P01, not newly approved behavior.
+
+Example observations: ExecutionStarted; ToolCallObserved(call_id='call-1', tool_name='read_file', input={'path':'calculator.py'}); ToolResultObserved(call_id='call-1', output='<file contents>', status='succeeded'); TextProduced(text_id='text-1', text='Possible division by zero.'); ExecutionFinished(result with status='completed', final_text='Possible division by zero.', error=None). Tool name and IDs are illustrative. A reviewer finding a bug is not an execution failure.
+
+Pairing rules proposed: normalize an evidence-backed native call identity; keep any mapper state local to one invocation. If native evidence supplies no usable pairing key, preserve None rather than guess using tool name or arrival order. Locally generated IDs can label known entities but cannot prove a relationship. Text IDs identify text units within this invocation; duplicate/final-delta handling remains to specify when streaming enters scope.
+
+No workflow ID, correlation ID, Langfuse ID or context placeholder is added. Execution envelope identity, sequence/time and invocation scoping remain Q01/Q09/Q35, to resolve before concurrent consumption/integration; callback association alone is not a global identity guarantee. P01's proposed envelope is retained as an alternative, not silently adopted or rejected. This field discussion deliberately does not implement a second context system under D27.
+
+Alternatives: copying an entire reference catalogue brings session/history/UI requirements; anonymous tool results lose pairing; bool success with a default of false or true loses unknown evidence; one untyped payload loses per-event field checking; duplicating terminal output/status apart from the returned result risks disagreement. Reuse reference patterns selectively. Model/tool loop and permissions remain native-owned.
+
+### Focused source review for P12
+
+Inspected upstream source/docs on 2026-11-14; not installed or run; no version pin or parity certification.
+
+- [UnifiedAgentWrapper event source](https://github.com/PentestGPT-Project/UnifedAgentWrapper/blob/main/unified_agent/events.py): frozen dataclasses and a union; separate text delta/completed text/reasoning, call name/input/optional ID, result output/error, progress and completion. We use its small Python shapes as reference, but recommend unknown-aware result status rather than adopting its default is_error=False.
+- [Vercel streamText reference](https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-text): typed text/tool events, tool-call IDs on calls and results, input/output fields and finish/usage information. This is the shared stream reference, not a claim that every harness emits every field.
+- [Triad shared types](https://github.com/Triad-Labs-Inc/harness-sdk/blob/main/packages/core/src/types.ts): event union with session/turn identity, sequence, timestamp and history/subscription surfaces. Useful distinction between content and an event envelope; do not import its persistence/session machinery for our callback contract.
+- [Vercel harness architecture](https://github.com/vercel/ai/blob/main/architecture/harness-abstraction.md): adapter is the native-runtime translation boundary. No framework or sandbox infrastructure adopted.
+
+InHarness package/source retrieval failed during this focused refresh; its earlier research remains historical and was not freshly verified. No new claims about its current schema are needed for P12.
+
+Q01/Q02/Q08/Q09/Q10 remain open for exact payload acceptance, result semantics, identity/delivery and model representation. Next review can settle these fields before lifecycle emission ownership. The research and proposal do not resolve C01 or authorize implementation.
+
 ## Maintenance rule
 
 Read both files before progressing the design. Update this board with evidence and explicit status; update the specification only for accepted decisions. Detect conflicts before edits. Tell Sharon before changing any agreement; retain superseded entries and rationale. Maintain the two active repository records, keeping cross-links and revision numbers consistent; original saved files are history. Boundary changes must first be proposed in [milestone-plan.md](milestone-plan.md), then applied under D32 across all affected records. Do not turn a recommendation into “Approved” because it appears in a file.
@@ -875,3 +916,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 12 | 2026-11-14 | Recorded explicit approval of all three ABCs and minimal declarations (D26); reviewed both records and current canonical boundaries, corrected stale statuses, and logged remaining design gaps without adopting new policies. |
 | 13 | 2026-11-14 | Recorded D27–D32 and Q35–Q38; answered Q20; preserved original records; authorized draft design PR and introduced explicit plan-first milestone boundaries without changing roadmap or implementation. |
 | 14 | 2026-11-14 | Added D33 merge-last rule and D34 five-event approval; partially answered Q01, clarified P01 remaining proposals and payload placement; no runtime changes. |
+| 15 | 2026-11-14 | D35 records reference-led direction and future-category endorsement; P12 proposes reviewer-grounded fields with fresh source references; no field approval or implementation. |

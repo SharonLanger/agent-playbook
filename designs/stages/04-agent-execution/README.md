@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Updated: 2026-11-14 · Working records revision 14
+Updated: 2026-11-14 · Working records revision 15
 Status: **draft planning PR authorized by Sharon; no runtime implementation, stage activation, locked milestone baseline or merge authorization.**
 
 This is the permanent planning home for the proposed agent execution foundation. Use branch `docs/agent-execution-foundation-planning` until merged; do not assume these files exist on main. Main was inspected at `d12b5fc2867d3646b6fab2eb71f1447ff177d8c1`. Stage 02 remains the active stage. The roadmap stays unchanged.
