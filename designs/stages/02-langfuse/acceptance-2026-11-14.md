@@ -58,3 +58,25 @@ historical. Official product guides already document current behavior, so this
 acceptance-only update does not change their instructions. Progress, stage entry,
 verification status and Atlas are reconciled together. No whole-Stage-02 completion
 or merge is claimed while M4 and the merge itself remain pending.
+
+## Final local-state test correction
+
+The later test-only commit `0a5bf882358b760d92452329c8c56fc0224618b1`
+fixes `test_fresh_checkout_status_and_stop_without_settings` by selecting a fresh
+`tmp_path` deployment directory. Previously it observed the real checkout's
+ignored Docker settings, explaining why Sharon's configured Mac differed from
+the clean managed checkout. Production behavior is unchanged.
+
+After fetching that exact test revision, the targeted command
+`app/.venv/bin/python -m pytest -q app/tests/tooling/test_langfuse_manage.py::test_fresh_checkout_status_and_stop_without_settings`
+passed: **1 passed**. The earlier 363-test gate remains pinned to `dafeaed`;
+no new full-suite result is claimed for this test-only follow-up.
+
+## Next-agent boundary
+
+After an explicitly authorized merge, reconcile the resulting main revision and
+merge state in progress and Atlas. The next agent should read the governing
+documents, this acceptance record and the actual merged workflow contract before
+reviewing logging/context design. Existing research is not implementation approval.
+Real workflow tracing, context propagation, logging schema and telemetry-outage
+policy remain separate design work. This session does not implement them.

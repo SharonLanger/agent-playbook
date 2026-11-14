@@ -1,11 +1,13 @@
 # Four milestones and their checkpoints
 
-Status: **M1–M3 implemented on pending PR #36; none accepted locally yet.**
+Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on 2026-11-14; PR #36 remains unmerged. Delivery-readback limits are recorded; M4 remains deferred.**
 [Review entry point](README.md) · [Required agent verification](verification.md) · [M1 Codex brief](implementation-handoff.md)
 
 Current state: WF-01/02/03 still run without Langfuse. PR #36 implements the
-local service, explicit project check and optional mock playground; Sharon's
-Mac/UI acceptance is pending. See [the Codex handoff](connection-playground-handoff.md).
+local service, explicit project check and optional mock playground. Sharon
+confirmed visible traces and normal stop/start persistence on Mac. See
+[acceptance and remaining limits](acceptance-2026-11-14.md); the earlier
+[Codex handoff](connection-playground-handoff.md) remains historical.
 The workflow refactor is separate. Each checkpoint can include several commits.
 
 Implementation of M2/M3 may proceed before Sharon completes earlier local gates.
