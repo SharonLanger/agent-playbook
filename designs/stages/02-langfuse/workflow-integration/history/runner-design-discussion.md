@@ -1,21 +1,21 @@
 # M4.2 runner tracing — preliminary discussion
 
-Status: **DISCUSSION ONLY. No detailed M4.2 design, test contract or implementation approval yet.** Started 2026-11-14, discussion iteration 30.
+Status: **M4.2 DRAFT PREPARATION authorized in iteration 32; no approved detailed contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 32.
 
 This file supplements the [complete discussion through iteration 29](context-discussion.md), [shared requirements](../requirements.md) and [decisions](../decisions.md). It records new instructions, proposals, open decisions and possible follow-ups while another Codex implements M4.1. It is not a competing application specification. Read this entire record on each new M4.2 discussion iteration and preserve earlier decisions when updating it.
 
 ## Baseline and active-work boundary
 
-- M4.1's delegated design/test/implementation package is pinned to `11bba581291c1b166973848ea8db6a9e2a142413` in PR #43. Sharon reports that its implementing Codex is working. No implementation result or completion is inferred.
+- M4.1's delegated design/test/implementation package is pinned to `11bba581291c1b166973848ea8db6a9e2a142413` in PR #43. In iteration 32 Sharon reports that Codex finished; its handoff/results have not yet been received or reviewed here. Completion reported by the user is distinct from verified implementation or acceptance.
 - Shared records including D30/R31 were last published at `9aaf31e4b0e6345ed7162da765f37dbe94167f4b`. That is this discussion branch's starting point.
 - New instruction, iteration 30: do not edit the implementing agent's parts. Save proposed changes separately for an explicit follow-up handoff. This session will not edit his code, tests, three M4.1 milestone documents, approval records or round reports.
-- This file is the only change on separate branch `docs/m4-2-runner-discussion`. Do not advance PR #43, its branch, the implementation branch or shared navigation/progress/Atlas while recording these parallel notes. Reconcile discovery/status in the eventual M4.2 documentation PR after alignment. This isolation follows Sharon's explicit instruction and does not change guarded architecture meaning.
+- Separate branch `docs/m4-2-runner-discussion` owns this record and the three new M4.2 draft files authorized in iteration 32. Do not advance PR #43, its branch, the implementation branch or shared navigation/progress/Atlas during this parallel work. Reconcile discovery/status in the eventual M4.2 documentation PR after alignment. This isolation follows Sharon's explicit instruction and does not change guarded architecture meaning.
 - No milestone boundary change is selected: M4.1 context/wiring; M4.2 runner tracing; M4.3 automatic CrewAI observations; logging later. Any proposed boundary change must be recorded and checked against shared requirements/decisions before adoption.
 
 ## Accepted instructions for the next package
 
-1. Start with a simple preliminary design discussion; agree on the broad behavior before producing the detailed milestone documents.
-2. Later provide separate `02-runner-design.md`, `02-runner-test-cases.md` and `02-runner-implementation-plan.md`. These are planned filenames, not files created or approved now.
+1. Start with a simple preliminary design discussion; agree on broad behavior before adopting a detailed contract. Iteration 32 authorizes preparing a review draft in parallel while remaining policy choices are explicitly marked proposals.
+2. Provide separate `02-runner-design.md`, `02-runner-test-cases.md` and `02-runner-implementation-plan.md`. A delegated design agent is preparing these new files; creation alone is not approval or implementation.
 3. Use the same implementation procedure: orchestrator, coder, two independent reviewers for design drift and test gaps, permanent reports for each round, at most three total rounds, then stop if unresolved. Retain the final report back to this design session before user acceptance/merge.
 4. An eventual M4.1 follow-up does not silently reset its existing three-round cap or instruct a fourth round. Coordinate it with the recorded round state and an explicit handoff. A requirement change needs its own recorded decision before code.
 
@@ -64,4 +64,16 @@ Sharon confirms Codex is working, requests no changes to its parts, asks for pro
 
 References already checked in iteration 29: [Langfuse metadata](https://langfuse.com/docs/observability/features/metadata), [Python API](https://python.reference.langfuse.com/langfuse), installed SDK 5.2.0 and the [research record](../research/crewai-langfuse.md). The bounded metadata check does not prove application or server integration. No new SDK/API claim, runtime probe, application test or implementation is added in this iteration.
 
-Before detailed design: reconcile any actual M4.1 implementation findings, settle the decisions above and present required tracing-specific guarded changes. Do not edit the global principles/architecture or SDK import boundaries during this preliminary discussion. No roadmap or stage renumbering is requested.
+Before approving the detailed design: reconcile actual M4.1 implementation findings, settle the decisions above and present required tracing-specific guarded changes. A draft can proceed in parallel with that review under iteration 32. Do not edit global principles/architecture or SDK import boundaries during drafting. No roadmap or stage renumbering is requested.
+
+## Iteration 31 — trace versus observation clarification
+
+Sharon asks whether the hierarchy shares the same observation. Clarified that the runner opens the enclosing workflow observation; instrumented CrewAI operations and later agent/tool/model calls have distinct child observation/span IDs within the same trace. They share trace identity and application correlation_id; their timing and outcomes remain separate. A failed child does not require a failed parent when recovery succeeds. Passing ExecutionContext alone does not create observations or establish SDK active scope. This clarification does not select the unresolved client, outage or payload policies.
+
+## Iteration 32 — parallel design delegation and forthcoming M4.1 review
+
+Sharon reports that the M4.1 Codex finished and wants to supply its result for root's final review while a sub-agent starts the next design. He asks whether everything is agreed or whether the review should precede drafting. Answer: enough is agreed to draft in parallel, but not every M4.2 policy is settled. Client ownership/flush/shutdown, telemetry-disabled/unavailable/error behavior and safe payload/exception projection remain explicit decisions; the precise lifecycle placement must be checked against the completed context code. Do not label all choices approved.
+
+Started /root/m42_runner_design, authorized to create only the three new M4.2 draft documents in this package. It must follow repository authorities, inspect actual SDK behavior, propose minimal solutions, identify unresolved decisions, and include separate tests plus coder/two-reviewer/max-three-round implementation instructions. It cannot modify M4.1, shared records, guarded documents, application source, PRs or branch refs; root owns publishing. Any needed context change is reported separately rather than applied.
+
+Root will inspect the actual M4.1 PR/diff and permanent reports once Sharon supplies the handoff and requests that review. Its findings feed the M4.2 draft before approval. Delegation is not proof that the new design is finished, and M4.1's reported completion is not proof of passed acceptance. Keep both tasks separate and preserve the no-automatic-merge/no-round-reset rules.
