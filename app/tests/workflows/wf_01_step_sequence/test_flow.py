@@ -4,11 +4,14 @@ import pytest
 
 from agent_playbook.workflows.wf_01_step_sequence import steps
 from agent_playbook.workflows.wf_01_step_sequence.flow import StepSequenceFlow
+from tests.context_support import TEST_CONTEXT
 
 
 def test_real_kickoff_and_order(capsys: pytest.CaptureFixture[str]) -> None:
     assert (
-        StepSequenceFlow(tracing=False, suppress_flow_events=True).kickoff()
+        StepSequenceFlow(
+            context=TEST_CONTEXT, tracing=False, suppress_flow_events=True
+        ).kickoff()
         == "[Hello, workflow!]"
     )
     assert capsys.readouterr().out.splitlines() == [
@@ -23,7 +26,9 @@ def test_failure_skips_finish(capsys: pytest.CaptureFixture[str]) -> None:
         steps, "decorate_message", side_effect=RuntimeError("exercise failure")
     ):
         with pytest.raises(RuntimeError, match="exercise failure"):
-            StepSequenceFlow(tracing=False, suppress_flow_events=True).kickoff()
+            StepSequenceFlow(
+                context=TEST_CONTEXT, tracing=False, suppress_flow_events=True
+            ).kickoff()
     output = capsys.readouterr().out
     assert "[WF-01] produce finished" in output
     assert "[WF-01] decorate started" in output

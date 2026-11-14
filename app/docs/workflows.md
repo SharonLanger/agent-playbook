@@ -73,3 +73,19 @@ For an explanation of the code itself, continue with the
 
 
 Only the selected workflow loads its CrewAI flow module during preparation. Each run uses a fresh wrapper; a configured alias changes defaults and identity without changing step routing.
+
+## Execution context for Python workflow integrations
+
+Each `dev-run` or installed workflow invocation creates a fresh, typed application
+`ExecutionContext` after YAML selection. Its `correlation_id` is a UUID4 grouping
+identifier; `observability.workflow_id` is the selected ID (including an alias),
+and `observability.workflow_run_id` identifies this invocation. The runner passes
+the same context object through the factory, Workflow wrapper and CrewAI Flow.
+Python integration code can read `workflow.context` or `flow.context`.
+
+`context.for_agent(agent_type=..., agent_run_id=...)` creates an independent child
+value that retains the workflow and correlation identities. The caller supplies
+an identity for each agent invocation; this method does not execute an agent.
+The context is separate from CrewAI state and ordinary Flow serialization.
+CLI flags and displayed workflow results are unchanged. Tracing and Langfuse
+export are planned as later milestones; a correlation ID is not a trace ID.

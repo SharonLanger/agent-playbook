@@ -55,3 +55,14 @@ Iteration 27 checks passed: Atlas build/freshness and its reference/guard/sandbo
 Iteration 28 added the exact final-review return template and preserved the three-round cap. Atlas freshness, 140 relative links, record/CTX/G IDs, historical discussion/probe preservation, unchanged guarded baselines and current-edit whitespace checks passed. Runtime design/test cases and application code remain unchanged.
 
 Preservation detail: the opening PR copied eight unchanged Flow fixture modules with blank-at-EOF warnings. Keep their bytes/hashes unchanged. Check current edits normally; for the full preserved snapshot only, disabling that warning category is acceptable and must not conceal other whitespace errors.
+
+## Approved M4.1 implementation update — 2026-11-14
+
+Sharon's implementation instruction explicitly approved G01–G08 at
+`11bba581291c1b166973848ea8db6a9e2a142413`. The implementation branch adds
+the approved guarded amendments, updates official workflows documentation,
+progress and Stage 02 summary, and preserves the earlier records. Runtime
+settings, CLI options, dependencies and YAML are unchanged, so the other public
+guides have no user-facing change. Atlas navigation is refreshed for the context
+package and implementation review status. Candidate-specific checks and review
+findings are recorded in `reviews/context/` rather than claimed here.

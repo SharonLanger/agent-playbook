@@ -1,6 +1,6 @@
 # M4.1 — Codex implementation and review plan
 
-Status: **DRAFT FOR SHARON'S REVIEW. Do not start application implementation until approval is recorded.** Version 1.1, 2026-11-14. Iteration 28 adds the return-report format; the implementation contract and three-round cap are unchanged.
+Status: **APPROVED AND LOCKED for M4.1 by Sharon in the implementation instruction referencing revision `11bba581291c1b166973848ea8db6a9e2a142413`; G01–G08 were explicitly authorized.** Version 1.1, 2026-11-14. Iteration 28 adds the return-report format; the implementation contract and three-round cap are unchanged.
 
 [Design](01-context-design.md) · [Test cases](01-context-test-cases.md) · [Shared entry point](README.md) · [Repository reconciliation](repository-updates.md)
 

@@ -3,6 +3,7 @@ from pydantic import field_validator
 
 from agent_playbook.workflows.wf_03_conditional_route.flow import ConditionalRouteFlow
 from agent_playbook.workflows.wf_03_conditional_route.state import Decision, ScoreState
+from tests.context_support import TEST_CONTEXT
 
 
 @pytest.mark.parametrize(
@@ -24,7 +25,10 @@ def test_exactly_one_route(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     flow = ConditionalRouteFlow(
-        initial_state=ScoreState(score=score), tracing=False, suppress_flow_events=True
+        context=TEST_CONTEXT,
+        initial_state=ScoreState(score=score),
+        tracing=False,
+        suppress_flow_events=True,
     )
     assert flow.kickoff() == expected
     assert flow.state.decision == expected
@@ -44,7 +48,10 @@ class RejectingState(ScoreState):
 
 def test_terminal_failure_is_not_a_decision(capsys: pytest.CaptureFixture[str]) -> None:
     flow = ConditionalRouteFlow(
-        initial_state=RejectingState(score=40), tracing=False, suppress_flow_events=True
+        context=TEST_CONTEXT,
+        initial_state=RejectingState(score=40),
+        tracing=False,
+        suppress_flow_events=True,
     )
     with pytest.raises(ValueError, match="terminal failed"):
         flow.kickoff()

@@ -180,3 +180,7 @@ Context/Langfuse immediately follows as a separate design and implementation. Ch
 - [CrewAI Flows](https://docs.crewai.com/en/concepts/flows) and [checkpointing](https://docs.crewai.com/en/concepts/checkpointing): future recovery must use verified pinned-version capabilities, not our wrapper status.
 
 References motivate the pattern; the transitions and policy above are Agent Playbook design decisions, not copied framework guarantees.
+
+## Dated M4.1 context amendment — 2026-11-14
+
+The common Workflow constructor now requires keyword-only `context: ExecutionContext` and exposes a read-only context property. The selected runner creates it, the factory forwards it, and wrappers supply it to their CrewAI Flows. This supersedes the earlier statement that no context object was required at the workflow-contract refactor stage. The ABC lifecycle, typed results, variance, status, error categories and prior PR #40 evidence remain unchanged. See the [approved context design](../../stages/02-langfuse/workflow-integration/01-context-design.md).

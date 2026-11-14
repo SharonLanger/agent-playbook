@@ -1,5 +1,7 @@
 """Run one selected workflow through the common lifecycle."""
 
+from uuid import uuid4
+
 from pydantic import TypeAdapter, ValidationError
 
 from agent_playbook.application.assembly import assemble_runtime
@@ -11,6 +13,7 @@ from agent_playbook.application.workflow_factory import (
 from agent_playbook.application.workflow_registry import workflow_registry
 from agent_playbook.config.diagnostics import validation_fields
 from agent_playbook.config.errors import ConfigurationError
+from agent_playbook.context.models import ExecutionContext, ObservabilityContext
 from agent_playbook.workflows.errors import WorkflowExecutionError, WorkflowInputError
 
 _INPUT = TypeAdapter(dict[str, object])
@@ -36,8 +39,17 @@ def run_workflow(
         workflow_id, application, application.integrations.crewai, registry
     )
     try:
+        context = ExecutionContext(
+            observability=ObservabilityContext(
+                workflow_id=workflow_id, workflow_run_id=str(uuid4())
+            )
+        )
         workflow = construct_workflow(
-            workflow_id, implementation, application.integrations.crewai, config
+            workflow_id,
+            implementation,
+            application.integrations.crewai,
+            config,
+            context=context,
         )
     except ConfigurationError:
         raise

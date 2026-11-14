@@ -99,3 +99,7 @@ Package markers and unrelated files are omitted from this focused tree. No new d
 ## Guarded structure relationship
 
 This tree proposes files within existing application/config/workflows boundaries. The top-level project structure still describes the current direct-flow factory and runner; its exact future wording change is listed in the implementation plan. That guarded file is not silently rewritten to claim this refactor already exists.
+
+## Dated M4.1 placement cross-reference — 2026-11-14
+
+The historical workflow-contract tree above remains its baseline. The separately approved [M4.1 context design](../../stages/02-langfuse/workflow-integration/01-context-design.md) adds the shared standard-library-only `agent_playbook/context/models.py` package and required context forwarding through runner, factory, ABC, wrappers and private Flow storage.

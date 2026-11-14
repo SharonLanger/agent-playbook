@@ -1,7 +1,7 @@
 # Agent Playbook — execution context and native Langfuse integration
 
 Version: 0.25 · 2026-11-14 · Sharon
-Status: **Current requirements/specification. Basic context structure agreed; draft documentation PR authorized by D22. D28 authorizes the detailed M4.1 review draft, now written with separate test cases and implementation/review plan; not yet approved. No implementation, broker or dependency change.**
+Status: **Current requirements/specification. Basic context structure agreed; draft documentation PR authorized by D22. D28 authorizes the detailed M4.1 review draft, now written with separate test cases and implementation/review plan; approved at `11bba581` for M4.1; implementation review is in progress on a separate branch. No broker or dependency change.**
 
 ## 1. Current goal and authority
 

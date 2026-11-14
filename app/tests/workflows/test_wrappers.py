@@ -14,6 +14,7 @@ from agent_playbook.workflows.wf_02_shared_state.workflow import SharedStateWork
 from agent_playbook.workflows.wf_03_conditional_route.workflow import (
     ConditionalRouteWorkflow,
 )
+from tests.context_support import TEST_CONTEXT
 
 SETTINGS = CrewAISettings(
     usage_telemetry_enabled=False, tracing_enabled=False, show_framework_events=False
@@ -29,7 +30,7 @@ CASES: tuple[tuple[type[Workflow[object]], str, object], ...] = (
 def test_real_wrapper_result(
     implementation: type[Workflow[object]], package: str, expected: object
 ) -> None:
-    workflow = implementation(settings=SETTINGS, config={})
+    workflow = implementation(settings=SETTINGS, config={}, context=TEST_CONTEXT)
     workflow.prepare({})
     assert workflow.validate_output(workflow.execute()) == expected
     assert workflow.result == expected
@@ -45,7 +46,7 @@ def test_wrapper_failure_is_terminal_and_blocks_later_phases(
     expected: object,
     phase: WorkflowPhase,
 ) -> None:
-    workflow = implementation(settings=SETTINGS, config={})
+    workflow = implementation(settings=SETTINGS, config={}, context=TEST_CONTEXT)
     original = ValueError("private failure")
     flow_class = {
         "wf_01_step_sequence": "StepSequenceFlow",
@@ -148,7 +149,7 @@ def test_invalid_input_never_constructs_or_kicks_off(
     flow_class: str,
     invalid: Mapping[str, object],
 ) -> None:
-    workflow = implementation(settings=SETTINGS, config={})
+    workflow = implementation(settings=SETTINGS, config={}, context=TEST_CONTEXT)
     flow = Mock()
     target = f"agent_playbook.workflows.{flow_module}.flow.{flow_class}"
     with patch(target, return_value=flow) as constructor:
@@ -169,7 +170,7 @@ def test_invalid_input_never_constructs_or_kicks_off(
 
 
 def test_shared_state_rejects_boolean_output() -> None:
-    workflow = SharedStateWorkflow(settings=SETTINGS, config={})
+    workflow = SharedStateWorkflow(settings=SETTINGS, config={}, context=TEST_CONTEXT)
     workflow.prepare({})
     workflow.execute()
     with pytest.raises(TypeError):

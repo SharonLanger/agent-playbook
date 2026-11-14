@@ -5,6 +5,7 @@ import pytest
 from agent_playbook.workflows.wf_02_shared_state import steps
 from agent_playbook.workflows.wf_02_shared_state.flow import SharedStateFlow
 from agent_playbook.workflows.wf_02_shared_state.state import NumberState
+from tests.context_support import TEST_CONTEXT
 
 
 @pytest.mark.parametrize(
@@ -21,6 +22,7 @@ def test_kickoff_state(
     initial: int, increment: int, multiplier: int, history: list[int]
 ) -> None:
     flow = SharedStateFlow(
+        context=TEST_CONTEXT,
         initial_state=NumberState(
             initial=initial, increment=increment, multiplier=multiplier
         ),
@@ -33,8 +35,11 @@ def test_kickoff_state(
 
 
 def test_independent_runs() -> None:
-    first = SharedStateFlow(tracing=False, suppress_flow_events=True)
+    first = SharedStateFlow(
+        context=TEST_CONTEXT, tracing=False, suppress_flow_events=True
+    )
     second = SharedStateFlow(
+        context=TEST_CONTEXT,
         initial_state=NumberState(initial=10, increment=-2, multiplier=3),
         tracing=False,
         suppress_flow_events=True,
@@ -46,7 +51,9 @@ def test_independent_runs() -> None:
 
 
 def test_failed_add_skips_multiply(capsys: pytest.CaptureFixture[str]) -> None:
-    flow = SharedStateFlow(tracing=False, suppress_flow_events=True)
+    flow = SharedStateFlow(
+        context=TEST_CONTEXT, tracing=False, suppress_flow_events=True
+    )
     with patch.object(steps, "add", side_effect=RuntimeError("add failed")):
         with pytest.raises(RuntimeError, match="add failed"):
             flow.kickoff()

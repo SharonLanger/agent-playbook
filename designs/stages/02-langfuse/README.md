@@ -4,7 +4,7 @@ Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on Mac 
 Milestone 1's fixed checkpoint remains available; see
 [findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
 Milestone 2 adds a project connection check, and milestone 3 adds the explicit
-mock playground. Milestone 4 remains deferred and unimplemented.
+mock playground. M4.1 is approved and being implemented on an unmerged review branch; M4.2/M4.3 remain deferred.
 
 ## Start here
 
@@ -109,3 +109,12 @@ its own learning README when created.
 | 11, 13: preservation and sandbox | Existing examples untouched; requested playground remains outside application checks/releases. |
 | 12, 14, 15: records and status | Canonical stage documents, discovery/Atlas updates, implemented PR follow-up, local acceptance and explicit remaining limitations. |
 
+
+## M4.1 implementation review — 2026-11-14
+
+Sharon approved the M4.1 package at `11bba581291c1b166973848ea8db6a9e2a142413`
+and G01–G08 in his implementation instruction. The data-only context and actual
+workflow propagation are being implemented on `feat/m4-1-context` and are not
+merged or accepted. [Round status and evidence](workflow-integration/reviews/context/status.md)
+track the independent design and test reviews. M1–M3 history is unchanged;
+Langfuse tracing and automatic CrewAI observations remain separate checkpoints.

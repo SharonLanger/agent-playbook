@@ -152,3 +152,7 @@ Resolve a question only from explicit agreement or verified evidence, or defer i
 | D | Useful later, safely deferrable or uncertain | Defer with a named trigger/open question |
 
 For a capability, record whether it applies to tracing, logging or both; outcome and omission consequence; class/status/rationale; implementation/testing/maintenance effort; runtime/operational risk; cost of postponement; and an observable acceptance case. Locality, no-required-logging-service and licensing constraints are pass/fail, not scores to average away. This rubric does not revive a deferred feature.
+
+## D30 — M4.1 approval and implementation status (2026-11-14)
+
+Sharon explicitly approved the M4.1 design, cases, plan and G01–G08 at `11bba581291c1b166973848ea8db6a9e2a142413` in his implementation instruction. The approved contract is locked. The focused implementation branch is under review, unmerged and not accepted; later tracing remains separate. Earlier draft statements are historical.

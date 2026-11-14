@@ -150,3 +150,7 @@ PR #34 is accepted and merged at 96cb1f8. Current runtime uses application/assem
 Apply the [mandatory design contract](governance/design-contract.md) before adding responsibilities or changing these boundaries. Preserve all approved historical stage baselines and their protection.
 
 The approved workflow-contract refactor is specified in [the five-file package](refactors/workflow-contract/README.md). It introduces in-memory per-attempt status, phase-specific failures and YAML-selected registry classes without moving step scheduling from CrewAI. Child workflows, recovery and context/Langfuse remain separate work.
+
+## M4.1 execution identity amendment (approved 2026-11-14)
+
+The application runner creates a data-only `ExecutionContext` for each selected invocation. It contains a stable application correlation ID and nested workflow/run identity. The existing factory, Workflow constructor and concrete wrapper pass the same reference to the CrewAI Flow. Derived agent identity preserves the parent correlation and workflow run without mutating the parent. The context is separate from CrewAI business state and its framework execution_context. M4.1 does not export telemetry or alter `RunResult`; the later tracing target and provider isolation remain in force.

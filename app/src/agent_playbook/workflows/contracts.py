@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 from typing import Generic, Mapping, TypeVar, final
 
 from agent_playbook.config.models import CrewAISettings
+from agent_playbook.context.models import ExecutionContext
 from agent_playbook.workflows.errors import WorkflowOrderError
 from agent_playbook.workflows.lifecycle import (
     WorkflowFailure,
@@ -16,13 +17,22 @@ OutputT_co = TypeVar("OutputT_co", covariant=True)
 
 class Workflow(ABC, Generic[OutputT_co]):
     def __init__(
-        self, *, settings: CrewAISettings, config: Mapping[str, object]
+        self,
+        *,
+        settings: CrewAISettings,
+        config: Mapping[str, object],
+        context: ExecutionContext,
     ) -> None:
+        self._context = context
         self._settings = settings
         self._config = config
         self._status = WorkflowStatus.CREATED
         self._failure: WorkflowFailure | None = None
         self._result: tuple[OutputT_co] | None = None
+
+    @property
+    def context(self) -> ExecutionContext:
+        return self._context
 
     @property
     def status(self) -> WorkflowStatus:
