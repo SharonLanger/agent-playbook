@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 01 completed, accepted and locked; PR #40 merged. Stage 02 local Langfuse/mock exercise accepted on Mac; PR #36 merged as 44d6919, delivery-readback limitation recorded; M4 deferred.",
+  "snapshot": "Stage 01 completed, accepted and locked; PR #40 merged. Stage 02 local Langfuse/mock exercise accepted on Mac; PR #36 merged as 44d6919, delivery-readback limitation recorded; M4 deferred. Agent execution foundation: draft planning package on docs/agent-execution-foundation-planning; no runtime implementation or roadmap change.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -34,7 +34,13 @@
     "designs/refactors/workflow-contract/review-test-quality.md",
     "designs/stages/02-langfuse/main-reconciliation.md",
     "designs/stages/02-langfuse/resolution-2026-11-13.md",
-    "designs/stages/02-langfuse/acceptance-2026-11-14.md"
+    "designs/stages/02-langfuse/acceptance-2026-11-14.md",
+    "designs/stages/04-agent-execution/README.md",
+    "designs/stages/04-agent-execution/specifications.md",
+    "designs/stages/04-agent-execution/decisions.md",
+    "designs/stages/04-agent-execution/milestone-plan.md",
+    "designs/stages/04-agent-execution/repository-updates.md",
+    "designs/stages/04-agent-execution/verification.md"
   ],
   "views": {
     "current": {
@@ -1501,6 +1507,12 @@
               "path": "designs/diagrams/AUTHORING.md",
               "text": "Self-contained animated SVG, static fallback and verified local viewers.",
               "to": null
+            },
+            {
+              "name": "Agent execution foundation",
+              "path": "designs/stages/04-agent-execution/",
+              "text": "Current discussion records and bounded draft milestones. No implementation lock or roadmap change.",
+              "to": "execution_foundation"
             }
           ],
           "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
@@ -2304,6 +2316,37 @@
           "source": "designs/stages/02-langfuse/README.md",
           "note": "Sharon approved the six main conflict resolutions. PR #36 merged as 44d6919. Reconciliation and follow-up verification are recorded; local setup and mock-trace exercise accepted on Mac, with delivery-readback limitation recorded. M4 remains deferred.",
           "diagram": null
+        },
+        "execution_foundation": {
+          "name": "Execution foundation planning",
+          "parent": "design",
+          "label": "Design / Draft planning",
+          "title": "Shared execution before native providers",
+          "text": "Three ABCs and callback direction accepted in discussion. Four bounded milestones are drafted for review; schemas and failure policies remain open.",
+          "blocks": [
+            {
+              "name": "Specification and decisions",
+              "path": "designs/stages/04-agent-execution/",
+              "text": "One active specification and decision board; complete earlier snapshots preserved.",
+              "to": null
+            },
+            {
+              "name": "Milestone boundaries",
+              "path": "designs/stages/04-agent-execution/milestone-plan.md",
+              "text": "Contracts; harness/fake mapping; deterministic DemoAgent; maintained CrewAI demonstration. Boundary changes begin as pending plan deltas.",
+              "to": null
+            },
+            {
+              "name": "Deferred integration",
+              "path": "designs/stages/04-agent-execution/repository-updates.md",
+              "text": "Real SDKs/adapters/mappers, context/Langfuse and actual logging integration stay separate; canonical reconciliation before implementation.",
+              "to": null
+            }
+          ],
+          "note": "DRAFT PLANNING — not a locked implementation baseline. Stage 02 remains current; roadmap unchanged.",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/stages/04-agent-execution/README.md"
         }
       },
       "files": [
@@ -4121,6 +4164,66 @@
           "path": "designs/stages/02-langfuse/acceptance-2026-11-14.md",
           "status": "Local exercise accepted; PR #36 merged as 44d6919",
           "purpose": "2026-11-14 user-reported Mac acceptance, revision-specific tests and remaining delivery-readback limitation."
+        },
+        {
+          "path": "designs/stages/04-agent-execution/README.md",
+          "status": "Draft planning; not implemented",
+          "purpose": "Execution foundation planning, decisions, boundaries and reconciliation."
+        },
+        {
+          "path": "designs/stages/04-agent-execution/specifications.md",
+          "status": "Draft planning; not implemented",
+          "purpose": "Execution foundation planning, decisions, boundaries and reconciliation."
+        },
+        {
+          "path": "designs/stages/04-agent-execution/decisions.md",
+          "status": "Draft planning; not implemented",
+          "purpose": "Execution foundation planning, decisions, boundaries and reconciliation."
+        },
+        {
+          "path": "designs/stages/04-agent-execution/milestone-plan.md",
+          "status": "Draft planning; not implemented",
+          "purpose": "Execution foundation planning, decisions, boundaries and reconciliation."
+        },
+        {
+          "path": "designs/stages/04-agent-execution/repository-updates.md",
+          "status": "Draft planning; not implemented",
+          "purpose": "Execution foundation planning, decisions, boundaries and reconciliation."
+        },
+        {
+          "path": "designs/stages/04-agent-execution/verification.md",
+          "status": "Draft planning; not implemented",
+          "purpose": "Execution foundation planning, decisions, boundaries and reconciliation."
+        },
+        {
+          "path": "designs/stages/04-agent-execution/history/README.md",
+          "status": "Historical snapshot",
+          "purpose": "Preserved execution discussion evidence."
+        },
+        {
+          "path": "designs/stages/04-agent-execution/history/planning-discussion.md",
+          "status": "Historical snapshot",
+          "purpose": "Preserved execution discussion evidence."
+        },
+        {
+          "path": "designs/stages/04-agent-execution/history/agent_playbook_conversation_handover.md",
+          "status": "Historical snapshot",
+          "purpose": "Preserved execution discussion evidence."
+        },
+        {
+          "path": "designs/stages/04-agent-execution/history/revision-12/agent_playbook_execution_specifications.md",
+          "status": "Historical snapshot",
+          "purpose": "Preserved execution discussion evidence."
+        },
+        {
+          "path": "designs/stages/04-agent-execution/history/revision-12/agent_playbook_execution_decision_board.md",
+          "status": "Historical snapshot",
+          "purpose": "Preserved execution discussion evidence."
+        },
+        {
+          "path": "designs/stages/04-agent-execution/research/README.md",
+          "status": "Draft planning; not implemented",
+          "purpose": "Execution foundation planning, decisions, boundaries and reconciliation."
         }
       ]
     }

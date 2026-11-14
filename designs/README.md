@@ -21,6 +21,7 @@ and learn it. Progress records what has actually been accepted.
 | [stages/00-environment/plan.md](stages/00-environment/plan.md) | Stage 00 substages and acceptance criteria |
 | [stages/00-environment/findings.md](stages/00-environment/findings.md) | Executed experiments and limitations |
 | [Stage 01 — CrewAI Flows](stages/01-crewai-flows/README.md) | Completed and accepted stage; permanent architecture, learning, workflow contracts, test specification, diagrams and code-reading guides |
+| [Agent execution foundation — draft planning](stages/04-agent-execution/README.md) | Parallel design workspace: specification, decision board and bounded draft milestones; roadmap unchanged, no implementation authorization |
 | [Stage 02 — Langfuse milestones](stages/02-langfuse/README.md) | Local UI, connection check, editable mock playground, then real workflow integration; only the last milestone waits for the refactor |
 | [../AGENTS.md](../AGENTS.md) | Repository operating instructions |
 

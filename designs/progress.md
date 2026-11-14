@@ -30,6 +30,23 @@ The next agent should start from the [acceptance/handoff record](stages/02-langf
 M4 and logging/context design remain separate work; the delivery-readback
 limitation is retained. This merge does not complete all of Stage 02.
 
+## Parallel agent-execution planning — 2026-11-14
+
+Sharon authorized a [draft design package](stages/04-agent-execution/README.md)
+on branch `docs/agent-execution-foundation-planning`: one current specification,
+decision board, preserved history and explicit milestone boundaries with plan-first
+change control. Contracts/models, harness plus fake mapping, DemoAgent and maintained
+CrewAI demonstration are draft delivery checkpoints for review. The three ABCs and
+callback direction are accepted in discussion; schemas, policies and detailed
+acceptance remain open. No milestone implementation is claimed.
+
+Stage 02 remains current. The roadmap, guarded meaning, runtime and dependencies
+are unchanged. Context/Langfuse and actual logging integration stay separate;
+canonical ownership/sequence reconciliation is required before implementation lock.
+This is a documentation-only draft, not stage activation or merge authorization.
+Evidence and limitations are recorded in the package's
+[verification record](stages/04-agent-execution/verification.md).
+
 ## Historical snapshots and revision-specific evidence
 
 The records below preserve the status, decisions and verification known at their dated checkpoints. Statements about open PRs, pending acceptance and next actions within these snapshots are historical, not the current project status above.

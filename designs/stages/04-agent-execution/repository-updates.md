@@ -1,0 +1,60 @@
+# Repository reconciliation and implementation gates
+
+Status: **open checklist for future design/implementation; no guarded changes made by this PR.**
+
+[Start here](README.md) · [Milestone boundaries](milestone-plan.md) · [Decision board](decisions.md)
+
+## Current change record
+
+**Objective and authorization:** Sharon requested the permanent draft design PR and explicit milestone boundaries with plan-first consistency checks. D27–D32 capture the scope. Existing D02–D26 govern role/provider separation, three ABCs, owned shared events, autonomous execution and minimal reuse.
+
+**Placement:** repository → `designs/` → permanent stage planning → `04-agent-execution/`. Inputs are the revision-12 working records, original reconstructed handover, subsequent discussion, canonical main design and PR #43's organization. Outputs are the active spec/board, draft milestone plan and retained evidence. This documentation package does not establish runtime component ownership ahead of canonical reconciliation.
+
+**Authorities consulted:** root/designs instructions, design contract, guarded register, charter, principles, architecture, structure, roadmap, progress and active Stage 02 architecture/milestones at main `d12b5fc2867d3646b6fab2eb71f1447ff177d8c1`. Relevant [execution exploration](../../explorations/agent-execution/README.md) retains earlier Protocol/iterator, richer schema and folder alternatives. Current discussion accepts separate ABCs/callbacks instead; other exploratory features are not adopted.
+
+## Before locking or implementing a milestone
+
+| ID | Affected authority / surface | Proposed logical reconciliation | Gate / status |
+|---|---|---|---|
+| RU01 | [Architecture](../../architecture.md) | Explain execution-owned native-message normalization versus telemetry projection; identify role, harness, mapper and callback ownership while preserving native loop/CrewAI boundaries. Coordinate wording with PR #43's separate native-tracing direction. | C01/Q12 open. Present exact logical amendment per file and obtain scoped approval before editing. |
+| RU02 | [Project structure](../../project-structure.md) | Add the agreed roles boundary, three separate behavioral-contract files, owned execution data/harness/fake and later native integrations. Resolve first-demo/helper paths without generating speculative folders. | C01/Q12/Q34 open; same guarded approval gate. |
+| RU03 | [Charter](../../charter.md), [principles](../../principles.md), [roadmap](../../roadmap.md) | Before implementation lock, review how this proposed foundation-first allocation fits future-stage/current-stage and learning sequence rules. Draft planning itself does not alter these rules. Native work must still respect the agreed learning prerequisites unless deliberately changed. | Q37 deferred; **roadmap unchanged now by Sharon's instruction**. No preapproval of an eventual reorder or extra stage. |
+| RU04 | [Guarded register](../../governance/guarded-files.md) and milestone design | Once a concrete milestone baseline is approved/locked, register its guarded authority with approval evidence. Protection already follows explicitly approved content even if omitted from the register. | Do not register this entire draft as locked merely because it exists. |
+| RU05 | Stage 02 context / PR #43 or successor | Re-read actual context fields, constructor propagation and correlation requirements before integration. Decide standalone-agent context use; retain execution ownership of adapter/session lifetime. | Q09/Q35; no context implementation or copying of draft schema in this PR. |
+| RU06 | Logging/observability owner | Define how normalized execution evidence is observed and recorded, failure/redaction policy, correlation and acceptance. No tracing broker or execution-owned logging backend. | Q17/Q38 remain open. D12's product requirement is not fulfilled by a fake/test recorder. |
+| RU07 | Existing application assembly/configuration/workflow contract | During S04.M4 detail, specify only needed construction, selected YAML data, role invocation and sync/async boundary. Preserve validation/lifecycle and CrewAI scheduling. | Not a prerequisite to designing isolated M1 data; required before workflow implementation. |
+| RU08 | Official app/docs, checks and release inputs | Publish supported commands/configuration only with working implementation. Use maintained independent test fixtures, standard quality gates and applicable release checks. | No current public-guide impact: this PR changes no supported behavior, commands, defaults, installation or output. |
+| RU09 | Progress, navigation and Atlas | Keep this package discoverable as draft planning; preserve Stage 02 status and all historical evidence. Rebuild generated Atlas after source/catalog changes. | Updated in this documentation PR; verify against the actual branch/PR state before reporting completion. |
+| RU10 | Native integration | Select/reverify SDK/runtime versions, licensing if code/dependencies are reused, native mapping/capability evidence, permission enforcement and lifecycle acceptance. | Later design, separate from fake contract acceptance; no dependency adopted here. |
+
+No unresolved item in this table prevents **creating the draft planning PR**. Items become blocking at their named design/implementation gate. No author may resolve a conflict by simply relabeling an exploration as approved.
+
+## Principle-by-principle assessment
+
+| Principle | Evidence / applicability in this PR |
+|---|---|
+| 1 Explicit approvals | D31 permits documentation PR; guarded meaning and roadmap unchanged; RU01–RU04 name future approvals. |
+| 2 Security | No credentials, live provider invocation or sensitive native traces added. Future diagnostic/permission scope remains explicit. |
+| 3 No design drift | Full active spec/board reading and D32's plan-first pending-change process; C01 retained. |
+| 4 Learning first | Bounded milestones with future design, approval, implementation, checks and findings; no skipped implementation gate. |
+| 5 Isolated integrations | D02/D03/D04/D22/D26 keep provider types/loops inside integrations and common contracts independent. |
+| 6 External configuration | No new loader or hard-coded credentials/settings; schema remains a detailed-design question. |
+| 7 Reproducible quality gates | Documentation/Atlas/source checks now. Application gates apply when code changes; no new dependencies or CI. |
+| 8 Evidence over claims | Baseline and PR #43 heads recorded; fake/native limitations retained; verification reported separately. |
+| 9 Incremental scope | Parallel draft planning requested; stage activation/implementation commitments await deliberate review. Q37 remains open. |
+| 10 Local-first | Deterministic offline foundation planned; no assertion that later live model calls are offline. |
+| 11 No silent migration | Historical sandbox unchanged; original working records retained byte-for-byte. |
+| 12 Traceability | Requirement, decision, question, milestone and boundary-change IDs with a permanent entry point. |
+| 13 Personal sandbox isolation | No access or changes to personal examples; future maintained fixtures must be independent. |
+| 14 Official documentation | No supported behavior change; public docs unchanged for that concrete reason. Future working demo requires public instructions. |
+| 15 Honest status | Accepted discussion choices distinguished from pending schema/acceptance details, implementation, verification, acceptance and merge. |
+
+## Review checklist
+
+- Preserve all original D01–D26, Q00–Q34, proposals, corrections and source snapshots; active amendments must state reasons.
+- Confirm D27–D32 match direct discussion scope and do not turn the four detailed draft milestones or P01 into approved schemas.
+- Check that every milestone declares inputs, exclusions, dependencies and exit limits.
+- Check a proposed scope change must be recorded in the plan **before** decisions/specification are amended, without treating that proposal as authorization.
+- Verify roadmap, all guarded files, app source/tests/settings/dependencies and historical sandbox are untouched.
+- Reconcile overlaps with concurrent navigation/Atlas work before merge; regenerate from reconciled source.
+- Record checks for the exact candidate. Do not merge this PR or begin implementation without the corresponding user instruction.

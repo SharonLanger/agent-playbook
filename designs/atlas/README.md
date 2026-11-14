@@ -10,6 +10,8 @@ Open **[index.html](index.html)** from a local checkout in your browser. No serv
 
 Current paths and sandbox exclusions reflect the merged runtime. The Atlas status labels distinguish implemented responsibilities, approved future boundaries and exploratory proposals; file inventory labels identify completed stage records and historical review evidence.
 
+The [agent execution foundation package](../stages/04-agent-execution/README.md) is now linked from Explorations. It records discussion-approved contracts and draft milestone boundaries; it does not promote new runtime behavior or change the roadmap. Earlier candidate scenarios remain historical alternatives.
+
 ## Authority and maintenance
 
 Read [design instructions](../AGENTS.md), the [guarded design contract](../governance/design-contract.md) and [guard register](../governance/guarded-files.md). The Atlas is a projection, not a second architectural authority. Approved design, implemented behavior and exploration are distinct.
