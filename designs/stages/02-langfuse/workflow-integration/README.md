@@ -1,6 +1,6 @@
 # Workflow context and native Langfuse integration — start here
 
-Updated: 2026-11-14, discussion iteration 24.
+Updated: 2026-11-14, discussion iteration 25.
 Status: **draft documentation workspace; preliminary structure agreed; detailed context design not yet written or approved; no application implementation in this PR.**
 
 This is the permanent working home for Stage 02 workflow-integration planning, under the existing M4. PR #36's local setup/mock M1–M3 remain accepted and merged. The repository baseline inspected for this opening commit is `d12b5fc2867d3646b6fab2eb71f1447ff177d8c1`; research retains its original `44d6919` baseline. Earlier saved session files are dated snapshots, not a second active specification. Use this PR branch until it merges; do not assume these files are already on main.
@@ -43,11 +43,13 @@ The reference is concrete: **requirements.md + decisions.md**, checked against t
 
 Agreed: two ordinary typed dataclasses, `ExecutionContext` containing `ObservabilityContext`, together in one shared definition file outside provider adapters; no Context ABC and no observability broker. Runner creates per invocation, factory forwards through the workflow constructor, workflow holds `self.context` and supplies its Flow. An agent invocation receives a derived context; nested helpers can reuse it; the original parent remains unchanged.
 
-Still to align before writing the detailed design: exact file path; minimal fields/types/defaults; dataclass options; constructor/Flow propagation details and creation timing; shallow replacement/nested-mutability policy; trace-reference behavior before tracing and when disabled; focused tests. SDK span activation is separate from copying context data. Agent runtime lifetime stays outside this decision.
+Still to align before writing the detailed design: exact file path; minimal application fields/types/defaults; dataclass options; constructor/Flow propagation details and creation timing; shallow replacement/nested-mutability policy; focused tests. D26 settles that stored tracing fields and live SDK objects are absent initially. SDK span activation is separate from copying context data. Agent runtime lifetime stays outside this decision.
 
-Iteration 22 now presents a concrete preliminary proposal, P02 in decisions.md: `app/src/agent_playbook/context/models.py`, two frozen keyword-only dataclasses, explicit workflow/run identity plus optional trace/agent fields, and constructor propagation through the existing code. This is review material, not a new accepted decision. PR #43 contains the planning records; `01-context-design.md` still does not exist. Sharon requested a simple explanation before the detailed document.
+The compact preliminary candidate, refined from P02, is `app/src/agent_playbook/context/models.py`: two frozen keyword-only dataclasses, ExecutionContext.observability, required workflow_id/workflow_run_id, and optional agent_type/agent_run_id. The path, flags and detailed field types/defaults remain review material. PR #43 contains the planning records; `01-context-design.md` still does not exist. Sharon requests a simple overview before the detailed document.
 
-Current direction, iteration 24: D25/P04 replaces P03 preallocation with the SDK's ordinary active-scope pattern. Let the SDK generate/inherit trace IDs and use its getters when correlation is needed. Recommend leaving trace/span IDs and live SDK handles out of the initial application context; workflow/run/agent data and derived-scope rules remain. P02/P03 are preserved as prior proposals, not instructions to implement manual tracing management. D24 identity stability remains unchanged.
+Current decision, iteration 25: D26 accepts leaving stored trace/span IDs and live SDK handles out of the initial application context. D25/P04 replaces P03 preallocation with the SDK's ordinary active-scope pattern. Use native propagate_attributes for selected application fields when tracing is added; use SDK-produced identity when a concrete consumer needs it. Workflow/run/agent data, derived-scope rules and D24 identity stability remain unchanged. No tracing machinery is added by M4.1.
+
+The application runner invokes the Workflow ABC lifecycle; the concrete workflow wrapper's execution hook calls its Flow's kickoff(), which runs the decorated methods. Both wrapper and Flow retain the supplied application context outside serialized business state. A later runner tracing scope can begin before kickoff; kickoff is not necessarily the first observed operation. Its precise boundary belongs to M4.2.
 
 ## Handoff and closeout
 

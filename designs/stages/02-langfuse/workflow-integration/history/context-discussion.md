@@ -1,6 +1,18 @@
 # Context discussion history and ongoing record
 
-Current iteration: **24, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+Current iteration: **25, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+
+## Iteration 25 — accept application-only context fields and return to the overview
+
+Sharon explicitly accepts leaving stored trace identity and live tracing objects out of the context for now, deferring a trace-ID field until later need, using native propagate_attributes for application fields, and letting Langfuse/OpenInference manage tracing. D26 records this acceptance. He initially asks about kickoff/listener detail, then redirects to a compact context overview before the detailed design: source location, classes/properties and movement through runner/workflow/Flow. Do not reopen the settled ID-management discussion or start implementation.
+
+Read the complete discussion record and current specification/decisions. PR #43 was refreshed at 7d879be0bf153d0da27005bef255ccbcc69f5c10, draft/open/unmerged. No contradiction with D01/D08/D24 was found: actual trace/span identity remains, but the application dataclass does not store it initially. P04's omission is now accepted rather than merely recommended. P02's exact path, frozen/keyword-only options, field types/defaults, constructor signatures and creation timing remain preliminary choices.
+
+Compact candidate: both dataclasses in app/src/agent_playbook/context/models.py; ExecutionContext has observability; ObservabilityContext has workflow_id, workflow_run_id and optional agent_type/agent_run_id. The runner creates per invocation, the existing factory forwards, the workflow retains self.context and passes the same reference to its Flow. Existing business state stays separate. An agent invocation gets replacement inner/outer context objects with agent fields, ordinary helpers can reuse that child, and the workflow retains its original. This does not select agent runtime lifetime or create SDK objects.
+
+Clarification: the application runner invokes the Workflow ABC lifecycle. The concrete wrapper calls its Flow's kickoff() from its execution hook; CrewAI then invokes decorated start/listen/router methods. A later runner scope can begin before kickoff, so kickoff need not be the first observed operation. M4.1 only adds context passing/isolation; M4.2 decides the tracing lifecycle boundary; M4.3 adds automatic framework observations. Passing the dataclass alone neither logs nor exports telemetry.
+
+Update scope: shared records and their Atlas projection on the existing draft PR. No detailed context design, guarded-baseline edits, application changes, new research/probe run or live-UI acceptance. Existing evidence and the pending guarded reconciliation remain unchanged.
 
 ## Iteration 24 — follow the ordinary SDK path
 

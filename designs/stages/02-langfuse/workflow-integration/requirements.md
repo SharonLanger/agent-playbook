@@ -1,6 +1,6 @@
 # Agent Playbook — execution context and native Langfuse integration
 
-Version: 0.22 · 2026-11-14 · Sharon
+Version: 0.23 · 2026-11-14 · Sharon
 Status: **Current requirements/specification. Basic context structure agreed; draft documentation PR authorized by D22. Detailed context design is not yet written/approved. No implementation, broker or dependency change.**
 
 ## 1. Current goal and authority
@@ -26,6 +26,7 @@ The [decision record](decisions.md) owns decisions and open questions. This acti
 | D07 / AD-01: context composition and isolation | One ExecutionContext contains one ObservabilityContext. Child metadata additions do not mutate the parent/siblings; returning uses the unchanged parent. |
 | D01 / D08: identity | workflow_id identifies a definition; workflow_run_id one invocation; trace_id the actual distributed trace; span identity distinguishes observed operations. The SDK owns tracing mechanics. |
 | D24 / D25: identity and SDK reuse | Workflow/run identity stays fixed within an invocation. The SDK creates/inherits trace identity and manages active scope. Do not add manual ID allocation or propagation to the normal path. A stored application trace-ID field is not required by correlation semantics. |
+| D26: initial application-only fields | Omit stored trace/span IDs and live SDK/client/observation objects from the initial context. Use native propagate_attributes for selected application fields in the later tracing milestone. A stored trace reference can be added later for a concrete consumer; future log correlation remains required. |
 | R16 / R24: agent scope | Distinguish agent invocations and retain their identity in nested helpers. Do not prescribe agent lifecycle, pooling or SDK recreation. |
 | R17–R19: outcomes | Failures can be observed at their current scope. A failed child remains visible when its parent recovers successfully. Local diagnostic severity does not automatically define operation failure. |
 | External settings and local deployment | Reuse existing settings/client initialization. Credentials stay out of telemetry. Use the existing local Langfuse endpoint; no added collector/server or cloud service is required. |
@@ -82,7 +83,7 @@ The report and [probe evidence](research/probe/README.md) contain the exact reci
 
 Implement the agreed ordinary typed ExecutionContext and nested ObservabilityContext dataclasses together in one shared file, with its precise path reviewed in detailed design. Application runner creates one context per invocation from CLI or Python entry; the existing factory forwards it into the workflow constructor. Workflow retains self.context and supplies it to its CrewAI Flow. Define child derivation without parent mutation and without copying clients. Wire what is needed to prove this route and isolation; no Langfuse export yet.
 
-Follow D25/P04: the application context carries application workflow/run and eventual agent information; the SDK manages active trace/span identity. No manual preallocation, placeholder trace_id=None or live span/client field is needed for M4.1 merely to prepare tracing. The current schema recommendation omits stored trace/span IDs and reads actual SDK IDs where a consumer needs them. This does not remove correlation requirements. A plain context does not activate an OpenTelemetry scope. Do not accumulate outputs, usage, costs or scores in inherited context metadata.
+Follow D25/D26: the application context carries application workflow/run and eventual agent information; the SDK manages active trace/span identity. M4.1 omits stored trace/span IDs, placeholder trace_id=None and live span/client objects. Actual SDK identity can be read when a later consumer needs it; this does not remove correlation requirements or require a stored field now. A plain context does not activate an OpenTelemetry scope. Do not accumulate outputs, usage, costs or scores in inherited context metadata.
 
 Proposed tests: two invocations of the same workflow have distinct workflow_run_id values; agent-like child A and child B retain workflow identity but cannot leak fields into parent/sibling, including nested mutable metadata if allowed; ordinary helper propagation retains child identity; context creation and workflow behavior require neither a Langfuse server nor network; runtime objects stay out of serialized business state. Use fixtures for agent scope behavior, not real agent integration. Test these contracts rather than Python data-class mechanics.
 
@@ -127,12 +128,12 @@ Supported native SDK context managers, decorators, explicit observation lifecycl
 
 Iteration 22 presents P02 in [decisions.md](decisions.md#p02--concrete-context-proposal-for-discussion-iteration-22): an exact candidate source path, small field list, frozen keyword-only data objects, construction/propagation and trace-binding explanation. These are proposed details for Sharon's review, not newly accepted requirements or a written detailed design. The accepted structure below remains unchanged.
 
-Iteration 24 supersedes P03 preallocation with D25/P04 in decisions.md: use native active scopes and automatic SDK identity/parentage. Recommend omitting stored trace/span IDs from the initial application context and obtaining them through existing SDK accessors when needed. D24 identity stability remains. The exact remaining schema/options are not silently approved by this simplification.
+Iteration 25 accepts P04's initial omission as D26: use native active scopes and automatic SDK identity/parentage, with no stored trace/span IDs or live SDK objects in the application context initially. Selected application fields will use native propagate_attributes during tracing integration. A stored reference can be added later if needed; D24 identity stability remains. The exact remaining schema/options are not silently approved by this simplification.
 
 Names, composition, ordinary dataclasses, one shared definition file and the D19 propagation route are accepted. No context ABC is needed. The current application does not yet implement this route. Before writing M4.1's detailed design, discuss and align on:
 
 1. Exact source path and imports for the two classes, plus concrete constructor signatures through the existing runner/factory/Workflow/Flow path.
-2. Minimal fields/types/defaults, value creators and trace-reference behavior before tracing or when disabled.
+2. Minimal application fields/types/defaults and value creators. Stored trace references are deferred under D26; no tracing bootstrap is needed to construct M4.1 context.
 3. Safe child derivation and parent/sibling isolation, including a deliberate policy for any nested mutable data; no agent runtime lifetime decision.
 4. Field-extension rules and meaningful acceptance cases; the implementation plan follows the reviewed design.
 
@@ -148,7 +149,7 @@ M4.R can refine SDK-binding details without forcing a second context system. The
 | --- | --- |
 | ExecutionContext.observability | Accepted nested typed dataclass; both definitions in one shared file. Exact path/constructor options remain. |
 | workflow_id / workflow_run_id | Required invocation identity, creation point/type and immutable-in-effect access. |
-| trace/span correlation | SDK-generated/inherited active identity; P04 recommends on-demand getters rather than stored context fields. Define any concrete post-scope consumer separately. No competing current-scope state. |
+| trace/span correlation | D26 accepts SDK-managed identity with no stored context fields initially. Define any concrete post-scope consumer separately. No competing current-scope state. |
 | agent_type / agent_run_id / step identity | Optional scoped dimensions; retain isolation and eventual repeated-invocation support without implementing real agents now. |
 | Safe extension attributes | Only if an immediate use needs them; typing, nested mutability and reserved-field protection. |
 | SDK access/lifetime | Outside serializable state; context does not need to wrap SDK methods. Exact client/reference access is not selected. |
