@@ -1,7 +1,21 @@
 # Progress and acceptance
 
-Updated 2026-11-13. This file records implemented behavior; architecture.md describes
-the target system.
+Updated 2026-11-13. This file owns current project status; [architecture.md](architecture.md)
+describes the target system. Stage summaries own milestone detail and findings retain dated evidence.
+
+## Current status after the PR #40 merge
+
+| Stage | Implementation | Verification | Sharon's acceptance | Merge state |
+|---|---|---|---|---|
+| Stage 00 — development environment | Complete | Recorded in the [Stage 00 findings](stages/00-environment/findings.md) | Accepted | Merged through PR #26 |
+| Stage 01 — CrewAI Flows | Three workflows, CLI/configuration, independent experiments, runtime structure refactor and workflow-contract refactor complete | Revision-specific checks in [Stage 01 findings](stages/01-crewai-flows/findings.md), [runtime refactor evidence](refactors/2026-11-12-runtime-structure/verification.md) and [workflow-contract evidence](refactors/workflow-contract/README.md) | Sharon confirmed Stage 01 completion after PR #38 and PR #40 merged | PR #30, #32, #34, #38 and #40 merged; workflow contract merge `a98e1041c0edb51a447472b6ebd78ab2a650150b` |
+| Stage 02 — Langfuse | In progress | — | — | — |
+
+Stage 01 details and retained learning material are in the [stage summary](stages/01-crewai-flows/README.md). The [roadmap](roadmap.md) owns intended sequencing; later stages remain high-level.
+
+## Historical snapshots and revision-specific evidence
+
+The records below preserve the status, decisions and verification known at their dated checkpoints. Statements about open PRs, pending acceptance and next actions within these snapshots are historical, not the current project status above.
 
 | Work | Verified state |
 |---|---|
@@ -35,7 +49,7 @@ contain historical approval wording, and its acceptance list retains a CrewAI im
 item despite excluding CrewAI. Those protected stage files are unchanged in this
 visual-documentation PR; their exact correction requires separate review.
 
-## Next actions
+## Earlier Stage 01 planning and acceptance
 
 Sharon accepted Stage 00 and approved the pre-Stage 01 folder refactor.
 `project-structure.md` records the guarded layout. The refactor separates runtime
@@ -57,7 +71,7 @@ Next: discuss Stage 02 (Langfuse observability), agree on the first visible run/
 experiment, and approve its design before implementation. No Stage 02 integration has been built.
 
 
-## Atlas/governance update — PR #35
+## Historical Atlas/governance update — PR #35
 
 Sharon approved the logical changes to charter, principles, architecture and project structure, the new guarded design contract, preservation of every existing guard, mandatory placement/reading flow, official-doc maintenance and permanent Current/Explorations Atlas on 2026-11-13. This approval authorizes the documentation work; PR #35 remains a draft for merge review. Detailed reviewer/event-adapter/harness designs remain explorations.
 
@@ -67,7 +81,7 @@ PR #35 reconciles these facts with the approved guarded governance and permanent
 
 Stage 02 Langfuse design/research may proceed; implementation requires its approved stage design. Role/event/adapter/harness details remain optional explorations. PR #35 is unmerged pending Sharon's review.
 
-## Workflow contract refactor design — 2026-11-13
+## Historical workflow contract refactor design — 2026-11-13
 
 Main was read at `a4264ac985005b6e9c104bf8a8c4c1f1492abfb1`, the merge of PR #35; the older unmerged wording above is retained as historical review context. The runtime still has the PR #34 direct-flow factory/runner.
 
@@ -75,7 +89,7 @@ Sharon requested the [workflow contract design package](refactors/workflow-contr
 
 This update contains documentation and generated Atlas navigation only. Application code, tests, dependencies, configuration and releases are unchanged. No runtime verification result is claimed for the proposed refactor. Implementation remains explicitly stopped pending Sharon's go-ahead. Context/Langfuse follows separately; child workflows and recovery are future feature requests.
 
-## Workflow-contract review follow-up — 2026-11-13
+## Historical workflow-contract review follow-up — 2026-11-13
 
 PR #40 (feat/workflow-contract) implements the approved PR #38 contract and enumerated guarded changes. It was reviewed at b3d279b6826284cd9a0e1aba6f559525e8358f31. The reviewer independently reran the standard check: Pyright and Ruff lint/format passed; pytest reported 166 passed. Fourteen temporary additional probes passed but are not committed regression tests. Existing real workflow tests remain; planned coverage is incomplete. The reviewer did not rebuild the release independently; PR #40 contains the implementer's release evidence.
 
@@ -83,7 +97,7 @@ The review reproduced eager unused-flow import failure, constructor WorkflowInpu
 
 [review-follow-up.md](refactors/workflow-contract/review-follow-up.md) is the current task specification and evidence matrix. This commit changes documentation and Atlas only. PR #40 must incorporate the updated design branch and implement/verify the follow-up before the next review. Both PRs remain unmerged. Context/Langfuse, children, recovery and optional-package installation profiles remain separate. Earlier initial-stop statements above are retained as dated history, not current authorization status.
 
-## Workflow contract implementation PR (2026-11-13)
+## Historical workflow contract implementation PR (2026-11-13)
 
 
 Sharon approved the PR #38 design and the enumerated guarded-file changes. `feat/workflow-contract` starts at design head `cf62b80` while PR #38 remains open. This branch adds the final-method ABC, per-instance lifecycle/failure records, stable class registry, selected YAML configuration, strict YAML key handling, typed native results, and CLI adaptation. CrewAI retains decorated step orchestration. Children (#39), recovery, and context/Langfuse remain separate.
@@ -102,7 +116,7 @@ The Linux verification does not certify Sharon's Mac/PyCharm setup. The release 
 
 For a manual review from `app/`, run `./.venv/bin/agent-playbook dev-run`, then WF-02 with `--workflow wf-02 --input '{"initial":10,"increment":-2,"multiplier":3}'` and with `--input '{"initial":3,"increment":2,"multiplier":4}'`. Try WF-03 with scores 59 and 60. Add the documented `wf-02-custom` entry to a temporary YAML file and select it with `--config PATH --workflow wf-02-custom`. Try score 101 (exit 2) and an injected step exception through `tests/cli/test_workflow_commands.py` (exit 1); there is no public failure flag.
 
-## Workflow contract follow-up implementation — PR #40 (2026-11-13)
+## Historical workflow contract follow-up implementation — PR #40 (2026-11-13)
 
 The PR #38 design head `5d6a770` was merged into the implementation branch without resetting its earlier work. The follow-up implementation at `9f75544c47c1b2356a547f54a634c00262edbdc0` defers concrete CrewAI flow imports until the selected wrapper prepares. Selection and actual construction have separate error boundaries; constructor defects exit 1 while explicit invalid settings remain exit 2. Diagnostics identify the configured alias, phase, field and safe validation type. The CLI suppresses CrewAI's raw step-error log while presenting its classified error. CrewAI still owns decorated step execution and routing. No existing regression tests were removed; application tests and gates exclude `app/examples/`.
 
@@ -117,7 +131,7 @@ Final verification at application commit `9f75544c47c1b2356a547f54a634c00262edbd
 
 The offline audit is Python socket/DNS auditing, not an OS network sandbox. Linux checks do not establish Mac/PyCharm behavior. The release is local and untracked. Older installed releases were not tested with the new YAML. Optional dependency packaging, context/Langfuse, children and recovery remain outside this PR. Both PRs remain unmerged.
 
-## Workflow-contract second review and test-quality handoff — 2026-11-13
+## Historical workflow-contract second review and test-quality handoff — 2026-11-13
 
 PR #40 at f61683c8e2a089b2dc4f008d193dd83618322adf incorporates design head 5d6a770 and implements I-1–I-4. The second independent review passed Pyright, Ruff lint/format, 314 tests and Atlas checks. A wheel rebuilt from the hash-checked application snapshot at 9f75544 matched the implementation agent's SHA-256 and passed isolated installed built-in/alias/failure verification. This reviewer check did not rerun the original Git clean-check/archive release entrypoint; PR #40 records that separate implementer evidence. No Mac/PyCharm or old-release/new-YAML compatibility claim is made; socket/DNS auditing covers Python attempts, not all OS networking.
 
@@ -127,7 +141,7 @@ Sharon requested another detailed Markdown handoff. [review-test-quality.md](ref
 
 Documentation verification: Atlas build and freshness/reference checks passed; 64 relative document links were checked against the repository inventory, with the existing historical-sandbox link left untraversed. Changed files passed a trailing-whitespace check. This is documentation evidence only.
 
-## Workflow-contract test-quality corrections — PR #40 (2026-11-13)
+## Workflow-contract test-quality corrections — PR #40 (2026-11-13; historical verification)
 
 The latest PR #38 design head `9edca5f` was merged into `feat/workflow-contract` as `50d5001`, resolving overlapping progress/status prose while preserving the existing implementation and A1–F6 evidence. Sharon authorized Q1–Q4 and the guarded documentation updates. The governing ABC/YAML contract stays in `designs/refactors/workflow-contract/`; maintained regression tests stay beside their application owners. Relevant exploration topics were already consulted in the design follow-up; no exploration changes this test-quality pass. CrewAI still owns flow steps and routing.
 

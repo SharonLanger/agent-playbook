@@ -2,13 +2,13 @@
 
 Open **[index.html](index.html)** from a local checkout in your browser. No server or installation is needed. GitHub displays HTML source; download/checkout the folder first. Markdown guide links open separately in your editor or repository viewer.
 
-- **Current** starts at repository ownership and zooms into current application responsibilities. It uses main `a4264ac` (PR #35 merged, PR #34 runtime preserved) for runtime paths. Approved future integration boundaries are explicitly labeled. The workflow-contract package is approved design; PR #40 is implemented and under review, with I-1–I-4 and Q1–Q4 corrections, a 315-test gate and isolated release verified at application commit `4775cbe`. Its unmerged runtime is not presented as the merged baseline.
+- **Current** starts at repository ownership and zooms into merged application responsibilities. The runtime structure PR #34, workflow design PR #38 and workflow implementation PR #40 are merged; Sharon accepted Stage 01 after those merges. I-1–I-4 and Q1–Q4 verification remains attached to application revision `4775cbe`, where the 315-test gate and isolated release passed. Stage 02 is in progress. Approved future integration boundaries are explicitly labeled.
 - **Explorations** preserves candidate roles, executions, shared events, adapters, tools and deferred harness ideas. These may never be adopted. They are not approved architecture or a request to create all candidate files.
 - **Reviewer run** switches to Explorations and walks through one candidate invocation.
-- **Full file structure** searches and expands the selected view's inventory. Current excludes personal and historical sandbox contents; candidate paths are based on the older PR #34 snapshot `30c8d96` and are historical possibilities.
+- **Full file structure** searches and expands the selected view's inventory. Current excludes personal and historical sandbox contents; candidate paths in Explorations are historical possibilities.
 - **Detailed guide** links the canonical contract and full agent/event research notes. Diagrams support pause/play and zoom; motion is illustrative, not live execution.
 
-PR #34 is accepted and merged at `96cb1f8`. Current paths and sandbox exclusions reflect that implementation. Temporary review task/helper removal is approved; standard application checks remain.
+Current paths and sandbox exclusions reflect the merged runtime. The Atlas status labels distinguish implemented responsibilities, approved future boundaries and exploratory proposals; file inventory labels identify completed stage records and historical review evidence.
 
 ## Authority and maintenance
 

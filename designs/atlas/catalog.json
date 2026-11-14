@@ -1,5 +1,5 @@
 {
-  "snapshot": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
+  "snapshot": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -60,7 +60,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
           "diagram": null
         },
         "design": {
@@ -95,15 +95,15 @@
               "to": null
             },
             {
-              "name": "Workflow contract and review evidence",
+              "name": "Completed workflow contract and review evidence",
               "path": "designs/refactors/workflow-contract/README.md",
-              "text": "Approved ABC/YAML contract; PR #40 in review with lazy imports, corrected error boundaries, A1–F6 coverage and Q1–Q4 test sensitivity evidence.",
+              "text": "Merged ABC/YAML lifecycle, class registry and selected validation; A1–F6 and Q1–Q4 evidence retains its tested revisions.",
               "to": null
             }
           ],
           "status": "approved-design",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
           "diagram": null
         },
         "app": {
@@ -152,7 +152,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
           "diagram": null
         },
         "src": {
@@ -201,7 +201,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
           "diagram": null
         },
         "application": {
@@ -220,13 +220,19 @@
             {
               "name": "Workflow factory",
               "path": "app/src/agent_playbook/application/workflow_factory.py",
-              "text": "Validate workflow choice and construct a fresh flow.",
+              "text": "Validate the selected YAML entry and construct a fresh workflow wrapper.",
+              "to": null
+            },
+            {
+              "name": "Implementation registry",
+              "path": "app/src/agent_playbook/application/workflow_registry.py",
+              "text": "Map stable implementation keys to concrete workflow classes; defer unused flow imports.",
               "to": null
             },
             {
               "name": "Workflow runner",
               "path": "app/src/agent_playbook/application/workflow_runner.py",
-              "text": "Coordinate validation, kickoff and result/error normalization.",
+              "text": "Call final ABC lifecycle methods and normalize typed results or classified failures.",
               "to": null
             },
             {
@@ -238,7 +244,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
           "diagram": null
         },
         "workflows": {
@@ -246,12 +252,18 @@
           "parent": "src",
           "label": "Current / implemented",
           "title": "Workflows",
-          "text": "Stage 01 uses deterministic CrewAI flows; no real reviewer agent is implemented here.",
+          "text": "Completed Stage 01 CrewAI flows implement a shared ABC lifecycle with per-instance status and classified failures.",
           "blocks": [
             {
               "name": "Workflow packages",
               "path": "app/src/agent_playbook/workflows/",
               "text": "Per-workflow flow/state/step ownership; consult approved Stage 01 file structure.",
+              "to": null
+            },
+            {
+              "name": "ABC lifecycle and errors",
+              "path": "app/src/agent_playbook/workflows/contracts.py + lifecycle.py + errors.py",
+              "text": "Final public call order, workflow hooks, per-instance status and error phases. CrewAI retains step orchestration.",
               "to": null
             },
             {
@@ -263,7 +275,7 @@
           ],
           "status": "implemented",
           "source": "designs/stages/01-crewai-flows/architecture.md",
-          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
           "diagram": null
         },
         "config": {
@@ -288,7 +300,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
           "diagram": null
         },
         "release": {
@@ -313,7 +325,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
           "diagram": null
         },
         "tooling": {
@@ -338,7 +350,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
           "diagram": null
         },
         "tests": {
@@ -357,7 +369,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
           "diagram": null
         },
         "integrations": {
@@ -382,7 +394,7 @@
           ],
           "status": "approved-design",
           "source": "designs/architecture.md",
-          "note": "main a4264ac remains the merged runtime. Unmerged PR #40 passed the 315-test gate and isolated release with Q1–Q4 corrections at 4775cbe.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
           "diagram": null
         }
       },
@@ -390,982 +402,982 @@
         {
           "path": ".gitignore",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Bump Patch.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Check.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Dev Run.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Format Check.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Format.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Lint.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Release.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Run.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Setup.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Test WF-01.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Test WF-02.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Test WF-03.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Tests.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Types.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/Version.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/WF-01 Sequence.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/WF-02 State.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": ".run/WF-03 Route.run.xml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "AGENTS.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/.gitignore",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/.python-version",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/application.yaml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/docs/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/docs/cli.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/docs/configuration.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/docs/troubleshooting.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/docs/workflows.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/pyproject.toml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/__main__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/_build_info.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/application/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/application/assembly.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/application/results.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/application/workflow_factory.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/application/workflow_runner.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/cli/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/cli/__main__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/cli/commands.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/cli/development.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/cli/parser.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/config/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/config/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/config/crewai.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/config/errors.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/config/loader.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/config/models.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/config/paths.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/execution/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/execution/adapters/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/observability/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/observability/adapters/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/releases/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/releases/discovery.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/releases/launcher.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/workflows/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/workflows/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/flow.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/steps.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_02_shared_state/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_02_shared_state/flow.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_02_shared_state/state.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_02_shared_state/steps.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/flow.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/state.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/steps.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/application/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/application/test_offline_runtime.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/application/test_workflow_runner.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/cli/test_cli.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/cli/test_workflow_commands.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/config/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/config/test_configuration.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/conftest.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/execution/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/fixtures/offline.yaml",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/observability/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/releases/test_release_selection.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/releases/test_workflow_launch.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/tooling/test_cli_tasks.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/tooling/test_development.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/tooling/test_release_completion.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/tooling/test_release_dependencies.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/tooling/test_release_destination.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/tooling/test_release_preflight.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/tooling/test_toolchain.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/tooling/test_wheel_hash.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/conftest.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/wf_01_step_sequence/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/wf_01_step_sequence/test_flow.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/wf_01_step_sequence/test_steps.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/wf_02_shared_state/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/wf_02_shared_state/test_flow.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/wf_02_shared_state/test_state.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/wf_02_shared_state/test_steps.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/wf_03_conditional_route/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/wf_03_conditional_route/test_flow.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/wf_03_conditional_route/test_state.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/wf_03_conditional_route/test_steps.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tooling/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tooling/__init__.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tooling/bootstrap.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tooling/checks.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tooling/release.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tooling/toolchain.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tooling/verify_runtime.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tooling/verify_wheel.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tooling/version.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/uv.lock",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/architecture.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/charter.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/diagrams/01-system.animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/diagrams/01-system.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/diagrams/02-execution.animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/diagrams/02-execution.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/diagrams/03-observability.animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/diagrams/03-observability.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/diagrams/AUTHORING.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/diagrams/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/diagrams/build_viewer.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/diagrams/index.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/diagrams/render.py",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/learning/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/learning/architecture-walkthrough.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/principles.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/progress.md",
-          "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "status": "Current stage status",
+          "purpose": "Stage 00 accepted, Stage 01 completed and accepted, Stage 02 in progress."
         },
         {
           "path": "designs/project-structure.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/refactors/2026-11-12-runtime-structure/README.md",
-          "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "status": "Completed Stage 01 refactor",
+          "purpose": "Accepted merged runtime split; proposal and verification remain historical."
         },
         {
           "path": "designs/refactors/2026-11-12-runtime-structure/proposal.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/refactors/2026-11-12-runtime-structure/verification.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/roadmap.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/00-environment/architecture.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/00-environment/findings.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/00-environment/learning/00-1-python-environment.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/00-environment/learning/00-2-application-cli.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/00-environment/learning/00-3-pyright.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/00-environment/learning/00-4-pytest.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/00-environment/learning/00-5-ruff.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/00-environment/learning/00-6-unified-checks.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/00-environment/learning/00-7-wheel-release.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/00-environment/plan.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/README.md",
-          "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "status": "Completed and accepted Stage 01",
+          "purpose": "Stage summary with implementation/refactor links and retained learning material."
         },
         {
           "path": "designs/stages/01-crewai-flows/architecture.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/configuration-findings.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/coordination.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/00-architecture-animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/00-architecture.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/00-architecture.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/01-sequence-animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/01-sequence.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/01-sequence.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/02-state-animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/02-state.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/02-state.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/03-route-pass-animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/03-route-pass.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/03-route-pass.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/04-route-needs-work-animated.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/04-route-needs-work.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/04-route-needs-work.svg",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/README.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/THIRD-PARTY-NOTICES.txt",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/index.html",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/file-structure.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/findings.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/00-reading-the-code.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/01-flow-basics.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/02-sequence-and-values.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/03-typed-state.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/04-routing.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/05-failures-and-tests.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/06-running-and-releasing.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/learning/08-independent-sandboxes.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/plan.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/sources.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/test-plan.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/workflows/wf-01-step-sequence.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/workflows/wf-02-shared-state.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/workflows/wf-03-conditional-route.md",
           "status": "Current snapshot",
-          "purpose": "Tracked at main 96cb1f8; see canonical documents for ownership."
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/refactors/workflow-contract/README.md",
-          "status": "Approved design — implementation PR #40 in review",
-          "purpose": "Workflow contract and current review-follow-up acceptance."
+          "status": "Completed Stage 01 refactor",
+          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
         },
         {
           "path": "designs/refactors/workflow-contract/design.md",
-          "status": "Approved design — implementation PR #40 in review",
-          "purpose": "Workflow contract and current review-follow-up acceptance."
+          "status": "Completed Stage 01 refactor",
+          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
         },
         {
           "path": "designs/refactors/workflow-contract/file-structure.md",
-          "status": "Approved design — implementation PR #40 in review",
-          "purpose": "Workflow contract and current review-follow-up acceptance."
+          "status": "Completed Stage 01 refactor",
+          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
         },
         {
           "path": "designs/refactors/workflow-contract/test-plan.md",
-          "status": "Approved design — implementation PR #40 in review",
-          "purpose": "Workflow contract and current review-follow-up acceptance."
+          "status": "Completed Stage 01 refactor",
+          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
         },
         {
           "path": "designs/refactors/workflow-contract/implementation-plan.md",
-          "status": "Approved design — implementation PR #40 in review",
-          "purpose": "Workflow contract and current review-follow-up acceptance."
+          "status": "Completed Stage 01 refactor",
+          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
         },
         {
           "path": "designs/refactors/workflow-contract/review-follow-up.md",
-          "status": "Approved follow-up — verified on unmerged PR #40 at 4775cbe",
-          "purpose": "Reproduced review issues, lazy-import scope, test-gap matrix and next-agent instructions."
+          "status": "Historical review and verification evidence",
+          "purpose": "Revision-specific findings and checks for the merged workflow-contract refactor."
         },
         {
           "path": "designs/refactors/workflow-contract/review-test-quality.md",
-          "status": "Second review corrections — implemented on unmerged PR #40",
-          "purpose": "Q1–Q4 corrected assertions, negative controls and verification evidence."
+          "status": "Historical review and verification evidence",
+          "purpose": "Revision-specific findings and checks for the merged workflow-contract refactor."
         }
       ]
     },
