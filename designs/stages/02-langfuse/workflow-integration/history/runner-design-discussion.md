@@ -2,7 +2,7 @@
 
 **MERGE LAST — ONGOING DOCUMENTATION WORKSPACE.** Keep PR #47 open and draft while its implementation work is in progress. Merge it only after all implementation work covered by this workspace has been implemented and its implementation PRs merged, the documentation reflects the final results, and Sharon explicitly authorizes merging this documentation PR. Approval or merge instructions for an implementation PR do not authorize merging #47.
 
-Status: **M4.2 DRAFT PREPARATION authorized; M4.1 final review completed in iteration 33, accepted and merged via PR #44; documentation integration completed. No M4.2 approved contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 36.
+Status: **M4.2 DRAFT PREPARATION authorized; M4.1 final review completed in iteration 33, accepted and merged via PR #44; documentation integration completed. No M4.2 approved contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 37.
 
 This file supplements the [complete discussion through iteration 29](context-discussion.md), [shared requirements](../requirements.md) and [decisions](../decisions.md). It records new instructions, proposals, open decisions and possible follow-ups while another Codex implements M4.1. It is not a competing application specification. Read this entire record on each new M4.2 discussion iteration and preserve earlier decisions when updating it.
 
@@ -105,3 +105,22 @@ Sharon clarified that the documentation PR is an ongoing workspace and was not i
 **MERGE LAST — ONGOING DOCUMENTATION WORKSPACE.** Keep PR #47 open and draft while its implementation work is in progress. Merge it only after all implementation work covered by this workspace has been implemented and its implementation PRs merged, the documentation reflects the final results, and Sharon explicitly authorizes merging this documentation PR. Approval or merge instructions for an implementation PR do not authorize merging #47.
 
 Continue updating this PR throughout design, implementation and review. Keep implementation PRs separate. This rule changes merge sequencing only; it does not approve M4.2 design choices or implementation.
+
+## Iteration 37 — simplify M4.2 around native SDK behavior
+
+Sharon explicitly prioritizes low code/no code: use Langfuse's existing free SDK capabilities and do not recreate behavior it already implements. This is the governing direction for revising the unapproved M4.2 drafts. The existing context and correlation_id remain the starting point, followed by a native current observation and native metadata propagation. No broker, custom tracing lifecycle or additional logging is requested.
+
+CrewAI scope: Sharon explicitly says not to add anything to CrewAI, while also considering whether its integration could move earlier. No milestone consolidation is selected. Keep CrewAI instrumentation out of this implementation proposal unless he subsequently chooses to combine it.
+
+The earlier detailed policies RUN-D01–05 are still unapproved proposals. In particular, custom client caching/configuration-change handling, payload/error projection machinery and application-level metadata-limit handling must not become implementation requirements merely because the draft describes them. Reassess against a real current need; retain existing application behavior and credential protections without inventing a generic framework. The three draft documents require simplification before approval or handoff.
+
+Recommendation for discussion: use a native SDK context manager around the existing workflow lifecycle after context creation, and propagate correlation_id, workflow_id and workflow_run_id using propagate_attributes. Native decorators are an alternative; choose the least intrusive placement in the existing runner. SDK behavior supplies observation IDs, nesting, timing and lifecycle. Do not manually reproduce those mechanisms.
+
+Delivery recommendation, not a new approved policy: leave batching to the SDK and call flush once at the short-lived CLI's exit boundary, including failure paths after observation closure. Do not flush at every workflow junction. This is ordinary delivery wiring, not a custom queue, retry policy, client pool or shutdown framework. Advanced delivery/performance decisions are deferred; tests should verify the chosen minimal wiring and preserve existing workflow behavior.
+
+Official documentation checked this iteration:
+- https://langfuse.com/docs/observability/get-started — native observation context managers and flush for short-lived applications.
+- https://langfuse.com/docs/observability/features/metadata — native propagated metadata.
+- https://langfuse.com/docs/observability/features/metadata notes the SDK's metadata size limits; these are SDK behavior, not authorization to build a new application-level policy.
+
+No application code, M4.1 contract, CrewAI instrumentation or implementation authorization changes in this iteration. PR #47 remains draft and must merge last. Next step: revise the detailed M4.2 package to the minimal scope, with its tests and review process retained and any truly necessary unresolved choices explicit.
