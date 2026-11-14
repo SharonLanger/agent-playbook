@@ -1,6 +1,6 @@
 # Decisions and open questions
 
-Updated: 2026-11-14, iteration 21. These are **accepted discussion decisions**, not a complete approved/locked implementation design. [Requirements](requirements.md) is the specification; [full history](history/context-discussion.md) preserves reasoning and superseded proposals. Read [the entry point](README.md) before using this record.
+Updated: 2026-11-14, iteration 22. The decision register contains **accepted discussion decisions**, not a complete approved/locked implementation design. P02 below is a new proposal, not accepted. [Requirements](requirements.md) is the specification; [full history](history/context-discussion.md) preserves reasoning and superseded proposals. Read [the entry point](README.md) before using this record.
 
 ## Decision register
 
@@ -29,6 +29,23 @@ Updated: 2026-11-14, iteration 21. These are **accepted discussion decisions**, 
 | D21 | Each implementation milestone gets its own design MD and focused PR | Accepted; later implementation follows explicit design approval |
 | D22 | Create the shared-records draft PR now; discuss context details before writing 01-context-design.md | Accepted explicitly in iteration 21; no merge or application implementation authorized |
 | D23 | Permanent home is designs/stages/02-langfuse/workflow-integration; README holds entry/maintenance rules; requirements is the spec; repository-updates lists later reconciliation | Accepted explicitly in iteration 21; prior saved copies retained as historical snapshots |
+
+## P02 — concrete context proposal for discussion, iteration 22
+
+Sharon asks to start the context discussion with a simple explanation of the file, classes and propagation. He has not yet approved the following detailed choices. D18/D19 remain accepted; no new D-number is assigned merely for presenting P02.
+
+- Proposed definition file: `app/src/agent_playbook/context/models.py`, with a minimal package `__init__.py`. Both classes are in models.py; no implementation/interface hierarchy. This is a new shared responsibility to record in the guarded structure before implementation, not an already existing path.
+- Proposed representation: `@dataclass(frozen=True, kw_only=True)` for both classes. ExecutionContext has the one required `observability: ObservabilityContext` field. ObservabilityContext has required `workflow_id: str`, `workflow_run_id: str`, and optional `trace_id: str | None = None`, `agent_type: str | None = None`, `agent_run_id: str | None = None`. No mutable metadata bag, extra context classes or SDK clients in this initial data schema. Agent labels are strings here; this does not select the separate agent-role registry/enum contract.
+- Proposed identity source: configured workflow ID; a fresh UUID string per workflow invocation; a fresh agent invocation ID when that future invocation is made. Actual generation helper, validation and agent API remain detailed items. Helpers inside an invocation reuse its identity.
+- Proposed M4.1 creation point: after configuration and workflow selection, immediately before factory construction. The runner supplies one context through `construct_workflow` and the existing constructors, including `create_workflow` callers where needed. Workflow retains it and explicitly passes it to its own CrewAI Flow subclass constructor. The Flow holds it outside NumberState/other serialized business state; reading `self.context` does not itself export telemetry. Precise signatures and policy for failures before selection remain open.
+- M4.1 uses trace_id=None. In M4.2, the proposed runner boundary starts/joins the real SDK root scope before constructing the workflow-bound context, so it receives the actual trace ID from the outset. No mutation of an already-shared context is necessary. Tracing-disabled contexts retain None; offline delivery failure is not the same as disabled tracing and is still a runner policy question.
+- Derivation uses nested `dataclasses.replace`: create a changed ObservabilityContext, then a changed ExecutionContext containing it. The workflow retains the original; helpers can share the child. With the proposed immutable scalar fields there is no nested mutable container to leak. Frozen fields alone would not freeze a future dictionary. No client/resource deep copy or automatic SDK span activation occurs.
+- Keep D08 span identity. Do not store a root span ID under a misleading fixed `current_span_id` field; CrewAI changes active operations without replacing the workflow context. Read the active SDK span at reporting time when needed. Exact future correlation accessor and cross-process transfer remain out of scope for this initial explanation.
+- Existing settings/configuration stay on their current path; do not duplicate credentials or complete settings in the context. Imports in the proposed context module are standard-library/data-only. No broker, local logging, exporter or agent runtime is implemented by M4.1.
+
+Focused acceptance direction: separate workflow invocation IDs, exact context forwarding into real wrappers/Flows, isolated A/B/A derived scopes and helper access, unchanged workflow outputs/errors, and operation without a tracing backend. Test integration contracts rather than Python's generated dataclass constructor. The formal test plan follows alignment.
+
+This proposal refines Q01/Q04–Q07/Q12/Q18, but does not mark them resolved. No contradiction with the accepted context route or no-broker direction was found; exact placement still requires the known guarded reconciliation.
 
 ## Open questions and resolved questions retained
 

@@ -1,6 +1,6 @@
 # Agent Playbook — execution context and native Langfuse integration
 
-Version: 0.19 · 2026-11-14 · Sharon
+Version: 0.20 · 2026-11-14 · Sharon
 Status: **Current requirements/specification. Basic context structure agreed; draft documentation PR authorized by D22. Detailed context design is not yet written/approved. No implementation, broker or dependency change.**
 
 ## 1. Current goal and authority
@@ -123,6 +123,8 @@ Exit: actual CrewAI Flow/step hierarchy is inspectable below the runner with cor
 Supported native SDK context managers, decorators, explicit observation lifecycle and integrations can be combined. No owned method-per-type wrapper is required. Automatic instrumentation owns only the calls it actually covers; use native SDK reporting for meaningful missing application observations without duplicating existing instrumentation.
 
 ## 6. Minimal context design — next discussion
+
+Iteration 22 presents P02 in [decisions.md](decisions.md#p02--concrete-context-proposal-for-discussion-iteration-22): an exact candidate source path, small field list, frozen keyword-only data objects, construction/propagation and trace-binding explanation. These are proposed details for Sharon's review, not newly accepted requirements or a written detailed design. The accepted structure below remains unchanged.
 
 Names, composition, ordinary dataclasses, one shared definition file and the D19 propagation route are accepted. No context ABC is needed. The current application does not yet implement this route. Before writing M4.1's detailed design, discuss and align on:
 

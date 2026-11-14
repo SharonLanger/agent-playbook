@@ -1,6 +1,18 @@
 # Context discussion history and ongoing record
 
-Current iteration: **21, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+Current iteration: **22, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+
+## Iteration 22 — explain the concrete context proposal
+
+Sharon asks whether context design can start and requests a simple explanation of its exact source location and how it will work. Clarify that PR #43 was created, but neither the detailed context design nor application context code exists yet. This request starts concrete preliminary discussion; it does not accept unseen fields/signatures or authorize application implementation.
+
+Revisited the discussion, current requirements/decisions and unchanged repository authorities. PR #43 remained draft/unmerged at f41bd791e1d350d3e2d1520dc8bbec91cf294ec1; main remained d12b5fc2867d3646b6fab2eb71f1447ff177d8c1. Read the current maintained runner, factory, Workflow ABC and WF-02 wrapper/Flow. The existing route already constructs a fresh workflow with settings/config; no context is currently injected. Keep the ABC lifecycle and lazy Flow import, and pass context explicitly outside recoverable NumberState.
+
+P02 in decisions.md records the concrete proposal: both dataclasses in context/models.py, frozen keyword-only fields, workflow/run identity and optional actual trace/agent identity; create before factory construction, forward through wrapper/Flow constructors, derive child contexts with nested replace and retain the parent. Proposed M4.2 ordering obtains the actual trace ID from a root scope before creating the workflow-bound context. None of these details is silently marked accepted. No generic mutable attributes bag, context ABC, broker, client copies or agent lifecycle is introduced.
+
+Pushback preserved: retaining span identity does not require a stale fixed current-span field on a long-lived workflow context. CrewAI instrumentation changes the SDK's active span as it enters methods. Obtain that current operation identity from the SDK when reporting; context copying is independent of scope activation. No automatic logging/export follows merely from passing a dataclass.
+
+Python 3.13 dataclasses documentation checked for constructor generation, frozen/keyword-only behavior and replacement semantics: https://docs.python.org/3.13/library/dataclasses.html . No new CrewAI probe or application tests are claimed. This iteration updates preliminary discussion records and the affected Atlas projection only; 01-context-design.md and guarded baselines remain unchanged/absent as applicable. Exact path/schema/options/timing are the next review choices; the existing pending baseline-reconciliation checklist still applies.
 
 ## Iteration 21 — permanent draft workspace authorized
 
