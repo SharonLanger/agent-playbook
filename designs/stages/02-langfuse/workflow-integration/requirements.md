@@ -1,6 +1,6 @@
 # Agent Playbook — execution context and native Langfuse integration
 
-Version: 0.23 · 2026-11-14 · Sharon
+Version: 0.24 · 2026-11-14 · Sharon
 Status: **Current requirements/specification. Basic context structure agreed; draft documentation PR authorized by D22. Detailed context design is not yet written/approved. No implementation, broker or dependency change.**
 
 ## 1. Current goal and authority
@@ -129,6 +129,8 @@ Supported native SDK context managers, decorators, explicit observation lifecycl
 Iteration 22 presents P02 in [decisions.md](decisions.md#p02--concrete-context-proposal-for-discussion-iteration-22): an exact candidate source path, small field list, frozen keyword-only data objects, construction/propagation and trace-binding explanation. These are proposed details for Sharon's review, not newly accepted requirements or a written detailed design. The accepted structure below remains unchanged.
 
 Iteration 25 accepts P04's initial omission as D26: use native active scopes and automatic SDK identity/parentage, with no stored trace/span IDs or live SDK objects in the application context initially. Selected application fields will use native propagate_attributes during tracing integration. A stored reference can be added later if needed; D24 identity stability remains. The exact remaining schema/options are not silently approved by this simplification.
+
+Iteration 26 adds P05/Q25 as an open schema discussion, not a requirement to add another ID: Sharon proposes constructor-created, unchanging application correlation_id for later association with logs/traces/other records. Clarify whether workflow_run_id already supplies its intended scope or whether it must span multiple workflow invocations. Derived contexts must preserve whichever shared correlation value is selected. D25/D26 remain unchanged; do not equate application metadata with SDK trace identity or automatic trace parentage.
 
 Names, composition, ordinary dataclasses, one shared definition file and the D19 propagation route are accepted. No context ABC is needed. The current application does not yet implement this route. Before writing M4.1's detailed design, discuss and align on:
 

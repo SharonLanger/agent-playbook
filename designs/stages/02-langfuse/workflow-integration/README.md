@@ -1,6 +1,6 @@
 # Workflow context and native Langfuse integration — start here
 
-Updated: 2026-11-14, discussion iteration 25.
+Updated: 2026-11-14, discussion iteration 26.
 Status: **draft documentation workspace; preliminary structure agreed; detailed context design not yet written or approved; no application implementation in this PR.**
 
 This is the permanent working home for Stage 02 workflow-integration planning, under the existing M4. PR #36's local setup/mock M1–M3 remain accepted and merged. The repository baseline inspected for this opening commit is `d12b5fc2867d3646b6fab2eb71f1447ff177d8c1`; research retains its original `44d6919` baseline. Earlier saved session files are dated snapshots, not a second active specification. Use this PR branch until it merges; do not assume these files are already on main.
@@ -50,6 +50,8 @@ The compact preliminary candidate, refined from P02, is `app/src/agent_playbook/
 Current decision, iteration 25: D26 accepts leaving stored trace/span IDs and live SDK handles out of the initial application context. D25/P04 replaces P03 preallocation with the SDK's ordinary active-scope pattern. Use native propagate_attributes for selected application fields when tracing is added; use SDK-produced identity when a concrete consumer needs it. Workflow/run/agent data, derived-scope rules and D24 identity stability remain unchanged. No tracing machinery is added by M4.1.
 
 The application runner invokes the Workflow ABC lifecycle; the concrete workflow wrapper's execution hook calls its Flow's kickoff(), which runs the decorated methods. Both wrapper and Flow retain the supplied application context outside serialized business state. A later runner tracing scope can begin before kickoff; kickoff is not necessarily the first observed operation. Its precise boundary belongs to M4.2.
+
+New discussion, iteration 26: Sharon proposes an application correlation_id created when the initial ExecutionContext is constructed and retained unchanged. P05/Q25 asks whether this simply names workflow_run_id's existing role or groups several workflow invocations. No extra field or rename is selected yet. Derived contexts must preserve an existing correlation value; this proposal does not restore manual SDK trace-ID management.
 
 ## Handoff and closeout
 

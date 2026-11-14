@@ -1,6 +1,16 @@
 # Context discussion history and ongoing record
 
-Current iteration: **25, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+Current iteration: **26, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+
+## Iteration 26 — proposed immutable application correlation ID
+
+Sharon proposes an application correlation_id generated when ExecutionContext is constructed, never changing, and usable later to associate other records or systems. Record this as P05/Q25 pending scope clarification; it does not undo D25/D26's SDK-managed tracing or authorize a new schema/implementation. The requested stability is clear, but one-invocation versus broader grouping is not yet specified.
+
+Read the full discussion record and checked the existing identity/isolation decisions. PR #43 remains draft/open/unmerged at ab743341049665b7106a86ea7e244ba124e8a391 before this update. Explained the possible duplication before editing: workflow_run_id already supplies stable application-owned correlation for one workflow invocation, even without tracing. A separate correlation_id earns a different purpose if it spans several workflow invocations, each retaining its own workflow_run_id. Do not silently remove or rename the accepted workflow ID fields.
+
+Creation clarification: generate only for a new independent correlation group; a derived context must keep the existing value despite being a new Python object. Automatic constructor generation must not overwrite that inherited value. If adopted, application records and selected Langfuse metadata can carry the same value while SDK trace IDs remain independently managed. Metadata association alone does not merge traces or establish parentage. Exact scope, field placement/type and constructor policy remain open; no agent-lifecycle or child-workflow implementation is selected.
+
+This update adds an explicit question and proposal to the shared records and Atlas; accepted decisions remain unchanged. No detailed context design, guarded-baseline change, application implementation, research rerun or new live acceptance claim. Public product docs/progress and research evidence remain accurate for the unchanged runtime.
 
 ## Iteration 25 — accept application-only context fields and return to the overview
 

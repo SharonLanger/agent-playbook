@@ -1,6 +1,6 @@
 # Decisions and open questions
 
-Updated: 2026-11-14, iteration 25. The decision register contains **accepted discussion decisions**, not a complete approved/locked implementation design. P02–P04 below retain proposal history. D26 accepts P04's initial omission of stored tracing fields; P03 preallocation is superseded for the ordinary path. [Requirements](requirements.md) is the specification; [full history](history/context-discussion.md) preserves reasoning and superseded proposals. Read [the entry point](README.md) before using this record.
+Updated: 2026-11-14, iteration 26. The decision register contains **accepted discussion decisions**, not a complete approved/locked implementation design. P02–P05 below retain proposal history. D26 accepts P04's initial omission of stored tracing fields; P03 preallocation is superseded for the ordinary path. P05's application correlation-ID scope is under discussion, not an approved schema addition. [Requirements](requirements.md) is the specification; [full history](history/context-discussion.md) preserves reasoning and superseded proposals. Read [the entry point](README.md) before using this record.
 
 ## Decision register
 
@@ -84,6 +84,16 @@ This automatic path covers ordinary nested calls and the tested CrewAI async cas
 
 Sources: [Langfuse instrumentation](https://langfuse.com/docs/observability/sdk/instrumentation), [basic CrewAI integration](https://langfuse.com/integrations/frameworks/crewai), [trace-ID access](https://langfuse.com/docs/observability/features/trace-ids-and-distributed-tracing), and the [Python API](https://python.reference.langfuse.com/langfuse). Checked against the installed 5.2.0 getter implementations and the saved probe's actual default-scope code. Existing probe evidence is reused; no new application/UI acceptance or probe rerun is claimed.
 
+## P05 — application correlation ID, iteration 26
+
+Sharon proposes a correlation_id created when ExecutionContext is initially constructed, never changed, and usable later to associate logs, tracing and other application records. Preserve that requested stability and provider independence while clarifying the scope before adding a field. This does not ask the application to generate or manage Langfuse trace IDs; D25/D26 remain in force.
+
+Two meanings are possible. For one workflow invocation and its agents/helpers, workflow_run_id already provides a stable application-owned correlation value. A second independently generated value with exactly that lifetime would duplicate its role. If correlation_id instead groups a larger operation containing several workflow invocations, it has a distinct role: each invocation keeps its own workflow_run_id while inheriting the common correlation_id. One such group might later cover one or several SDK traces; metadata association alone does not join traces or create SDK parentage. Do not implement child workflows or a correlation registry to discuss this distinction.
+
+If a distinct broader ID is selected, a constructor default can generate it for the initial context, while every derived context preserves the existing value. Re-running generation unconditionally for each new Python context object would break the requested correlation; immutable objects alone do not ensure that inheritance. Ordinary dataclass replacement preserves regular fields not explicitly replaced. The exact type, default mechanism, constructor validation and outer-versus-observability placement remain design details. No custom UUID/trace engine, broker or mutable linkage map is proposed.
+
+Recommendation pending Q25: reuse workflow_run_id if the desired scope is one invocation; add a separate correlation_id only for an agreed broader grouping. Do not silently rename workflow_run_id or insert a second field into the current candidate before resolving its meaning.
+
 ## Open questions and resolved questions retained
 
 Resolve a question only from explicit agreement or verified evidence, or defer it with its scope/milestone. Do not reopen dataclasses/no-ABC, accepted propagation or no-broker choices without new evidence. The next discussion concerns Q01/Q04–Q07/Q12/Q18; client/export policies follow in runner/CrewAI design. Agent lifetime (Q17) belongs to the separate agent-adapter work.
@@ -114,6 +124,7 @@ Resolve a question only from explicit agreement or verified evidence, or defer i
 | Q22 | Which released CrewAI/Langfuse/instrumentor combination covers all existing Flow, start, listen and router paths? | M4.R research delivered, iteration 18. Recommend OpenInference CrewAI instrumentor 1.1.25 with existing CrewAI 1.15.40/Langfuse 5.2.0; eight isolated real-SDK cases passed with 44 exported spans. Actual application integration, disabled/startup behavior and local UI ingestion remain acceptance work. No dependency change approved solely by research. |
 | Q23 | Which repository baseline statements need a tracing-specific exception/revision after D11? | Reconcile principles item 5, architecture observability/provider rules and project-structure dependency rules, plus affected stage/Atlas notes before implementation. No blanket change to agent provider isolation; pending reconciliation is listed in repository-updates.md. |
 | Q24 | Where do current session documents live, and when is the PR opened? | Resolved by D22/D23: permanent Stage 02 draft PR now; detailed context design remains unwritten until preliminary alignment. Prior saved copies become dated snapshots. |
+| Q25 | Does the proposed immutable application correlation_id identify one workflow invocation or a larger operation spanning several workflow invocations? | Open, iteration 26. P05 records constructor creation and preservation in descendants. One-invocation correlation already has workflow_run_id; a broader shared ID needs explicit semantics before schema adoption. No trace-ID management or rename selected. |
 
 ## Drift and reconciliation markers
 
