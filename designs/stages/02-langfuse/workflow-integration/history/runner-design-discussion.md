@@ -1,12 +1,12 @@
 # M4.2 runner tracing — preliminary discussion
 
-Status: **M4.2 DRAFT PREPARATION authorized in iteration 32; no approved detailed contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 32.
+Status: **M4.2 DRAFT PREPARATION authorized; M4.1 final review completed in iteration 33, with documentation integration pending. No M4.2 approved contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 33.
 
 This file supplements the [complete discussion through iteration 29](context-discussion.md), [shared requirements](../requirements.md) and [decisions](../decisions.md). It records new instructions, proposals, open decisions and possible follow-ups while another Codex implements M4.1. It is not a competing application specification. Read this entire record on each new M4.2 discussion iteration and preserve earlier decisions when updating it.
 
 ## Baseline and active-work boundary
 
-- M4.1's delegated design/test/implementation package is pinned to `11bba581291c1b166973848ea8db6a9e2a142413` in PR #43. In iteration 32 Sharon reports that Codex finished; its handoff/results have not yet been received or reviewed here. Completion reported by the user is distinct from verified implementation or acceptance.
+- M4.1's delegated design/test/implementation package is pinned to `11bba581291c1b166973848ea8db6a9e2a142413` in PR #43. Iteration 33 received and reviewed Codex's PR #44 handoff. Candidate 16c1580 passes this session's final runtime/design review and an independent 43-test rerun; current published head 9392b39 adds only reports. Documentation integration is pending; implementation, review, user acceptance and merge remain distinct.
 - Shared records including D30/R31 were last published at `9aaf31e4b0e6345ed7162da765f37dbe94167f4b`. That is this discussion branch's starting point.
 - New instruction, iteration 30: do not edit the implementing agent's parts. Save proposed changes separately for an explicit follow-up handoff. This session will not edit his code, tests, three M4.1 milestone documents, approval records or round reports.
 - Separate branch `docs/m4-2-runner-discussion` owns this record and the three new M4.2 draft files authorized in iteration 32. Do not advance PR #43, its branch, the implementation branch or shared navigation/progress/Atlas during this parallel work. Reconcile discovery/status in the eventual M4.2 documentation PR after alignment. This isolation follows Sharon's explicit instruction and does not change guarded architecture meaning.
@@ -54,7 +54,7 @@ Only the boundary proposal is being presented for agreement first. Do not turn t
 
 ## Potential M4.1 follow-ups
 
-None identified at this point. Required correlation data and forwarding are already part of the pinned M4.1 contract; the Langfuse metadata projection belongs to M4.2.
+No runtime/context-contract follow-up was identified in the iteration-33 final review. Documentation integration does need the duplicate D30 decision identifier and reported target conflicts reconciled; see [the separate final review](context-final-review.md). Required correlation data and forwarding already exist; Langfuse metadata projection belongs to M4.2.
 
 If a necessary M4.1 change is discovered, create a separate `context-followups.md` beside this file. Each entry must state the affected approved contract/file, concrete problem, smallest proposed change, why M4.2 cannot handle it locally, test impact, whether it changes a decision, and its pending/approved/handed-off status. Do not apply the change to active M4.1 work. No placeholder follow-up file is needed while there are no entries.
 
@@ -77,3 +77,11 @@ Sharon reports that the M4.1 Codex finished and wants to supply its result for r
 Started /root/m42_runner_design, authorized to create only the three new M4.2 draft documents in this package. It must follow repository authorities, inspect actual SDK behavior, propose minimal solutions, identify unresolved decisions, and include separate tests plus coder/two-reviewer/max-three-round implementation instructions. It cannot modify M4.1, shared records, guarded documents, application source, PRs or branch refs; root owns publishing. Any needed context change is reported separately rather than applied.
 
 Root will inspect the actual M4.1 PR/diff and permanent reports once Sharon supplies the handoff and requests that review. Its findings feed the M4.2 draft before approval. Delegation is not proof that the new design is finished, and M4.1's reported completion is not proof of passed acceptance. Keep both tasks separate and preserve the no-automatic-merge/no-round-reset rules.
+
+## Iteration 33 — M4.1 final review
+
+Sharon supplied the full implementation handoff and requested review of the actual diff and linked evidence, plus the parallel design agent's status. Inspected PR #44 candidate 16c1580 against approved 11bba581 and published head 9392b39. [Final review](context-final-review.md): runtime/design PASS, independent targeted 43 tests PASS; full 380-test/release evidence inspected rather than repeated. Prior two-reviewer rounds remain 2/3; no merge or implementation edit authorized by this review.
+
+One new documentation integration finding: both branches use D30 for different decisions (correlation requirement versus M4.1 approval/status). Preserve both meanings and reconcile the identifier/references when combining streams. GitHub also reports the known target documentation merge conflicts. These do not require a context redesign; neither branch was modified. The separate review records the exact revisions, limitations and proposed integration correction.
+
+The M4.2 design agent has written design/test drafts and is preparing its implementation/review plan. Root's review does not approve its pending client/delivery, failure, payload or SDK-metadata-limit choices. Final drafting completion and document checks will be recorded when observed.
