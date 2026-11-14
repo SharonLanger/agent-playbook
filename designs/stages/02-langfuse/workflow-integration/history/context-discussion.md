@@ -1,6 +1,18 @@
 # Context discussion history and ongoing record
 
-Current iteration: **22, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+Current iteration: **23, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+
+## Iteration 23 — fixed identity and up-front trace-ID allocation
+
+The intervening short Python question clarified that frozen=True blocks ordinary direct field assignment for all fields; ordinary does not name a special category. replace creates a changed object and preserves the original. That explanation alone did not approve every P02 option.
+
+Sharon now challenges why trace_id should start as None, asks whether the SDK/backend or application generates it, and says trace_id/workflow_run_id/workflow_id should stay constant once created. He prefers creating the trace ID up front unless there is a substantive reason against it. D24 records the fixed-identity invariant. P03 recommends local SDK-assisted preallocation for a new top-level trace or inheritance when deliberately joining an existing one; the overall detailed schema remains under review.
+
+Corrected the earlier explanation before changing the records: None was an implementation-order proposal, not a Langfuse requirement. The Python SDK normally generates the ID locally on starting a new root, and also supports explicit prior creation with Langfuse.create_trace_id(), without constructing a client or contacting a server. With no seed it is random; with a seed the SDK uses a deterministic hash. Supply that same ID through trace_context when creating the runner observation. Do not use Python hash(), seed only from workflow_id, or allocate a new trace in every derived context constructor.
+
+Checked official trace-ID documentation and the released installed Langfuse 5.2.0 client source. A focused two-span in-memory SDK check passed: locally allocated valid ID retained by root and child, correct child-parent link, zero Python socket/DNS attempts, no live server. It did not rerun the CrewAI research or the application gate. Revised the research's over-restrictive optional-until-scope sentence while preserving its original evidence and limitations.
+
+P03 allows a required reserved trace ID before exporting exists, with final disabled-mode policy still to align. Reservation does not imply an active or stored trace. Existing/incoming trace identity and parentage must be preserved when continuing it; future nested workflows still use separate workflow_run_id values. SDK import/allocation belongs at the integration/runner boundary, not in the shared dataclass model. No app implementation, guarded edit, detailed design document or dependency change is introduced. The earlier None-first proposal remains marked historical/revised rather than silently presented as accepted.
 
 ## Iteration 22 — explain the concrete context proposal
 

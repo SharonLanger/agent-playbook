@@ -1,6 +1,6 @@
 # Workflow context and native Langfuse integration — start here
 
-Updated: 2026-11-14, discussion iteration 22.
+Updated: 2026-11-14, discussion iteration 23.
 Status: **draft documentation workspace; preliminary structure agreed; detailed context design not yet written or approved; no application implementation in this PR.**
 
 This is the permanent working home for Stage 02 workflow-integration planning, under the existing M4. PR #36's local setup/mock M1–M3 remain accepted and merged. The repository baseline inspected for this opening commit is `d12b5fc2867d3646b6fab2eb71f1447ff177d8c1`; research retains its original `44d6919` baseline. Earlier saved session files are dated snapshots, not a second active specification. Use this PR branch until it merges; do not assume these files are already on main.
@@ -46,6 +46,8 @@ Agreed: two ordinary typed dataclasses, `ExecutionContext` containing `Observabi
 Still to align before writing the detailed design: exact file path; minimal fields/types/defaults; dataclass options; constructor/Flow propagation details and creation timing; shallow replacement/nested-mutability policy; trace-reference behavior before tracing and when disabled; focused tests. SDK span activation is separate from copying context data. Agent runtime lifetime stays outside this decision.
 
 Iteration 22 now presents a concrete preliminary proposal, P02 in decisions.md: `app/src/agent_playbook/context/models.py`, two frozen keyword-only dataclasses, explicit workflow/run identity plus optional trace/agent fields, and constructor propagation through the existing code. This is review material, not a new accepted decision. PR #43 contains the planning records; `01-context-design.md` still does not exist. Sharon requested a simple explanation before the detailed document.
+
+Iteration 23 revises P02's trace-binding recommendation through P03: the runner can allocate a valid trace ID locally before creating the context and later supply the same ID to Langfuse. Existing traces should be inherited when intentionally continued. None was a proposed milestone choice, not an SDK requirement. D24 records that invocation IDs remain fixed once assigned; final field optionality/disabled-mode policy still needs alignment.
 
 ## Handoff and closeout
 
