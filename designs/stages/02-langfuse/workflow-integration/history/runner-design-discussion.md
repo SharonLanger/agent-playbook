@@ -1,6 +1,8 @@
 # M4.2 runner tracing — preliminary discussion
 
-Status: **M4.2 DRAFT PREPARATION authorized; M4.1 final review completed in iteration 33, accepted and merged via PR #44; documentation integration completed. No M4.2 approved contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 35.
+**MERGE LAST — ONGOING DOCUMENTATION WORKSPACE.** Keep PR #47 open and draft while its implementation work is in progress. Merge it only after all implementation work covered by this workspace has been implemented and its implementation PRs merged, the documentation reflects the final results, and Sharon explicitly authorizes merging this documentation PR. Approval or merge instructions for an implementation PR do not authorize merging #47.
+
+Status: **M4.2 DRAFT PREPARATION authorized; M4.1 final review completed in iteration 33, accepted and merged via PR #44; documentation integration completed. No M4.2 approved contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 36.
 
 This file supplements the [complete discussion through iteration 29](context-discussion.md), [shared requirements](../requirements.md) and [decisions](../decisions.md). It records new instructions, proposals, open decisions and possible follow-ups while another Codex implements M4.1. It is not a competing application specification. Read this entire record on each new M4.2 discussion iteration and preserve earlier decisions when updating it.
 
@@ -95,3 +97,11 @@ Sharon explicitly authorized resolving the documentation conflicts, pushing/merg
 PR #43 merged as c8f129ee8c978067bf576b0ab563bfab74c9d6fe; PR #44 merged as 942e59344c429454263319e783ea76ad297b7ea6. Main closeout commit 6a7b16f6e1947bf911de916b5ec2c1b76be58251 records M4.1 accepted and merged. Both streams and all previous reports are preserved; D30 remains correlation, with a dated unnumbered approval entry. Atlas checks passed; application tree remains 0789b6bfd7ffe2248afbe9b3cd735cb908125571, identical to reviewed head 9392b39. No repeated application gate was needed for documentation-only integration.
 
 This branch now incorporates that main. Its three M4.2 files remain drafts for discussion and carry no implementation authorization. Next: agree the pending runner policies and then approve the exact design/test/plan revision.
+
+## Iteration 36 — documentation PR must merge last
+
+Sharon clarified that the documentation PR is an ongoing workspace and was not intended to close alongside the M4.1 implementation. The earlier iteration-35 wording describes the assistant's interpretation and actions; it does not establish a standing authorization to merge documentation with implementation. PR #43 is already merged; PR #47 is the continuing workspace.
+
+**MERGE LAST — ONGOING DOCUMENTATION WORKSPACE.** Keep PR #47 open and draft while its implementation work is in progress. Merge it only after all implementation work covered by this workspace has been implemented and its implementation PRs merged, the documentation reflects the final results, and Sharon explicitly authorizes merging this documentation PR. Approval or merge instructions for an implementation PR do not authorize merging #47.
+
+Continue updating this PR throughout design, implementation and review. Keep implementation PRs separate. This rule changes merge sequencing only; it does not approve M4.2 design choices or implementation.
