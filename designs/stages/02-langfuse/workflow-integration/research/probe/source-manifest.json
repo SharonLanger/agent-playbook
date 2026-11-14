@@ -1,0 +1,38 @@
+{
+  "repository": "SharonLanger/agent-playbook",
+  "ref": "44d69194f6add6f646795b14f7c3f43c656baeda",
+  "modules": [
+    {
+      "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/flow.py",
+      "sha256": "04556cf194891d00aff33eeebb4ff42424365b7ca8f6b6fd067e79e7c4a338f5"
+    },
+    {
+      "path": "app/src/agent_playbook/workflows/wf_01_step_sequence/steps.py",
+      "sha256": "14e3fb8b4ff3647b3048bff9243d9ffae814d907aed8fc35137e1773636b3a89"
+    },
+    {
+      "path": "app/src/agent_playbook/workflows/wf_02_shared_state/flow.py",
+      "sha256": "09283f9f3aeefb32ca62a9ac0f07f6e746c7438effd3ea8daccee2756c6e0357"
+    },
+    {
+      "path": "app/src/agent_playbook/workflows/wf_02_shared_state/state.py",
+      "sha256": "0d27430b4b23435359989c97fe4da8a6258e03df7c812509931d42c18474de7b"
+    },
+    {
+      "path": "app/src/agent_playbook/workflows/wf_02_shared_state/steps.py",
+      "sha256": "1d56327ca2d861f7b999a8161e93b6f3793e09970233da076351868e62cf5626"
+    },
+    {
+      "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/flow.py",
+      "sha256": "073a37b7398ccdc9c8d1a280e54f6facdafae0d4ed86040d257545221537eae9"
+    },
+    {
+      "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/state.py",
+      "sha256": "1d11a65ca679b107a2c53dea4413496aa9b9fd0131bb5d7ed93a0e5d28075c60"
+    },
+    {
+      "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/steps.py",
+      "sha256": "2058be385dbd1796fe38aa45ab43efd5ffd13a08ddc92ed104f6b49f58ab0c40"
+    }
+  ]
+}
