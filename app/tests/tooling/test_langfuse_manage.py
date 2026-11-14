@@ -193,8 +193,9 @@ def test_start_timeout_and_unhealthy_are_failures(
         assert manage.main(["--start", "--env-file", str(env_file)]) == 1
 
 
-def test_fresh_checkout_status_and_stop_without_settings() -> None:
+def test_fresh_checkout_status_and_stop_without_settings(tmp_path: Path) -> None:
     with (
+        patch.object(manage, "DEPLOY", tmp_path),
         patch.object(manage, "_docker_ready", return_value=True),
         patch.object(
             manage.subprocess,
