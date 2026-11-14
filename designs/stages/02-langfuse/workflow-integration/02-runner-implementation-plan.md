@@ -2,6 +2,8 @@
 
 Status: **DRAFT FOR SHARON'S REVIEW — no application implementation authorized by this file.** Version 1, 2026-11-14.
 
+**Current foundation, iteration 35:** M4.1 is accepted and merged in PR #44 at `942e59344c429454263319e783ea76ad297b7ea6`; PR #43 is merged. This branch incorporates main closeout `6a7b16f6e1947bf911de916b5ec2c1b76be58251`. The earlier pinned-source/handoff descriptions below retain drafting provenance; integration conflicts and duplicate D30 are resolved. M4.2 choices remain unapproved, and the current approved M4.1 contract is unchanged.
+
 [Design](02-runner-design.md) · [RUN test cases](02-runner-test-cases.md) · [Runner discussion](history/runner-design-discussion.md) · [Shared requirements](requirements.md) · [Repository reconciliation](repository-updates.md)
 
 ## 1. Entry and authority

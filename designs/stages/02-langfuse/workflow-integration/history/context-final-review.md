@@ -1,6 +1,6 @@
 # M4.1 — final design-session review
 
-Date: 2026-11-14. Reviewer: root design session. Status: **PASS for the M4.1 runtime/design contract; documentation integration remains required before merge.** This is an independent final review, not user acceptance or merge authorization.
+Date: 2026-11-14. Reviewer: root design session. Status: **PASS for the M4.1 runtime/design contract; documentation integration completed; PRs #43/#44 merged with Sharon’s authorization.** This is an independent final review, not user acceptance or merge authorization.
 
 ## Revisions and scope
 
@@ -67,3 +67,11 @@ This review is stored on the separate M4.2 discussion branch, outside the implem
 Applicable principles: approval/traceability and truthful status are preserved by the pinned contract and separate record; secrets/configuration/provider boundaries are unchanged; tests provide actual-runtime evidence; scope stays incremental and local; history and sandbox isolation are preserved. The observability exploration remains deferred rather than being used to introduce a broker or runtime abstraction.
 
 **Recommendation:** accept the reviewed M4.1 runtime implementation once Sharon is satisfied with this review; resolve and verify the documentation integration before a separately authorized merge. M4.2 drafting can continue against this context contract. No context redesign is needed by the findings above.
+
+## Integration disposition — 2026-11-14, iteration 35
+
+Sharon accepted M4.1 and authorized documentation reconciliation and merging PRs #43/#44. FINAL-DOC-01 is resolved by retaining correlation D30 and using a dated unnumbered approval heading. Both conflicting documentation streams are preserved and Atlas regenerated. Runtime/tests are unchanged; merge result is pending at this pre-merge checkpoint. The earlier review remains revision-specific history.
+
+## Confirmed merge — 2026-11-14
+
+PR #43 merged as c8f129ee8c978067bf576b0ab563bfab74c9d6fe; PR #44 merged as 942e59344c429454263319e783ea76ad297b7ea6. GitHub confirmed both. Application tree 0789b6bfd7ffe2248afbe9b3cd735cb908125571 is identical to reviewed head 9392b39. Documentation integration findings are closed. M4.1 is accepted and merged; M4.2 is design-only.

@@ -1,6 +1,6 @@
 # M4.1 — test cases
 
-Status: **DRAFT FOR REVIEW — required cases proposed; none claimed implemented or passed.** Version 1, 2026-11-14.
+Status: **APPROVED AND LOCKED at `11bba581`; implemented, verified, accepted and merged in PR #44 at `942e59344c429454263319e783ea76ad297b7ea6`.** The contract below is preserved; draft-era wording is historical. See [current status](reviews/context/status.md).
 
 [Design](01-context-design.md) · [Implementation/review procedure](01-context-implementation-plan.md) · [Shared requirements](requirements.md)
 

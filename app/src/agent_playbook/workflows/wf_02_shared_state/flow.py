@@ -1,12 +1,35 @@
 """WF-02: mutate one typed state owned by this execution."""
 
 from crewai.flow.flow import Flow, listen, start
+from pydantic import PrivateAttr
 
+from agent_playbook.context.models import ExecutionContext
 from agent_playbook.workflows.wf_02_shared_state import steps
 from agent_playbook.workflows.wf_02_shared_state.state import NumberState
 
 
 class SharedStateFlow(Flow[NumberState]):
+    _app_context: ExecutionContext = PrivateAttr()
+
+    def __init__(
+        self,
+        *,
+        context: ExecutionContext,
+        initial_state: NumberState | None = None,
+        tracing: bool | None = None,
+        suppress_flow_events: bool = False,
+    ) -> None:
+        super().__init__(
+            initial_state=initial_state,
+            tracing=tracing,
+            suppress_flow_events=suppress_flow_events,
+        )
+        self._app_context = context
+
+    @property
+    def context(self) -> ExecutionContext:
+        return self._app_context
+
     @start()
     def initialize(self) -> None:
         print("[WF-02] initialize started")

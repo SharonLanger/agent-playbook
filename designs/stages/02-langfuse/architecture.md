@@ -131,3 +131,11 @@ application-log store is introduced by M1–M3.
 - [Manual observations and nesting](https://langfuse.com/docs/observability/sdk/instrumentation)
 - [SDK lifecycle and export options](https://langfuse.com/docs/observability/sdk/advanced-features)
 - [Public API](https://langfuse.com/docs/api-and-data-platform/features/public-api)
+
+## M4.1 context checkpoint — approved 2026-11-14
+
+The initial workflow context is data-only, with application correlation and workflow/run identity, created after selection and passed into each maintained CrewAI Flow. It carries no observability client, SDK handle or trace/span ID. Native runner tracing and automatic CrewAI instrumentation require later separately reviewed M4.2/M4.3 work. M1–M3 behavior and acceptance remain unchanged. The earlier unimplemented observability-handle placeholder is superseded for this initial context.
+
+## M4.1 acceptance and merge checkpoint — 2026-11-14
+
+M4.1 is implemented, verified, accepted by Sharon and merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Approved data-only context semantics and M1–M3 history remain unchanged. M4.2 native runner tracing is the next design; M4.3/logging remain later. See [context status](workflow-integration/reviews/context/status.md).

@@ -1,6 +1,6 @@
 # M4.2 runner tracing — preliminary discussion
 
-Status: **M4.2 DRAFT PREPARATION authorized; M4.1 final review completed in iteration 33, with documentation integration pending. No M4.2 approved contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 33.
+Status: **M4.2 DRAFT PREPARATION authorized; M4.1 final review completed in iteration 33, accepted and merged via PR #44; documentation integration completed. No M4.2 approved contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 35.
 
 This file supplements the [complete discussion through iteration 29](context-discussion.md), [shared requirements](../requirements.md) and [decisions](../decisions.md). It records new instructions, proposals, open decisions and possible follow-ups while another Codex implements M4.1. It is not a competing application specification. Read this entire record on each new M4.2 discussion iteration and preserve earlier decisions when updating it.
 
@@ -85,3 +85,13 @@ Sharon supplied the full implementation handoff and requested review of the actu
 One new documentation integration finding: both branches use D30 for different decisions (correlation requirement versus M4.1 approval/status). Preserve both meanings and reconcile the identifier/references when combining streams. GitHub also reports the known target documentation merge conflicts. These do not require a context redesign; neither branch was modified. The separate review records the exact revisions, limitations and proposed integration correction.
 
 The M4.2 design agent finished all three review drafts: [design](../02-runner-design.md), [test cases](../02-runner-test-cases.md) and [implementation/review plan](../02-runner-implementation-plan.md). It validated 27 relative links/anchors, stable RUN-01–20/RUN-D01–05/RUN-G01–08 identifiers, fences/whitespace and Atlas freshness. Root also checked the review/discussion links and Atlas. No application tests or SDK probe were run for drafting. The drafts cite the completed M4.1 final review; their five explicit policy choices remain proposals for Sharon, not an approved implementation contract. All new documents remain on the separate discussion branch; PRs #43 and #44 are untouched.
+
+## Iterations 34–35 — correlation clarification and authorized merges
+
+Clarified that correlation_id generation and context propagation already exist in M4.1; export to Langfuse belongs to M4.2, with automatic CrewAI coverage in M4.3. Duplicate D30 was document numbering, not a runtime identity conflict.
+
+Sharon explicitly authorized resolving the documentation conflicts, pushing/merging PRs #43/#44, recording acceptance and merge status, and refreshing this design branch from main. This supersedes the temporary no-edit/isolation restrictions above solely for authorized integration. No M4.2 policy is approved.
+
+PR #43 merged as c8f129ee8c978067bf576b0ab563bfab74c9d6fe; PR #44 merged as 942e59344c429454263319e783ea76ad297b7ea6. Main closeout commit 6a7b16f6e1947bf911de916b5ec2c1b76be58251 records M4.1 accepted and merged. Both streams and all previous reports are preserved; D30 remains correlation, with a dated unnumbered approval entry. Atlas checks passed; application tree remains 0789b6bfd7ffe2248afbe9b3cd735cb908125571, identical to reviewed head 9392b39. No repeated application gate was needed for documentation-only integration.
+
+This branch now incorporates that main. Its three M4.2 files remain drafts for discussion and carry no implementation authorization. Next: agree the pending runner policies and then approve the exact design/test/plan revision.

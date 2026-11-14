@@ -1,6 +1,6 @@
 # M4.1 — execution context design
 
-Status: **DRAFT FOR SHARON'S REVIEW — not approved, locked or implemented.** Version 1, 2026-11-14.
+Status: **APPROVED AND LOCKED at `11bba581`; implemented, verified, accepted and merged in PR #44 at `942e59344c429454263319e783ea76ad297b7ea6`.** The contract below is preserved; draft-era wording is historical. See [current status](reviews/context/status.md).
 
 [Start here](README.md) · [Test cases](01-context-test-cases.md) · [Implementation and review plan](01-context-implementation-plan.md) · [Shared requirements](requirements.md) · [Decisions](decisions.md)
 

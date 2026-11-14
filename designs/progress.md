@@ -9,11 +9,15 @@ describes the target system. Stage summaries own milestone detail and findings r
 |---|---|---|---|---|
 | Stage 00 — development environment | Complete | Recorded in the [Stage 00 findings](stages/00-environment/findings.md) | Accepted | Merged through PR #26 |
 | Stage 01 — CrewAI Flows | Completed and locked; three workflows, CLI/configuration, independent experiments, runtime structure refactor and workflow-contract refactor complete | Revision-specific checks in [Stage 01 findings](stages/01-crewai-flows/findings.md), [runtime refactor evidence](refactors/2026-11-12-runtime-structure/verification.md) and [workflow-contract evidence](refactors/workflow-contract/README.md) | Sharon confirmed Stage 01 completion after PR #38 and PR #40 merged | PR #30, #32, #34, #38 and #40 merged; workflow contract merge `a98e1041c0edb51a447472b6ebd78ab2a650150b` |
-| Stage 02 — Langfuse | M1–M3, management CLI and YAML-selected external credentials implemented on PR #36; M4 deferred | 363-test gate at `dafeaed`; Sharon confirmed local project access, synthetic traces, trace-ID inspection and stop/start persistence; delivery readback limitation retained | Local setup and mock-trace exercise accepted on 2026-11-14; whole stage remains in progress | PR #36 merged as `44d6919`; application version 0.1.3; final local-state test fix `0a5bf88` included |
+| Stage 02 — Langfuse | M1–M3, management CLI and YAML-selected external credentials implemented on PR #36; M4.1 implemented, final-reviewed and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6; M4.2 design active, M4.3 deferred | 363-test gate at `dafeaed`; Sharon confirmed local project access, synthetic traces, trace-ID inspection and stop/start persistence; delivery readback limitation retained | Local setup and mock-trace exercise accepted on 2026-11-14; whole stage remains in progress | PR #36 merged as `44d6919`; application version 0.1.3; final local-state test fix `0a5bf88` included |
 
 Stage 01 details and retained learning material are in the [stage summary](stages/01-crewai-flows/README.md). The [roadmap](roadmap.md) owns intended sequencing; later stages remain high-level.
 
-## M4.1 implementation handoff / M4.2 planning — 2026-11-14
+## M4.1 current closeout — 2026-11-14
+
+M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred. PR #43 merged as c8f129e. Reviewed candidate 16c1580 passed the reported 380-test quality gate/release and final reviewer's independent 43-test rerun. See [final review](stages/02-langfuse/workflow-integration/history/context-final-review.md). Documentation conflicts and duplicate D30 are reconciled without runtime/test changes; the merge was confirmed by GitHub at 942e59344c429454263319e783ea76ad297b7ea6.
+
+## Historical M4.1 handoff / M4.2 planning — 2026-11-14
 
 [Draft PR #43](https://github.com/SharonLanger/agent-playbook/pull/43) contains the
 [context design](stages/02-langfuse/workflow-integration/01-context-design.md),
@@ -340,3 +344,14 @@ baselines were consulted; no new context/event architecture is adopted.
 Only status/navigation and generated Atlas change. Application behavior and
 public guides are unchanged, so no application test rerun is required. Atlas
 build/freshness and changed-document link/scope checks accompany this update.
+
+## Historical M4.1 implementation branch — 2026-11-14
+
+Sharon's implementation instruction approved the M4.1 design, test cases and
+implementation plan at `11bba581291c1b166973848ea8db6a9e2a142413`, including
+G01–G08. The focused `feat/m4-1-context` branch implements data-only context
+identity and runner/factory/Workflow/CrewAI Flow forwarding. The branch is under
+its capped independent review; candidate and check evidence belong in
+[permanent review status](stages/02-langfuse/workflow-integration/reviews/context/status.md).
+This is unmerged implementation evidence, not Stage 02 acceptance. M4.2 tracing,
+M4.3 instrumentation and local logging remain later work.

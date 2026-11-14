@@ -12,6 +12,7 @@ from agent_playbook.config.errors import ConfigurationError
 from agent_playbook.workflows.contracts import Workflow
 from agent_playbook.workflows.errors import WorkflowInputError
 from agent_playbook.workflows.lifecycle import WorkflowStatus
+from tests.context_support import TEST_CONTEXT
 
 FIXTURE = Path(__file__).parents[1] / "fixtures/offline.yaml"
 
@@ -21,7 +22,9 @@ def test_every_registered_class_is_concrete_and_constructible() -> None:
     registry = workflow_registry()
     assert set(registry) == {"step_sequence", "shared_state", "conditional_route"}
     for implementation in registry.values():
-        workflow = implementation(settings=application.integrations.crewai, config={})
+        workflow = implementation(
+            settings=application.integrations.crewai, config={}, context=TEST_CONTEXT
+        )
         assert isinstance(workflow, Workflow)
         assert workflow.status is WorkflowStatus.CREATED
 
@@ -35,10 +38,18 @@ def test_aliases_create_fresh_instances(tmp_path: Path) -> None:
     application = assemble_runtime(str(selected))
     registry = workflow_registry()
     first = create_workflow(
-        "wf-02", application, application.integrations.crewai, registry
+        "wf-02",
+        application,
+        application.integrations.crewai,
+        registry,
+        context=TEST_CONTEXT,
     )
     second = create_workflow(
-        "second", application, application.integrations.crewai, registry
+        "second",
+        application,
+        application.integrations.crewai,
+        registry,
+        context=TEST_CONTEXT,
     )
     assert first is not second and type(first) is type(second)
     assert first.status is second.status is WorkflowStatus.CREATED
@@ -75,5 +86,6 @@ def test_selected_entry_fails_before_steps(
                 application,
                 application.integrations.crewai,
                 workflow_registry(),
+                context=TEST_CONTEXT,
             )
         kickoff.assert_not_called()
