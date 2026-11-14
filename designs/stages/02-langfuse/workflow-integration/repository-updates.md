@@ -1,6 +1,6 @@
 # Repository reconciliation checklist
 
-Status: **M4.1 closeout: M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred.** [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
+Status: **M4.1 closeout: M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.** [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
 
 ## Historical planning-PR checklist
 
@@ -71,4 +71,4 @@ Iteration 29 records D30/R31 metadata correlation and starts M4.2 preliminary de
 
 ## Iteration 35 integration
 
-Sharon authorized conflict resolution and merge. PR #43 is merged as c8f129e. Both documentation streams are retained; D30 is correlation and the implementation approval entry is a dated unnumbered heading. Runtime/tests stay identical to reviewed candidate 16c1580. G01–G08 and all round reports remain. Generated Atlas is rebuilt from reconciled sources; final main/merge evidence follows confirmation. M4.2 drafts remain separate and unapproved.
+Sharon authorized conflict resolution and merge. PR #43 is merged as c8f129e. Both documentation streams are retained; D30 is correlation and the implementation approval entry is a dated unnumbered heading. Runtime/tests stay identical to reviewed candidate 16c1580. G01–G08 and all round reports remain. Generated Atlas is rebuilt from reconciled sources; PR #44 merged at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 drafts remain separate and unapproved.

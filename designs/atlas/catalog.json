@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 01 accepted and locked. Stage 02 M1–M3 accepted/merged; M4.1 implemented, verified and accepted, merge pending. M4.2 design active; M4.3/logging deferred.",
+  "snapshot": "Stage 01 accepted and locked. Stage 02 M1–M3 accepted/merged; M4.1 implemented, verified and accepted, merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 design active; M4.3/logging deferred.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -1982,7 +1982,7 @@
               "text": "Local UI, connection check and editable mock runs first; real workflows last.",
               "to": "langfuse_setup",
               "label": "M1–M3 accepted / M4.1 accepted",
-              "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred."
+              "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred."
             }
           ],
           "note": "EXPLORATION ONLY — optional candidate, not an approved target. Traces are evidence. They are not the workflow state store or a durable recovery mechanism.",
@@ -2318,7 +2318,7 @@
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred.",
+          "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.",
           "diagram": null
         },
         "workflow_observability": {
@@ -2326,7 +2326,7 @@
           "parent": "langfuse_setup",
           "label": "M4.1 accepted / M4.2 design",
           "title": "Context, runner, then automatic CrewAI tracing",
-          "text": "M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred.",
+          "text": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.",
           "blocks": [
             {
               "name": "Context design",
@@ -4214,17 +4214,17 @@
         },
         {
           "path": "designs/stages/02-langfuse/workflow-integration/01-context-design.md",
-          "status": "Approved M4.1 contract; implemented, verified and accepted; merge pending",
+          "status": "Approved M4.1 contract; implemented, verified and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6",
           "purpose": "Draft typed context contract and full runner/Flow propagation."
         },
         {
           "path": "designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md",
-          "status": "Approved M4.1 contract; implemented, verified and accepted; merge pending",
+          "status": "Approved M4.1 contract; implemented, verified and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6",
           "purpose": "Draft CTX-01–17 acceptance and meaningful assertion mapping."
         },
         {
           "path": "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md",
-          "status": "Approved M4.1 contract; implemented, verified and accepted; merge pending",
+          "status": "Approved M4.1 contract; implemented, verified and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6",
           "purpose": "Draft Codex handoff: coder, two reviewers, max three rounds and permanent reports."
         }
       ]

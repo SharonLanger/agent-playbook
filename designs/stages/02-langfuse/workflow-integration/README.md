@@ -1,7 +1,7 @@
 # Workflow context and native Langfuse integration — start here
 
 Updated: 2026-11-14, iteration 35.
-Status: **M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred.**
+Status: **M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.**
 
 This is the permanent Stage 02 M4 workspace. PR #43 merged as `c8f129ee8c978067bf576b0ab563bfab74c9d6fe`. PR #44 carries the accepted M4.1 implementation. M1–M3 remain accepted; all Stage 02 is not complete.
 
@@ -18,7 +18,7 @@ This is the permanent Stage 02 M4 workspace. PR #43 merged as `c8f129ee8c978067b
 | Milestone | Goal | Status |
 |---|---|---|
 | M4.R | Verify released CrewAI/Langfuse feasibility | Delivered research: eight cases/44 spans, with documented limits |
-| M4.1 | Typed context, real runner/factory/Workflow/Flow propagation and isolated derivation | Approved at 11bba581; implementation candidate 16c1580; two review rounds; accepted, merge authorized |
+| M4.1 | Typed context, real runner/factory/Workflow/Flow propagation and isolated derivation | Approved at 11bba581; implementation candidate 16c1580; two review rounds; accepted, merged via PR #44 |
 | M4.2 | Native workflow observation and exact correlation metadata | Draft design/test/plan on the separate runner discussion branch; policies await agreement |
 | M4.3 | Automatic CrewAI Flow/start/listen/router observations | Follows runner integration; separate design/acceptance |
 | Later | Local logging, usage, scores/evaluations as needed | Deferred; no agent runtime or logger selected here |

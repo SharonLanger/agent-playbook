@@ -1,6 +1,6 @@
 # M4.1 — test cases
 
-Status: **APPROVED AND LOCKED for M4.1 by Sharon in the implementation instruction referencing revision `11bba581291c1b166973848ea8db6a9e2a142413`; execution evidence is in `reviews/context/`.** Version 1, 2026-11-14.
+Status: **APPROVED AND LOCKED at `11bba581`; implemented, verified, accepted and merged in PR #44 at `942e59344c429454263319e783ea76ad297b7ea6`.** The contract below is preserved; draft-era wording is historical. See [current status](reviews/context/status.md).
 
 [Design](01-context-design.md) · [Implementation/review procedure](01-context-implementation-plan.md) · [Shared requirements](requirements.md)
 

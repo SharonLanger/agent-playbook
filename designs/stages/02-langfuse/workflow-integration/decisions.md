@@ -1,6 +1,6 @@
 # Decisions and open questions
 
-Updated: 2026-11-14, iteration 35. M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred. D30 remains the correlation requirement; the separate dated M4.1 approval entry has no conflicting decision number.
+Updated: 2026-11-14, iteration 35. M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred. D30 remains the correlation requirement; the separate dated M4.1 approval entry has no conflicting decision number.
 
 ## Decision register
 

@@ -4,7 +4,7 @@ Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on Mac 
 Milestone 1's fixed checkpoint remains available; see
 [findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
 Milestone 2 adds a project connection check, and milestone 3 adds the explicit
-mock playground. M4.1 is implemented, final-reviewed and accepted; merge pending. M4.2 design is active; M4.3 remains deferred.
+mock playground. M4.1 is implemented, final-reviewed and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 design is active; M4.3 remains deferred.
 
 ## Start here
 

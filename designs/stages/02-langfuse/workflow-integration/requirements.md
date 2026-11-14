@@ -1,7 +1,7 @@
 # Agent Playbook — execution context and native Langfuse integration
 
 Version: 0.27 · 2026-11-14 · Sharon
-Status: **M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred.**
+Status: **M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.**
 
 ## 1. Current goal and authority
 
@@ -58,7 +58,7 @@ These are the integration milestones under Stage 02's previously deferred M4. Ex
 | Milestone | Starting point | Goal / evidence | Status |
 | --- | --- | --- | --- |
 | M4.R — CrewAI/Langfuse research | Merged PR #36 pins and maintained Flow definitions; automatic coverage not established. | Released compatible integration and reproducible coverage evidence before application tracing work. | Delivered: eight isolated cases/44 spans; application/local-UI acceptance not yet established. |
-| M4.1 — context | Existing runner/factory/Workflow ABC, no general context; D18/D19 structure agreed. | Typed context, constructor propagation and parent/child isolation; focused tests without backend export. | [Design](01-context-design.md), [test cases](01-context-test-cases.md) and [implementation plan](01-context-implementation-plan.md) approved at 11bba58; candidate 16c1580 passed both reviews and final review, accepted by Sharon; merge pending. |
+| M4.1 — context | Existing runner/factory/Workflow ABC, no general context; D18/D19 structure agreed. | Typed context, constructor propagation and parent/child isolation; focused tests without backend export. | [Design](01-context-design.md), [test cases](01-context-test-cases.md) and [implementation plan](01-context-implementation-plan.md) approved at 11bba58; candidate 16c1580 passed both reviews and final review, accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. |
 | M4.2 — runner | Accepted/tested context plus existing configured local Langfuse client setup. | Native root scope, workflow/run correlation, real trace identity, lifecycle/disabled behavior and local root acceptance. | Small integration foundation; no custom step-tracing layer. |
 | M4.3 — CrewAI | Runner scope plus M4.R's tested instrumentor recommendation. | Enable automatic Flow/start/listen/router observations for WF-01/02/03; verify actual application and local UI. | Immediate next integration priority; no manual instrumentation on each step by default. |
 | Later — logs and advanced features | Working correlated tracing. | Local application logs in a separate PR; scores/evaluations incrementally. | Deferred; local/no-service/Apache and replacement requirements retained. |
