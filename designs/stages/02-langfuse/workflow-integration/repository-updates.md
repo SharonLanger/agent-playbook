@@ -1,6 +1,6 @@
 # Repository reconciliation checklist
 
-Status: **review checklist, not permission to edit guarded meaning**. Updated 2026-11-14, iteration 28. PR #43 includes the detailed M4.1 review package; no application implementation. [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
+Status: **review checklist, not permission to edit guarded meaning**. Updated 2026-11-14, iteration 29. PR #43 includes the detailed M4.1 review package; no application implementation. [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
 
 ## This documentation PR
 
@@ -10,7 +10,7 @@ Status: **review checklist, not permission to edit guarded meaning**. Updated 20
 - [x] Record D27 correlation, D28 permission to draft, D29 bounded implementation review, and R30 application correlation.
 - [x] Draft [context design](01-context-design.md), [test cases](01-context-test-cases.md) and [Codex implementation/review plan](01-context-implementation-plan.md).
 - [x] Reconcile shared records, progress and Atlas with draft-review status; preserve implemented M1–M3 status.
-- [ ] Sharon reviews and approves the package and G01–G08 amendments. The presence of these documents does not authorize implementation.
+- [x] Sharon reports sending the explicit M4.1/G01–G08 authorization pinned to 11bba58 to Codex. The implementing agent records the reference/applies those amendments; final evidence and review remain pending.
 
 No product-guide update is needed yet: supported runtime behavior, CLI/configuration and dependencies do not change. No application test or probe rerun is claimed. app/examples/ remains excluded. The package gives the next Codex future commands and evidence requirements.
 
@@ -55,3 +55,5 @@ Iteration 27 checks passed: Atlas build/freshness and its reference/guard/sandbo
 Iteration 28 added the exact final-review return template and preserved the three-round cap. Atlas freshness, 140 relative links, record/CTX/G IDs, historical discussion/probe preservation, unchanged guarded baselines and current-edit whitespace checks passed. Runtime design/test cases and application code remain unchanged.
 
 Preservation detail: the opening PR copied eight unchanged Flow fixture modules with blank-at-EOF warnings. Keep their bytes/hashes unchanged. Check current edits normally; for the full preserved snapshot only, disabling that warning category is acceptable and must not conceal other whitespace errors.
+
+Iteration 29 records D30/R31 metadata correlation and starts M4.2 preliminary design without editing the three pinned M4.1 milestone documents. The focused SDK-only metadata check is recorded in research/history with its limits; it is not an application or live-server acceptance result. Documentation checks passed: Atlas build/freshness, 140 relative links, R01–R31/D01–D30/Q01–Q25 retention, prior discussion and 13-file probe preservation, unchanged guarded baselines/current-edit whitespace. The three pinned M4.1 files were also compared byte-for-byte to the published handoff and remain unchanged.

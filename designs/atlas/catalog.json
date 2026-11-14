@@ -2316,15 +2316,15 @@
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "PR #36 merged as 44d6919; local setup/mock acceptance and readback limitation retained. M4.1 detailed design/test/review drafts await Sharon; implementation remains deferred.",
+          "note": "PR #36 setup/mock acceptance retained. M4.1 handoff sent to Codex; results/final review pending. M4.2 preliminary design adds required shared correlation metadata.",
           "diagram": null
         },
         "workflow_observability": {
           "name": "Workflow observability draft",
           "parent": "langfuse_setup",
-          "label": "M4.1 design review / research",
+          "label": "M4.1 handoff / M4.2 planning",
           "title": "Context, runner, then automatic CrewAI tracing",
-          "text": "Context design, separate test cases and Codex implementation/review plan are drafted for Sharon. Stable application correlation; native tracing later without a broker.",
+          "text": "M4.1 authorization at 11bba58 sent to Codex; implementation/final review pending. M4.2 preliminary design requires shared correlation_id on every workflow observation.",
           "blocks": [
             {
               "name": "Context design",
@@ -2363,7 +2363,7 @@
               "to": null
             }
           ],
-          "note": "DRAFT FOR REVIEW, not approved or implemented. Two independent reviewers and permanent reports; maximum three implementation rounds. CrewAI research does not prove actual application/UI acceptance.",
+          "note": "Planning and research view, not verified implementation. Preserve the pinned M4.1 contract and three-round review cap. Native correlation propagation is SDK-tested; actual application/local-UI acceptance remains pending.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/stages/02-langfuse/workflow-integration/README.md"
@@ -4212,17 +4212,17 @@
         },
         {
           "path": "designs/stages/02-langfuse/workflow-integration/01-context-design.md",
-          "status": "Draft for Sharon's review; no implementation approval",
+          "status": "M4.1 handoff at 11bba58 authorized and delegated; implementation evidence pending",
           "purpose": "Draft typed context contract and full runner/Flow propagation."
         },
         {
           "path": "designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md",
-          "status": "Draft for Sharon's review; no implementation approval",
+          "status": "M4.1 handoff at 11bba58 authorized and delegated; implementation evidence pending",
           "purpose": "Draft CTX-01–17 acceptance and meaningful assertion mapping."
         },
         {
           "path": "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md",
-          "status": "Draft for Sharon's review; no implementation approval",
+          "status": "M4.1 handoff at 11bba58 authorized and delegated; implementation evidence pending",
           "purpose": "Draft Codex handoff: coder, two reviewers, max three rounds and permanent reports."
         }
       ]

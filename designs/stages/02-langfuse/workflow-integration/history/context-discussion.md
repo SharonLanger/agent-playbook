@@ -1,6 +1,18 @@
 # Context discussion history and ongoing record
 
-Current iteration: **28, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+Current iteration: **29, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+
+## Iteration 29 — parallel runner design and correlation on every observation
+
+Sharon reports giving the exact M4.1 handoff to Codex, asks to start the next design, and requires correlation_id on every workflow-associated Langfuse entry/event so future local logs can join through an ID available from initial context creation. The forwarded instruction explicitly authorizes M4.1 and G01–G08 at 11bba581291c1b166973848ea8db6a9e2a142413. Record delegation/authorization, not completed implementation, independent review or acceptance. Keep the three pinned milestone files unchanged here while Codex works; M4.2 preliminary planning may proceed against that contract.
+
+D30/R31 record the correlation requirement. Use the existing context.correlation_id as native propagated metadata from the earliest runner observation, including root, descendants and native events; M4.3 must verify automatic CrewAI coverage. Future logs carry that key without requiring trace_id; no later backfill or trace-ID storage is needed for group correlation. Explained that a correlation ID may span multiple traces, so its log search can be broader than one trace; optional SDK IDs or application run IDs enable narrower filtering. Metadata does not itself create trace parentage.
+
+Checked official Langfuse metadata/API references and installed 5.2.0 propagation/span-processor/create_event code. Native propagate_attributes updates the current span and future observations in scope, not already-completed earlier observations. Keys including correlation_id are supported in the pinned SDK; retain as_baggage=False. Observation metadata inheritance is not a blanket guarantee for future scores/dataset APIs or background/process boundaries; those require their own integration contract.
+
+A focused in-memory Langfuse 5.2.0 check passed: two independent correlation groups; root span, agent, tool, generation and event for each (10 correlated observations); an additional outside-scope span had no leaked correlation; zero Python socket/DNS attempts. Synthetic observations tested SDK metadata mechanics only, without actual agents/model calls, CrewAI integration or local server/UI. The first attempt stopped at client initialization because this execution environment supplied a SOCKS proxy without socksio; rerunning with proxy variables cleared only in the disposable probe process passed. No application configuration/dependency change. The original eight-case/44-span CrewAI probe and its 13 files remain unchanged.
+
+Next M4.2 choices are root lifetime, client initialization/reuse/flush/shutdown, disabled/outage/error policy, safe field projection and real integration acceptance. No new broker, logger, agent lifecycle choice, detailed runner implementation or guarded edit is authorized by this planning update. Updated shared requirements/decisions, navigation/progress/Atlas and this record; preserve M4.1's exact approved handoff and later final-review procedure.
 
 ## Iteration 28 — copyable implementation brief and return-review contract
 

@@ -1,7 +1,7 @@
 # Workflow context and native Langfuse integration — start here
 
-Updated: 2026-11-14, discussion iteration 28.
-Status: **draft documentation workspace; context design/test/review package drafted for Sharon; not approved or implemented; no application implementation in this PR.**
+Updated: 2026-11-14, discussion iteration 29.
+Status: **M4.1 implementation handoff sent to Codex at 11bba58, per Sharon; implementation/final review pending. M4.2 preliminary design begins. This PR remains documentation-only and unmerged.**
 
 This is the permanent working home for Stage 02 workflow-integration planning, under the existing M4. PR #36's local setup/mock M1–M3 remain accepted and merged. The repository baseline inspected for this opening commit is `d12b5fc2867d3646b6fab2eb71f1447ff177d8c1`; research retains its original `44d6919` baseline. Earlier saved session files are dated snapshots, not a second active specification. Use this PR branch until it merges; do not assume these files are already on main.
 
@@ -12,7 +12,7 @@ This is the permanent working home for Stage 02 workflow-integration planning, u
 3. Read [decisions.md](decisions.md): agreed choices, superseded choices and unresolved questions. Do not convert examples or research recommendations into approvals.
 4. Read the complete [discussion record](history/context-discussion.md) at the beginning of each discussion iteration or handoff. Update it after meaningful instructions/decisions; checkpoint during active work when new information accumulates. There is no unattended timer.
 5. Before tracing work, read the [CrewAI research](research/crewai-langfuse.md) and [reproducible probe](research/probe/README.md). Eight isolated cases/44 spans passed; actual application integration and local-server/UI acceptance remain pending.
-6. Review the [M4.1 design](01-context-design.md), [test cases](01-context-test-cases.md) and [Codex implementation/review plan](01-context-implementation-plan.md). They are review drafts, not coding authorization.
+6. Review the [M4.1 design](01-context-design.md), [test cases](01-context-test-cases.md) and [Codex implementation/review plan](01-context-implementation-plan.md). Their headers preserve the drafted snapshot; Sharon reports forwarding the explicit implementation authorization at revision 11bba58. The implementing Codex records that approval and applies the enumerated amendments on its own branch. No acceptance/merge is implied.
 7. Review [repository-updates.md](repository-updates.md) before proposing guarded edits, implementation, review readiness or merge. It names the outstanding documentation changes and their triggers.
 
 ## Milestones and their documents
@@ -20,12 +20,12 @@ This is the permanent working home for Stage 02 workflow-integration planning, u
 | Milestone | Starting point | Goal | Document and present status |
 |---|---|---|---|
 | M4.R — research | Merged setup and existing deterministic flows | Establish released-version compatibility and automatic coverage before integration | [Research](research/crewai-langfuse.md), delivered with explicit limits; no dependency adoption yet |
-| M4.1 — context | Existing runner/factory/Workflow ABC; no execution context | Define, pass and derive typed context; prove invocation/parent/sibling isolation without backend export | [Design](01-context-design.md), [test cases](01-context-test-cases.md), [implementation/review plan](01-context-implementation-plan.md): drafted, awaiting Sharon's review |
-| M4.2 — runner | Approved, implemented and tested context | Use native Langfuse root scope, correct IDs and configured lifecycle/disabled behavior | Future `02-runner-design.md`; separate PR |
+| M4.1 — context | Existing runner/factory/Workflow ABC; no execution context | Define, pass and derive typed context; prove invocation/parent/sibling isolation without backend export | [Design](01-context-design.md), [test cases](01-context-test-cases.md), [implementation/review plan](01-context-implementation-plan.md): handoff at 11bba58 sent to implementing Codex; results/final review pending |
+| M4.2 — runner | Approved, implemented and tested context | Use native Langfuse root scope, correct IDs and configured lifecycle/disabled behavior | Preliminary design active; future `02-runner-design.md` and separate implementation PR |
 | M4.3 — CrewAI | Runner scope plus tested research candidate | Automatically observe executed start/listen/router paths in local Langfuse | Future `03-crewai-design.md`; separate PR |
 | Later — logs and advanced features | Stable context and real tracing | Add local logging separately; later usage/scores/evaluations as real operations require | Deferred; no logger, viewer or agent-runtime design adopted here |
 
-Each implementation milestone gets its own detailed design MD and focused PR. PR #43 now holds shared records, research and the draft detailed M4.1 package authorized by D28. Another Codex agent can implement M4.1 after its design is agreed, explicitly approved and locked. Do not start M4.2 merely because a draft context design exists.
+Each implementation milestone gets its own detailed design MD and focused PR. PR #43 now holds shared records, research and the draft detailed M4.1 package authorized by D28. Sharon reports sending the explicit M4.1 authorization/handoff. Preserve its pinned contract while that Codex implements and reviews it. M4.2 planning can run in parallel; tracing implementation waits for its own design and the verified context foundation.
 
 ## Rules that prevent design drift
 
@@ -40,17 +40,19 @@ The reference is concrete: **requirements.md + decisions.md**, checked against t
 7. Complete the affected items in repository-updates.md before the relevant readiness gate. Guarded logical changes require file-specific review under the repository contract. Do not add this draft to the guarded register as if approved.
 8. Keep application examples excluded. Preserve the separate agent-execution adapter boundary and deferred local-logging requirements. Context is not automatically safe to serialize into telemetry.
 
-## Current review — M4.1
+## M4.1 handoff and M4.2 preliminary design
 
 D27 accepts application correlation_id. The draft places it directly on ExecutionContext, with one nested ObservabilityContext for workflow/run and optional agent fields. Constructor generation happens only for a new independent group; child derivation preserves the value. SDK trace/span identity stays outside this initial model under D25/D26. Correlation metadata does not automatically connect traces.
 
-The [design](01-context-design.md) specifies app/src/agent_playbook/context/models.py, frozen keyword-only dataclasses, required constructor forwarding, runner creation timing, a small for_agent replacement helper and private CrewAI Flow storage. These concrete choices are ready for review, not claimed approved merely by drafting. The application's context is separate from CrewAI's existing execution_context field and from business state.
+The [design](01-context-design.md) specifies app/src/agent_playbook/context/models.py, frozen keyword-only dataclasses, required constructor forwarding, runner creation timing, a small for_agent replacement helper and private CrewAI Flow storage. These choices are pinned by the implementation handoff at 11bba58; this session does not change those three milestone documents while implementation proceeds. The application's context is separate from CrewAI's existing execution_context field and from business state.
 
 M4.1 includes real runner → factory → Workflow → Flow wiring and isolation tests. M4.2 adds native runner tracing; M4.3 adds automatic CrewAI observations. Agent runtime lifetime, logging, SDK lifecycle and cross-process transport are not prerequisites to this data-only milestone.
 
 The separate [test cases](01-context-test-cases.md) define CTX-01–17. D29's [implementation plan](01-context-implementation-plan.md) requires a coder plus independent design-drift and test-gap reviewers, the same candidate revision for both reviews, permanent per-round reports and a maximum of three total rounds. Stop with unresolved findings after round three.
 
-Next: Sharon reviews the three documents and the file-specific G01–G08 amendments in design section 9. No unresolved M4.1 architecture question prevents review; implementation requires approval and then actual test evidence. The listed amendments are proposed, not edits already made. Later tracing-specific provider-rule reconciliation remains separate.
+Next here: define the M4.2 runner tracing boundary and client lifetime while awaiting Codex's M4.1 return report. Later tracing-specific guarded reconciliation remains separate; no implementation or final acceptance is claimed from the handoff alone.
+
+D30/R31 require the same correlation_id on every workflow-associated Langfuse observation and later local record. Use native propagate_attributes immediately at the root, before children/events. Local logs need no trace ID for this shared grouping; optional SDK IDs allow finer filtering when a correlation ID spans several traces. SDK-native events inherit scope; scores/other future APIs and process transport must be checked separately. The [requirements](requirements.md) contain the preliminary scope and acceptance outline; no detailed M4.2 contract is approved yet.
 
 ## Handoff and closeout
 
