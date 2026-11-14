@@ -78,3 +78,105 @@ def test_context_construction_failure_has_existing_boundary() -> None:
         ) as caught:
             run_workflow("wf-01", config_path=str(FIXTURE))
     assert caught.value.__cause__ is error
+
+
+def test_runner_context_reaches_each_real_flow() -> None:
+    from crewai.flow.flow import FlowState
+
+    from agent_playbook.workflows.wf_01_step_sequence.flow import StepSequenceFlow
+    from agent_playbook.workflows.wf_02_shared_state.flow import SharedStateFlow
+    from agent_playbook.workflows.wf_02_shared_state.state import NumberState
+    from agent_playbook.workflows.wf_03_conditional_route.flow import (
+        ConditionalRouteFlow,
+    )
+    from agent_playbook.workflows.wf_03_conditional_route.state import ScoreState
+
+    seen_01: list[StepSequenceFlow] = []
+    seen_02: list[SharedStateFlow] = []
+    seen_03: list[ConditionalRouteFlow] = []
+
+    def make_01(
+        *,
+        context: ExecutionContext,
+        initial_state: FlowState | None = None,
+        tracing: bool | None = None,
+        suppress_flow_events: bool = False,
+    ) -> StepSequenceFlow:
+        flow = StepSequenceFlow(
+            context=context,
+            initial_state=initial_state,
+            tracing=tracing,
+            suppress_flow_events=suppress_flow_events,
+        )
+        seen_01.append(flow)
+        return flow
+
+    def make_02(
+        *,
+        context: ExecutionContext,
+        initial_state: NumberState | None = None,
+        tracing: bool | None = None,
+        suppress_flow_events: bool = False,
+    ) -> SharedStateFlow:
+        flow = SharedStateFlow(
+            context=context,
+            initial_state=initial_state,
+            tracing=tracing,
+            suppress_flow_events=suppress_flow_events,
+        )
+        seen_02.append(flow)
+        return flow
+
+    def make_03(
+        *,
+        context: ExecutionContext,
+        initial_state: ScoreState | None = None,
+        tracing: bool | None = None,
+        suppress_flow_events: bool = False,
+    ) -> ConditionalRouteFlow:
+        flow = ConditionalRouteFlow(
+            context=context,
+            initial_state=initial_state,
+            tracing=tracing,
+            suppress_flow_events=suppress_flow_events,
+        )
+        seen_03.append(flow)
+        return flow
+
+    cases = [
+        (
+            "wf-01",
+            "agent_playbook.workflows.wf_01_step_sequence.flow.StepSequenceFlow",
+            make_01,
+            seen_01,
+            "[Hello, workflow!]",
+        ),
+        (
+            "wf-02",
+            "agent_playbook.workflows.wf_02_shared_state.flow.SharedStateFlow",
+            make_02,
+            seen_02,
+            20,
+        ),
+        (
+            "wf-03",
+            "agent_playbook.workflows.wf_03_conditional_route.flow.ConditionalRouteFlow",
+            make_03,
+            seen_03,
+            "pass",
+        ),
+    ]
+    for selected, flow_path, maker, seen, expected in cases:
+        with (
+            patch(
+                "agent_playbook.application.workflow_runner.construct_workflow",
+                wraps=construct_workflow,
+            ) as factory,
+            patch(flow_path, side_effect=maker),
+        ):
+            assert run_workflow(selected, config_path=str(FIXTURE)).output == expected
+        assert factory.call_count == 1
+        runner_context = factory.call_args.kwargs["context"]
+        assert len(seen) == 1
+        assert seen[0].context is runner_context
+        assert runner_context.observability.workflow_id == selected

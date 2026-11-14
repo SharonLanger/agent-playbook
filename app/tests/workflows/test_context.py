@@ -1,5 +1,7 @@
 """Context follows real wrappers into CrewAI Flow instances."""
 
+from unittest.mock import patch
+
 import pytest
 
 from agent_playbook.config.models import CrewAISettings
@@ -33,7 +35,10 @@ def test_real_flow_keeps_context_out_of_business_state_and_serialization(
 ) -> None:
     context = ExecutionContext(
         observability=ObservabilityContext(
-            workflow_id="selected", workflow_run_id="run-identity"
+            workflow_id="distinct-workflow",
+            workflow_run_id="distinct-run",
+            agent_type="distinct-agent-type",
+            agent_run_id="distinct-agent-run",
         ),
         correlation_id="distinct-correlation",
     )
@@ -43,18 +48,38 @@ def test_real_flow_keeps_context_out_of_business_state_and_serialization(
     assert workflow.context is flow.context is context
     assert flow.tracing is False
     assert flow.suppress_flow_events is True
+    forbidden = (
+        "_app_context",
+        "context",
+        "observability",
+        "correlation_id",
+        "workflow_id",
+        "workflow_run_id",
+        "agent_type",
+        "agent_run_id",
+        "distinct-correlation",
+        "distinct-workflow",
+        "distinct-run",
+        "distinct-agent-type",
+        "distinct-agent-run",
+    )
     before = flow.model_dump()
-    assert "context" not in before and "_app_context" not in before
-    assert "distinct-correlation" not in str(before)
-    assert "run-identity" not in str(before)
+    assert "execution_context" in before  # CrewAI's own field is unchanged.
+    for value in forbidden:
+        assert value not in before
+        if value != "context":
+            assert value not in str(before)
+        assert value not in str(flow.state)
     raw = workflow.execute()
     assert workflow.validate_output(raw) == expected
     assert flow.context is context
     after = flow.model_dump()
-    assert "context" not in after and "_app_context" not in after
-    assert "distinct-correlation" not in str(after)
-    assert "run-identity" not in str(after)
-    assert "distinct-correlation" not in str(flow.state)
+    assert "execution_context" in after
+    for value in forbidden:
+        assert value not in after
+        if value != "context":
+            assert value not in str(after)
+        assert value not in str(flow.state)
 
 
 def test_consecutive_flows_keep_original_context_and_result() -> None:
@@ -79,6 +104,21 @@ def test_consecutive_flows_keep_original_context_and_result() -> None:
     assert first.context is first_context
     assert first.context.observability.workflow_run_id == "first"
     assert vars(first)["_flow"].state.value == 20
+    from agent_playbook.workflows.wf_02_shared_state.flow import SharedStateFlow
+
+    execution_error = RuntimeError("second kickoff failure")
+    second_failing = SharedStateWorkflow(
+        settings=SETTINGS, config={}, context=second_context
+    )
+    second_failing.prepare({})
+    with patch.object(SharedStateFlow, "kickoff", side_effect=execution_error):
+        with pytest.raises(RuntimeError) as caught:
+            second_failing.execute()
+    assert caught.value is execution_error
+    assert first.context is first_context
+    assert vars(first)["_flow"].context is first_context
+    assert vars(first)["_flow"].state.value == first_result
+    assert first.result == first_result
     failing = SharedStateWorkflow(settings=SETTINGS, config={}, context=second_context)
     with pytest.raises(Exception):
         failing.prepare({"initial": "invalid"})

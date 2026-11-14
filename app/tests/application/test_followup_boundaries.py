@@ -187,6 +187,9 @@ def test_failure_stops_before_success(boundary: str) -> None:
             construction,
         ),
         patch("agent_playbook.application.workflow_runner.RunResult", result),
+        patch(
+            "agent_playbook.application.workflow_runner.ExecutionContext"
+        ) as context_constructor,
     ):
         if boundary == "selection":
             with pytest.raises(ConfigurationError, match="selected entry invalid"):
@@ -228,6 +231,8 @@ def test_failure_stops_before_success(boundary: str) -> None:
         sequence[:4] if boundary == "json" else sequence[: sequence.index(boundary) + 1]
     )
     assert calls == expected
+    if boundary in {"assembly", "registry", "selection"}:
+        context_constructor.assert_not_called()
     result.assert_not_called()
     if boundary in {"construction", "json"}:
         workflow.prepare.assert_not_called()

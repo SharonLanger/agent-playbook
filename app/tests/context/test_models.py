@@ -48,20 +48,28 @@ def test_children_and_nested_helpers_preserve_parent_and_siblings() -> None:
         for child in children
     ] == [("reviewer", "A1"), ("coder", "B1"), ("reviewer", "A2")]
 
-    def inner(value: ExecutionContext) -> ExecutionContext:
+    seen: list[ExecutionContext] = []
+
+    def inner(value: ExecutionContext, fail: bool = False) -> ExecutionContext:
+        seen.append(value)
+        if fail:
+            raise ValueError("injected")
         return value
 
     def outer(value: ExecutionContext, fail: bool = False) -> ExecutionContext:
-        seen = inner(value)
-        assert seen is value
-        if fail:
-            raise ValueError("injected")
-        return seen
+        seen.append(value)
+        result = inner(value, fail)
+        assert result is value
+        return result
 
     assert outer(children[0]) is children[0]
     with pytest.raises(ValueError, match="injected"):
         outer(children[1], fail=True)
+    assert seen[0] is seen[1] is children[0]
+    assert seen[2] is seen[3] is children[1]
     assert parent.observability.agent_type is parent.observability.agent_run_id is None
+    assert children[1].observability.agent_type == "coder"
+    assert children[1].observability.agent_run_id == "B1"
     assert children[2].observability.agent_run_id == "A2"
 
 
@@ -72,6 +80,10 @@ def test_ordinary_assignment_is_rejected() -> None:
     with pytest.raises(FrozenInstanceError):
         setattr(value.observability, "workflow_id", "changed")
     assert value.observability.workflow_id == "selected"
+    child = value.for_agent(agent_type="reviewer", agent_run_id="agent-1")
+    with pytest.raises(FrozenInstanceError):
+        setattr(child.observability, "agent_run_id", "changed")
+    assert child.observability.agent_run_id == "agent-1"
     assert value.correlation_id != "changed"
 
 
