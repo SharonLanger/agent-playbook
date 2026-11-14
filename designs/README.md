@@ -6,7 +6,7 @@ and learn it. Progress records what has actually been accepted.
 
 | Location | Purpose |
 |---|---|
-| [Workflow contract refactor](refactors/workflow-contract/README.md) | Approved ABC lifecycle and YAML contract; PR #40 in review; [A1–F6 mapping](refactors/workflow-contract/review-follow-up.md) and [Q1–Q4 test corrections](refactors/workflow-contract/review-test-quality.md) |
+| [Workflow contract refactor](refactors/workflow-contract/README.md) | Completed and accepted ABC lifecycle and YAML contract; [A1–F6 mapping](refactors/workflow-contract/review-follow-up.md) and [Q1–Q4 test corrections](refactors/workflow-contract/review-test-quality.md) retain revision-specific evidence |
 | [Runtime structure refactor](refactors/2026-11-12-runtime-structure/README.md) | Accepted runtime refactor record, exploratory future-tree proposal and revision-specific verification evidence |
 | [project-structure.md](project-structure.md) | Guarded folder ownership, dependency rules and current source layout |
 | [architecture.md](architecture.md) | Components, ownership, execution, errors, data and integration boundaries |
@@ -16,12 +16,12 @@ and learn it. Progress records what has actually been accepted.
 | [charter.md](charter.md) | Purpose, outcomes and scope |
 | [principles.md](principles.md) | Engineering and approval rules |
 | [roadmap.md](roadmap.md) | Incremental learning and implementation order |
-| [progress.md](progress.md) | Verified state and outstanding acceptance |
+| [progress.md](progress.md) | Current stage status, accepted work and historical revision-specific evidence |
 | [stages/00-environment/architecture.md](stages/00-environment/architecture.md) | Stage 00 development-foundation end state |
 | [stages/00-environment/plan.md](stages/00-environment/plan.md) | Stage 00 substages and acceptance criteria |
 | [stages/00-environment/findings.md](stages/00-environment/findings.md) | Executed experiments and limitations |
+| [Stage 01 — CrewAI Flows](stages/01-crewai-flows/README.md) | Completed and accepted stage; permanent architecture, learning, workflow contracts, test specification, diagrams and code-reading guides |
 | [Stage 02 — Langfuse milestones](stages/02-langfuse/README.md) | Local UI, connection check, editable mock playground, then real workflow integration; only the last milestone waits for the refactor |
-| [Stage 01 — CrewAI Flows](stages/01-crewai-flows/README.md) | Permanent architecture, learning, workflow contracts, test specification and diagrams; design approved; implementation and code-reading guides available |
 | [../AGENTS.md](../AGENTS.md) | Repository operating instructions |
 
 ## Viewing diagrams

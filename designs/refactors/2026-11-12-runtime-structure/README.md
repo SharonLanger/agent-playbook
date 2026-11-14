@@ -1,23 +1,24 @@
 # Runtime structure refactor — review entry point
 
-Status: **Draft for Sharon's review; not accepted or merged.**
+**Status: Accepted and merged in PR #34** (`96cb1f89c5d2927bbc7be66e1760595ed0ebe8b0`). Verification is revision-specific in [verification.md](verification.md).
 
-This change implements the current-code cleanup requested on 12 November 2026.
-The proposed completed system is documented separately from what exists today.
+This change implemented the current-code cleanup requested on 12 November 2026.
+The future system proposal remains separate from the merged subset.
 
 ## Read in this order
 
 1. [Proposal](proposal.md): rationale, alternatives, repository research, complete
    future file tree, role/harness/tool ownership and staged migration.
-2. [Current project structure](../../project-structure.md): actual boundaries on
-   this branch. Changes to guarded documents are part of the review diff.
+2. [Current project structure](../../project-structure.md): approved current boundaries.
 3. [Verification evidence](verification.md): executed checks and remaining limits.
 
 The proposal is preserved as the planning snapshot. Its source inventory describes
 main before this refactor; its proposed names are not a claim that future files exist.
 The current structure and verification record describe the implemented subset.
 
-## Included now
+## Historical PR scope
+
+The following records what PR #34 included at review time. The temporary verification helper was subsequently removed by PR #35.
 
 - Split release discovery and process launch; move terminal messages into the CLI.
 - Split application assembly, workflow construction and workflow execution.
@@ -31,7 +32,9 @@ The future `agents/`, harness policies, SDK adapters and agent tools remain prop
 There is no new model integration, workflow behavior, dependency, CI service or
 application-version change. Existing examples and historical sandbox files are retained.
 
-## Principle assessment
+## Historical PR principle assessment
+
+The table below records the review-time assessment; its pending-approval statements are historical.
 
 | Principle | Evidence / application |
 |---|---|
@@ -47,8 +50,6 @@ application-version change. Existing examples and historical sandbox files are r
 | 10. Local-first | CLI, bootstrap and local releases remain the operating model; offline checks are explicitly scoped to the fixture. |
 | 11. No silent migration | sandbox is unchanged; old local YAML triggers instructions instead of being ignored or overwritten; no releases are deleted. |
 
-## Acceptance
+## Historical acceptance instructions
 
-Review the diff, run the verification command, and try the shared PyCharm tasks.
-Approval and merge are separate future actions. The helper can be removed after
-acceptance; the architecture proposal and verification record are permanent.
+At review time, Sharon was asked to review the diff, run the verification command and try the shared PyCharm tasks. PR #34 was subsequently accepted and merged; the temporary helper was removed through PR #35. The architecture proposal and verification record remain permanent.

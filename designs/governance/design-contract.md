@@ -1,6 +1,18 @@
 # Design contract
 
-Status: **GUARDED — approved by Sharon for implementation in PR #35 on 2026-11-13.** Approval of this documentation contract is not approval to implement exploratory agent/event/harness designs. PR #35 remains subject to merge review.
+**Status: GUARDED — approved by Sharon on 2026-11-13 and merged through PR #35.** This contract governs documentation and design changes. Approval of this contract does not authorize implementation of exploratory designs.
+
+## Current status and reconciliation
+
+`designs/progress.md` owns the current project status. Stage summaries own milestone detail; findings retain dated evidence; the roadmap owns intended sequencing. Agent instructions link to these records instead of duplicating detailed progress.
+
+Before reporting work ready, check the affected progress summary, stage/refactor summaries, design documents and Atlas against the actual implementation and PR state. Replace superseded current-status statements. Preserve earlier evidence in clearly labeled historical sections.
+
+Record implementation, verification, user acceptance and merge status separately. Identify the branch or revision for unmerged work. Stage completion requires recorded user acceptance.
+
+After performing a merge, or when asked to reconcile a user-performed merge, inspect the resulting default branch and update affected status records. Never describe an anticipated merge as completed.
+
+Update canonical documents before rebuilding Atlas. Run its existing freshness and reference checks, and review the meaning of its status labels. Report any unresolved inconsistency.
 
 ## Mandatory entry procedure
 
