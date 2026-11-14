@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 15 · Updated: 2026-11-14 · Owner: Sharon
+Revision: 16 · Updated: 2026-11-14 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 ## Status and authority
@@ -231,9 +231,24 @@ Incremental text/deltas mean small arriving fragments (not necessarily one exact
 
 Next design decisions: essential payload fields, event identity/order if required, who emits local start/finish, and how completion relates to the returned ExecutionResult. Callback failure may prevent terminal delivery; guarantees must be explicitly designed rather than inferred from the event name. No runtime files are created here.
 
-## Current field-design checkpoint — revision 15
+## Historical field-design checkpoint — revision 15
 
 D35 reaffirms our owned, minimal contract informed by reference projects. Sharon endorses the suggested future event categories as future directions, not additions to the initial five. The new [P12 field proposal](decisions.md#p12--minimal-fields-illustrated-by-a-standalone-reviewer) uses a standalone reviewer reading one file as a design example. Exact fields, model representation, result semantics and envelope identity remain open; no new runtime or milestone scope is approved. Stage 02 context/correlation remains with its owner.
+
+## Accepted field shape — revision 16
+
+D36 accepts the P12 field set with tool_call_id replacing call_id. Keep output (Sharon allowed either name). Each variant has a fixed type discriminator. Models remain in execution/events.py and execution/result.py; no new behavioral interfaces or runtime files.
+
+| Event/model | Accepted fields beyond the fixed event type |
+|---|---|
+| ExecutionStarted | None |
+| TextProduced | text_id: str; text: str |
+| ToolCallObserved | tool_call_id: str or None; tool_name: str; input: JSON object or None |
+| ToolResultObserved | tool_call_id: str or None; output: JSON value (including null); status: succeeded / failed / unknown |
+| ExecutionFinished | result: ExecutionResult |
+| ExecutionResult | status: completed / failed / cancelled / indeterminate; final_text: str or None; error: str or None. This is a result model, not another event. |
+
+Missing call identity and unknown tool outcome are different cases. Reliable native identity may be normalized, but no speculative pairing algorithm is approved. The missing-ID fallback policy, lifecycle owner, result-delivery guarantees and concrete model/validation choice remain open. A Python dataclass example explains the shape; it does not select the implementation library. Enum values represent statuses; event instances carry data. Workflow/tracing correlation remains deferred to its owning work. Earlier unresolved-field statements are historical to their checkpoints; D36 is the current field baseline.
 
 ## Research status
 
@@ -289,3 +304,4 @@ Maintain both active records in this repository package with matching revision e
 | 13 | 2026-11-14 | Recorded D27–D32, parallel-design/deferred-integration boundaries, deterministic foundation/demo direction and authorized draft PR; introduced plan-first milestone change control and preserved exact revision-12 snapshots. |
 | 14 | 2026-11-14 | D33: PR #45 merges last after all Stage 04 implementation. D34: five event names/basic meanings accepted; schema/ownership remain open; placement and optional future event explanations added. |
 | 15 | 2026-11-14 | Recorded reference-led direction and future-event endorsement; linked unapproved P12 field proposal and refreshed research status. |
+| 16 | 2026-11-14 | Accepted D36 field baseline and tool_call_id naming; retained open fallback/lifecycle/representation questions. |

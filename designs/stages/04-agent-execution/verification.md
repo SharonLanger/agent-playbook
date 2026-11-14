@@ -38,3 +38,7 @@ Validation for this revision: Atlas regenerated and freshness checked; relative 
 ## Revision 15 field-design proposal
 
 D35 records the requested reference-led direction; P12 remains proposed. Five initial event names are unchanged. This is within the existing M1 boundary, with no native/role implementation or context/logging scope expansion. Full active specification/decision-board and milestone-plan consistency reviewed. Atlas build/freshness and Markdown link/record/guard checks rerun for this update; source research is distinguished from runtime verification. PR #45 remains draft and merges last.
+
+## Revision 16 field acceptance
+
+D36 field acceptance and naming are reconciled across the specification, board, README and milestone checkpoint. Prior proposals/history remain preserved. Atlas build/freshness and relative-link/record/scope checks rerun. No runtime files or tests added; no native integration verified. PR #45 remains merge-last.

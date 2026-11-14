@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 15 · Updated: 2026-11-14 · Owner: Sharon
+Revision: 16 · Updated: 2026-11-14 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 ## How to read this board
@@ -859,7 +859,7 @@ D35 — **Approved direction:** Sharon endorses the future-event suggestions, as
 
 ### P12 — Minimal fields illustrated by a standalone reviewer
 
-**Proposed, not accepted.** Within S04.M1's existing event/data design scope; no milestone boundary change. Reviewer reads one supplied file and returns findings. This is a design example, not a new M3 role deliverable or replacement for DemoAgent.
+**Revision 16 amendment:** D36 accepts the displayed field set and result status vocabulary, renames call_id to tool_call_id, and keeps output. The original proposal below preserves its original names. Missing-ID fallback, emission/delivery guarantees and implementation representation remain open. Within S04.M1's existing event/data design scope; no milestone boundary change. Reviewer reads one supplied file and returns findings. This is a design example, not a new M3 role deliverable or replacement for DemoAgent.
 
 Each event has a fixed `type` discriminator matching its variant. Its other fields are typed per variant, not an arbitrary common dictionary. `AgentEvent` remains the union in execution/events.py. Immutable data is recommended; dataclass versus Pydantic remains Q08.
 
@@ -894,6 +894,36 @@ InHarness package/source retrieval failed during this focused refresh; its earli
 
 Q01/Q02/Q08/Q09/Q10 remain open for exact payload acceptance, result semantics, identity/delivery and model representation. Next review can settle these fields before lifecycle emission ownership. The research and proposal do not resolve C01 or authorize implementation.
 
+## Field acceptance and class illustration — revision 16
+
+D36 — **Approved fields:** Sharon accepts the proposed event fields and ExecutionResult status/final_text/error, requests tool_call_id instead of call_id, keeps text_id and delegates the choice of output versus tool_output. Keep output: the containing ToolResultObserved class makes its meaning clear. ExecutionFinished carries result: ExecutionResult, avoiding independently defined duplicate outcome fields. Successful delivery/return consistency and failure exceptions still require lifecycle design. This is within M1's existing boundary; no implementation or merge authorized.
+
+Accepted shape: fixed type discriminator on each event; ExecutionStarted has no additional payload; TextProduced has text_id/text; ToolCallObserved has tool_call_id/tool_name/input; ToolResultObserved has tool_call_id/output/status; ExecutionFinished has result. Tool outcome vocabulary remains succeeded/failed/unknown; execution outcome vocabulary completed/failed/cancelled/indeterminate. Optional input/output/result text/error and nullable tool_call_id retain P12's shape. The question about missing IDs warrants explanation, not an invented backup strategy.
+
+Two independent missing-evidence cases: tool_call_id=None means no established link to a particular call; status=unknown means no established success/failure outcome. Either can occur without the other. These are defensive schema cases, not a claim that standard Claude/Codex tool results routinely omit IDs. If a runtime supplies another reliable item key, a mapper can translate that key to a stable local ID. If it supplies no reliable relationship, inventing a UUID does not establish which call produced a result. Never match by tool name/nearest event alone. Exact selected-provider fallback/error policy remains Q01/Q03/Q10, not settled by the user's tentative backup suggestion.
+
+Events are data classes, not merely enum members. Each carries its own typed fields. An enum can represent a finite status set; a fixed Literal discriminator can identify an event variant without a redundant EventType enum. Frozen dataclasses below are illustrative notation, not a new approved payload-library choice; Python annotations alone do not validate incoming data. Shared JSON values need a proper typed alias/validation at implementation design. AgentEvent remains a union and handle_event accepts that union, not an enum.
+
+Illustrative shape (not runtime implementation):
+
+```python
+@dataclass(frozen=True)
+class ToolCallObserved:
+    tool_call_id: str | None
+    tool_name: str
+    input: dict[str, JsonValue] | None
+    type: Literal["tool_call_observed"] = field(default="tool_call_observed", init=False)
+
+@dataclass(frozen=True)
+class ToolResultObserved:
+    tool_call_id: str | None
+    output: JsonValue
+    status: ToolStatus
+    type: Literal["tool_result_observed"] = field(default="tool_result_observed", init=False)
+```
+
+JsonValue includes null; output's null/unavailable distinction remains deliberately absent from this minimal shape. Other accepted fields are listed in the specification. Exact discriminator spelling, dataclass/Pydantic choice, field validation, temporal ownership and delivery guarantees remain detailed design. Source research from revision 15 is unchanged; no further native capability assertion is introduced.
+
 ## Maintenance rule
 
 Read both files before progressing the design. Update this board with evidence and explicit status; update the specification only for accepted decisions. Detect conflicts before edits. Tell Sharon before changing any agreement; retain superseded entries and rationale. Maintain the two active repository records, keeping cross-links and revision numbers consistent; original saved files are history. Boundary changes must first be proposed in [milestone-plan.md](milestone-plan.md), then applied under D32 across all affected records. Do not turn a recommendation into “Approved” because it appears in a file.
@@ -917,3 +947,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 13 | 2026-11-14 | Recorded D27–D32 and Q35–Q38; answered Q20; preserved original records; authorized draft design PR and introduced explicit plan-first milestone boundaries without changing roadmap or implementation. |
 | 14 | 2026-11-14 | Added D33 merge-last rule and D34 five-event approval; partially answered Q01, clarified P01 remaining proposals and payload placement; no runtime changes. |
 | 15 | 2026-11-14 | D35 records reference-led direction and future-category endorsement; P12 proposes reviewer-grounded fields with fresh source references; no field approval or implementation. |
+| 16 | 2026-11-14 | D36 accepts fields, renames tool_call_id, retains output; separates missing identity from unknown outcome; class notation remains illustrative. |

@@ -127,3 +127,7 @@ BC02: **Accepted and applied — process boundary, no runtime scope expansion.**
 D34: **Accepted event catalogue within existing S04.M1 scope.** ExecutionStarted, TextProduced, ToolCallObserved, ToolResultObserved and ExecutionFinished names/basic meanings are approved. Their payloads, emission owner, failure/delivery guarantees and result relationship remain open. This resolves part of Q01, not all of P01. No S04.M1–M4 implementation or changed milestone allocation is authorized.
 
 Current M1 design task sequence: (1) accepted event catalogue → payloads, (2) completion owner and terminal/result relationship, (3) request/result schema, (4) minimal settings/permissions, (5) contract-level failure behavior, (6) detailed design and meaningful acceptance cases before implementation approval. Later steps may expose changes to earlier ones; follow the boundary-change protocol.
+
+## Field-design checkpoint — revision 16
+
+D36 accepts the basic event/result field set, with tool_call_id naming. This closes that portion of M1 data design without changing the milestone boundary. Earlier payload-open statements describe earlier checkpoints; validation, missing-ID fallback, envelope identity, terminal ownership and delivery guarantees remain open. No new BC entry or implementation authorization follows from acceptance within the existing boundary.
