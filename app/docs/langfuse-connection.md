@@ -146,6 +146,21 @@ disabled integration needs no keys or service. Configuration file selection
 still follows the [runtime configuration guide](configuration.md); use
 `--config PATH` or `AGENT_PLAYBOOK_CONFIG` to select YAML.
 
+The checker validates an HTTP(S) origin and does not print key values, raw SDK
+errors or URL credentials. It uses Langfuse Python SDK 5.2.0 with a five-second
+request timeout. HTTP health alone does not prove project authentication; a
+successful explicit check does.
+
+## Send your first trace
+
+The authentication check creates no traces. To continue to the mock exercise,
+keep the selector active in the same terminal and leave your local service
+running. Then follow the official [Langfuse hands-on guide](langfuse-hands-on.md)
+to run the synthetic success and failure scenarios and inspect their traces.
+They use arithmetic only, with no model calls, tokens or costs. The optional
+[personal playground README](../examples/langfuse/README.md) describes its flags.
+Ordinary application workflows remain uninstrumented.
+
 ## Environment-only alternative
 
 - Set the Langfuse enable override in the current terminal.
@@ -175,7 +190,7 @@ app/.venv/bin/agent-playbook langfuse --check
 Exports apply only to that terminal session and child processes. Repeat them in
 another terminal or store the variable names in your IDE's environment settings.
 
-## Finish
+## Clean up when finished
 
 - Remove shell exports when you no longer need them in this terminal.
 
@@ -192,11 +207,5 @@ stops this shell from selecting it.
 app/.venv/bin/agent-playbook langfuse --stop
 ```
 
-The stop preserves named volumes. The checker validates an HTTP(S) origin and
-does not print key values, raw SDK errors or URL credentials. It uses Langfuse
-Python SDK 5.2.0 with a five-second request timeout. HTTP health alone does not
-prove project authentication; a successful explicit check does. After a
-successful check, the optional [personal mock playground](../examples/langfuse/README.md)
-can send synthetic traces when explicitly run. Ordinary application workflows
-remain uninstrumented. Follow the official [Langfuse hands-on guide](langfuse-hands-on.md)
-to inspect successful and simulated failed runs.
+The stop preserves named volumes and earlier traces. Keep the selected secrets
+file outside the repository for later runs.
