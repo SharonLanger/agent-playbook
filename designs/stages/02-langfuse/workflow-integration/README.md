@@ -1,7 +1,7 @@
 # Workflow context and native Langfuse integration — start here
 
-Updated: 2026-11-14, discussion iteration 26.
-Status: **draft documentation workspace; preliminary structure agreed; detailed context design not yet written or approved; no application implementation in this PR.**
+Updated: 2026-11-14, discussion iteration 27.
+Status: **draft documentation workspace; context design/test/review package drafted for Sharon; not approved or implemented; no application implementation in this PR.**
 
 This is the permanent working home for Stage 02 workflow-integration planning, under the existing M4. PR #36's local setup/mock M1–M3 remain accepted and merged. The repository baseline inspected for this opening commit is `d12b5fc2867d3646b6fab2eb71f1447ff177d8c1`; research retains its original `44d6919` baseline. Earlier saved session files are dated snapshots, not a second active specification. Use this PR branch until it merges; do not assume these files are already on main.
 
@@ -12,19 +12,20 @@ This is the permanent working home for Stage 02 workflow-integration planning, u
 3. Read [decisions.md](decisions.md): agreed choices, superseded choices and unresolved questions. Do not convert examples or research recommendations into approvals.
 4. Read the complete [discussion record](history/context-discussion.md) at the beginning of each discussion iteration or handoff. Update it after meaningful instructions/decisions; checkpoint during active work when new information accumulates. There is no unattended timer.
 5. Before tracing work, read the [CrewAI research](research/crewai-langfuse.md) and [reproducible probe](research/probe/README.md). Eight isolated cases/44 spans passed; actual application integration and local-server/UI acceptance remain pending.
-6. Review [repository-updates.md](repository-updates.md) before proposing guarded edits, implementation, review readiness or merge. It names the outstanding documentation changes and their triggers.
+6. Review the [M4.1 design](01-context-design.md), [test cases](01-context-test-cases.md) and [Codex implementation/review plan](01-context-implementation-plan.md). They are review drafts, not coding authorization.
+7. Review [repository-updates.md](repository-updates.md) before proposing guarded edits, implementation, review readiness or merge. It names the outstanding documentation changes and their triggers.
 
 ## Milestones and their documents
 
 | Milestone | Starting point | Goal | Document and present status |
 |---|---|---|---|
 | M4.R — research | Merged setup and existing deterministic flows | Establish released-version compatibility and automatic coverage before integration | [Research](research/crewai-langfuse.md), delivered with explicit limits; no dependency adoption yet |
-| M4.1 — context | Existing runner/factory/Workflow ABC; no execution context | Define, pass and derive typed context; prove invocation/parent/sibling isolation without backend export | `01-context-design.md` will be created **after preliminary alignment**; it does not exist yet |
+| M4.1 — context | Existing runner/factory/Workflow ABC; no execution context | Define, pass and derive typed context; prove invocation/parent/sibling isolation without backend export | [Design](01-context-design.md), [test cases](01-context-test-cases.md), [implementation/review plan](01-context-implementation-plan.md): drafted, awaiting Sharon's review |
 | M4.2 — runner | Approved, implemented and tested context | Use native Langfuse root scope, correct IDs and configured lifecycle/disabled behavior | Future `02-runner-design.md`; separate PR |
 | M4.3 — CrewAI | Runner scope plus tested research candidate | Automatically observe executed start/listen/router paths in local Langfuse | Future `03-crewai-design.md`; separate PR |
 | Later — logs and advanced features | Stable context and real tracing | Add local logging separately; later usage/scores/evaluations as real operations require | Deferred; no logger, viewer or agent-runtime design adopted here |
 
-Each implementation milestone gets its own detailed design MD and focused PR. This opening draft holds shared records and research; it deliberately does not include the detailed M4.1 document. Another Codex agent can implement M4.1 after its design is agreed, explicitly approved and locked. Do not start M4.2 merely because a draft context design exists.
+Each implementation milestone gets its own detailed design MD and focused PR. PR #43 now holds shared records, research and the draft detailed M4.1 package authorized by D28. Another Codex agent can implement M4.1 after its design is agreed, explicitly approved and locked. Do not start M4.2 merely because a draft context design exists.
 
 ## Rules that prevent design drift
 
@@ -39,22 +40,20 @@ The reference is concrete: **requirements.md + decisions.md**, checked against t
 7. Complete the affected items in repository-updates.md before the relevant readiness gate. Guarded logical changes require file-specific review under the repository contract. Do not add this draft to the guarded register as if approved.
 8. Keep application examples excluded. Preserve the separate agent-execution adapter boundary and deferred local-logging requirements. Context is not automatically safe to serialize into telemetry.
 
-## Current next discussion
+## Current review — M4.1
 
-Agreed: two ordinary typed dataclasses, `ExecutionContext` containing `ObservabilityContext`, together in one shared definition file outside provider adapters; no Context ABC and no observability broker. Runner creates per invocation, factory forwards through the workflow constructor, workflow holds `self.context` and supplies its Flow. An agent invocation receives a derived context; nested helpers can reuse it; the original parent remains unchanged.
+D27 accepts application correlation_id. The draft places it directly on ExecutionContext, with one nested ObservabilityContext for workflow/run and optional agent fields. Constructor generation happens only for a new independent group; child derivation preserves the value. SDK trace/span identity stays outside this initial model under D25/D26. Correlation metadata does not automatically connect traces.
 
-Still to align before writing the detailed design: exact file path; minimal application fields/types/defaults; dataclass options; constructor/Flow propagation details and creation timing; shallow replacement/nested-mutability policy; focused tests. D26 settles that stored tracing fields and live SDK objects are absent initially. SDK span activation is separate from copying context data. Agent runtime lifetime stays outside this decision.
+The [design](01-context-design.md) specifies app/src/agent_playbook/context/models.py, frozen keyword-only dataclasses, required constructor forwarding, runner creation timing, a small for_agent replacement helper and private CrewAI Flow storage. These concrete choices are ready for review, not claimed approved merely by drafting. The application's context is separate from CrewAI's existing execution_context field and from business state.
 
-The compact preliminary candidate, refined from P02, is `app/src/agent_playbook/context/models.py`: two frozen keyword-only dataclasses, ExecutionContext.observability, required workflow_id/workflow_run_id, and optional agent_type/agent_run_id. The path, flags and detailed field types/defaults remain review material. PR #43 contains the planning records; `01-context-design.md` still does not exist. Sharon requests a simple overview before the detailed document.
+M4.1 includes real runner → factory → Workflow → Flow wiring and isolation tests. M4.2 adds native runner tracing; M4.3 adds automatic CrewAI observations. Agent runtime lifetime, logging, SDK lifecycle and cross-process transport are not prerequisites to this data-only milestone.
 
-Current decision, iteration 25: D26 accepts leaving stored trace/span IDs and live SDK handles out of the initial application context. D25/P04 replaces P03 preallocation with the SDK's ordinary active-scope pattern. Use native propagate_attributes for selected application fields when tracing is added; use SDK-produced identity when a concrete consumer needs it. Workflow/run/agent data, derived-scope rules and D24 identity stability remain unchanged. No tracing machinery is added by M4.1.
+The separate [test cases](01-context-test-cases.md) define CTX-01–17. D29's [implementation plan](01-context-implementation-plan.md) requires a coder plus independent design-drift and test-gap reviewers, the same candidate revision for both reviews, permanent per-round reports and a maximum of three total rounds. Stop with unresolved findings after round three.
 
-The application runner invokes the Workflow ABC lifecycle; the concrete workflow wrapper's execution hook calls its Flow's kickoff(), which runs the decorated methods. Both wrapper and Flow retain the supplied application context outside serialized business state. A later runner tracing scope can begin before kickoff; kickoff is not necessarily the first observed operation. Its precise boundary belongs to M4.2.
-
-New discussion, iteration 26: Sharon proposes an application correlation_id created when the initial ExecutionContext is constructed and retained unchanged. P05/Q25 asks whether this simply names workflow_run_id's existing role or groups several workflow invocations. No extra field or rename is selected yet. Derived contexts must preserve an existing correlation value; this proposal does not restore manual SDK trace-ID management.
+Next: Sharon reviews the three documents and the file-specific G01–G08 amendments in design section 9. No unresolved M4.1 architecture question prevents review; implementation requires approval and then actual test evidence. The listed amendments are proposed, not edits already made. Later tracing-specific provider-rule reconciliation remains separate.
 
 ## Handoff and closeout
 
-Start another agent at this README on the PR branch. Give it the approved milestone document and exact reviewed revision when available; this README alone is not an implementation brief. Record review/acceptance in decisions and history, update affected repository records from the checklist, regenerate Atlas, and verify before reporting readiness. No merge is authorized by the creation of this draft.
+Start another agent at this README on the PR branch. After approval, give it 01-context-implementation-plan.md and the exact approved revision/approval reference; this README alone is not an implementation brief. Record review/acceptance in decisions and history, update affected repository records from the checklist, regenerate Atlas, and verify before reporting readiness. No merge is authorized by the creation of this draft.
 
 Principle assessment: approval/no drift (1,3,12) is handled by this explicit draft and pending reconciliation; security/configuration/locality (2,6,10) is retained without runtime changes; learning/incremental scope (4,9) uses milestones; evidence/quality (7,8,15) separates preserved research from new documentation checks; history/sandbox (11,13) is preserved; official docs (14) have no supported-behavior change. Principle 5's tracing-specific conflict is recorded for review, while agent provider isolation remains intact.

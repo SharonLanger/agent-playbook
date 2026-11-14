@@ -1,7 +1,7 @@
 # Agent Playbook — execution context and native Langfuse integration
 
-Version: 0.24 · 2026-11-14 · Sharon
-Status: **Current requirements/specification. Basic context structure agreed; draft documentation PR authorized by D22. Detailed context design is not yet written/approved. No implementation, broker or dependency change.**
+Version: 0.25 · 2026-11-14 · Sharon
+Status: **Current requirements/specification. Basic context structure agreed; draft documentation PR authorized by D22. D28 authorizes the detailed M4.1 review draft, now written with separate test cases and implementation/review plan; not yet approved. No implementation, broker or dependency change.**
 
 ## 1. Current goal and authority
 
@@ -17,16 +17,18 @@ The [decision record](decisions.md) owns decisions and open questions. This acti
 | D12: incremental delivery | Context and tests → runner tracing and tests → CrewAI tracing and tests. Keep changes reviewable; logging has a separate later PR. |
 | D14: early research | M4.R runs alongside M4.1 preliminary discussion; Astra/high effort investigates released versions, exact integration and coverage in a separate MD. |
 | D15: version flexibility | Recommend needed upgrades with concrete benefit, compatibility and regression evidence; do not treat current pins as mandatory research limits. No actual upgrade in this planning turn. |
-| D16: agree before formal design | Finalize preliminary context choices with Sharon before the formal M4.1 design and application implementation. |
+| D16: agree before formal design | Preliminary discussion led to D28 authorization to draft M4.1; approval still precedes application implementation. |
 | D17 / R29: concrete structure and easy evolution | Pass one typed context so ordinary field additions do not require editing every forwarding signature. Preserve unspecified values during child derivation; telemetry fields stay explicitly selected. |
-| D18: shared concrete dataclasses | ExecutionContext and ObservabilityContext are ordinary typed dataclasses together in one shared definition file outside provider adapters. No context ABC. Exact path/options/schema remain to specify. |
+| D18: shared concrete dataclasses | ExecutionContext and ObservabilityContext are ordinary typed dataclasses together in one shared definition file outside provider adapters. No context ABC. Exact path/options/schema are specified in the M4.1 draft for review. |
 | D19: creation and propagation | Runner creates per invocation; existing workflow factory forwards into constructor; workflow retains self.context and supplies its Flow; agent invocation gets a derived child, helpers reuse it, parent remains unchanged. |
-| D21 / D22 / D23: design and PR timing | Create the permanent shared-records draft PR now. Discuss remaining context details before creating its detailed design; each implementation milestone retains its own design MD and PR. |
+| D21 / D22 / D23 / D28: design and PR timing | Permanent PR #43 now contains the authorized detailed M4.1 draft plus separate test cases and implementation/review plan. Sharon reviews before implementation; each implementation milestone retains its own focused PR. |
 | D13: reuse existing instrumentation | Prefer supported CrewAI instrumentation and SDK scopes/events/updates. Add manual instrumentation only for a demonstrated coverage gap or application boundary. |
 | D07 / AD-01: context composition and isolation | One ExecutionContext contains one ObservabilityContext. Child metadata additions do not mutate the parent/siblings; returning uses the unchanged parent. |
 | D01 / D08: identity | workflow_id identifies a definition; workflow_run_id one invocation; trace_id the actual distributed trace; span identity distinguishes observed operations. The SDK owns tracing mechanics. |
 | D24 / D25: identity and SDK reuse | Workflow/run identity stays fixed within an invocation. The SDK creates/inherits trace identity and manages active scope. Do not add manual ID allocation or propagation to the normal path. A stored application trace-ID field is not required by correlation semantics. |
 | D26: initial application-only fields | Omit stored trace/span IDs and live SDK/client/observation objects from the initial context. Use native propagate_attributes for selected application fields in the later tracing milestone. A stored trace reference can be added later for a concrete consumer; future log correlation remains required. |
+| D27 / R30: application correlation | Add a constructor-created stable correlation_id independently of SDK identity. The draft recommends ExecutionContext ownership, preserving it in derived scopes and allowing explicit reuse for related work. |
+| D29: implementation review process | One coder plus two independent reviewers: design drift and test gaps. At most three total rounds with permanent reports; unresolved findings after round three stop implementation. |
 | R16 / R24: agent scope | Distinguish agent invocations and retain their identity in nested helpers. Do not prescribe agent lifecycle, pooling or SDK recreation. |
 | R17–R19: outcomes | Failures can be observed at their current scope. A failed child remains visible when its parent recovers successfully. Local diagnostic severity does not automatically define operation failure. |
 | External settings and local deployment | Reuse existing settings/client initialization. Credentials stay out of telemetry. Use the existing local Langfuse endpoint; no added collector/server or cloud service is required. |
@@ -50,19 +52,19 @@ These repository findings are read-only. Prior application tests remain attached
 
 ## 4. Milestones and proposed acceptance evidence
 
-These are the integration milestones under Stage 02's previously deferred M4. Existing setup M1–M3 remain completed. M4.R research has already established the tested feasibility before application Langfuse integration. Its SDK/propagation findings inform the context details. D21 confirms one focused PR and design MD per implementation milestone; D22 authorizes the opening documentation PR now, before writing the detailed context design.
+These are the integration milestones under Stage 02's previously deferred M4. Existing setup M1–M3 remain completed. M4.R research has already established the tested feasibility before application Langfuse integration. Its SDK/propagation findings inform the context details. D21 confirms one focused PR and design MD per implementation milestone; D22 authorized the opening documentation PR; D28 now authorizes the detailed M4.1 package for review, without application implementation.
 
 | Milestone | Starting point | Goal / evidence | Status |
 | --- | --- | --- | --- |
 | M4.R — CrewAI/Langfuse research | Merged PR #36 pins and maintained Flow definitions; automatic coverage not established. | Released compatible integration and reproducible coverage evidence before application tracing work. | Delivered: eight isolated cases/44 spans; application/local-UI acceptance not yet established. |
-| M4.1 — context | Existing runner/factory/Workflow ABC, no general context; D18/D19 structure agreed. | Typed context, constructor propagation and parent/child isolation; focused tests without backend export. | Preliminary alignment next; detailed design document not yet created. Fields/path/signatures still open. |
+| M4.1 — context | Existing runner/factory/Workflow ABC, no general context; D18/D19 structure agreed. | Typed context, constructor propagation and parent/child isolation; focused tests without backend export. | [Detailed draft](01-context-design.md), [test cases](01-context-test-cases.md) and [implementation plan](01-context-implementation-plan.md) ready for review; not approved or implemented. |
 | M4.2 — runner | Accepted/tested context plus existing configured local Langfuse client setup. | Native root scope, workflow/run correlation, real trace identity, lifecycle/disabled behavior and local root acceptance. | Small integration foundation; no custom step-tracing layer. |
 | M4.3 — CrewAI | Runner scope plus M4.R's tested instrumentor recommendation. | Enable automatic Flow/start/listen/router observations for WF-01/02/03; verify actual application and local UI. | Immediate next integration priority; no manual instrumentation on each step by default. |
 | Later — logs and advanced features | Working correlated tracing. | Local application logs in a separate PR; scores/evaluations incrementally. | Deferred; local/no-service/Apache and replacement requirements retained. |
 
 ### M4.R — CrewAI-to-Langfuse research alongside milestone 1
 
-Deliverable: [agent-playbook-crewai-langfuse-research.md](research/crewai-langfuse.md), containing both the research brief and findings. Sharon explicitly selected Astra with high reasoning effort. Research is authorized now; code/pin changes and formal M4.1 design are not implied.
+Deliverable: [agent-playbook-crewai-langfuse-research.md](research/crewai-langfuse.md), containing both the research brief and findings. Sharon explicitly selected Astra with high reasoning effort. Research authorization alone never implied code/pin changes. Detailed M4.1 drafting is now separately authorized by D28.
 
 Determine the least custom code needed to observe every existing workflow's actual @start, @listen and @router operations in the existing local Langfuse stack. Verify whether branch decisions/results and selected branch methods are visible and whether skipped branches are correctly absent. Target one workflow trace with nested observations, not independent traces per method. Do not treat every arbitrary Python utility or nonexistent model call as a tracing requirement.
 
@@ -79,15 +81,15 @@ The report and [probe evidence](research/probe/README.md) contain the exact reci
 
 ### M4.1 — Execution context
 
-**Basic structure is agreed; preliminary detail alignment comes before writing the detailed design.** D18/D19 settle dataclasses, one shared definition file and the creation/propagation route. Resolve exact fields, path, signatures, dataclass options and trace-reference behavior in the formal design/test plan. D22 authorizes this documentation PR only. Application coding and the detailed context document remain pending.
+**Detailed draft ready for Sharon's review under D28.** The [design](01-context-design.md) specifies exact placement, schema, constructors, creation timing, Flow storage and child derivation. The [test cases](01-context-test-cases.md) and [implementation/review plan](01-context-implementation-plan.md) define acceptance and the capped review process. Concrete details await approval; no application code is changed here.
 
-Implement the agreed ordinary typed ExecutionContext and nested ObservabilityContext dataclasses together in one shared file, with its precise path reviewed in detailed design. Application runner creates one context per invocation from CLI or Python entry; the existing factory forwards it into the workflow constructor. Workflow retains self.context and supplies it to its CrewAI Flow. Define child derivation without parent mutation and without copying clients. Wire what is needed to prove this route and isolation; no Langfuse export yet.
+Implement the agreed ordinary typed ExecutionContext and nested ObservabilityContext together in one shared file. Runner creates one context per invocation; the existing factory forwards it into the workflow constructor. Workflow retains self.context and supplies its CrewAI Flow. M4.1 includes this actual wiring and parent/sibling isolation, not only class definitions. No Langfuse export yet.
 
-Follow D25/D26: the application context carries application workflow/run and eventual agent information; the SDK manages active trace/span identity. M4.1 omits stored trace/span IDs, placeholder trace_id=None and live span/client objects. Actual SDK identity can be read when a later consumer needs it; this does not remove correlation requirements or require a stored field now. A plain context does not activate an OpenTelemetry scope. Do not accumulate outputs, usage, costs or scores in inherited context metadata.
+D27 adds application correlation_id; the draft places it on ExecutionContext, generates it only when absent and preserves it in derived children. workflow_run_id still distinguishes workflow invocations. Explicitly sharing a correlation value is a data capability, not a child-workflow launcher, incoming CLI flag or trace-parentage mechanism.
 
-Proposed tests: two invocations of the same workflow have distinct workflow_run_id values; agent-like child A and child B retain workflow identity but cannot leak fields into parent/sibling, including nested mutable metadata if allowed; ordinary helper propagation retains child identity; context creation and workflow behavior require neither a Langfuse server nor network; runtime objects stay out of serialized business state. Use fixtures for agent scope behavior, not real agent integration. Test these contracts rather than Python data-class mechanics.
+Follow D25/D26: omit stored trace/span IDs, placeholder trace_id=None and live span/client objects. A plain context does not activate an OpenTelemetry scope. Keep application context separate from CrewAI's own execution_context field and serialized business state. No generic mutable metadata bag, configuration copy, outputs, usage, costs or scores in the initial schema.
 
-Exit: detailed context contract/source placement reviewed, focused tests and relevant project checks pass, and existing workflow behavior is preserved. Dataclass representation is accepted; exact schema/options remain detailed-design work.
+Exit: Sharon approves the concrete contract and listed guarded amendments; implementation satisfies CTX-01–17, both independent reviews and relevant project gates while preserving current workflow behavior. D29 caps implementation/review at three total rounds and preserves all reports. Drafting the contract is not its implementation or test acceptance.
 
 ### M4.2 — Runner tracing
 
@@ -124,39 +126,17 @@ Exit: actual CrewAI Flow/step hierarchy is inspectable below the runner with cor
 
 Supported native SDK context managers, decorators, explicit observation lifecycle and integrations can be combined. No owned method-per-type wrapper is required. Automatic instrumentation owns only the calls it actually covers; use native SDK reporting for meaningful missing application observations without duplicating existing instrumentation.
 
-## 6. Minimal context design — next discussion
+## 6. Context contract — review draft
 
-Iteration 22 presents P02 in [decisions.md](decisions.md#p02--concrete-context-proposal-for-discussion-iteration-22): an exact candidate source path, small field list, frozen keyword-only data objects, construction/propagation and trace-binding explanation. These are proposed details for Sharon's review, not newly accepted requirements or a written detailed design. The accepted structure below remains unchanged.
+The [M4.1 detailed design](01-context-design.md) is the single current proposal for exact fields, types/defaults, package location, dataclass flags, constructor signatures, derivation and Flow storage. D18/D19's composition/route, D24's stable identity, D25/D26's SDK-managed tracing and D27's application correlation are accepted discussion choices. D28 authorizes drafting; it does not label the unreviewed details approved.
 
-Iteration 25 accepts P04's initial omission as D26: use native active scopes and automatic SDK identity/parentage, with no stored trace/span IDs or live SDK objects in the application context initially. Selected application fields will use native propagate_attributes during tracing integration. A stored reference can be added later if needed; D24 identity stability remains. The exact remaining schema/options are not silently approved by this simplification.
+Proposed source: app/src/agent_playbook/context/models.py. ExecutionContext holds correlation_id and observability. ObservabilityContext holds workflow_id, workflow_run_id and optional agent_type/agent_run_id. Frozen keyword-only fields and scalar/frozen nested values avoid parent mutation. No Context ABC, broker, live SDK object, mutable extension dict or empty future context sections.
 
-Iteration 26 adds P05/Q25 as an open schema discussion, not a requirement to add another ID: Sharon proposes constructor-created, unchanging application correlation_id for later association with logs/traces/other records. Clarify whether workflow_run_id already supplies its intended scope or whether it must span multiple workflow invocations. Derived contexts must preserve whichever shared correlation value is selected. D25/D26 remain unchanged; do not equate application metadata with SDK trace identity or automatic trace parentage.
+The small proposed for_agent helper uses dataclasses.replace on both the inner and outer objects. replace creates a new instance through its constructor and preserves unspecified ordinary fields/references; it is not a deep copy. The workflow retains its original reference and helpers within an agent can receive the child's reference. No cleanup/copy-back on return and no new client or runtime are required. This does not remove SDK scope cleanup in later milestones.
 
-Names, composition, ordinary dataclasses, one shared definition file and the D19 propagation route are accepted. No context ABC is needed. The current application does not yet implement this route. Before writing M4.1's detailed design, discuss and align on:
+R29 remains: pass one context through intermediary signatures; field definitions and actual producers/consumers evolve without manually rebuilding all inherited fields. New required semantics may still require callers to provide a value. Review any future mutable fields explicitly. Telemetry projection stays selective, not automatic asdict export.
 
-1. Exact source path and imports for the two classes, plus concrete constructor signatures through the existing runner/factory/Workflow/Flow path.
-2. Minimal application fields/types/defaults and value creators. Stored trace references are deferred under D26; no tracing bootstrap is needed to construct M4.1 context.
-3. Safe child derivation and parent/sibling isolation, including a deliberate policy for any nested mutable data; no agent runtime lifetime decision.
-4. Field-extension rules and meaningful acceptance cases; the implementation plan follows the reviewed design.
-
-The shared responsibility outside provider adapters is accepted; its exact package/file path still needs to be recorded against the guarded structure. Dataclass options such as frozen and kw_only remain design choices. Runtime context stays outside recoverable workflow business state. Additional context sections, including a possible AgentContext, are future extensions only when needed; no empty placeholder class is required now.
-
-dataclasses.replace is shallow copy-with-selected-changes: it creates a new instance through the constructor, using existing ordinary field values/references except for replacements. It does not recursively clone nested objects. To enrich observability, construct a replacement inner ObservabilityContext and a replacement outer ExecutionContext. The original workflow object keeps its original context; no copy-back or metadata rollback occurs. This says nothing about omitting native SDK scope cleanup. Avoid deep-copying clients and do not assume a frozen outer object makes an inner dict immutable.
-
-R29 extension criterion: a new ordinary field changes its definition and its producer/consumer, not every intermediary. Pass one context parameter and preserve unspecified values when deriving a child. Optional defaults can preserve existing construction; new required semantics still need explicit callers. Avoid manually enumerating all parent fields in every copy and avoid a generic mutable bag as the default escape hatch. Read-only/frozen fields alone do not freeze nested mutable values. Future telemetry projection stays explicit and safe.
-
-M4.R can refine SDK-binding details without forcing a second context system. The following is the review inventory, not a finalized schema:
-
-| Item | Decision needed |
-| --- | --- |
-| ExecutionContext.observability | Accepted nested typed dataclass; both definitions in one shared file. Exact path/constructor options remain. |
-| workflow_id / workflow_run_id | Required invocation identity, creation point/type and immutable-in-effect access. |
-| trace/span correlation | D26 accepts SDK-managed identity with no stored context fields initially. Define any concrete post-scope consumer separately. No competing current-scope state. |
-| agent_type / agent_run_id / step identity | Optional scoped dimensions; retain isolation and eventual repeated-invocation support without implementing real agents now. |
-| Safe extension attributes | Only if an immediate use needs them; typing, nested mutability and reserved-field protection. |
-| SDK access/lifetime | Outside serializable state; context does not need to wrap SDK methods. Exact client/reference access is not selected. |
-
-Ordinary dataclasses are approved by D18; Context ABC alternatives are closed for now. Frozen/keyword-only settings and detailed fields are still to review. Do not add placeholder sections for future config/events/sessions. Use SDK parentage behavior and keep application identity/metadata explicit, extensible and safe to project selectively.
+The separate [test-cases contract](01-context-test-cases.md) covers identity, derivation, actual maintained Flow access, state separation, existing behavior, typing/offline checks and installed packaging. The [orchestration plan](01-context-implementation-plan.md) is for a future Codex implementing this milestone after approval, not an application agent feature.
 
 ## 7. Deferred requirements retained
 
@@ -167,31 +147,21 @@ Ordinary dataclasses are approved by D18; Context ABC alternatives are closed fo
 - Scores/evaluations, sessions, prompt/version links, advanced analytics/cost reporting, child workflows and cross-process propagation remain later. Preserve meaningful operation identity, not speculative frameworks.
 - Another session owns agent adapters, lifecycle, tool permissions and event/control design. This work supplies correlation without imposing a new execution wrapper or runtime lifecycle.
 
-## 8. Repository reconciliation and scope of this update
+## 8. Repository reconciliation and scope
 
-The no-broker/native-SDK direction is explicitly approved by Sharon. Current repository text still describes provider-neutral observability and adapter-only clients. Required narrow reconciliation before code placement:
+The exact data-only M4.1 amendments are G01–G08 in [design section 9](01-context-design.md#9-guarded-logical-amendments-to-approve-with-this-design). They cover context placement, constructor/Flow routing, dated amendments to the existing workflow contract, M4 submilestones and registration of the approved baseline. These are proposed for review, not guarded edits already performed.
 
-| Repository document | Relevant logical change |
-| --- | --- |
-| designs/principles.md, item 5 | Clarify the chosen native Langfuse instrumentation exception while preserving isolation of agent-execution providers and centralized safe configuration. |
-| designs/architecture.md | Replace the mandatory neutral-observation path for this tracing phase with SDK/native instrumentation plus application context; retain responsibility/outcome boundaries. |
-| designs/project-structure.md | Record the accepted shared context definition responsibility at its reviewed exact path; align tracing SDK imports and observability ownership. No unseen file-tree or dependency-rule edits are implied by D18/D19. |
-| Stage 02 architecture/milestones and maintained views | Record M4.1–M4.3, native integration scope and tests; keep accepted M1–M3 evidence and personal sandbox isolation. |
+The no-broker/native-SDK direction remains accepted. Its tracing-specific exception to existing provider-isolation wording must be reconciled before M4.2, not before data-only M4.1. Do not weaken agent-execution adapter isolation. [repository-updates.md](repository-updates.md) separates those gates and their concrete affected files.
 
-This PR creates the permanent documentation workspace, discovery links and Atlas navigation only. The exact pending repository changes and their triggers are in [repository-updates.md](repository-updates.md). No guarded baseline, application source, dependency or supported product behavior changes here. The accepted no-broker direction remains subject to the narrow file-specific reconciliation before implementation; no blanket reversal of agent-provider isolation is authorized.
+This update adds the detailed design/test/implementation drafts, accepted correlation/process decisions and truthful navigation/progress/Atlas status. No guarded baseline, application source, dependency or supported product behavior is changed. Research evidence and historical decisions remain attached to their original revisions.
 
-Applicable principles: explicit decision traceability; security/external configuration; reconciliation instead of silent drift; incremental learning; deterministic tests and exact pins; honest verification; local deployment; preserved history/personal sandbox isolation; later public-documentation maintenance. Provider isolation needs only the identified tracing-specific revision. Release/packaging behavior is unaffected by this document-only turn.
+## 9. Immediate actions
 
-## 9. Immediate open actions
+1. Sharon reviews the M4.1 design, CTX test cases, implementation procedure and proposed G01–G08 amendments. There is a concrete draft for each M4.1 implementation choice; none is silently adopted because it appears in the draft.
+2. After approval, the next Codex follows 01-context-implementation-plan.md in a focused implementation PR, records the exact approved revision and enforces the three-round cap.
+3. M4.2 resolves runner tracing scope, client lifecycle, error/outage/disabled policy and native metadata projection including correlation_id. M4.3 follows the researched CrewAI integration and its remaining real-application/local-UI checks.
 
-1. Publish the shared-records draft PR under D22. Then align the remaining context fields/path/signatures/derivation/testing choices with Sharon before creating M4.1's detailed design.
-2. Finalize M4.2 runner scope, actual trace binding, client lifecycle and outage/disabled policy without adding a reporting facade.
-3. Review the delivered M4.R recommendation when designing M4.2/M4.3; retain its exact pins and remaining startup/privacy/application/local-UI checks before adoption.
-4. Reconcile affected repository baseline wording and map focused test cases in each implementation PR. Keep local UI acceptance distinct from automated test evidence.
-
-Q22 now has a research-backed released-version recommendation; application adoption and acceptance remain open. Q21 is closed: no broker. Q17 agent lifetime stays deferred; Q13/Q14/Q19 logging/viewer questions stay deferred. Do not restart the old broker-interface design.
-
-Q24 is resolved by D22/D23: the repository draft becomes the active shared home now; the detailed context design remains unwritten pending alignment. Prior saved files are dated snapshots. Follow the [README maintenance rules](README.md#rules-that-prevent-design-drift), with requirements and decisions as the concrete shared reference.
+Q25 is resolved at the application-ID level by D27; ownership and constructor details are proposed concretely in M4.1. Q01/Q02/Q04/Q06/Q12/Q15/Q18 have reviewable M4.1 answers in that draft; their later-feature parts stay deferred. Q21 remains closed: no broker. Agent lifecycle and local logger/viewer questions remain outside M4.1. Follow the [README maintenance rules](README.md#rules-that-prevent-design-drift).
 
 ## 10. Evidence and limits
 
@@ -205,12 +175,12 @@ Q24 is resolved by D22/D23: the repository draft becomes the active shared home 
 
 ## 11. Stable requirement register
 
-These identifiers are retained from the discussion for design/test traceability. Current milestones and explicit deferrals above govern delivery; R15 is superseded, not an active broker requirement. Open details below remain open, even where the high-level route is accepted.
+These identifiers are retained from the discussion for design/test traceability. Current milestones and explicit deferrals above govern delivery; R15 is superseded, not an active broker requirement. Exact M4.1 details are specified in a review draft, not yet approved; later-feature questions remain open as indicated.
 
 - **R01 — Per invocation:** create a fresh run context when starting each workflow invocation, regardless of entry through CLI, a Python method or a future API. Do not create the per-run context at module import.
-- **R02 — Workflow access:** the workflow holds the context. D19 accepts runner → workflow factory → workflow constructor → self.context → CrewAI Flow propagation. The existing workflow ABC is the integration point; exact signature and construction timing remain detailed-design items.
+- **R02 — Workflow access:** the workflow holds the context. D19 accepts runner → workflow factory → workflow constructor → self.context → CrewAI Flow propagation. The existing workflow ABC is the integration point; exact signature and construction timing are proposed in the M4.1 design for approval.
 - **R03 — Propagation:** steps and eventual agents must have access to the appropriate execution context without repeatedly reconstructing workflow/run identity at each log call.
-- **R04 — Agent enrichment:** an agent needs the inherited workflow/run correlation plus its own information, such as agent type. The API and mechanism for deriving this scope are open; unrelated or concurrent runs must not contaminate one another. Sharon explicitly requires agent fields to apply throughout the agent's nested method calls, then stop applying when control returns to the workflow. Agent B must receive its own agent fields without leftovers from agent A.
+- **R04 — Agent enrichment:** an agent needs the inherited workflow/run correlation plus its own information, such as agent type. The M4.1 draft proposes a small for_agent helper using inner/outer dataclass replacement; unrelated or concurrent runs must not contaminate one another. Sharon explicitly requires agent fields to apply throughout the agent's nested method calls, then stop applying when control returns to the workflow. Agent B must receive its own agent fields without leftovers from agent A.
 - **R05 — Configuration:** supply relevant configuration and observability information through the context. Exactly which configuration is exposed remains open. Never include credentials or complete private configuration in telemetry.
 - **R06 — No required service:** new Python application logging runs within Agent Playbook. Recording logs must not require a separately started collector, database server or logging backend.
 - **R07 — Local only:** new logging storage and processing stay local. No cloud logging service or remote logging dependency.
@@ -236,6 +206,8 @@ These identifiers are retained from the discussion for design/test traceability.
 - **R27 — Fine-grained model usage/cost, iteration 15:** later inspection must be able to show individual model calls/turns and relevant tool activity, rather than only one final aggregate agent cost. Preserve per-call observations, model identity, source usage and invocation linkage. Availability/granularity of runtime data must be verified; do not fabricate per-call costs from a run total. Native agent adapters and feature delivery remain separately scoped.
 - **R28 — Prioritize automatic existing-workflow coverage, iteration 18:** all maintained workflows' real @start/@listen/@router executions and relevant branch results should be inspectable in local Langfuse as soon as the runner/context foundation supports them. Validate WF-01, WF-02 and both WF-03 paths. Do not interpret this as a new independent trace per method or tracing every utility function; one workflow trace contains its executed observations. Absent branches are not completed operations. Desired coverage is not a claim it already works.
 - **R29 — Easy field evolution, iteration 19:** adding a context field should normally require changing its typed definition and the code that supplies/uses it, without changing unrelated runner/workflow/helper forwarding signatures or dropping the field during child derivation. This is a maintainability requirement, not permission for untyped arbitrary state, automatic full-context telemetry export or a guarantee that new required semantics need no caller changes.
+
+- **R30 — Stable application correlation, accepted iteration 27:** add correlation_id when the initial ExecutionContext is constructed and preserve it unchanged in descendants. Keep it independent of SDK trace/span IDs and distinct from per-workflow invocation identity. The detailed draft recommends top-level ExecutionContext ownership, UUID4 generation only when omitted and explicit reuse for related work. Do not regenerate when deriving a child, duplicate it inside observability or add a new CLI/process/tracing mechanism merely to carry it.
 
 ## 12. Inspection and evolution requirements
 

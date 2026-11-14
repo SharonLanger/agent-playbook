@@ -1,6 +1,20 @@
 # Context discussion history and ongoing record
 
-Current iteration: **26, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+Current iteration: **27, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+
+## Iteration 27 — correlation accepted and detailed context handoff drafted
+
+Sharon explicitly accepts adding correlation_id, asks for a placement recommendation, reconfirms the context/wiring → runner tracing → CrewAI sequence, and authorizes the detailed context design for his review. He requires a separate test-cases file and a Codex orchestration plan: a coder implements/tests, two independent reviewers inspect design drift and test gaps, findings drive the next coder pass, and at most three total rounds occur. Preserve each round's reports and stop if unresolved after round three. Implementation begins only after his review. D27–D29 and R30 record these instructions.
+
+Recommended correlation_id directly on ExecutionContext because it groups application work beyond observability. The draft generates it only when omitted, preserves explicitly supplied/inherited values and keeps workflow_run_id separate. An explicit shared value can group future workflow invocations without adding a child-workflow launcher, CLI input or process transport now. It neither replaces SDK trace identity nor creates trace parentage. D25/D26 remain unchanged.
+
+Read the full discussion/current records and inspected the maintained runner/factory/ABC, all three wrapper/Flow pairs, tests and tooling at main d12b5fc2867d3646b6fab2eb71f1447ff177d8c1. Draft PR #43 started this update at dc47e37ba44be90a66226c6952dc033057f66dc0. No application checkout, personal examples access or new runtime probe was needed. The pinned CrewAI Flow source shows a Pydantic BaseModel and an existing framework execution_context; communicated that our separate application context should use PrivateAttr and a read-only context property to remain outside business/model serialization. This source inspection is not a passed integration test.
+
+Created three review drafts: 01-context-design.md (schema, placement, exact construction/propagation, for_agent derivation, lifecycle and file impact), 01-context-test-cases.md (CTX-01–17, real propagation/Flow/regression/import/offline/package evidence), and 01-context-implementation-plan.md (approval/base gate, coder/two-reviewer roles, frozen candidate SHA, permanent per-round reports and maximum-three-round stop). The for_agent name, frozen/keyword-only settings and precise signatures are proposed detailed choices, not retroactively accepted discussion decisions.
+
+No M4.1 architectural question blocks review of this concrete draft. Sharon's approval and the enumerated G01–G08 guarded amendments precede implementation. Data-only context amendments are separated from the later native-tracing provider-rule exception needed before M4.2. No guarded source is edited here, and no application behavior, dependencies, client lifecycle, agent ownership or SDK APIs are implemented. Preserve M1–M3 acceptance, the research's eight-case/44-span limits and prior historical records unchanged.
+
+Current shared spec/decision/readme/reconciliation records, Stage 02 navigation, progress and Atlas are updated to show draft design ready for review, not application completion. Documentation validation is recorded in repository-updates.md after it runs; no application tests, live Langfuse exercise or new research success are claimed.
 
 ## Iteration 26 — proposed immutable application correlation ID
 

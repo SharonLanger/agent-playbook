@@ -39,7 +39,10 @@
     "designs/stages/02-langfuse/workflow-integration/requirements.md",
     "designs/stages/02-langfuse/workflow-integration/decisions.md",
     "designs/stages/02-langfuse/workflow-integration/repository-updates.md",
-    "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md"
+    "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
+    "designs/stages/02-langfuse/workflow-integration/01-context-design.md",
+    "designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md",
+    "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md"
   ],
   "views": {
     "current": {
@@ -2307,22 +2310,40 @@
             {
               "name": "Workflow context and native tracing",
               "path": "designs/stages/02-langfuse/workflow-integration/README.md",
-              "text": "Permanent draft: context agreement, pending details, research and repository reconciliation.",
+              "text": "Permanent draft: detailed context/test/review package, research and repository reconciliation.",
               "to": "workflow_observability"
             }
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "PR #36 merged as 44d6919; local setup/mock acceptance and delivery-readback limitation retained. M4 implementation is deferred; its permanent draft workspace records context basics and isolated CrewAI research, with detailed design still pending.",
+          "note": "PR #36 merged as 44d6919; local setup/mock acceptance and readback limitation retained. M4.1 detailed design/test/review drafts await Sharon; implementation remains deferred.",
           "diagram": null
         },
         "workflow_observability": {
           "name": "Workflow observability draft",
           "parent": "langfuse_setup",
-          "label": "M4 planning / research",
+          "label": "M4.1 design review / research",
           "title": "Context, runner, then automatic CrewAI tracing",
-          "text": "Use native Langfuse with minimal code and no tracing broker. Dataclass composition and propagation are agreed; the detailed context design is not yet written.",
+          "text": "Context design, separate test cases and Codex implementation/review plan are drafted for Sharon. Stable application correlation; native tracing later without a broker.",
           "blocks": [
+            {
+              "name": "Context design",
+              "path": "designs/stages/02-langfuse/workflow-integration/01-context-design.md",
+              "text": "Exact schema, runner/factory/workflow/Flow path, correlation preservation and proposed guarded amendments.",
+              "to": null
+            },
+            {
+              "name": "Test cases",
+              "path": "designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md",
+              "text": "CTX-01–17 required scenarios, meaningful assertions and evidence limits.",
+              "to": null
+            },
+            {
+              "name": "Codex implementation plan",
+              "path": "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md",
+              "text": "Coder plus design-drift/test reviewers; at most three rounds with permanent reports.",
+              "to": null
+            },
             {
               "name": "Requirements and decisions",
               "path": "designs/stages/02-langfuse/workflow-integration/requirements.md",
@@ -2342,7 +2363,7 @@
               "to": null
             }
           ],
-          "note": "DRAFT WORKSPACE, not an approved implementation contract. Older generic exporter sketches elsewhere are alternatives; they do not override the selected no-broker direction. No dependency change or universal decorator coverage claim.",
+          "note": "DRAFT FOR REVIEW, not approved or implemented. Two independent reviewers and permanent reports; maximum three implementation rounds. CrewAI research does not prove actual application/UI acceptance.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/stages/02-langfuse/workflow-integration/README.md"
@@ -4188,6 +4209,21 @@
           "path": "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
           "status": "Draft planning / bounded research; no implementation approval",
           "purpose": "Released instrumentor probe: eight cases/44 spans; application/UI acceptance pending."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/01-context-design.md",
+          "status": "Draft for Sharon's review; no implementation approval",
+          "purpose": "Draft typed context contract and full runner/Flow propagation."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md",
+          "status": "Draft for Sharon's review; no implementation approval",
+          "purpose": "Draft CTX-01–17 acceptance and meaningful assertion mapping."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md",
+          "status": "Draft for Sharon's review; no implementation approval",
+          "purpose": "Draft Codex handoff: coder, two reviewers, max three rounds and permanent reports."
         }
       ]
     }

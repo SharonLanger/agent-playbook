@@ -8,7 +8,7 @@ mock playground. Milestone 4 remains deferred and unimplemented.
 
 ## Start here
 
-M4 planning now has a [permanent workflow-integration workspace](workflow-integration/README.md): current requirements, decisions, CrewAI research and the pending repository-update checklist. Its documentation PR is draft; the detailed context design is not yet written or approved, and M4 implementation remains deferred. The earlier PR #36 milestone/branch policy below records M1–M3; M4 uses the separate milestone PR direction in the new workspace.
+M4 planning now has a [permanent workflow-integration workspace](workflow-integration/README.md): current requirements, decisions, CrewAI research and the pending repository-update checklist. PR #43 now includes a [detailed M4.1 context draft](workflow-integration/01-context-design.md), separate test cases and a capped implementation/review plan. They await Sharon's review; M4 implementation remains deferred. The earlier PR #36 milestone/branch policy below records M1–M3; M4 uses the separate milestone PR direction in the new workspace.
 
 Latest: [local acceptance and remaining limitation](acceptance-2026-11-14.md),
 [approved main reconciliation](main-reconciliation.md),

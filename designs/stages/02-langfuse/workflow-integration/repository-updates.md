@@ -1,45 +1,55 @@
 # Repository reconciliation checklist
 
-Status: **pending review checklist, not permission to edit guarded meaning**. Updated 2026-11-14, iteration 21. The draft PR creates a review home; it does not complete M4.1 or Stage 02. [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
+Status: **review checklist, not permission to edit guarded meaning**. Updated 2026-11-14, iteration 27. PR #43 includes the detailed M4.1 review package; no application implementation. [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
 
-## This opening documentation PR
+## This documentation PR
 
-- [x] Preserve current requirements, decisions, unresolved/deferred issues, complete discussion history and historical specification.
-- [x] Preserve CrewAI report, exact probe source/results/dependencies and original provenance.
-- [x] Add a start-here README, concrete cross-design reference and handoff rules.
-- [x] Link the package from Stage 02 and the exploration index; expose it as draft/research in Atlas, not implemented or approved design.
-- [x] Opening documentation checks: Atlas build/freshness, 67 relative links, stable requirement/decision/question IDs, full discussion preservation, unchanged 13-file probe and unchanged guarded baselines passed. Published PR scope is checked separately; no application tests or probe rerun claimed.
-- [ ] Discuss remaining M4.1 details with Sharon before creating `01-context-design.md`.
+- [x] Preserve requirements, decisions, complete discussion history and historical specification.
+- [x] Preserve CrewAI research, the exact 13-file probe/results/dependencies and provenance.
+- [x] Maintain permanent entry rules, Stage 02/exploration links and draft Atlas navigation.
+- [x] Record D27 correlation, D28 permission to draft, D29 bounded implementation review, and R30 application correlation.
+- [x] Draft [context design](01-context-design.md), [test cases](01-context-test-cases.md) and [Codex implementation/review plan](01-context-implementation-plan.md).
+- [x] Reconcile shared records, progress and Atlas with draft-review status; preserve implemented M1–M3 status.
+- [ ] Sharon reviews and approves the package and G01–G08 amendments. The presence of these documents does not authorize implementation.
 
-No official product guide changes are needed yet: runtime behavior, supported CLI/configuration and dependencies do not change. No application test rerun is required for this documentation-only opening; preserved probe/application results belong to their original revisions. `app/examples/` remains excluded.
+No product-guide update is needed yet: supported runtime behavior, CLI/configuration and dependencies do not change. No application test or probe rerun is claimed. app/examples/ remains excluded. The package gives the next Codex future commands and evidence requirements.
 
-Preservation detail: the full Git whitespace check reports eight blank-at-EOF warnings in the eight unchanged copied Flow fixture modules. Keep them byte-identical to the recorded source hashes. The whitespace check with only that category disabled passes; current Markdown has no trailing whitespace. This is not a runtime/test failure.
+## M4.1 guarded amendments — before implementation
 
-## Before approving the detailed design / marking its PR ready
+[Design section 9](01-context-design.md#9-guarded-logical-amendments-to-approve-with-this-design) is the canonical file-specific G01–G08 list. It proposes data-only context placement, runner/factory/ABC/Flow routing, dated workflow-contract amendments, M4 checkpoints and registration of the approved design/test/implementation documents. No guarded file is edited in this draft.
 
-| File / surface | Logical change to present | Reason, limit and trigger |
+The orchestrator records the approved revision and Sharon's approval reference, applies only authorized amendments and does not ask again for that scope. Identify missing approval by G-number and file before affected work. Preserve prior acceptance and PR #40's lifecycle history. M4.1 needs no provider-isolation exception: its shared model uses the standard library and contains no SDK/client handles; Flow integration uses existing CrewAI/Pydantic within workflow code.
+
+## Later tracing reconciliation — before M4.2
+
+| File / surface | Logical change to present | Limit |
 |---|---|---|
-| designs/principles.md, principle 5 | Narrow exception allowing native Langfuse instrumentation at reviewed call sites; preserve centralized configuration and separate agent-provider contracts | D11 rejects the mandatory tracing broker. Guarded: explain the exact addition/removal and consequences before editing |
-| designs/architecture.md | Align observability responsibilities and tracing imports with context + SDK/native instrumentation; remove the mandatory neutral observation path for this phase | Guarded: preserve CrewAI scheduling, workflow lifecycle, error ownership, redaction and independent agent adapters; assess associated diagrams/Atlas semantics |
-| designs/project-structure.md | Record the exact agreed context file responsibility/dependencies; reconcile tracing import rules | Guarded: exact path still open; do not create an unused package or decide agent lifecycle by placement |
-| AGENTS.md engineering boundary | Review whether the general adapter instruction needs a tracing-specific cross-reference after the approved principle change | Follow file-specific approval if protected meaning is represented here; do not silently leave contradictory agent instructions |
-| designs/stages/02-langfuse/architecture.md | Reconcile the earlier M4 observability-handle placeholder with agreed context/native tracing contracts | Approved boundaries protected; preserve accepted M1–M3 and their external configuration/client behavior |
-| designs/stages/02-langfuse/milestones.md and README.md | Describe the finalized M4.R/M4.1/M4.2/M4.3 checkpoints and separate PR sequencing, distinguishing planning from implementation | Original one-branch M1–M3 policy must not override D21; preserve its historical scope and acceptance |
-| designs/governance/guarded-files.md | Register the exact newly approved/locked milestone design and any approved contract sections | Only after Sharon approves that baseline; current shared draft is not automatically a locked design |
-| designs/progress.md | Link actual draft/approved/implemented/verified/accepted/merged status with exact PR/revision | Update at the corresponding gate; this opening leaves current implementation status unchanged and does not claim M4 completion |
-| designs/README.md, exploration index, Atlas catalog/generated HTML | Reconcile navigation/status with finalized source records | Rebuild from reconciled sources; no manual merge of generated HTML; no draft promotion to Current merely because a PR exists |
-| designs/roadmap.md | Review only if stage ordering changes | No ordering change selected now; M4 submilestones do not renumber completed stages |
-| designs/refactors/workflow-contract/design.md | Review the previously marked stale PR #40 review-status header (N02), if still present | Separate status-only guarded correction after verifying and explaining it; do not rewrite accepted lifecycle contracts |
+| designs/principles.md, principle 5 | Narrow exception for native Langfuse instrumentation at reviewed call sites | Preserve centralized configuration and agent-provider contracts; data-only M4.1 does not need this |
+| designs/architecture.md | Reconcile the neutral observation/exporter path with native tracing | Preserve scheduling, application outcomes/errors, redaction and agent adapters |
+| designs/project-structure.md | Specify reviewed SDK import/initialization locations | Do not multiply the shared context or allow unrestricted SDK imports |
+| AGENTS.md engineering boundary | Reconcile adapter-only instructions conflicting with the approved tracing exception | Explain exact protected logical changes before editing |
+| Stage 02 architecture/milestones and maintained views | Record native scope/client/instrumentation contracts and acceptance | Preserve M1–M3 evidence and M4.1's approved data contract |
 
-These are review tasks, not blanket approval of unseen edits. No guard is removed. D11/D18/D19 are already accepted directions; review their concrete per-file consequences rather than reopening the same high-level choices.
+D11 already accepts no broker. These changes reconcile implementation with guarded sources, without reopening that direction or reversing agent-provider isolation.
 
 ## At each implementation milestone's closeout
 
-- [ ] Refresh main and relevant concurrent PRs; assess shared-file overlap, especially context signatures, configuration/dependencies and Atlas. Do not claim zero conflicts.
-- [ ] Map implementation and meaningful tests to the approved design and stable requirement IDs; preserve existing workflow results/errors and sandbox isolation.
-- [ ] Record actual checks at their exact revision, plus blocked/unrun checks and local UI acceptance separately. Do not copy research success into application completion.
-- [ ] Update official app/docs guides in the same PR when supported behavior/configuration changes; otherwise state the concrete no-impact reason.
-- [ ] Reconcile progress, stage summaries, current shared records, relevant guarded changes and Atlas before readiness. Preserve earlier evidence as dated history.
-- [ ] After an explicitly authorized merge, inspect the resulting main and update actual merge/acceptance status. Opening or approving a draft is not merge authorization.
+- [ ] Refresh main/concurrent PRs; assess shared-file overlap, particularly runner/factory/context signatures, settings and Atlas. Do not assume zero conflicts.
+- [ ] Map implementation and meaningful assertions/results to the approved design/tests. Preserve outputs/errors, imports, typing and personal-sandbox isolation.
+- [ ] For M4.1, retain coder, design-drift, test-gap and orchestrator reports for each used round, with exact design/candidate SHAs; enforce three total rounds maximum.
+- [ ] Record passed/failed/blocked/unrun checks at the tested revision. Research success is not application completion; flush/trace URLs are not ingestion proof.
+- [ ] Update app/docs when supported behavior changes; otherwise record no impact. M4.1 updates internal Python construction/context instructions, not CLI flags.
+- [ ] Reconcile progress, stage summaries, shared records, authorized guarded changes and Atlas. Preserve historical evidence and do not mark M4.2/M4.3 complete after context work.
+- [ ] After explicitly authorized merge, inspect resulting main and record acceptance/merge status. Drafting or approving a design is not merge authorization.
 
-M4.1 closeout covers context propagation/isolation. M4.2 adds real root correlation, startup/disabled/outage/shutdown behavior. M4.3 adds actual maintained workflows, masking/startup checks and local server/UI observation coverage. Agent lifecycle, logging, scores and unrelated harness work remain outside these closeouts.
+designs/roadmap.md needs no change: stage order is unchanged. designs/README.md already leads to stage/exploration navigation; add only useful links. The workflow-contract status marker N02 remains a dated reconciliation item; use explicit amendments rather than rewrite historical acceptance.
+
+M4.1 closeout proves context identity/propagation/isolation and existing behavior. M4.2 adds root correlation and client/disabled/outage/shutdown behavior. M4.3 adds real automatic Flow observations, masking/startup checks and local-server/UI acceptance. Agent lifecycle, logs and scores remain separate.
+
+## Documentation validation
+
+Iteration 21 opening checks passed at their recorded revision: Atlas build/freshness, 67 relative links, prior record/probe preservation and unchanged guarded baselines. This is historical evidence, not validation of the new draft.
+
+Iteration 27 checks passed: Atlas build/freshness and its reference/guard/sandbox checks; 140 relative Markdown links; balanced fences and current-edit whitespace; R01–R30, D01–D29 and Q01–Q25 retained; all CTX-01–17/G01–G08 entries present; complete prior discussion and all 13 probe files preserved; guarded baselines unchanged. No application code, dependencies or guarded sources changed; no application tests, research rerun or live Langfuse verification claimed.
+
+Preservation detail: the opening PR copied eight unchanged Flow fixture modules with blank-at-EOF warnings. Keep their bytes/hashes unchanged. Check current edits normally; for the full preserved snapshot only, disabling that warning category is acceptable and must not conceal other whitespace errors.

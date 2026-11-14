@@ -13,6 +13,18 @@ describes the target system. Stage summaries own milestone detail and findings r
 
 Stage 01 details and retained learning material are in the [stage summary](stages/01-crewai-flows/README.md). The [roadmap](roadmap.md) owns intended sequencing; later stages remain high-level.
 
+## M4.1 context design — draft review, 2026-11-14
+
+[Draft PR #43](https://github.com/SharonLanger/agent-playbook/pull/43) contains the
+[context design](stages/02-langfuse/workflow-integration/01-context-design.md),
+[separate test cases](stages/02-langfuse/workflow-integration/01-context-test-cases.md)
+and [Codex implementation/review plan](stages/02-langfuse/workflow-integration/01-context-implementation-plan.md).
+Sharon authorized drafting, accepted a stable application correlation_id and requested
+one coder plus independent design-drift/test reviewers, with permanent reports and
+at most three total rounds. Detailed contract approval and implementation remain pending;
+the implemented/verified Stage 02 status above is unchanged. CrewAI research is bounded
+isolated evidence, not real-application or local-UI acceptance.
+
 ## Local acceptance and merge — 2026-11-14
 
 The [local acceptance record](stages/02-langfuse/acceptance-2026-11-14.md)
