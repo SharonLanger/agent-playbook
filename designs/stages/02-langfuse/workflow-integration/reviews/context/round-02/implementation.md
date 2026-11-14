@@ -27,3 +27,7 @@ CTX-01/02: `tests/context/test_models.py::test_fresh_identity_and_explicit_reuse
 - Clean installed release: **NOT RUN**, by plan's review-before-release sequence. Mac/PyCharm and live Langfuse are not M4.1 automated evidence.
 
 Both independent reviewers must inspect this exact candidate and entire approved diff, including retained round-1 files. A code/test correction after their reviews would require round 3; report-only updates would not.
+
+### Same-candidate verification addendum — 2026-11-14
+
+After committing the frozen candidate, I reran `./.venv/bin/python -m tooling.checks check` from `app/` on the unchanged application tree at `16c1580e96bd36945fa96b6ecfa8f9a563d53913` (report-only commits followed it). Exit 0: Pyright 0 errors/warnings, Ruff lint/format passed, pytest **380 passed in 36.05s**. This confirms the final assertion refinement was included; the earlier 35.35s result is retained as historical same-tree evidence.
