@@ -1,21 +1,49 @@
 # Progress and acceptance
 
-Updated 2026-11-13. This file owns current project status; [architecture.md](architecture.md)
+Updated 2026-11-14. This file owns current project status; [architecture.md](architecture.md)
 describes the target system. Stage summaries own milestone detail and findings retain dated evidence.
 
-## Current status after the PR #40 merge
+## Current status before the PR #36 merge
 
 | Stage | Implementation | Verification | Sharon's acceptance | Merge state |
 |---|---|---|---|---|
 | Stage 00 — development environment | Complete | Recorded in the [Stage 00 findings](stages/00-environment/findings.md) | Accepted | Merged through PR #26 |
-| Stage 01 — CrewAI Flows | Three workflows, CLI/configuration, independent experiments, runtime structure refactor and workflow-contract refactor complete | Revision-specific checks in [Stage 01 findings](stages/01-crewai-flows/findings.md), [runtime refactor evidence](refactors/2026-11-12-runtime-structure/verification.md) and [workflow-contract evidence](refactors/workflow-contract/README.md) | Sharon confirmed Stage 01 completion after PR #38 and PR #40 merged | PR #30, #32, #34, #38 and #40 merged; workflow contract merge `a98e1041c0edb51a447472b6ebd78ab2a650150b` |
-| Stage 02 — Langfuse | In progress | — | — | — |
+| Stage 01 — CrewAI Flows | Completed and locked; three workflows, CLI/configuration, independent experiments, runtime structure refactor and workflow-contract refactor complete | Revision-specific checks in [Stage 01 findings](stages/01-crewai-flows/findings.md), [runtime refactor evidence](refactors/2026-11-12-runtime-structure/verification.md) and [workflow-contract evidence](refactors/workflow-contract/README.md) | Sharon confirmed Stage 01 completion after PR #38 and PR #40 merged | PR #30, #32, #34, #38 and #40 merged; workflow contract merge `a98e1041c0edb51a447472b6ebd78ab2a650150b` |
+| Stage 02 — Langfuse | M1–M3, management CLI and YAML-selected external credentials implemented on PR #36; M4 deferred | 363-test gate at `b80b22b`; Sharon confirmed local project access, synthetic traces, trace-ID inspection and stop/start persistence; delivery readback limitation retained | Local setup and mock-trace exercise accepted on 2026-11-14; whole stage remains in progress | PR #36 unmerged; user enable/version push `dafeaed` preserved, final merge pending |
 
 Stage 01 details and retained learning material are in the [stage summary](stages/01-crewai-flows/README.md). The [roadmap](roadmap.md) owns intended sequencing; later stages remain high-level.
+
+## Local acceptance and pre-merge follow-up — 2026-11-14
+
+The [local acceptance record](stages/02-langfuse/acceptance-2026-11-14.md)
+records Sharon's Mac/UI results and the remaining `delivery: unconfirmed`
+readback limitation despite visible ingestion. PR #40 is already merged and
+accepted; its dated review findings below remain historical. Sharon authorized
+merging PR #36 after his planned enable/version push and this reconciliation.
+The 0.1.3 enable/version push `dafeaed` passed the complete 363-test gate; no
+merge is claimed yet. Real workflow/context
+tracing remains a separate deferred step.
 
 ## Historical snapshots and revision-specific evidence
 
 The records below preserve the status, decisions and verification known at their dated checkpoints. Statements about open PRs, pending acceptance and next actions within these snapshots are historical, not the current project status above.
+
+## Langfuse branch detail (earlier integration checkpoint)
+
+Sharon approved combining all six conflict resolutions on 2026-11-13.
+This branch incorporates main `53764abeb9402d596ee26bef19872fc2ebd7d888`,
+including the merged workflow-contract refactor and application version 0.1.2.
+PR #36 remains draft and unmerged. Langfuse M1–M3 and the management
+helper/CLI are implemented and independently checked. Live ingestion and Sharon's
+Mac/UI acceptance remain pending; real workflow/context tracing is deferred.
+
+The histories below retain their original revisions and earlier pending/merged
+wording. They are historical evidence, not the current state. Integration
+verification and the approved conflict choices are in the
+[Stage 02 reconciliation record](stages/02-langfuse/main-reconciliation.md).
+The [follow-up resolution](stages/02-langfuse/resolution-2026-11-13.md) records
+the SDK/reporting fixes, current checks and live blocker.
+
 
 | Work | Verified state |
 |---|---|
@@ -80,6 +108,125 @@ Current implementation snapshot: main `96cb1f8`, merging accepted PR #34. Runtim
 PR #35 reconciles these facts with the approved guarded governance and permanent Atlas. All existing stage files remain unchanged and protected. Personal examples remain outside unrequested agent work. The deleted internal public-doc review guide and temporary handoff stay deleted; Sharon also authorized removing the temporary review helper and PyCharm task. Application tests and normal quality checks remain.
 
 Stage 02 Langfuse design/research may proceed; implementation requires its approved stage design. Role/event/adapter/harness details remain optional explorations. PR #35 is unmerged pending Sharon's review.
+
+## Historical Langfuse branch record
+
+
+## Stage 02 milestones — documentation review
+
+On 2026-11-13 Sharon agreed to four checkpoints: local Langfuse UI, a connection check, editable mock runs in his requested app/examples/langfuse playground, and real workflow integration last. The [milestone plan](stages/02-langfuse/milestones.md) replaces the earlier blanket dependency on the workflow refactor: milestones 1–3 are independent; only milestone 4 waits for the merged workflow/context design. Milestones are not mandatory separate PRs; reuse the existing PR/review thread and assess actual overlap before splitting work.
+
+The personal playground is for manual UI learning and scenario edits, not automated acceptance fixtures. Application tests remain independent under app/tests. [Doctor #37](https://github.com/SharonLanger/agent-playbook/issues/37) tracks the requested future diagnostic command. No Stage 02 runtime, deployment, credentials, playground or live telemetry is implemented or verified by this documentation update. Existing stage acceptance and guarded baselines remain unchanged.
+
+### Agent verification and implementation handoff
+
+Sharon requested practical sanity checks before an implementation reaches his manual review, while leaving simple UI/account steps to him when automation would be disproportionate. The stage now has [verification requirements](stages/02-langfuse/verification.md) and a [milestone 1 Codex brief](stages/02-langfuse/implementation-handoff.md). They require actual available checks, explicit blocked/unrun results, targeted smoke runs of the specifically requested new Langfuse playground during M3, and independent automated fixtures. This update is documentation only; no milestone implementation or live verification has been performed.
+
+## Stage 02 milestone 1 — implementation on PR #36
+
+Sharon authorized milestone 1 only. The PR branch now includes a pinned local
+Langfuse Compose stack, one-time ignored secret generation and an official UI
+setup guide. See [M1 findings](stages/02-langfuse/findings.md) for live
+verification, limits and remaining manual acceptance. This pending PR is
+implemented and agent-verified, not yet accepted or merged. No Python
+integration, playground, workflow or context change is included.
+
+## Stage 02 next implementation assignment
+
+On 2026-11-13 Sharon requested [M2/M3 implementation instructions](stages/02-langfuse/connection-playground-handoff.md) for Codex to work while his M1 local check is pending. M2 connects/authenticates without traces; M3 explicitly sends editable synthetic traces. Separate tested commits and per-milestone Drive text checklists preserve independent verification. Shared configuration files overlap workflow PR #40 and must be reconciled; no zero-conflict claim is made. This handoff update implements neither milestone, changes no guarded meaning, and does not accept M1 or authorize M4. [Verification file status](stages/02-langfuse/user-verification.md).
+
+## Stage 02 milestone 2 — pending PR #36 checkpoint
+
+The branch implements an explicit Langfuse project authentication checker with
+disabled-by-default external settings and SDK 5.2.0. Existing workflows are not
+instrumented. [M2 findings](stages/02-langfuse/findings.md) record offline and
+packaging checks plus the blocked live-auth check. Sharon's local acceptance is
+pending. M3 and M4 are not implemented at this checkpoint.
+
+## Stage 02 milestone 3 — pending PR #36 checkpoint
+
+The branch now includes the explicitly invoked personal
+`app/examples/langfuse/run.py` mock playground and a narrow observation writer.
+No ordinary workflow emits traces. [M3 findings](stages/02-langfuse/findings.md)
+record independent adapter tests, targeted personal-script smoke runs and the
+blocked live ingestion/readback check. Sharon's M1, M2 and M3 local acceptance
+remain pending; M4 is not implemented.
+
+
+## PR #36 independent review and verification proposal — 2026-11-13
+
+Sharon requested a permanent record of the four review findings and a simpler
+manual exercise before implementation resumes. The [review](stages/02-langfuse/review-2026-11-13.md)
+applies to PR head `5bfcb889215d000d76629c3d4198d33bea99398d`: a real-SDK
+connection/tracing lifecycle defect prevents mock export; rejected export can
+still print submission success; latest-main integration remains unresolved;
+and some canonical stage status is stale. The review independently passed
+Pyright, Ruff and 133 tests, but its actual-SDK HTTP probes reproduced the two
+delivery defects. No live server ingestion, Mac UI or persistence acceptance is
+claimed. Prior checkpoint results above remain revision-specific history.
+
+Read-only comparison with main `53764abeb9402d596ee26bef19872fc2ebd7d888`
+found conflicts in the three configuration files, progress, Atlas catalog and
+generated HTML. No merge or resolution was applied. The [proposed follow-up](stages/02-langfuse/verification-simplification-plan.md)
+starts with updating from main and agreeing on conflict choices with Sharon,
+then delivery fixes, a small lifecycle helper, agent verification and one
+current-revision Drive checklist. It awaits agreement; its commands are proposed,
+not implemented. Workflow/context integration remains separate.
+
+This update saves review/proposal documents and updates navigation/progress/Atlas
+only. It changes no runtime, dependency, guarded baseline or supported product
+command; official product guides therefore remain unchanged at this proposal
+stage. PR #36 remains draft and unmerged, with all four review items open.
+
+Documentation-only verification: Atlas build/freshness/reference checks passed;
+39 relative Markdown links, fenced blocks, whitespace and the six-file change
+scope passed. Hash comparison confirmed other copied source files unchanged.
+Application tests were not rerun for this documentation-only update; the 133-test
+result above belongs to the independent review of `5bfcb889`.
+
+
+## Langfuse newcomer setup requirements — 2026-11-13
+
+Sharon agreed with the simple Docker operation/verification direction and asked
+for the design to include complete newcomer installation guidance and the needed
+management scripts. The [follow-up plan](stages/02-langfuse/verification-simplification-plan.md)
+now assigns public-guide updates, a first-use walkthrough, exact version/evidence
+labels, prerequisite checks, repeated-start/stop behavior, helpful failures and
+existing-installation preservation. Official Docker/Langfuse references were
+checked; Docker Desktop 4.99.0 is recorded as a candidate, not a tested Mac result.
+
+This change documents the requested requirements and updates navigation/Atlas.
+No application or script implementation, main merge, conflict resolution or
+public supported-command change was made. Official guides will be updated with
+working commands alongside implementation; currently proposed commands remain
+explicitly labeled in the design. Main integration with conflict choices agreed
+with Sharon is still the first execution step. All four review findings remain
+open. Existing charter, ownership, secrets, sandbox and evidence rules apply; no
+guarded baseline or broader event/harness design changes.
+
+
+## Langfuse CLI agreement and Codex handoff — 2026-11-13
+
+Sharon selected double-dash action flags under `agent-playbook langfuse`:
+`--start`, `--stop`, `--status`, `--logs`, `--open`, `--check`, with `--follow`
+only for logs and normal `--help`. He requested the Markdown update and complete
+Codex context before starting. The [plan and handoff](stages/02-langfuse/verification-simplification-plan.md)
+now define exclusive actions, responsibilities, exits, existing configuration
+selectors, development-checkout dispatch, direct-script fallback, newcomer
+guides and independent verification. A fresh Codex instruction starts with
+reading and conflict presentation; resolving conflicts still requires Sharon's
+agreement. No execution, conflict resolution, main merge or runtime change was
+performed by this update. PR #36 remains draft and all four review findings open.
+
+The existing CLI on main was inspected to make the handoff concrete: its
+development bridge defaults to checks.py, so the new command needs an explicit
+tooling mapping. Main's source-checkout boundary and lazy workflow execution
+remain in force. Root `agent-playbook check` stays the quality gate; the planned
+Langfuse `--check` reuses project authentication. No general doctor, workflow
+context or agent runtime was added. Public guides will document working commands
+when implemented; this change updates permanent design/navigation/Atlas only.
+
+## Historical workflow-contract branch record
 
 ## Historical workflow contract refactor design — 2026-11-13
 
@@ -154,3 +301,21 @@ At application commit `4775cbea7b3b86dda76de015cbfd282e43df6cf9`, Q1 observes ea
 - `python3 designs/atlas/build.py --check` and `git diff --check`: **PASS** after the evidence and Atlas update.
 
 The existing public configuration guide already states that merge keys reject and source values are hidden; the new internal `StrictLoader` reason has no user-facing documentation impact. The refactor package, progress, Atlas and PR evidence are updated. No regression scenarios were removed, and maintained gates exclude `app/examples/`. The release artifact remains local and untracked. Python socket/DNS auditing does not provide an OS network sandbox; Linux results do not establish Mac/PyCharm behavior. Compatibility of older installed releases with the new YAML remains untested. Context/Langfuse, optional dependency packaging, children and recovery remain outside PR #40. Both PRs remain open for review.
+
+## PR #36 Langfuse review follow-up — 2026-11-13
+
+The draft branch implements the R1/R3 fixes, R4 factual status correction, optional management helper/CLI and newcomer guides. [Resolution evidence](stages/02-langfuse/resolution-2026-11-13.md) records 350 passing maintained tests and actual-SDK loopback regressions. An isolated Linux Docker start was stopped because its `vfs` driver consumed nearly all free workspace disk before the six services were created. Live ingestion/persistence and Sharon's Mac acceptance remain pending. No M4 or workflow instrumentation is included; PR #36 is unmerged.
+
+The [current combined Drive checklist](https://drive.google.com/file/d/1vxH9napBHThAPX7ELtdTFoO0ONI8jBgE/view?usp=drivesdk) supersedes the historical M1–M3 checkout guides for local acceptance, while retaining their original tested SHAs. The code commit passed isolated release verification; the later documentation commit is rechecked separately.
+
+## PR #41 main reconciliation — 2026-11-14
+
+Sharon approved the four documentation/Atlas conflict resolutions and the stale
+PR #40 status correction in the guarded Stage 01 architecture. Main `9e464014`
+is incorporated; Stage 01 is completed, accepted and locked, with historical
+material retained. Stage 02 remains pending local acceptance on draft PR #36.
+The charter, principles, design contract, guarded register and relevant stage
+baselines were consulted; no new context/event architecture is adopted.
+Only status/navigation and generated Atlas change. Application behavior and
+public guides are unchanged, so no application test rerun is required. Atlas
+build/freshness and changed-document link/scope checks accompany this update.

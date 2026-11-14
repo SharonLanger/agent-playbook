@@ -19,7 +19,8 @@ Follow an example's README when running its `run.py` directly.
 
 | File | Purpose |
 |---|---|
-| `app/application.yaml` | CrewAI settings and configured workflow IDs, reviewed and versioned in Git |
+| `app/application.yaml` | Integration settings, general secrets-file path and configured workflow IDs, reviewed in Git |
+| `~/.config/agent-playbook/secrets.env` | Private credentials outside the repository; file must exist, but may be empty |
 | `app/application.local.yaml` | Optional partial overrides for this machine; Git-ignored |
 | `app/src/agent_playbook/config/` | Python loader, typed validation and CrewAI initialization |
 
@@ -55,7 +56,7 @@ export AGENT_PLAYBOOK_CONFIG="/absolute/path/to/application.yaml"
 For a selected `name.yaml`, an optional sibling `name.local.yaml` is merged by key.
 Local files are partial overrides, not standalone base files. Missing optional local
 files are fine; unreadable or invalid existing files fail. Value precedence is:
-**shared file → local file → documented environment overrides**.
+**shared file → local file → selected secrets file → process environment**.
 
 ## Moving from the old configs folder
 
@@ -65,6 +66,29 @@ The refactor moves shared YAML from `app/configs/application.yaml` directly unde
 file. Default startup rejects a detected old override instead of silently ignoring it.
 No files are overwritten or migrated automatically. Explicit configuration selectors
 still take precedence; update any scripts or IDE parameters that use the old path.
+
+## Langfuse settings
+
+Langfuse project connection settings are documented in the
+[explicit connection guide](langfuse-connection.md). The supplied YAML enables
+Langfuse; set `integrations.langfuse.enabled: false` in an ignored local override
+until project keys are configured, or when running without Langfuse. These settings
+do not instrument workflows. Older YAML files without a Langfuse block still
+load with this integration disabled. Project keys are resolved from named
+credentials-file entries or process environment variables only when enabled; they are separate from Docker's local
+service secrets.
+
+Before bootstrap without project keys, create an ignored `app/application.local.yaml`
+with this partial override:
+
+```yaml
+integrations:
+  langfuse:
+    enabled: false
+```
+
+Set the local value to `true` when keys are ready. Keep your machine-specific
+choice in the ignored local file rather than repeatedly editing shared defaults.
 
 ## CrewAI settings
 
@@ -105,13 +129,72 @@ Set `MY_FLOW_EVENTS=true` or `false`; a missing variable is an error. The docume
 `AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS` override still wins if both are supplied.
 This reference syntax is implemented by our loader, not automatically by YAML.
 
-Stage 01 has no credential or machine-path fields to configure. Future integration
-schemas must add those deliberately: keep secret values in environment variables
-or a secret store and store only references in shared configuration. Keep local
-paths in local overrides. Do not add tokens to YAML, even in ignored files, and do
-not commit `.env` files. This loader does not read `.env`; export variables or use
-PyCharm's environment-variable settings. Third-party libraries may have their own
-`.env` behavior, so keep explicit application settings authoritative.
+## General secrets file
+
+The top-level `secrets` section is required in the merged application YAML:
+
+```yaml
+secrets:
+  file: ~/.config/agent-playbook/secrets.env
+```
+
+The supplied `app/application.yaml` already contains this path. An optional local
+YAML override can change it. The loader first merges the selected base YAML and
+its sibling local override, then reads `secrets.file`. A leading `~` expands to
+your home directory; relative paths resolve beside the selected base YAML file.
+No terminal or PyCharm secrets-file export is needed. The former
+`AGENT_PLAYBOOK_SECRETS_FILE` selector is no longer used.
+
+- Create the external directory before the first application run or bootstrap.
+
+```sh
+mkdir -p "$HOME/.config/agent-playbook"
+```
+
+- Restrict the directory to your user.
+
+```sh
+chmod 700 "$HOME/.config/agent-playbook"
+```
+
+- Create the file without overwriting existing contents.
+
+```sh
+touch "$HOME/.config/agent-playbook/secrets.env"
+```
+
+- Restrict the file to your user.
+
+```sh
+chmod 600 "$HOME/.config/agent-playbook/secrets.env"
+```
+
+A missing or blank path, unreadable/missing file, or invalid contents fails with a
+sanitized configuration error. An existing empty file is valid, including when
+Langfuse is disabled. Enabled integrations still require their referenced keys.
+Existing configurations must add this section; there is no implicit fallback.
+
+Keep enable switches, URLs and environment labels in YAML. For Langfuse, the
+external file contains only `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY`.
+The [connection guide](langfuse-connection.md) shows the two entries and YAML
+settings. The same file can hold credentials for other integrations later.
+
+The parser accepts `NAME=value` lines, blank lines and full-line `#` comments.
+Unquoted values are trimmed; matching single/double quotes preserve inner
+whitespace. Whitespace before `#` starts an unquoted trailing comment.
+Double-quoted values support escaped backslashes and quotes. Values are literal:
+no shell commands or variable expansion run. Duplicate names, malformed lines
+and invalid UTF-8 fail without echoing contents. Configuration-selection variables
+cannot redirect loading from inside this file.
+
+Process environment values override file entries, including explicitly empty
+values. Existing documented environment overrides remain available for deployment.
+The loader rebuilds values on every load without modifying `os.environ` or caching
+credentials. No Docker `.env` or other credentials file is discovered implicitly.
+Docker's `app/tooling/observability/.env` remains separate infrastructure configuration.
+
+Keep actual keys outside the repository. User-only permissions restrict other local
+users; they do not protect against a compromised account or process.
 
 Errors report locations/types without echoing configuration values or YAML source
 lines. Active configuration/local overrides are not bundled into wheels or release

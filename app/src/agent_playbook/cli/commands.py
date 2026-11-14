@@ -40,6 +40,25 @@ def _safe_framework_errors() -> Iterator[None]:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    if args.command == "langfuse":
+        if args.follow and not args.logs:
+            parser.error("--follow requires --logs")
+        if args.config and not args.check:
+            parser.error("--config requires --check")
+        if args.env_file and args.check:
+            parser.error("--env-file does not apply to --check")
+        forwarded = [
+            f"--{name}"
+            for name in ("start", "stop", "status", "logs", "open", "check")
+            if getattr(args, name)
+        ]
+        if args.follow:
+            forwarded.append("--follow")
+        if args.env_file:
+            forwarded += ["--env-file", str(Path(args.env_file).resolve())]
+        if args.config:
+            forwarded += ["--config", str(Path(args.config).resolve())]
+        return run_development("langfuse", forwarded)
     if args.command == "version":
         if args.action == "patch":
             return run_development("version", ["patch"])

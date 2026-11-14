@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+  "snapshot": "Stage 01 completed, accepted and locked; PR #40 merged. Stage 02 local Langfuse/mock exercise accepted on Mac; PR #36 unmerged, delivery-readback limitation recorded; M4 deferred.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -15,13 +15,26 @@
     "designs/explorations/README.md",
     "designs/explorations/agent-execution/architecture-notes.md",
     "designs/explorations/agent-execution/candidate-file-structure.md",
+    "designs/stages/02-langfuse/README.md",
+    "designs/stages/02-langfuse/architecture.md",
+    "designs/stages/02-langfuse/smoke-plan.md",
+    "designs/stages/02-langfuse/milestones.md",
+    "designs/stages/02-langfuse/verification.md",
+    "designs/stages/02-langfuse/implementation-handoff.md",
+    "designs/stages/02-langfuse/connection-playground-handoff.md",
+    "designs/stages/02-langfuse/user-verification.md",
+    "designs/stages/02-langfuse/review-2026-11-13.md",
+    "designs/stages/02-langfuse/verification-simplification-plan.md",
     "designs/refactors/workflow-contract/README.md",
     "designs/refactors/workflow-contract/design.md",
     "designs/refactors/workflow-contract/file-structure.md",
     "designs/refactors/workflow-contract/test-plan.md",
     "designs/refactors/workflow-contract/implementation-plan.md",
     "designs/refactors/workflow-contract/review-follow-up.md",
-    "designs/refactors/workflow-contract/review-test-quality.md"
+    "designs/refactors/workflow-contract/review-test-quality.md",
+    "designs/stages/02-langfuse/main-reconciliation.md",
+    "designs/stages/02-langfuse/resolution-2026-11-13.md",
+    "designs/stages/02-langfuse/acceptance-2026-11-14.md"
   ],
   "views": {
     "current": {
@@ -342,6 +355,18 @@
               "to": null
             },
             {
+              "name": "Local Langfuse service (M1 on PR #36)",
+              "path": "app/tooling/observability/README.md",
+              "text": "Pinned loopback Compose stack; Sharon confirmed Mac setup and stop/start persistence; PR #36 unmerged.",
+              "to": null
+            },
+            {
+              "name": "Langfuse connection check (M2 on PR #36)",
+              "path": "app/tooling/observability/check_connection.py",
+              "text": "Explicit project authentication with YAML-selected external credentials; locally exercised; PR #36 unmerged.",
+              "to": null
+            },
+            {
               "name": "Generated artifacts",
               "path": "app/dist/",
               "text": "Generated releases, not the runtime releases package.",
@@ -388,7 +413,13 @@
             {
               "name": "Observability boundary",
               "path": "app/src/agent_playbook/observability/",
-              "text": "Initial Langfuse tracing is approved; integration is future work.",
+              "text": "M2 project connection and M3 mock span writer exist on pending PR #36; workflow trace export remains future work.",
+              "to": null
+            },
+            {
+              "name": "Mock observation adapter (M3 on PR #36)",
+              "path": "app/src/agent_playbook/observability/adapters/langfuse/observations.py",
+              "text": "Narrow explicitly invoked span writer; personal playground is excluded from current inventory.",
               "to": null
             }
           ],
@@ -1345,6 +1376,26 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
+          "path": "app/docs/langfuse-connection.md",
+          "status": "PR #36 pending",
+          "purpose": "Official M2 connection instructions."
+        },
+        {
+          "path": "app/tooling/observability/check_connection.py",
+          "status": "PR #36 pending",
+          "purpose": "Explicit read-only M2 checker."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/adapters/langfuse/connection.py",
+          "status": "PR #36 pending",
+          "purpose": "Langfuse SDK project authentication adapter."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/adapters/langfuse/observations.py",
+          "status": "PR #36 pending",
+          "purpose": "Explicit M3 mock observation adapter."
+        },
+        {
           "path": "designs/refactors/workflow-contract/README.md",
           "status": "Completed Stage 01 refactor",
           "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
@@ -1916,6 +1967,12 @@
               "path": "app/src/agent_playbook/observability/adapters/noop.py",
               "text": "Defined no-op behavior for offline learning and tests.",
               "to": null
+            },
+            {
+              "name": "Langfuse milestones",
+              "path": "designs/stages/02-langfuse/README.md",
+              "text": "Local UI, connection check and editable mock runs first; real workflows last.",
+              "to": "langfuse_setup"
             }
           ],
           "note": "EXPLORATION ONLY — optional candidate, not an approved target. Traces are evidence. They are not the workflow state store or a durable recovery mechanism.",
@@ -2156,6 +2213,97 @@
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
+        },
+        "langfuse_setup": {
+          "name": "Langfuse milestones",
+          "parent": "observability",
+          "label": "Main reconciled / delivery and CLI work next",
+          "title": "Local UI to real workflows",
+          "text": "First configure, connect and explore mock traces; workflow/context integration comes last.",
+          "blocks": [
+            {
+              "name": "Four local checkpoints",
+              "path": "designs/stages/02-langfuse/milestones.md",
+              "text": "Starting state, deliverable, manual exercise, checks and acceptance at each milestone.",
+              "to": null
+            },
+            {
+              "name": "Configuration and ownership",
+              "path": "designs/stages/02-langfuse/architecture.md",
+              "text": "Local persistence, external settings and a small integration; no early context classes.",
+              "to": null
+            },
+            {
+              "name": "Personal mock playground",
+              "path": "designs/stages/02-langfuse/smoke-plan.md",
+              "text": "Editable success/failure runs for Sharon; automated fixtures remain separate.",
+              "to": null
+            },
+            {
+              "name": "Scope and PR policy",
+              "path": "designs/stages/02-langfuse/README.md",
+              "text": "Keep the existing review thread; split PRs only when overlap is checked.",
+              "to": null
+            },
+            {
+              "name": "Agent verification",
+              "path": "designs/stages/02-langfuse/verification.md",
+              "text": "Run practical checks before handoff; distinguish PASS from blocked/unrun checks and leave simple UI acceptance to Sharon.",
+              "to": null
+            },
+            {
+              "name": "M1 setup and follow-up",
+              "path": "designs/stages/02-langfuse/implementation-handoff.md",
+              "text": "Original setup assignment and the remaining configurable-storage-port improvement.",
+              "to": null
+            },
+            {
+              "name": "Implement connection and playground",
+              "path": "designs/stages/02-langfuse/connection-playground-handoff.md",
+              "text": "M2 then M3, separate tested checkpoints, concurrent configuration changes and no workflow/context work.",
+              "to": null
+            },
+            {
+              "name": "Separate local verification files",
+              "path": "designs/stages/02-langfuse/user-verification.md",
+              "text": "One combined tested-revision Drive guide is current; M1–M3 files retain historical checkpoint evidence.",
+              "to": null
+            },
+            {
+              "name": "Four review findings",
+              "path": "designs/stages/02-langfuse/review-2026-11-13.md",
+              "text": "SDK lifecycle, unresolved main conflicts, export reporting and stale status; revision-specific evidence.",
+              "to": null
+            },
+            {
+              "name": "CLI plan and Codex handoff",
+              "path": "designs/stages/02-langfuse/verification-simplification-plan.md",
+              "text": "Six agreed action flags, log following, newcomer setup, code ownership and verification gates. First present main conflicts and agree on resolutions.",
+              "to": null
+            },
+            {
+              "name": "Approved main reconciliation",
+              "path": "designs/stages/02-langfuse/main-reconciliation.md",
+              "text": "Agreed resolutions, combined verification, and the remaining implementation handoff.",
+              "to": null
+            },
+            {
+              "name": "Langfuse review follow-up",
+              "path": "designs/stages/02-langfuse/resolution-2026-11-13.md",
+              "text": "R1/R3/R4 fixes, management CLI, checks and live blocker.",
+              "to": null
+            },
+            {
+              "name": "Local acceptance and limits",
+              "path": "designs/stages/02-langfuse/acceptance-2026-11-14.md",
+              "text": "Mac project access, visible traces and restart persistence confirmed; bounded readback limitation retained.",
+              "to": null
+            }
+          ],
+          "status": "exploration",
+          "source": "designs/stages/02-langfuse/README.md",
+          "note": "Sharon approved the six main conflict resolutions. PR #36 remains draft and unmerged. Reconciliation and follow-up verification are recorded; local setup and mock-trace exercise accepted on Mac, with delivery-readback limitation recorded. M4 remains deferred.",
+          "diagram": null
         }
       },
       "files": [
@@ -3913,6 +4061,66 @@
           "path": "app/examples/",
           "status": "Historical Excluded sandbox",
           "purpose": "Personal sandbox boundary only. Do not inspect contents without a specific request."
+        },
+        {
+          "path": "designs/stages/02-langfuse/README.md",
+          "status": "Draft stage proposal",
+          "purpose": "Agreed milestone direction, draft implementation details; no runtime capability."
+        },
+        {
+          "path": "designs/stages/02-langfuse/architecture.md",
+          "status": "Draft stage proposal",
+          "purpose": "Agreed milestone direction, draft implementation details; no runtime capability."
+        },
+        {
+          "path": "designs/stages/02-langfuse/smoke-plan.md",
+          "status": "Draft stage proposal",
+          "purpose": "Agreed milestone direction, draft implementation details; no runtime capability."
+        },
+        {
+          "path": "designs/stages/02-langfuse/milestones.md",
+          "status": "Draft stage proposal",
+          "purpose": "Four explicit acceptance checkpoints; only real workflow integration waits for the refactor."
+        },
+        {
+          "path": "designs/stages/02-langfuse/verification.md",
+          "status": "Draft stage proposal",
+          "purpose": "Requested agent verification/handoff requirements; not evidence of implementation."
+        },
+        {
+          "path": "designs/stages/02-langfuse/implementation-handoff.md",
+          "status": "Draft stage proposal",
+          "purpose": "Requested agent verification/handoff requirements; not evidence of implementation."
+        },
+        {
+          "path": "designs/stages/02-langfuse/connection-playground-handoff.md",
+          "status": "Requested implementation handoff",
+          "purpose": "M2 then M3, separate tested checkpoints, concurrent configuration changes and no workflow/context work."
+        },
+        {
+          "path": "designs/stages/02-langfuse/user-verification.md",
+          "status": "Requested implementation handoff",
+          "purpose": "One combined tested-revision Drive guide is current; M1–M3 files retain historical checkpoint evidence."
+        },
+        {
+          "path": "designs/stages/02-langfuse/review-2026-11-13.md",
+          "status": "Open review findings",
+          "purpose": "SDK lifecycle, unresolved main conflicts, export reporting and stale status; revision-specific evidence."
+        },
+        {
+          "path": "designs/stages/02-langfuse/verification-simplification-plan.md",
+          "status": "CLI direction agreed; execution pending",
+          "purpose": "Flag-based CLI and management specification, newcomer guides, independent checks and complete Codex handoff; joint conflict decisions first."
+        },
+        {
+          "path": "designs/stages/02-langfuse/main-reconciliation.md",
+          "status": "Approved reconciliation; verification recorded",
+          "purpose": "Preserved main and Langfuse work, combined checks, and next-agent boundary."
+        },
+        {
+          "path": "designs/stages/02-langfuse/acceptance-2026-11-14.md",
+          "status": "Local exercise accepted; PR #36 unmerged",
+          "purpose": "2026-11-14 user-reported Mac acceptance, revision-specific tests and remaining delivery-readback limitation."
         }
       ]
     }

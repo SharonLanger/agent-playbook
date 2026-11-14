@@ -2,8 +2,11 @@
 
 ## Setup
 
-Open the **repository root** (`agent-playbook`) as the PyCharm project. First
-run bootstrap from the repository root:
+Open the **repository root** (`agent-playbook`) as the PyCharm project.
+
+- [Create the external credentials file](docs/configuration.md#general-secrets-file) before the first run. It may be empty while integrations are disabled; `application.yaml` already specifies its path. If project keys are not ready, [disable Langfuse in a local override](docs/configuration.md#langfuse-settings) before bootstrap.
+
+- Run bootstrap from the repository root:
 
 ```sh
 python3 app/tooling/bootstrap.py
@@ -20,6 +23,8 @@ Bootstrap provisions the pinned Python and development tools, installs the proje
 in `app/.venv`, and runs default WF-01 and local quality checks. Run the
 same command again to refresh the environment. The prerequisite is Python 3.10+
 with `venv` and `ensurepip`; initial provisioning may require network access.
+
+For the optional local trace UI, see [local Langfuse setup](docs/langfuse-local.md). Docker is required for that local service, not for ordinary workflows or a hosted Langfuse endpoint. Configure project keys with the [external secrets file and connection check](docs/langfuse-connection.md); do not put project keys in Docker's `.env`.
 
 ## Documentation
 

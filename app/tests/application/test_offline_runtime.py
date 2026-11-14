@@ -12,7 +12,12 @@ def test_fresh_process_offline_runtime(tmp_path: Path) -> None:
         k: v
         for k, v in os.environ.items()
         if not k.endswith("_API_KEY")
-        and k not in ("CREWAI_TOKEN", "PYTHONPATH", "PYTHONHOME")
+        and k
+        not in (
+            "CREWAI_TOKEN",
+            "PYTHONPATH",
+            "PYTHONHOME",
+        )
     }
     # Verification selects its own explicit offline fixture; user settings are separate.
     env["AGENT_PLAYBOOK_CREWAI_TRACING_ENABLED"] = "true"

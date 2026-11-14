@@ -36,7 +36,9 @@ implementation registry; see [workflow contract refactor](../../refactors/workfl
 That wrapper owns preparation, execution through kickoff, output validation/serialization and
 shared call-order status checks. CrewAI retains step scheduling, routing and business state.
 No dynamic plugins, container, global utility bucket or generic execution engine are introduced.
-The successor is implemented on PR #40 and is not yet accepted or merged.
+The successor was accepted by Sharon and merged through PR #40 (merge
+`a98e1041c0edb51a447472b6ebd78ab2a650150b`). Stage 01 is completed, accepted
+and locked; its baseline remains protected and retained for reference.
 Its [review follow-up](../../refactors/workflow-contract/review-follow-up.md) adds lazy
 imports, constructor/diagnostic corrections and test completion. The contracts below remain
 the historical Stage 01 baseline; current successor behavior is specified in the refactor package.

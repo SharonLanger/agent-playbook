@@ -10,9 +10,11 @@ from agent_playbook._build_info import SOURCE_COMMIT
 def run_development(command: str, arguments: list[str] | None = None) -> int:
     app = Path(__file__).resolve().parents[3]
     arguments = list(arguments or [])
-    script_name = {"release": "release.py", "version": "version.py"}.get(
-        command, "checks.py"
-    )
+    script_name = {
+        "release": "release.py",
+        "version": "version.py",
+        "langfuse": "observability/manage.py",
+    }.get(command, "checks.py")
     script = app / "tooling" / script_name
     if script_name == "checks.py":
         arguments.insert(0, command)

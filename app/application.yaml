@@ -3,6 +3,14 @@ integrations:
     usage_telemetry_enabled: false
     tracing_enabled: false
     show_framework_events: false
+  langfuse:
+    enabled: true
+    base_url: http://localhost:3000
+    environment: local
+    public_key: {env: LANGFUSE_PUBLIC_KEY}
+    secret_key: {env: LANGFUSE_SECRET_KEY}
+secrets:
+  file: ~/.config/agent-playbook/secrets.env
 workflows:
   wf-01:
     name: Step sequence

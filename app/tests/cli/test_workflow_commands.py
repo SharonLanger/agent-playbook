@@ -77,6 +77,7 @@ def test_configured_aliases_and_phase_exit_codes(
 ) -> None:
     fixture = Path(__file__).parents[1] / "fixtures/offline.yaml"
     selected = tmp_path / "settings.yaml"
+    (tmp_path / "empty-secrets.env").write_text("")
     selected.write_text(fixture.read_text())
     for alias, raw, expected in (
         ("wf-02-custom", None, "24"),

@@ -3,6 +3,8 @@ integrations:
     usage_telemetry_enabled: false
     tracing_enabled: false
     show_framework_events: false
+secrets:
+  file: empty-secrets.env
 workflows:
   wf-01:
     implementation: step_sequence
