@@ -4,7 +4,7 @@ integrations:
     tracing_enabled: false
     show_framework_events: false
   langfuse:
-    enabled: false
+    enabled: true
     base_url: http://localhost:3000
     environment: local
     public_key: {env: LANGFUSE_PUBLIC_KEY}
