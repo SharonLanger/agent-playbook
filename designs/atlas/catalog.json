@@ -34,7 +34,12 @@
     "designs/refactors/workflow-contract/review-test-quality.md",
     "designs/stages/02-langfuse/main-reconciliation.md",
     "designs/stages/02-langfuse/resolution-2026-11-13.md",
-    "designs/stages/02-langfuse/acceptance-2026-11-14.md"
+    "designs/stages/02-langfuse/acceptance-2026-11-14.md",
+    "designs/stages/02-langfuse/workflow-integration/README.md",
+    "designs/stages/02-langfuse/workflow-integration/requirements.md",
+    "designs/stages/02-langfuse/workflow-integration/decisions.md",
+    "designs/stages/02-langfuse/workflow-integration/repository-updates.md",
+    "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md"
   ],
   "views": {
     "current": {
@@ -2217,7 +2222,7 @@
         "langfuse_setup": {
           "name": "Langfuse milestones",
           "parent": "observability",
-          "label": "Main reconciled / delivery and CLI work next",
+          "label": "M1–M3 accepted / M4 preliminary design",
           "title": "Local UI to real workflows",
           "text": "First configure, connect and explore mock traces; workflow/context integration comes last.",
           "blocks": [
@@ -2298,12 +2303,49 @@
               "path": "designs/stages/02-langfuse/acceptance-2026-11-14.md",
               "text": "Mac project access, visible traces and restart persistence confirmed; bounded readback limitation retained.",
               "to": null
+            },
+            {
+              "name": "Workflow context and native tracing",
+              "path": "designs/stages/02-langfuse/workflow-integration/README.md",
+              "text": "Permanent draft: context agreement, pending details, research and repository reconciliation.",
+              "to": "workflow_observability"
             }
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "Sharon approved the six main conflict resolutions. PR #36 merged as 44d6919. Reconciliation and follow-up verification are recorded; local setup and mock-trace exercise accepted on Mac, with delivery-readback limitation recorded. M4 remains deferred.",
+          "note": "PR #36 merged as 44d6919; local setup/mock acceptance and delivery-readback limitation retained. M4 implementation is deferred; its permanent draft workspace records context basics and isolated CrewAI research, with detailed design still pending.",
           "diagram": null
+        },
+        "workflow_observability": {
+          "name": "Workflow observability draft",
+          "parent": "langfuse_setup",
+          "label": "M4 planning / research",
+          "title": "Context, runner, then automatic CrewAI tracing",
+          "text": "Use native Langfuse with minimal code and no tracing broker. Dataclass composition and propagation are agreed; the detailed context design is not yet written.",
+          "blocks": [
+            {
+              "name": "Requirements and decisions",
+              "path": "designs/stages/02-langfuse/workflow-integration/requirements.md",
+              "text": "Shared spec, current agreements and explicit deferrals.",
+              "to": null
+            },
+            {
+              "name": "CrewAI research",
+              "path": "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
+              "text": "1.1.25 instrumentor, eight cases/44 spans; actual application and local ingestion still pending.",
+              "to": null
+            },
+            {
+              "name": "Repository reconciliation",
+              "path": "designs/stages/02-langfuse/workflow-integration/repository-updates.md",
+              "text": "Pending guarded changes, progress updates and later acceptance gates.",
+              "to": null
+            }
+          ],
+          "note": "DRAFT WORKSPACE, not an approved implementation contract. Older generic exporter sketches elsewhere are alternatives; they do not override the selected no-broker direction. No dependency change or universal decorator coverage claim.",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/stages/02-langfuse/workflow-integration/README.md"
         }
       },
       "files": [
@@ -4121,6 +4163,31 @@
           "path": "designs/stages/02-langfuse/acceptance-2026-11-14.md",
           "status": "Local exercise accepted; PR #36 merged as 44d6919",
           "purpose": "2026-11-14 user-reported Mac acceptance, revision-specific tests and remaining delivery-readback limitation."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/README.md",
+          "status": "Draft planning / bounded research; no implementation approval",
+          "purpose": "Start here: current status, milestone sequence and maintenance rules."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/requirements.md",
+          "status": "Draft planning / bounded research; no implementation approval",
+          "purpose": "Current shared specification, stable requirement IDs and deferrals."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/decisions.md",
+          "status": "Draft planning / bounded research; no implementation approval",
+          "purpose": "Accepted discussion choices, supersession and unresolved details."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/repository-updates.md",
+          "status": "Draft planning / bounded research; no implementation approval",
+          "purpose": "Pending progress, guarded-baseline and closeout reconciliation."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
+          "status": "Draft planning / bounded research; no implementation approval",
+          "purpose": "Released instrumentor probe: eight cases/44 spans; application/UI acceptance pending."
         }
       ]
     }
