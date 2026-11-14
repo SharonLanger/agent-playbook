@@ -1,6 +1,6 @@
 # M4.1 — test cases
 
-Status: **DRAFT FOR REVIEW — required cases proposed; none claimed implemented or passed.** Version 1, 2026-11-14.
+Status: **APPROVED AND LOCKED for M4.1 by Sharon in the implementation instruction referencing revision `11bba581291c1b166973848ea8db6a9e2a142413`; execution evidence is in `reviews/context/`.** Version 1, 2026-11-14.
 
 [Design](01-context-design.md) · [Implementation/review procedure](01-context-implementation-plan.md) · [Shared requirements](requirements.md)
 

@@ -7,6 +7,7 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 from agent_playbook.config.diagnostics import validation_fields
 from agent_playbook.config.errors import ConfigurationError
 from agent_playbook.config.models import ApplicationSettings, CrewAISettings
+from agent_playbook.context.models import ExecutionContext
 from agent_playbook.workflows.contracts import Workflow
 from agent_playbook.workflows.errors import WorkflowInputError
 
@@ -63,9 +64,11 @@ def construct_workflow(
     implementation: type[Workflow[object]],
     settings: CrewAISettings,
     config: Mapping[str, object],
+    *,
+    context: ExecutionContext,
 ) -> Workflow[object]:
     try:
-        return implementation(settings=settings, config=config)
+        return implementation(settings=settings, config=config, context=context)
     except ConfigurationError as error:
         raise ConfigurationError(f"{workflow_id} CONFIGURATION: {error}") from error
 
@@ -75,8 +78,12 @@ def create_workflow(
     application: ApplicationSettings,
     settings: CrewAISettings,
     registry: Mapping[str, type[Workflow[object]]],
+    *,
+    context: ExecutionContext,
 ) -> Workflow[object]:
     implementation, config = select_workflow(
         workflow_id, application, settings, registry
     )
-    return construct_workflow(workflow_id, implementation, settings, config)
+    return construct_workflow(
+        workflow_id, implementation, settings, config, context=context
+    )

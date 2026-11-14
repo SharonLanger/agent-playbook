@@ -129,3 +129,7 @@ Regenerate Atlas from reconciled sources; do not hand-merge generated HTML.
 No merge is automatic at a checkpoint. Milestones 1–3 do not wait for the workflow
 refactor; milestone 4 does. Before milestone 4, update this draft from the merged
 contract and explicitly review any guarded logical changes.
+
+## M4 checkpoints — approved context sequence, 2026-11-14
+
+M4.R research established bounded released-version CrewAI/Langfuse feasibility. M4.1 is the separately approved [data-only context design](workflow-integration/01-context-design.md), with an implementation PR under review; it requires identity, runner/factory/Workflow/Flow forwarding, isolation and CTX-01–17 evidence. M4.2 will separately review native runner tracing; M4.3 will separately review CrewAI automatic observations. M1–M3 acceptance and historical checks remain unchanged. Approval of M4.1 does not mark all M4 implemented or Stage 02 complete.

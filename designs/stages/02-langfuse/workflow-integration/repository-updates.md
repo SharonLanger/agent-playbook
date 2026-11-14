@@ -1,8 +1,8 @@
 # Repository reconciliation checklist
 
-Status: **review checklist, not permission to edit guarded meaning**. Updated 2026-11-14, iteration 29. PR #43 includes the detailed M4.1 review package; no application implementation. [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
+Status: **M4.1 closeout: M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred.** [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
 
-## This documentation PR
+## Historical planning-PR checklist
 
 - [x] Preserve requirements, decisions, complete discussion history and historical specification.
 - [x] Preserve CrewAI research, the exact 13-file probe/results/dependencies and provenance.
@@ -14,7 +14,7 @@ Status: **review checklist, not permission to edit guarded meaning**. Updated 20
 
 No product-guide update is needed yet: supported runtime behavior, CLI/configuration and dependencies do not change. No application test or probe rerun is claimed. app/examples/ remains excluded. The package gives the next Codex future commands and evidence requirements.
 
-## M4.1 guarded amendments — before implementation
+## M4.1 guarded amendments — approved implementation history
 
 [Design section 9](01-context-design.md#9-guarded-logical-amendments-to-approve-with-this-design) is the canonical file-specific G01–G08 list. It proposes data-only context placement, runner/factory/ABC/Flow routing, dated workflow-contract amendments, M4 checkpoints and registration of the approved design/test/implementation documents. No guarded file is edited in this draft.
 
@@ -56,4 +56,19 @@ Iteration 28 added the exact final-review return template and preserved the thre
 
 Preservation detail: the opening PR copied eight unchanged Flow fixture modules with blank-at-EOF warnings. Keep their bytes/hashes unchanged. Check current edits normally; for the full preserved snapshot only, disabling that warning category is acceptable and must not conceal other whitespace errors.
 
+## Approved M4.1 implementation update — 2026-11-14
+
+Sharon's implementation instruction explicitly approved G01–G08 at
+`11bba581291c1b166973848ea8db6a9e2a142413`. The implementation branch adds
+the approved guarded amendments, updates official workflows documentation,
+progress and Stage 02 summary, and preserves the earlier records. Runtime
+settings, CLI options, dependencies and YAML are unchanged, so the other public
+guides have no user-facing change. Atlas navigation is refreshed for the context
+package and implementation review status. Candidate-specific checks and review
+findings are recorded in `reviews/context/` rather than claimed here.
+
 Iteration 29 records D30/R31 metadata correlation and starts M4.2 preliminary design without editing the three pinned M4.1 milestone documents. The focused SDK-only metadata check is recorded in research/history with its limits; it is not an application or live-server acceptance result. Documentation checks passed: Atlas build/freshness, 140 relative links, R01–R31/D01–D30/Q01–Q25 retention, prior discussion and 13-file probe preservation, unchanged guarded baselines/current-edit whitespace. The three pinned M4.1 files were also compared byte-for-byte to the published handoff and remain unchanged.
+
+## Iteration 35 integration
+
+Sharon authorized conflict resolution and merge. PR #43 is merged as c8f129e. Both documentation streams are retained; D30 is correlation and the implementation approval entry is a dated unnumbered heading. Runtime/tests stay identical to reviewed candidate 16c1580. G01–G08 and all round reports remain. Generated Atlas is rebuilt from reconciled sources; final main/merge evidence follows confirmation. M4.2 drafts remain separate and unapproved.

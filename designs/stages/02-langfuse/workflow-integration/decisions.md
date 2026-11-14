@@ -1,6 +1,6 @@
 # Decisions and open questions
 
-Updated: 2026-11-14, iteration 29. Sharon reports sending the M4.1 implementation handoff pinned to 11bba581291c1b166973848ea8db6a9e2a142413, including its scope approval, to Codex. Implementation evidence/final review remain pending. D30 adds correlation on workflow observations and future logs; M4.2 preliminary design can proceed without changing the pinned M4.1 contract. [Requirements](requirements.md), [full history](history/context-discussion.md) and [entry point](README.md) remain the shared reference.
+Updated: 2026-11-14, iteration 35. M4.1 implemented, independently reviewed and accepted by Sharon; merge authorized and pending. M4.2 remains design-only; M4.3 and logging are deferred. D30 remains the correlation requirement; the separate dated M4.1 approval entry has no conflicting decision number.
 
 ## Decision register
 
@@ -153,3 +153,11 @@ Resolve a question only from explicit agreement or verified evidence, or defer i
 | D | Useful later, safely deferrable or uncertain | Defer with a named trigger/open question |
 
 For a capability, record whether it applies to tracing, logging or both; outcome and omission consequence; class/status/rationale; implementation/testing/maintenance effort; runtime/operational risk; cost of postponement; and an observable acceptance case. Locality, no-required-logging-service and licensing constraints are pass/fail, not scores to average away. This rubric does not revive a deferred feature.
+
+## M4.1 approval and implementation status (2026-11-14)
+
+Sharon explicitly approved the M4.1 design, cases, plan and G01–G08 at `11bba581291c1b166973848ea8db6a9e2a142413` in his implementation instruction. The approved contract is locked. The focused implementation branch is under review, unmerged and not accepted; later tracing remains separate. Earlier draft statements are historical.
+
+## M4.1 acceptance and merge authorization — iteration 35
+
+Sharon accepted the final review and explicitly authorized resolving documentation conflicts, merging PRs #43/#44, updating merged status and refreshing the M4.2 branch from main. This supersedes the earlier temporary no-edit coordination restriction for that reconciliation only. No M4.2 policy or implementation is approved. Correlation creation/propagation already exists in M4.1; Langfuse metadata export belongs to M4.2 and automatic CrewAI coverage to M4.3.

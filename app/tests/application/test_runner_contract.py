@@ -53,9 +53,10 @@ def test_runner_calls_public_methods_in_order_and_returns_native_object() -> Non
     registry.assert_called_once_with()
     selected_class = select.return_value[0]
     select.assert_called_once_with("alias", APPLICATION, SETTINGS, {})
-    construct.assert_called_once_with(
-        "alias", selected_class, SETTINGS, {"defaults": 1}
-    )
+    construct.assert_called_once()
+    args, kwargs = construct.call_args
+    assert args == ("alias", selected_class, SETTINGS, {"defaults": 1})
+    assert kwargs["context"].observability.workflow_id == "alias"
     assert result.output is value and result.serialized_output == "display"
     assert [call[0] for call in workflow.method_calls] == [
         "prepare",

@@ -7,6 +7,7 @@ from pydantic import ValidationError
 from agent_playbook.config.diagnostics import validation_fields
 from agent_playbook.config.errors import ConfigurationError
 from agent_playbook.config.models import CrewAISettings
+from agent_playbook.context.models import ExecutionContext
 from agent_playbook.workflows.contracts import Workflow
 from agent_playbook.workflows.errors import WorkflowInputError
 from agent_playbook.workflows.wf_03_conditional_route.config import (
@@ -17,9 +18,13 @@ from agent_playbook.workflows.wf_03_conditional_route.state import Decision
 
 class ConditionalRouteWorkflow(Workflow[Decision]):
     def __init__(
-        self, *, settings: CrewAISettings, config: Mapping[str, object]
+        self,
+        *,
+        settings: CrewAISettings,
+        config: Mapping[str, object],
+        context: ExecutionContext,
     ) -> None:
-        super().__init__(settings=settings, config=config)
+        super().__init__(settings=settings, config=config, context=context)
         try:
             self._defaults = ConditionalRouteConfig.model_validate(config).defaults
         except ValidationError as error:
@@ -45,6 +50,7 @@ class ConditionalRouteWorkflow(Workflow[Decision]):
 
         self._flow = ConditionalRouteFlow(
             initial_state=ScoreState(score=score.score),
+            context=self.context,
             tracing=self._settings.tracing_enabled,
             suppress_flow_events=not self._settings.show_framework_events,
         )
