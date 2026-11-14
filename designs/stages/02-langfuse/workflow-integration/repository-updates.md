@@ -1,6 +1,6 @@
 # Repository reconciliation checklist
 
-Status: **M4.1 closeout: M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.** [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
+Status: **M4.1 closeout: M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Combined M4.2 + M4.3 detailed design authorized; implementation awaits revised contract approval. Logging is deferred.** [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
 
 ## Historical planning-PR checklist
 
@@ -72,3 +72,12 @@ Iteration 29 records D30/R31 metadata correlation and starts M4.2 preliminary de
 ## Iteration 35 integration
 
 Sharon authorized conflict resolution and merge. PR #43 is merged as c8f129e. Both documentation streams are retained; D30 is correlation and the implementation approval entry is a dated unnumbered heading. Runtime/tests stay identical to reviewed candidate 16c1580. G01–G08 and all round reports remain. Generated Atlas is rebuilt from reconciled sources; PR #44 merged at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 drafts remain separate and unapproved.
+
+
+## Iteration 40 reconciliation
+
+- Standing handover rules published and linked from both READMEs; combined milestone accepted, detailed version-2 package is for review.
+- Before implementation: settle PAYLOAD-01 and obtain the specific RUN-G approvals in the revised design. Do not apply old catch/project/rethrow or custom cache proposals.
+- After approved implementation: reconcile Stage 02 milestone/architecture and global status against actual results; coordinate broader stage alignment work separately. No unrelated stage renumbering here.
+- After each implementation PR merges: update this ongoing PR's evidence/status. Merge #47 LAST, only with separate explicit authorization.
+- No application product documentation changes now: only a design/process revision, with no supported behavior change. Public guides change with implementation. Atlas reflects draft scope, not implementation.

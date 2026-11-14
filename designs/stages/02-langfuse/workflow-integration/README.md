@@ -1,9 +1,13 @@
 # Workflow context and native Langfuse integration — start here
 
-Updated: 2026-11-14, iteration 35.
-Status: **M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.**
+Updated: 2026-11-15, iteration 40.
+Status: **M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Combined M4.2 + M4.3 scope is approved for detailed design; application implementation awaits approval of the revised contract. Logging remains deferred.**
 
 This is the permanent Stage 02 M4 workspace. PR #43 merged as `c8f129ee8c978067bf576b0ab563bfab74c9d6fe`. PR #44 carries the accepted M4.1 implementation. M1–M3 remain accepted; all Stage 02 is not complete.
+
+**MERGE LAST:** [PR #47](https://github.com/SharonLanger/agent-playbook/pull/47) is the ongoing documentation workspace. Keep it draft/open until all covered implementation work is merged, records reconciled and Sharon explicitly authorizes this documentation PR.
+
+Before every implementation handoff, read [Codex handover rules](../../../governance/codex-handover-rules.md). They define the outgoing copyable prompt, coder/two-reviewer procedure, three-round cap and copyable return report.
 
 ## Read in this order
 
@@ -19,8 +23,8 @@ This is the permanent Stage 02 M4 workspace. PR #43 merged as `c8f129ee8c978067b
 |---|---|---|
 | M4.R | Verify released CrewAI/Langfuse feasibility | Delivered research: eight cases/44 spans, with documented limits |
 | M4.1 | Typed context, real runner/factory/Workflow/Flow propagation and isolated derivation | Approved at 11bba581; implementation candidate 16c1580; two review rounds; accepted, merged via PR #44 |
-| M4.2 | Native workflow observation and exact correlation metadata | Draft design/test/plan on the separate runner discussion branch; policies await agreement |
-| M4.3 | Automatic CrewAI Flow/start/listen/router observations | Follows runner integration; separate design/acceptance |
+| M4.2 + M4.3 | Native runner tracing, correlation and automatic existing CrewAI Flow/step observations | Consolidation accepted 2026-11-15; [design](02-runner-design.md), [tests](02-runner-test-cases.md), [plan](02-runner-implementation-plan.md) are revised review drafts |
+| Historical M4.3 | Previously separate CrewAI integration milestone | Incorporated into the combined milestone; research and earlier decisions retained |
 | Later | Local logging, usage, scores/evaluations as needed | Deferred; no agent runtime or logger selected here |
 
 ## Rules that prevent design drift
@@ -38,9 +42,9 @@ The reference is requirements.md + decisions.md + the approved milestone design/
 
 ExecutionContext already contains correlation_id; nested ObservabilityContext holds workflow/run and optional agent identity. Factory, workflow and Flow share the original context; for_agent derives isolated child values. No SDK object or allocated trace/span identity is stored in it.
 
-D30/R31 require exact correlation_id on every workflow-associated Langfuse observation and later local log. M4.2 supplies native root/child metadata propagation; M4.3 validates automatic CrewAI descendants. Metadata alone does not establish trace parentage. Future scores/entity APIs and process boundaries require their own integration checks.
+D30/R31 require exact correlation_id on every workflow-associated Langfuse observation and later local log. The combined milestone supplies native metadata propagation and validates automatic CrewAI descendants together. Metadata alone does not establish trace parentage. Future scores/entity APIs and process boundaries require their own integration checks.
 
-Next: agree M4.2 lifecycle, client/delivery, failure and safe-data policies before approving its detailed package. No broker, logger or agent-lifecycle expansion is implied.
+Next: review the simplified combined package, settle the explicitly flagged payload choice and approve its exact contract plus required guarded amendments. No broker, logger or agent-lifecycle expansion is implied.
 
 ## Historical approval checkpoint
 

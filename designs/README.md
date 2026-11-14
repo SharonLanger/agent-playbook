@@ -37,6 +37,10 @@ Each stage has its own end-state architecture and plan, plus findings and learni
 exercises. Future implementation baselines wait for their stage. Explicitly requested optional research/POCs belong in explorations and must not be mistaken for approved targets.
 The historical [sandbox](../sandbox/) is outside the active application architecture.
 
+## Before handing implementation to Codex
+
+Read [Codex handover rules](governance/codex-handover-rules.md) whenever preparing an implementation handoff. Supply the pinned design, separate test cases and implementation plan, one copyable outgoing instruction, and the required copyable return report. One coder, two independent reviewers, permanent reports and a maximum of three rounds apply.
+
 ## Permanent material and handoffs
 
 Stage packages belong permanently in `stages/`, including while their designs are under review.
@@ -58,4 +62,3 @@ Read charter, principles, architecture, project structure, roadmap and progress,
 - [Atlas change record](refactors/atlas/README.md): approval scope and verification for #35.
 
 Official product documentation lives in app/docs; internal/refactor review material belongs here. Personal examples are not a source to inspect during architectural discovery.
-

@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 01 accepted and locked. Stage 02 M1–M3 accepted/merged; M4.1 implemented, verified and accepted, merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 design active; M4.3/logging deferred.",
+  "snapshot": "Stage 01 accepted and locked. Stage 02 M1–M3 accepted/merged; M4.1 implemented, verified and accepted, merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Combined M4.2 + M4.3 design active; logging deferred.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -42,7 +42,11 @@
     "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
     "designs/stages/02-langfuse/workflow-integration/01-context-design.md",
     "designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md",
-    "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md"
+    "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md",
+    "designs/governance/codex-handover-rules.md",
+    "designs/stages/02-langfuse/workflow-integration/02-runner-design.md",
+    "designs/stages/02-langfuse/workflow-integration/02-runner-test-cases.md",
+    "designs/stages/02-langfuse/workflow-integration/02-runner-implementation-plan.md"
   ],
   "views": {
     "current": {
@@ -1982,7 +1986,7 @@
               "text": "Local UI, connection check and editable mock runs first; real workflows last.",
               "to": "langfuse_setup",
               "label": "M1–M3 accepted / M4.1 accepted",
-              "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred."
+              "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Combined M4.2 + M4.3 scope accepted; detailed design under review; logging deferred."
             }
           ],
           "note": "EXPLORATION ONLY — optional candidate, not an approved target. Traces are evidence. They are not the workflow state store or a durable recovery mechanism.",
@@ -2318,15 +2322,15 @@
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.",
+          "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Combined M4.2 + M4.3 scope accepted; detailed design under review; logging deferred.",
           "diagram": null
         },
         "workflow_observability": {
           "name": "Workflow observability draft",
           "parent": "langfuse_setup",
-          "label": "M4.1 accepted / M4.2 design",
+          "label": "M4.1 accepted / combined tracing design",
           "title": "Context, runner, then automatic CrewAI tracing",
-          "text": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.",
+          "text": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Combined M4.2 + M4.3 scope accepted; detailed design under review; logging deferred.",
           "blocks": [
             {
               "name": "Context design",
@@ -2365,7 +2369,7 @@
               "to": null
             }
           ],
-          "note": "M4.1 candidate 16c1580: two review rounds, final review PASS. D30/R31 retained; M4.2 draft policies await agreement.",
+          "note": "M4.1 candidate 16c1580: two review rounds, final review PASS. D30/R31 retained; Combined tracing version-2 draft awaits contract approval.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/stages/02-langfuse/workflow-integration/README.md"

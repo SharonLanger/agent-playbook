@@ -1,6 +1,6 @@
 # Decisions and open questions
 
-Updated: 2026-11-14, iteration 35. M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred. D30 remains the correlation requirement; the separate dated M4.1 approval entry has no conflicting decision number.
+Updated: 2026-11-14, iteration 35. M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Combined M4.2 + M4.3 detailed design authorized in iteration 40; implementation awaits revised-contract approval. Logging remains deferred. D30 remains the correlation requirement; the separate dated M4.1 approval entry has no conflicting decision number.
 
 ## Decision register
 
@@ -17,7 +17,7 @@ Updated: 2026-11-14, iteration 35. M4.1 implemented, independently reviewed and 
 | D09 | Start with Langfuse only; logs/mirroring later | Scope retained; ordinary broker requirement superseded by D11 |
 | D10 | Create/inject one ordinary broker during script initialization | Historical, superseded by D11; not an instruction to implement a broker |
 | D11 | No observability broker or replacement SDK; use native Langfuse/instrumentation with minimal code | Accepted; pending narrow guarded reconciliation before M4.2 tracing implementation |
-| D12 | Context/tests → runner/tests → CrewAI/tests, then separate logging work | Accepted sequencing |
+| D12 | Context/tests → combined runner + automatic CrewAI integration/tests → separate logging work | Updated by Sharon in iteration 40; M4.1 remains completed |
 | D13 | Prefer supported automatic instrumentation before writing per-step hooks | Accepted; actual version/coverage evidence required |
 | D14 | Research CrewAI early beside M4.1, with Astra/high effort and a separate report | Delivered as bounded isolated research |
 | D15 | Recommend justified upgrades when useful; current pins are not immutable | Accepted research freedom, not dependency adoption |
@@ -161,3 +161,9 @@ Sharon explicitly approved the M4.1 design, cases, plan and G01–G08 at `11bba5
 ## M4.1 acceptance and merge authorization — iteration 35
 
 Sharon accepted the final review and explicitly authorized resolving documentation conflicts, merging PRs #43/#44, updating merged status and refreshing the M4.2 branch from main. This supersedes the earlier temporary no-edit coordination restriction for that reconciliation only. No M4.2 policy or implementation is approved. Correlation creation/propagation already exists in M4.1; Langfuse metadata export belongs to M4.2 and automatic CrewAI coverage to M4.3.
+
+## Iteration 40 — accepted consolidation and reusable handover rules
+
+On 2026-11-15 Sharon accepted combining M4.2 and M4.3 into one implementation milestone and authorized the simplified detailed design. Use native Langfuse plus the released OpenInference CrewAI instrumentor for existing workflows; no broker, manual per-step instrumentation, custom SDK lifecycle or new agent runtime. Earlier separate-milestone sequencing is historical. This accepts scope and drafting, not an unseen detailed contract or application implementation.
+
+The reusable [Codex handover rules](../../../governance/codex-handover-rules.md) now govern every handoff: pinned design/test/plan, one coder, two independent reviewers, three rounds maximum, permanent evidence and exact outgoing/return copyable messages. PR #47 remains MERGE LAST. Detailed payload handling and tracing-specific guarded amendments must be explicit at contract review; do not silently turn earlier unapproved policies into requirements.

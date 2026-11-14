@@ -2,7 +2,7 @@
 
 **MERGE LAST — ONGOING DOCUMENTATION WORKSPACE.** Keep PR #47 open and draft while its implementation work is in progress. Merge it only after all implementation work covered by this workspace has been implemented and its implementation PRs merged, the documentation reflects the final results, and Sharon explicitly authorizes merging this documentation PR. Approval or merge instructions for an implementation PR do not authorize merging #47.
 
-Status: **M4.2 DRAFT PREPARATION authorized; M4.1 final review completed in iteration 33, accepted and merged via PR #44; documentation integration completed. No M4.2 approved contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 39.
+Status: **M4.2 DRAFT PREPARATION authorized; M4.1 final review completed in iteration 33, accepted and merged via PR #44; documentation integration completed. No M4.2 approved contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 40.
 
 This file supplements the [complete discussion through iteration 29](context-discussion.md), [shared requirements](../requirements.md) and [decisions](../decisions.md). It records new instructions, proposals, open decisions and possible follow-ups while another Codex implements M4.1. It is not a competing application specification. Read this entire record on each new M4.2 discussion iteration and preserve earlier decisions when updating it.
 
@@ -154,3 +154,15 @@ Small application responsibilities: initialize the configured local SDK and rele
 Combined acceptance must use the actual runner/factory/ABC and all maintained workflows: one runner root, one Flow child, correct executed steps with no duplicates, correlation_id on every observation, repeat/disabled/failure behavior and final flush. Verify local ingestion/UI separately. Avoid claiming automatic model cost/token coverage before an actual model integration exists. Preserve the current local-only configuration and credential protections; research limitations concerning captured payloads and framework update checks remain verification items, not license to implement a generic platform.
 
 Next recommended action: revise the three M4.2 drafts into one minimal combined design/test/implementation package once the proposed consolidation is accepted; retain coder, two independent reviewers, max three rounds and final handoff. Reconcile milestone references explicitly rather than silently deleting M4.3 history. PR #47 remains draft and merges last.
+
+## Iteration 40 — standing handover procedure and combined design authorized
+
+On 2026-11-15 Sharon explicitly accepts merging M4.2/M4.3 scope and requests a reusable Codex handover rules document, README discovery and exact copyable outgoing/return instructions. He authorizes starting the simplified detailed design. Preserve M4.1 and its accepted evidence; no application implementation or merge is authorized here.
+
+Published designs/governance/codex-handover-rules.md and linked it from the design and package READMEs. It formalizes one orchestrator/coder, two independent reviewers (design drift and test gaps), one frozen candidate per round, permanent four-report round folders, maximum three total rounds, explicit blocked stop and final design-session review. It requires filled immutable-link outgoing prompts and a complete return report that Sharon can copy back. Generic templates are not a ready-to-run approval for an unapproved draft.
+
+Updated milestone table and D12/shared requirements to the accepted combined scope, preserving historical M4.3 identity and evidence. Replaced the three unapproved version-1 drafts with concise version-2 combined design/test/plan. Prior drafts remain in Git history at 7ffa9228a1e131f9f252d7d5def3abdde144f793. No custom client cache, generic tracing framework or manual per-step instrumentation is proposed.
+
+One substantive review choice remains PAYLOAD-01: whether native input/output/exception capture is accepted for existing deterministic workflows. Default capture is proposed, not assumed approved; explicit configuration credentials/full context are never projected. Comprehensive suppression is not promised by attribute-only masking. Guarded RUN-G amendments remain proposed and must be approved with the final revision; milestone consolidation does not silently approve unseen protected-file edits.
+
+The detailed package is ready for discussion, not implementation. Next: settle payload policy, review/approve exact design/tests/plan and narrow guarded amendments, then generate the filled copyable Codex handoff. PR #47 stays draft and MERGE LAST. No new application tests or live Langfuse acceptance claimed for documentation work.
