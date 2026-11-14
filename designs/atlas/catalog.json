@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 01 completed, accepted and locked; PR #40 merged. Stage 02 local Langfuse/mock exercise accepted on Mac; PR #36 merged as 44d6919, delivery-readback limitation recorded; M4 deferred. Agent execution foundation: draft planning package on docs/agent-execution-foundation-planning; no runtime implementation or roadmap change.",
+  "snapshot": "Stage 01 completed, accepted and locked; PR #40 merged. Stage 02 local Langfuse/mock exercise accepted on Mac; PR #36 merged as 44d6919, delivery-readback limitation recorded; M4 deferred. Agent execution foundation: draft planning package on docs/agent-execution-foundation-planning; no runtime implementation or roadmap change. PR #45 is the ongoing Stage 04 design workspace and merges last after Stage 04 implementation; five initial event names/meanings accepted, payloads open.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -2343,7 +2343,7 @@
               "to": null
             }
           ],
-          "note": "DRAFT PLANNING — not a locked implementation baseline. Stage 02 remains current; roadmap unchanged.",
+          "note": "ONGOING DESIGN — PR #45 MERGES LAST after all Stage 04 implementation PRs. Five initial event names/basic meanings accepted; payloads and implementation remain pending.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/stages/04-agent-execution/README.md"

@@ -7,7 +7,7 @@ PR #43 inspected at `11bba581291c1b166973848ea8db6a9e2a142413`, draft and unmerg
 
 Evidence applies to this package's introducing commit on `docs/agent-execution-foundation-planning` and its rebuilt Atlas. The PR identifies that candidate SHA; the baseline above identifies the unchanged application revision.
 
-## Results
+## Introducing-commit results (historical)
 
 | Check | Observed result |
 |---|---|
@@ -28,3 +28,9 @@ The scope/link/ID checks used a temporary validation script against the hash-che
 Application tests, type/lint/release gates, live Claude/Codex runs, SDK installations and Langfuse checks were not run because this PR changes only planning documents and Atlas navigation. Prior research findings retain their historical evidence, not a fresh parity claim. No browser interaction or diagram change was required; no new visual asset was authored.
 
 This package is ready for planning review. It is not an implementation-ready locked milestone, user acceptance of detailed schemas, Stage 04 activation or approval to merge. Each later milestone needs its own reviewed design and revision-specific implementation evidence. Before merging parallel design PRs, reconcile shared navigation/catalog sources and regenerate Atlas instead of hand-merging generated HTML.
+
+## Revision 14 documentation update
+
+PR #45 must remain open and merge last, after all Stage 04 implementation is accepted and merged, with final reconciliation and explicit merge authorization. This update records D33/BC02 and D34; only the five event names/basic meanings are approved. Payloads, lifecycle ownership and delivery guarantees remain open.
+
+Validation for this revision: Atlas regenerated and freshness checked; relative Markdown links, heading anchors, fenced blocks, record continuity and scope checked using the same scoped snapshot validator. Both active records are revision 14; D33/D34 and BC02 are present. Original revision-12 snapshots and guarded source files remain unchanged. No runtime implementation or application tests are included. The PR identifies the published candidate commit.

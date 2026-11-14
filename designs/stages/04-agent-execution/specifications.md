@@ -1,6 +1,8 @@
 # Agent Playbook — Execution Specifications
 
-Revision: 13 · Updated: 2026-11-14 · Owner: Sharon
+> **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
+
+Revision: 14 · Updated: 2026-11-14 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 ## Status and authority
@@ -139,7 +141,7 @@ The planned distinction is about ownership: role-facing execution evidence versu
 
 | Question | Missing decision |
 |---|---|
-| Q01 | Initial event vocabulary, payloads, IDs, timing and truthful mapping rules. |
+| Q01 | Partly answered by D34: five event names/basic meanings accepted. Payloads, IDs, timing and truthful mapping rules remain open. |
 | Q02 | Minimal declaration shapes are accepted (D26). Request/result fields, terminal-event/result relationship and handler-failure behavior remain open. |
 | Q03 | Codex transport/SDK and supported version; Claude SDK mode/version. |
 | Q04 | Common settings versus provider-specific settings and configuration ownership. |
@@ -197,7 +199,7 @@ D27–D32 capture the subsequent discussion and this PR authorization. [mileston
 
 **Independent does not mean dependency-free:** no shared Stage 02 model is duplicated here. Event-local identity, if selected, is not a replacement for workflow/application correlation. Before workflow integration, recheck actual merged context/constructor contracts and standalone invocation needs (Q35). No context placeholder, telemetry broker or new logger is introduced by the harness. The common event-delivery/logging composition responsibility remains; actual logging/export needs separate agreed integration and evidence.
 
-**Still proposed:** P01's five event types and payloads, terminal ownership, model implementation library, exact settings fields/defaults, fake scripts/count/input, optional random variation, demo delay, role task entry, callback/cleanup/failure policies. Deterministic scripted cases are recommended; Sharon's random-event idea remains an option to evaluate. A fake cannot certify live tool permissions or provider parity.
+**Still proposed:** the accepted five events' payloads, terminal ownership, model implementation library, exact settings fields/defaults, fake scripts/count/input, optional random variation, demo delay, role task entry, callback/cleanup/failure policies. Deterministic scripted cases are recommended; Sharon's random-event idea remains an option to evaluate. A fake cannot certify live tool permissions or provider parity.
 
 **Roadmap boundary:** the guarded/provisional sequencing remains as checked on main. The suggestion to give Stage 04 this foundation and later native work to Stage 05 is a working planning direction, not an edit to either global stage. Resolve the difference deliberately before locking implementation. The original standalone-reviewer/coder-reviewer ideas remain later examples; they are not removed from history.
 
@@ -209,6 +211,25 @@ D27–D32 capture the subsequent discussion and this PR authorization. [mileston
 The decision board's [revision 12 review](decisions.md#three-abc-approval-and-design-review--revision-12) records the full findings. Outstanding work includes the terminal-event/result relationship, callback/logging/transport failure behavior, runtime capability mapping, per-execution context and mutable-state lifetime, the agent task entry point, and whether per-role handler helper files earn their place. No proposed resolution has been silently adopted.
 
 Current canonical architecture/structure/governance were reread. They still label the role/harness details as exploration and reserve observability normalization separately. C01 remains a documented reconciliation step before implementation; no repository or Atlas file was edited. A deterministic foundation can verify local contracts but cannot prove native provider mapping or permission enforcement.
+
+
+## Accepted initial events — revision 14
+
+D34 records Sharon's explicit acceptance of the five event types and the basic meanings explained in this conversation. This narrows Q01; it does not approve all payload/status/identity/delivery proposals previously collected under P01.
+
+| Event | Accepted meaning |
+|---|---|
+| ExecutionStarted | Our execution has begun; this does not establish native provider readiness. |
+| TextProduced | A completed piece of assistant text; multiple pieces may occur before execution finishes. |
+| ToolCallObserved | We observed a reported tool/action call; observation alone does not prove it ran or was approved. |
+| ToolResultObserved | We observed the corresponding tool/action result, including failure evidence when reported. |
+| ExecutionFinished | Our execution reached a terminal outcome; terminal does not necessarily mean successful. |
+
+All five are shared typed data in `app/src/agent_playbook/execution/events.py`; `AgentEvent` is the shared union consumed by the mapper and callback. They are not five new behavioral ABCs and do not need five separate modules. The already accepted separate-interface rule remains: `agents/agent.py`, `execution/contracts/execution_adapter.py`, `execution/contracts/event_mapper.py` and `execution/contracts/event_handler.py` each retain their own responsibility. Request/result/settings/permissions remain in their separate existing target modules. A real provider's mapper will live with its adapter later; the fake mapper's exact path remains M2 design.
+
+Incremental text/deltas mean small arriving fragments (not necessarily one exact token each); reported reasoning means only explanatory/reasoning material exposed by the provider; usage updates mean accounting such as token counts, and cost where actually available; tool progress means intermediate activity before a final tool result. These are explained future possibilities, not added initial event types. Deferring a live UsageUpdated event does not decide whether optional final usage belongs in ExecutionResult. No native capability/parity claim is made by this explanation.
+
+Next design decisions: essential payload fields, event identity/order if required, who emits local start/finish, and how completion relates to the returned ExecutionResult. Callback failure may prevent terminal delivery; guarantees must be explicitly designed rather than inferred from the event name. No runtime files are created here.
 
 ## Research status
 
@@ -262,3 +283,4 @@ Maintain both active records in this repository package with matching revision e
 | 11 | 2026-11-14 | Accepted the Agent ABC and role-side handle_event contract (D25), answered Q32, updated the desired tree, and corrected the earlier misplaced provider/role pushback. Future permission/system methods remain open. |
 | 12 | 2026-11-14 | Recorded explicit approval of all three ABCs and minimal declarations (D26); reviewed both records and current canonical boundaries, corrected stale statuses, and logged remaining design gaps without adopting new policies. |
 | 13 | 2026-11-14 | Recorded D27–D32, parallel-design/deferred-integration boundaries, deterministic foundation/demo direction and authorized draft PR; introduced plan-first milestone change control and preserved exact revision-12 snapshots. |
+| 14 | 2026-11-14 | D33: PR #45 merges last after all Stage 04 implementation. D34: five event names/basic meanings accepted; schema/ownership remain open; placement and optional future event explanations added. |

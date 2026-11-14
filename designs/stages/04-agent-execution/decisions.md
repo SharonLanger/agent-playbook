@@ -1,6 +1,8 @@
 # Agent Playbook — Execution Decision Board
 
-Revision: 13 · Updated: 2026-11-14 · Owner: Sharon
+> **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
+
+Revision: 14 · Updated: 2026-11-14 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 ## How to read this board
@@ -15,7 +17,7 @@ Evidence levels:
 
 This board is comprehensive for the recoverable decisions relevant to this design discussion; it is not a claim that an inaccessible original transcript has been read in full. Unknown historical reasons remain unknown.
 
-**Current checkpoint, revision 13:** D26's three ABCs remain accepted. D27–D32 below record the parallel planning boundary, deterministic delivery direction and authorization for this documentation PR with plan-first scope control. [specifications.md](specifications.md) is the current working specification; [milestone-plan.md](milestone-plan.md) owns proposed delivery boundaries. Discussion approvals do not silently promote a locked canonical stage baseline. Earlier proposals and revision sections retain their historical status.
+**Previous checkpoint, revision 13 (updated by D33/D34 below):** D26's three ABCs remain accepted. D27–D32 below record the parallel planning boundary, deterministic delivery direction and authorization for this documentation PR with plan-first scope control. [specifications.md](specifications.md) is the current working specification; [milestone-plan.md](milestone-plan.md) owns proposed delivery boundaries. Discussion approvals do not silently promote a locked canonical stage baseline. Earlier proposals and revision sections retain their historical status.
 
 ## Approved decisions in this discussion
 
@@ -78,7 +80,7 @@ No current PR/merge status is inferred from stale handover prose. The decision r
 | ID | Question | Status | Answer / next evidence |
 |---|---|---|---|
 | Q00 | Where do role logic and provider execution belong? | **Answered** | D03; approved desired folder structure in specifications. |
-| Q01 | Which events and payloads are necessary first? | **Open** | Research and P01 supply candidates; settle the initial names, payloads, evidence rules and lifecycle ownership. |
+| Q01 | Which events and payloads are necessary first? | **Partly answered by D34** | Five names/basic meanings accepted; payloads, identity/order, detailed evidence and lifecycle ownership remain open. |
 | Q02 | What execution/callback interface, class mechanism and delivery semantics? | **Partly answered (D26)** | Minimal ABC/callback declaration shapes accepted. Request/result fields, terminal-event/result relationship, delivery and failure semantics remain open. |
 | Q03 | Which Codex integration surface and Claude SDK mode/version? | **Open** | SDK versus app-server affects streaming, permissions and controls. |
 | Q04 | Which settings are common and which stay provider-specific? | **Open** | Define a small request/settings model; do not pretend permission/sandbox equivalence. |
@@ -212,6 +214,8 @@ Caution from source comparison: Claude's streaming prose and current Python type
 P01–P07 retain their historical proposals and explicit acceptance status. D14/D15 now approve the displayed P07 tree, module responsibilities and ABC approach. Other event/control details remain proposals. P02's Protocol recommendation and the single-contract-file arrangement are historical.
 
 ### P01 — Five initial event types (Q01)
+
+**Revision 14 amendment:** D34 accepts the five names and basic meanings only. The table's payload/status details and rules below retain their proposal status unless separately approved; do not interpret catalogue acceptance as wholesale P01 approval.
 
 | Proposed class | Meaning / minimal payload | Reason |
 |---|---|---|
@@ -814,7 +818,7 @@ These entries record the subsequent discussion, separately from the detailed rec
 | Q37 | When and how should the global Stage 04/05 descriptions be reconciled with this foundation-first direction? | **Deferred — deliberate roadmap review before implementation lock.** Sharon explicitly instructed that the roadmap stay unchanged now. No added stage or sequencing amendment is approved here. |
 | Q38 | Where does actual execution-event logging join this path, and what counts as acceptance? | **Deferred integration requirement; detailed policy open (Q09/Q17).** D12 stays required. A test event recorder establishes local delivery only, not persisted/correlated logs or successful export. Coordinate with the separate logging/context track; no new backend in these checkpoints. |
 
-Q01/Q02/Q04/Q08/Q10/Q26 remain open in the portions needed for S04.M1. Q33/Q34 remain for the demo entry/helper design. Q03/Q07 and concrete native security behavior can wait for native integration. P01 is still a proposed event catalogue. No outcome policy is inferred from the milestone prose.
+Q01/Q02/Q04/Q08/Q10/Q26 remain open in the portions needed for S04.M1. Q33/Q34 remain for the demo entry/helper design. Q03/Q07 and concrete native security behavior can wait for native integration. At revision 13 P01 was proposed. D34 now accepts the names/basic meanings; its payload and outcome policies remain proposed.
 
 ### Parallel-work assessment and PR #43 reference
 
@@ -834,6 +838,20 @@ Independent folders support parallel design, not automatic merge or semantic ind
 
 The plan's BC01 is the initial draft boundary entry. Later scope changes must first create a Pending BC entry and follow D32. Research findings above are preserved at their original inspection snapshots, not freshly reverified upstream claims.
 
+
+
+## Merge-last rule and event catalogue approval — revision 14
+
+| ID | Decision / status | Evidence, alternatives and consequences |
+|---|---|---|
+| D33 | **Approved: PR #45 remains open and merges last, only after the entire Stage 04 implementation is accepted and merged.** | Sharon explicitly requests this merge order and ongoing design-document workspace. Earlier generic no-merge-without-approval statements did not define this ordering; this adds it. Do not merge at design approval, a milestone checkpoint or as an implementation prerequisite. Keep the README, milestone plan, PR title/body and current records explicit. Final reconciliation and Sharon's explicit merge authorization are still required. |
+| D34 | **Approved: initial five event names and basic meanings — ExecutionStarted, TextProduced, ToolCallObserved, ToolResultObserved, ExecutionFinished.** | Sharon reviews the preceding five-event explanation and says the event types are fine. This accepts that catalogue, not all earlier P01 fields/statuses/rules. Q01 is partly answered. A broader initial stream catalogue remains unnecessary for the current agreed baseline; final usage in a result is still an independent open design choice. |
+
+Schema placement is the previously agreed execution/events.py, with AgentEvent consumed by the mapper/callback. Separate behavioral interfaces remain separate files. The shared event payloads do not each need an ABC. Native provider mappings remain later integration; the fake mapper's exact path is still to be designed.
+
+The user also asks what optional incremental text, reported reasoning, usage updates and tool progress mean. The specification now explains these as future possibilities; that request is not approval to add them. No library/model implementation, payload fields, local lifecycle emitter or delivery guarantee was selected. No runtime or merge action is authorized.
+
+Consistency: D33 supplements D31/D32 and is recorded as BC02 in the milestone plan. D34 narrows Q01/P01 within existing M1 scope. D02–D32, native runtime ownership, autonomous permissions, deferred logging and historical alternatives remain intact. Roadmap reconciliation belongs to the separate owner; no other branch is edited.
 
 ## Maintenance rule
 
@@ -856,3 +874,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 11 | 2026-11-14 | Accepted the Agent ABC and role-side handle_event contract (D25), answered Q32, updated the desired tree, and corrected the earlier misplaced provider/role pushback. Future permission/system methods remain open. |
 | 12 | 2026-11-14 | Recorded explicit approval of all three ABCs and minimal declarations (D26); reviewed both records and current canonical boundaries, corrected stale statuses, and logged remaining design gaps without adopting new policies. |
 | 13 | 2026-11-14 | Recorded D27–D32 and Q35–Q38; answered Q20; preserved original records; authorized draft design PR and introduced explicit plan-first milestone boundaries without changing roadmap or implementation. |
+| 14 | 2026-11-14 | Added D33 merge-last rule and D34 five-event approval; partially answered Q01, clarified P01 remaining proposals and payload placement; no runtime changes. |

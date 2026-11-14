@@ -1,6 +1,8 @@
 # Agent execution foundation — milestone boundaries
 
-Revision: 1 · 2026-11-14 · Owner: Sharon
+> **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
+
+Revision: 2 · 2026-11-14 · Owner: Sharon
 Status: **draft plan for review; no locked implementation baseline or implementation authorization.**
 
 [Start here](README.md) · [Specification](specifications.md) · [Decision board](decisions.md) · [Repository reconciliation](repository-updates.md)
@@ -40,7 +42,7 @@ Different folders reduce textual overlap; shared contracts still create dependen
 
 **Placement:** proposed runtime files under `app/src/agent_playbook/agents/agent.py` and `execution/{contracts,events.py,request.py,result.py,settings.py,permissions.py}`; tests under maintained `app/tests/` owners. Exact test/model choices belong in the detailed M1 design. No empty coder/reviewer/provider folders are required.
 
-**Entry / decisions to close:** Q01/Q02/Q08 for event/data semantics and result/error representation; Q04/Q26 for the initial configuration subset; Q10 for the contract-level failure promises; C01/Q12 for canonical ownership. Resolve only the portions required by M1, explicitly defer the rest. P01's five events, dataclasses/Pydantic, IDs, status names and terminal-event ownership are still candidates. Do not add required context fields now or silently forbid later context integration.
+**Entry / decisions to close:** Q01/Q02/Q08 for event/data semantics and result/error representation; Q04/Q26 for the initial configuration subset; Q10 for the contract-level failure promises; C01/Q12 for canonical ownership. Resolve only the portions required by M1, explicitly defer the rest. D34 accepts the five initial event names and basic meanings. Dataclasses/Pydantic, payload fields, IDs, result status names and terminal-event ownership remain open. Do not add required context fields now or silently forbid later context integration.
 
 **Proposed acceptance:** incomplete ordinary subclasses cannot instantiate; a concrete role can explicitly implement a no-op handler; static checking catches incompatible overrides/callbacks; supported data values and genuinely invalid inputs follow the agreed schema; contracts stay independent of native SDKs and roles. Do not write a test solely to assert each filename exists or add a custom metaclass to police every descendant class.
 
@@ -116,4 +118,12 @@ For later deltas use stable BC02, BC03… entries with the fields in the protoco
 
 ## Next design step
 
-Review these boundaries, then develop **S04.M1** one decision at a time: the initial event/request/result data and completion ownership first, followed by the basic settings/permission subset. Prepare its detailed design, meaningful acceptance cases and file-specific canonical amendments before asking to lock or implement it. No detailed M1 design or executable implementation brief is claimed to exist yet.
+Review these boundaries, then develop **S04.M1** one decision at a time: the payloads for the accepted five event types, request/result data and completion ownership first, followed by the basic settings/permission subset. Prepare its detailed design, meaningful acceptance cases and file-specific canonical amendments before asking to lock or implement it. No detailed M1 design or executable implementation brief is claimed to exist yet.
+
+## Revision 2 checkpoint — 2026-11-14
+
+BC02: **Accepted and applied — process boundary, no runtime scope expansion.** Sharon explicitly requires PR #45 to remain the ongoing design workspace and merge last, after the entire Stage 04 implementation is merged. D33 records this order. Milestone implementation PRs must not merge this design PR as a prerequisite; carry the approved, necessary milestone design/authority amendments into their own reviewable changes, preserve the remaining planning/history here, and reconcile the workspace as implementations merge. Exact branching/cherry-pick choices belong to each implementation handoff; never copy the whole design PR just to bypass this order. Final merge still needs explicit authorization.
+
+D34: **Accepted event catalogue within existing S04.M1 scope.** ExecutionStarted, TextProduced, ToolCallObserved, ToolResultObserved and ExecutionFinished names/basic meanings are approved. Their payloads, emission owner, failure/delivery guarantees and result relationship remain open. This resolves part of Q01, not all of P01. No S04.M1–M4 implementation or changed milestone allocation is authorized.
+
+Current M1 design task sequence: (1) accepted event catalogue → payloads, (2) completion owner and terminal/result relationship, (3) request/result schema, (4) minimal settings/permissions, (5) contract-level failure behavior, (6) detailed design and meaningful acceptance cases before implementation approval. Later steps may expose changes to earlier ones; follow the boundary-change protocol.

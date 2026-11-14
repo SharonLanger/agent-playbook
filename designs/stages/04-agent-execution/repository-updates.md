@@ -1,5 +1,7 @@
 # Repository reconciliation and implementation gates
 
+> **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
+
 Status: **open checklist for future design/implementation; no guarded changes made by this PR.**
 
 [Start here](README.md) · [Milestone boundaries](milestone-plan.md) · [Decision board](decisions.md)
@@ -58,3 +60,7 @@ No unresolved item in this table prevents **creating the draft planning PR**. It
 - Verify roadmap, all guarded files, app source/tests/settings/dependencies and historical sandbox are untouched.
 - Reconcile overlaps with concurrent navigation/Atlas work before merge; regenerate from reconciled source.
 - Record checks for the exact candidate. Do not merge this PR or begin implementation without the corresponding user instruction.
+
+## PR #45 final merge gate — D33
+
+Keep PR #45 open as the ongoing design workspace. After every Stage 04 implementation milestone has its required evidence/acceptance and its implementation PR is merged, reconcile all current records against main, preserve decision history, resolve remaining draft status/conflicts and run documentation/Atlas checks. Only then is PR #45 eligible for Sharon's explicit final merge instruction. Do not merge it merely to make a milestone design available to an implementation branch; carry the necessary approved milestone material in that focused work and reconcile afterward. No merge happens automatically.

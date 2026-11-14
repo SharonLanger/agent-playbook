@@ -53,3 +53,7 @@ The package retains C01's execution-event/observability ownership reconciliation
 ## Unresolved work
 
 Initial event/request/result payloads and completion ownership; minimal settings/tool-policy data and unsupported-policy behavior; callback/failure/cleanup/lifetime semantics; exact fake scripts; role task entry/helper organization; eventual context/logging connection; guarded canonical amendments and deliberate stage-sequencing review. These are visible design tasks, not reasons to withhold the authorized draft planning PR.
+
+## 9. Subsequent instruction — merge last and initial events, revision 14
+
+Sharon explicitly requires PR #45 to be the last PR merged after all Stage 04 implementation is merged, keeping designs and milestones here throughout the work. D33 and BC02 record the order. He also accepts the five previously explained event names/basic meanings, asks for clarification of future event categories, and requests file/folder placement. D34 records the limited catalogue approval; payloads, ownership and failure rules remain open. The specification explains placement in execution/events.py and preserves separate interface files. No runtime files or provider implementations were requested.

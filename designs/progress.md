@@ -43,7 +43,7 @@ acceptance remain open. No milestone implementation is claimed.
 Stage 02 remains current. The roadmap, guarded meaning, runtime and dependencies
 are unchanged. Context/Langfuse and actual logging integration stay separate;
 canonical ownership/sequence reconciliation is required before implementation lock.
-This is a documentation-only draft, not stage activation or merge authorization.
+This is a documentation-only draft, not stage activation or merge authorization. PR #45 is the ongoing design workspace and must merge last, after all Stage 04 implementation is accepted and merged (D33). D34 accepts the five initial event names/basic meanings; payloads and lifecycle ownership remain open.
 Evidence and limitations are recorded in the package's
 [verification record](stages/04-agent-execution/verification.md).
 
