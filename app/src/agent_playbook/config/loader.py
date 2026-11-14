@@ -12,7 +12,7 @@ from yaml.constructor import ConstructorError
 from yaml.nodes import MappingNode
 
 from agent_playbook.config.errors import ConfigurationError
-from agent_playbook.config.models import ApplicationSettings
+from agent_playbook.config.models import ApplicationSettings, SecretsSettings
 from agent_playbook.config.paths import configuration_path
 
 
@@ -108,10 +108,7 @@ def _parse_secrets_file(path: Path) -> dict[str, str]:
                 name = name.strip()
                 if not separator or not _ENV_NAME.fullmatch(name):
                     raise ValueError
-                if name in values or name in {
-                    "AGENT_PLAYBOOK_CONFIG",
-                    "AGENT_PLAYBOOK_SECRETS_FILE",
-                }:
+                if name in values or name == "AGENT_PLAYBOOK_CONFIG":
                     raise ValueError
                 value = raw_value.strip()
                 if value.startswith(("'", '"')):
@@ -150,41 +147,45 @@ def _parse_secrets_file(path: Path) -> dict[str, str]:
     except (OSError, UnicodeError, ValueError):
         # Do not expose parser exceptions, source lines, or secret values.
         raise ConfigurationError(
-            f"Cannot read selected secrets file {path}; use valid UTF-8 NAME=value lines."
+            f"Cannot read secrets file {path}; use valid UTF-8 NAME=value lines."
         ) from None
     return values
 
 
-def _effective_environment() -> dict[str, str]:
-    """Compose a fresh per-load map; process values (including empty ones) win."""
-    selected = os.environ.get("AGENT_PLAYBOOK_SECRETS_FILE")
-    if selected is None:
-        return dict(os.environ)
-    if not selected.strip():
-        raise ConfigurationError(
-            "AGENT_PLAYBOOK_SECRETS_FILE must name a nonempty secrets file path."
-        )
+def _secrets_file_path(value: str, configuration: Path) -> Path:
+    """Resolve the configured secrets file relative to the selected YAML."""
     try:
-        path = Path(selected).expanduser()
+        path = Path(value).expanduser()
         if not path.is_absolute():
-            path = Path.cwd() / path
+            path = configuration.parent / path
     except (OSError, RuntimeError, ValueError):
-        raise ConfigurationError(
-            "AGENT_PLAYBOOK_SECRETS_FILE must name a usable file path."
-        ) from None
-    file_values = _parse_secrets_file(path)
-    return file_values | dict(os.environ)
+        raise ConfigurationError("secrets.file must name a usable file path.") from None
+    return path
 
 
 def load_configuration(path: str | None = None) -> ApplicationSettings:
     """Reload for each run; never cache files or print resolved setting values."""
     selected = configuration_path(path)
-    environment = _effective_environment()
     data = _read(selected)
     local = selected.with_name(f"{selected.stem}.local{selected.suffix}")
     try:
         if local.exists():
             data = _merge(data, _read(local))
+        try:
+            secrets_data = _mapping(data.get("secrets"))
+        except ValidationError:
+            raise ConfigurationError(
+                "Invalid configuration: secrets.file must name a nonempty file path."
+            ) from None
+        file_value = secrets_data.get("file")
+        if not isinstance(file_value, str) or not file_value.strip():
+            raise ConfigurationError(
+                "Invalid configuration: secrets.file must name a nonempty file path."
+            )
+        secrets = SecretsSettings.model_validate(secrets_data)
+        secret_values = _parse_secrets_file(_secrets_file_path(secrets.file, selected))
+        # Process values, including explicit empty strings, take precedence.
+        environment = secret_values | dict(os.environ)
         integration = _mapping(data.get("integrations"))
         crewai = _mapping(integration.get("crewai"))
         for field, variable in _OVERRIDES.items():

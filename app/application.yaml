@@ -9,6 +9,8 @@ integrations:
     environment: local
     public_key: {env: LANGFUSE_PUBLIC_KEY}
     secret_key: {env: LANGFUSE_SECRET_KEY}
+secrets:
+  file: ~/.config/agent-playbook/secrets.env
 workflows:
   wf-01:
     name: Step sequence

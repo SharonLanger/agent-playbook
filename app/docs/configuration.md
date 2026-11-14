@@ -19,7 +19,8 @@ Follow an example's README when running its `run.py` directly.
 
 | File | Purpose |
 |---|---|
-| `app/application.yaml` | CrewAI settings and configured workflow IDs, reviewed and versioned in Git |
+| `app/application.yaml` | Integration settings, general secrets-file path and configured workflow IDs, reviewed in Git |
+| `~/.config/agent-playbook/secrets.env` | Private credentials outside the repository; file must exist, but may be empty |
 | `app/application.local.yaml` | Optional partial overrides for this machine; Git-ignored |
 | `app/src/agent_playbook/config/` | Python loader, typed validation and CrewAI initialization |
 
@@ -72,7 +73,7 @@ Langfuse project connection settings are documented in the
 [explicit connection guide](langfuse-connection.md). They are disabled by default
 and do not instrument workflows. Older YAML files without a Langfuse block still
 load with this integration disabled. Project keys are resolved from named
-environment variables only when enabled; they are separate from Docker's local
+credentials-file entries or process environment variables only when enabled; they are separate from Docker's local
 service secrets.
 
 ## CrewAI settings
@@ -114,41 +115,72 @@ Set `MY_FLOW_EVENTS=true` or `false`; a missing variable is an error. The docume
 `AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS` override still wins if both are supplied.
 This reference syntax is implemented by our loader, not automatically by YAML.
 
-An optional external dotenv-style file can supply referenced values to any
-integration. The application reads one only when `AGENT_PLAYBOOK_SECRETS_FILE` is
-explicitly set. No `.env` file is discovered automatically. A relative selector
-is resolved from the invocation directory; use an absolute path for a persistent
-shell or PyCharm setting. A leading `~` expands to the user's home directory.
+## General secrets file
 
-Create a private file outside the repository, for example
-`~/.config/agent-playbook/secrets.env`, and set its permissions so only your user
-can read it. The file should contain one `NAME=value` assignment per line.
-Blank lines and full-line comments beginning with `#` are accepted. Unquoted
-values are trimmed; matching single or double quotes preserve whitespace inside
-the quotes. A `#` preceded by whitespace starts an unquoted trailing comment.
-Double-quoted values may escape `\\` and `\"`. Values are literal: variable
-expansion, backticks and shell command substitution are never evaluated. Invalid
-lines, duplicate names, unsupported selector assignments, unreadable files and
-invalid UTF-8 fail with a sanitized configuration error.
+The top-level `secrets` section is required in the merged application YAML:
 
-The process environment overrides file entries, including when an environment
-value is explicitly empty. The effective values are rebuilt for each configuration
-load; the loader does not modify `os.environ` or cache the file. The file may set
-ordinary integration overrides such as `AGENT_PLAYBOOK_LANGFUSE_ENABLED=true`,
-but it cannot change `AGENT_PLAYBOOK_CONFIG` or select another secrets file.
-Langfuse keys still do not enable tracing by themselves; set the explicit
-`AGENT_PLAYBOOK_LANGFUSE_ENABLED=true` override or enable it in selected YAML.
-This application file is separate from Docker's
-`app/tooling/observability/.env`, which configures the optional local service and
-is never read by the application loader.
+```yaml
+secrets:
+  file: ~/.config/agent-playbook/secrets.env
+```
 
-Without `AGENT_PLAYBOOK_SECRETS_FILE`, existing behavior is unchanged: there is no
-implicit discovery of repository `.env` files, home-directory secrets or Docker
-`.env` files. Export variables or use PyCharm's environment-variable settings
-when you do not want a secrets file. Do not put tokens in shared YAML or commit
-secret files. File permissions reduce access by other local users; they cannot
-prevent leaks from a compromised account or process. Third-party libraries may
-have separate `.env` behavior, so keep explicit application settings authoritative.
+The supplied `app/application.yaml` already contains this path. An optional local
+YAML override can change it. The loader first merges the selected base YAML and
+its sibling local override, then reads `secrets.file`. A leading `~` expands to
+your home directory; relative paths resolve beside the selected base YAML file.
+No terminal or PyCharm secrets-file export is needed. The former
+`AGENT_PLAYBOOK_SECRETS_FILE` selector is no longer used.
+
+- Create the external directory before the first application run or bootstrap.
+
+```sh
+mkdir -p "$HOME/.config/agent-playbook"
+```
+
+- Restrict the directory to your user.
+
+```sh
+chmod 700 "$HOME/.config/agent-playbook"
+```
+
+- Create the file without overwriting existing contents.
+
+```sh
+touch "$HOME/.config/agent-playbook/secrets.env"
+```
+
+- Restrict the file to your user.
+
+```sh
+chmod 600 "$HOME/.config/agent-playbook/secrets.env"
+```
+
+A missing or blank path, unreadable/missing file, or invalid contents fails with a
+sanitized configuration error. An existing empty file is valid, including when
+Langfuse is disabled. Enabled integrations still require their referenced keys.
+Existing configurations must add this section; there is no implicit fallback.
+
+Keep enable switches, URLs and environment labels in YAML. For Langfuse, the
+external file contains only `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY`.
+The [connection guide](langfuse-connection.md) shows the two entries and YAML
+settings. The same file can hold credentials for other integrations later.
+
+The parser accepts `NAME=value` lines, blank lines and full-line `#` comments.
+Unquoted values are trimmed; matching single/double quotes preserve inner
+whitespace. Whitespace before `#` starts an unquoted trailing comment.
+Double-quoted values support escaped backslashes and quotes. Values are literal:
+no shell commands or variable expansion run. Duplicate names, malformed lines
+and invalid UTF-8 fail without echoing contents. Configuration-selection variables
+cannot redirect loading from inside this file.
+
+Process environment values override file entries, including explicitly empty
+values. Existing documented environment overrides remain available for deployment.
+The loader rebuilds values on every load without modifying `os.environ` or caching
+credentials. No Docker `.env` or other credentials file is discovered implicitly.
+Docker's `app/tooling/observability/.env` remains separate infrastructure configuration.
+
+Keep actual keys outside the repository. User-only permissions restrict other local
+users; they do not protect against a compromised account or process.
 
 Errors report locations/types without echoing configuration values or YAML source
 lines. Active configuration/local overrides are not bundled into wheels or release

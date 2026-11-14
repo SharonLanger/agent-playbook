@@ -76,8 +76,22 @@ class IntegrationSettings(BaseModel):
     langfuse: LangfuseSettings = LangfuseSettings()
 
 
+class SecretsSettings(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True, frozen=True)
+
+    file: str
+
+    @field_validator("file")
+    @classmethod
+    def valid_file(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("file must name a nonempty path")
+        return value
+
+
 class ApplicationSettings(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True, frozen=True)
 
     integrations: IntegrationSettings
+    secrets: SecretsSettings
     workflows: dict[str, object] = Field()

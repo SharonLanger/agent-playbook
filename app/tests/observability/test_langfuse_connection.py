@@ -20,6 +20,8 @@ BASE = Path(__file__).parents[1] / "fixtures/offline.yaml"
 def config(tmp_path: Path, addition: str = "") -> Path:
     path = tmp_path / "application.yaml"
     path.write_text(BASE.read_text() + addition)
+    empty_secrets = Path(__file__).parents[1] / "fixtures/empty-secrets.env"
+    (tmp_path / empty_secrets.name).write_text(empty_secrets.read_text())
     return path
 
 
@@ -136,16 +138,15 @@ def test_checker_exit_codes(tmp_path: Path, capsys: pytest.CaptureFixture[str]) 
 
 def test_checker_reports_missing_selected_secrets_file_safely(
     tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     path = config(tmp_path)
-    monkeypatch.setenv(
-        "AGENT_PLAYBOOK_SECRETS_FILE", str(tmp_path / "missing-secrets.env")
+    path.with_name("application.local.yaml").write_text(
+        "secrets:\n  file: missing-secrets.env\n"
     )
     assert main(["--config", str(path)]) == 2
     output = capsys.readouterr().out
-    assert "Cannot read selected secrets file" in output
+    assert "Cannot read secrets file" in output
     assert "private-marker" not in output
 
 
@@ -160,7 +161,6 @@ def test_checker_reports_missing_required_key_without_values(
         "    public_key: {env: LANGFUSE_PUBLIC_KEY}\n"
         "    secret_key: {env: LANGFUSE_SECRET_KEY}\n"
     )
-    monkeypatch.delenv("AGENT_PLAYBOOK_SECRETS_FILE", raising=False)
     monkeypatch.setenv("LANGFUSE_PUBLIC_KEY", "pk-lf-private-marker")
     monkeypatch.delenv("LANGFUSE_SECRET_KEY", raising=False)
     assert main(["--config", str(path)]) == 2

@@ -8,7 +8,6 @@ from agent_playbook.config.loader import load_configuration
 
 # Tests always use a dedicated fixture, independent of user files/preferences.
 for name in (
-    "AGENT_PLAYBOOK_SECRETS_FILE",
     "AGENT_PLAYBOOK_LANGFUSE_ENABLED",
     "AGENT_PLAYBOOK_LANGFUSE_BASE_URL",
     "AGENT_PLAYBOOK_LANGFUSE_ENVIRONMENT",

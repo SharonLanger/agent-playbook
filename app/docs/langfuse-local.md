@@ -34,6 +34,8 @@ docker compose version
 
 Docker Desktop includes the Compose plugin; do not install legacy `docker-compose`.
 
+- Create the required external credentials file using the [configuration guide](configuration.md#general-secrets-file). It may be empty until you configure a project.
+
 - Prepare the application CLI from the repository root if it is not already installed.
 
 ```sh
@@ -186,9 +188,8 @@ named volumes stay associated with the same data. The UI and MinIO bind to
 loopback. This is a local learning deployment, not a backup or production setup.
 
 Project API keys used by [connection checking](langfuse-connection.md) belong
-in the external `~/.config/agent-playbook/secrets.env` file selected with
-`AGENT_PLAYBOOK_SECRETS_FILE`. They are separate from Docker's `.env` deployment
-secrets. Follow the connection guide to configure the selector and run
+in the external `~/.config/agent-playbook/secrets.env` file selected by the general `secrets.file` setting in `app/application.yaml`. They are separate from Docker's `.env` deployment
+secrets. Follow the connection guide to configure YAML and run
 `agent-playbook langfuse --check` before using the [Langfuse hands-on guide](langfuse-hands-on.md).
 The check can address a hosted endpoint without local Docker. Workflows remain
 uninstrumented; the playground explicitly creates synthetic traces.

@@ -28,6 +28,7 @@ def test_every_registered_class_is_concrete_and_constructible() -> None:
 
 def test_aliases_create_fresh_instances(tmp_path: Path) -> None:
     selected = tmp_path / "configuration.yaml"
+    (tmp_path / "empty-secrets.env").write_text("")
     selected.write_text(
         FIXTURE.read_text() + "  second: {implementation: shared_state}\n"
     )
@@ -62,6 +63,7 @@ def test_selected_entry_fails_before_steps(
     tmp_path: Path, entry: str, error: type[Exception]
 ) -> None:
     selected = tmp_path / "configuration.yaml"
+    (tmp_path / "empty-secrets.env").write_text("")
     selected.write_text(FIXTURE.read_text() + f"  selected: {entry}\n")
     application = assemble_runtime(str(selected))
     with patch(

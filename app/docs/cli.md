@@ -87,8 +87,11 @@ in `app/application.yaml`, separate from package/version metadata. Source
 runs use that file by default; the source release launcher passes its path to the
 selected installation. `--config PATH` overrides `AGENT_PLAYBOOK_CONFIG`; both
 allow another external file. Installed releases invoked directly need one of those
-selectors. An optional sibling `.local.yaml` overrides shared fields, followed by
-explicitly documented environment overrides.
+selectors. An optional sibling `.local.yaml` overrides shared fields. The merged
+YAML must define `secrets.file`, pointing to a readable external credentials file;
+an empty file is allowed. Named credential references resolve from that file,
+with process environment values taking precedence. Enable switches, URLs and
+environment labels stay in YAML; documented environment overrides remain available.
 
 Edit the file and rerun the same release: no rebuild or version bump is needed.
 Configuration is read per invocation, not hot-reloaded mid-run. Missing/invalid settings

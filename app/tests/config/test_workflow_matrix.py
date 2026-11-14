@@ -15,6 +15,7 @@ FIXTURE = Path(__file__).parents[1] / "fixtures/offline.yaml"
 
 def config_file(tmp_path: Path, entry: str = "{implementation: shared_state}") -> Path:
     selected = tmp_path / "application.yaml"
+    (tmp_path / "empty-secrets.env").write_text("")
     selected.write_text(FIXTURE.read_text() + f"  customer-job: {entry}\n")
     return selected
 
@@ -188,6 +189,7 @@ def test_yaml_parse_rejects_keys_and_tags_in_both_files(
     tmp_path: Path, kind: str, reason: str | None, local: bool
 ) -> None:
     selected = tmp_path / "application.yaml"
+    (tmp_path / "empty-secrets.env").write_text("")
     overlay = selected.with_name("application.local.yaml")
     defect, control = yaml_pair(kind, local=local)
     selected.write_text(FIXTURE.read_text() if local else control)

@@ -4,11 +4,10 @@ This is an explicit learning script, not an application test or a real CrewAI
 workflow. Start the [local Langfuse service](../../docs/langfuse-local.md) when
 using a local endpoint, then create a Langfuse project. Follow the
 [connection guide](../../docs/langfuse-connection.md) to store project keys in
-`~/.config/agent-playbook/secrets.env` outside the repository, select it with
-`AGENT_PLAYBOOK_SECRETS_FILE`, and keep Langfuse explicitly enabled. The
+`~/.config/agent-playbook/secrets.env` outside the repository, select it through the top-level
+`secrets.file` YAML setting, and enable Langfuse in YAML. The
 application secrets file is distinct from Docker's `app/tooling/observability/.env`.
-An export in a terminal applies to that shell and child processes; set the same
-selector in PyCharm when running the script there. Use the official
+No secrets-file export is required in the terminal or PyCharm. Use the official
 [Langfuse hands-on guide](../../docs/langfuse-hands-on.md) for the complete
 authentication, trace inspection, changed-input, failure and persistence exercise.
 

@@ -6,17 +6,17 @@ calls and uses no LLM tokens or spend. Ordinary workflows remain uninstrumented.
 
 ## Authenticate first
 
-- Prepare the application environment from the repository root if it is not already set up.
+- Create the required credentials file using the [connection guide](langfuse-connection.md#create-the-private-credentials-file), then prepare the application environment if needed.
 
 ```sh
 python3 app/tooling/bootstrap.py
 ```
 
-- Configure the project keys and selector by following the [connection guide](langfuse-connection.md).
+- Configure the project keys and YAML settings by following the [connection guide](langfuse-connection.md).
 
 That guide covers the `Project Settings → API Keys` page, the external
 `~/.config/agent-playbook/secrets.env` path, user-only file permissions and
-`AGENT_PLAYBOOK_SECRETS_FILE`. The application key file is separate from
+the top-level YAML `secrets.file` setting. No terminal export is required. The application key file is separate from
 Docker's service `.env`.
 
 - Start the local Langfuse service if you are using `http://localhost:3000`.

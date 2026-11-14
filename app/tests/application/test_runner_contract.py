@@ -10,6 +10,7 @@ from agent_playbook.config.models import (
     ApplicationSettings,
     CrewAISettings,
     IntegrationSettings,
+    SecretsSettings,
 )
 from agent_playbook.workflows.errors import WorkflowInputError
 
@@ -17,7 +18,9 @@ SETTINGS = CrewAISettings(
     usage_telemetry_enabled=False, tracing_enabled=False, show_framework_events=False
 )
 APPLICATION = ApplicationSettings(
-    integrations=IntegrationSettings(crewai=SETTINGS), workflows={}
+    integrations=IntegrationSettings(crewai=SETTINGS),
+    secrets=SecretsSettings(file="unused-test-secrets.env"),
+    workflows={},
 )
 
 

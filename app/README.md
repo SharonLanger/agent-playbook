@@ -2,8 +2,11 @@
 
 ## Setup
 
-Open the **repository root** (`agent-playbook`) as the PyCharm project. First
-run bootstrap from the repository root:
+Open the **repository root** (`agent-playbook`) as the PyCharm project.
+
+- [Create the external credentials file](docs/configuration.md#general-secrets-file) before the first run. It may be empty while integrations are disabled; `application.yaml` already specifies its path.
+
+- Run bootstrap from the repository root:
 
 ```sh
 python3 app/tooling/bootstrap.py

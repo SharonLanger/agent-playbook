@@ -1,133 +1,96 @@
-# Check a Langfuse project connection
+# Connect the application to a Langfuse project
 
-The project check runs only when explicitly requested. It verifies project
-authentication without sending traces or connecting workflows automatically.
-Use a project API key pair from Langfuse project settings. Those project keys are
-different from the Docker service secrets in `app/tooling/observability/.env`.
-The pair identifies the Langfuse project and authenticates the explicit
-read-only connection check.
+Application settings belong in `app/application.yaml`. Project credentials belong
+in an external private file. Docker's `app/tooling/observability/.env` holds
+separate infrastructure credentials; do not put project keys there.
 
-## Prerequisites
+## Create the private credentials file
 
-- Prepare the locked application environment from the repository root.
-
-```sh
-python3 app/tooling/bootstrap.py
-```
-
-- Start the local Langfuse service only when checking a local endpoint. Hosted endpoints do not need local Docker.
-
-```sh
-app/.venv/bin/agent-playbook langfuse --start
-```
-
-The expected local URL is `http://localhost:3000`. See the [local service guide](langfuse-local.md) for Docker setup and status commands.
-
-## Create a private project-keys file
-
-Use the external path `~/.config/agent-playbook/secrets.env`. It stays outside
-the repository and release artifacts.
-
-- Create the configuration directory.
+- Create the directory if it does not exist.
 
 ```sh
 mkdir -p "$HOME/.config/agent-playbook"
 ```
 
-- Restrict the directory to your user.
+- Restrict access to your user.
 
 ```sh
 chmod 700 "$HOME/.config/agent-playbook"
 ```
 
-- Create `~/.config/agent-playbook/secrets.env` with your editor and these entries, replacing the obvious placeholders with your project values.
+- Create the file if needed, preserving any existing contents.
 
-```dotenv
-LANGFUSE_PUBLIC_KEY=pk-lf-placeholder
-LANGFUSE_SECRET_KEY=sk-lf-placeholder
-AGENT_PLAYBOOK_LANGFUSE_BASE_URL=http://localhost:3000
-AGENT_PLAYBOOK_LANGFUSE_ENABLED=true
+```sh
+touch "$HOME/.config/agent-playbook/secrets.env"
 ```
 
-- Open your Langfuse instance in a browser.
-
-For a local instance, use `http://localhost:3000`. For a hosted instance, use
-your Langfuse workspace URL.
-
-- Select the project you want to check.
-
-- Open **Project Settings → API Keys**.
-
-- Create a project key pair if you do not already have both values.
-
-See Langfuse's [API key location guide](https://langfuse.com/faq/all/where-are-langfuse-api-keys).
-The secret key is shown once when created. If you cannot retrieve an existing
-secret value, create a replacement key pair and update the file.
-
-- Copy the public key and secret key into their matching lines in the external file, replacing the placeholders.
-
-Do not paste real key values into chat, source files, or this guide.
-
-- Restrict the secrets file to your user.
+- Restrict access to the file.
 
 ```sh
 chmod 600 "$HOME/.config/agent-playbook/secrets.env"
 ```
 
-The parser accepts blank lines, full-line comments beginning with `#`,
-unquoted values, and matching single or double quotes. Leading and trailing
-whitespace around unquoted values is trimmed. A `#` preceded by whitespace
-starts an unquoted trailing comment. Double-quoted values support escaped
-backslashes and quotes. Values are literal: the loader never evaluates variable
-expansion, backticks or shell command substitution. Malformed lines and duplicate
-names fail with a sanitized configuration error. File permissions reduce access
-by other local users; they cannot prevent exposure by a compromised account or
-process.
-
-## Select the file
-
-- Select the secrets file in the current terminal session.
+- Prepare the application environment from the repository root if needed.
 
 ```sh
-export AGENT_PLAYBOOK_SECRETS_FILE="$HOME/.config/agent-playbook/secrets.env"
+python3 app/tooling/bootstrap.py
 ```
 
-This export applies to commands started from this shell and its child processes.
-Repeat it in a new terminal, add it to your shell startup configuration, or set
-the same environment variable in the PyCharm run configuration. `~` expands to
-the user's home directory. Relative selector paths resolve from the invocation
-directory; use an absolute path for a persistent shell or IDE setting.
-
-Process environment values override entries from the selected file, including
-explicit empty values. The file can set `AGENT_PLAYBOOK_LANGFUSE_ENABLED=true`,
-but project keys alone never enable Langfuse. This application secrets file is
-separate from Docker's `app/tooling/observability/.env`, which the application
-loader never reads or changes. Without `AGENT_PLAYBOOK_SECRETS_FILE`, no `.env`,
-home secrets or Docker settings are discovered automatically.
-
-## Run the read-only check
-
-- Check the selected project from the repository root.
+- Start Langfuse if using the local service and it is not already running.
 
 ```sh
-app/.venv/bin/agent-playbook langfuse --check
+app/.venv/bin/agent-playbook langfuse --start
 ```
 
-- Confirm the expected result for your endpoint.
+Hosted endpoints do not require Docker. The [local setup guide](langfuse-local.md)
+covers first-time account, organization and project creation.
 
-```text
-Langfuse project authentication succeeded at http://localhost:3000.
+## Copy the project keys
+
+- Open your Langfuse instance: `http://localhost:3000` for the default local setup.
+
+- Select your project.
+
+- Open **Project Settings → API Keys**.
+
+- Create a key pair if you do not already have both values.
+
+The secret key is shown once. If it is unavailable, create a replacement pair.
+See Langfuse's [API key location guide](https://langfuse.com/faq/all/where-are-langfuse-api-keys).
+
+- Open `~/.config/agent-playbook/secrets.env` in your editor.
+
+- Save these two entries with your actual values replacing the placeholders.
+
+```dotenv
+LANGFUSE_PUBLIC_KEY=pk-lf-placeholder
+LANGFUSE_SECRET_KEY=sk-lf-placeholder
 ```
 
-Exit code 0 means authentication succeeded. A disabled check returns 3 and says
-it was skipped; invalid configuration returns 2; authentication or network
-failure returns 1 with a safe explanation. The check creates no traces. For a
-hosted endpoint, set `AGENT_PLAYBOOK_LANGFUSE_BASE_URL` in the secrets file to
-its HTTPS origin; local Docker is not required.
+The enable switch, base URL and environment belong in YAML, not in this credentials
+file. More integrations can add their credentials to the same file later.
+Never put actual key values in shared YAML, documentation or chat.
 
-The selected YAML file can also provide the enabled setting and reference keys
-by name. Merge this block into the file you already use; do not replace its
-CrewAI settings:
+## Configure the application
+
+- Open `app/application.yaml`.
+
+- Confirm its general, top-level secrets section points to your file.
+
+```yaml
+secrets:
+  file: ~/.config/agent-playbook/secrets.env
+```
+
+This setting applies to all integrations. It is already present in the supplied
+configuration. `~` expands to your home directory. Relative paths resolve beside
+the selected base YAML file, independently of your terminal's working directory.
+The path is required, and the file must exist and be readable. An empty file is
+allowed when no enabled integration requires credentials.
+
+- Set `integrations.langfuse.enabled` to `true` in your configuration.
+
+- Confirm the existing URL and environment match your instance.
 
 ```yaml
 integrations:
@@ -139,73 +102,56 @@ integrations:
     secret_key: {env: LANGFUSE_SECRET_KEY}
 ```
 
-`AGENT_PLAYBOOK_LANGFUSE_ENABLED`,
-`AGENT_PLAYBOOK_LANGFUSE_BASE_URL` and
-`AGENT_PLAYBOOK_LANGFUSE_ENVIRONMENT` override corresponding YAML values. A
-disabled integration needs no keys or service. Configuration file selection
-still follows the [runtime configuration guide](configuration.md); use
-`--config PATH` or `AGENT_PLAYBOOK_CONFIG` to select YAML.
+Edit the existing block; preserve the CrewAI and workflow settings. The supplied
+shared YAML defaults to disabled. To keep personal setting changes out of Git,
+put a partial override in the ignored `app/application.local.yaml` instead:
 
-The checker validates an HTTP(S) origin and does not print key values, raw SDK
-errors or URL credentials. It uses Langfuse Python SDK 5.2.0 with a five-second
-request timeout. HTTP health alone does not prove project authentication; a
-successful explicit check does.
-
-## Send your first trace
-
-The authentication check creates no traces. To continue to the mock exercise,
-keep the selector active in the same terminal and leave your local service
-running. Then follow the official [Langfuse hands-on guide](langfuse-hands-on.md)
-to run the synthetic success and failure scenarios and inspect their traces.
-They use arithmetic only, with no model calls, tokens or costs. The optional
-[personal playground README](../examples/langfuse/README.md) describes its flags.
-Ordinary application workflows remain uninstrumented.
-
-## Environment-only alternative
-
-- Set the Langfuse enable override in the current terminal.
-
-```sh
-export AGENT_PLAYBOOK_LANGFUSE_ENABLED=true
+```yaml
+integrations:
+  langfuse:
+    enabled: true
 ```
 
-- Prompt for the public key in the current terminal.
+The loader reads YAML, then the selected credentials file, then resolves the key
+references. No secrets-file export is needed in the terminal or PyCharm.
+`AGENT_PLAYBOOK_SECRETS_FILE` no longer selects the file. If you previously exported
+Langfuse enable/URL/key overrides, remove them from that shell or IDE to use your
+YAML and credentials file; process environment values still take precedence.
 
-```sh
-export LANGFUSE_PUBLIC_KEY="$(python3 -c 'import getpass; print(getpass.getpass("Public key: "))')"
-```
+## Verify the connection
 
-- Prompt for the secret key in the current terminal.
-
-```sh
-export LANGFUSE_SECRET_KEY="$(python3 -c 'import getpass; print(getpass.getpass("Secret key: "))')"
-```
-
-- Run the connection check from the repository root.
+- Run the project check from the repository root.
 
 ```sh
 app/.venv/bin/agent-playbook langfuse --check
 ```
 
-Exports apply only to that terminal session and child processes. Repeat them in
-another terminal or store the variable names in your IDE's environment settings.
+- Confirm that it reports successful project authentication.
 
-## Clean up when finished
-
-- Remove shell exports when you no longer need them in this terminal.
-
-```sh
-unset AGENT_PLAYBOOK_SECRETS_FILE LANGFUSE_PUBLIC_KEY LANGFUSE_SECRET_KEY AGENT_PLAYBOOK_LANGFUSE_ENABLED AGENT_PLAYBOOK_LANGFUSE_BASE_URL
+```text
+Langfuse project authentication succeeded at http://localhost:3000.
 ```
 
-The private file remains available for later use; unsetting the selector only
-stops this shell from selecting it.
+The loader checks the required path, file syntax and required keys without printing
+credential values. The checker then authenticates with your project; it creates
+no traces. Exit 0 means success, 3 means disabled/skipped, 2 means invalid
+configuration, and 1 means authentication or connection failure.
 
-- Stop the local service from the repository root if you started it for this check.
+## Send your first trace
+
+- Leave the local service running and follow the [hands-on guide](langfuse-hands-on.md).
+
+The exercise sends synthetic arithmetic traces and verifies readback. Ordinary
+application workflows remain uninstrumented. The [configuration guide](configuration.md)
+describes file syntax, precedence and alternate YAML selection.
+
+## Stop when finished
+
+- Stop the local service when you no longer need it.
 
 ```sh
 app/.venv/bin/agent-playbook langfuse --stop
 ```
 
-The stop preserves named volumes and earlier traces. Keep the selected secrets
-file outside the repository for later runs.
+Named volumes, project settings and previous traces are preserved. Your YAML and
+private credentials file remain ready for the next run; no terminal export is needed.

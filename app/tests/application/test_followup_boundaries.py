@@ -17,6 +17,7 @@ from agent_playbook.config.models import (
     ApplicationSettings,
     CrewAISettings,
     IntegrationSettings,
+    SecretsSettings,
 )
 from agent_playbook.workflows.contracts import Workflow
 from agent_playbook.workflows.errors import WorkflowInputError, WorkflowOrderError
@@ -26,6 +27,7 @@ SETTINGS = CrewAISettings(
 )
 APPLICATION = ApplicationSettings(
     integrations=IntegrationSettings(crewai=SETTINGS),
+    secrets=SecretsSettings(file="unused-test-secrets.env"),
     workflows={"customer-job": {"implementation": "test"}},
 )
 FIXTURE = Path(__file__).parents[1] / "fixtures/offline.yaml"
@@ -223,6 +225,7 @@ def test_failure_stops_before_success(boundary: str) -> None:
 
 def test_alias_input_phase_and_type_are_safe(tmp_path: Path) -> None:
     selected = tmp_path / "settings.yaml"
+    (tmp_path / "empty-secrets.env").write_text("")
     selected.write_text(
         FIXTURE.read_text() + "  customer-job: {implementation: shared_state}\n"
     )
@@ -333,6 +336,7 @@ def test_unused_implementation_constructor_never_runs() -> None:
 
     fixture_application = ApplicationSettings(
         integrations=IntegrationSettings(crewai=SETTINGS),
+        secrets=SecretsSettings(file="unused-test-secrets.env"),
         workflows={
             "wf-01": {"implementation": "step_sequence"},
             "unused": {"implementation": "conditional_route"},
@@ -419,6 +423,7 @@ def test_alias_output_phase_is_safe_and_precise(
     from agent_playbook.workflows.wf_02_shared_state.workflow import SharedStateWorkflow
 
     selected = tmp_path / "settings.yaml"
+    (tmp_path / "empty-secrets.env").write_text("")
     selected.write_text(
         FIXTURE.read_text() + "  customer-job: {implementation: shared_state}\n"
     )
