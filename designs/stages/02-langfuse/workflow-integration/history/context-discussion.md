@@ -1,6 +1,18 @@
 # Context discussion history and ongoing record
 
-Current iteration: **23, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+Current iteration: **24, 2026-11-14**. The [README](../README.md), [requirements](../requirements.md) and [decisions](../decisions.md) are the current working records. Read this entire file each iteration; the preserved snapshots below explain the evolution but do not override later decisions.
+
+## Iteration 24 — follow the ordinary SDK path
+
+Sharon asks for official best practices/examples without manually creating trace IDs, questions whether our context needs a trace ID or tracing object, and explicitly prioritizes low-code native SDK usage over rebuilding its management. D25 records that instruction. P04 recommends SDK-created/inherited active trace identity and no stored trace/span/client fields in the initial application context. This refines an unapproved schema, not the accepted application identity/derived-child contract.
+
+Explained before editing that the official basic CrewAI example wraps kickoff in start_as_current_observation without a supplied trace ID, and the original eight-case/44-span probe used exactly this default path. The previous recommendation promoted an optional supported customization without a present requirement. P03 is now explicitly historical/superseded for the ordinary path, while its two-span test remains valid evidence of capability. D24's stable trace identity is compatible with SDK management and does not require a dataclass field.
+
+Reviewed official instrumentation, CrewAI integration, trace-ID access and Python API documentation, then checked the installed 5.2.0 accessors and saved probe source. Native scopes manage creation/inheritance, parentage and restoration; SDK getters retrieve IDs for later local logging. Our application still supplies workflow_id/workflow_run_id metadata via native propagate_attributes. A future logger can capture IDs per record without an application-owned current-span store. No SDK object needs to be carried through every ordinary nested call.
+
+Limits retained: exiting a scope restores its parent or leaves none; retain a produced ID in a concrete result/log consumer if needed after exit. Tracing-disabled calls may have no trace ID while workflow_run_id remains useful. Cross-process/CLI/unsupported thread propagation is not automatic just because a dataclass is passed. No automatic instrumentation of arbitrary utilities is promised. Separate agent lifetimes and future logging design remain deferred.
+
+No app implementation, dependency/guarded change, new live-server acceptance or probe rerun. PR #43 was refreshed at 5ddf96a05df7bfe3baad210abee4b66a6b649932 before this documentation update. The detailed context document remains unwritten; P04 is the schema recommendation for alignment. Earlier discussion and evidence remain preserved with explicit supersession.
 
 ## Iteration 23 — fixed identity and up-front trace-ID allocation
 

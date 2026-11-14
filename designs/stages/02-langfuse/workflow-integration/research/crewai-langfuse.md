@@ -150,11 +150,15 @@ The probe environment inherited `OTEL_TRACES_SAMPLER=parentbased_traceidratio` a
 
 ## Effect on the context contract
 
+**Current recommendation, iteration 24:** use the ordinary active-scope recipe above without create_trace_id or explicit trace_context. The official basic CrewAI example and this report's original eight-case probe already use that route. SDK-generated/inherited trace IDs and active parentage do not require a stored trace field or passing a span handle through application methods. P04 in decisions.md recommends retaining application workflow/run/agent fields only, with actual SDK IDs read at reporting boundaries. The preallocation option below is supported but unnecessary for the present scope.
+
 Keep `ExecutionContext.observability` as the single explicit application context. Its workflow/run identities and safe inherited metadata can exist before tracing begins. **Iteration 23 clarification:** a trace ID may also be allocated locally in advance using the supported static `Langfuse.create_trace_id()` helper and supplied through `trace_context` when starting the SDK scope. The earlier assertion that the trace ID must remain optional/unbound until span creation was too restrictive. A reserved ID is not an active observation or proof of backend ingestion; operation/span references still come from actual SDK scopes. Context schema remains a design decision.
 
 An immutable context copy is **not** an active span. OpenTelemetry's current context, managed by Langfuse/OpenInference scopes, owns activation and restoration. Do not maintain a competing mutable “current span” field or span stack inside `ObservabilityContext`. A retained root observation ID is a root reference; it must not be presented as the active child ID while CrewAI is executing a step. When immediate current-operation correlation is needed, obtain the SDK/OTel current span's actual context at that point. The probe establishes shared trace identity, not a finalized application accessor/schema.
 
 Use native `propagate_attributes` for safe metadata scoping. Child metadata additions should live in a nested scope and end on return; no copying clients or overwriting parent/sibling metadata. Only project selected fields into telemetry; do not serialize the full ExecutionContext. Keep runtime handles outside recoverable workflow business state. Future agent invocation identity can use the same nested metadata mechanism without choosing an agent lifecycle today.
+
+The public `get_current_trace_id()` and `get_current_observation_id()` accessors support correlation in logs; the pinned 5.2.0 implementations return None when disabled or when there is no active span. Capture IDs when a record is created, before asynchronous delivery. Scope exit restores the enclosing operation, so later consumers need a retained SDK-produced reference when they genuinely outlive that scope. Ordinary same-context nesting is automatic; unrelated threads/processes and external CLIs remain separate propagation work. This source check reuses the existing runtime evidence and does not claim a new probe run.
 
 ## Locality, privacy and operational risks
 
