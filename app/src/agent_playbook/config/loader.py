@@ -1,6 +1,7 @@
 """Read shared YAML, optional local values and documented environment overrides."""
 
 import os
+import re
 from collections.abc import Hashable
 from pathlib import Path
 from typing import Any, cast
@@ -91,9 +92,94 @@ def _boolean(value: str, name: str) -> bool:
     return value.lower() == "true"
 
 
+_ENV_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*\Z")
+
+
+def _parse_secrets_file(path: Path) -> dict[str, str]:
+    """Read a strict, non-executing dotenv subset from an explicitly selected file."""
+    values: dict[str, str] = {}
+    try:
+        with path.open(encoding="utf-8") as source:
+            for raw_line in source:
+                line = raw_line.strip()
+                if not line or line.startswith("#"):
+                    continue
+                name, separator, raw_value = line.partition("=")
+                name = name.strip()
+                if not separator or not _ENV_NAME.fullmatch(name):
+                    raise ValueError
+                if name in values or name in {
+                    "AGENT_PLAYBOOK_CONFIG",
+                    "AGENT_PLAYBOOK_SECRETS_FILE",
+                }:
+                    raise ValueError
+                value = raw_value.strip()
+                if value.startswith(("'", '"')):
+                    quote = value[0]
+                    end = -1
+                    for index in range(1, len(value)):
+                        if value[index] != quote:
+                            continue
+                        preceding_slashes = 0
+                        cursor = index - 1
+                        while cursor > 0 and value[cursor] == "\\":
+                            preceding_slashes += 1
+                            cursor -= 1
+                        if quote == '"' and preceding_slashes % 2:
+                            continue
+                        end = index
+                        break
+                    if end < 0:
+                        raise ValueError
+                    raw_trailing = value[end + 1 :]
+                    trailing = raw_trailing.strip()
+                    if trailing and (
+                        not raw_trailing[:1].isspace() or not trailing.startswith("#")
+                    ):
+                        raise ValueError
+                    value = value[1:end]
+                    if quote == '"':
+                        value = re.sub(
+                            r"\\([\\\"])", lambda match: match.group(1), value
+                        )
+                else:
+                    value = re.sub(r"\s+#.*$", "", value).strip()
+                    if "'" in value or '"' in value:
+                        raise ValueError
+                values[name] = value
+    except (OSError, UnicodeError, ValueError):
+        # Do not expose parser exceptions, source lines, or secret values.
+        raise ConfigurationError(
+            f"Cannot read selected secrets file {path}; use valid UTF-8 NAME=value lines."
+        ) from None
+    return values
+
+
+def _effective_environment() -> dict[str, str]:
+    """Compose a fresh per-load map; process values (including empty ones) win."""
+    selected = os.environ.get("AGENT_PLAYBOOK_SECRETS_FILE")
+    if selected is None:
+        return dict(os.environ)
+    if not selected.strip():
+        raise ConfigurationError(
+            "AGENT_PLAYBOOK_SECRETS_FILE must name a nonempty secrets file path."
+        )
+    try:
+        path = Path(selected).expanduser()
+        if not path.is_absolute():
+            path = Path.cwd() / path
+    except (OSError, RuntimeError, ValueError):
+        raise ConfigurationError(
+            "AGENT_PLAYBOOK_SECRETS_FILE must name a usable file path."
+        ) from None
+    file_values = _parse_secrets_file(path)
+    return file_values | dict(os.environ)
+
+
 def load_configuration(path: str | None = None) -> ApplicationSettings:
     """Reload for each run; never cache files or print resolved setting values."""
     selected = configuration_path(path)
+    environment = _effective_environment()
     data = _read(selected)
     local = selected.with_name(f"{selected.stem}.local{selected.suffix}")
     try:
@@ -102,8 +188,8 @@ def load_configuration(path: str | None = None) -> ApplicationSettings:
         integration = _mapping(data.get("integrations"))
         crewai = _mapping(integration.get("crewai"))
         for field, variable in _OVERRIDES.items():
-            if variable in os.environ:
-                crewai[field] = _boolean(os.environ[variable], variable)
+            if variable in environment:
+                crewai[field] = _boolean(environment[variable], variable)
             elif isinstance(crewai.get(field), dict):
                 reference = _mapping(crewai[field])
                 name = reference.get("env")
@@ -111,20 +197,20 @@ def load_configuration(path: str | None = None) -> ApplicationSettings:
                     raise ConfigurationError(
                         f"Invalid environment reference for {field}."
                     )
-                if name not in os.environ:
+                if name not in environment:
                     raise ConfigurationError(
                         f"Required environment variable {name} is missing."
                     )
-                crewai[field] = _boolean(os.environ[name], name)
+                crewai[field] = _boolean(environment[name], name)
         integration["crewai"] = crewai
         empty: dict[str, object] = {}
         langfuse = _mapping(integration.get("langfuse", empty))
         for field, variable in _LANGFUSE_OVERRIDES.items():
-            if variable in os.environ:
+            if variable in environment:
                 langfuse[field] = (
-                    _boolean(os.environ[variable], variable)
+                    _boolean(environment[variable], variable)
                     if field == "enabled"
-                    else os.environ[variable]
+                    else environment[variable]
                 )
         for field in ("public_key", "secret_key"):
             if field not in langfuse:
@@ -137,11 +223,11 @@ def load_configuration(path: str | None = None) -> ApplicationSettings:
             if set(parsed) != {"env"} or not isinstance(name, str) or not name:
                 raise ConfigurationError(f"Invalid Langfuse {field} reference.")
             if langfuse.get("enabled", False):
-                if name not in os.environ or not os.environ[name]:
+                if name not in environment or not environment[name]:
                     raise ConfigurationError(
                         f"Required Langfuse {field} environment variable is missing."
                     )
-                langfuse[field] = os.environ[name]
+                langfuse[field] = environment[name]
             else:
                 langfuse[field] = None
         integration["langfuse"] = langfuse

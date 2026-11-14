@@ -23,6 +23,183 @@ def copy_config(tmp_path: Path) -> Path:
     return selected
 
 
+def test_explicit_secrets_file_resolves_references_and_reloads_without_mutation(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    selected = copy_config(tmp_path)
+    selected.with_name("application.local.yaml").write_text(
+        "integrations:\n"
+        "  crewai:\n"
+        "    show_framework_events: {env: FLOW_EVENTS}\n"
+        "  langfuse:\n"
+        "    public_key: {env: LANGFUSE_PUBLIC_KEY}\n"
+        "    secret_key: {env: LANGFUSE_SECRET_KEY}\n"
+    )
+    secrets = tmp_path / "secrets.env"
+    marker = tmp_path / "must-not-be-created"
+    secrets.write_text(
+        "# private values are parsed, never executed\n"
+        "\n"
+        "FLOW_EVENTS = 'true' # single quoted\n"
+        'LANGFUSE_PUBLIC_KEY="pk-\\"placeholder\\""\n'
+        "LANGFUSE_SECRET_KEY=sk-placeholder\n"
+        "AGENT_PLAYBOOK_LANGFUSE_ENABLED=true\n"
+        "AGENT_PLAYBOOK_LANGFUSE_BASE_URL=http://localhost:3000\n"
+        f"INERT=$(touch {marker})\n"
+    )
+    monkeypatch.setenv("AGENT_PLAYBOOK_SECRETS_FILE", str(secrets))
+    monkeypatch.delenv("FLOW_EVENTS", raising=False)
+    monkeypatch.delenv("LANGFUSE_PUBLIC_KEY", raising=False)
+    monkeypatch.delenv("LANGFUSE_SECRET_KEY", raising=False)
+    monkeypatch.delenv("AGENT_PLAYBOOK_LANGFUSE_ENABLED", raising=False)
+    before = os.environ.copy()
+
+    settings = load_configuration(str(selected))
+    assert settings.integrations.crewai.show_framework_events
+    assert settings.integrations.langfuse.enabled
+    assert settings.integrations.langfuse.public_key is not None
+    assert (
+        settings.integrations.langfuse.public_key.get_secret_value()
+        == 'pk-"placeholder"'
+    )
+    assert not marker.exists()
+    assert os.environ == before
+
+    secrets.write_text(
+        secrets.read_text().replace("FLOW_EVENTS = 'true'", "FLOW_EVENTS = 'false'")
+    )
+    assert not load_configuration(
+        str(selected)
+    ).integrations.crewai.show_framework_events
+    assert os.environ == before
+
+
+def test_process_environment_wins_even_when_explicitly_empty(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    selected = copy_config(tmp_path)
+    selected.with_name("application.local.yaml").write_text(
+        "integrations:\n"
+        "  langfuse:\n"
+        "    enabled: true\n"
+        "    public_key: {env: LANGFUSE_PUBLIC_KEY}\n"
+        "    secret_key: {env: LANGFUSE_SECRET_KEY}\n"
+    )
+    secrets = tmp_path / "secrets.env"
+    secrets.write_text("LANGFUSE_PUBLIC_KEY=pk-file\nLANGFUSE_SECRET_KEY=sk-file\n")
+    monkeypatch.setenv("AGENT_PLAYBOOK_SECRETS_FILE", str(secrets))
+    monkeypatch.setenv("LANGFUSE_PUBLIC_KEY", "pk-process")
+    monkeypatch.setenv("LANGFUSE_SECRET_KEY", "")
+    with pytest.raises(ConfigurationError, match="Required Langfuse secret_key"):
+        load_configuration(str(selected))
+    monkeypatch.setenv("LANGFUSE_SECRET_KEY", "sk-process")
+    settings = load_configuration(str(selected))
+    assert settings.integrations.langfuse.public_key is not None
+    assert settings.integrations.langfuse.public_key.get_secret_value() == "pk-process"
+    assert settings.integrations.langfuse.secret_key is not None
+    assert settings.integrations.langfuse.secret_key.get_secret_value() == "sk-process"
+
+
+def test_no_selector_keeps_existing_missing_reference_behavior(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    selected = copy_config(tmp_path)
+    selected.write_text(
+        selected.read_text().replace(
+            "show_framework_events: false",
+            "show_framework_events: {env: MISSING_FLOW_VALUE}",
+        )
+    )
+    secrets = tmp_path / "secrets.env"
+    secrets.write_text("MISSING_FLOW_VALUE=true\n")
+    monkeypatch.delenv("AGENT_PLAYBOOK_SECRETS_FILE", raising=False)
+    monkeypatch.delenv("MISSING_FLOW_VALUE", raising=False)
+    with pytest.raises(ConfigurationError, match="MISSING_FLOW_VALUE is missing"):
+        load_configuration(str(selected))
+
+
+@pytest.mark.parametrize(
+    "contents",
+    [
+        "LANGFUSE_SECRET_KEY=secret-marker\nBROKEN_LINE\n",
+        "LANGFUSE_SECRET_KEY='unterminated-secret-marker\n",
+        "LANGFUSE_SECRET_KEY=first\nLANGFUSE_SECRET_KEY=secret-marker\n",
+        "AGENT_PLAYBOOK_CONFIG=/tmp/redirect.yaml\n",
+        "AGENT_PLAYBOOK_SECRETS_FILE=/tmp/recursive.env\n",
+    ],
+)
+def test_selected_secrets_file_errors_are_sanitized(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    contents: str,
+) -> None:
+    selected = copy_config(tmp_path)
+    secrets = tmp_path / "secrets.env"
+    secrets.write_text(contents)
+    monkeypatch.setenv("AGENT_PLAYBOOK_SECRETS_FILE", str(secrets))
+    with pytest.raises(ConfigurationError) as failure:
+        load_configuration(str(selected))
+    assert "secret-marker" not in str(failure.value)
+    assert "BROKEN_LINE" not in str(failure.value)
+
+
+def test_missing_or_empty_selected_secrets_path_is_clear(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    selected = copy_config(tmp_path)
+    missing = tmp_path / "missing-secrets.env"
+    monkeypatch.setenv("AGENT_PLAYBOOK_SECRETS_FILE", str(missing))
+    with pytest.raises(ConfigurationError, match="Cannot read selected secrets file"):
+        load_configuration(str(selected))
+    monkeypatch.setenv("AGENT_PLAYBOOK_SECRETS_FILE", "  ")
+    with pytest.raises(ConfigurationError, match="must name a nonempty"):
+        load_configuration(str(selected))
+
+
+def test_secrets_selector_expands_home_and_resolves_relative_to_invocation(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    selected = copy_config(tmp_path)
+    monkeypatch.setenv("HOME", str(tmp_path))
+    private = tmp_path / ".config/agent-playbook/secrets.env"
+    private.parent.mkdir(parents=True)
+    private.write_text("FLOW_VALUE=true\n")
+    selected.with_name("application.local.yaml").write_text(
+        "integrations:\n  crewai:\n    show_framework_events: {env: FLOW_VALUE}\n"
+    )
+    monkeypatch.setenv(
+        "AGENT_PLAYBOOK_SECRETS_FILE", "~/.config/agent-playbook/secrets.env"
+    )
+    assert load_configuration(str(selected)).integrations.crewai.show_framework_events
+
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv(
+        "AGENT_PLAYBOOK_SECRETS_FILE", ".config/agent-playbook/secrets.env"
+    )
+    assert load_configuration(str(selected)).integrations.crewai.show_framework_events
+
+
+def test_selected_secrets_file_does_not_enable_disabled_langfuse(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    selected = copy_config(tmp_path)
+    selected.with_name("application.local.yaml").write_text(
+        "integrations:\n"
+        "  langfuse:\n"
+        "    public_key: {env: LANGFUSE_PUBLIC_KEY}\n"
+        "    secret_key: {env: LANGFUSE_SECRET_KEY}\n"
+    )
+    secrets = tmp_path / "secrets.env"
+    secrets.write_text(
+        "LANGFUSE_PUBLIC_KEY=pk-placeholder\nLANGFUSE_SECRET_KEY=sk-placeholder\n"
+    )
+    monkeypatch.setenv("AGENT_PLAYBOOK_SECRETS_FILE", str(secrets))
+    monkeypatch.delenv("AGENT_PLAYBOOK_LANGFUSE_ENABLED", raising=False)
+    settings = load_configuration(str(selected)).integrations.langfuse
+    assert not settings.enabled
+    assert settings.public_key is None and settings.secret_key is None
+
+
 def test_nested_local_overlay_environment_precedence_and_reload(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -199,6 +376,7 @@ def test_same_code_reads_edited_configuration_on_next_invocation(
 ) -> None:
     selected = copy_config(tmp_path)
     env = os.environ.copy()
+    env.pop("AGENT_PLAYBOOK_SECRETS_FILE", None)
     env["AGENT_PLAYBOOK_CONFIG"] = str(selected)
     command = [sys.executable, "-I", "-m", "agent_playbook.cli", "dev-run"]
     first = subprocess.run(

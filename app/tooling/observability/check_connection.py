@@ -13,10 +13,9 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         settings = load_configuration(args.config).integrations.langfuse
-    except ConfigurationError:
-        print(
-            "Invalid Langfuse configuration. Check the selected YAML and key references."
-        )
+    except ConfigurationError as error:
+        # ConfigurationError messages are constructed from safe paths/names only.
+        print(f"Invalid Langfuse configuration: {error}")
         return 2
 
     result = check_connection(settings)

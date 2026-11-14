@@ -1,16 +1,44 @@
 # Personal mock Langfuse playground
 
 This is an explicit learning script, not an application test or a real CrewAI
-workflow. Start the [local Langfuse service](../../docs/langfuse-local.md), create
-a project and configure its keys using the [connection guide](../../docs/langfuse-connection.md).
-From the repository root, run `python3 app/tooling/bootstrap.py`, then
-`app/.venv/bin/agent-playbook langfuse --check`. Keep the same shell's key variables.
+workflow. Start the [local Langfuse service](../../docs/langfuse-local.md) when
+using a local endpoint, then create a Langfuse project. Follow the
+[connection guide](../../docs/langfuse-connection.md) to store project keys in
+`~/.config/agent-playbook/secrets.env` outside the repository, select it with
+`AGENT_PLAYBOOK_SECRETS_FILE`, and keep Langfuse explicitly enabled. The
+application secrets file is distinct from Docker's `app/tooling/observability/.env`.
+An export in a terminal applies to that shell and child processes; set the same
+selector in PyCharm when running the script there. Use the official
+[Langfuse hands-on guide](../../docs/langfuse-hands-on.md) for the complete
+authentication, trace inspection, changed-input, failure and persistence exercise.
 
-From the repository root:
+- Prepare the application environment from the repository root.
+
+```sh
+python3 app/tooling/bootstrap.py
+```
+
+- Verify project authentication before sending the synthetic traces.
+
+```sh
+app/.venv/bin/agent-playbook langfuse --check
+```
+
+- Run the successful arithmetic scenario from the repository root.
 
 ```sh
 app/.venv/bin/python app/examples/langfuse/run.py
+```
+
+- Run the deliberate add failure from the repository root.
+
+```sh
 app/.venv/bin/python app/examples/langfuse/run.py --fail-step add
+```
+
+- Run the deliberate multiply failure from the repository root.
+
+```sh
 app/.venv/bin/python app/examples/langfuse/run.py --fail-step multiply
 ```
 

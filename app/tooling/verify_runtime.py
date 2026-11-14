@@ -34,6 +34,12 @@ def main() -> None:
     # Verification uses committed fixture data, never the user's active settings.
     configuration = Path(__file__).resolve().parents[1] / "tests/fixtures/offline.yaml"
     for name in (
+        "AGENT_PLAYBOOK_SECRETS_FILE",
+        "AGENT_PLAYBOOK_LANGFUSE_ENABLED",
+        "AGENT_PLAYBOOK_LANGFUSE_BASE_URL",
+        "AGENT_PLAYBOOK_LANGFUSE_ENVIRONMENT",
+        "LANGFUSE_PUBLIC_KEY",
+        "LANGFUSE_SECRET_KEY",
         "AGENT_PLAYBOOK_CREWAI_USAGE_TELEMETRY_ENABLED",
         "AGENT_PLAYBOOK_CREWAI_TRACING_ENABLED",
         "AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS",

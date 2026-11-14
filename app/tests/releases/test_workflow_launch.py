@@ -63,6 +63,7 @@ def test_launcher_passes_shared_path_without_adding_options_to_old_releases(
 def test_launcher_preserves_explicit_configuration_and_environment(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
+    monkeypatch.delenv("AGENT_PLAYBOOK_SECRETS_FILE", raising=False)
     monkeypatch.setenv("AGENT_PLAYBOOK_CONFIG", "/environment/settings.yaml")
     python = tmp_path / "venv/bin/python"
     explicit = "/explicit path/settings.yaml"

@@ -5,11 +5,12 @@ This is the maintained official product documentation for new and existing users
 | Guide | What you will learn |
 |---|---|
 | [CLI and releases](cli.md) | Commands, source versus installed runs, checks, formatting, version changes and releases |
-| [Configuration](configuration.md) | Which settings file is loaded, local/environment overrides, CrewAI controls, secrets and PyCharm examples |
+| [Configuration](configuration.md) | Which settings file is loaded, local/environment overrides, external secrets files, CrewAI controls and PyCharm examples |
+| [Langfuse connection](langfuse-connection.md) | Store project keys outside the repository and explicitly check project authentication |
+| [Langfuse hands-on](langfuse-hands-on.md) | Authenticate, run synthetic traces, inspect steps and verify local persistence |
 | [Running workflows](workflows.md) | Choose supported integrated workflows, provide input and read results |
 | [Troubleshooting](troubleshooting.md) | Resolve interpreter, configuration, workflow, check and release problems |
 | [Local Langfuse UI](langfuse-local.md) | Install Docker, start and troubleshoot the optional self-hosted service |
-| [Langfuse connection](langfuse-connection.md) | Supply project keys privately and check authentication |
 | [Mock trace playground](../examples/langfuse/README.md) | Explicitly send editable synthetic arithmetic runs and inspect them in the UI |
 
 ## Setup and learning

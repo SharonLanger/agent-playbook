@@ -132,3 +132,38 @@ def test_checker_exit_codes(tmp_path: Path, capsys: pytest.CaptureFixture[str]) 
     path.write_text("integrations: marker\n")
     assert main(["--config", str(path)]) == 2
     assert "marker" not in capsys.readouterr().out
+
+
+def test_checker_reports_missing_selected_secrets_file_safely(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    path = config(tmp_path)
+    monkeypatch.setenv(
+        "AGENT_PLAYBOOK_SECRETS_FILE", str(tmp_path / "missing-secrets.env")
+    )
+    assert main(["--config", str(path)]) == 2
+    output = capsys.readouterr().out
+    assert "Cannot read selected secrets file" in output
+    assert "private-marker" not in output
+
+
+def test_checker_reports_missing_required_key_without_values(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    path = config(tmp_path)
+    path.with_name("application.local.yaml").write_text(
+        "integrations:\n  langfuse:\n    enabled: true\n"
+        "    public_key: {env: LANGFUSE_PUBLIC_KEY}\n"
+        "    secret_key: {env: LANGFUSE_SECRET_KEY}\n"
+    )
+    monkeypatch.delenv("AGENT_PLAYBOOK_SECRETS_FILE", raising=False)
+    monkeypatch.setenv("LANGFUSE_PUBLIC_KEY", "pk-lf-private-marker")
+    monkeypatch.delenv("LANGFUSE_SECRET_KEY", raising=False)
+    assert main(["--config", str(path)]) == 2
+    output = capsys.readouterr().out
+    assert "Required Langfuse secret_key environment variable is missing" in output
+    assert "private-marker" not in output

@@ -55,7 +55,7 @@ export AGENT_PLAYBOOK_CONFIG="/absolute/path/to/application.yaml"
 For a selected `name.yaml`, an optional sibling `name.local.yaml` is merged by key.
 Local files are partial overrides, not standalone base files. Missing optional local
 files are fine; unreadable or invalid existing files fail. Value precedence is:
-**shared file → local file → documented environment overrides**.
+**shared file → local file → selected secrets file → process environment**.
 
 ## Moving from the old configs folder
 
@@ -114,13 +114,41 @@ Set `MY_FLOW_EVENTS=true` or `false`; a missing variable is an error. The docume
 `AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS` override still wins if both are supplied.
 This reference syntax is implemented by our loader, not automatically by YAML.
 
-Stage 01 has no credential or machine-path fields to configure. Future integration
-schemas must add those deliberately: keep secret values in environment variables
-or a secret store and store only references in shared configuration. Keep local
-paths in local overrides. Do not add tokens to YAML, even in ignored files, and do
-not commit `.env` files. This loader does not read `.env`; export variables or use
-PyCharm's environment-variable settings. Third-party libraries may have their own
-`.env` behavior, so keep explicit application settings authoritative.
+An optional external dotenv-style file can supply referenced values to any
+integration. The application reads one only when `AGENT_PLAYBOOK_SECRETS_FILE` is
+explicitly set. No `.env` file is discovered automatically. A relative selector
+is resolved from the invocation directory; use an absolute path for a persistent
+shell or PyCharm setting. A leading `~` expands to the user's home directory.
+
+Create a private file outside the repository, for example
+`~/.config/agent-playbook/secrets.env`, and set its permissions so only your user
+can read it. The file should contain one `NAME=value` assignment per line.
+Blank lines and full-line comments beginning with `#` are accepted. Unquoted
+values are trimmed; matching single or double quotes preserve whitespace inside
+the quotes. A `#` preceded by whitespace starts an unquoted trailing comment.
+Double-quoted values may escape `\\` and `\"`. Values are literal: variable
+expansion, backticks and shell command substitution are never evaluated. Invalid
+lines, duplicate names, unsupported selector assignments, unreadable files and
+invalid UTF-8 fail with a sanitized configuration error.
+
+The process environment overrides file entries, including when an environment
+value is explicitly empty. The effective values are rebuilt for each configuration
+load; the loader does not modify `os.environ` or cache the file. The file may set
+ordinary integration overrides such as `AGENT_PLAYBOOK_LANGFUSE_ENABLED=true`,
+but it cannot change `AGENT_PLAYBOOK_CONFIG` or select another secrets file.
+Langfuse keys still do not enable tracing by themselves; set the explicit
+`AGENT_PLAYBOOK_LANGFUSE_ENABLED=true` override or enable it in selected YAML.
+This application file is separate from Docker's
+`app/tooling/observability/.env`, which configures the optional local service and
+is never read by the application loader.
+
+Without `AGENT_PLAYBOOK_SECRETS_FILE`, existing behavior is unchanged: there is no
+implicit discovery of repository `.env` files, home-directory secrets or Docker
+`.env` files. Export variables or use PyCharm's environment-variable settings
+when you do not want a secrets file. Do not put tokens in shared YAML or commit
+secret files. File permissions reduce access by other local users; they cannot
+prevent leaks from a compromised account or process. Third-party libraries may
+have separate `.env` behavior, so keep explicit application settings authoritative.
 
 Errors report locations/types without echoing configuration values or YAML source
 lines. Active configuration/local overrides are not bundled into wheels or release
