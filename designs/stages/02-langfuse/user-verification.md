@@ -1,22 +1,25 @@
-# Per-milestone local verification
+# Local verification and retained milestone checklists
 
-Status: **One combined PR #36 acceptance guide is current; M1–M3 files remain historical checkpoints. Sharon's local acceptance remains pending.**
+Status: **Sharon accepted the local setup and mock-trace exercise on 2026-11-14. PR #36 remains unmerged; M4 is deferred.**
 
-Use the [combined Langfuse acceptance checklist](https://drive.google.com/file/d/1vxH9napBHThAPX7ELtdTFoO0ONI8jBgE/view?usp=drivesdk) for the final tested revision. It gives one copyable Mac flow. The three files below retain their original checkpoint SHAs/results and now point to this guide.
-Sharon requested a separate Google Drive text file per milestone with its exact
-commit and copyable commands. Keep these identities when updating the files.
+The [acceptance record](acceptance-2026-11-14.md) distinguishes observed Mac/UI
+results from automated verification and the remaining delivery-readback limitation.
+Use the maintained [connection guide](../../../app/docs/langfuse-connection.md)
+and [hands-on exercise](../../../app/docs/langfuse-hands-on.md) for current YAML-selected
+credentials and runnable commands. The older Drive files below retain their original
+SHAs and setup instructions; they are historical rather than current onboarding.
 
-| Milestone | Drive text file | Current checkpoint |
-|---|---|---|
-| 1 | [langfuse-milestone-1-verification.txt](https://drive.google.com/file/d/1ASuYt3GuwGhfnUJW2EvwhJVnKYxv5XEc/view?usp=drivesdk) | Fixed `fad8a4f119cab5316529b3ad9239d01b8347368c`; optional port follow-up `9743c3103d892dce8cd5a5fb26a9cffadabcad83`; awaiting Mac/UI acceptance |
-| 2 | [langfuse-milestone-2-verification.txt](https://drive.google.com/file/d/18AgG1LrCXiag_cHG5QYev0dpwyrhMzoR/view?usp=drivesdk) | Tested `2278ee9c5742d78076f56fb64116abbadc01111b`; local project-key acceptance pending |
-| 3 | [langfuse-milestone-3-verification.txt](https://drive.google.com/file/d/1P2nLMatSnBhCBOMUUKpp5PRWzLAYSjvi/view?usp=drivesdk) | Tested `4a41265d5e8ca8e294e5b2f4feab36a12a3fdcf3`; local trace/UI acceptance pending |
+| Historical file | Checkpoint |
+|---|---|
+| [Combined acceptance checklist](https://drive.google.com/file/d/1vxH9napBHThAPX7ELtdTFoO0ONI8jBgE/view?usp=drivesdk) | Earlier combined final-head exercise before YAML-selected credentials |
+| [M1 verification](https://drive.google.com/file/d/1ASuYt3GuwGhfnUJW2EvwhJVnKYxv5XEc/view?usp=drivesdk) | Local UI milestone checkpoint |
+| [M2 verification](https://drive.google.com/file/d/18AgG1LrCXiag_cHG5QYev0dpwyrhMzoR/view?usp=drivesdk) | Project authentication checkpoint |
+| [M3 verification](https://drive.google.com/file/d/1P2nLMatSnBhCBOMUUKpp5PRWzLAYSjvi/view?usp=drivesdk) | Explicit mock tracing checkpoint |
 
-The older combined `agent-playbook-langfuse-local-commands.txt` remains intact;
-use the separate milestone files above going forward. No new M4 checklist is
-needed until the real workflow/context integration is designed.
+Historical checklist-preparation instructions and verification evidence follow.
+They do not reopen accepted local setup or authorize M4.
 
-## Required completion by the implementation agent
+## Historical checklist preparation instructions
 
 Follow [the M2/M3 handoff](connection-playground-handoff.md). Update each file
 only after its implementation exists. State the full pushed SHA, branch, platform,
@@ -53,3 +56,4 @@ Preparation verification: 39 relative links across changed Markdown files,
 fences and trailing whitespace passed; Atlas build/check passed. All three Drive
 files were read back and their Agent Playbook parent folder confirmed. No runtime
 test or M2/M3 implementation is claimed by these documentation checks.
+

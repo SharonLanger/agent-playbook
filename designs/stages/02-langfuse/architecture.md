@@ -1,6 +1,6 @@
 # Langfuse setup and integration boundaries
 
-Status: **Approved milestone boundaries; M1–M3 implemented on draft PR #36, with local Mac acceptance pending. This document retains its original proposal examples as historical design context.**
+Status: **Approved milestone boundaries; M1–M3 implemented on draft PR #36, with local setup/mock-trace acceptance recorded on 2026-11-14; see [acceptance and limits](acceptance-2026-11-14.md). This document retains its original proposal examples as historical design context.**
 [Milestones](milestones.md) · [Playground exercise](smoke-plan.md)
 
 ## What exists before a workflow context

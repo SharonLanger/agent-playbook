@@ -1,6 +1,6 @@
 # Stage 02 — Langfuse milestones
 
-Status: **M1–M3 and review follow-up implemented on draft PR #36; Linux live stack and Sharon's Mac acceptance remain pending.**
+Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on Mac on 2026-11-14; PR #36 remains unmerged. Delivery readback has a recorded limitation; M4 remains deferred.**
 Milestone 1's fixed checkpoint remains available; see
 [findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
 Milestone 2 adds a project connection check, and milestone 3 adds the explicit
@@ -8,7 +8,8 @@ mock playground. Milestone 4 remains deferred and unimplemented.
 
 ## Start here
 
-Latest: [approved main reconciliation](main-reconciliation.md),
+Latest: [local acceptance and remaining limitation](acceptance-2026-11-14.md),
+[approved main reconciliation](main-reconciliation.md),
 [the original review](review-2026-11-13.md),
 [the follow-up resolution](resolution-2026-11-13.md) and the
 [CLI plan / Codex handoff](verification-simplification-plan.md).
@@ -16,8 +17,10 @@ Sharon approved the six conflict resolutions. Main's workflow refactor and the
 Langfuse branch are combined; verification is recorded in the reconciliation
 file. R1/R3 delivery reporting and R4 status prose have been corrected on this
 draft branch; the helper and six double-dash CLI actions are implemented.
-Linux live-stack verification hit a `vfs` disk limit, and Sharon's Mac/UI
-acceptance remains pending. Real workflow/context integration remains later.
+Earlier Linux live-stack verification hit a `vfs` disk limit. Sharon has now
+confirmed local project access, visible mock traces and normal stop/start
+persistence on Mac. Bounded delivery readback returned unconfirmed for one visible
+trace; that limitation remains open. Real workflow/context integration remains later.
 
 Read [the four milestones and local checkpoints](milestones.md), then
 [configuration and ownership](architecture.md) and the
@@ -103,4 +106,5 @@ its own learning README when created.
 | 5: isolated integration | Langfuse-specific code stays inside its integration; no speculative event bus. |
 | 7, 8: quality and evidence | Independent offline tests, explicit live checks and Sharon's manual UI gates; no unrun success claims. |
 | 11, 13: preservation and sandbox | Existing examples untouched; requested playground remains outside application checks/releases. |
-| 12, 14, 15: records and status | Canonical stage documents, discovery/Atlas updates, implemented PR follow-up and pending live/manual verification. |
+| 12, 14, 15: records and status | Canonical stage documents, discovery/Atlas updates, implemented PR follow-up, local acceptance and explicit remaining limitations. |
+

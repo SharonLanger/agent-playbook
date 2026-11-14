@@ -1,3 +1,14 @@
+# Current acceptance and verification
+
+The [2026-11-14 acceptance record](acceptance-2026-11-14.md) supersedes pending
+Mac/UI acceptance statements in the historical checkpoints below. Sharon confirmed
+local synthetic ingestion, trace inspection and stop/start persistence. The 363-test
+gate passed at `b80b22b`; a delivery-readback limitation remains recorded. PR #36
+is unmerged and M4 is deferred.
+
+The following milestone findings retain their original revisions and limitations;
+their pending/blocked labels describe those historical checkpoints.
+
 # Milestone 1 findings
 
 Status: **Implemented on PR #36; awaiting Sharon's acceptance.** Sharon authorized the local UI milestone only. M2–M4 remain unimplemented. The tested implementation revision is `56b70792ac2b0a62834090a3c19c7bc1b971ef8f` on `docs/stage-02-langfuse-setup`, based on `a58bd88`. This evidence-only follow-up changes no deployment files.
@@ -159,3 +170,4 @@ M3 verification on managed Linux x86_64, Python 3.13.5, SDK 5.2.0:
 Sharon's M3 acceptance is to run the script with his local project keys, open
 the printed trace, edit inputs, try add/multiply failures and confirm prior
 traces survive a normal service restart. M3 is implemented but not accepted.
+

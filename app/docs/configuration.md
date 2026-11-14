@@ -70,11 +70,25 @@ still take precedence; update any scripts or IDE parameters that use the old pat
 ## Langfuse settings
 
 Langfuse project connection settings are documented in the
-[explicit connection guide](langfuse-connection.md). They are disabled by default
-and do not instrument workflows. Older YAML files without a Langfuse block still
+[explicit connection guide](langfuse-connection.md). The supplied YAML enables
+Langfuse; set `integrations.langfuse.enabled: false` in an ignored local override
+until project keys are configured, or when running without Langfuse. These settings
+do not instrument workflows. Older YAML files without a Langfuse block still
 load with this integration disabled. Project keys are resolved from named
 credentials-file entries or process environment variables only when enabled; they are separate from Docker's local
 service secrets.
+
+Before bootstrap without project keys, create an ignored `app/application.local.yaml`
+with this partial override:
+
+```yaml
+integrations:
+  langfuse:
+    enabled: false
+```
+
+Set the local value to `true` when keys are ready. Keep your machine-specific
+choice in the ignored local file rather than repeatedly editing shared defaults.
 
 ## CrewAI settings
 

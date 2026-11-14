@@ -34,7 +34,7 @@ docker compose version
 
 Docker Desktop includes the Compose plugin; do not install legacy `docker-compose`.
 
-- Create the required external credentials file using the [configuration guide](configuration.md#general-secrets-file). It may be empty until you configure a project.
+- Create the required external credentials file using the [configuration guide](configuration.md#general-secrets-file). It may be empty until you configure a project. Keep Langfuse disabled in `app/application.local.yaml` until project keys are ready; the supplied shared YAML enables it.
 
 - Prepare the application CLI from the repository root if it is not already installed.
 

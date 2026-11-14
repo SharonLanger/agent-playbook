@@ -1,17 +1,28 @@
 # Progress and acceptance
 
-Updated 2026-11-13. This file owns current project status; [architecture.md](architecture.md)
+Updated 2026-11-14. This file owns current project status; [architecture.md](architecture.md)
 describes the target system. Stage summaries own milestone detail and findings retain dated evidence.
 
-## Current status after the PR #40 merge
+## Current status before the PR #36 merge
 
 | Stage | Implementation | Verification | Sharon's acceptance | Merge state |
 |---|---|---|---|---|
 | Stage 00 — development environment | Complete | Recorded in the [Stage 00 findings](stages/00-environment/findings.md) | Accepted | Merged through PR #26 |
 | Stage 01 — CrewAI Flows | Completed and locked; three workflows, CLI/configuration, independent experiments, runtime structure refactor and workflow-contract refactor complete | Revision-specific checks in [Stage 01 findings](stages/01-crewai-flows/findings.md), [runtime refactor evidence](refactors/2026-11-12-runtime-structure/verification.md) and [workflow-contract evidence](refactors/workflow-contract/README.md) | Sharon confirmed Stage 01 completion after PR #38 and PR #40 merged | PR #30, #32, #34, #38 and #40 merged; workflow contract merge `a98e1041c0edb51a447472b6ebd78ab2a650150b` |
-| Stage 02 — Langfuse | M1–M3 and management CLI implemented on PR #36 | 350 tests and SDK fixtures recorded; live/Mac checks pending | Pending | Draft PR #36, unmerged |
+| Stage 02 — Langfuse | M1–M3, management CLI and YAML-selected external credentials implemented on PR #36; M4 deferred | 363-test gate at `b80b22b`; Sharon confirmed local project access, synthetic traces, trace-ID inspection and stop/start persistence; delivery readback limitation retained | Local setup and mock-trace exercise accepted on 2026-11-14; whole stage remains in progress | PR #36 unmerged; user enable/version push `dafeaed` preserved, final merge pending |
 
 Stage 01 details and retained learning material are in the [stage summary](stages/01-crewai-flows/README.md). The [roadmap](roadmap.md) owns intended sequencing; later stages remain high-level.
+
+## Local acceptance and pre-merge follow-up — 2026-11-14
+
+The [local acceptance record](stages/02-langfuse/acceptance-2026-11-14.md)
+records Sharon's Mac/UI results and the remaining `delivery: unconfirmed`
+readback limitation despite visible ingestion. PR #40 is already merged and
+accepted; its dated review findings below remain historical. Sharon authorized
+merging PR #36 after his planned enable/version push and this reconciliation.
+The 0.1.3 enable/version push `dafeaed` passed the complete 363-test gate; no
+merge is claimed yet. Real workflow/context
+tracing remains a separate deferred step.
 
 ## Historical snapshots and revision-specific evidence
 

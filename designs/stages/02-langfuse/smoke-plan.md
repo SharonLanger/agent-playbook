@@ -1,6 +1,6 @@
 # Personal Langfuse playground and manual exercise
 
-Status: **M3 example exists on draft PR #36; real-server delivery verification and Sharon's Mac acceptance remain pending. The original proposal wording below is historical.**
+Status: **M3 example exists on draft PR #36; Sharon confirmed visible local ingestion, trace inspection and persistence on 2026-11-14. Bounded readback remains unreliable for one visible run; see [acceptance and limits](acceptance-2026-11-14.md). The original proposal wording below is historical.**
 [Milestones and gates](milestones.md) · [Configuration](architecture.md)
 
 This file replaces the earlier test-first seed-script proposal. The main goal is
@@ -77,3 +77,4 @@ Future access to the personal playground remains subject to Sharon's specific
 requests. This PR updates its design only and does not inspect existing examples.
 The historical filename `smoke-plan.md` is retained to preserve PR links; its
 current purpose is this manual playground plan and the separate test boundary.
+

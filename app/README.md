@@ -4,7 +4,7 @@
 
 Open the **repository root** (`agent-playbook`) as the PyCharm project.
 
-- [Create the external credentials file](docs/configuration.md#general-secrets-file) before the first run. It may be empty while integrations are disabled; `application.yaml` already specifies its path.
+- [Create the external credentials file](docs/configuration.md#general-secrets-file) before the first run. It may be empty while integrations are disabled; `application.yaml` already specifies its path. If project keys are not ready, [disable Langfuse in a local override](docs/configuration.md#langfuse-settings) before bootstrap.
 
 - Run bootstrap from the repository root:
 

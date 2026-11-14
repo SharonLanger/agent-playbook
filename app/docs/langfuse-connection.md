@@ -30,6 +30,8 @@ touch "$HOME/.config/agent-playbook/secrets.env"
 chmod 600 "$HOME/.config/agent-playbook/secrets.env"
 ```
 
+- If project keys are not configured yet, temporarily set `integrations.langfuse.enabled: false` in `app/application.local.yaml` before bootstrap. An empty credentials file is valid while disabled.
+
 - Prepare the application environment from the repository root if needed.
 
 ```sh
@@ -103,7 +105,8 @@ integrations:
 ```
 
 Edit the existing block; preserve the CrewAI and workflow settings. The supplied
-shared YAML defaults to disabled. To keep personal setting changes out of Git,
+shared YAML currently enables Langfuse. Set it to `false` until project credentials
+are ready if you are doing a first installation. To keep personal setting changes out of Git,
 put a partial override in the ignored `app/application.local.yaml` instead:
 
 ```yaml

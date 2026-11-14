@@ -4,7 +4,7 @@ A gradual Python learning project for agent orchestration. Stage 00.1–00.7 are
 merged. Stage 00 is accepted. Stage 01 implements three deterministic CrewAI workflows
 with separate code, tests and learning guides.
 
-Before the first run, [create the external credentials file](app/docs/configuration.md#general-secrets-file). It may be empty while integrations are disabled. Its path is already configured in `app/application.yaml`.
+Before the first run, [create the external credentials file](app/docs/configuration.md#general-secrets-file). It may be empty while integrations are disabled. Its path is already configured in `app/application.yaml`. The supplied YAML enables Langfuse; if you have not configured project keys yet, [disable it in a local override](app/docs/configuration.md#langfuse-settings) before bootstrap.
 
 From the repository root, prepare the application:
 

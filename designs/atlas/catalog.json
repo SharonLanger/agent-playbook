@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 01 completed, accepted and locked; PR #40 merged. Stage 02 Langfuse and CLI implemented on draft PR #36; live/Mac acceptance pending.",
+  "snapshot": "Stage 01 completed, accepted and locked; PR #40 merged. Stage 02 local Langfuse/mock exercise accepted on Mac; PR #36 unmerged, delivery-readback limitation recorded; M4 deferred.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -33,7 +33,8 @@
     "designs/refactors/workflow-contract/review-follow-up.md",
     "designs/refactors/workflow-contract/review-test-quality.md",
     "designs/stages/02-langfuse/main-reconciliation.md",
-    "designs/stages/02-langfuse/resolution-2026-11-13.md"
+    "designs/stages/02-langfuse/resolution-2026-11-13.md",
+    "designs/stages/02-langfuse/acceptance-2026-11-14.md"
   ],
   "views": {
     "current": {
@@ -356,13 +357,13 @@
             {
               "name": "Local Langfuse service (M1 on PR #36)",
               "path": "app/tooling/observability/README.md",
-              "text": "Pinned loopback Compose stack and private local settings; pending Sharon acceptance.",
+              "text": "Pinned loopback Compose stack; Sharon confirmed Mac setup and stop/start persistence; PR #36 unmerged.",
               "to": null
             },
             {
               "name": "Langfuse connection check (M2 on PR #36)",
               "path": "app/tooling/observability/check_connection.py",
-              "text": "Explicit project authentication; pending Sharon acceptance.",
+              "text": "Explicit project authentication with YAML-selected external credentials; locally exercised; PR #36 unmerged.",
               "to": null
             },
             {
@@ -2291,11 +2292,17 @@
               "path": "designs/stages/02-langfuse/resolution-2026-11-13.md",
               "text": "R1/R3/R4 fixes, management CLI, checks and live blocker.",
               "to": null
+            },
+            {
+              "name": "Local acceptance and limits",
+              "path": "designs/stages/02-langfuse/acceptance-2026-11-14.md",
+              "text": "Mac project access, visible traces and restart persistence confirmed; bounded readback limitation retained.",
+              "to": null
             }
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "Sharon approved the six main conflict resolutions. PR #36 remains draft and unmerged. Reconciliation and follow-up verification are recorded; live Langfuse/Mac acceptance remains pending. M4 remains deferred.",
+          "note": "Sharon approved the six main conflict resolutions. PR #36 remains draft and unmerged. Reconciliation and follow-up verification are recorded; local setup and mock-trace exercise accepted on Mac, with delivery-readback limitation recorded. M4 remains deferred.",
           "diagram": null
         }
       },
@@ -4109,6 +4116,11 @@
           "path": "designs/stages/02-langfuse/main-reconciliation.md",
           "status": "Approved reconciliation; verification recorded",
           "purpose": "Preserved main and Langfuse work, combined checks, and next-agent boundary."
+        },
+        {
+          "path": "designs/stages/02-langfuse/acceptance-2026-11-14.md",
+          "status": "Local exercise accepted; PR #36 unmerged",
+          "purpose": "2026-11-14 user-reported Mac acceptance, revision-specific tests and remaining delivery-readback limitation."
         }
       ]
     }
