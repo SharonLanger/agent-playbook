@@ -61,3 +61,15 @@ Sharon requested the generalized stage/milestone and Codex handover process as g
 - `designs/governance/codex-handover-rules.md`
 
 The 2026-11-15 PR #48 alignment extends these procedures with the Stage Design PR lifecycle, incremental milestone approval and separate explicit merge gate. It also amends charter/principle 9 for the narrow Stage 04 sequencing exception. All existing protections remain; no draft Stage 04 milestone is registered as a locked baseline by this change.
+
+## M4.2/M4.3 approved baseline — 2026-11-15
+
+Sharon explicitly approved the M4.2/M4.3 design, tests and plan at `ab3fab459c97eed44cc0b202402e559a827a71cf` and RUN-G01–08 in the implementation handoff on 2026-11-15. The following locked files remain on the pinned Stage Design PR #47 revision during implementation; absence from main does not remove protection:
+
+| Guarded path | Immutable authority |
+|---|---|
+| `designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md` | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md) |
+| `designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md` | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md) |
+| `designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md` | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md) |
+
+All previous guards remain. This registers only the approved baseline and does not authorize merging PR #47 or changing frozen shared requirements/decisions.

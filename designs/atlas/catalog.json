@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 01 accepted and locked. Stage 02 M1–M3 accepted/merged; M4.1 implemented, verified and accepted, merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 design active; M4.3/logging deferred. Roadmap: Stage 04 foundation may progress early with milestone approval; native integration is Stage 05. Stage Design PRs require separate explicit closeout/merge authorization.",
+  "snapshot": "Stage 01 accepted and locked. Stage 02 M1–M3 and M4.1 merged; M4.2 + M4.3 native workflow tracing accepted by Sharon, PR #50 merge authorized. 408-test gate and installed release passed; local success/branch/failure acceptance completed. Stage Design PR #47 remains open for closeout; logging and agent telemetry enhancements deferred.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -44,7 +44,8 @@
     "designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md",
     "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md",
     "designs/governance/stage-milestone-workflow.md",
-    "designs/governance/codex-handover-rules.md"
+    "designs/governance/codex-handover-rules.md",
+    "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/follow-ups.md"
   ],
   "views": {
     "current": {
@@ -1439,6 +1440,26 @@
           "path": "designs/refactors/workflow-contract/review-test-quality.md",
           "status": "Historical review and verification evidence",
           "purpose": "Revision-specific findings and checks for the merged workflow-contract refactor."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/adapters/langfuse/runtime.py",
+          "status": "Unmerged round-02 candidate",
+          "purpose": "Native SDK setup/CLI flush; visible framework default enables automatic tracing."
+        },
+        {
+          "path": "app/tests/observability/test_workflow_tracing.py",
+          "status": "Unmerged round-02 candidate",
+          "purpose": "Real SDK runner hierarchy, business input/output, timing, payload and restoration assertions."
+        },
+        {
+          "path": "app/tests/fixtures/native_tracing_process.py",
+          "status": "Unmerged round-02 candidate",
+          "purpose": "Fresh-process initialization, disabled mode and network audit fixture."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/follow-ups.md",
+          "status": "Approved SDK-first continuation; verification/review pending",
+          "purpose": "Approved visible-output/native capture amendment; round-01 history and remaining acceptance."
         }
       ]
     },
@@ -1984,7 +2005,7 @@
               "text": "Local UI, connection check and editable mock runs first; real workflows last.",
               "to": "langfuse_setup",
               "label": "M1–M3 accepted / M4.1 accepted",
-              "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred."
+              "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 combined design approved at ab3fab459c97eed44cc0b202402e559a827a71cf; unmerged PR #50 implementation continues round 02 under approved SDK-first amendment 82b967d; visible framework defaults enable automatic tracing, with verification/review and local acceptance pending. Logging remains deferred."
             }
           ],
           "note": "EXPLORATION ONLY — optional candidate, not an approved target. Traces are evidence. They are not the workflow state store or a durable recovery mechanism.",
@@ -2320,15 +2341,15 @@
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.",
+          "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 combined design approved at ab3fab459c97eed44cc0b202402e559a827a71cf; unmerged PR #50 implementation continues round 02 under approved SDK-first amendment 82b967d; visible framework defaults enable automatic tracing, with verification/review and local acceptance pending. Logging remains deferred.",
           "diagram": null
         },
         "workflow_observability": {
           "name": "Workflow observability draft",
           "parent": "langfuse_setup",
-          "label": "M4.1 accepted / M4.2 design",
+          "label": "M4.1 accepted / M4.2–3 round-02 candidate",
           "title": "Context, runner, then automatic CrewAI tracing",
-          "text": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.",
+          "text": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 combined design approved at ab3fab459c97eed44cc0b202402e559a827a71cf; unmerged PR #50 implementation continues round 02 under approved SDK-first amendment 82b967d; visible framework defaults enable automatic tracing, with verification/review and local acceptance pending. Logging remains deferred.",
           "blocks": [
             {
               "name": "Context design",

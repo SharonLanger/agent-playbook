@@ -1,7 +1,7 @@
 # Workflow context and native Langfuse integration — start here
 
 Updated: 2026-11-14, iteration 35.
-Status: **M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.**
+Status: **M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 are implemented on unmerged PR #50, continuing round 02 under approved amendment 82b967d; review and local acceptance remain pending. Logging is deferred.**
 
 This is the permanent Stage 02 M4 workspace. PR #43 merged as `c8f129ee8c978067bf576b0ab563bfab74c9d6fe`. PR #44 carries the accepted M4.1 implementation. M1–M3 remain accepted; all Stage 02 is not complete.
 
@@ -19,8 +19,7 @@ This is the permanent Stage 02 M4 workspace. PR #43 merged as `c8f129ee8c978067b
 |---|---|---|
 | M4.R | Verify released CrewAI/Langfuse feasibility | Delivered research: eight cases/44 spans, with documented limits |
 | M4.1 | Typed context, real runner/factory/Workflow/Flow propagation and isolated derivation | Approved at 11bba581; implementation candidate 16c1580; two review rounds; accepted, merged via PR #44 |
-| M4.2 | Native workflow observation and exact correlation metadata | Draft design/test/plan on the separate runner discussion branch; policies await agreement |
-| M4.3 | Automatic CrewAI Flow/start/listen/router observations | Follows runner integration; separate design/acceptance |
+| M4.2 + M4.3 | Native runner observation, exact correlation and automatic CrewAI hierarchy | Original contract ab3fab4 with approved SDK-first amendment 82b967d; unmerged PR #50, round 02 verification/review ongoing |
 | Later | Local logging, usage, scores/evaluations as needed | Deferred; no agent runtime or logger selected here |
 
 ## Rules that prevent design drift
@@ -40,7 +39,7 @@ ExecutionContext already contains correlation_id; nested ObservabilityContext ho
 
 D30/R31 require exact correlation_id on every workflow-associated Langfuse observation and later local log. M4.2 supplies native root/child metadata propagation; M4.3 validates automatic CrewAI descendants. Metadata alone does not establish trace parentage. Future scores/entity APIs and process boundaries require their own integration checks.
 
-Next: agree M4.2 lifecycle, client/delivery, failure and safe-data policies before approving its detailed package. No broker, logger or agent-lifecycle expansion is implied.
+Next: finish round-02 independent reviews and outstanding local Langfuse acceptance under the original approved contract and its SDK-first amendment. No broker, logger or agent-lifecycle expansion is implied.
 
 ## Historical approval checkpoint
 

@@ -1,0 +1,7 @@
+# Round 01 disposition
+
+Author role/model: orchestrator, GPT-6 host session (exact selectable model ID unavailable to this session). Candidate: `4df1a434c37cfff0b20d8b719bbb6841ea0e9e33`; base `fefe4cc1065642b710a018ecb1088ececde852db`. Contract `ab3fab459c97eed44cc0b202402e559a827a71cf`; approval: Sharon's forwarded implementation instruction; governance `293fe88a404f9aa9bd37e897b6d65f0ef4d0ee1f`.
+
+Both independent reviewers assessed the SAME frozen SHA. Design verdict: CHANGES REQUIRED (DD-01/02). Test verdict: CHANGES REQUIRED (TG-01–04). DD-01/TG-01 is a material released-version contradiction between quiet maintained Flows and the required automatic normal-wrapper spans. The coder did not alter settings, instrumentor mode, contract or expected assertions. DD-02/TG-02–04 remain open; no missing evidence is counted as passed. Findings are carried to the originating design session via [follow-ups](../../follow-ups.md). No round-02 code/test correction is started pending a coordinated contract decision and new pinned baseline. This does not reset the round count.
+
+Decision: **BLOCKED, 1/3 rounds used**. Publish a draft implementation PR for review of the actual partial diff/evidence; do not merge it or PR #47. Installed release and live Langfuse acceptance remain NOT RUN. Candidate code/tests stay frozen; later report-only commits require an exact candidate-to-head comparison. No personal examples or historical sandbox inspected.

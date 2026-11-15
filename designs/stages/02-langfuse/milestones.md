@@ -1,9 +1,15 @@
 # Four milestones and their checkpoints
 
-Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on 2026-11-14; PR #36 merged as `44d6919`. Delivery-readback limits are recorded. M4.1 is accepted and merged via PR #44; M4.2 design is active and M4.3 remains deferred.**
+## Current acceptance — 2026-11-15
+
+M4.2 + M4.3 native workflow tracing is implemented, final-reviewed and accepted by Sharon; PR #50 is authorized for merge. The reviewed candidate is adbba215da77e1e618c3c699e1d84c1ba45c629e: 408 tests, static/lint/format checks and installed release passed. Sharon completed local success, routing, correlation, input/output, readable-name and controlled-failure checks. M1–M3 and M4.1 remain accepted/merged. Stage Design PR #47 stays open for documentation reconciliation and explicit stage closeout. Logging, real-agent cost/usage and scores/evaluations remain deferred. Earlier pending statements below are historical checkpoints, superseded by this acceptance.
+
+## Earlier status and retained history
+
+Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on 2026-11-14; PR #36 merged as `44d6919`. Delivery-readback limits are recorded. M4.1 is accepted and merged via PR #44; M4.2/M4.3 have an approved combined native tracing contract; implementation is on `impl/m4-2-3-native-tracing`, with verification/review ongoing and live acceptance pending.**
 [Review entry point](README.md) · [Required agent verification](verification.md) · [M1 Codex brief](implementation-handoff.md)
 
-Current state: WF-01/02/03 still run without Langfuse. PR #36 implements the
+Current main baseline: WF-01/02/03 run without Langfuse; the unmerged implementation branch adds optional native tracing. PR #36 implements the
 local service, explicit project check and optional mock playground. Sharon
 confirmed visible traces and normal stop/start persistence on Mac. See
 [acceptance and remaining limits](acceptance-2026-11-14.md); the earlier
@@ -137,3 +143,12 @@ M4.R research established bounded released-version CrewAI/Langfuse feasibility. 
 ## M4.1 acceptance and merge checkpoint — 2026-11-14
 
 M4.1 is implemented, verified, accepted by Sharon and merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Approved data-only context semantics and M1–M3 history remain unchanged. M4.2 native runner tracing is the next design; M4.3/logging remain later. See [context status](workflow-integration/reviews/context/status.md).
+
+## M4.2/M4.3 combined checkpoint — approved 2026-11-15
+
+Sharon explicitly approved the M4.2/M4.3 design, tests and plan at `ab3fab459c97eed44cc0b202402e559a827a71cf` and RUN-G01–08 in the implementation handoff on 2026-11-15. The combined outcome is one native runner observation with automatic executed CrewAI Flow/step children and exact application correlation. It follows completed M4.1 without renumbering stages. Implementation: `impl/m4-2-3-native-tracing` (unmerged). Automated verification and independent reviews are recorded separately under the milestone review directory. Local WF-01/WF-02/both WF-03 routes, failed-step UI/readback and Sharon’s acceptance remain pending; Stage 02 is not complete. Logging remains deferred. The approved pinned package remains on draft Stage Design PR #47, which stays open until separately authorized.
+
+
+### Round-02 SDK-first continuation — 2026-11-15
+
+Sharon approved amendment `82b967dda1fbf942cc1067a3539328c74abc303a` to the frozen original `ab3fab459c97eed44cc0b202402e559a827a71cf` contract. PR #50 remains unmerged: visible framework events are now the committed default (explicit false remains respected with incomplete automatic tracing), native runner updates capture prepared input and validated final output, native Flow naming is readable, and the native console version-check switch suppresses PyPI lookups. The exact native public project-key scope field is permitted; secret/configuration exclusions remain. Review, verification and remaining local acceptance are tracked separately in [follow-ups](workflow-integration/m2-3-workflow-tracing/follow-ups.md). Stage Design PR #47 stays draft/open. No new architecture, logger, broker or acceptance is implied.

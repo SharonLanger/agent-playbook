@@ -39,7 +39,7 @@ conflicts before proceeding. Passing tests alone does not establish compliance.
 - Reserve `designs/temporary/` only for disposable agent-to-agent handoffs. Preserve lasting decisions in permanent documents before deleting a handoff. Never delete stage material as part of handoff cleanup.
 
 ## Engineering
-- Keep external integrations isolated behind explicit contracts/adapters. Configure provider endpoints, credentials, and environment-specific settings externally; never commit secrets.
+- Keep external integrations isolated behind explicit contracts/adapters. The approved M4.2/M4.3 native tracing exception permits direct Langfuse scope/propagation at the application runner and setup at assembly, with concrete setup/flush functions in its adapter; it does not permit provider imports in workflow business steps or weaken agent execution adapter isolation. Configure provider endpoints, credentials, and environment-specific settings externally; never commit secrets.
 - Prefer deterministic regression tests and strict static checking; record actual verification results, not unverified success claims.
 - No GitHub Actions CI is required for now. When Stage 00 defines the local quality-check command, run it before declaring code changes ready and document it in `README.md` and `app/README.md`. Never claim tests ran if they did not.
 - Keep implementation-facing plans distinct from learner-facing Markdown under stage `learning/`. Use Mermaid for static diagrams and self-contained animated SVG where movement clarifies behavior, with a static fallback. Verify rendered assets where possible.

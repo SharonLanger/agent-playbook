@@ -1,0 +1,22 @@
+# Round 02 implementation
+
+Author role/model: coder, `gpt-6.1-sol`. Frozen code/test candidate: `adbba215da77e1e618c3c699e1d84c1ba45c629e`; round-01 published head: `95c1b8fd7c175643ebb26a1c4d74638ff9702234`; original main base: `fefe4cc1065642b710a018ecb1088ececde852db`. Contract: original `ab3fab459c97eed44cc0b202402e559a827a71cf` plus Sharon-approved SDK-first amendment `82b967dda1fbf942cc1067a3539328c74abc303a`. Governance `7915feb3c2a55f613fb65835109b8b758099de9f`.
+
+Implemented: `app/application.yaml` defaults `show_framework_events` to true, preserving explicit false; `application/workflow_runner.py` uses two native `update_current_span` calls, for parsed input only after successful preparation and for validated JSON-compatible output only after successful serialization. `config/crewai.py` uses CrewAI's supported `CREWAI_DISABLE_VERSION_CHECK=true`. The three maintained Flow constructors use public native `name=type(self).__name__`. Tests cover RUN-01–20 and R2-01–07 with score 59/60, parent-contained timing, separate parent-restoration cases, exact public-key scope-field handling and network audit. Public guides, stage progress, follow-ups and Atlas were updated. No new dependency, tracing facade, exporter, business-step instrumentation, context schema or frozen-contract edit.
+
+Exact permitted identifier: `instrumentation_scope.attributes.public_key` on the native `langfuse-sdk` runner span; Langfuse 5.2.0 resource-manager creates its scoped tracer with this attribute. Tests require that precise field/value while retaining all other configuration, secret and public-key payload bans.
+
+Successful runtime checks used writable `HOME=/tmp/pr50-r2-home`, `XDG_CACHE_HOME=/tmp/pr50-r2-xdg-cache`, `XDG_DATA_HOME=/tmp/pr50-r2-xdg-data`, `XDG_CONFIG_HOME=/tmp/pr50-r2-xdg-config` outside the restricted sandbox. No explicit additional network permission was requested. The Python connect/DNS audit is the locality evidence, not an OS-wide guarantee.
+
+| Check on frozen candidate | Result |
+|---|---|
+| `cd app && <writable-prefix> timeout 180 .venv/bin/python -m tooling.checks check` | PASS: Pyright 0 errors/warnings, Ruff lint/format 109 files, pytest **408 passed in 48.79s**; `/tmp/pr50-r2-gate-final.log` |
+| `cd app && <writable-prefix> timeout 80 .venv/bin/python tooling/verify_runtime.py dev-run` | PASS: built-ins, aliases, defaults/overrides, failure exit, zero Python connect/DNS; `/tmp/pr50-r2-runtime.log` |
+| `cd app && UV_CACHE_DIR=/workspace/.uv-cache uv pip check` | PASS: 151 compatible packages |
+| `cd app && <writable-prefix> UV_CACHE_DIR=/workspace/.uv-cache timeout 300 .venv/bin/python -m tooling.release --output /tmp/pr50-r2-release` | PASS: repeated full gate **408 passed in 48.05s**, locked-hash install, 145 installed packages compatible, isolated installed inventory/commands/failure/offline verifier; `release.json` verified=true; `/tmp/pr50-r2-release.log` |
+| Installed `venv/bin/python -I app/tests/fixtures/native_tracing_process.py enabled` with external synthetic-key/local YAML fixture | PASS: `NATIVE_PROCESS_OK`, 13 observations, three roots, zero Python connect/DNS; `/tmp/pr50-r2-installed-native.log` |
+| `python3 designs/atlas/build.py --check`, `git diff --check`, changed Markdown links | PASS; 141 relative links checked, zero missing |
+
+Release 0.1.3 wheel `agent_playbook-0.1.3-py3-none-any.whl`: SHA256 `b894f7ca9a80ed3879ba44ca9ea23e5b7c46dfee26d833b33bba65acd5a18908`. Requirements SHA256 `b477d6141a7ffb7af837b160320839e5b18249b6ac81e4f5117920559f3bf5ea`; lock SHA256 `f19e4b78db22b1e43d86c0d22c8f0ae247ff24c6f892d652b102eac116f8d86c`.
+
+Prior failed attempts retained in [follow-ups](../../follow-ups.md): restricted-sandbox LanceDB `Future.result` stall with zero completed tests; native string output initially incorrectly JSON-decoded in a test; native update initially lacked explicit public-key selection; Ruff import order; 407-pass/1-fail default fixture needing a user secrets file; initial combined edit/escalation rejected by auto-review over perceived public-key weakening (no edit from it). Safe separate edits retained payload bans. These were corrected and rerun. RUN-18 local UI/readback remains **PARTIAL/NOT COMPLETE**: supplied screenshot/runs establish some success, but selected/skipped branches, failed-step behavior, outer input/output and readable naming still require recorded local evidence. No live ingestion or Mac/PyCharm acceptance is claimed.
