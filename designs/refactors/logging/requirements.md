@@ -99,3 +99,9 @@ Automatic context extraction does not mean automatic interception of every opera
 | ID | Requirement | State |
 |---|---|---|
 | LOG-29 | integrations.logging.level selects the minimum recorded application severity using standard levels; default DEBUG for current development. Configuration validation rejects unsupported levels. Existing safe-payload constraints apply at every level. | User agreed (LD24) |
+
+## Retention — 2026-11-15
+
+| ID | Requirement | State |
+|---|---|---|
+| LOG-30 | Default VictoriaLogs retention is seven days, adjustable through the logging component's Compose configuration; rely on VictoriaLogs to expire older records. | User agreed (LD25) |
