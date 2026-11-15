@@ -74,3 +74,7 @@ D46 records propagation rather than blanket result conversion. Specification/boa
 ## Revision 24 adapter terminal-delivery approval
 
 D47 closes the healthy-handler notification question without changing normal result delivery or milestone boundaries. Atlas regeneration/freshness and scoped documentation reference/continuity/guard checks cover this documentation-only update. No runtime tests, native behavior verification, guarded changes or implementation lock are claimed.
+
+## Revision 25 cleanup precedence approval
+
+D48 records primary-error preservation and visible secondary cleanup evidence, independent of future logging. Atlas freshness and scoped documentation reference/continuity/guard checks cover the update. No runtime behavior verification, implementation lock or guarded changes are claimed.

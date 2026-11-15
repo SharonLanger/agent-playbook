@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 24 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 25 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 ## Status and authority
@@ -324,6 +324,14 @@ Sharon explicitly accepts this recommendation. The alternative was to construct 
 
 Q10 is now answered for terminal notification on adapter exceptions. Cleanup-error precedence, cancellation and ordering remain open. D44 future customization remains deferred. This closes an existing M1/M2 contract question without changing milestone scope, adding a new event or authorizing implementation or merge. Revision-23 terminal-delivery open wording remains historical.
 
+## Cleanup failure precedence — revision 25
+
+D48 — **Approved:** when an execution/handler exception is already propagating and cleanup also raises, preserve the original exception as primary with its original traceback, and retain the cleanup failure as additional inspectable diagnostic information. Do not replace the original failure or silently discard the cleanup failure. If cleanup is the only exception, propagate that cleanup exception normally.
+
+Sharon explicitly accepts the recommendation after clarification that exception propagation and logging are separate. The failures occur in the same execution but this does not prove that one caused the other; diagnostics must not assert false causality. Future logging should expose both failures, but retaining both must work without a logging integration. Exact Python attachment/representation remains a detailed implementation-design choice; no custom exception framework, ExceptionGroup or logging subsystem is selected.
+
+Alternatives considered: an error group exposes both equally but complicates caller handling; propagating only cleanup is simpler but hides the original problem. Keep the primary exception for understandable debugging while making the secondary failure visible. D43–D47 propagation and terminal-delivery decisions remain unchanged. Q10 is answered for cleanup-error precedence; cancellation, delivery ordering and the concrete diagnostic representation remain open. This fits current M1 contract/M2 harness scope, with no new milestone, runtime implementation, design lock or merge authorization. Earlier cleanup-precedence open statements are historical.
+
 ## Research status
 
 Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event/result fields and representation are now accepted under D36/D37; validation, lifecycle guarantees and permission settings remain unresolved.
@@ -387,3 +395,4 @@ Maintain both active records in this repository package with matching revision e
 | 22 | 2026-11-15 | D45 accepts skipping terminal notification after handler failure; cleanup remains independent and original failure propagates. |
 | 23 | 2026-11-15 | D46 accepts adapter exception propagation and distinguishes returned unsuccessful runtime outcomes; remaining terminal/cleanup policies stay open. |
 | 24 | 2026-11-15 | D47 skips terminal notification on adapter exceptions even with a healthy handler; result-return delivery remains unchanged. |
+| 25 | 2026-11-15 | D48 preserves the original exception and cleanup diagnostics; a sole cleanup exception propagates normally. |

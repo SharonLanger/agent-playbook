@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 10 · 2026-11-15 · Owner: Sharon
+Revision: 11 · 2026-11-15 · Owner: Sharon
 Status: **overall milestone boundaries and BC03 gates approved (D40); detailed milestone design/test/plan not yet locked; no implementation authorization.**
 
 [Start here](README.md) · [Specification](specifications.md) · [Decision board](decisions.md) · [Repository reconciliation](repository-updates.md)
@@ -191,3 +191,7 @@ D46 accepts unexpected adapter exception propagation within M1/M2, keeping retur
 ## Adapter terminal-delivery checkpoint — revision 24
 
 D47 closes terminal notification on adapter exceptions: skip it and propagate after independent cleanup. M1/M2 scope and prerequisites are unchanged. Cleanup-error precedence, cancellation and ordering remain open.
+
+## Cleanup precedence checkpoint — revision 25
+
+D48 preserves the original exception and cleanup diagnostic evidence, with a sole cleanup exception propagated normally. Concrete representation, cancellation and ordering remain open within M1/M2. No boundary, prerequisite or logging integration change.
