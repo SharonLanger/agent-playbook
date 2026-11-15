@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 21 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 22 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 ## Status and authority
@@ -298,6 +298,14 @@ Future tracking: revisit configuration versus injected behavior when a concrete 
 
 Q10 is **partly answered** for handler failures by D43; terminal notification after failure, adapter errors, ordering/backpressure, cancellation and cleanup precedence remain open. Q35 context integration is still deferred. Next discussion: whether to attempt ExecutionFinished after the handler fails. No runtime implementation, detailed-design lock or merge is authorized.
 
+## Terminal delivery after handler failure — revision 22
+
+D45 — **Approved:** after handle_event raises, do not invoke that failed handler again with ExecutionFinished. Perform cleanup independently of event delivery and propagate the original handler exception. If the failure occurs while handling ExecutionFinished itself, do not retry it. If ExecutionStarted handling fails, the adapter is never invoked (D43). Completion notification is therefore not guaranteed on a handler-failure path and must not be used as the resource-cleanup mechanism.
+
+Sharon explicitly accepts the recommendation after clarification that this is a Python exception in the role's event-processing code, not an LLM response or a reported tool failure. The alternative was to attempt one final notification through the same handler, which could support role-specific completion behavior but could fail again and complicate error handling. The MVP chooses the simpler original-error path. D44 retains later customization as deferred; no new policy flag or hook is introduced.
+
+ExecutionFinished describes an ended execution with a result, not necessarily a successful result. D42 normal-return delivery is unchanged. Q10 is answered for terminal delivery after handler failure; adapter exceptions with a healthy handler, cancellation, cleanup-error precedence and ordering remain open. Next topic: distinguish adapter exceptions from returned failed execution outcomes. D45 fits existing M1/M2 boundaries and does not authorize implementation, a milestone lock or merging PR #45. Earlier revision-21 open wording is historical and superseded only for this specific question.
+
 ## Research status
 
 Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event/result fields and representation are now accepted under D36/D37; validation, lifecycle guarantees and permission settings remain unresolved.
@@ -358,3 +366,4 @@ Maintain both active records in this repository package with matching revision e
 | 19 | 2026-11-15 | Accepted four gated milestones and progressive detailed design; reconciled main governance and remaining canonical ownership gate. |
 | 20 | 2026-11-15 | D42 accepts single-handler lifecycle ownership and normal result reuse; keeps start payload empty and abnormal delivery semantics open. |
 | 21 | 2026-11-15 | D43 accepts fail-fast handler errors; D44 defers per-agent configuration/injected error behavior; terminal delivery and remaining failure semantics stay open. |
+| 22 | 2026-11-15 | D45 accepts skipping terminal notification after handler failure; cleanup remains independent and original failure propagates. |

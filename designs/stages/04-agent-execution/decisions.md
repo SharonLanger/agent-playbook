@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 21 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 22 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 ## How to read this board
@@ -1015,6 +1015,14 @@ Future tracking: revisit configuration versus injected behavior when a concrete 
 
 Q10 is **partly answered** for handler failures by D43; terminal notification after failure, adapter errors, ordering/backpressure, cancellation and cleanup precedence remain open. Q35 context integration is still deferred. Next discussion: whether to attempt ExecutionFinished after the handler fails. No runtime implementation, detailed-design lock or merge is authorized.
 
+## Terminal delivery after handler failure — revision 22
+
+D45 — **Approved:** after handle_event raises, do not invoke that failed handler again with ExecutionFinished. Perform cleanup independently of event delivery and propagate the original handler exception. If the failure occurs while handling ExecutionFinished itself, do not retry it. If ExecutionStarted handling fails, the adapter is never invoked (D43). Completion notification is therefore not guaranteed on a handler-failure path and must not be used as the resource-cleanup mechanism.
+
+Sharon explicitly accepts the recommendation after clarification that this is a Python exception in the role's event-processing code, not an LLM response or a reported tool failure. The alternative was to attempt one final notification through the same handler, which could support role-specific completion behavior but could fail again and complicate error handling. The MVP chooses the simpler original-error path. D44 retains later customization as deferred; no new policy flag or hook is introduced.
+
+ExecutionFinished describes an ended execution with a result, not necessarily a successful result. D42 normal-return delivery is unchanged. Q10 is answered for terminal delivery after handler failure; adapter exceptions with a healthy handler, cancellation, cleanup-error precedence and ordering remain open. Next topic: distinguish adapter exceptions from returned failed execution outcomes. D45 fits existing M1/M2 boundaries and does not authorize implementation, a milestone lock or merging PR #45. Earlier revision-21 open wording is historical and superseded only for this specific question.
+
 ## Maintenance rule
 
 Read both files before progressing the design. Update this board with evidence and explicit status; update the specification only for accepted decisions. Detect conflicts before edits. Tell Sharon before changing any agreement; retain superseded entries and rationale. Maintain the two active repository records, keeping cross-links and revision numbers consistent; original saved files are history. Boundary changes must first be proposed in [milestone-plan.md](milestone-plan.md), then applied under D32 across all affected records. Do not turn a recommendation into “Approved” because it appears in a file.
@@ -1044,3 +1052,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 19 | 2026-11-15 | D40 accepts boundaries/gates; D41 defers dependent detail; main governance integrated and current milestone readiness recorded. |
 | 20 | 2026-11-15 | D42 records lifecycle ownership, callback alternative and extensible empty start payload; callback/error guarantees remain open. |
 | 21 | 2026-11-15 | D43 accepts fail-fast handler errors; D44 defers per-agent configuration/injected error behavior; terminal delivery and remaining failure semantics stay open. |
+| 22 | 2026-11-15 | D45 accepts skipping terminal notification after handler failure; cleanup remains independent and original failure propagates. |

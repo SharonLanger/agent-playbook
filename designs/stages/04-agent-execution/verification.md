@@ -62,3 +62,7 @@ D42 records the accepted single-handler choice, harness lifecycle ownership on t
 ## Revision 21 handler failure approval
 
 D43/D44 distinguish the approved MVP fail-fast behavior from deferred customization. No runtime, native research, context model or guarded authority changes. Atlas and scoped documentation checks validate references, continuity and unchanged guarded/history sources; no application tests are needed for this documentation-only update. Terminal delivery and remaining failure policies remain explicitly open.
+
+## Revision 22 terminal-delivery approval
+
+D45 closes the failed-handler terminal-notification question and preserves D42 normal delivery and D44 deferred customization. Atlas regeneration/freshness and scoped link/continuity/guard checks cover this documentation-only change. Runtime tests and native capability research are not claimed; no application or guarded baseline changes.
