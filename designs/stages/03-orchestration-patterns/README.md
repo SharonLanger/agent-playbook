@@ -1,6 +1,8 @@
 # Stage 03 — CrewAI concepts and recipes
 
-Status: **All eight illustrated recipes approved by Sharon on 2026-11-15. S03.M1 handoff package prepared for another Codex session; no implementation or verification performed here.**
+Status: **S03.M1 implemented on draft PR #53; originating design-session final review PASS on 2026-11-15. Sharon's hands-on acceptance, temporary-check cleanup and merge remain pending.**
+
+[Final review and remaining work](m1-recipe-batch/reviews/final-review.md) records independent checks and distinguishes them from the implementation reviewers' runtime evidence.
 
 [Decision log](decisions.md) records sources, rationale, superseded proposals and open choices. This README is the specification, coverage map and canonical batch index. Stage Design PR: [#52](https://github.com/SharonLanger/agent-playbook/pull/52).
 
@@ -24,7 +26,7 @@ Stage 02 is completed. Logging remains a separate workstream. Stage 04 agent exe
 | S03-R06 | No real agents, production recovery framework, human approval service or distributed worker platform. Retry/fallback recovery is deferred. | Roadmap boundary and user scope |
 | S03-R07 | Agree and implement a complete batch together in one implementation PR, not a separate implementation cycle per recipe. Keep the ongoing Stage Design PR separate and draft/open. | User batch instruction; existing Stage Design lifecycle |
 | S03-R08 | Preserve decisions, rationale, sources and pending choices. | Agreed |
-| S03-R09 | Organize app/examples/workflows into concepts/ for existing examples and recipes/ for practical compositions. | Explicitly accepted; move not performed yet |
+| S03-R09 | Organize app/examples/workflows into concepts/ for existing examples and recipes/ for practical compositions. | Explicitly accepted; implemented on unmerged PR #53 |
 | S03-R10 | Each new recipe contains README.md, flow.py, run.py and input.json. README is the learning guide. | Explicitly accepted |
 | S03-R11 | No permanent new test files. Temporary verify.py scripts are required for review and Sharon's own runs; retain them until his hands-on check, then remove before merge and preserve evidence. | Explicit user instruction |
 | S03-R12 | Direct PyCharm run.py execution and copying a whole recipe folder are primary uses. No imports from another example or application runtime are needed. | Agreed independence goal |
@@ -53,7 +55,7 @@ Keep setup minimal. If the pinned framework needs example-local configuration, e
 
 ## Existing coverage map
 
-Code, example documentation and selected tests were inspected at main 4ed7a318e25653d481705d9cb40c35de9ab649c7. They were not rerun in this design session. Current links point to the pre-move locations.
+Code, example documentation and selected tests were inspected at main 4ed7a318e25653d481705d9cb40c35de9ab649c7. They were not rerun in this design session. Current links point to the pre-move locations still present on this design branch. PR #53 moves them unchanged into concepts/; reconcile these links when incorporating that implementation before closeout.
 
 | Existing example | Coverage | Reuse / gap |
 |---|---|---|
@@ -91,13 +93,13 @@ The README starts with the approved diagram and explains “change this value/ro
 
 New code stays inside the individual recipe folders. Temporary verify.py scripts also live there, are pushed with implementation and independently runnable by Sharon, and are inspected by the reviewers. Do not remove them at the first handoff. After Sharon's hands-on review, delete temporary verification files before merge and retain immutable pre-cleanup evidence. Existing concept tests remain preserved.
 
-Only CrewAI recipe behavior and directly affected files are checked; no integration testing of unrelated application behavior. No code tests or final SVG rendering have been run in this design session.
+Only CrewAI recipe behavior and directly affected files are checked; no integration testing of unrelated application behavior. This design session inspected code/tests and independently rendered all eight static diagrams for final review. It did not rerun CrewAI; the exact-candidate runtime evidence and environment limits are linked in the final review.
 
 ## Canonical milestone index
 
 | Milestone / outcome | Design and approved revision | Implementation PR | Review evidence | Acceptance | Merge |
 |---|---|---|---|---|---|
-| S03.M1 — eight runnable copyable recipes and concepts/recipes organization | Eight visuals/behaviors approved U09; exact package pinned in outgoing handoff | Not opened | Not started | Delivered-code acceptance pending | PR #52 draft/open; no implementation merge |
+| S03.M1 — eight runnable copyable recipes and concepts/recipes organization | Approved contract 6067fb652f0bffe2fa1f8a0e53f045a421a16f11 | [#53](https://github.com/SharonLanger/agent-playbook/pull/53) | Both implementation reviews PASS, 1/3 rounds; [design-session final review PASS](m1-recipe-batch/reviews/final-review.md), published head 906e0e5 | Sharon's hands-on acceptance and temporary-check cleanup pending | #52 and #53 draft/open; neither merged |
 
 Start with [M1 README](m1-recipe-batch/README.md). The outgoing handoff gives immutable links and the full contract SHA. Sending that prompt authorizes its concrete revision. Codex implements the whole batch using one coder plus independent design-drift and test-gap/behavior reviewers; maximum three rounds on frozen candidates. This design session reviews the returned evidence before any merge.
 
