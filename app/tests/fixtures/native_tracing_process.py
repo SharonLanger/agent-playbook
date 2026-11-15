@@ -1,8 +1,11 @@
 """Fresh-process RUN-08/09/15 probe; no backend or framework monkeypatches."""
 
+import os
 import sys
 from unittest.mock import patch
 
+# Seed the opposite native setting; application startup must disable the lookup.
+os.environ["CREWAI_DISABLE_VERSION_CHECK"] = "false"
 attempts: list[str] = []
 
 
@@ -75,5 +78,6 @@ else:
     clients[0].shutdown()
     assert attempts == [], attempts
     assert len(exporter.get_finished_spans()) == 13
+assert os.environ["CREWAI_DISABLE_VERSION_CHECK"] == "true"
 assert attempts == [], attempts
 print("NATIVE_PROCESS_OK")

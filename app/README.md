@@ -53,4 +53,4 @@ Use **Dev Run** for source edits, **Run** for the latest release, and **Check** 
 [Workflow examples — start here](examples/workflows/README.md). Open an example's run.py directly in PyCharm; no CLI selection or release is needed.
 
 
-Native runner tracing uses the configured Langfuse destination. The pinned automatic CrewAI integration has a quiet-mode limitation; see [workflow tracing behavior and limits](docs/workflows.md#native-workflow-tracing). Full automatic hierarchy and local acceptance remain pending.
+Native runner tracing uses the configured Langfuse destination. Framework events are visible by default so the pinned CrewAI integration records Flow and step observations; see [workflow tracing behavior and limits](docs/workflows.md#native-workflow-tracing). Local acceptance remains pending.

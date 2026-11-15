@@ -22,6 +22,7 @@ from agent_playbook.workflows.contracts import Workflow
 from agent_playbook.workflows.errors import WorkflowExecutionError, WorkflowInputError
 
 _INPUT = TypeAdapter(dict[str, object])
+_OUTPUT = TypeAdapter(object)
 
 
 def run_workflow(
@@ -112,6 +113,11 @@ def _run_selected(
         raise WorkflowInputError(f"{workflow_id} PREPARE: {error}") from error
     except Exception as error:
         raise WorkflowExecutionError(f"{workflow_id} PREPARE failed.") from error
+    settings = application.integrations.langfuse
+    if settings.enabled and settings.public_key is not None:
+        get_client(
+            public_key=settings.public_key.get_secret_value()
+        ).update_current_span(input=data)
     try:
         raw = workflow.execute()
     except Exception as error:
@@ -124,6 +130,10 @@ def _run_selected(
         ) from error
     try:
         serialized = workflow.serialize_output()
+        if settings.enabled and settings.public_key is not None:
+            get_client(
+                public_key=settings.public_key.get_secret_value()
+            ).update_current_span(output=_OUTPUT.dump_python(output, mode="json"))
     except Exception as error:
         raise WorkflowExecutionError(
             f"{workflow_id} SERIALIZE_OUTPUT failed."

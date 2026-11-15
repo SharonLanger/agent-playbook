@@ -26,4 +26,4 @@ Project layout: [guarded project structure](designs/project-structure.md).
 The proposed runtime structure cleanup and completed-system file tree are documented
 in the [refactor review](designs/refactors/2026-11-12-runtime-structure/README.md).
 
-Native runner tracing uses the configured Langfuse destination. The pinned automatic CrewAI integration has a quiet-mode limitation; see [workflow tracing behavior and limits](app/docs/workflows.md#native-workflow-tracing). Full automatic hierarchy and local acceptance remain pending.
+Native runner tracing uses the configured Langfuse destination. Framework events are visible by default so the pinned CrewAI integration records Flow and step observations; see [workflow tracing behavior and limits](app/docs/workflows.md#native-workflow-tracing). Local acceptance remains pending.

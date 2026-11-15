@@ -1,10 +1,10 @@
 # Stage 02 — Langfuse milestones
 
-Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on Mac on 2026-11-14; PR #36 merged as `44d6919`. Delivery readback has a recorded limitation; M4.1 is accepted/merged; the combined M4.2/M4.3 implementation is unmerged and blocked by pinned quiet-mode instrumentation.**
+Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on Mac on 2026-11-14; PR #36 merged as `44d6919`. Delivery readback has a recorded limitation; M4.1 is accepted/merged; the combined M4.2/M4.3 implementation is unmerged, continuing round 02 under approved SDK-first amendment 82b967d; review and local acceptance remain pending.**
 Milestone 1's fixed checkpoint remains available; see
 [findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
 Milestone 2 adds a project connection check, and milestone 3 adds the explicit
-mock playground. M4.1 is implemented, final-reviewed and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 design/test/plan are approved at `ab3fab459c97eed44cc0b202402e559a827a71cf`. The implementation branch is blocked by the pinned instrumentor’s handling of quiet Flows; see [follow-up evidence](workflow-integration/m2-3-workflow-tracing/follow-ups.md).
+mock playground. M4.1 is implemented, final-reviewed and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 design/test/plan are approved at `ab3fab459c97eed44cc0b202402e559a827a71cf`. The approved round-02 amendment accepts visible framework events to enable automatic tracing, native input/output capture and readable naming; see [follow-up evidence](workflow-integration/m2-3-workflow-tracing/follow-ups.md).
 
 ## Start here
 

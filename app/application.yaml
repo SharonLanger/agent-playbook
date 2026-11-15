@@ -2,7 +2,7 @@ integrations:
   crewai:
     usage_telemetry_enabled: false
     tracing_enabled: false
-    show_framework_events: false
+    show_framework_events: true
   langfuse:
     enabled: true
     base_url: http://localhost:3000

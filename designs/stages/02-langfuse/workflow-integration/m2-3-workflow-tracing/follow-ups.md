@@ -1,4 +1,36 @@
-# Native CrewAI tracing blocker — 2026-11-15
+# Native CrewAI tracing follow-ups
+
+## Current round-02 continuation — 2026-11-15
+
+Sharon approved SDK-first amendment `82b967dda1fbf942cc1067a3539328c74abc303a` to original frozen contract `ab3fab459c97eed44cc0b202402e559a827a71cf`. This supersedes the pending-decision status below only for the explicit amendment scope. Round 02 of three is active; earlier findings/evidence remain historical.
+
+Placement stays within the approved boundaries: application runner owns native updates after successful prepare and after validated-result serialization; maintained Flow constructors supply the public native `name` field; centralized CrewAI startup uses native `CREWAI_DISABLE_VERSION_CHECK=true`. No business step imports a provider. Original design/test/plan, shared requirements/decisions and the amendment are unchanged. Relevant observability research was consulted; no custom telemetry mechanism was adopted.
+
+The public identifier is observed on native exported runner spans at `instrumentation_scope.attributes.public_key`. Origin: Langfuse 5.2.0 `LangfuseResourceManager.__new__` creates its scoped tracer with `attributes={"public_key": public_key}`. Tests require the exact field/value, exclude only that scope attribute from the public-key substring ban, and retain secret/configuration bans on attributes, events, status, resources and other scope metadata. No arbitrary input/exception-secret redaction is claimed.
+
+CrewAI 1.15.40 `events/utils/console_formatter.py:69–76` checks `CREWAI_DISABLE_VERSION_CHECK` before its PyPI helpers. Startup sets this native switch; the fresh-process fixture seeds false, audits Python connect/DNS events during import/normal enabled and disabled execution, and asserts the effective switch is true. In-memory export avoids a backend dependency; this does not prove live OTLP ingestion or audit all OS networking.
+
+Environment evidence: writable HOME/XDG alone still timed out after 50 seconds in the sandbox, with no completed test, waiting in LanceDB `Future.result → lancedb.connect → CrewAI UnifiedMemory`. The same focused suite outside the sandbox passed; a standalone elevated native LanceDB connection also succeeded. All environment changes are test-process settings, with no production workaround. Exact commands/results follow when complete.
+
+Remaining manual acceptance: Sharon supplied successful WF-01 exit/output and screenshot hierarchy/correlation, plus WF-02 and both WF-03 runs. This is partial RUN-18 evidence; explicit branch/skipped-branch verification, failure case, final outer input/output and readable naming still require local UI/readback evidence. DD-02/TG-04 remain pending for that reason.
+
+### Round-02 automated checkpoint
+
+Coder model: `gpt-6.1-sol`. The original CLI remains `app/src/agent_playbook/cli/commands.py` with finally-based flush. Source changes remain minimal native wiring; no custom tracing infrastructure, output interception, state snapshots, monkeypatches or dependency/version changes were introduced. Explicit native client project selection is necessary for repeat invocations when tests have multiple SDK clients.
+
+- Test environment prefix: `HOME=/tmp/pr50-r2-home XDG_CACHE_HOME=/tmp/pr50-r2-xdg-cache XDG_DATA_HOME=/tmp/pr50-r2-xdg-data XDG_CONFIG_HOME=/tmp/pr50-r2-xdg-config`. These are isolated writable test directories, outside the sandbox only for native LanceDB startup; they are not committed configuration or a network workaround. The elevated tool invocation used no additional-network permission field, but runs outside the sandbox; Python network audits below qualify locality evidence.
+- Sandbox `timeout 50 app/.venv/bin/python -m pytest app/tests/observability/test_workflow_tracing.py -xq -o faulthandler_timeout=25` with that prefix: timed out, zero completed tests; preserved log `/tmp/pr50-r2-focused.log`. Elevated `timeout 80` same focused suite: initial 24 passed in 13.21s, enhanced 26 passed in 12.29s. Intermediate enhanced assertions incorrectly JSON-decoded native string output and omitted explicit SDK client selection; both were fixed before the full passing gate.
+- First full gate stopped at Ruff import ordering; corrected. Next gate: 407 passed/1 failed because the new committed-default test depended on a missing user secrets file; corrected to use committed YAML plus the explicit empty-secrets fixture. No acceptance assertion was weakened.
+- `cd app && <test environment prefix> timeout 180 .venv/bin/python -m tooling.checks check`: PASS, Pyright zero errors/warnings, Ruff lint/format PASS (109 files), **408 passed in 48.79s**. Hierarchy, exact three-field metadata, score 59/60 input/output, nested runner/kickoff/step timing, independently reachable parent restoration after success/failure, exact native naming/public-key scope field, payload secret exclusion, explicit false and committed true default are asserted.
+- Fresh-process enabled/disabled tests passed as part of the full gate. They audit Python `socket.connect`/`socket.getaddrinfo`, retain zero attempts, use the actual assembly/runner/ABC/Flows and native instrumentor, and seed the opposite version-check setting before startup. The enabled fixture substitutes only in-memory export delivery, retaining native initialization/provider/wrappers.
+- `cd app && UV_CACHE_DIR=/workspace/.uv-cache uv pip check`: PASS, 151 installed packages compatible. Lock/pins unchanged.
+- `cd app && <test environment prefix> timeout 80 .venv/bin/python tooling/verify_runtime.py dev-run`: PASS, maintained built-ins, both configured aliases/defaults/overrides, execution failure exit 1 and zero Python socket/DNS attempts.
+- `python3 designs/atlas/build.py --check`, `git diff --check`: PASS. Changed Markdown relative links: 141 checked, zero missing, with personal/historical sandbox targets excluded.
+- Main reconciliation: `origin/main` is `b145e3123f8cc2d2f5095d8a1b605bf6fa6f5672`; its filtered diff from original base `fefe4cc1065642b710a018ecb1088ececde852db` has no changes outside excluded personal examples. No personal examples or historical sandbox were inspected; no merge is needed for this runtime scope.
+
+Installed release verification follows the clean candidate commit; no result is claimed here until complete. Independent reviews and remaining local acceptance are separate. DD-01/TG-01 have passing amended behavior; TG-02/TG-03 have reached payload/restoration/timing assertions. Their final dispositions belong to the independent reviews/orchestrator. DD-02/TG-04 still include incomplete local acceptance. Round count remains 2/3, not a new cycle.
+
+## Historical round-01 blocker — 2026-11-15
 
 Status: **BLOCKED; pending contract decision.** The approved design/test/plan remain frozen at `ab3fab459c97eed44cc0b202402e559a827a71cf` on Stage Design PR #47. This note does not amend that contract. The active coder informed the orchestrator; the orchestrator agreed to preserve the failure and stop affected implementation. No alternative below has user approval.
 
