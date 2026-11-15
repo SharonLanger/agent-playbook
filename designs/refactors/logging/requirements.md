@@ -93,3 +93,9 @@ M2 must isolate logging/tracing infrastructure failures from workflow errors and
 | LOG-28 | Record operational exceptions at their handling/reporting boundary, including recovered failures; avoid duplicate reports of one propagated exception and preserve workflow semantics. | Coverage intent; exact ownership and sanitized error schema in M2 |
 
 Automatic context extraction does not mean automatic interception of every operation. No whole-context/configuration serialization or blanket Langfuse/CrewAI trace duplication. Pre-context/pre-logger failures remain safely visible in terminal diagnostics; do not fabricate run identity. Stack-trace formatting and automatic agent events remain deferred.
+
+## Severity filtering — 2026-11-15
+
+| ID | Requirement | State |
+|---|---|---|
+| LOG-29 | integrations.logging.level selects the minimum recorded application severity using standard levels; default DEBUG for current development. Configuration validation rejects unsupported levels. Existing safe-payload constraints apply at every level. | User agreed (LD24) |
