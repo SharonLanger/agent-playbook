@@ -21,7 +21,7 @@
 | LQ03 | Resolved API shape: explicit context + message through small level helpers; accepted context is ExecutionContext (LD22) | M2 |
 | LQ04 | Field types, reserved keys, exception treatment, redaction and payload limits? | Implementation |
 | LQ05 | Retention, rotation, multi-process writers, shutdown, bounded queues/retries and duplicates? | Delivery acceptance |
-| LQ06 | Exact first-increment application/framework coverage and one-time error recording boundary? | Coverage/tests |
+| LQ06 | Coverage direction agreed under LD23: workflow lifecycle plus surrounding application infrastructure; exact placement and error ownership to specify in M2 | Coverage/tests |
 | LQ07 | Optional SDK trace/span enrichment and disabled-tracing behavior? | Enrichment |
 | LQ08 | Built-in VictoriaLogs UI included in M1 sanity check; advanced filtering acceptance later | M1/M2 |
 | LQ09 | Does an existing embedded SQLite solution simplify matters? | Optional research |
@@ -103,3 +103,15 @@ Langfuse currently lacks this consistent policy. Aligning it is requested design
 LD22 — Sharon explicitly agreed to use the existing ExecutionContext as the required context argument for log_info/log_warning/log_error and other agreed level helpers. Extract correlation_id from ExecutionContext and workflow_id, workflow_run_id, agent_type and agent_run_id from its observability member. Reuse existing agent-context derivation; no new context type, mutation or SDK/client handle in context.
 
 Context and message are required. Event-specific fields remain optional and cannot overwrite context identity. Extract selected logging attributes rather than serializing the entire context. Exact optional-field syntax/types and collision diagnostics remain detailed M2 design work.
+
+## Application-wide diagnostic coverage — 2026-11-15
+
+LD23 — Sharon accepted automatic workflow started/completed/failed records and delegated useful placement beyond workflow/agent business code, emphasizing debugging the surrounding application infrastructure. "Automatic" means explicit calls in shared runner/infrastructure code, not magic interception or blanket duplication of Langfuse observations.
+
+M2 should cover useful configuration/setup, workflow selection/construction, lifecycle and integration diagnostics, with detailed DEBUG records where they explain execution. ERROR records describe operational exceptions at the handling/reporting boundary. Avoid repeatedly logging the same propagated exception at every layer; caught/recovered operational failures still need a diagnostic without changing workflow outcome. Expected control-flow exceptions are not automatically failures. No global exception hook or capture of every SDK internal exception is selected.
+
+Keep extraction distinct from emission: helpers read the selected identity fields from ExecutionContext; owning application code decides when to emit. No whole-context/configuration serialization. Agent identity comes from the supplied derived context; this does not authorize Stage 04 event capture.
+
+Before ExecutionContext or the logging pipeline exists, use safe terminal diagnostics without invented workflow/agent IDs. The context-based helper contract remains required for execution logs. Initialization/export/cleanup failures follow LD21; diagnostics must not recurse through the failing exporter. Exact startup diagnostic transport, level filtering, sanitized error details and stack-trace treatment remain M2 design details.
+
+These are coverage requirements and delegated placement decisions, not approval of a completed M2 implementation contract.
