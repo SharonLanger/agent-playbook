@@ -1,6 +1,6 @@
 # Stage 03 — CrewAI concepts and recipes
 
-Status: **Learning direction and organization agreed; exact recipe batch remains proposed. No implementation is authorized by this documentation update.**
+Status: **All eight illustrated recipes approved by Sharon on 2026-11-15. S03.M1 handoff package prepared for another Codex session; no implementation or verification performed here.**
 
 [Decision log](decisions.md) records sources, rationale, superseded proposals and open choices. This README is the specification, coverage map and canonical batch index. Stage Design PR: [#52](https://github.com/SharonLanger/agent-playbook/pull/52).
 
@@ -16,7 +16,7 @@ Stage 02 is completed. Logging remains a separate workstream. Stage 04 agent exe
 
 | ID | Requirement | Authority / status |
 |---|---|---|
-| S03-R01 | A bounded collection of useful, permanent, copyable recipes; select the exact batch together. | Agreed direction; final list pending |
+| S03-R01 | A bounded collection of eight useful, permanent, copyable recipes C01–C08. | Batch accepted in U09 |
 | S03-R02 | Map existing coverage first. Reuse prior examples, while allowing an existing concept to be composed into a practical recipe. | User clarification; revision-loop recipe explicitly requested |
 | S03-R03 | Check the CrewAI behavior being taught using example output and focused temporary verification where useful. No application or trace integration acceptance. | User clarification supersedes the initial application/tracing interpretation |
 | S03-R04 | CrewAI remains scheduler and Flow state owner. Label ordinary Python logic honestly; do not invent a new orchestration framework. | Existing architecture; scoped to standalone examples |
@@ -26,7 +26,7 @@ Stage 02 is completed. Logging remains a separate workstream. Stage 04 agent exe
 | S03-R08 | Preserve decisions, rationale, sources and pending choices. | Agreed |
 | S03-R09 | Organize app/examples/workflows into concepts/ for existing examples and recipes/ for practical compositions. | Explicitly accepted; move not performed yet |
 | S03-R10 | Each new recipe contains README.md, flow.py, run.py and input.json. README is the learning guide. | Explicitly accepted |
-| S03-R11 | No permanent new test files. Temporary verification may be used and must be removed before implementation merge; retain a brief evidence summary. | Explicit user instruction |
+| S03-R11 | No permanent new test files. Temporary verify.py scripts are required for review and Sharon's own runs; retain them until his hands-on check, then remove before merge and preserve evidence. | Explicit user instruction |
 | S03-R12 | Direct PyCharm run.py execution and copying a whole recipe folder are primary uses. No imports from another example or application runtime are needed. | Agreed independence goal |
 
 Existing tests in the older concepts are not authorized for deletion by R11; that instruction concerns new recipes and temporary checks.
@@ -44,12 +44,12 @@ The proposed reorganization stays inside the existing examples boundary. Move-re
 
 Each recipe's four core files:
 
-- README.md: use case, teaching keywords, a small readable flow drawing, run instructions, expected behavior, walkthrough, editable knobs, copy/adaptation notes, limits and links to relevant official CrewAI documentation.
+- README.md: title followed immediately by its approved diagram, then use case, teaching keywords, run instructions, expected behavior, short wiring walkthrough, editable knobs, copy notes and limits. Relevant official documentation links form the footer.
 - flow.py: inspectable CrewAI wiring, state and simple Python work.
 - run.py: direct entry point; input resolved relative to the recipe folder so the working directory does not matter.
 - input.json: small editable scenario values.
 
-Keep setup minimal. If the pinned framework needs example-local configuration, explain it and avoid pulling in application configuration. Do not create extra scaffolding by default. Follow the repository diagram-authoring guidance when actual drawings are produced; none are introduced in this update.
+Keep setup minimal. If the pinned framework needs example-local configuration, explain it and avoid pulling in application configuration. Do not create extra scaffolding by default. The approved [diagram reference](diagrams/approved-preview.html) now travels with this design. Follow the repository diagram-authoring guidance when producing final portable assets inside recipe folders.
 
 ## Existing coverage map
 
@@ -68,45 +68,43 @@ Code, example documentation and selected tests were inspected at main 4ed7a318e2
 
 The [existing collection guide](../../../app/examples/workflows/README.md) describes independent copy/run behavior. Official WF-03 also covers exclusive routing, but these recipes do not depend on that application workflow.
 
-## Expanded candidate menu — exact batch not selected
+## Approved batch — S03.M1
 
-Sharon likes the original three areas and requested more variations, plus loops. The following menu translates that direction into discussion candidates; it does not approve eight implementations or fix their numbering.
+Sharon approved every diagram and explanation in the eight-recipe walkthrough. [Detailed design](m1-recipe-batch/design.md), [verification cases](m1-recipe-batch/test-cases.md) and [implementation plan](m1-recipe-batch/implementation-plan.md) specify one batch; no per-recipe handoff cycles.
 
-| Candidate | Practical example | Teaching keywords | Decision still needed |
-|---|---|---|---|
-| C01 — Combine parallel results | Compute sum and maximum independently, then create one report. | Parallel work, join, state, aggregation | Final data shape and simple completion-order variation |
-| C02 — Select one parallel result | Produce several deterministic candidates and choose one result. | Parallel work, selection, convergence | Choose best after all finish, first completed, or first acceptable? These are different contracts; no cancellation promise. |
-| C03 — Conditional parallel work | Basic mode performs one calculation; detailed mode performs parallel calculations and combines them. | Router, selected path, join | Exact routes and convergence |
-| C04 — Conditional follow-up | Compute a result, then route to either a final answer or additional parallel work. | Composition, routing after work, parallel branch | Whether this adds enough value beyond C03 |
-| C05 — Any failure fails the flow | One branch raises while siblings are active; inspect what happens to the overall flow and join. | Exceptions, failure propagation, sibling behavior | Native behavior on the pin; failure does not imply immediate sibling cancellation |
-| C06 — Failure threshold | Collect a fixed small group of outcomes; fail overall when failures reach a configured count, e.g. three. | Outcome collection, counters, threshold, final decision | Total branch count and early vs end-of-batch evaluation; distinguish recorded failure outcomes from uncaught exceptions |
-| C07 — Fixed repetition | Perform a small update exactly N times, e.g. three, then finish. | Counter, loop, termination | Prefer flow-level repeated routing when teaching transitions; label any ordinary Python loop as Python |
-| C08 — Bounded revision cycle | A fake coder updates a counter; a fake reviewer returns revise/accept; route back until accepted or a maximum is reached. | Feedback loop, router, state, bound | Acceptance and exhaustion outcomes; no actual agent calls |
+| Recipe | Approved behavior | Folder under app/examples/workflows/recipes/ |
+|---|---|---|
+| C01 | Combine sum and maximum after both parallel branches finish | recipe_01_parallel_results |
+| C02 | Wait for all candidates, then choose highest score; deterministic tie rule | recipe_02_select_result |
+| C03 | Basic/detailed input selects single work or parallel work, then common report | recipe_03_conditional_parallel |
+| C04 | Initial sum determines whether additional parallel analysis runs | recipe_04_conditional_followup |
+| C05 | One branch's exception makes the overall run fail; observe sibling behavior honestly | recipe_05_parallel_failure |
+| C06 | Wait for all five outcomes, then fail at configured count, default three | recipe_06_failure_threshold |
+| C07 | Repeat through Flow routing exactly N times, default three | recipe_07_fixed_loop |
+| C08 | Fake coder/reviewer feedback until accepted or maximum attempts | recipe_08_revision_loop |
 
-C01 maps to earlier G1; C03/C04 elaborate G2; C05/C06 elaborate G3. C02/C07/C08 broaden the earlier list. These IDs are discussion identifiers, not milestone IDs or final folder numbers.
+C01 maps to G1; C03/C04 elaborate G2; C05/C06 elaborate G3. C02/C07/C08 expand the earlier scope. No first-winner race, retries/fallback, real agents or durable recovery. Threshold/selection decisions are Python policy wired through CrewAI, not asserted native framework features.
 
-Counters and thresholds may be plain Python business logic connected by CrewAI. Do not advertise a custom failure-count policy or selection rule as a native framework feature. Inspect official guidance and the pinned runtime only as needed to explain behavior accurately.
+## Teaching, temporary tests and acceptance
 
-Retry/fallback recovery remains deferred. The requested revision loop is a normal workflow feedback path, not automatic exception recovery. Variable-size fan-out remains an unselected idea; no durable recovery or tracing infrastructure is added.
+The README starts with the approved diagram and explains “change this value/route and execution follows this path.” Keep it practical; official sources appear at the bottom.
 
-## Teaching and verification
+New code stays inside the individual recipe folders. Temporary verify.py scripts also live there, are pushed with implementation and independently runnable by Sharon, and are inspected by the reviewers. Do not remove them at the first handoff. After Sharon's hands-on review, delete temporary verification files before merge and retain immutable pre-cleanup evidence. Existing concept tests remain preserved.
 
-README should show “change this value or this route, and execution follows this path” with a small diagram and concise code explanation. It is a practical reference, not a deep framework course.
+Only CrewAI recipe behavior and directly affected files are checked; no integration testing of unrelated application behavior. No code tests or final SVG rendering have been run in this design session.
 
-Verify the batch's direct-run behavior and meaningful outputs, including the chosen failure/loop cases. Temporary checks are allowed but do not remain as merged test files or join application gates. Keep a short record of commands, observed behavior, limitations and removed temporary checks. No runtime verification has been performed for this draft menu.
+## Canonical milestone index
 
-## Canonical batch index and next step
+| Milestone / outcome | Design and approved revision | Implementation PR | Review evidence | Acceptance | Merge |
+|---|---|---|---|---|---|
+| S03.M1 — eight runnable copyable recipes and concepts/recipes organization | Eight visuals/behaviors approved U09; exact package pinned in outgoing handoff | Not opened | Not started | Delivered-code acceptance pending | PR #52 draft/open; no implementation merge |
 
-| Batch / milestone | Scope / approval | Implementation PR | Evidence / acceptance | Merge state |
-|---|---|---|---|---|
-| First recipe batch — ID not allocated | Directions agreed; exact selection and concise flow descriptions pending | Not opened | Not run / not accepted | Design PR #52 draft/open |
-
-Discuss the candidate menu next. Then agree the whole batch's short flow descriptions, drawings, keywords and expected observations together. Do not impose a separate design/implementation round per recipe. Detailed rollout and any remaining handoff artifacts should be proportional to this learning scope.
+Start with [M1 README](m1-recipe-batch/README.md). The outgoing handoff gives immutable links and the full contract SHA. Sending that prompt authorizes its concrete revision. Codex implements the whole batch using one coder plus independent design-drift and test-gap/behavior reviewers; maximum three rounds on frozen candidates. This design session reviews the returned evidence before any merge.
 
 ## Governing records and reconciliation
 
 [Roadmap](../../roadmap.md), [charter](../../charter.md), [principles](../../principles.md), [architecture](../../architecture.md), [project structure](../../project-structure.md), [progress](../../progress.md), [design contract](../../governance/design-contract.md), [guards](../../governance/guarded-files.md), [stage process](../../governance/stage-milestone-workflow.md), [handoff rules](../../governance/codex-handover-rules.md).
 
-Sharon's explicit standalone CrewAI/no-permanent-tests/batch instructions govern this stage's working direction. The global roadmap still mentions correlated traces as Stage 03 evidence; this package records the narrower user-approved direction rather than claiming those words have been amended. Reconcile the applicable shared roadmap/progress/Atlas descriptions before final stage approval/closeout. No general governance rewrite, guarded amendment, runtime change or folder move is performed in this two-file update.
+Sharon's explicit standalone CrewAI/no-permanent-tests/batch instructions govern this stage's working direction. The global roadmap still mentions correlated traces as Stage 03 evidence; this package records the narrower user-approved direction rather than claiming those words have been amended. The design session owns shared roadmap/progress/Atlas semantic reconciliation before stage closeout; this does not add integration work to the explicit recipe-only contract. No general governance rewrite, runtime change or folder move is performed by this handoff-authoring turn. The package and diagram reference are permanent stage material.
 
 Stage Design PR #52 remains open/draft; batch implementation and stage closeout merge authorization are separate. No auto-merge.
