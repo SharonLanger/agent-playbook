@@ -1,28 +1,30 @@
 # Application logging design
 
-**DRAFT — research/requirements workspace; no implementation approval.**
+**DRAFT — selected direction; concrete milestone approval pending.**
 
-Logging is an independent follow-on related to completed Stage 02, not a new stage or a prerequisite for Stage 03/04. Sharon requested this workspace on 2026-11-15. Placement matches [Stage 02 closeout](../../stages/02-langfuse/closeout.md) and [repository progress](../../progress.md).
+Independent logging follow-on to completed Stage 02. It does not block Stage 03/04. Keep [PR #51](https://github.com/SharonLanger/agent-playbook/pull/51) draft and open; no merge or runtime implementation is authorized by this documentation update.
+
+## Current direction
+
+Python logging → OpenTelemetry OTLP/HTTP → local VictoriaLogs (storage, query and built-in UI). The runner initializes logging once per CLI run and flushes on exit. Workflow/agent calls use context + message through small level helpers. No mandatory Collector, Fluent Bit, JSONL or structlog.
 
 ## Reading order
 
-1. [History and alignment](history/2026-11-15-kickoff.md)
-2. [Requirements / initial specs](requirements.md)
-3. [Decisions and open questions](decisions.md)
-4. [Proposed research](research/README.md)
-5. [Progress](progress.md)
-6. [Repository impact and verification](repository-updates.md)
+1. [Requirements](requirements.md)
+2. [Decisions and unresolved choices](decisions.md)
+3. [Direct OTLP research](research/2026-11-15-direct-otlp.md)
+4. [M1 configuration sanity](m1-configuration-sanity/README.md)
+5. [Progress](progress.md) and [repository impact](repository-updates.md)
+6. [Deferred setup/CLI actions](action-items.md)
 
-## Candidate outcomes — not approved milestones
+## Milestones
 
-| Outcome | Prerequisite | Boundary | Status |
+| ID / outcome | Design / approved SHA | Implementation | Acceptance / merge |
 |---|---|---|---|
-| Correlated application records | Agree API, schema and outage policy | Context inheritance, useful errors and agreed recording destination | Proposed |
-| Search and inspect records | Select storage/viewer | Query before loading; bounded results and client-side filtering; no custom viewer | Proposed; may combine with first outcome |
-| Automatic observation/event capture | Explicit scope and supported mechanism demonstrated | Selected records only; no tracing broker or blanket duplication | Deferred |
+| [M1: local configuration and synthetic log visible](m1-configuration-sanity/README.md) | Draft design/tests/plan; no approved SHA | Not started | Pending; unmerged |
+| M2: runner-owned context logging | Proposed boundary; detailed context, error and outage contract next | Not started | Pending |
+| Later: service management/setup | Existing requirements retained; no detailed milestone yet | Not started | Deferred |
 
-Once boundaries are agreed, create each milestone's README, design, test-cases and implementation-plan together under the [working method](../../governance/stage-milestone-workflow.md). No empty milestone/review scaffolding or invented PASS reports now. Follow [handover rules](../../governance/codex-handover-rules.md) when preparing an approved implementation handoff.
+M1 demonstrates the selected path with synthetic data. M2 connects it to normal workflow execution. Keep later details draft until needed; use the [milestone method](../../governance/stage-milestone-workflow.md).
 
-Keep this design PR open for iteration; merge only when Sharon explicitly requests it. No runtime changes, auto-merge or backend adoption are authorized.
-
-Latest: [VictoriaLogs source research](research/2026-11-15-victorialogs.md), [Compose/setup/CLI action items](action-items.md), and [follow-up history](history/2026-11-15-replaceability-and-setup.md). Docker is accepted; backend replacement and configuration-first integration are firm requirements. Candidate not selected or runtime-tested. Next: discuss the minimal collector approach and approve a bounded probe.
+Historical starting points: [kickoff](history/2026-11-15-kickoff.md), [earlier collector research](research/2026-11-15-victorialogs.md), [setup discussion](history/2026-11-15-replaceability-and-setup.md). LD15 supersedes the earlier collector recommendation.

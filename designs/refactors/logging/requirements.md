@@ -58,7 +58,19 @@ These are explicit user requirements; the detailed implementation is not yet app
 | LOG-16 | Component Compose files plus one umbrella entry point | Langfuse/logging separately owned; combined startup; component isolation and existing data/secret identity preserved |
 | LOG-17 | Clear prerequisites and repeatable component/all-services setup | Docker installed and engine running; explicit Compose minimum and tested versions; bounded readiness, idempotence and actionable errors |
 | LOG-18 | Logging management CLI mirrors langfuse action flags | Start/stop/status/open/check and diagnostics; exact install/aggregate spelling pending; no custom framework |
-| LOG-19 | Verify the actual logging path | Distinguish service availability from explicit synthetic emit/collector/ingest/query round trip; bounded timeouts and honest failure |
+| LOG-19 | Verify the actual logging path | Distinguish service availability from explicit synthetic emit/export/ingest/query round trip; bounded timeouts and honest failure |
 | LOG-20 | Configuration-first, low/no custom infrastructure | Existing logger/collector/store/UI; explain necessary setup/context/CLI glue; no broker solely for abstraction |
 
 Docker services are accepted. LOG-05's outage policy remains open. LOG-08 requires an Apache-2.0 option for new selected projects; MIT-only does not qualify. Exact bundled/transitive artifact licensing is a review gate, not yet certified. See [research](research/2026-11-15-victorialogs.md) and [action items](action-items.md).
+
+## Current scope clarification — 2026-11-15
+
+| ID | Requirement | State |
+|---|---|---|
+| LOG-21 | Initialize logging once per CLI run invocation at the runner/composition boundary; flush/shutdown during cleanup on success or failure; no per-step setup | Agreed direction |
+| LOG-22 | Application logging helpers require context and message; keep room for optional attributes without allowing identity overwrite | Agreed shape; exact context/schema deferred |
+| LOG-23 | Direct OTLP/HTTP to self-hosted VictoriaLogs with local storage/UI; no required intermediary collector or JSONL file | Selected direction; pinned setup to validate |
+| LOG-24 | Local-only logging configuration: local endpoint, local Docker daemon/storage, loopback UI exposure, no remote forwarding/fallback | Required; source-backed setup, no absolute host-wide guarantee |
+| LOG-25 | First milestone is a small opt-in configuration/logging sanity check using synthetic data | Draft M1; no broad reliability/security audit |
+
+LOG-19 is satisfied initially by a bounded smoke demonstration, not a new general test framework. LOG-11 reliability scenarios remain later work, not an M1 completion condition. LOG-17/18 setup and management CLI requirements are retained but deferred. Which application context is accepted, optional-field types, exception/stack handling and production outage behavior must be settled for runner integration. No whole-context serialization.

@@ -2401,22 +2401,28 @@
           "parent": "observability",
           "label": "Design workspace / Draft",
           "title": "Design correlated local application logs",
-          "text": "Configuration-first logging with a replaceable backend; Docker/component Compose and setup/CLI requirements recorded. VictoriaLogs source research completed; no runtime approval.",
+          "text": "Direct local OpenTelemetry to VictoriaLogs selected as design direction; runner-owned lifecycle and context/message helpers agreed. M1 configuration sanity draft; no runtime implementation.",
           "blocks": [
             {
               "name": "Requirements and decisions",
               "path": "designs/refactors/logging/requirements.md",
-              "text": "Context inheritance, error semantics and local filtering; API and outage policy unresolved.",
+              "text": "Context/message API shape agreed; exact context and production outage policy pending.",
               "to": null
             },
             {
               "name": "Research agenda",
               "path": "designs/refactors/logging/research/README.md",
-              "text": "Official VictoriaLogs/Fluent Bit/structlog evidence; proposed collector path, licenses and remaining runtime/UI gaps.",
+              "text": "Direct OTLP source evidence and pinned-version proposal; earlier collector research preserved as history.",
+              "to": null
+            },
+            {
+              "name": "M1 configuration sanity",
+              "path": "designs/refactors/logging/m1-configuration-sanity/README.md",
+              "text": "Draft design, bounded smoke cases and implementation plan; no approved SHA.",
               "to": null
             }
           ],
-          "note": "DRAFT / EXPLORATION: no backend, milestone or runtime implementation approved.",
+          "note": "DRAFT: direction agreed; concrete milestone implementation approval pending.",
           "status": "exploration",
           "source": "designs/refactors/logging/README.md"
         }

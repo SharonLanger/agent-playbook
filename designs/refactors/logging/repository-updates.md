@@ -47,3 +47,9 @@ Documentation checks PASS: Atlas build and freshness/reference/hierarchy/guard/s
 Added LOG-15–20, LD10–14, action items, dated follow-up and official-source research. No guarded/runtime edits. Later Compose migration must preserve the current observability project/volume identities; future implementation changes public setup/CLI guides, but these design notes do not invent supported commands. Source research completed; runtime probes and exact artifact-license audit not run. Prior verification above describes the initial commit only; new documentation checks accompany this update.
 
 Follow-up checks PASS: Atlas generation/freshness/references/guards; 23 relative links plus fences/whitespace across 10 package files. Research/configuration examples are illustrative and unexecuted.
+
+## Runner / direct OTLP / M1 draft update
+
+Recorded LD15–19 and LOG-21–25; superseded the collector-first recommendation while preserving its dated research. Added M1 design/test-cases/implementation-plan and current direct-OTLP source notes. Runner initialization is agreed direction; exact production context and outage contracts remain open. No guarded file, runtime, dependency or public supported behavior changed. The existing all-principle assessment still applies; M1 supplies its specific assessment.
+
+Verification: Atlas build and --check PASS; 32 relative links in the logging package checked against known repository paths, plus Markdown fences/trailing whitespace PASS. Docker is absent; runtime smoke and application tests NOT RUN (documentation-only update). PR #51 remains draft/open; no concrete milestone approved or implementation started. Shared project/stage status remains accurate and needs no change.

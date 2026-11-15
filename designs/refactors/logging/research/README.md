@@ -3,7 +3,7 @@
 **Research agenda with an initial source review.**
 See [2026-11-15 VictoriaLogs research](2026-11-15-victorialogs.md) for verified documentation/license evidence and remaining gaps. No runtime experiments or benchmarks performed. Exact artifact pins and bundled-license review remain pending.
 
-## Candidate architectures
+## Historical candidate architectures
 
 | Option | Proposed responsibilities | Main question |
 |---|---|---|
@@ -25,10 +25,14 @@ Structlog and VictoriaLogs have different responsibilities and may be combined. 
 | R05 | Validate selected storage/delivery | Pinned versions; restart, rotation, concurrent writers, disk/queue limits, flushing, replay/duplicate measurements |
 | R06 | Trace/event integration if selected | Supported native enrichment/capture; no broker or duplicate records; Stage 04 coordination |
 
-Suggested start: R01 and a paper comparison for R02/R03. Shortlist before installing anything. R04/R05 follow selection; R06 remains deferred.
+Current next step: [M1 configuration sanity](../m1-configuration-sanity/README.md) for the selected direct-OTLP direction. R01 matters before production integration; broader R04/R05 and R06 remain later work.
 
 ## Future research record
 
 Create a dated record per executed task: question and LOG/LQ IDs; candidate/version/license; official source URLs/access date; method/commands/environment; actual results; assumptions; operational/custom-code cost; recommendation; limitations/open questions. Distinguish source findings, observations and inference. Use synthetic fixtures outside app/examples.
 
 No runtime PASS results, benchmarks or dependency selections are asserted. Project-level license findings are documented in the source review; full artifact compliance is not certified.
+
+## Current selection
+
+[Direct OTLP findings](2026-11-15-direct-otlp.md) supersede the collector-first recommendation. Python standard logging plus the OpenTelemetry bridge/exporter sends directly to VictoriaLogs. Historical alternatives remain for reference, not parallel implementation work.

@@ -4,12 +4,13 @@ Updated 2026-11-15. [Repository progress](../../progress.md) owns stage status.
 
 | Area | Design | Implementation / verification | Acceptance |
 |---|---|---|---|
-| Workspace and preserved handover | Initial draft | Documentation-only checks | No locked design |
-| Candidate stack research | Source review completed for VictoriaLogs/Fluent Bit/structlog | Official documentation/project licenses checked; no runtime probe | No stack selected |
-| API/context contract | Open | Existing context inspected; no logging implementation | Not approved |
-| Storage/viewer operations | Open | No service/probe run | Not approved |
-| Event/observation capture | Deferred | Not implemented by this work | Not approved |
+| Stack | Direct Python logging / OpenTelemetry / local VictoriaLogs selected as direction | Official-source review; no service run | Concrete version/config approval pending |
+| Lifecycle/API | Runner-owned init/cleanup; context + message agreed | No runtime changes | Exact context/error/outage details pending |
+| M1 configuration sanity | Design/test/plan drafted | Not started; Docker unavailable in design environment | No approved SHA |
+| M2 runner integration | Proposed next outcome | Not started | Not approved |
+| CLI/setup/Compose migration | Requirements retained | Not started | Deferred |
+| Event/observation capture | Deferred | Not implemented | Not approved |
 
-No implementation PR, approved SHA or accepted milestone exists. Stage 02 remains complete; Stage 03/04 are not blocked.
+Design PR #51 remains draft/open. No logging milestone implemented, accepted or merged. Stage 02 remains complete; Stage 03/04 remain independent.
 
-Docker/component Compose, replaceability, low-code and CLI/setup requirements are recorded. See [action items](action-items.md) and [source review](research/2026-11-15-victorialogs.md). Next: discuss the candidate and outage policy; scope a pinned probe.
+Next: review M1's bounded scope and pinned configuration, approve its concrete revision, then implement the smoke check in a separate PR. Production outage policy is not required to demonstrate M1 but is required for M2.
