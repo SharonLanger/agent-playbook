@@ -20,9 +20,9 @@ M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #
 ## Historical M4.1 handoff / M4.2 planning — 2026-11-14
 
 [Draft PR #43](https://github.com/SharonLanger/agent-playbook/pull/43) contains the
-[context design](stages/02-langfuse/workflow-integration/m1-context/design.md),
-[separate test cases](stages/02-langfuse/workflow-integration/m1-context/test-cases.md)
-and [Codex implementation/review plan](stages/02-langfuse/workflow-integration/m1-context/implementation-plan.md).
+[context design](stages/02-langfuse/workflow-integration/01-context-design.md),
+[separate test cases](stages/02-langfuse/workflow-integration/01-context-test-cases.md)
+and [Codex implementation/review plan](stages/02-langfuse/workflow-integration/01-context-implementation-plan.md).
 Sharon authorized drafting, accepted a stable application correlation_id and requested
 one coder plus independent design-drift/test reviewers, with permanent reports and
 at most three total rounds. Sharon now reports sending the explicit M4.1 implementation
@@ -352,6 +352,12 @@ implementation plan at `11bba581291c1b166973848ea8db6a9e2a142413`, including
 G01–G08. The focused `feat/m4-1-context` branch implements data-only context
 identity and runner/factory/Workflow/CrewAI Flow forwarding. The branch is under
 its capped independent review; candidate and check evidence belong in
-[permanent review status](stages/02-langfuse/workflow-integration/m1-context/reviews/status.md).
+[permanent review status](stages/02-langfuse/workflow-integration/reviews/context/status.md).
 This is unmerged implementation evidence, not Stage 02 acceptance. M4.2 tracing,
 M4.3 instrumentation and local logging remain later work.
+
+## Roadmap and reusable governance alignment — 2026-11-15
+
+Sharon approved applying PR #46's broad roadmap direction through PR #48, the Stage 04-only sequencing exception, deferred logging, incremental milestone approval and the Stage Design PR convention. This is an approved documentation/governance change; it does not mark Stage 02 complete or Stage 04 implemented. Stage-specific files, their PR titles and detailed design reconciliation remain with their owners.
+
+The permanent [roadmap approval record](roadmap.md#approval-and-scope-record) preserves the handover's lasting decisions. [Stage working method](governance/stage-milestone-workflow.md) and [Codex handover rules](governance/codex-handover-rules.md) own the reusable process, including frozen handoff contracts. Runtime architecture/structure, application behavior and existing stage acceptance are unchanged. C01/Q12 ownership reconciliation remains with Stage 04's owner and is not resolved by this roadmap change.

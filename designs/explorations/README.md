@@ -10,3 +10,4 @@ These are optional research, POCs and preserved reasoning. They can be supersede
 
 Before introducing a module, consult relevant topics and record which reasoning you reused, rejected or extended. Link new research here with its status, sources and unresolved questions. Promotion requires explicit approval and an update to the affected guarded decision; moving a file does not approve it.
 
+The [roadmap](../roadmap.md) now places the basic shared harness/fake foundation in Stage 04 and native SDK integration in Stage 05. Advanced harness features remain optional exploration. This stage-level direction does not promote every exploratory schema or candidate folder to an approved implementation contract.
