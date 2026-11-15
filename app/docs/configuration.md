@@ -248,3 +248,9 @@ No new PyCharm task is required. Existing Run/WF tasks use the default selection
 add `--config` to their parameters only when selecting another file.
 
 A selected entry or defaults error names the configured ID, field and validation type (for example, `customer-job CONFIGURATION: defaults.initial (int_type)`). A selected flow import or construction defect exits 1 with its phase; invalid implementation settings explicitly reported as configuration exit 2. Release creation still prepares and executes every built-in implementation, even though normal runs load only the selected flow.
+
+### Tracing lifetime and quiet Flow limitation
+
+Langfuse enablement now controls native runner tracing as well as explicit connection/mock operations. Set destination and keys using the existing [Langfuse settings](#langfuse-settings); no second exporter or cloud telemetry service is needed. Startup applies CrewAI telemetry settings before instrumentor/framework initialization. Tracing settings are process-scoped; restart a Python process when changing them. Disabled mode needs no exporting pipeline.
+
+The pinned automatic instrumentor skips Flow/method spans when `show_framework_events: false`; this is a known limitation of complete automatic tracing with the quiet default. The setting retains its existing display behavior. See [native workflow tracing](workflows.md#native-workflow-tracing) for scope, payload and cleanup behavior. Native input/output/exception capture does not automatically redact secrets embedded in business data.

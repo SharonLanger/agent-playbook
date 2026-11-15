@@ -11,4 +11,9 @@ def assemble_runtime(config_path: str | None = None) -> ApplicationSettings:
 
     application = load_configuration(config_path)
     configure_crewai(application.integrations.crewai)
+    from agent_playbook.observability.adapters.langfuse.runtime import (
+        initialize_tracing,
+    )
+
+    initialize_tracing(application.integrations.langfuse)
     return application

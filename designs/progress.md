@@ -1,6 +1,6 @@
 # Progress and acceptance
 
-Updated 2026-11-14. This file owns current project status; [architecture.md](architecture.md)
+Updated 2026-11-15. This file owns current project status; [architecture.md](architecture.md)
 describes the target system. Stage summaries own milestone detail and findings retain dated evidence.
 
 ## Current status after the PR #36 merge
@@ -9,13 +9,19 @@ describes the target system. Stage summaries own milestone detail and findings r
 |---|---|---|---|---|
 | Stage 00 — development environment | Complete | Recorded in the [Stage 00 findings](stages/00-environment/findings.md) | Accepted | Merged through PR #26 |
 | Stage 01 — CrewAI Flows | Completed and locked; three workflows, CLI/configuration, independent experiments, runtime structure refactor and workflow-contract refactor complete | Revision-specific checks in [Stage 01 findings](stages/01-crewai-flows/findings.md), [runtime refactor evidence](refactors/2026-11-12-runtime-structure/verification.md) and [workflow-contract evidence](refactors/workflow-contract/README.md) | Sharon confirmed Stage 01 completion after PR #38 and PR #40 merged | PR #30, #32, #34, #38 and #40 merged; workflow contract merge `a98e1041c0edb51a447472b6ebd78ab2a650150b` |
-| Stage 02 — Langfuse | M1–M3, management CLI and YAML-selected external credentials implemented on PR #36; M4.1 implemented, final-reviewed and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6; M4.2 design active, M4.3 deferred | 363-test gate at `dafeaed`; Sharon confirmed local project access, synthetic traces, trace-ID inspection and stop/start persistence; delivery readback limitation retained | Local setup and mock-trace exercise accepted on 2026-11-14; whole stage remains in progress | PR #36 merged as `44d6919`; application version 0.1.3; final local-state test fix `0a5bf88` included |
+| Stage 02 — Langfuse | M1–M3, management CLI and YAML-selected external credentials implemented on PR #36; M4.1 implemented, final-reviewed and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6; M4.2/M4.3 combined design approved at ab3fab459c97eed44cc0b202402e559a827a71cf; unmerged implementation blocked by pinned instrumentor quiet-mode behavior | 363-test gate at `dafeaed`; Sharon confirmed local project access, synthetic traces, trace-ID inspection and stop/start persistence; delivery readback limitation retained | Local setup and mock-trace exercise accepted on 2026-11-14; whole stage remains in progress | PR #36 merged as `44d6919`; application version 0.1.3; final local-state test fix `0a5bf88` included |
 
 Stage 01 details and retained learning material are in the [stage summary](stages/01-crewai-flows/README.md). The [roadmap](roadmap.md) owns intended sequencing; later stages remain high-level.
 
 ## M4.1 current closeout — 2026-11-14
 
-M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred. PR #43 merged as c8f129e. Reviewed candidate 16c1580 passed the reported 380-test quality gate/release and final reviewer's independent 43-test rerun. See [final review](stages/02-langfuse/workflow-integration/history/context-final-review.md). Documentation conflicts and duplicate D30 are reconciled without runtime/test changes; the merge was confirmed by GitHub at 942e59344c429454263319e783ea76ad297b7ea6.
+M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 combined contract is approved; the unmerged `impl/m4-2-3-native-tracing` candidate implements native runner setup/scopes/CLI delivery, but automatic Flow tracing is blocked by the pinned instrumentor’s quiet-mode behavior. Logging remains deferred. PR #43 merged as c8f129e. Reviewed candidate 16c1580 passed the reported 380-test quality gate/release and final reviewer's independent 43-test rerun. See [final review](stages/02-langfuse/workflow-integration/history/context-final-review.md). Documentation conflicts and duplicate D30 are reconciled without runtime/test changes; the merge was confirmed by GitHub at 942e59344c429454263319e783ea76ad297b7ea6.
+
+## M4.2/M4.3 implementation checkpoint — 2026-11-15
+
+Sharon approved the design/test/plan at `ab3fab459c97eed44cc0b202402e559a827a71cf` and narrow RUN-G01–08 amendments. Base: main `fefe4cc1065642b710a018ecb1088ececde852db`; governance `293fe88a404f9aa9bd37e897b6d65f0ef4d0ee1f` is included. Branch `impl/m4-2-3-native-tracing` is unmerged. The native setup, runner scopes/three-field propagation and CLI finally delivery are implemented; context/business Flow settings remain unchanged.
+
+Actual runner integration reveals a blocker: OpenInference CrewAI 1.1.25 skips all automatic Flow/method observations under the maintained quiet setting. Tests preserve the expected hierarchy and fail rather than treating runner-only export as complete. See the [permanent follow-up](stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/follow-ups.md) for released-source evidence and unapproved choices. The approved package remains frozen on draft PR #47. Automated verification, independent review, installed-release integration and live UI/user acceptance remain distinct; no completion or acceptance is claimed.
 
 ## Historical M4.1 handoff / M4.2 planning — 2026-11-14
 

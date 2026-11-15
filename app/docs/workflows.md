@@ -87,5 +87,15 @@ Python integration code can read `workflow.context` or `flow.context`.
 value that retains the workflow and correlation identities. The caller supplies
 an identity for each agent invocation; this method does not execute an agent.
 The context is separate from CrewAI state and ordinary Flow serialization.
-CLI flags and displayed workflow results are unchanged. Tracing and Langfuse
-export are planned as later milestones; a correlation ID is not a trace ID.
+CLI flags and displayed workflow results are unchanged. A correlation ID is not a
+trace ID; native tracing uses the SDK’s active trace identity as described below.
+
+## Native workflow tracing
+
+When `integrations.langfuse.enabled` is true, application startup initializes the pinned Langfuse client and CrewAI instrumentor. The runner creates one native observation after workflow selection and context creation, enclosing construction, input validation, execution and result serialization. It propagates `correlation_id`, `workflow_id` and `workflow_run_id`; clients and trace handles are not stored in the application context. Configuration and selection errors before that boundary have no runner observation.
+
+**Current limitation:** the pinned CrewAI instrumentor 1.1.25 skips automatic Flow and method observations when `show_framework_events` is false (the quiet default). Runner observations still close on success and failure, but complete automatic workflow hierarchy is not available with that setting. Full combined integration acceptance is pending; do not treat a runner-only trace as evidence of captured steps.
+
+The CLI attempts native flush in `finally` after observations close, including workflow failures. Flush attempts delivery; it does not prove ingestion. Unexpected cleanup errors emit a fixed diagnostic and preserve the computation result or original error. Hard termination cannot run cleanup. Python callers share SDK resources across calls; configuration is process-scoped, and changing tracing configuration requires a fresh process. Disabled tracing creates no exporting client or instrumentor for that invocation.
+
+Where native instrumentation emits observations, its capture retains workflow inputs, outputs and exception details. Application settings and credentials are not passed as trace payloads. Arbitrary secrets placed in business input or exception messages are not automatically recognized or redacted. Keep those values out of workflow data and exceptions.

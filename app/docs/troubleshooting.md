@@ -113,3 +113,9 @@ folder and version. A screenshot of the actual error is more useful than only th
 Check that the selected ID exists and is enabled under `workflows` in the active YAML. An unknown implementation key or invalid selected defaults is a configuration error (exit 2). Invalid JSON or explicit workflow input rejection also exits 2. A prepare, execute, output validation or serialization failure exits 1 and names its phase; inspect the local exception cause for debugging. Error messages omit input and configuration values.
 
 A `SETUP` or `CONSTRUCTION` failure is an application defect (exit 1); `PREPARE`, `EXECUTE`, `VALIDATE_OUTPUT` and `SERIALIZE_OUTPUT` identify later phases. A selected implementation settings error remains a configuration error (exit 2). Input/schema diagnostics use the configured workflow ID, including aliases, and safe field/error types. If a required built-in flow dependency is broken, normal runs of other IDs can still work, but release verification fails when it exercises that built-in.
+
+## Runner trace has no Flow or method children
+
+The pinned CrewAI instrumentor 1.1.25 skips these observations when the Flow suppresses framework events. The normal `show_framework_events: false` setting triggers that behavior. A visible runner observation therefore does not establish complete automatic workflow tracing. This limitation currently blocks combined integration acceptance; changing the display setting changes console behavior and has not been adopted as a quiet-tracing fix.
+
+If no runner observation is visible, check Langfuse enablement, endpoint/project keys and server availability using the [connection guide](langfuse-connection.md). The CLI's flush is a delivery attempt; verify actual ingestion in the UI. A cleanup diagnostic does not mean the workflow computation failed.

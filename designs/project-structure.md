@@ -56,8 +56,8 @@ All paths below are relative to `app/src/agent_playbook/`.
 | `workflows/` | Shared ABC/lifecycle/errors and named packages with `workflow.py`, `flow.py`, `state.py`, `steps.py` | Stage 01 CrewAI flows with application-facing wrappers |
 | `execution/` | Provider-independent agent execution contracts | Responsibility note |
 | `execution/adapters/` | Separate SDK/provider implementations | Responsibility note |
-| `observability/` | Provider-neutral events, correlation and redaction | Responsibility note |
-| `observability/adapters/` | Exporters such as Langfuse | Responsibility note |
+| `observability/` | Native tracing integration; future event/logging contracts deferred | Langfuse adapter and responsibility note |
+| `observability/adapters/` | Concrete provider setup and delivery, including native Langfuse | Langfuse connection, explicit mock writer and runtime setup/flush |
 
 Create named workflows and provider subfolders as their stages introduce them.
 Do not create speculative classes or empty implementations. Keep each workflow's
@@ -71,7 +71,7 @@ state and steps with that workflow rather than in global `models` or `utils` fol
 - Release discovery does not start a process; the launcher does not select a release or print messages.
   Neither module imports the application runner. Launching a release crosses an interpreter boundary.
 - Workflows own routing/state and invoke execution contracts; provider clients stay in adapters.
-- Observability events are provider-neutral; only exporters depend on backend clients.
+- Native Langfuse instrumentation may be imported at the reviewed application runner (scope/propagation), assembly (initialization) and CLI cleanup boundaries. `observability/adapters/langfuse/runtime.py` owns concrete initialization/flush functions; configuration and client creation remain in the adapter. Context and workflow business steps stay provider-free. No broker or generic tracing facade is required. Agent execution adapter isolation is unchanged.
 - Runtime modules must not import checkout-only tooling or learning examples.
 - The CLI's development bridge may invoke checks, version and release scripts in `app/tooling/` as subprocesses
   only in a development checkout. Installed releases reject all developer commands clearly.
@@ -128,3 +128,7 @@ The earlier [runtime proposal](refactors/2026-11-12-runtime-structure/proposal.m
 ## M4.1 context placement (approved 2026-11-14)
 
 `app/src/agent_playbook/context/models.py` owns frozen, data-only `ExecutionContext` and `ObservabilityContext`. It depends only on the standard library. Application runner/factory and workflows may import these types; the context package imports no application, workflow, execution adapter or telemetry SDK. The runner creates invocation identity after selection, the factory forwards it, and the Workflow ABC and concrete wrappers forward it into the selected CrewAI Flow. The context remains outside business state and provider clients.
+
+## M4.2/M4.3 placement approval — 2026-11-15
+
+Sharon explicitly approved the M4.2/M4.3 design, tests and plan at `ab3fab459c97eed44cc0b202402e559a827a71cf` and RUN-G01–08 in the implementation handoff on 2026-11-15. The narrow native tracing dependency exception above supersedes the exporter-only rule for these reviewed boundaries; no component moves or context API changes are authorized.
