@@ -20,9 +20,9 @@ M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #
 ## Historical M4.1 handoff / M4.2 planning — 2026-11-14
 
 [Draft PR #43](https://github.com/SharonLanger/agent-playbook/pull/43) contains the
-[context design](stages/02-langfuse/workflow-integration/01-context-design.md),
-[separate test cases](stages/02-langfuse/workflow-integration/01-context-test-cases.md)
-and [Codex implementation/review plan](stages/02-langfuse/workflow-integration/01-context-implementation-plan.md).
+[context design](stages/02-langfuse/workflow-integration/m1-context/design.md),
+[separate test cases](stages/02-langfuse/workflow-integration/m1-context/test-cases.md)
+and [Codex implementation/review plan](stages/02-langfuse/workflow-integration/m1-context/implementation-plan.md).
 Sharon authorized drafting, accepted a stable application correlation_id and requested
 one coder plus independent design-drift/test reviewers, with permanent reports and
 at most three total rounds. Sharon now reports sending the explicit M4.1 implementation
@@ -352,6 +352,6 @@ implementation plan at `11bba581291c1b166973848ea8db6a9e2a142413`, including
 G01–G08. The focused `feat/m4-1-context` branch implements data-only context
 identity and runner/factory/Workflow/CrewAI Flow forwarding. The branch is under
 its capped independent review; candidate and check evidence belong in
-[permanent review status](stages/02-langfuse/workflow-integration/reviews/context/status.md).
+[permanent review status](stages/02-langfuse/workflow-integration/m1-context/reviews/status.md).
 This is unmerged implementation evidence, not Stage 02 acceptance. M4.2 tracing,
 M4.3 instrumentation and local logging remain later work.

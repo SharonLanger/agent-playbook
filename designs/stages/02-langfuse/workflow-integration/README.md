@@ -13,8 +13,8 @@ Before every implementation handoff, read [Codex handover rules](../../../govern
 
 1. Follow [design instructions](../../../AGENTS.md), [design contract](../../../governance/design-contract.md), [guards](../../../governance/guarded-files.md), [progress](../../../progress.md) and [stage summary](../README.md).
 2. Read [requirements](requirements.md) and [decisions](decisions.md); they are the shared reference, not a new broker design.
-3. Read [discussion history](history/context-discussion.md), the [final context review](history/context-final-review.md) and [review status](reviews/context/status.md). Later runner discussions/drafts are maintained on `docs/m4-2-runner-discussion` until integrated separately.
-4. Read the approved [M4.1 design](01-context-design.md), [test cases](01-context-test-cases.md) and [implementation/review plan](01-context-implementation-plan.md).
+3. Read [discussion history](history/context-discussion.md), the [final context review](history/context-final-review.md) and [review status](m1-context/reviews/status.md). The combined runner and CrewAI tracing review drafts are grouped under [M2–M3](m2-3-workflow-tracing/README.md).
+4. Read the approved [M4.1 design](m1-context/design.md), [test cases](m1-context/test-cases.md) and [implementation/review plan](m1-context/implementation-plan.md).
 5. Before tracing work, read [CrewAI research](research/crewai-langfuse.md), its [probe evidence](research/probe/README.md) and [repository reconciliation](repository-updates.md). Research is not application or live-server acceptance.
 
 ## Milestones and their documents
@@ -22,8 +22,8 @@ Before every implementation handoff, read [Codex handover rules](../../../govern
 | Milestone | Goal | Status |
 |---|---|---|
 | M4.R | Verify released CrewAI/Langfuse feasibility | Delivered research: eight cases/44 spans, with documented limits |
-| M4.1 | Typed context, real runner/factory/Workflow/Flow propagation and isolated derivation | Approved at 11bba581; implementation candidate 16c1580; two review rounds; accepted, merged via PR #44 |
-| M4.2 + M4.3 | Native runner tracing, correlation and automatic existing CrewAI Flow/step observations | Consolidation accepted 2026-11-15; [design](02-runner-design.md), [tests](02-runner-test-cases.md), [plan](02-runner-implementation-plan.md) are revised review drafts |
+| M4.1 (M1) | Typed context, real runner/factory/Workflow/Flow propagation and isolated derivation | Approved at 11bba581; implementation candidate 16c1580; two review rounds; accepted, merged via PR #44; see [M1 package](m1-context/README.md) |
+| M4.2 + M4.3 (M2–M3) | Native runner tracing, correlation and automatic existing CrewAI Flow/step observations | Consolidation accepted 2026-11-15; [design](m2-3-workflow-tracing/design.md), [tests](m2-3-workflow-tracing/test-cases.md), [plan](m2-3-workflow-tracing/implementation-plan.md) are revised review drafts |
 | Historical M4.3 | Previously separate CrewAI integration milestone | Incorporated into the combined milestone; research and earlier decisions retained |
 | Later | Local logging, usage, scores/evaluations as needed | Deferred; no agent runtime or logger selected here |
 
@@ -44,7 +44,7 @@ ExecutionContext already contains correlation_id; nested ObservabilityContext ho
 
 D30/R31 require exact correlation_id on every workflow-associated Langfuse observation and later local log. The combined milestone supplies native metadata propagation and validates automatic CrewAI descendants together. Metadata alone does not establish trace parentage. Future scores/entity APIs and process boundaries require their own integration checks.
 
-Next: review the simplified combined package, settle the explicitly flagged payload choice and approve its exact contract plus required guarded amendments. No broker, logger or agent-lifecycle expansion is implied.
+Next: review the simplified combined package, retain the accepted native payload policy and approve its exact contract plus required guarded amendments. No broker, logger or agent-lifecycle expansion is implied.
 
 ## Historical approval checkpoint
 
@@ -53,7 +53,7 @@ Next: review the simplified combined package, settle the explicitly flagged payl
 Sharon's instruction to implement M4.1 as orchestrator approved the design,
 CTX-01–17 test cases, plan and G01–G08 at
 `11bba581291c1b166973848ea8db6a9e2a142413`. The approved three-file contract
-is locked. [Review status](reviews/context/status.md) tracks the focused,
+is locked. [Review status](m1-context/reviews/status.md) tracks the focused,
 unmerged M4.1 implementation branch; earlier draft status prose above is the
 planning snapshot at the approved revision. Later tracing and agent work stay out
 of this milestone.

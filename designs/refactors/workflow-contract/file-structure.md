@@ -102,4 +102,4 @@ This tree proposes files within existing application/config/workflows boundaries
 
 ## Dated M4.1 placement cross-reference — 2026-11-14
 
-The historical workflow-contract tree above remains its baseline. The separately approved [M4.1 context design](../../stages/02-langfuse/workflow-integration/01-context-design.md) adds the shared standard-library-only `agent_playbook/context/models.py` package and required context forwarding through runner, factory, ABC, wrappers and private Flow storage.
+The historical workflow-contract tree above remains its baseline. The separately approved [M4.1 context design](../../stages/02-langfuse/workflow-integration/m1-context/design.md) adds the shared standard-library-only `agent_playbook/context/models.py` package and required context forwarding through runner, factory, ABC, wrappers and private Flow storage.

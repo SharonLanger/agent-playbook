@@ -138,4 +138,4 @@ The initial workflow context is data-only, with application correlation and work
 
 ## M4.1 acceptance and merge checkpoint — 2026-11-14
 
-M4.1 is implemented, verified, accepted by Sharon and merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Approved data-only context semantics and M1–M3 history remain unchanged. M4.2 native runner tracing is the next design; M4.3/logging remain later. See [context status](workflow-integration/reviews/context/status.md).
+M4.1 is implemented, verified, accepted by Sharon and merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Approved data-only context semantics and M1–M3 history remain unchanged. M4.2 native runner tracing is the next design; M4.3/logging remain later. See [context status](workflow-integration/m1-context/reviews/status.md).

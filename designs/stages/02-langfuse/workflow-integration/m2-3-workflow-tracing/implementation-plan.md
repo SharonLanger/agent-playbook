@@ -2,11 +2,11 @@
 
 Version 2, 2026-11-15. **REVIEW DRAFT; not a runnable implementation authorization.**
 
-Read [Codex handover rules](../../../governance/codex-handover-rules.md) first, then the [design](02-runner-design.md), [tests](02-runner-test-cases.md), [requirements](requirements.md), [decisions](decisions.md), [research](research/crewai-langfuse.md) and [discussion](history/runner-design-discussion.md).
+Read [Codex handover rules](../../../../governance/codex-handover-rules.md) first, then the [design](design.md), [tests](test-cases.md), [requirements](../requirements.md), [decisions](../decisions.md), [research](../research/crewai-langfuse.md) and [discussion](../history/runner-design-discussion.md).
 
 ## 1. Before handoff
 
-The originating design session resolves PAYLOAD-01, records approval of the exact three-file revision and applicable RUN-G01–08 logical amendments, and delivers the filled outgoing prompt from the standing rules. Do not manufacture approval from this draft. M4.1 is accepted/merged and its contract stays unchanged.
+The originating design session records the accepted PAYLOAD-01 policy and approval of the exact three-file revision and applicable RUN-G01–08 logical amendments, and delivers the filled outgoing prompt from the standing rules. Do not manufacture approval from this draft. M4.1 is accepted/merged and its contract stays unchanged.
 
 Refresh current main and repository instructions. Record design SHA, main SHA, implementation base/target and intervening differences. PR #47 is a continuing documentation workspace: do not base runtime changes on its local scratch checkout or merge it early. Implementation branch should start from refreshed main; read the approved design at its pinned PR revision. Include only implementation-required approved documentation amendments in the implementation PR, not unrelated ongoing planning.
 
@@ -43,4 +43,4 @@ The originating design session reviews the actual diff/evidence. Its review does
 
 ## 5. Current next step
 
-Design review, not implementation delegation. PAYLOAD-01 and the explicit guarded amendment approval remain before the ready-to-run copyable handoff. The reusable handoff/return templates are already published; the design session will fill exact immutable revisions once this package is approved.
+Design review, not implementation delegation. The exact contract and explicit guarded amendment approval remain before the ready-to-run copyable handoff. The reusable handoff/return templates are already published; the design session will fill exact immutable revisions once this package is approved.

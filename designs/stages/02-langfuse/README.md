@@ -8,7 +8,7 @@ mock playground. M4.1 is implemented, final-reviewed and accepted; merged via PR
 
 ## Start here
 
-M4 planning now has a [permanent workflow-integration workspace](workflow-integration/README.md): current requirements, decisions, CrewAI research and the pending repository-update checklist. PR #43 now includes a [detailed M4.1 context draft](workflow-integration/01-context-design.md), separate test cases and a capped implementation/review plan. M4.1 candidate 16c1580 passed implementation and final review; Sharon accepted it and authorized merging. M4.2 preliminary design is active, including shared correlation metadata. The earlier PR #36 milestone/branch policy below records M1–M3; M4 uses the separate milestone PR direction in the new workspace.
+M4 planning now has a [permanent workflow-integration workspace](workflow-integration/README.md): current requirements, decisions, CrewAI research and the pending repository-update checklist. PR #43 now includes a [detailed M4.1 context draft](workflow-integration/m1-context/design.md), separate test cases and a capped implementation/review plan. M4.1 candidate 16c1580 passed implementation and final review; Sharon accepted it and authorized merging. M4.2 preliminary design is active, including shared correlation metadata. The earlier PR #36 milestone/branch policy below records M1–M3; M4 uses the separate milestone PR direction in the new workspace.
 
 Latest: [local acceptance and remaining limitation](acceptance-2026-11-14.md),
 [approved main reconciliation](main-reconciliation.md),
@@ -115,6 +115,6 @@ its own learning README when created.
 Sharon approved the M4.1 package at `11bba581291c1b166973848ea8db6a9e2a142413`
 and G01–G08 in his implementation instruction. The data-only context and actual
 workflow propagation are being implemented on `feat/m4-1-context` and are not
-merged or accepted. [Round status and evidence](workflow-integration/reviews/context/status.md)
+merged or accepted. [Round status and evidence](workflow-integration/m1-context/reviews/status.md)
 track the independent design and test reviews. M1–M3 history is unchanged;
 Langfuse tracing and automatic CrewAI observations remain separate checkpoints.

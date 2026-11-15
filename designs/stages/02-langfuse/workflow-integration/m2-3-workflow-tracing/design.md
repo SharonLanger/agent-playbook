@@ -2,7 +2,7 @@
 
 Version 2, 2026-11-15. **REVIEW DRAFT.** Sharon approved consolidation and preparation of this simplified design, not this unseen detailed implementation contract. M4.1 is accepted and merged through PR #44. PR #47 remains draft and MERGE LAST.
 
-[Requirements](requirements.md) · [Decisions](decisions.md) · [Tests](02-runner-test-cases.md) · [Implementation plan](02-runner-implementation-plan.md) · [Handover rules](../../../governance/codex-handover-rules.md)
+[Requirements](../requirements.md) · [Decisions](../decisions.md) · [Tests](test-cases.md) · [Implementation plan](implementation-plan.md) · [Handover rules](../../../../governance/codex-handover-rules.md)
 
 ## 1. Goal and revision boundary
 
@@ -70,19 +70,19 @@ Preserve existing application error types, cause chains and exit behavior. Nativ
 
 Proposal for delivery faults: use the SDK's normal behavior; prevent an unexpected cleanup exception from hiding the existing workflow outcome, with a small fixed diagnostic if needed. Do not create persistent queues or custom retries.
 
-**PAYLOAD-01 — review decision still open:** automatic instrumentation records workflow inputs/outputs and exception details. Proposed minimal policy is to retain native capture for the current deterministic workflows, never explicitly serialize context/settings/credentials into telemetry, and document this behavior. This is not a guarantee that arbitrary user payloads are secret-free. If Sharon requires broad payload suppression, first choose supported SDK/instrumentor controls and verify their actual coverage; do not silently reintroduce custom exception projection.
+**PAYLOAD-01 — accepted by Sharon, 2026-11-15:** retain native capture of workflow inputs, outputs and exception details for the current workflows. Configuration and credentials must never become trace payloads, including through automatic capture; verify the real exported attributes/events/status with synthetic configuration-secret sentinels. Do not serialize complete settings or context. Authentication headers used to authenticate to the configured local server are distinct from recorded trace payloads.
 
-Known limit: OpenInference hide_inputs/hide_outputs does not necessarily hide raw flow_inputs; pinned Langfuse attribute masking does not rewrite exception events/status. Therefore comprehensive redaction is not claimed by this draft. Payload approval is required before finalizing the contract.
+Capture can be adjusted later through supported SDK/instrumentor controls and, if useful, application configuration; no context redesign is required. Langfuse decorator input/output switches do not automatically govern CrewAI instrumentation. OpenInference hide_inputs/hide_outputs does not necessarily hide raw flow_inputs; pinned Langfuse attribute masking does not rewrite exception events/status. Do not promise automatic recognition/redaction of arbitrary secrets embedded in business input or exceptions. If the real integration exposes configuration/credentials, report and resolve that concrete defect before acceptance using supported controls where possible; do not silently relax the requirement or invent a generic redaction framework.
 
 Use the existing local destination only. Verify framework update-check behavior through the normal application path: prior isolated research blocked PyPI version lookups, distinct from trace export. Do not add ad hoc monkeypatches to make a locality test green.
 
 ## 8. Acceptance and evidence
 
-The [RUN test cases](02-runner-test-cases.md) are the combined milestone acceptance list. Use the actual runner/factory/ABC and maintained flows with a real SDK in-memory exporter; inspect generated observations instead of merely mocking SDK call counts. Cover all workflows, both conditional branches, disabled/repeat/failure paths, exact correlation, non-duplication, recovered failure and CLI flush.
+The [RUN test cases](test-cases.md) are the combined milestone acceptance list. Use the actual runner/factory/ABC and maintained flows with a real SDK in-memory exporter; inspect generated observations instead of merely mocking SDK call counts. Cover all workflows, both conditional branches, disabled/repeat/failure paths, exact correlation, non-duplication, recovered failure and CLI flush.
 
 Then verify actual ingestion/hierarchy/metadata in the existing local Langfuse deployment. Offline export tests do not replace UI/server acceptance. Run the repository's applicable quality/release and documentation checks; keep sandbox exclusions.
 
-Original evidence: [CrewAI research](research/crewai-langfuse.md), eight scenarios/44 spans on preserved fixtures, not actual runner acceptance. Iteration 38 tested synthetic native scope isolation, not real agents or local UI. No application implementation or new acceptance run is claimed by this design.
+Original evidence: [CrewAI research](../research/crewai-langfuse.md), eight scenarios/44 spans on preserved fixtures, not actual runner acceptance. Iteration 38 tested synthetic native scope isolation, not real agents or local UI. No application implementation or new acceptance run is claimed by this design.
 
 Principle assessment: external config and local deployment retained; shared context remains data-only; SDK reuse replaces custom tracing code; deterministic evidence and independent reviews required; history/guards/sandbox boundaries preserved; product guides follow delivered behavior. Native tracing is a narrow exception to provider-neutral wording, not a relaxation of agent execution adapter isolation.
 
@@ -107,8 +107,8 @@ No change to charter, roadmap stage order or design-contract procedure is propos
 
 ## 11. Review and handoff
 
-Before implementation, settle PAYLOAD-01, confirm the minimal failure/initialization placement above against current main, approve the exact design/test/plan revision and the applicable RUN-G amendments. Approval of consolidation is not approval of those unseen file changes.
+Before implementation, confirm the minimal failure/initialization placement above against current main, approve the exact design/test/plan revision and the applicable RUN-G amendments. Approval of consolidation is not approval of those unseen file changes.
 
-Use [Codex handover rules](../../../governance/codex-handover-rules.md). One combined implementation PR; two independently testable acceptance sections (runner and CrewAI). Keep documentation PR #47 open until all covered implementation is merged and Sharon separately authorizes it.
+Use [Codex handover rules](../../../../governance/codex-handover-rules.md). One combined implementation PR; two independently testable acceptance sections (runner and CrewAI). Keep documentation PR #47 open until all covered implementation is merged and Sharon separately authorizes it.
 
 Sources: [official CrewAI integration](https://langfuse.com/integrations/frameworks/crewai), [native instrumentation](https://langfuse.com/docs/observability/sdk/instrumentation), [metadata](https://langfuse.com/docs/observability/features/metadata), [Python API](https://python.reference.langfuse.com/langfuse), and the pinned research above.

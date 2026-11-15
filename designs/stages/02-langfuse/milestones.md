@@ -132,8 +132,8 @@ contract and explicitly review any guarded logical changes.
 
 ## M4 checkpoints — approved context sequence, 2026-11-14
 
-M4.R research established bounded released-version CrewAI/Langfuse feasibility. M4.1 is the separately approved [data-only context design](workflow-integration/01-context-design.md), with an implementation PR under review; it requires identity, runner/factory/Workflow/Flow forwarding, isolation and CTX-01–17 evidence. M4.2 will separately review native runner tracing; M4.3 will separately review CrewAI automatic observations. M1–M3 acceptance and historical checks remain unchanged. Approval of M4.1 does not mark all M4 implemented or Stage 02 complete.
+M4.R research established bounded released-version CrewAI/Langfuse feasibility. M4.1 is the separately approved [data-only context design](workflow-integration/m1-context/design.md), with an implementation PR under review; it requires identity, runner/factory/Workflow/Flow forwarding, isolation and CTX-01–17 evidence. M4.2 will separately review native runner tracing; M4.3 will separately review CrewAI automatic observations. M1–M3 acceptance and historical checks remain unchanged. Approval of M4.1 does not mark all M4 implemented or Stage 02 complete.
 
 ## M4.1 acceptance and merge checkpoint — 2026-11-14
 
-M4.1 is implemented, verified, accepted by Sharon and merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Approved data-only context semantics and M1–M3 history remain unchanged. M4.2 native runner tracing is the next design; M4.3/logging remain later. See [context status](workflow-integration/reviews/context/status.md).
+M4.1 is implemented, verified, accepted by Sharon and merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Approved data-only context semantics and M1–M3 history remain unchanged. M4.2 native runner tracing is the next design; M4.3/logging remain later. See [context status](workflow-integration/m1-context/reviews/status.md).

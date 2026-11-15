@@ -1,8 +1,8 @@
 # M4.1 — test cases
 
-Status: **APPROVED AND LOCKED at `11bba581`; implemented, verified, accepted and merged in PR #44 at `942e59344c429454263319e783ea76ad297b7ea6`.** The contract below is preserved; draft-era wording is historical. See [current status](reviews/context/status.md).
+Status: **APPROVED AND LOCKED at `11bba581`; implemented, verified, accepted and merged in PR #44 at `942e59344c429454263319e783ea76ad297b7ea6`.** The contract below is preserved; draft-era wording is historical. See [current status](reviews/status.md).
 
-[Design](01-context-design.md) · [Implementation/review procedure](01-context-implementation-plan.md) · [Shared requirements](requirements.md)
+[Design](design.md) · [Implementation/review procedure](implementation-plan.md) · [Shared requirements](../requirements.md)
 
 ## Acceptance rules
 
@@ -76,4 +76,4 @@ Do not require a mutation-testing framework. Use a small temporary negative cont
 
 No Langfuse ingestion/UI assertions, trace/span parentage, SDK flush/outage behavior, instrumentor installation, model cost/score tests, logger storage/viewer tests, real agent execution, subprocess context transport, retries, persistence/resume or concurrent use of one Workflow instance. Those belong to later milestones. Application context isolation is not evidence that SDK active scope or process propagation works.
 
-The maximum-three-round rule and required coder/design-drift/test-gap/orchestrator reports are in the [implementation plan](01-context-implementation-plan.md). They are not new application runtime tests or a framework to implement.
+The maximum-three-round rule and required coder/design-drift/test-gap/orchestrator reports are in the [implementation plan](implementation-plan.md). They are not new application runtime tests or a framework to implement.

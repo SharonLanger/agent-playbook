@@ -58,7 +58,7 @@ These are the integration milestones under Stage 02's previously deferred M4. Ex
 | Milestone | Starting point | Goal / evidence | Status |
 | --- | --- | --- | --- |
 | M4.R — CrewAI/Langfuse research | Merged PR #36 pins and maintained Flow definitions; automatic coverage not established. | Released compatible integration and reproducible coverage evidence before application tracing work. | Delivered: eight isolated cases/44 spans; application/local-UI acceptance not yet established. |
-| M4.1 — context | Existing runner/factory/Workflow ABC, no general context; D18/D19 structure agreed. | Typed context, constructor propagation and parent/child isolation; focused tests without backend export. | [Design](01-context-design.md), [test cases](01-context-test-cases.md) and [implementation plan](01-context-implementation-plan.md) approved at 11bba58; candidate 16c1580 passed both reviews and final review, accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. |
+| M4.1 — context | Existing runner/factory/Workflow ABC, no general context; D18/D19 structure agreed. | Typed context, constructor propagation and parent/child isolation; focused tests without backend export. | [Design](m1-context/design.md), [test cases](m1-context/test-cases.md) and [implementation plan](m1-context/implementation-plan.md) approved at 11bba58; candidate 16c1580 passed both reviews and final review, accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. |
 | M4.2 + M4.3 — combined tracing | Accepted M4.1 context and tested M4.R integration. | Native runner scope and automatic Flow/start/listen/router observations, exact correlation, lifecycle/disabled/failure behavior and local UI acceptance. | One implementation milestone/PR; native SDK and instrumentor, no custom step-tracing layer. |
 | Later — logs and advanced features | Working correlated tracing. | Local application logs in a separate PR; scores/evaluations incrementally. | Deferred; local/no-service/Apache and replacement requirements retained. |
 
@@ -81,7 +81,7 @@ The report and [probe evidence](research/probe/README.md) contain the exact reci
 
 ### M4.1 — Execution context
 
-**M4.1 implemented and accepted.** The approved design/test/plan at 11bba581 and G01–G08 were implemented in PR #44; candidate 16c1580 passed two independent reviews and final review. See [permanent status](reviews/context/status.md). Its data-only contract is unchanged by documentation reconciliation.
+**M4.1 implemented and accepted.** The approved design/test/plan at 11bba581 and G01–G08 were implemented in PR #44; candidate 16c1580 passed two independent reviews and final review. See [permanent status](m1-context/reviews/status.md). Its data-only contract is unchanged by documentation reconciliation.
 
 Implement the agreed ordinary typed ExecutionContext and nested ObservabilityContext together in one shared file. Runner creates one context per invocation; the existing factory forwards it into the workflow constructor. Workflow retains self.context and supplies its CrewAI Flow. M4.1 includes this actual wiring and parent/sibling isolation, not only class definitions. No Langfuse export yet.
 
@@ -140,7 +140,7 @@ Supported native SDK context managers, decorators, explicit observation lifecycl
 
 ## 6. Context contract — pinned M4.1 handoff
 
-The [M4.1 detailed design](01-context-design.md) is the single current proposal for exact fields, types/defaults, package location, dataclass flags, constructor signatures, derivation and Flow storage. D18/D19's composition/route, D24's stable identity, D25/D26's SDK-managed tracing and D27's application correlation are accepted discussion choices. D28 originally authorized drafting; iteration 29 records Sharon forwarding the subsequent explicit implementation authorization at 11bba58.
+The [M4.1 detailed design](m1-context/design.md) is the single current proposal for exact fields, types/defaults, package location, dataclass flags, constructor signatures, derivation and Flow storage. D18/D19's composition/route, D24's stable identity, D25/D26's SDK-managed tracing and D27's application correlation are accepted discussion choices. D28 originally authorized drafting; iteration 29 records Sharon forwarding the subsequent explicit implementation authorization at 11bba58.
 
 Implemented source: app/src/agent_playbook/context/models.py. ExecutionContext holds correlation_id and observability. ObservabilityContext holds workflow_id, workflow_run_id and optional agent_type/agent_run_id. Frozen keyword-only fields and scalar/frozen nested values avoid parent mutation. No Context ABC, broker, live SDK object, mutable extension dict or empty future context sections.
 
@@ -148,7 +148,7 @@ The for_agent helper uses dataclasses.replace on both the inner and outer object
 
 R29 remains: pass one context through intermediary signatures; field definitions and actual producers/consumers evolve without manually rebuilding all inherited fields. New required semantics may still require callers to provide a value. Review any future mutable fields explicitly. Telemetry projection stays selective, not automatic asdict export.
 
-The separate [test-cases contract](01-context-test-cases.md) covers identity, derivation, actual maintained Flow access, state separation, existing behavior, typing/offline checks and installed packaging. The [orchestration plan](01-context-implementation-plan.md) governs the delegated M4.1 implementation, not an application agent feature.
+The separate [test-cases contract](m1-context/test-cases.md) covers identity, derivation, actual maintained Flow access, state separation, existing behavior, typing/offline checks and installed packaging. The [orchestration plan](m1-context/implementation-plan.md) governs the delegated M4.1 implementation, not an application agent feature.
 
 ## 7. Deferred requirements retained
 
@@ -161,7 +161,7 @@ The separate [test-cases contract](01-context-test-cases.md) covers identity, de
 
 ## 8. Repository reconciliation and scope
 
-The exact data-only M4.1 amendments are G01–G08 in [design section 9](01-context-design.md#9-guarded-logical-amendments-to-approve-with-this-design). They cover context placement, constructor/Flow routing, dated amendments to the existing workflow contract, M4 submilestones and registration of the approved baseline. These are authorized by the forwarded M4.1 instruction and are to be applied by its implementing Codex; this planning update does not apply them or claim them completed.
+The exact data-only M4.1 amendments are G01–G08 in [design section 9](m1-context/design.md#9-guarded-logical-amendments-to-approve-with-this-design). They cover context placement, constructor/Flow routing, dated amendments to the existing workflow contract, M4 submilestones and registration of the approved baseline. These are authorized by the forwarded M4.1 instruction and are to be applied by its implementing Codex; this planning update does not apply them or claim them completed.
 
 The no-broker/native-SDK direction remains accepted. Its tracing-specific exception to existing provider-isolation wording must be reconciled before M4.2, not before data-only M4.1. Do not weaken agent-execution adapter isolation. [repository-updates.md](repository-updates.md) separates those gates and their concrete affected files.
 
@@ -170,7 +170,7 @@ This update adds the detailed design/test/implementation drafts, accepted correl
 ## 9. Immediate actions
 
 1. Preserve completed M4.1 and CTX evidence.
-2. Review the version-2 combined design/test/plan, settle PAYLOAD-01 and approve exact contract/guarded amendments before implementation.
+2. Review the version-2 combined design/test/plan, retain accepted PAYLOAD-01 and approve exact contract/guarded amendments before implementation.
 3. Prepare the filled Codex handoff under the standing rules, implement one combined PR, and verify automatic observations through the actual runner and local UI. Documentation PR #47 merges last.
 
 Q25 is resolved at the application-ID level by D27; ownership and constructor details are proposed concretely in M4.1. Q01/Q02/Q04/Q06/Q12/Q15/Q18 have reviewable M4.1 answers in that draft; their later-feature parts stay deferred. Q21 remains closed: no broker. Agent lifecycle and local logger/viewer questions remain outside M4.1. Follow the [README maintenance rules](README.md#rules-that-prevent-design-drift).
