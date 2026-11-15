@@ -48,8 +48,8 @@ Alignment: ready for the M1 draft; no concrete milestone revision approved for i
 | ID | State | Decision |
 |---|---|---|
 | LD15 | User-selected design direction | Python standard logging bridged by OpenTelemetry directly to local VictoriaLogs; built-in store/query/UI. No mandatory structlog, JSONL files, Fluent Bit, Collector or broker. Exact milestone contracts remain draft. |
-| LD16 | Explicit user agreement | A CLI run invocation initializes logging once through the runner/composition boundary; workflows and agents do not initialize providers. Flush/shutdown in runner cleanup. No generic startup registry, package distribution or public API work now. |
-| LD17 | Explicit user agreement | Small log_info/log_warning/log_error helpers take context and message; optional fields remain possible. Exact context type, field contract and exceptions are deferred design details. Context remains data-only. |
+| LD16 | Explicit user agreement | A CLI run invocation initializes logging once through the runner/composition boundary; workflows and agents do not initialize providers. Use a Python context manager (Java try-with-resources equivalent) for bounded flush/shutdown on normal exit and exception unwinding. No generic startup registry, package distribution or public API work now. |
+| LD17 | Explicit user agreement | Small log_info/log_warning/log_error helpers take context and message; optional event-specific fields are required as an optional argument. Exact context type, field contract and exceptions are deferred design details. Context remains data-only. |
 | LD18 | Explicit user clarification | Local self-hosted configuration, documented behavior and pinned versions are sufficient research scope. No source audit or exhaustive network/read/write investigation. Retain accurate distinction between local configuration and absolute host-wide exfiltration guarantees. |
 | LD19 | User requested draft | Begin with M1 configuration sanity: minimal component Compose, direct Python export, synthetic context/message and local UI inspection. CLI service management, installer, Langfuse Compose migration and production runner integration are later work. |
 
@@ -58,3 +58,11 @@ The earlier chat's hardcoded endpoint illustrated transport only. Implementation
 M1 proposes an opt-in smoke command that exits after flushing. It is not the production logging outage policy. No durable queue, exactly-once delivery or replay is promised. LQ01 remains open before production runner integration.
 
 Alignment checkpoint: immutable context/native tracing already exist; logging does not. Earlier collector-first recommendations are historical. Official OTLP/Docker/Python sources support the direction; no Docker runtime was available for verification. This draft changes no guarded baseline. Ready to draft M1 design/tests/plan; exact approved revision and implementation authorization are still absent. See [current source notes](research/2026-11-15-direct-otlp.md).
+
+## Context-manager cleanup and milestone outline — 2026-11-15
+
+Sharon explicitly requested scoped resource management: initialize on entering the runner's logging scope, then attempt bounded flush/shutdown when leaving it, including exceptions. Preserve the original workflow exception; do not suppress it or replace it with a cleanup failure. This is not guaranteed delivery: forced process termination, interpreter crash or power loss cannot guarantee cleanup, and an unavailable destination cannot guarantee export.
+
+Context + message are required; optional event-specific fields are supported. Correlation/workflow/agent identity comes from context, not caller repetition or optional-field overrides. Exact optional-field syntax/types remain M2 design work.
+
+Sharon requested the complete milestone outline before reviewing M1. M1 alone has a concrete draft. M2 remains proposed; M3 (component/umbrella Compose) and M4 (setup and management CLI) are now explicit proposals for discussion, not accepted scope or approved implementation. Automatic observation/event capture stays deferred without a milestone commitment.
