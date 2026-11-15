@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 23 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 24 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 ## How to read this board
@@ -1033,6 +1033,14 @@ Alternative considered: convert every adapter exception to a failed result for o
 
 Q10 is answered for propagation versus result conversion of unexpected adapter exceptions. Whether a healthy handler receives any terminal notification on this exception path, cleanup-error precedence, cancellation and callback ordering remain open. D45 continues to govern an already-failed handler. Do not infer a synthetic terminal result or new error event from D46. Existing M1 contract/M2 harness boundaries, D44 future customization and guarded ownership reconciliation are unchanged. No runtime implementation, milestone lock or merge is authorized.
 
+## Terminal notification on adapter exceptions — revision 24
+
+D47 — **Approved:** if ExecutionAdapter.run raises, skip ExecutionFinished even when the role handler remains healthy. Run cleanup independently and propagate the adapter exception under D46. Do not fabricate a failed ExecutionResult solely to send a terminal notification. If the adapter returns a result, including a reported failed outcome, D42 normal delivery applies; if the terminal handler then raises, D43/D45 propagate that handler failure without retry.
+
+Sharon explicitly accepts this recommendation. The alternative was to construct and send a failed terminal event before propagating the exception, providing a final notification but introducing result conversion and another potential handler failure. The MVP chooses one simple distinction: returned result permits terminal notification; raised exception propagates without it. Consumers must not assume every ExecutionStarted has a matching ExecutionFinished, and cleanup cannot rely on that event.
+
+Q10 is now answered for terminal notification on adapter exceptions. Cleanup-error precedence, cancellation and ordering remain open. D44 future customization remains deferred. This closes an existing M1/M2 contract question without changing milestone scope, adding a new event or authorizing implementation or merge. Revision-23 terminal-delivery open wording remains historical.
+
 ## Maintenance rule
 
 Read both files before progressing the design. Update this board with evidence and explicit status; update the specification only for accepted decisions. Detect conflicts before edits. Tell Sharon before changing any agreement; retain superseded entries and rationale. Maintain the two active repository records, keeping cross-links and revision numbers consistent; original saved files are history. Boundary changes must first be proposed in [milestone-plan.md](milestone-plan.md), then applied under D32 across all affected records. Do not turn a recommendation into “Approved” because it appears in a file.
@@ -1064,3 +1072,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 21 | 2026-11-15 | D43 accepts fail-fast handler errors; D44 defers per-agent configuration/injected error behavior; terminal delivery and remaining failure semantics stay open. |
 | 22 | 2026-11-15 | D45 accepts skipping terminal notification after handler failure; cleanup remains independent and original failure propagates. |
 | 23 | 2026-11-15 | D46 accepts adapter exception propagation and distinguishes returned unsuccessful runtime outcomes; remaining terminal/cleanup policies stay open. |
+| 24 | 2026-11-15 | D47 skips terminal notification on adapter exceptions even with a healthy handler; result-return delivery remains unchanged. |

@@ -70,3 +70,7 @@ D45 closes the failed-handler terminal-notification question and preserves D42 n
 ## Revision 23 adapter exception approval
 
 D46 records propagation rather than blanket result conversion. Specification/board/readiness are reconciled within unchanged M1/M2 boundaries. Atlas and scoped documentation checks cover this documentation-only update; no native behavior, application tests or guarded changes are claimed.
+
+## Revision 24 adapter terminal-delivery approval
+
+D47 closes the healthy-handler notification question without changing normal result delivery or milestone boundaries. Atlas regeneration/freshness and scoped documentation reference/continuity/guard checks cover this documentation-only update. No runtime tests, native behavior verification, guarded changes or implementation lock are claimed.
