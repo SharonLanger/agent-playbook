@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 3 · 2026-11-15 · Owner: Sharon
+Revision: 4 · 2026-11-15 · Owner: Sharon
 Status: **draft plan for review; no locked implementation baseline or implementation authorization.**
 
 [Start here](README.md) · [Specification](specifications.md) · [Decision board](decisions.md) · [Repository reconciliation](repository-updates.md)
@@ -135,3 +135,22 @@ D36 accepts the basic event/result field set, with tool_call_id naming. This clo
 ## Current design checkpoint — revision 17
 
 D37/D38 approve event/result dataclasses, role match dispatch and no guessed tool pairing within existing M1 scope. The reviewer is an illustration, not a new role deliverable. Begin M1 detailed design now; settle lifecycle ownership/result consistency, callback failure/order, request/settings/permissions and validation there. Before locking, reconcile requirements/decisions with then-current canonical sources and resolve C01. Prepare milestone design, acceptance cases and implementation handoff; no implementation or later-milestone expansion is approved.
+
+## BC03 — explicit dependency gates for parallel delivery
+
+**Pending detailed allocation; principle approved by D39.** Old plan: M1/M2 independent, M3/M4 recheck context before implementation, with context integration generally deferred. Proposed refinement: M1–M3 demonstrate a genuinely standalone foundation without required context construction/imports; M4 alone connects to actual application/workflow boundaries once its specific dependencies are ready. Preserve M1–M4 IDs and core outcomes. Do not quietly add context propagation or tracing acceptance to an already approved milestone.
+
+| Milestone | Standalone outcome | Proposed entry gate | External dependency |
+|---|---|---|---|
+| S04.M1 | Importable typed contracts/events/result/settings/permission data | Approved and locked M1 design/test/plan, canonical C01 reconciliation as applicable | No Stage 02/03 completion, Langfuse or context object required |
+| S04.M2 | Request through fake native messages, mapper and callbacks to a result | M1 accepted and merged; M2 design/test/plan approved | No context construction, tracing service or Stage 03 patterns |
+| S04.M3 | DemoAgent runs directly with deterministic success/failure | M2 accepted and merged; M3 task-entry design/test/plan approved | No workflow invocation/IDs or context required for standalone exercise |
+| S04.M4 | Same agent path through one maintained CrewAI workflow | M3 accepted/merged; actual workflow/context contracts merged, checked for compatibility and necessary decisions approved; M4 design/test/plan approved | Reuse existing context at the integration boundary only where needed; never fake required IDs |
+
+M1–M3 must be useful and testable without pending integration. Their tests prove their bounded contracts, not future propagation/telemetry. M4 is blocked on missing concrete prerequisites, not automatically on all of Stage 02 or Stage 03. A simple single-agent workflow has no proposed dependency on advanced Stage 03 branching/parallel joins. If selected behavior later needs one, record that exact accepted/merged capability as a gate before coding. Tracing acceptance needs its own explicit scope and prerequisite; no new Langfuse work is added here.
+
+Gate record for each detailed milestone: required capability/document, owner, approved version or merged SHA, verification evidence, Ready/Blocked/Not required status, and the work specifically blocked. Design/research can proceed while implementation of the dependent behavior waits. External prerequisites are rechecked at handoff; do not mark them Ready from this proposal alone.
+
+Deferred slice rule: finish the independent behavior, name the later integration slice and owning milestone/workstream, describe its trigger and completion evidence. Do not create context=None placeholders or duplicate context classes simply to hide a dependency. If an event's actual meaning requires context, defer that event/capability or explicitly split its scope before approval; do not emit an incomplete event and call it complete. The existing five accepted event payloads do not require context. Later mandatory fields/signature changes require explicit impact review, not a promise of zero rework.
+
+BC03 impacts D27/Q35/Q09 and M3/M4 entry wording, not accepted event fields, native ownership or the Stage 05 boundary. Any new agent-context propagation acceptance beyond existing M4 scope must be separately approved here before being assigned. AgentContext is exploratory; first inspect existing ExecutionContext.for_agent and standalone needs. No M5/M7 is created, no Stage 02/03 file is changed, no current implementation baseline is amended.

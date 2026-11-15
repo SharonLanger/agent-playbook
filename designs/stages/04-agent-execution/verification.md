@@ -46,3 +46,7 @@ D36 field acceptance and naming are reconciled across the specification, board, 
 ## Revision 17 representation and dispatch approval
 
 D37/D38 and the approved reviewer match example are recorded consistently in the working specification, decision board, README and milestone checkpoint. Prior alternatives remain historical. Atlas build/freshness, relative links, records and unchanged guards are checked for this documentation-only candidate; no application tests or runtime implementation. Public app documentation is unaffected because executable behavior is unchanged. PR #45 remains draft and merges last.
+
+## Revision 18 dependency-gate proposal
+
+Read-only current-main roadmap/progress/context/governance evidence supports D39 and the pending BC03 matrix. No Stage 02/03 or global authority files are changed; no runtime verification is claimed. Working-record consistency, relative links, preserved history/guards and Atlas freshness are checked. PR #45 remains draft and merge-last; main reconciliation is not performed by this update.

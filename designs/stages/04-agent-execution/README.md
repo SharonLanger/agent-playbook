@@ -2,10 +2,10 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Updated: 2026-11-15 · Working records revision 17
+Updated: 2026-11-15 · Working records revision 18
 Status: **draft planning PR authorized by Sharon; no runtime implementation, stage activation, locked milestone baseline or merge authorization.**
 
-This is the permanent planning home for the proposed agent execution foundation. Use branch `docs/agent-execution-foundation-planning` until merged; do not assume these files exist on main. Main was inspected at `d12b5fc2867d3646b6fab2eb71f1447ff177d8c1`. Stage 02 remains the active stage. The roadmap stays unchanged.
+This is the permanent planning home for the proposed agent execution foundation. Use branch `docs/agent-execution-foundation-planning` until merged; do not assume these files exist on main. The original branch baseline was `d12b5fc2867d3646b6fab2eb71f1447ff177d8c1`. A read-only refresh of main at `fefe4cc1065642b710a018ecb1088ececde852db` confirms the Stage 04 sequencing exception and merged basic workflow context. This branch has not incorporated main; shared documentation reconciliation remains necessary. No roadmap edits here.
 
 ## Read in this order
 
@@ -50,3 +50,7 @@ Parallel design is appropriate; different subfolders do not remove shared config
 ## Next step
 
 Ready to begin S04.M1 detailed design. Keep its existing boundary and work through: (1) start/finish emission ownership and returned-result consistency, (2) callback ordering/failure and missing-evidence behavior, (3) request/basic settings/permissions and model validation. Reconcile approved requirements/decisions and current canonical authority before locking the milestone. Then prepare its detailed design, acceptance cases and implementation handoff. These questions are inputs to detailed design, not reasons to design every later milestone first. No runtime implementation is authorized.
+
+## Parallel-work gate proposal
+
+D39 requires independent progress without placeholder context. BC03 in the milestone plan proposes M1–M3 standalone and M4 gated on concrete merged/compatible workflow/context contracts. Whole Stage 02/03 completion is not a blanket prerequisite. Existing context has for_agent; a separate AgentContext remains exploratory. Review this gate allocation alongside M1 detailed design; no runtime implementation starts from the proposal.

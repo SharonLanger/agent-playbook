@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 17 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 18 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 ## How to read this board
@@ -955,6 +955,23 @@ The reviewer finds defects in code; that domain verdict is separate from executi
 
 Readiness: ready to start the detailed design of S04.M1; not ready to lock it for implementation. Resolve lifecycle emission/terminal-result agreement, ordered callback failure semantics, request/basic settings/permissions, validation and missing-evidence rules within that design. Reconcile C01 and then-current governing sources before lock. Do not require later native integrations or all four milestones to be fully designed first.
 
+## Parallel-delivery prerequisites — revision 18
+
+D39 — **Approved requirement:** Sharon wants milestones to maximize independent progress alongside Stages 02/03, with explicit prerequisite gates for genuinely dependent work. Build usable independent portions and add deferred integration later when it makes sense. Do not require undefined context to construct the independent foundation. This reinforces D27; BC03 records a proposed concrete gate matrix before any scope allocation changes. The suggestion of AgentContext is exploratory, not approval of a new type.
+
+### Alignment checkpoint — 2026-11-15
+
+- Current main inspected at fefe4cc1065642b710a018ecb1088ececde852db. Its roadmap now explicitly permits independently approved Stage 04 foundation milestones before Stages 02/03 finish. Earlier roadmap-awaiting language in this branch is historical; this does not lock M1 or resolve C01/Q12.
+- Current main progress and the Stage 02 context design record M4.1 accepted/merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. The data model includes ExecutionContext, nested ObservabilityContext and for_agent(agent_type, agent_run_id), preserving parent correlation without parent mutation. Context existence and tracing completion are different dependencies. This turn inspects documents, not a runtime verification.
+- Existing context requires workflow identity; standalone DemoAgent must not invent a workflow merely to satisfy it. Reuse needs and standalone context generalization remain Q35; do not create AgentContext or replace the owning model here.
+- Requirements/decisions are consistent at the principle level: D27 defers context/logging integration, D34/D36 events need no context, and D37 representation stays unchanged. BC03 makes M3's standalone scope explicit and proposes M4 dependency gates. Context propagation as new acceptance would need a scoped amendment, not implicit adoption.
+- Research evidence for event mapping stays at its recorded snapshots. No new provider parity or context-runtime test claim. Fresh main governance requires per-milestone README/design/test-cases/implementation-plan, a dated alignment checkpoint, pinned handoffs and no changes to active handed-off contracts. No Stage 04 implementation handoff is active in this conversation; other stages' files remain untouched.
+- Open now: lifecycle/callback/request/settings/permissions and exact M4 integration boundary. Deferred: standalone context representation and native integrations. No missing external capability blocks drafting M1; only dependent integration must wait. C01 remains an implementation-lock reconciliation gate.
+
+Recommendation: keep four milestones, complete standalone M1–M3 first, gate M4 on specific merged compatible contracts. Do not block on entire Stage 02/03 completion or add empty abstraction placeholders. If a later feature genuinely needs context, track the precise integration slice and owner; revise the plan before moving acceptance criteria. Exact BC03 matrix remains proposed for Sharon's review.
+
+Sources: [roadmap at inspected main](https://github.com/SharonLanger/agent-playbook/blob/fefe4cc1065642b710a018ecb1088ececde852db/designs/roadmap.md), [context design](https://github.com/SharonLanger/agent-playbook/blob/fefe4cc1065642b710a018ecb1088ececde852db/designs/stages/02-langfuse/workflow-integration/01-context-design.md), [stage method](https://github.com/SharonLanger/agent-playbook/blob/fefe4cc1065642b710a018ecb1088ececde852db/designs/governance/stage-milestone-workflow.md). No global files or guarded meanings changed in this iteration.
+
 ## Maintenance rule
 
 Read both files before progressing the design. Update this board with evidence and explicit status; update the specification only for accepted decisions. Detect conflicts before edits. Tell Sharon before changing any agreement; retain superseded entries and rationale. Maintain the two active repository records, keeping cross-links and revision numbers consistent; original saved files are history. Boundary changes must first be proposed in [milestone-plan.md](milestone-plan.md), then applied under D32 across all affected records. Do not turn a recommendation into “Approved” because it appears in a file.
@@ -980,3 +997,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 15 | 2026-11-14 | D35 records reference-led direction and future-category endorsement; P12 proposes reviewer-grounded fields with fresh source references; no field approval or implementation. |
 | 16 | 2026-11-14 | D36 accepts fields, renames tool_call_id, retains output; separates missing identity from unknown outcome; class notation remains illustrative. |
 | 17 | 2026-11-15 | D37 approves frozen dataclasses, enum statuses and role match dispatch; D38 forbids guessed pairing; reviewer example and M1 readiness recorded. |
+| 18 | 2026-11-15 | D39 records dependency-gated parallel work; BC03 proposes M1–M3 standalone/M4 integration gates; current context and roadmap evidence recorded without adoption of AgentContext. |

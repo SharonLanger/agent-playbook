@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 17 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 18 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 ## Status and authority
@@ -260,6 +260,12 @@ frozen=True prevents ordinary field reassignment; nested JSON containers are not
 
 Q08 is now answered for event/result representation and remains open for validation/serialization and other data models. Q01 is answered for initial vocabulary/fields/no-guessing, but invocation identity/order and provider-specific missing-evidence handling remain open. Q02/Q04/Q10/Q26 and C01 retain their unresolved portions. Ready to begin M1 detailed design, not implementation lock.
 
+## Dependency-gated progress — revision 18
+
+D39 requires useful independent milestones and explicit prerequisite gates for dependent integration, allowing progress alongside Stages 02/03. [BC03](milestone-plan.md#bc03--explicit-dependency-gates-for-parallel-delivery) proposes the concrete allocation; its detailed gates are not yet an approved implementation baseline. The independent foundation must not require context construction or placeholder context data. The five accepted event payloads remain unchanged. Deferred behavior must have a named owner, trigger and acceptance evidence before implementation of that integration.
+
+Current main now records basic workflow context as merged and permits independent Stage 04 foundation progress. Existing ExecutionContext.for_agent already derives agent metadata; an additional AgentContext is not selected. Standalone context compatibility and propagation remain Q35, separate from tracing completion. No workflow IDs may be invented for a standalone agent. No Stage 02/03 edits or new context subsystem are authorized by this requirement.
+
 ## Research status
 
 Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event/result fields and representation are now accepted under D36/D37; validation, lifecycle guarantees and permission settings remain unresolved.
@@ -316,3 +322,4 @@ Maintain both active records in this repository package with matching revision e
 | 15 | 2026-11-14 | Recorded reference-led direction and future-event endorsement; linked unapproved P12 field proposal and refreshed research status. |
 | 16 | 2026-11-14 | Accepted D36 field baseline and tool_call_id naming; retained open fallback/lifecycle/representation questions. |
 | 17 | 2026-11-15 | Accepted event/result dataclasses and role match dispatch; recorded no-guessing rule and remaining M1 design questions. |
+| 18 | 2026-11-15 | Recorded D39 parallel-delivery requirement, linked proposed dependency gates and distinguished merged context from future integration. |
