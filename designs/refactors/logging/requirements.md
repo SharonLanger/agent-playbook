@@ -84,3 +84,12 @@ Cleanup scope: ordinary scope exit and Python exception unwinding are covered. F
 | LOG-26 | Each integration has required_start (default true), alongside enabled. Enabled integration initialization failure blocks startup when required, otherwise warns. Runtime/export/cleanup failures warn only and preserve workflow outcomes/exceptions. Disabled integrations do not block startup. | User clarification LD21; supersedes strict_logging |
 
 M2 must isolate logging/tracing infrastructure failures from workflow errors and surface safe terminal diagnostics. required_start concerns initialization only, not a mandatory backend connectivity probe. No assertion of backend availability, durable delivery or automatic replay. Diagnostic error-level records alone still do not fail a workflow (LOG-07).
+
+## Application diagnostic coverage — 2026-11-15
+
+| ID | Requirement | State |
+|---|---|---|
+| LOG-27 | Shared runner code emits workflow started/completed/failed records; useful surrounding application infrastructure also emits diagnostics for setup, configuration, selection/construction and execution. Include detailed DEBUG messages for troubleshooting. | User agreed coverage and delegated placement (LD23) |
+| LOG-28 | Record operational exceptions at their handling/reporting boundary, including recovered failures; avoid duplicate reports of one propagated exception and preserve workflow semantics. | Coverage intent; exact ownership and sanitized error schema in M2 |
+
+Automatic context extraction does not mean automatic interception of every operation. No whole-context/configuration serialization or blanket Langfuse/CrewAI trace duplication. Pre-context/pre-logger failures remain safely visible in terminal diagnostics; do not fabricate run identity. Stack-trace formatting and automatic agent events remain deferred.
