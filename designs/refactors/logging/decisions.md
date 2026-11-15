@@ -16,7 +16,7 @@
 
 | ID | Open question | Gate |
 |---|---|---|
-| LQ01 | Must records persist when Docker/storage stops? Continue, stop, buffer or drop? How is loss visible? | Backend/delivery choice |
+| LQ01 | Strict versus best-effort selected via YAML (LD20); default and detection/propagation timing remain open. Durable replay not selected. | M2 delivery design |
 | LQ02 | Resolved direction: VictoriaLogs store/UI and direct OTLP; exact artifacts and viewer behavior remain to check | M1/M2 |
 | LQ03 | Resolved API shape: explicit context + message through small level helpers; exact accepted context type remains open | M2 |
 | LQ04 | Field types, reserved keys, exception treatment, redaction and payload limits? | Implementation |
@@ -77,3 +77,11 @@ Sharon agreed to keep the four-part outline for now and requested sequential dis
 - M4 covers setup and management through the CLI; exact commands remain to discuss.
 
 Create the remaining design/test/plan documents as answers settle their contracts, keeping shared decisions canonical. First unresolved production question: what happens when VictoriaLogs is unavailable at run start or during a run? Present a concrete simple policy for discussion; do not silently assume reliable delivery or fail-open/fail-closed behavior.
+
+## Configurable strict logging — 2026-11-15
+
+LD20 — Explicit user decision: application YAML owns a boolean strict_logging setting (final nesting to follow the existing configuration model). true makes detected logging unavailability/failure fail the run; false permits continued workflow execution. Best-effort diagnostics use the terminal so they do not depend on the unavailable backend. Default remains to ask; no hardcoded default selected.
+
+Apply this policy to startup and runtime/export/cleanup failures. M2 must explicitly design how asynchronous batch-export failures reach the runner, when failure is detected and how the CLI reports a non-success outcome. Do not assume an SDK worker exception automatically propagates to workflow code. Strict mode is not a guarantee that no work occurs after a backend outage or that every record is durable.
+
+Keep workflow/business errors distinct from logging infrastructure failures. If the workflow already failed, retain its original exception and report the logging failure separately. No remote fallback; disk spool/replay remains unselected. This decision settles policy selection, not the still-draft transport/error implementation.
