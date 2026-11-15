@@ -2,7 +2,7 @@
 
 **MERGE LAST — ONGOING DOCUMENTATION WORKSPACE.** Keep PR #47 open and draft while its implementation work is in progress. Merge it only after all implementation work covered by this workspace has been implemented and its implementation PRs merged, the documentation reflects the final results, and Sharon explicitly authorizes merging this documentation PR. Approval or merge instructions for an implementation PR do not authorize merging #47.
 
-Status: **M4.2 DRAFT PREPARATION authorized; M4.1 final review completed in iteration 33, accepted and merged via PR #44; documentation integration completed. No M4.2 approved contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 42.
+Status: **M4.2 DRAFT PREPARATION authorized; M4.1 final review completed in iteration 33, accepted and merged via PR #44; documentation integration completed. No M4.2 approved contract or implementation authorization.** Started 2026-11-14, discussion iteration 30; current iteration 43.
 
 This file supplements the [complete discussion through iteration 29](context-discussion.md), [shared requirements](../requirements.md) and [decisions](../decisions.md). It records new instructions, proposals, open decisions and possible follow-ups while another Codex implements M4.1. It is not a competing application specification. Read this entire record on each new M4.2 discussion iteration and preserve earlier decisions when updating it.
 
@@ -176,3 +176,11 @@ Sharon approved reorganizing milestone-specific files into m1-context/ and m2-3-
 He requests generalized stage/milestone governance in a NEW independent PR, superseding the tentative request to use PR #46 or #45. PR #48 now contains the reusable working method and Codex handover rules, discovery links in agent instructions/README, guard registration and Atlas refresh. It specifies Sol implementation roles, pre-design contradiction checks, milestone packages, two independent reviewers, three rounds maximum and copyable outgoing/return reports. The design session retains final review. No charter/runtime architecture change is needed. PR #48 is open, unmerged and independent; PR #47 stays draft and MERGE LAST. Refresh #47 against the canonical governance after #48 merges so the earlier copy cannot overwrite it.
 
 No application code or acceptance tests are changed; this work is documentation organization and recorded decisions. Exact combined design/guarded amendment approval still precedes implementation handoff.
+
+## Iteration 43 — implementation freeze and requested start handoff
+
+Sharon requests a simple freeze from the moment he says Codex is working until this design session reviews its returned output. Do not edit/move the handed-off contract or governing requirements/decisions during that window. Record new issues/corrections separately in milestone follow-ups.md with explicit pending/sent status. Only a coordinated explicit pause and rebaseline can change an active contract; no automatic review-round reset.
+
+Added the reusable rule to PR #48 and its earlier copy in PR #47, plus a milestone README entry. The implementation team's code/tests and progress/review reports may evolve under the fixed contract. Corrected the implementation plan's report location to the milestone-local reviews/ directory, consistent with the accepted reorganization.
+
+Sharon asks for the exact text to start Codex. The outgoing pinned instruction states the scope, design/tests/plan, narrow RUN-G01–08 authorization, Sol roles, three-round limit, freeze rule and final-review return format. Forwarding it serves as explicit authorization of that package; publishing it alone does not claim execution has started. Both PRs remain unmerged, with #47 last. No new application code or tests here.

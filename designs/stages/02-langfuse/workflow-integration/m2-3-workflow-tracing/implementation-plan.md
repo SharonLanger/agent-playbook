@@ -26,7 +26,7 @@ The coder report must explain each new helper in terms of application wiring. A 
 
 Use one coder and two separate independent reviewers. Design reviewer checks the exact approved design, native-SDK minimality, scope, guards, runtime behavior and documentation. Test reviewer maps RUN-01–20 to implementation/assertions/evidence and assesses gaps/false confidence. Freeze one candidate SHA for both.
 
-Store reports under reviews/runner-crewai/:
+Store reports under this milestone's reviews/ directory:
 - status.md
 - round-01/implementation.md
 - round-01/design-drift.md
@@ -43,4 +43,4 @@ The originating design session reviews the actual diff/evidence. Its review does
 
 ## 5. Current next step
 
-Design review, not implementation delegation. The exact contract and explicit guarded amendment approval remain before the ready-to-run copyable handoff. The reusable handoff/return templates are already published; the design session will fill exact immutable revisions once this package is approved.
+The design session supplies a pinned copyable implementation instruction. Sharon forwarding that instruction explicitly authorizes this design/test/plan and the listed narrow RUN-G01–08 amendments. Record that instruction as the approval reference; do not infer approval merely from this document's existence. Once implementation starts, keep this contract unchanged until the returned output is reviewed; record later changes in a separate follow-ups.md. Use the standing rules' required return report.
