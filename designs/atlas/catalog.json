@@ -59,7 +59,10 @@
     "designs/refactors/logging/progress.md",
     "designs/refactors/logging/repository-updates.md",
     "designs/refactors/logging/requirements.md",
-    "designs/refactors/logging/research/README.md"
+    "designs/refactors/logging/research/README.md",
+    "designs/refactors/logging/action-items.md",
+    "designs/refactors/logging/history/2026-11-15-replaceability-and-setup.md",
+    "designs/refactors/logging/research/2026-11-15-victorialogs.md"
   ],
   "views": {
     "current": {
@@ -2398,7 +2401,7 @@
           "parent": "observability",
           "label": "Design workspace / Draft",
           "title": "Design correlated local application logs",
-          "text": "Separate from completed Stage 02; compare storage/viewer options before implementation.",
+          "text": "Configuration-first logging with a replaceable backend; Docker/component Compose and setup/CLI requirements recorded. VictoriaLogs source research completed; no runtime approval.",
           "blocks": [
             {
               "name": "Requirements and decisions",
@@ -2409,7 +2412,7 @@
             {
               "name": "Research agenda",
               "path": "designs/refactors/logging/research/README.md",
-              "text": "Compare JSONL/viewer, VictoriaLogs primary, and JSONL plus service. No new research executed.",
+              "text": "Official VictoriaLogs/Fluent Bit/structlog evidence; proposed collector path, licenses and remaining runtime/UI gaps.",
               "to": null
             }
           ],
@@ -4308,6 +4311,21 @@
           "path": "designs/refactors/logging/research/README.md",
           "status": "Draft logging design; no implementation approval",
           "purpose": "Logging requirements, decisions, proposed research and retained history."
+        },
+        {
+          "path": "designs/refactors/logging/action-items.md",
+          "status": "Logging requirements / source research; not implemented",
+          "purpose": "Replaceability, component deployment, setup/CLI and minimal-code candidate evidence."
+        },
+        {
+          "path": "designs/refactors/logging/history/2026-11-15-replaceability-and-setup.md",
+          "status": "Logging requirements / source research; not implemented",
+          "purpose": "Replaceability, component deployment, setup/CLI and minimal-code candidate evidence."
+        },
+        {
+          "path": "designs/refactors/logging/research/2026-11-15-victorialogs.md",
+          "status": "Logging requirements / source research; not implemented",
+          "purpose": "Replaceability, component deployment, setup/CLI and minimal-code candidate evidence."
         }
       ]
     }

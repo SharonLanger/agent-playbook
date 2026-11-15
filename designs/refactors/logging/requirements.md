@@ -47,3 +47,18 @@ Goal: debug Agent Playbook through structured local records, workflow/agent corr
 - Restart, disk pressure, rotation, shutdown and simultaneous writers expose measured delivery/loss limits.
 
 No exactly-once, durable replay, complete framework capture or universal secret recognition is promised. No custom logging engine, viewer, second context system, scheduler, generic event bus or tracing facade.
+
+## Follow-up requirements — 2026-11-15
+
+These are explicit user requirements; the detailed implementation is not yet approved.
+
+| ID | Requirement | Acceptance intent |
+|---|---|---|
+| LOG-15 | Golden rule: logging backend is easily detachable/replacable; native Langfuse remains the exception | Change backend/collector configuration without changing workflow/agent log calls or context; demonstrate alternate output; disclose query/UI/data migration differences |
+| LOG-16 | Component Compose files plus one umbrella entry point | Langfuse/logging separately owned; combined startup; component isolation and existing data/secret identity preserved |
+| LOG-17 | Clear prerequisites and repeatable component/all-services setup | Docker installed and engine running; explicit Compose minimum and tested versions; bounded readiness, idempotence and actionable errors |
+| LOG-18 | Logging management CLI mirrors langfuse action flags | Start/stop/status/open/check and diagnostics; exact install/aggregate spelling pending; no custom framework |
+| LOG-19 | Verify the actual logging path | Distinguish service availability from explicit synthetic emit/collector/ingest/query round trip; bounded timeouts and honest failure |
+| LOG-20 | Configuration-first, low/no custom infrastructure | Existing logger/collector/store/UI; explain necessary setup/context/CLI glue; no broker solely for abstraction |
+
+Docker services are accepted. LOG-05's outage policy remains open. LOG-08 requires an Apache-2.0 option for new selected projects; MIT-only does not qualify. Exact bundled/transitive artifact licensing is a review gate, not yet certified. See [research](research/2026-11-15-victorialogs.md) and [action items](action-items.md).

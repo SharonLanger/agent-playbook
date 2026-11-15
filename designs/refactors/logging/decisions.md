@@ -8,7 +8,7 @@
 | LD02 | Existing approved baseline | Reuse immutable data-only context and agent derivation; no clients/SDK handles in context. |
 | LD03 | Existing approved baseline | Native Langfuse stays. Earlier unified logging/tracing broker is superseded; a logging-only wrapper remains open. |
 | LD04 | Inherited working direction | Structlog prepares records; JSONL was initially preferred. No detailed API or final stack locked. |
-| LD05 | Reopened by handover | Existing Docker usage makes VictoriaLogs worth reconsidering. Earlier no-service motivation remains history; outage policy is unresolved. |
+| LD05 | Reopened by handover | Superseded in part by LD10: Docker services accepted; VictoriaLogs remains a candidate and outage policy unresolved. |
 | LD06 | Inherited requirements | Viewer independence and separation of diagnostic severity from workflow outcome. |
 | LD07 | Inherited constraints | Local operation, Apache 2.0 for new selections, existing open source and minimal replaceable integration. |
 | LD08 | Deferred | Automatic observation duplication and execution-event integration need explicit scope/evidence. |
@@ -30,3 +30,15 @@
 Preserve dated history and record sources/versions/limitations with findings. Proposals become approved only through Sharon's explicit decision at a concrete revision; identify guarded amendments before editing. Research/approval does not authorize a merge.
 
 Alignment: ready for draft requirements/research planning; not ready for implementation. See [history](history/2026-11-15-kickoff.md).
+
+## Follow-up decisions — 2026-11-15
+
+| ID | State | Decision |
+|---|---|---|
+| LD10 | Explicit user direction | Docker service dependence is acceptable; component Compose definitions and one umbrella entry point; does not decide loss/durability during outage |
+| LD11 | Explicit golden rule | Backend replacement must be easy and demonstrated; no provider logger imports scattered through workflows; broker not mandated |
+| LD12 | Explicit user requirement | Clear prerequisites/setup/version guidance, component/all-services entry point, logs CLI mirroring langfuse flags and working-path checks |
+| LD13 | Explicit user constraint | Configuration-first; use existing logging infrastructure; discuss any necessary extra custom code; Apache-2.0 option required, not MIT-only |
+| LD14 | Designer recommendation, not adopted | Structlog/standard logging emits JSONL; Fluent Bit tails/ships; single-node VictoriaLogs supplies store/query/UI. No custom broker or extra vlagent required for this candidate |
+
+[Research findings](research/2026-11-15-victorialogs.md) support the configuration boundary but do not prove runtime replacement or certify all transitive licenses. [Action items](action-items.md) track Compose/setup/CLI work. LQ01 now concerns service outages, not whether Docker services are allowed. Exact CLI install/smoke semantics and license-policy scope for bundled dependencies remain to settle before implementation.

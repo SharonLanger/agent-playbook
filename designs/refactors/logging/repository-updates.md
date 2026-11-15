@@ -41,3 +41,9 @@ Repository → designs → refactors → logging owns this separate package, as 
 
 Baseline: main 4ed7a318e25653d481705d9cb40c35de9ab649c7.
 Documentation checks PASS: Atlas build and freshness/reference/hierarchy/guard/sandbox checks; 55 relative Markdown links checked against the baseline tree plus new package; whitespace across 9 Markdown files. Application tests, service startup and external product research are NOT RUN; no implementation or user acceptance claimed.
+
+## Follow-up research/documentation update
+
+Added LOG-15–20, LD10–14, action items, dated follow-up and official-source research. No guarded/runtime edits. Later Compose migration must preserve the current observability project/volume identities; future implementation changes public setup/CLI guides, but these design notes do not invent supported commands. Source research completed; runtime probes and exact artifact-license audit not run. Prior verification above describes the initial commit only; new documentation checks accompany this update.
+
+Follow-up checks PASS: Atlas generation/freshness/references/guards; 23 relative links plus fences/whitespace across 10 package files. Research/configuration examples are illustrative and unexecuted.

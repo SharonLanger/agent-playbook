@@ -1,7 +1,7 @@
 # Research agenda
 
-**PROPOSED — no new external research or experiments performed.**
-Current capabilities, exact licenses, versions and performance are unverified.
+**Research agenda with an initial source review.**
+See [2026-11-15 VictoriaLogs research](2026-11-15-victorialogs.md) for verified documentation/license evidence and remaining gaps. No runtime experiments or benchmarks performed. Exact artifact pins and bundled-license review remain pending.
 
 ## Candidate architectures
 
@@ -31,4 +31,4 @@ Suggested start: R01 and a paper comparison for R02/R03. Shortlist before instal
 
 Create a dated record per executed task: question and LOG/LQ IDs; candidate/version/license; official source URLs/access date; method/commands/environment; actual results; assumptions; operational/custom-code cost; recommendation; limitations/open questions. Distinguish source findings, observations and inference. Use synthetic fixtures outside app/examples.
 
-No benchmarks, PASS results, license conclusions or dependency selections are asserted yet.
+No runtime PASS results, benchmarks or dependency selections are asserted. Project-level license findings are documented in the source review; full artifact compliance is not certified.

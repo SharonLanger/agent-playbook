@@ -25,4 +25,4 @@ Once boundaries are agreed, create each milestone's README, design, test-cases a
 
 Keep this design PR open for iteration; merge only when Sharon explicitly requests it. No runtime changes, auto-merge or backend adoption are authorized.
 
-Next: select a bounded research task, starting with R01–R03. No new external research has been performed.
+Latest: [VictoriaLogs source research](research/2026-11-15-victorialogs.md), [Compose/setup/CLI action items](action-items.md), and [follow-up history](history/2026-11-15-replaceability-and-setup.md). Docker is accepted; backend replacement and configuration-first integration are firm requirements. Candidate not selected or runtime-tested. Next: discuss the minimal collector approach and approve a bounded probe.
