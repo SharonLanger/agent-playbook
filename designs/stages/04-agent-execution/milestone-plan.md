@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 11 · 2026-11-15 · Owner: Sharon
+Revision: 12 · 2026-11-15 · Owner: Sharon
 Status: **overall milestone boundaries and BC03 gates approved (D40); detailed milestone design/test/plan not yet locked; no implementation authorization.**
 
 [Start here](README.md) · [Specification](specifications.md) · [Decision board](decisions.md) · [Repository reconciliation](repository-updates.md)
@@ -195,3 +195,7 @@ D47 closes terminal notification on adapter exceptions: skip it and propagate af
 ## Cleanup precedence checkpoint — revision 25
 
 D48 preserves the original exception and cleanup diagnostic evidence, with a sole cleanup exception propagated normally. Concrete representation, cancellation and ordering remain open within M1/M2. No boundary, prerequisite or logging integration change.
+
+## Sequential callback checkpoint — revision 26
+
+D49 accepts per-execution sequential delivery through the existing async callback. M1 contract/M2 verification scope remains unchanged. Dual sync/async callback support is not selected; cancellation and slow-handler policies remain open.

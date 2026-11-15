@@ -78,3 +78,7 @@ D47 closes the healthy-handler notification question without changing normal res
 ## Revision 25 cleanup precedence approval
 
 D48 records primary-error preservation and visible secondary cleanup evidence, independent of future logging. Atlas freshness and scoped documentation reference/continuity/guard checks cover the update. No runtime behavior verification, implementation lock or guarded changes are claimed.
+
+## Revision 26 sequential delivery approval
+
+D49 records sequential awaited delivery without changing the existing async signature or adding dual-mode support. Atlas regeneration/freshness and scoped documentation checks validate references, continuity and unchanged guarded/history sources. No runtime or native buffering guarantees are verified by this documentation update.

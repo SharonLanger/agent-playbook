@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 25 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 26 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 ## Status and authority
@@ -332,6 +332,18 @@ Sharon explicitly accepts the recommendation after clarification that exception 
 
 Alternatives considered: an error group exposes both equally but complicates caller handling; propagating only cleanup is simpler but hides the original problem. Keep the primary exception for understandable debugging while making the secondary failure visible. D43–D47 propagation and terminal-delivery decisions remain unchanged. Q10 is answered for cleanup-error precedence; cancellation, delivery ordering and the concrete diagnostic representation remain open. This fits current M1 contract/M2 harness scope, with no new milestone, runtime implementation, design lock or merge authorization. Earlier cleanup-precedence open statements are historical.
 
+## Sequential event delivery — revision 26
+
+D49 — **Approved:** deliver callbacks sequentially within one execution. Await completion of the current handler invocation before delivering the next event. Preserve mapped event order, including the order of events returned by one mapper call. Do not launch event callbacks as independent background tasks. D43 stops further ordinary delivery if a callback raises; D45/D47 govern terminal suppression. Different executions may progress concurrently; no global order or serialization across executions is promised.
+
+Sharon explicitly requests sequential delivery. Concurrent callbacks could process independent work faster but complicate ordering, role state and failure handling. The MVP chooses predictable local delivery without adding a queue, replay or concurrency framework. Awaiting the callback does not guarantee that a separate native runtime pauses or that its buffers are bounded.
+
+The accepted D26 asynchronous handler contract remains unchanged: async handle_event(event) -> None, invoked via await. Async describes how waiting can yield to other tasks; it does not require overlapping callbacks. A handler containing only ordinary synchronous operations can still be async def without an internal await. Blocking I/O or CPU-heavy work inside such a handler can block the event loop; specific offloading belongs to the implementation needing it. Await waits for work performed or awaited by the handler, not untracked background tasks it starts.
+
+Sharon asks whether both sync and async handlers should be supported. Recommendation, not a new approved interface: retain the existing async-only public callback and avoid auto-detecting mixed return types or adding a synchronous overload. An explicit wrapper can be considered later if a concrete synchronous integration requires it. No dual-mode callback contract, handler timeout or cancellation policy is selected by D49.
+
+Q10 is answered for per-execution callback sequencing. Cancellation, slow-handler timeout policy and concrete cleanup diagnostic representation remain open. M1 specifies the contract; M2 verifies it with the fake adapter/mapper. Existing milestone boundaries and prerequisites remain unchanged; no runtime implementation or merge is authorized.
+
 ## Research status
 
 Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event/result fields and representation are now accepted under D36/D37; validation, lifecycle guarantees and permission settings remain unresolved.
@@ -396,3 +408,4 @@ Maintain both active records in this repository package with matching revision e
 | 23 | 2026-11-15 | D46 accepts adapter exception propagation and distinguishes returned unsuccessful runtime outcomes; remaining terminal/cleanup policies stay open. |
 | 24 | 2026-11-15 | D47 skips terminal notification on adapter exceptions even with a healthy handler; result-return delivery remains unchanged. |
 | 25 | 2026-11-15 | D48 preserves the original exception and cleanup diagnostics; a sole cleanup exception propagates normally. |
+| 26 | 2026-11-15 | D49 accepts sequential awaited callbacks per execution; clarifies existing async contract and records dual-mode support as unselected. |
