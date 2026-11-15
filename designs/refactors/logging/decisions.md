@@ -66,3 +66,14 @@ Sharon explicitly requested scoped resource management: initialize on entering t
 Context + message are required; optional event-specific fields are supported. Correlation/workflow/agent identity comes from context, not caller repetition or optional-field overrides. Exact optional-field syntax/types remain M2 design work.
 
 Sharon requested the complete milestone outline before reviewing M1. M1 alone has a concrete draft. M2 remains proposed; M3 (component/umbrella Compose) and M4 (setup and management CLI) are now explicit proposals for discussion, not accepted scope or approved implementation. Automatic observation/event capture stays deferred without a milestone commitment.
+
+## Milestone sequencing clarification — 2026-11-15
+
+Sharon agreed to keep the four-part outline for now and requested sequential discussion of open questions before completing the designs together. This is planning direction, not approval of detailed contracts or implementation.
+
+- M1 creates logging as a separate component Compose file from the beginning.
+- M2 adds application logging and runner lifecycle integration.
+- M3 adds the main Compose entry point referencing component Compose files, adapting the existing Langfuse definition only as needed while preserving data/project identity. It does not first combine services and then split them.
+- M4 covers setup and management through the CLI; exact commands remain to discuss.
+
+Create the remaining design/test/plan documents as answers settle their contracts, keeping shared decisions canonical. First unresolved production question: what happens when VictoriaLogs is unavailable at run start or during a run? Present a concrete simple policy for discussion; do not silently assume reliable delivery or fail-open/fail-closed behavior.
