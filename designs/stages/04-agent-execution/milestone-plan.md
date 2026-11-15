@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 5 · 2026-11-15 · Owner: Sharon
+Revision: 6 · 2026-11-15 · Owner: Sharon
 Status: **overall milestone boundaries and BC03 gates approved (D40); detailed milestone design/test/plan not yet locked; no implementation authorization.**
 
 [Start here](README.md) · [Specification](specifications.md) · [Decision board](decisions.md) · [Repository reconciliation](repository-updates.md)
@@ -42,7 +42,7 @@ Different folders reduce textual overlap; shared contracts still create dependen
 
 **Placement:** proposed runtime files under `app/src/agent_playbook/agents/agent.py` and `execution/{contracts,events.py,request.py,result.py,settings.py,permissions.py}`; tests under maintained `app/tests/` owners. Exact test/model choices belong in the detailed M1 design. No empty coder/reviewer/provider folders are required.
 
-**Entry / decisions to close:** Q01/Q02/Q08 for event/data semantics and result/error representation; Q04/Q26 for the initial configuration subset; Q10 for the contract-level failure promises; C01/Q12 for canonical ownership. Resolve only the portions required by M1, explicitly defer the rest. D34 accepts the five initial event names and basic meanings. D36/D37 subsequently accept event/result fields, status vocabulary and frozen dataclasses. Validation, invocation identity/order, request/settings models and terminal-event ownership remain open. Do not add required context fields now or silently forbid later context integration.
+**Entry / decisions to close:** Q01/Q02/Q08 for event/data semantics and result/error representation; Q04/Q26 for the initial configuration subset; Q10 for the contract-level failure promises; C01/Q12 for canonical ownership. Resolve only the portions required by M1, explicitly defer the rest. D34 accepts the five initial event names and basic meanings. D36/D37 subsequently accept event/result fields, status vocabulary and frozen dataclasses. Validation, invocation identity/order, request/settings models and abnormal terminal delivery remain open. D42 assigns normal start/finish emission to the common harness. Do not add required context fields now or silently forbid later context integration.
 
 **Proposed acceptance:** incomplete ordinary subclasses cannot instantiate; a concrete role can explicitly implement a no-op handler; static checking catches incompatible overrides/callbacks; supported data values and genuinely invalid inputs follow the agreed schema; contracts stay independent of native SDKs and roles. Do not write a test solely to assert each filename exists or add a custom metaclass to police every descendant class.
 
@@ -161,7 +161,7 @@ The stage README owns the canonical milestone/status index. Boundaries and depen
 
 | Milestone / future folder | Design readiness | Resolve in that design | Wait for predecessor / avoid now |
 |---|---|---|---|
-| M1 / m1-contracts-models | Ready to draft now with listed choices | Lifecycle owner and terminal/result consistency; callback ordering/error contract; request/settings/permissions; JSON/nested-mutation validation policy; event-local identity; C01 canonical ownership amendment | No Stage 02/03 wait. Do not specify real SDK mapping or build harness code |
+| M1 / m1-contracts-models | Ready to draft now with listed choices | D42 ownership accepted; abnormal terminal/result consistency and callback ordering/error contract; request/settings/permissions; JSON/nested-mutation validation policy; event-local identity; C01 canonical ownership amendment | No Stage 02/03 wait. Do not specify real SDK mapping or build harness code |
 | M2 / m2-fake-execution | Boundary ready; detailed design waits for M1 contract approval, with review against merged M1 before implementation | Fake scripts/native fixtures, mapper isolation, harness cleanup/failure behavior and observable acceptance | M1 settles field shape, lifecycle and callback promises; do not reopen them speculatively |
 | M3 / m3-demo-agent | Boundary ready; detailed design waits for M2 design to settle the executable path; implementation waits for accepted/merged M2 | One simple task/input/result, no-op versus useful handler behavior, optional visible delay, repeated invocation evidence | Use M1 request/result and M2 fake behavior. Do not design reviewer prompts, AgentContext or a role framework |
 | M4 / m4-workflow-integration | Boundary/dependencies ready to assess; concrete design waits for M3's invocation contract and current main compatibility review | Workflow input/output and sync/async entry, construction/config selection, context at the integration boundary only where necessary, success/failure CLI evidence | Reuse actual merged context. No Stage 03 parallel/join requirement unless explicitly added; no tracing/logging redesign |
@@ -170,4 +170,8 @@ Detailed design may begin after the prior design is approved without waiting for
 
 Every milestone entry requires: approved design/test/plan at a pinned SHA; its listed prerequisite capabilities accepted/merged and checked; scoped implementation authorization. Every exit requires meaningful tests, reviewed evidence, explicit acceptance and separate implementation merge. Stage Design PR stays open. These are not yet satisfied by this planning update.
 
-First next action: draft M1's four-file package, beginning with lifecycle/event ownership. Track its open choices in that draft and resolve them before lock. Later milestone questions stay assigned to their owners; they do not block M1.
+First next action: draft M1's four-file package, building on D42 lifecycle ownership and next resolving callback/error semantics. Track its open choices in that draft and resolve them before lock. Later milestone questions stay assigned to their owners; they do not block M1.
+
+## Lifecycle checkpoint — revision 20
+
+D42 settles harness-owned lifecycle notifications and normal result reuse within M1 contracts/M2 harness boundaries. Retain one role callback and the empty start payload. No milestone boundary changes; abnormal callback/adapter failure behavior remains open before implementation lock.

@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 19 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 20 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 ## Status and authority
@@ -274,6 +274,18 @@ D41 requires progressive design: start M1 now and defer dependent later choices 
 
 Main's roadmap resolves Q37 broad sequencing; C01/Q12 still requires a concrete guarded ownership proposal before M1 implementation lock. Main synchronization preserves the new governance and other stages. Stage Design PR #45 remains draft and merges last only with explicit final authorization.
 
+## Lifecycle ownership and event dispatch — revision 20
+
+D42 — **Approved:** retain the shared event classes and one asynchronous role handle_event callback. The common harness emits ExecutionStarted before invoking ExecutionAdapter.run. On the normal return path, it emits ExecutionFinished carrying the same ExecutionResult that it returns to its caller. The provider adapter and its mapper normalize native content/tool messages; they do not duplicate these local lifecycle notifications. This accepts ownership and the normal-path sequence, not a guarantee of terminal delivery under exceptions.
+
+ExecutionStarted keeps its fixed discriminator and no additional payload now. Its dataclass can gain fields later through an explicit contract change. Optional/defaulted fields can preserve existing construction; required fields or changed meanings require consumer/compatibility review. No prompt, context, timestamp or native turn field is selected here.
+
+The start event describes our local execution boundary. It is not a native Claude pre-turn hook, a permission request, or a veto/control mechanism. An execution may contain multiple native turns. Preparing role-specific instructions belongs before execution; reacting to the notification belongs in the role handler.
+
+Sharon considered separate required onStart/onText/onToolResult methods for visible implementation obligations, then explicitly chose events. Retaining one callback avoids a new mandatory ABC method for every event type and preserves a common observation surface. Roles may delegate to private helpers or ignore irrelevant events; adapters remain role-independent. ABC enforcement requires handle_event, not exhaustive handling of every union variant.
+
+Q01/Q02 are answered for lifecycle emission ownership and normal returned-result consistency. Q10 remains open: callback exceptions, ordering/backpressure, adapter exceptions and terminal delivery on abnormal paths need explicit design. Q06 native hooks/controls remains open. C01 canonical ownership reconciliation is unchanged. This decision fits existing M1 contract/M2 implementation boundaries; no boundary change, runtime implementation or merge is authorized.
+
 ## Research status
 
 Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event/result fields and representation are now accepted under D36/D37; validation, lifecycle guarantees and permission settings remain unresolved.
@@ -332,3 +344,4 @@ Maintain both active records in this repository package with matching revision e
 | 17 | 2026-11-15 | Accepted event/result dataclasses and role match dispatch; recorded no-guessing rule and remaining M1 design questions. |
 | 18 | 2026-11-15 | Recorded D39 parallel-delivery requirement, linked proposed dependency gates and distinguished merged context from future integration. |
 | 19 | 2026-11-15 | Accepted four gated milestones and progressive detailed design; reconciled main governance and remaining canonical ownership gate. |
+| 20 | 2026-11-15 | D42 accepts single-handler lifecycle ownership and normal result reuse; keeps start payload empty and abnormal delivery semantics open. |

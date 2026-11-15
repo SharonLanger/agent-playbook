@@ -54,3 +54,7 @@ Read-only current-main roadmap/progress/context/governance evidence supports D39
 ## Revision 19 main integration and planning approval
 
 Two-parent integration uses PR head b3af3dbf038fc4cd36c49f15909fe3b4fed8670c and main fefe4cc1065642b710a018ecb1088ececde852db. Compared with main, only the Stage 04 package and six existing navigation/progress/Atlas files differ. Exploration-index conflict keeps main's Stage 02 status and our Stage 04 link; catalog retains main state plus Stage 04 planning; generated HTML is rebuilt. Guarded authorities, other stages and all runtime/test/config blobs are unchanged from main. Scoped documentation/links/record checks and Atlas freshness are run; no runtime tests are needed or claimed for this source-preserving documentation update. PR #45 remains open/draft; stage/milestone implementation is not authorized.
+
+## Revision 20 lifecycle approval
+
+D42 records the accepted single-handler choice, harness lifecycle ownership on the normal path, and extensible empty start payload. The specification, board and readiness statements are reconciled; earlier checkpoints remain historical. No new native SDK research or runtime behavior is claimed. Atlas is regenerated and checked, with relative references, record continuity and unchanged guarded/history sources checked by the scoped validator. This update stays within M1/M2 boundaries; no detailed design lock, implementation or merge is authorized.
