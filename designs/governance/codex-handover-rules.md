@@ -16,6 +16,14 @@ Before delegation, provide a design, a separate test-cases document with stable 
 
 The design-session agent must deliver ONE complete copy-and-paste message for Sharon to give the implementing Codex. Resolve all placeholders before presenting a ready-to-run handoff. Use repository-relative paths AND immutable GitHub links at the pinned revision so another session can retrieve the files. Never rely on this session's scratch paths.
 
+## Freeze while implementation is active
+
+From Sharon saying Codex has started until its returned output is reviewed by the originating design session, do not edit, rename, move or replace the milestone design, test cases, implementation plan or shared requirements/decisions governing that handoff. Pin their exact revision in the outgoing prompt; the implementation team works against that revision, not a moving branch.
+
+Record new requirements, corrections or discovered design gaps separately in the milestone's follow-ups.md (create only when needed). State the issue, affected contract/test, proposed change, and whether the active coder has received it. These notes are pending follow-up work, not silently added acceptance criteria. The active implementation team may change code/tests and append its review reports/status under the original contract.
+
+If a change truly cannot wait, tell Sharon and the orchestrator, explicitly pause the affected work, and agree a new pinned baseline before resuming. Do not edit first or reset the three-round counter. Final review compares the result with the handed-off contract and reports later follow-ups separately.
+
 ## Roles and rounds
 
 1. **Orchestrator:** reads the package, records the baseline and approval, delegates coding, freezes a candidate commit, assigns two independent reviewers, consolidates findings and routes corrections.
