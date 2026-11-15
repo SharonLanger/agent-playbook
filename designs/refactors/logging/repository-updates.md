@@ -53,3 +53,11 @@ Follow-up checks PASS: Atlas generation/freshness/references/guards; 23 relative
 Recorded LD15–19 and LOG-21–25; superseded the collector-first recommendation while preserving its dated research. Added M1 design/test-cases/implementation-plan and current direct-OTLP source notes. Runner initialization is agreed direction; exact production context and outage contracts remain open. No guarded file, runtime, dependency or public supported behavior changed. The existing all-principle assessment still applies; M1 supplies its specific assessment.
 
 Verification: Atlas build and --check PASS; 32 relative links in the logging package checked against known repository paths, plus Markdown fences/trailing whitespace PASS. Docker is absent; runtime smoke and application tests NOT RUN (documentation-only update). PR #51 remains draft/open; no concrete milestone approved or implementation started. Shared project/stage status remains accurate and needs no change.
+
+## M2 draft and settled SDK-first choices
+
+Main refreshed to 529fe15895afc8211d833fc2544e98f0d18fb451; intervening Stage 03 changes do not alter the inspected runtime/config/context or governing instructions. Added M2 design/test/plan, LD26/LOG-31/32, source evidence for native exception conversion and a dated alignment record. Current package progress/README and Atlas now distinguish settled choices from draft implementation contracts.
+
+No guarded document changed. M2 lists LOG-G01–06 for review before implementation, including the narrow Langfuse failure-policy follow-on. No public supported behavior changed, so app/docs remains untouched in this documentation PR. All-principle assessment is included in M2; SDK reuse is an explicit acceptance constraint. No application tests or local service checks have run for this update.
+
+M2 documentation verification: Atlas build and --check PASS; 42 relative links across 22 logging-package Markdown files PASS; fences/trailing whitespace PASS. Source evidence only for SDK exception capture. Application/SDK integration tests and Docker smoke NOT RUN. PR #51 remains a draft design workspace.

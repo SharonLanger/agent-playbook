@@ -73,7 +73,7 @@ Docker services are accepted. LOG-05's outage policy is configurable under LOG-2
 | LOG-24 | Local-only logging configuration: local endpoint, local Docker daemon/storage, loopback UI exposure, no remote forwarding/fallback | Required; source-backed setup, no absolute host-wide guarantee |
 | LOG-25 | First milestone is a small opt-in configuration/logging sanity check using synthetic data | Draft M1; no broad reliability/security audit |
 
-LOG-19 is satisfied initially by a bounded smoke demonstration, not a new general test framework. LOG-11 reliability scenarios remain later work, not an M1 completion condition. LOG-17/18 setup and management CLI requirements are retained but deferred. ExecutionContext is selected (LD22). Optional-field types, exception/stack handling and the implementation of LOG-26 remain to settle for runner integration. No whole-context serialization.
+LOG-19 is satisfied initially by a bounded smoke demonstration, not a new general test framework. LOG-11 reliability scenarios remain later work, not an M1 completion condition. LOG-17/18 setup and management CLI requirements are retained but deferred. ExecutionContext is selected (LD22). Optional-field rules and implementation of LOG-26 are specified for review in M2; standard exception capture is agreed under LOG-31. No whole-context serialization.
 
 Cleanup scope: ordinary scope exit and Python exception unwinding are covered. Forced termination, interpreter crashes and power loss are outside that guarantee; flush is an attempt, not a guarantee of delivery to an unavailable service. No remote fallback.
 
@@ -92,7 +92,7 @@ M2 must isolate logging/tracing infrastructure failures from workflow errors and
 | LOG-27 | Shared runner code emits workflow started/completed/failed records; useful surrounding application infrastructure also emits diagnostics for setup, configuration, selection/construction and execution. Include detailed DEBUG messages for troubleshooting. | User agreed coverage and delegated placement (LD23) |
 | LOG-28 | Record operational exceptions at their handling/reporting boundary, including recovered failures; avoid duplicate reports of one propagated exception and preserve workflow semantics. | Coverage intent; exact ownership and sanitized error schema in M2 |
 
-Automatic context extraction does not mean automatic interception of every operation. No whole-context/configuration serialization or blanket Langfuse/CrewAI trace duplication. Pre-context/pre-logger failures remain safely visible in terminal diagnostics; do not fabricate run identity. Stack-trace formatting and automatic agent events remain deferred.
+Automatic context extraction does not mean automatic interception of every operation. No whole-context/configuration serialization or blanket Langfuse/CrewAI trace duplication. Pre-context/pre-logger failures remain safely visible in terminal diagnostics; do not fabricate run identity. Standard SDK stack-trace formatting is selected under LOG-31; automatic agent events remain deferred.
 
 ## Severity filtering — 2026-11-15
 
@@ -105,3 +105,12 @@ Automatic context extraction does not mean automatic interception of every opera
 | ID | Requirement | State |
 |---|---|---|
 | LOG-30 | Default VictoriaLogs retention is seven days, adjustable through the logging component's Compose configuration; rely on VictoriaLogs to expire older records. | User agreed (LD25) |
+
+## Standard exceptions and minimum custom code — 2026-11-15
+
+| ID | Requirement | State |
+|---|---|---|
+| LOG-31 | Include standard exception type/message/stack trace and native chained causes for recorded operational failures using Python logging exc_info and the OTel handler; retain existing safe-data constraints | User agreed; LD26 |
+| LOG-32 | Reuse SDKs for formatting, exception conversion, batching, export, retries and shutdown; our code is limited to context mapping, configuration/lifecycle wiring and necessary failure containment | Explicit user constraint; LD26 |
+
+The SDK's exception field representation is authoritative; do not reconstruct an alternate exception tree or pretend exception.message always equals Python str(exception). Native traceback includes chain details without capturing local variable values. Existing secret/configuration exclusions still apply; no universal automatic secret-recognition promise.

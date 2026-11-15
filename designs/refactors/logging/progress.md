@@ -4,13 +4,14 @@ Updated 2026-11-15. [Repository progress](../../progress.md) owns stage status.
 
 | Area | Design | Implementation / verification | Acceptance |
 |---|---|---|---|
-| Stack | Direct Python logging / OpenTelemetry / local VictoriaLogs selected as direction | Official-source review; no service run | Concrete version/config approval pending |
-| Lifecycle/API | Runner-owned init/cleanup; context + message agreed | No runtime changes | Exact context/error/outage details pending |
-| M1 configuration sanity | Design/test/plan drafted | Not started; Docker unavailable in design environment | No approved SHA |
-| M2 runner integration | Proposed next outcome | Not started | Not approved |
-| CLI/setup/Compose migration | Requirements retained | Not started | Deferred |
-| Event/observation capture | Deferred | Not implemented | Not approved |
+| Stack | Direct standard Python logging / OpenTelemetry / local VictoriaLogs | Official-source and pinned-handler review; no service run | Selected direction; no runtime acceptance |
+| API | ExecutionContext + message + optional fields; standard exceptions | No runtime changes | User choices settled (LD22–26) |
+| Policy | required_start=true inside each enabled integration; runtime/cleanup warn only; DEBUG and seven-day retention defaults | No runtime changes | User choices settled (LD21/24/25) |
+| M1 configuration sanity | Design/test/plan drafted | Not started; Docker unavailable here | No approved concrete revision |
+| M2 application logging | Design/test/plan drafted | Not started | Guarded amendments listed, not applied; concrete revision review pending |
+| M3/M4 Compose/CLI/setup | Outline retained | Not started | Detailed design pending |
+| Automatic event/observation capture | Deferred | Not implemented | Not approved |
 
-Design PR #51 remains draft/open. No logging milestone implemented, accepted or merged. Stage 02 remains complete; Stage 03/04 remain independent.
+PR #51 remains draft/open. No logging milestone implemented, accepted or merged. Stage 02 remains complete. Main inspected at 529fe15895afc8211d833fc2544e98f0d18fb451; intervening Stage 03 work does not alter the logging/context baseline.
 
-Next: review M1's bounded scope and pinned configuration, approve its concrete revision, then implement the smoke check in a separate PR. Production outage policy is not required to demonstrate M1 but is required for M2.
+Next: review [M2](m2-application-logging/README.md), particularly the small integration boundary and guarded amendment list; approve concrete milestone revisions before implementation. M2's live acceptance depends on M1's local service setup. No handoff has been frozen.

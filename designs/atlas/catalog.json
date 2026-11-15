@@ -2401,18 +2401,18 @@
           "parent": "observability",
           "label": "Design workspace / Draft",
           "title": "Design correlated local application logs",
-          "text": "Direct local OpenTelemetry to VictoriaLogs selected as design direction; runner-owned lifecycle and context/message helpers agreed. M1 configuration sanity draft; no runtime implementation.",
+          "text": "SDK-first local logging: ExecutionContext/message/optional fields, native exceptions, initialization-only requirement, DEBUG and seven-day retention agreed. M1 and M2 concrete drafts; no implementation.",
           "blocks": [
             {
               "name": "Requirements and decisions",
               "path": "designs/refactors/logging/requirements.md",
-              "text": "Context/message API shape agreed; exact context and production outage policy pending.",
+              "text": "Settled user choices; standard logging and OpenTelemetry reuse, no custom logging infrastructure.",
               "to": null
             },
             {
               "name": "Research agenda",
               "path": "designs/refactors/logging/research/README.md",
-              "text": "Direct OTLP source evidence and pinned-version proposal; earlier collector research preserved as history.",
+              "text": "Direct OTLP and native exception capture verified in upstream docs/source; runtime checks remain unrun.",
               "to": null
             },
             {
@@ -2420,9 +2420,15 @@
               "path": "designs/refactors/logging/m1-configuration-sanity/README.md",
               "text": "Draft design, bounded smoke cases and implementation plan; no approved SHA.",
               "to": null
+            },
+            {
+              "name": "M2 application logging",
+              "path": "designs/refactors/logging/m2-application-logging/README.md",
+              "text": "Draft design/tests/plan; minimal glue and guarded amendments for review.",
+              "to": null
             }
           ],
-          "note": "DRAFT: direction agreed; concrete milestone implementation approval pending.",
+          "note": "User choices settled; concrete M1/M2 revisions not approved for implementation. Guarded amendments listed, not applied.",
           "status": "exploration",
           "source": "designs/refactors/logging/README.md"
         }

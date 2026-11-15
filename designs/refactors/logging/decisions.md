@@ -19,7 +19,7 @@
 | LQ01 | Resolved policy under LD21: required initialization by default; runtime and cleanup failures warn only. Durable replay not selected. | M2 implementation detail |
 | LQ02 | Resolved direction: VictoriaLogs store/UI and direct OTLP; exact artifacts and viewer behavior remain to check | M1/M2 |
 | LQ03 | Resolved API shape: explicit context + message through small level helpers; accepted context is ExecutionContext (LD22) | M2 |
-| LQ04 | Field types, reserved keys, exception treatment, redaction and payload limits? | Implementation |
+| LQ04 | Exception details agreed under LD26; optional-field rules and safe capture specified in M2 draft | M2 review |
 | LQ05 | Retention, rotation, multi-process writers, shutdown, bounded queues/retries and duplicates? | Delivery acceptance |
 | LQ06 | Coverage direction agreed under LD23: workflow lifecycle plus surrounding application infrastructure; exact placement and error ownership to specify in M2 | Coverage/tests |
 | LQ07 | Optional SDK trace/span enrichment and disabled-tracing behavior? | Enrichment |
@@ -112,7 +112,7 @@ M2 should cover useful configuration/setup, workflow selection/construction, lif
 
 Keep extraction distinct from emission: helpers read the selected identity fields from ExecutionContext; owning application code decides when to emit. No whole-context/configuration serialization. Agent identity comes from the supplied derived context; this does not authorize Stage 04 event capture.
 
-Before ExecutionContext or the logging pipeline exists, use safe terminal diagnostics without invented workflow/agent IDs. The context-based helper contract remains required for execution logs. Initialization/export/cleanup failures follow LD21; diagnostics must not recurse through the failing exporter. Exact startup diagnostic transport, level filtering, sanitized error details and stack-trace treatment remain M2 design details.
+Before ExecutionContext or the logging pipeline exists, use safe terminal diagnostics without invented workflow/agent IDs. The context-based helper contract remains required for execution logs. Initialization/export/cleanup failures follow LD21; diagnostics must not recurse through the failing exporter. Exact startup diagnostic transport, level filtering, sanitized error details remain M2 design details; standard exception capture is now agreed under LD26.
 
 These are coverage requirements and delegated placement decisions, not approval of a completed M2 implementation contract.
 
@@ -123,3 +123,11 @@ LD24 — Sharon accepted standard logging levels and a configurable minimum leve
 ## Seven-day retention — 2026-11-15
 
 LD25 — Sharon accepted seven days as the default VictoriaLogs log retention. Configure through the logging component's Compose settings using the existing retentionPeriod option; VictoriaLogs manages expiration of older records. This now applies to the planned application setup as well as the M1 probe. It does not select disk-size limits, backup or durable delivery guarantees.
+
+## Settled exception policy and SDK reuse — 2026-11-15
+
+LD26 — Sharon accepted standard exception type, message and stack trace with native chained-cause formatting, then explicitly reinforced "no code / low code": reuse Python logging and the OpenTelemetry SDK. No custom exception serializer, traceback walker, queue, transport, retry engine, database or viewer. Logging context and message helpers, lifecycle/configuration wiring and narrow failure containment are the necessary application glue.
+
+These choices are settled for design. "Lock it and proceed to milestone two" authorizes recording them and preparing the M2 package; it does not approve an unseen concrete M2 design/test/plan revision or guarded amendments. No frozen implementation handoff is active.
+
+Alignment: main 529fe15895afc8211d833fc2544e98f0d18fb451 retains the inspected runtime/config/context. The intervening Stage 03 merge does not change these contracts. Pinned handler v0.66b2 uses Python traceback.format_exception for exception.stacktrace; no custom cause processing is needed. M1 has not been implemented; M2's local integration acceptance depends on it. [M2](m2-application-logging/README.md) is ready for design review with guarded amendments listed, not applied.
