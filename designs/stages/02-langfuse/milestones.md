@@ -1,5 +1,11 @@
 # Four milestones and their checkpoints
 
+## Current acceptance — 2026-11-15
+
+M4.2 + M4.3 native workflow tracing is implemented, final-reviewed and accepted by Sharon; PR #50 is authorized for merge. The reviewed candidate is adbba215da77e1e618c3c699e1d84c1ba45c629e: 408 tests, static/lint/format checks and installed release passed. Sharon completed local success, routing, correlation, input/output, readable-name and controlled-failure checks. M1–M3 and M4.1 remain accepted/merged. Stage Design PR #47 stays open for documentation reconciliation and explicit stage closeout. Logging, real-agent cost/usage and scores/evaluations remain deferred. Earlier pending statements below are historical checkpoints, superseded by this acceptance.
+
+## Earlier status and retained history
+
 Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on 2026-11-14; PR #36 merged as `44d6919`. Delivery-readback limits are recorded. M4.1 is accepted and merged via PR #44; M4.2/M4.3 have an approved combined native tracing contract; implementation is on `impl/m4-2-3-native-tracing`, with verification/review ongoing and live acceptance pending.**
 [Review entry point](README.md) · [Required agent verification](verification.md) · [M1 Codex brief](implementation-handoff.md)
 

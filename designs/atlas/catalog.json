@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 01 accepted and locked. Stage 02 M1–M3 accepted/merged; M4.1 implemented, verified and accepted, merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 combined design approved at ab3fab459c97eed44cc0b202402e559a827a71cf; unmerged PR #50 implementation continues round 02 under approved SDK-first amendment 82b967d; visible framework defaults enable automatic tracing, with verification/review and local acceptance pending. Logging remains deferred. Roadmap: Stage 04 foundation may progress early with milestone approval; native integration is Stage 05. Stage Design PRs require separate explicit closeout/merge authorization.",
+  "snapshot": "Stage 01 accepted and locked. Stage 02 M1–M3 and M4.1 merged; M4.2 + M4.3 native workflow tracing accepted by Sharon, PR #50 merge authorized. 408-test gate and installed release passed; local success/branch/failure acceptance completed. Stage Design PR #47 remains open for closeout; logging and agent telemetry enhancements deferred.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
