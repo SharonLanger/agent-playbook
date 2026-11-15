@@ -42,3 +42,7 @@ D35 records the requested reference-led direction; P12 remains proposed. Five in
 ## Revision 16 field acceptance
 
 D36 field acceptance and naming are reconciled across the specification, board, README and milestone checkpoint. Prior proposals/history remain preserved. Atlas build/freshness and relative-link/record/scope checks rerun. No runtime files or tests added; no native integration verified. PR #45 remains merge-last.
+
+## Revision 17 representation and dispatch approval
+
+D37/D38 and the approved reviewer match example are recorded consistently in the working specification, decision board, README and milestone checkpoint. Prior alternatives remain historical. Atlas build/freshness, relative links, records and unchanged guards are checked for this documentation-only candidate; no application tests or runtime implementation. Public app documentation is unaffected because executable behavior is unchanged. PR #45 remains draft and merges last.

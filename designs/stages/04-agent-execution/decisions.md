@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 16 · Updated: 2026-11-14 · Owner: Sharon
+Revision: 17 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 ## How to read this board
@@ -924,6 +924,37 @@ class ToolResultObserved:
 
 JsonValue includes null; output's null/unavailable distinction remains deliberately absent from this minimal shape. Other accepted fields are listed in the specification. Exact discriminator spelling, dataclass/Pydantic choice, field validation, temporal ownership and delivery guarantees remain detailed design. Source research from revision 15 is unchanged; no further native capability assertion is introduced.
 
+## Dataclasses and role dispatch approval — revision 17
+
+| ID | Decision | Evidence, alternatives and implications |
+|---|---|---|
+| D37 | **Approved:** use frozen Python dataclasses for the shared event/result data demonstrated in D36, status enums, and AgentEvent as the union of the five event classes. Role handlers may use match/case to inspect concrete event classes and extract fields. | Sharon explicitly approves the dataclass explanation and reviewer match example and requests recording it. A visitor, dispatch registry, event behavior ABC or method per event is unnecessary now. The existing three behavioral ABCs and typed callback stay unchanged. This settles the dataclass-versus-Pydantic choice for these event/result models, not every future request/settings model. Runtime validation remains a detailed-design task. |
+| D38 | **Approved:** do not guess tool-call/result relationships. | Sharon explicitly says not to guess after the missing-ID explanation. A reliable alternate provider key can be normalized; a made-up ID cannot establish a missing relationship. Nullable tool_call_id and unknown outcome remain different cases. Provider-specific handling/rejection when pairing is unavailable remains open. |
+
+Frozen dataclasses are ordinary classes with generated data-oriented methods; they may have methods, but these events carry information while consumers own behavior. frozen=True prevents ordinary field reassignment, not mutation of nested dictionaries/lists. Do not claim deep immutability or automatic runtime type validation. init=False excludes a fixed discriminator from constructor parameters. Exact validation/copy policy belongs to M1 design.
+
+The reviewer example below is approved as an explanation of role dispatch, not as a real reviewer deliverable or a production logging implementation. Related event data remains in execution/events.py; ExecutionResult remains in execution/result.py. The role handler remains in its role class. Shared handling stays in the harness, and individual roles may ignore irrelevant events or implement a no-op. match is convenient, not a mandatory style rule; isinstance is sufficient for one relevant event. A base event class alone would not remove dispatch.
+
+```python
+class Reviewer(Agent):
+    async def handle_event(self, event: AgentEvent) -> None:
+        match event:
+            case ExecutionStarted():
+                print("Review started")
+            case TextProduced(text=text):
+                print(text)
+            case ToolCallObserved(tool_call_id=call_id, tool_name=name):
+                print(f"Tool call {call_id}: {name}")
+            case ToolResultObserved(tool_call_id=call_id, status=status):
+                print(f"Tool result {call_id}: {status.value}")
+            case ExecutionFinished(result=result):
+                print(f"Review finished: {result.status.value}")
+```
+
+The reviewer finds defects in code; that domain verdict is separate from execution status. No new SDK integration, permission behavior, event type, scheduler, dependency or runtime code is introduced. D33's merge-last rule remains. D37/D38 fit the existing M1 boundary; no scope delta is needed. Historical representation-open statements in P12/revision 16 are superseded for event/result dataclasses by D37, not silently deleted.
+
+Readiness: ready to start the detailed design of S04.M1; not ready to lock it for implementation. Resolve lifecycle emission/terminal-result agreement, ordered callback failure semantics, request/basic settings/permissions, validation and missing-evidence rules within that design. Reconcile C01 and then-current governing sources before lock. Do not require later native integrations or all four milestones to be fully designed first.
+
 ## Maintenance rule
 
 Read both files before progressing the design. Update this board with evidence and explicit status; update the specification only for accepted decisions. Detect conflicts before edits. Tell Sharon before changing any agreement; retain superseded entries and rationale. Maintain the two active repository records, keeping cross-links and revision numbers consistent; original saved files are history. Boundary changes must first be proposed in [milestone-plan.md](milestone-plan.md), then applied under D32 across all affected records. Do not turn a recommendation into “Approved” because it appears in a file.
@@ -948,3 +979,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 14 | 2026-11-14 | Added D33 merge-last rule and D34 five-event approval; partially answered Q01, clarified P01 remaining proposals and payload placement; no runtime changes. |
 | 15 | 2026-11-14 | D35 records reference-led direction and future-category endorsement; P12 proposes reviewer-grounded fields with fresh source references; no field approval or implementation. |
 | 16 | 2026-11-14 | D36 accepts fields, renames tool_call_id, retains output; separates missing identity from unknown outcome; class notation remains illustrative. |
+| 17 | 2026-11-15 | D37 approves frozen dataclasses, enum statuses and role match dispatch; D38 forbids guessed pairing; reviewer example and M1 readiness recorded. |

@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Updated: 2026-11-14 · Working records revision 16
+Updated: 2026-11-15 · Working records revision 17
 Status: **draft planning PR authorized by Sharon; no runtime implementation, stage activation, locked milestone baseline or merge authorization.**
 
 This is the permanent planning home for the proposed agent execution foundation. Use branch `docs/agent-execution-foundation-planning` until merged; do not assume these files exist on main. Main was inspected at `d12b5fc2867d3646b6fab2eb71f1447ff177d8c1`. Stage 02 remains the active stage. The roadmap stays unchanged.
@@ -28,7 +28,7 @@ The accepted architecture direction is small: application agent roles, an inject
 | S04.M3 | One DemoAgent using the foundation, with an explicit event handler and task/result path |
 | S04.M4 | One maintained CrewAI demonstration invokes that agent through existing application infrastructure |
 
-These are **draft milestone allocations for review**, not an instruction to build all four. The initial five event names/basic meanings are accepted (D34); D36 accepts the basic event/result fields; validation, missing-ID policy, lifecycle/failure guarantees and acceptance details still require design. Real native SDKs/adapters/mappers and real coder/reviewer roles remain later integration. Context/Langfuse and actual logging integration stay with their separate owning work; no duplicate subsystem is introduced. A fake proves local behavior, not provider permission enforcement.
+These are **draft milestone allocations for review**, not an instruction to build all four. The initial five event names/basic meanings are accepted (D34); D36 accepts the basic event/result fields; D37 accepts frozen dataclasses and role match dispatch; D38 forbids guessed tool pairing; validation, missing-ID policy, lifecycle/failure guarantees and acceptance details still require design. Real native SDKs/adapters/mappers and real coder/reviewer roles remain later integration. Context/Langfuse and actual logging integration stay with their separate owning work; no duplicate subsystem is introduced. A fake proves local behavior, not provider permission enforcement.
 
 ## Required working rules
 
@@ -49,4 +49,4 @@ Parallel design is appropriate; different subfolders do not remove shared config
 
 ## Next step
 
-Continue S04.M1 from D36's accepted basic event/result fields: clarify missing-ID policy, terminal-result ownership, validation and request schema, followed by basic settings and permissions. No native SDK choice or full reviewer/coder design is required to begin that discussion. No additional question blocks creation of this planning PR.
+Ready to begin S04.M1 detailed design. Keep its existing boundary and work through: (1) start/finish emission ownership and returned-result consistency, (2) callback ordering/failure and missing-evidence behavior, (3) request/basic settings/permissions and model validation. Reconcile approved requirements/decisions and current canonical authority before locking the milestone. Then prepare its detailed design, acceptance cases and implementation handoff. These questions are inputs to detailed design, not reasons to design every later milestone first. No runtime implementation is authorized.

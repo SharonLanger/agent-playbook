@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 16 · Updated: 2026-11-14 · Owner: Sharon
+Revision: 17 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 ## Status and authority
@@ -250,9 +250,19 @@ D36 accepts the P12 field set with tool_call_id replacing call_id. Keep output (
 
 Missing call identity and unknown tool outcome are different cases. Reliable native identity may be normalized, but no speculative pairing algorithm is approved. The missing-ID fallback policy, lifecycle owner, result-delivery guarantees and concrete model/validation choice remain open. A Python dataclass example explains the shape; it does not select the implementation library. Enum values represent statuses; event instances carry data. Workflow/tracing correlation remains deferred to its owning work. Earlier unresolved-field statements are historical to their checkpoints; D36 is the current field baseline.
 
+## Current accepted representation and handling — revision 17
+
+D37 selects frozen Python dataclasses for the shared event/result models; statuses use enums, and AgentEvent remains a union of the five concrete event classes. This supersedes the event/result representation question in earlier checkpoints. Dataclasses can have methods; our events carry data and roles own interpretation. No event behavior ABC, visitor or handler method per event is introduced. The three accepted behavioral ABCs and asynchronous callback remain unchanged.
+
+Role handle_event may use match/case with class patterns and field extraction; roles need only handle relevant events and may explicitly do nothing. isinstance remains suitable for a single relevant event. The [reviewer example](decisions.md#dataclasses-and-role-dispatch-approval--revision-17) illustrates this approved approach without adding a real reviewer to the first foundation milestones. Its print calls are teaching output, not the deferred logging integration.
+
+frozen=True prevents ordinary field reassignment; nested JSON containers are not automatically immutable. init=False keeps a fixed type field out of constructor arguments. Runtime input validation and defensive copying remain detailed-design choices. D38 forbids guessed call/result pairing; nullable identity and unknown outcome are distinct. There is no promised fallback where evidence is absent.
+
+Q08 is now answered for event/result representation and remains open for validation/serialization and other data models. Q01 is answered for initial vocabulary/fields/no-guessing, but invocation identity/order and provider-specific missing-evidence handling remain open. Q02/Q04/Q10/Q26 and C01 retain their unresolved portions. Ready to begin M1 detailed design, not implementation lock.
+
 ## Research status
 
-Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event payloads and permission settings remain unresolved.
+Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event/result fields and representation are now accepted under D36/D37; validation, lifecycle guarantees and permission settings remain unresolved.
 
 The event schema and future control interfaces remain open; P10/P11's minimal ABC/callback declarations are accepted under D25/D26, while execution data and behavioral details remain unresolved. Research confirms that events can cover more than assistant text and that settings/permission responses are different contract categories. Exact SDK versions, payloads and interactive permission support through the chosen Codex surface still require selection and verification.
 
@@ -305,3 +315,4 @@ Maintain both active records in this repository package with matching revision e
 | 14 | 2026-11-14 | D33: PR #45 merges last after all Stage 04 implementation. D34: five event names/basic meanings accepted; schema/ownership remain open; placement and optional future event explanations added. |
 | 15 | 2026-11-14 | Recorded reference-led direction and future-event endorsement; linked unapproved P12 field proposal and refreshed research status. |
 | 16 | 2026-11-14 | Accepted D36 field baseline and tool_call_id naming; retained open fallback/lifecycle/representation questions. |
+| 17 | 2026-11-15 | Accepted event/result dataclasses and role match dispatch; recorded no-guessing rule and remaining M1 design questions. |
