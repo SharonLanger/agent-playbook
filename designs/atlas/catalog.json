@@ -42,7 +42,9 @@
     "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
     "designs/stages/02-langfuse/workflow-integration/01-context-design.md",
     "designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md",
-    "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md"
+    "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md",
+    "designs/governance/stage-milestone-workflow.md",
+    "designs/governance/codex-handover-rules.md"
   ],
   "views": {
     "current": {

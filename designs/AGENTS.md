@@ -6,6 +6,8 @@ This file applies to work in designs. The root AGENTS.md also requires agents wo
 
 Read [governance/design-contract.md](governance/design-contract.md), [governance/guarded-files.md](governance/guarded-files.md), [README.md](README.md), [charter.md](charter.md), [principles.md](principles.md), [architecture.md](architecture.md), [project-structure.md](project-structure.md), [roadmap.md](roadmap.md) and [progress.md](progress.md). Then read the applicable approved stage baseline and consult relevant topics in [explorations/README.md](explorations/README.md). Reuse already-loaded unchanged revisions within a task; never assume unavailable handoff context contains the rules.
 
+For each stage/milestone design and implementation handoff, read [stage-milestone-workflow.md](governance/stage-milestone-workflow.md) and [codex-handover-rules.md](governance/codex-handover-rules.md). Keep shared requirements/decisions/history at the working-package root and each milestone's design/test/plan/reviews in its own folder. Verify alignment before drafting and before handoff.
+
 ## MUST follow
 
 Identify governing decisions → consult relevant explorations → explain placement → obtain required guarded-change approval → work within scope → update affected design/Atlas/public documentation → verify and record evidence. Follow the contract's required decision record; this is a constraint, not optional advice.

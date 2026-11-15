@@ -6,6 +6,8 @@ This repository has one active design workspace in `designs/` and an executable 
 
 For every repository task, explicitly load `designs/AGENTS.md`, `designs/governance/design-contract.md` and `designs/governance/guarded-files.md`, including work under app/. Follow their required decision flow: identify governing decisions, consult relevant explorations, explain placement, obtain required approval, maintain affected documents/Atlas and verify. A nested instruction file is not assumed to load automatically.
 
+For stage/milestone planning and implementation handoffs, also read `designs/governance/stage-milestone-workflow.md` and `designs/governance/codex-handover-rules.md`. These define alignment before design, milestone folders and the bounded independent-review process.
+
 ## Read before working
 1. Read `designs/README.md` for the document inventory.
 2. Read `designs/charter.md`, `designs/architecture.md`, `designs/principles.md`, `designs/roadmap.md`, and `designs/progress.md`.
