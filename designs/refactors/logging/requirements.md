@@ -61,7 +61,7 @@ These are explicit user requirements; the detailed implementation is not yet app
 | LOG-19 | Verify the actual logging path | Distinguish service availability from explicit synthetic emit/export/ingest/query round trip; bounded timeouts and honest failure |
 | LOG-20 | Configuration-first, low/no custom infrastructure | Existing logger/collector/store/UI; explain necessary setup/context/CLI glue; no broker solely for abstraction |
 
-Docker services are accepted. LOG-05's outage policy remains open. LOG-08 requires an Apache-2.0 option for new selected projects; MIT-only does not qualify. Exact bundled/transitive artifact licensing is a review gate, not yet certified. See [research](research/2026-11-15-victorialogs.md) and [action items](action-items.md).
+Docker services are accepted. LOG-05's outage policy is configurable under LOG-26; its default and precise failure detection timing remain open. LOG-08 requires an Apache-2.0 option for new selected projects; MIT-only does not qualify. Exact bundled/transitive artifact licensing is a review gate, not yet certified. See [research](research/2026-11-15-victorialogs.md) and [action items](action-items.md).
 
 ## Current scope clarification — 2026-11-15
 
@@ -76,3 +76,11 @@ Docker services are accepted. LOG-05's outage policy remains open. LOG-08 requir
 LOG-19 is satisfied initially by a bounded smoke demonstration, not a new general test framework. LOG-11 reliability scenarios remain later work, not an M1 completion condition. LOG-17/18 setup and management CLI requirements are retained but deferred. Which application context is accepted, optional-field types, exception/stack handling and production outage behavior must be settled for runner integration. No whole-context serialization.
 
 Cleanup scope: ordinary scope exit and Python exception unwinding are covered. Forced termination, interpreter crashes and power loss are outside that guarantee; flush is an attempt, not a guarantee of delivery to an unavailable service. No remote fallback.
+
+## Configurable failure policy — 2026-11-15
+
+| ID | Requirement | State |
+|---|---|---|
+| LOG-26 | Application YAML provides strict_logging: true fails the run on detected logging infrastructure failure; false continues with a terminal diagnostic. Cover startup, export and cleanup; preserve an existing workflow exception. | User-selected policy; default and precise propagation timing pending |
+
+M2 must make SDK batch-export failures observable to the runner before claiming strict behavior. No assertion of immediate failure at each log call, durable delivery or automatic replay. Diagnostic error-level records alone still do not fail a workflow (LOG-07).
