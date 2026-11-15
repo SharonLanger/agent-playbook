@@ -18,7 +18,7 @@
 |---|---|---|
 | LQ01 | Resolved policy under LD21: required initialization by default; runtime and cleanup failures warn only. Durable replay not selected. | M2 implementation detail |
 | LQ02 | Resolved direction: VictoriaLogs store/UI and direct OTLP; exact artifacts and viewer behavior remain to check | M1/M2 |
-| LQ03 | Resolved API shape: explicit context + message through small level helpers; exact accepted context type remains open | M2 |
+| LQ03 | Resolved API shape: explicit context + message through small level helpers; accepted context is ExecutionContext (LD22) | M2 |
 | LQ04 | Field types, reserved keys, exception treatment, redaction and payload limits? | Implementation |
 | LQ05 | Retention, rotation, multi-process writers, shutdown, bounded queues/retries and duplicates? | Delivery acceptance |
 | LQ06 | Exact first-increment application/framework coverage and one-time error recording boundary? | Coverage/tests |
@@ -49,7 +49,7 @@ Alignment: ready for the M1 draft; no concrete milestone revision approved for i
 |---|---|---|
 | LD15 | User-selected design direction | Python standard logging bridged by OpenTelemetry directly to local VictoriaLogs; built-in store/query/UI. No mandatory structlog, JSONL files, Fluent Bit, Collector or broker. Exact milestone contracts remain draft. |
 | LD16 | Explicit user agreement | A CLI run invocation initializes logging once through the runner/composition boundary; workflows and agents do not initialize providers. Use a Python context manager (Java try-with-resources equivalent) for bounded flush/shutdown on normal exit and exception unwinding. No generic startup registry, package distribution or public API work now. |
-| LD17 | Explicit user agreement | Small log_info/log_warning/log_error helpers take context and message; optional event-specific fields are required as an optional argument. Exact context type, field contract and exceptions are deferred design details. Context remains data-only. |
+| LD17 | Explicit user agreement | Small log_info/log_warning/log_error helpers take context and message; optional event-specific fields are required as an optional argument. ExecutionContext is selected under LD22; detailed field contract and exceptions remain to design. Context remains data-only. |
 | LD18 | Explicit user clarification | Local self-hosted configuration, documented behavior and pinned versions are sufficient research scope. No source audit or exhaustive network/read/write investigation. Retain accurate distinction between local configuration and absolute host-wide exfiltration guarantees. |
 | LD19 | User requested draft | Begin with M1 configuration sanity: minimal component Compose, direct Python export, synthetic context/message and local UI inspection. CLI service management, installer, Langfuse Compose migration and production runner integration are later work. |
 
@@ -97,3 +97,9 @@ After workflow execution begins, logging/tracing infrastructure failures only wa
 required_start means successful initialization, as clarified by Sharon. It does not add a mandatory network readiness/authentication/ingestion round trip. SDK construction may succeed while a backend is unreachable, so this setting alone cannot promise service availability or delivery. Operational connectivity checks remain separate.
 
 Langfuse currently lacks this consistent policy. Aligning it is requested design scope for M2, not an already implemented behavior. Identify any necessary amendments to its guarded baseline before implementation; this update changes only the logging design record.
+
+## ExecutionContext selected — 2026-11-15
+
+LD22 — Sharon explicitly agreed to use the existing ExecutionContext as the required context argument for log_info/log_warning/log_error and other agreed level helpers. Extract correlation_id from ExecutionContext and workflow_id, workflow_run_id, agent_type and agent_run_id from its observability member. Reuse existing agent-context derivation; no new context type, mutation or SDK/client handle in context.
+
+Context and message are required. Event-specific fields remain optional and cannot overwrite context identity. Extract selected logging attributes rather than serializing the entire context. Exact optional-field syntax/types and collision diagnostics remain detailed M2 design work.
