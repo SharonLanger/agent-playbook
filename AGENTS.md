@@ -17,7 +17,7 @@ For stage/milestone planning and implementation handoffs, also read `designs/gov
 
 ## Governance
 - Charter, architecture and principles are guarded approved baselines. Preserve all existing guards, including approved stage material with stale proposed-status headings. New baselines require explicit approval.
-- Each current stage's architecture and committed design must be explicitly approved and locked **before** implementation.
+- Approve a stage's overall boundary first; each milestone's concrete design/test/plan must be explicitly approved and locked **before its implementation**. Later milestone details may remain draft. Follow the Stage Design PR lifecycle in designs/governance/stage-milestone-workflow.md.
 - Never change protected text without explaining the logical additions/removals and consequences for each affected guarded file and obtaining Sharon’s explicit approval beforehand; retain an inspectable diff.
 - Stop when a proposed implementation contradicts the target or locked stage design. Experiments may explore alternatives without silently changing baselines.
 - Progress, learning explanations, and findings may evolve with verified evidence. Distinguish hypotheses from observations.
@@ -43,7 +43,7 @@ conflicts before proceeding. Passing tests alone does not establish compliance.
 - Prefer deterministic regression tests and strict static checking; record actual verification results, not unverified success claims.
 - No GitHub Actions CI is required for now. When Stage 00 defines the local quality-check command, run it before declaring code changes ready and document it in `README.md` and `app/README.md`. Never claim tests ran if they did not.
 - Keep implementation-facing plans distinct from learner-facing Markdown under stage `learning/`. Use Mermaid for static diagrams and self-contained animated SVG where movement clarifies behavior, with a static fallback. Verify rendered assets where possible.
-- Future-stage implementation designs await their stage. Explicitly requested research and POCs may be recorded under designs/explorations/ as non-binding explorations; they do not authorize implementation or replace the guarded architecture.
+- Future-stage implementation designs await their stage except for the specific Stage 04 foundation exception in designs/roadmap.md; ordinary approval gates and actual dependencies remain. Explicitly requested research and POCs may be recorded under designs/explorations/ as non-binding explorations; they do not authorize implementation or replace the guarded architecture.
 
 ## Status and reconciliation
 

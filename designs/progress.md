@@ -355,3 +355,9 @@ its capped independent review; candidate and check evidence belong in
 [permanent review status](stages/02-langfuse/workflow-integration/reviews/context/status.md).
 This is unmerged implementation evidence, not Stage 02 acceptance. M4.2 tracing,
 M4.3 instrumentation and local logging remain later work.
+
+## Roadmap and reusable governance alignment — 2026-11-15
+
+Sharon approved applying PR #46's broad roadmap direction through PR #48, the Stage 04-only sequencing exception, deferred logging, incremental milestone approval and the Stage Design PR convention. This is an approved documentation/governance change; it does not mark Stage 02 complete or Stage 04 implemented. Stage-specific files, their PR titles and detailed design reconciliation remain with their owners.
+
+The permanent [roadmap approval record](roadmap.md#approval-and-scope-record) preserves the handover's lasting decisions. [Stage working method](governance/stage-milestone-workflow.md) and [Codex handover rules](governance/codex-handover-rules.md) own the reusable process, including frozen handoff contracts. Runtime architecture/structure, application behavior and existing stage acceptance are unchanged. C01/Q12 ownership reconciliation remains with Stage 04's owner and is not resolved by this roadmap change.

@@ -49,7 +49,7 @@ Every report identifies author role, candidate SHA, scope, checks and limitation
 
 Distinguish code/test candidate from published head. If later commits only add reports, verify and report that exact diff. Any runtime/test change invalidates the claim that the old candidate reviews cover the new head.
 
-Passing implementation reviews means READY FOR FINAL REVIEW, not accepted or merged. Return the handoff to the originating design session. Do not merge without explicit authorization. Any ongoing documentation PR marked MERGE LAST stays open until all work it covers is implemented/merged, its final records reconciled and Sharon authorizes that documentation PR separately.
+Passing implementation reviews means READY FOR FINAL REVIEW, not accepted or merged. Return the handoff to the originating design session. Do not merge without explicit authorization. The Stage Design PR stays draft and open under the [stage working method](stage-milestone-workflow.md#stage-design-pr-lifecycle). Merge requires stage closeout and Sharon's explicit authorization identifying that PR. Implementation approval or merge authorization never transfers to it. Older MERGE LAST labels retain the same protection.
 
 ## Outgoing message template — design session to implementing Codex
 
@@ -73,7 +73,8 @@ Use Sol for implementation roles and record exact model IDs. Delegate to one cod
 Both reviewers must assess the same candidate commit. Keep the permanent per-round reports under <review path>. Maximum three total rounds; stop if unresolved after round three. Preserve all findings and evidence. Complete the milestone's agreed checks, explicitly identifying anything unrun or blocked.
 
 Open/update the separate implementation PR as specified. Do not merge it.
-Documentation PR <number/link> is MERGE LAST and must remain open.
+Stage Design PR: <number/link and title; use not applicable only for work outside a stage>.
+Keep the Stage Design PR draft and open. Do not enable auto-merge or merge it; milestone approval/merge does not authorize its merge.
 
 When finished, return ONE self-contained copyable final-review handoff using the required return template in the rules. The originating design session will perform the final review.
 ```
@@ -87,7 +88,7 @@ Return the following as ONE copyable text block with all fields filled; use NOT 
 
 Outcome: READY FOR FINAL REVIEW / BLOCKED
 Repository and implementation PR:
-Design/documentation PR:
+Stage Design PR (or not applicable for work outside a stage):
 Approved design/test/plan revision and approval reference:
 Implementation branch, target and base commit:
 Final code/test candidate reviewed by BOTH reviewers:

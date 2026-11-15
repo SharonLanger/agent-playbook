@@ -59,3 +59,5 @@ Sharon requested the generalized stage/milestone and Codex handover process as g
 
 - `designs/governance/stage-milestone-workflow.md`
 - `designs/governance/codex-handover-rules.md`
+
+The 2026-11-15 PR #48 alignment extends these procedures with the Stage Design PR lifecycle, incremental milestone approval and separate explicit merge gate. It also amends charter/principle 9 for the narrow Stage 04 sequencing exception. All existing protections remain; no draft Stage 04 milestone is registered as a locked baseline by this change.

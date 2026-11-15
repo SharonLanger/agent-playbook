@@ -34,7 +34,7 @@ Some Markdown viewers suppress SVG animation; the browser viewer remains a fallb
 ## Stage documents
 
 Each stage has its own end-state architecture and plan, plus findings and learning
-exercises. Future implementation baselines wait for their stage. Explicitly requested optional research/POCs belong in explorations and must not be mistaken for approved targets.
+exercises. Future implementation baselines wait for their stage except for the scoped Stage 04 foundation exception in [roadmap.md](roadmap.md#sequencing-and-approval). Explicitly requested optional research/POCs belong in explorations and must not be mistaken for approved targets.
 The historical [sandbox](../sandbox/) is outside the active application architecture.
 
 ## Stage and milestone working process

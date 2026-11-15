@@ -16,6 +16,30 @@ Recommended shared files:
 - repository-updates.md when needed: affected guarded/public/Atlas surfaces and reconciliation work.
 - research/ and history/: dated evidence, sources, limitations and discussion records.
 
+## Stage Design PR lifecycle
+
+Maintain one ongoing **Stage Design PR** per stage, titled `[Stage XX Design] <stage name>` (for example `[Stage 04 Design] Agent execution foundation`). Implementation PRs use `[Stage XX · MYY] <milestone outcome>`; nested milestone IDs retain their documented mapping rather than being renumbered.
+
+The Stage Design PR normally changes only its stage's requirements, decisions, milestones, designs, test cases, research and review records. Necessary shared roadmap/progress/governance/Atlas amendments must be explicitly identified and follow guarded-change approval. Runtime source, application configuration, dependencies and executable application tests belong in separate implementation PRs. General governance PRs such as #48 are not themselves Stage Design PRs.
+
+Keep the Stage Design PR draft and open throughout the stage. Approved milestone documents can be consumed through immutable commit links before this PR merges. Its existence, design approval, passing checks, milestone acceptance or implementation-PR merge never authorizes merging the Stage Design PR. Do not enable auto-merge.
+
+Put this notice first in its description:
+
+> **STAGE DESIGN WORKSPACE — KEEP OPEN**
+>
+> This PR maintains this stage's documentation throughout its milestones. Design approval and implementation-PR merge instructions do not authorize merging this PR. Keep it draft until stage closeout. Merge only after Sharon explicitly authorizes this Stage Design PR.
+
+The stage README owns the canonical milestone table. Keep a compact milestone/PR index and a link to that table in the PR description. Track:
+
+| Milestone ID and outcome | Design and approved SHA | Implementation PR(s) | Review evidence | Acceptance | Merge state |
+|---|---|---|---|---|---|
+| Each milestone | Link; draft or exact approved revision | All related PRs, or not opened | Permanent report links | Pending / accepted / explicitly deferred | Actual state |
+
+Approve the overall stage boundary first, then each concrete milestone design/test/plan incrementally before implementation. Do not require every later milestone's detailed design upfront. Approval of one milestone never approves another.
+
+At closeout, all milestones must be accepted with their implementation PRs merged, or explicitly removed/deferred by Sharon with the reason and changed scope retained. Reconcile final evidence, progress, links and Atlas, then report readiness. Merge only after an explicit instruction identifying this Stage Design PR. Never infer that instruction from work on a related PR. An instruction to abandon/close without merging is a separate user decision. Existing PR titles and stage layouts are updated by their owners; this convention does not authorize mass renaming or migration.
+
 ## 2. Every milestone gets a folder
 
 Use m<number>-<short-slug>/, with at most three descriptive words in the slug, e.g. m1-context/. A combined milestone can use m2-3-workflow-tracing/. IDs remain unambiguous through the parent stage/package; document mappings to global IDs such as M4.1.
@@ -61,6 +85,6 @@ Return one complete copyable evidence handoff to the originating design session.
 
 ## 6. Closure and maintenance
 
-Update milestone/shared progress, relevant public guides and Atlas from verified results. Preserve all failed checks/findings and their eventual dispositions. Record blocked/manual work honestly. Ongoing planning PRs marked MERGE LAST remain open until all covered work is merged, final records reconciled and Sharon separately authorizes them.
+Update milestone/shared progress, relevant public guides and Atlas from verified results. Preserve all failed checks/findings and their eventual dispositions. Record blocked/manual work honestly. Stage Design PRs follow the separate closeout and explicit merge gate above. Older PRs labelled MERGE LAST retain their keep-open restriction until their owners adopt this convention; changing the label does not grant merge permission.
 
 New fields or capabilities trigger an impact check against requirements, decisions, approved contracts/tests and affected milestones. Resolve drift explicitly before implementation. This method changes development governance, not the application's runtime architecture.
