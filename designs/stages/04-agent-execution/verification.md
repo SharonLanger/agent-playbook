@@ -66,3 +66,7 @@ D43/D44 distinguish the approved MVP fail-fast behavior from deferred customizat
 ## Revision 22 terminal-delivery approval
 
 D45 closes the failed-handler terminal-notification question and preserves D42 normal delivery and D44 deferred customization. Atlas regeneration/freshness and scoped link/continuity/guard checks cover this documentation-only change. Runtime tests and native capability research are not claimed; no application or guarded baseline changes.
+
+## Revision 23 adapter exception approval
+
+D46 records propagation rather than blanket result conversion. Specification/board/readiness are reconciled within unchanged M1/M2 boundaries. Atlas and scoped documentation checks cover this documentation-only update; no native behavior, application tests or guarded changes are claimed.

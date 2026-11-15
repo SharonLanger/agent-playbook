@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 22 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 23 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 ## How to read this board
@@ -1023,6 +1023,16 @@ Sharon explicitly accepts the recommendation after clarification that this is a 
 
 ExecutionFinished describes an ended execution with a result, not necessarily a successful result. D42 normal-return delivery is unchanged. Q10 is answered for terminal delivery after handler failure; adapter exceptions with a healthy handler, cancellation, cleanup-error precedence and ordering remain open. Next topic: distinguish adapter exceptions from returned failed execution outcomes. D45 fits existing M1/M2 boundaries and does not authorize implementation, a milestone lock or merging PR #45. Earlier revision-21 open wording is historical and superseded only for this specific question.
 
+## Adapter exception policy — revision 23
+
+D46 — **Approved:** propagate unexpected exceptions from ExecutionAdapter.run after resource cleanup. The common harness must not broadly convert raised adapter exceptions into failed ExecutionResult values. Sharon explicitly accepts the recommendation to propagate. Preserve debugging evidence and distinguish an execution-code/transport exception from an unsuccessful outcome deliberately reported by the runtime.
+
+When the adapter has a supported, explicit runtime-reported unsuccessful outcome, it may return a failed ExecutionResult. D42 then applies: the harness delivers ExecutionFinished with that result and returns it if the handler succeeds. A single failed tool result does not automatically establish failure of the whole execution; the native runtime may recover. Exact provider-specific outcome mapping belongs to later native integration.
+
+Alternative considered: convert every adapter exception to a failed result for one uniform caller return shape. This was not selected because broad conversion risks hiding implementation bugs and losing useful exception diagnostics. The caller must handle both returned outcomes and propagated exceptions. No automatic retries, exception-class hierarchy or new configuration is selected.
+
+Q10 is answered for propagation versus result conversion of unexpected adapter exceptions. Whether a healthy handler receives any terminal notification on this exception path, cleanup-error precedence, cancellation and callback ordering remain open. D45 continues to govern an already-failed handler. Do not infer a synthetic terminal result or new error event from D46. Existing M1 contract/M2 harness boundaries, D44 future customization and guarded ownership reconciliation are unchanged. No runtime implementation, milestone lock or merge is authorized.
+
 ## Maintenance rule
 
 Read both files before progressing the design. Update this board with evidence and explicit status; update the specification only for accepted decisions. Detect conflicts before edits. Tell Sharon before changing any agreement; retain superseded entries and rationale. Maintain the two active repository records, keeping cross-links and revision numbers consistent; original saved files are history. Boundary changes must first be proposed in [milestone-plan.md](milestone-plan.md), then applied under D32 across all affected records. Do not turn a recommendation into “Approved” because it appears in a file.
@@ -1053,3 +1063,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 20 | 2026-11-15 | D42 records lifecycle ownership, callback alternative and extensible empty start payload; callback/error guarantees remain open. |
 | 21 | 2026-11-15 | D43 accepts fail-fast handler errors; D44 defers per-agent configuration/injected error behavior; terminal delivery and remaining failure semantics stay open. |
 | 22 | 2026-11-15 | D45 accepts skipping terminal notification after handler failure; cleanup remains independent and original failure propagates. |
+| 23 | 2026-11-15 | D46 accepts adapter exception propagation and distinguishes returned unsuccessful runtime outcomes; remaining terminal/cleanup policies stay open. |

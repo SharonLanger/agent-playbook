@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Updated: 2026-11-15 · Working records revision 22
+Updated: 2026-11-15 · Working records revision 23
 Status: **draft planning PR authorized by Sharon; no runtime implementation, stage activation, locked milestone baseline or merge authorization.**
 
 This is the permanent Stage 04 design workspace on `docs/agent-execution-foundation-planning`. Main `fefe4cc1065642b710a018ecb1088ececde852db` is incorporated in this update. Stage 04's boundary and four milestone allocations/gates are approved; detailed milestone designs and implementation are not. PR #45 follows `[Stage 04 Design] Agent execution foundation` and stays draft through stage closeout.
@@ -53,7 +53,7 @@ Parallel design is appropriate; different subfolders do not remove shared config
 
 ## Next step
 
-Ready to begin S04.M1 detailed design. Keep its existing boundary and work through: D42 settles harness start/finish ownership and normal returned-result consistency. D43 accepts stop-and-propagate for handler exceptions; D44 tracks future per-agent customization without adding context now. D45 skips terminal notification after handler failure. Next resolve (1) adapter errors, cleanup-error precedence and callback ordering, (2) missing-evidence behavior, (3) request/basic settings/permissions and model validation. Reconcile approved requirements/decisions and current canonical authority before locking the milestone. Then prepare its detailed design, acceptance cases and implementation handoff. These questions are inputs to detailed design, not reasons to design every later milestone first. No runtime implementation is authorized.
+Ready to begin S04.M1 detailed design. Keep its existing boundary and work through: D42 settles harness start/finish ownership and normal returned-result consistency. D43 accepts stop-and-propagate for handler exceptions; D44 tracks future per-agent customization without adding context now. D45 skips terminal notification after handler failure. D46 propagates unexpected adapter exceptions. Next resolve (1) terminal notification to a healthy handler on adapter exceptions, cleanup-error precedence and callback ordering, (2) missing-evidence behavior, (3) request/basic settings/permissions and model validation. Reconcile approved requirements/decisions and current canonical authority before locking the milestone. Then prepare its detailed design, acceptance cases and implementation handoff. These questions are inputs to detailed design, not reasons to design every later milestone first. No runtime implementation is authorized.
 
 ## Approved parallel-work gates
 

@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 8 · 2026-11-15 · Owner: Sharon
+Revision: 9 · 2026-11-15 · Owner: Sharon
 Status: **overall milestone boundaries and BC03 gates approved (D40); detailed milestone design/test/plan not yet locked; no implementation authorization.**
 
 [Start here](README.md) · [Specification](specifications.md) · [Decision board](decisions.md) · [Repository reconciliation](repository-updates.md)
@@ -183,3 +183,7 @@ D43 selects stop-and-propagate within existing M1 contract/M2 harness scope. D44
 ## Terminal-delivery checkpoint — revision 22
 
 D45 closes terminal delivery after handler failure within existing M1/M2 scope: no further callback or terminal retry; cleanup is independent. Adapter-exception outcomes, cleanup-error precedence, cancellation and ordering remain open. No milestone boundary or prerequisite changes.
+
+## Adapter exception checkpoint — revision 23
+
+D46 accepts unexpected adapter exception propagation within M1/M2, keeping returned runtime outcomes distinct. Terminal notification to a healthy handler on that path and cleanup-error precedence remain open. No new milestone, implementation scope or prerequisite changes.
