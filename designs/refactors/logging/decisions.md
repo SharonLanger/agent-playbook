@@ -1,0 +1,32 @@
+# Decisions and open questions
+
+**DRAFT register.** Sharon owns scope/policy approval; the designer supplies evidence. No implementation authorization.
+
+| ID | State | Direction |
+|---|---|---|
+| LD01 | Current instruction | Separate logging design workspace/PR in designs/refactors/logging, related to Stage 02; no runtime work. |
+| LD02 | Existing approved baseline | Reuse immutable data-only context and agent derivation; no clients/SDK handles in context. |
+| LD03 | Existing approved baseline | Native Langfuse stays. Earlier unified logging/tracing broker is superseded; a logging-only wrapper remains open. |
+| LD04 | Inherited working direction | Structlog prepares records; JSONL was initially preferred. No detailed API or final stack locked. |
+| LD05 | Reopened by handover | Existing Docker usage makes VictoriaLogs worth reconsidering. Earlier no-service motivation remains history; outage policy is unresolved. |
+| LD06 | Inherited requirements | Viewer independence and separation of diagnostic severity from workflow outcome. |
+| LD07 | Inherited constraints | Local operation, Apache 2.0 for new selections, existing open source and minimal replaceable integration. |
+| LD08 | Deferred | Automatic observation duplication and execution-event integration need explicit scope/evidence. |
+| LD09 | Proposal | Research outage requirements and candidate storage/viewer combinations before choosing API and delivery details. |
+
+| ID | Open question | Gate |
+|---|---|---|
+| LQ01 | Must records persist when Docker/storage stops? Continue, stop, buffer or drop? How is loss visible? | Backend/delivery choice |
+| LQ02 | Which storage/viewer combination satisfies licensing and filtering with least custom work? | Stack selection |
+| LQ03 | Direct structlog or small facade? Explicit bound context/logger or context-local binding? | API/concurrency design |
+| LQ04 | Field types, reserved keys, exception treatment, redaction and payload limits? | Implementation |
+| LQ05 | Retention, rotation, multi-process writers, shutdown, bounded queues/retries and duplicates? | Delivery acceptance |
+| LQ06 | Exact first-increment application/framework coverage and one-time error recording boundary? | Coverage/tests |
+| LQ07 | Optional SDK trace/span enrichment and disabled-tracing behavior? | Enrichment |
+| LQ08 | Viewer in first outcome or later milestone? | Milestone scope |
+| LQ09 | Does an existing embedded SQLite solution simplify matters? | Optional research |
+| LQ10 | Which Stage 04 event contract is ready for consumption without coupling to its drafts? | Later event integration |
+
+Preserve dated history and record sources/versions/limitations with findings. Proposals become approved only through Sharon's explicit decision at a concrete revision; identify guarded amendments before editing. Research/approval does not authorize a merge.
+
+Alignment: ready for draft requirements/research planning; not ready for implementation. See [history](history/2026-11-15-kickoff.md).

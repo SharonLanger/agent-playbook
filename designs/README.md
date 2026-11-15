@@ -6,6 +6,7 @@ and learn it. Progress records what has actually been accepted.
 
 | Location | Purpose |
 |---|---|
+| [Application logging design](refactors/logging/README.md) | Independent Stage 02 follow-on: draft specs, decisions, research agenda and history; no implementation approval |
 | [Workflow contract refactor](refactors/workflow-contract/README.md) | Completed and accepted ABC lifecycle and YAML contract; [A1–F6 mapping](refactors/workflow-contract/review-follow-up.md) and [Q1–Q4 test corrections](refactors/workflow-contract/review-test-quality.md) retain revision-specific evidence |
 | [Runtime structure refactor](refactors/2026-11-12-runtime-structure/README.md) | Accepted runtime refactor record, exploratory future-tree proposal and revision-specific verification evidence |
 | [project-structure.md](project-structure.md) | Guarded folder ownership, dependency rules and current source layout |
@@ -62,3 +63,4 @@ Read charter, principles, architecture, project structure, roadmap and progress,
 - [Atlas change record](refactors/atlas/README.md): approval scope and verification for #35.
 
 Official product documentation lives in app/docs; internal/refactor review material belongs here. Personal examples are not a source to inspect during architectural discovery.
+
