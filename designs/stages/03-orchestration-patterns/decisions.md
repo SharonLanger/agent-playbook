@@ -6,6 +6,8 @@ This record covers the agreements visible in this design conversation and the lo
 
 ## Current reading note
 
+Latest lifecycle amendment: U10 / S03-D26 below authorizes PR #53 merge with temporary verify.py scripts retained, and moves their deletion to Stage 03 closeout before #52 merges. Earlier pre-implementation-merge wording is historical for this timing only.
+
 The initial register/checkpoint below is retained as history. Decisions D12–D25 and source records U04–U09 later in this file supersede the initial application-path/tracing, permanent-test and per-recipe planning assumptions. The README presents the current specification. The S03.M1 package is now prepared; the outgoing prompt pins it. Freeze that package and governing requirements/decisions when Sharon starts Codex.
 
 ## Session sources
@@ -177,3 +179,9 @@ No blanket guarded amendment is authorized. Exact path repairs necessary for the
 
 - U08: visual walkthrough presented, no implementation.
 - U09: all eight approved; prepare concrete package and one copyable Codex prompt. Temporary tests must be available for Sharon. Final review returns here before any merge.
+
+## Implementation merge and deferred cleanup — 2026-11-15
+
+- **U10:** After the originating design-session PASS, Sharon instructed: “We can merge this one ... before we merge the design ... upon merging the design pull request, and marking this stage as done ... remove the ... temporary” verify.py files. This authorizes implementation PR #53 now and explicitly defers removal to Stage 03 closeout. It does not authorize merging design PR #52 now, and does not claim Mac/PyCharm checks were performed.
+- **S03-D26 — Approved; U10:** Merge #53 with the eight temporary recipe verify.py scripts retained. Remove them before declaring Stage 03 done and merging #52. Preserve existing concept tests, immutable test-bearing revision and review evidence; run the agreed direct smoke checks after cleanup. Reason: Sharon chose to keep the checks available while separating implementation merge from design closeout. This supersedes only the cleanup timing in D15/D23, R11, B08, X07 and the implementation plan; recipe behavior and the three-round cap are unchanged. [Concrete closeout checklist](m1-recipe-batch/closeout.md).
+- Observed outcome: GitHub confirmed #53 merged at `529fe15895afc8211d833fc2544e98f0d18fb451`; all eight verify.py paths are present in that merge tree. Its head was the exact final-reviewed `906e0e5921fae726f37c5bdbb61551578373c908`; no new runtime/test changes or reruns were needed for this merge. #52 remains draft/open. Stage 03 is not yet marked complete.
