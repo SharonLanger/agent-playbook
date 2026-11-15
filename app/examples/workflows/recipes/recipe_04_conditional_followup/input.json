@@ -1,0 +1,10 @@
+{
+  "numbers": [
+    2,
+    4,
+    6
+  ],
+  "threshold": 10,
+  "min_delay": 0.01,
+  "max_delay": 0.02
+}

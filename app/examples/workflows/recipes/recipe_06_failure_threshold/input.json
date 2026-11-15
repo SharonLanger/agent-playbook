@@ -1,0 +1,7 @@
+{
+  "failed_checks": [
+    "A",
+    "B"
+  ],
+  "failure_threshold": 3
+}
