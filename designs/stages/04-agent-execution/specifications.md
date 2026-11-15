@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 20 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 21 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 ## Status and authority
@@ -286,6 +286,18 @@ Sharon considered separate required onStart/onText/onToolResult methods for visi
 
 Q01/Q02 are answered for lifecycle emission ownership and normal returned-result consistency. Q10 remains open: callback exceptions, ordering/backpressure, adapter exceptions and terminal delivery on abnormal paths need explicit design. Q06 native hooks/controls remains open. C01 canonical ownership reconciliation is unchanged. This decision fits existing M1 contract/M2 implementation boundaries; no boundary change, runtime implementation or merge is authorized.
 
+## Handler failure and future customization — revision 21
+
+D43 — **Approved MVP policy:** if the agent's handle_event raises an exception, stop local execution processing, perform resource cleanup and propagate the failure to the caller. If ExecutionStarted handling fails, do not invoke the adapter. For later failures, stop consuming/delivering ordinary events and require adapter cleanup. Do not swallow the handler failure or return a successful result. This does not undo already executed tools or guarantee immediate termination of a separate native process; native stop/cleanup mechanics need provider integration evidence.
+
+Sharon selects stop-and-propagate to expose problems during debugging. Continuing after a handler failure risks hiding broken essential role behavior. A configurable policy now adds unnecessary MVP choices. An agent may catch an expected nonessential error within its own handler. Exact exception wrapping, cleanup-error precedence, cancellation and whether to attempt ExecutionFinished through a failed handler remain open; D43 does not silently answer these cases or change adapter-failure semantics.
+
+D44 — **Approved future direction, deferred implementation:** preserve a path to per-agent error behavior. Sharon requests later configuration, potentially via agent context, and possibly an injected error-handler method for code-defined behavior. Context fields, policy names, callback signature and a new Agent ABC method are not selected. Keep current policy ownership in the common execution boundary rather than duplicating it in each provider. This allows later policy injection without changing native event schemas; it is not a promise of zero future contract changes.
+
+Future tracking: revisit configuration versus injected behavior when a concrete agent needs a different failure policy. M1 records the contract and deferred need; M2 implements only D43 after its own design approval. Any future implementation must first receive a milestone-boundary amendment. No additional/final milestone, AgentContext model, placeholder flags or extension framework is added now. This preserves D27/D39/D40 standalone scope and D26's three ABCs.
+
+Q10 is **partly answered** for handler failures by D43; terminal notification after failure, adapter errors, ordering/backpressure, cancellation and cleanup precedence remain open. Q35 context integration is still deferred. Next discussion: whether to attempt ExecutionFinished after the handler fails. No runtime implementation, detailed-design lock or merge is authorized.
+
 ## Research status
 
 Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event/result fields and representation are now accepted under D36/D37; validation, lifecycle guarantees and permission settings remain unresolved.
@@ -345,3 +357,4 @@ Maintain both active records in this repository package with matching revision e
 | 18 | 2026-11-15 | Recorded D39 parallel-delivery requirement, linked proposed dependency gates and distinguished merged context from future integration. |
 | 19 | 2026-11-15 | Accepted four gated milestones and progressive detailed design; reconciled main governance and remaining canonical ownership gate. |
 | 20 | 2026-11-15 | D42 accepts single-handler lifecycle ownership and normal result reuse; keeps start payload empty and abnormal delivery semantics open. |
+| 21 | 2026-11-15 | D43 accepts fail-fast handler errors; D44 defers per-agent configuration/injected error behavior; terminal delivery and remaining failure semantics stay open. |

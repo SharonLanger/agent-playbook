@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 6 · 2026-11-15 · Owner: Sharon
+Revision: 7 · 2026-11-15 · Owner: Sharon
 Status: **overall milestone boundaries and BC03 gates approved (D40); detailed milestone design/test/plan not yet locked; no implementation authorization.**
 
 [Start here](README.md) · [Specification](specifications.md) · [Decision board](decisions.md) · [Repository reconciliation](repository-updates.md)
@@ -175,3 +175,7 @@ First next action: draft M1's four-file package, building on D42 lifecycle owner
 ## Lifecycle checkpoint — revision 20
 
 D42 settles harness-owned lifecycle notifications and normal result reuse within M1 contracts/M2 harness boundaries. Retain one role callback and the empty start payload. No milestone boundary changes; abnormal callback/adapter failure behavior remains open before implementation lock.
+
+## Handler failure checkpoint — revision 21
+
+D43 selects stop-and-propagate within existing M1 contract/M2 harness scope. D44 tracks future per-agent policy/context or injected error behavior as deferred, with no new milestone or current implementation acceptance. Next settle terminal notification after handler failure. Any future customization milestone must pass the boundary-change protocol before assignment; standalone prerequisites are unchanged.

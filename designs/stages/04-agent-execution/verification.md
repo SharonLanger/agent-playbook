@@ -58,3 +58,7 @@ Two-parent integration uses PR head b3af3dbf038fc4cd36c49f15909fe3b4fed8670c and
 ## Revision 20 lifecycle approval
 
 D42 records the accepted single-handler choice, harness lifecycle ownership on the normal path, and extensible empty start payload. The specification, board and readiness statements are reconciled; earlier checkpoints remain historical. No new native SDK research or runtime behavior is claimed. Atlas is regenerated and checked, with relative references, record continuity and unchanged guarded/history sources checked by the scoped validator. This update stays within M1/M2 boundaries; no detailed design lock, implementation or merge is authorized.
+
+## Revision 21 handler failure approval
+
+D43/D44 distinguish the approved MVP fail-fast behavior from deferred customization. No runtime, native research, context model or guarded authority changes. Atlas and scoped documentation checks validate references, continuity and unchanged guarded/history sources; no application tests are needed for this documentation-only update. Terminal delivery and remaining failure policies remain explicitly open.
