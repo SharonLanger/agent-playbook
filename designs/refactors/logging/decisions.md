@@ -115,3 +115,7 @@ Keep extraction distinct from emission: helpers read the selected identity field
 Before ExecutionContext or the logging pipeline exists, use safe terminal diagnostics without invented workflow/agent IDs. The context-based helper contract remains required for execution logs. Initialization/export/cleanup failures follow LD21; diagnostics must not recurse through the failing exporter. Exact startup diagnostic transport, level filtering, sanitized error details and stack-trace treatment remain M2 design details.
 
 These are coverage requirements and delegated placement decisions, not approval of a completed M2 implementation contract.
+
+## Standard severity filtering — 2026-11-15
+
+LD24 — Sharon accepted standard logging levels and a configurable minimum level at integrations.logging.level, default DEBUG for the current development phase. INFO excludes DEBUG; WARNING/ERROR represent progressively more severe diagnostics. Apply this setting to application logging, not a global change to every third-party SDK logger. DEBUG does not authorize dumping secrets, entire contexts/configuration or arbitrary inputs/outputs. Routine SDK mechanics remain implementation design details rather than additional product-policy questions.
