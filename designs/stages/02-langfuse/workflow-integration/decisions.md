@@ -1,5 +1,16 @@
 # Decisions and open questions
 
+## Closeout decision — 2026-11-15
+
+Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals.
+
+Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files.
+
+Sharon explicitly approved the guarded closeout changes and merging #47. The final-state wording is intentionally published by that merge, as requested. Existing pinned milestone contracts remain unchanged. Previous logging decisions are retained for the independent owner to reconcile, not silently adopted by this stage.
+
+## Retained decision history
+
+
 Updated: 2026-11-14, iteration 35. M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Combined M4.2 + M4.3 detailed design authorized in iteration 40; implementation awaits revised-contract approval. Logging remains deferred. D30 remains the correlation requirement; the separate dated M4.1 approval entry has no conflicting decision number.
 
 ## Decision register

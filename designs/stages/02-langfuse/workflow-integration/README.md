@@ -1,5 +1,14 @@
 # Workflow context and native Langfuse integration — start here
 
+## Stage 02 closeout — 2026-11-15
+
+Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals.
+
+Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files.
+
+## Historical checkpoints
+
+
 Updated: 2026-11-15, final implementation acceptance.
 Status: **M4.2 + M4.3 are implemented, verified, accepted by Sharon and merged via PR #50 at b08060f0acba74f19bc8a32aedb21316eed149c1. The 408-test gate and installed release passed; RUN-18 local acceptance is complete, including the controlled failed step. M1–M3 and M4.1 remain accepted/merged. Stage Design PR #47 remains draft/open pending explicit stage closeout authorization. Logging and later agent telemetry enhancements remain deferred.**
 
