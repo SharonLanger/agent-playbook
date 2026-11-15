@@ -16,7 +16,7 @@
 
 | ID | Open question | Gate |
 |---|---|---|
-| LQ01 | Strict versus best-effort selected via YAML (LD20); default and detection/propagation timing remain open. Durable replay not selected. | M2 delivery design |
+| LQ01 | Resolved policy under LD21: required initialization by default; runtime and cleanup failures warn only. Durable replay not selected. | M2 implementation detail |
 | LQ02 | Resolved direction: VictoriaLogs store/UI and direct OTLP; exact artifacts and viewer behavior remain to check | M1/M2 |
 | LQ03 | Resolved API shape: explicit context + message through small level helpers; exact accepted context type remains open | M2 |
 | LQ04 | Field types, reserved keys, exception treatment, redaction and payload limits? | Implementation |
@@ -78,10 +78,22 @@ Sharon agreed to keep the four-part outline for now and requested sequential dis
 
 Create the remaining design/test/plan documents as answers settle their contracts, keeping shared decisions canonical. First unresolved production question: what happens when VictoriaLogs is unavailable at run start or during a run? Present a concrete simple policy for discussion; do not silently assume reliable delivery or fail-open/fail-closed behavior.
 
-## Configurable strict logging — 2026-11-15
+## Superseded strict-logging interpretation — 2026-11-15
 
-LD20 — Explicit user decision: application YAML owns a boolean strict_logging setting (final nesting to follow the existing configuration model). true makes detected logging unavailability/failure fail the run; false permits continued workflow execution. Best-effort diagnostics use the terminal so they do not depend on the unavailable backend. Default remains to ask; no hardcoded default selected.
+LD20 — Superseded by LD21. Earlier interpretation was broader than Sharon intended: application YAML owns a boolean strict_logging setting (final nesting to follow the existing configuration model). true makes detected logging unavailability/failure fail the run; false permits continued workflow execution. Best-effort diagnostics use the terminal so they do not depend on the unavailable backend. Default remains to ask; no hardcoded default selected.
 
 Apply this policy to startup and runtime/export/cleanup failures. M2 must explicitly design how asynchronous batch-export failures reach the runner, when failure is detected and how the CLI reports a non-success outcome. Do not assume an SDK worker exception automatically propagates to workflow code. Strict mode is not a guarantee that no work occurs after a backend outage or that every record is durable.
 
 Keep workflow/business errors distinct from logging infrastructure failures. If the workflow already failed, retain its original exception and report the logging failure separately. No remote fallback; disk spool/replay remains unselected. This decision settles policy selection, not the still-draft transport/error implementation.
+
+## Initialization requirement only — 2026-11-15
+
+LD21 — Explicit user clarification, superseding LD20: each integration owns required_start alongside enabled in its existing application YAML settings. Default required_start is true. For Langfuse this belongs under integrations.langfuse; logging uses its own integration settings. No top-level logging/tracing policy block, strict_logging flag or configurable runtime-failure mode.
+
+When an integration is enabled, required_start=true prevents workflow execution if that integration's initialization fails. required_start=false permits proceeding with a terminal warning if initialization fails. Disabled integrations do not initialize or block startup. This latter false/disabled behavior follows the setting's scope.
+
+After workflow execution begins, logging/tracing infrastructure failures only warn; they must not stop the workflow or change its outcome. Cleanup/flush failures also only warn, preserving any original workflow exception. SDK setup, scope/update and export boundaries must be covered by the implementation design without swallowing business/workflow exceptions.
+
+required_start means successful initialization, as clarified by Sharon. It does not add a mandatory network readiness/authentication/ingestion round trip. SDK construction may succeed while a backend is unreachable, so this setting alone cannot promise service availability or delivery. Operational connectivity checks remain separate.
+
+Langfuse currently lacks this consistent policy. Aligning it is requested design scope for M2, not an already implemented behavior. Identify any necessary amendments to its guarded baseline before implementation; this update changes only the logging design record.
