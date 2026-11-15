@@ -119,3 +119,7 @@ These are coverage requirements and delegated placement decisions, not approval 
 ## Standard severity filtering — 2026-11-15
 
 LD24 — Sharon accepted standard logging levels and a configurable minimum level at integrations.logging.level, default DEBUG for the current development phase. INFO excludes DEBUG; WARNING/ERROR represent progressively more severe diagnostics. Apply this setting to application logging, not a global change to every third-party SDK logger. DEBUG does not authorize dumping secrets, entire contexts/configuration or arbitrary inputs/outputs. Routine SDK mechanics remain implementation design details rather than additional product-policy questions.
+
+## Seven-day retention — 2026-11-15
+
+LD25 — Sharon accepted seven days as the default VictoriaLogs log retention. Configure through the logging component's Compose settings using the existing retentionPeriod option; VictoriaLogs manages expiration of older records. This now applies to the planned application setup as well as the M1 probe. It does not select disk-size limits, backup or durable delivery guarantees.
