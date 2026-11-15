@@ -1,7 +1,5 @@
 # Adapters
 
-Backend-specific integrations belong here. `langfuse/connection.py` owns a
-read-only, explicitly invoked project check. `langfuse/observations.py` has a
-small span writer for the explicit mock playground. No workflow exporter exists.
+`langfuse/connection.py` owns native client creation and the independent read-only project check. `observations.py` retains the explicit mock writer. `runtime.py` initializes native tracing and once-only CrewAI wrappers, and attempts CLI flush without replacing workflow outcomes. Native SDK resources own caching, batching and shutdown; there is no project client registry or tracing facade.
 
 Follow [the guarded project structure](../../../../../designs/project-structure.md).

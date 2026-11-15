@@ -19,6 +19,8 @@ def configure_crewai(settings: CrewAISettings) -> None:
             "CrewAI is already imported with different or unknown startup settings; "
             "start a fresh process to apply this configuration."
         )
+    # The native console version check otherwise contacts PyPI on visible Flow runs.
+    os.environ["CREWAI_DISABLE_VERSION_CHECK"] = "true"
     os.environ["CREWAI_DISABLE_TELEMETRY"] = str(not selected[0]).lower()
     os.environ["CREWAI_TRACING_ENABLED"] = str(selected[1]).lower()
     _initialized = selected

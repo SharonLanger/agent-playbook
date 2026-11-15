@@ -111,3 +111,7 @@ No runtime tests or type checks are claimed for this documentation-only change. 
 ### Checks completed for this documentation update
 
 Validated the staged documentation snapshot against main a4264ac. Atlas build and --check passed (references, hierarchy, registered guards, sandbox boundary and generated freshness). Local document-link checks found 44 valid relative links; Markdown fences and docs-only path scope passed. Lifecycle method coverage was checked across the design and test plan. No application tests, Pyright run, release build or browser visual verification was performed for this documentation-only update.
+
+## Dated Langfuse handoff amendment — approved 2026-11-15
+
+Sharon explicitly approved the M4.2/M4.3 design, tests and plan at `ab3fab459c97eed44cc0b202402e559a827a71cf` and RUN-G01–08 in the implementation handoff on 2026-11-15. For M4.2/M4.3 this supersedes historical requirements below/above for context-held clients, required per-phase observation events and a trace covering pre-context configuration/selection. Retain those earlier passages as historical handoff context. The selected contract uses one native runner scope after existing selection/context creation, through successful RunResult; context remains data-only. Native scopes and automatic CrewAI instrumentation record failures without a manual event layer. Existing phase-specific application exceptions, cause chains, outputs and exit codes remain unchanged. CLI finally attempts native delivery after scope closure; no shared-client shutdown per Python invocation.

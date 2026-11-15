@@ -1,9 +1,9 @@
 # Workflow context and native Langfuse integration — start here
 
-Updated: 2026-11-15, iteration 40.
-Status: **M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Combined M4.2 + M4.3 scope is approved for detailed design; application implementation awaits approval of the revised contract. Logging remains deferred.**
+Updated: 2026-11-15, final implementation acceptance.
+Status: **M4.2 + M4.3 are implemented, verified, accepted by Sharon and merged via PR #50 at b08060f0acba74f19bc8a32aedb21316eed149c1. The 408-test gate and installed release passed; RUN-18 local acceptance is complete, including the controlled failed step. M1–M3 and M4.1 remain accepted/merged. Stage Design PR #47 remains draft/open pending explicit stage closeout authorization. Logging and later agent telemetry enhancements remain deferred.**
 
-This is the permanent Stage 02 M4 workspace. PR #43 merged as `c8f129ee8c978067bf576b0ab563bfab74c9d6fe`. PR #44 carries the accepted M4.1 implementation. M1–M3 remain accepted; all Stage 02 is not complete.
+This is the permanent Stage 02 M4 workspace. PR #43 merged as `c8f129ee8c978067bf576b0ab563bfab74c9d6fe`. PR #44 carries the accepted M4.1 implementation. M1–M3 remain accepted; implementation is complete through M4.3, with stage closeout still separate.
 
 **MERGE LAST:** [PR #47](https://github.com/SharonLanger/agent-playbook/pull/47) is the ongoing documentation workspace. Keep it draft/open until all covered implementation work is merged, records reconciled and Sharon explicitly authorizes this documentation PR.
 
@@ -23,7 +23,7 @@ Before every implementation handoff, read [Codex handover rules](../../../govern
 |---|---|---|
 | M4.R | Verify released CrewAI/Langfuse feasibility | Delivered research: eight cases/44 spans, with documented limits |
 | M4.1 (M1) | Typed context, real runner/factory/Workflow/Flow propagation and isolated derivation | Approved at 11bba581; implementation candidate 16c1580; two review rounds; accepted, merged via PR #44; see [M1 package](m1-context/README.md) |
-| M4.2 + M4.3 (M2–M3) | Native runner tracing, correlation and automatic existing CrewAI Flow/step observations | Consolidation accepted 2026-11-15; [design](m2-3-workflow-tracing/design.md), [tests](m2-3-workflow-tracing/test-cases.md), [plan](m2-3-workflow-tracing/implementation-plan.md) are revised review drafts |
+| M4.2 + M4.3 (M2–M3) | Native runner tracing, correlation and automatic existing CrewAI Flow/step observations | Accepted and merged via PR #50; [design](m2-3-workflow-tracing/design.md), [tests](m2-3-workflow-tracing/test-cases.md), [plan](m2-3-workflow-tracing/implementation-plan.md) and [round-02 amendment](m2-3-workflow-tracing/round-02-revision.md) form the approved contract; [final status](m2-3-workflow-tracing/reviews/status.md) records acceptance |
 | Historical M4.3 | Previously separate CrewAI integration milestone | Incorporated into the combined milestone; research and earlier decisions retained |
 | Later | Local logging, usage, scores/evaluations as needed | Deferred; no agent runtime or logger selected here |
 
@@ -44,7 +44,7 @@ ExecutionContext already contains correlation_id; nested ObservabilityContext ho
 
 D30/R31 require exact correlation_id on every workflow-associated Langfuse observation and later local log. The combined milestone supplies native metadata propagation and validates automatic CrewAI descendants together. Metadata alone does not establish trace parentage. Future scores/entity APIs and process boundaries require their own integration checks.
 
-Next: review the simplified combined package, retain the accepted native payload policy and approve its exact contract plus required guarded amendments. No broker, logger or agent-lifecycle expansion is implied.
+Next: review the stage closeout record and deferred scope, then obtain explicit authorization before merging Stage Design PR #47. No further M4.2/M4.3 coding round is required.
 
 ## Historical approval checkpoint
 

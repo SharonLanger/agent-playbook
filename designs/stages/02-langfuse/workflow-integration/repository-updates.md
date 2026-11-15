@@ -1,5 +1,14 @@
 # Repository reconciliation checklist
 
+## Current status — 2026-11-15
+
+**Accepted and merged:** M4.2 + M4.3 merged via PR #50 at `b08060f0acba74f19bc8a32aedb21316eed149c1`. RUN-18 is complete on Sharon's local confirmation; 408-test gate and installed release passed. Two review rounds used, with no third round required. PR #47 stays open for stage closeout.
+
+See [final review](history/tracing-final-review.md). Earlier planning and pending statements below retain their historical evidence cutoff.
+
+## Earlier checkpoints
+
+
 Status: **M4.1 closeout: M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Combined M4.2 + M4.3 detailed design authorized; implementation awaits revised contract approval. Logging is deferred.** [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
 
 ## Historical planning-PR checklist

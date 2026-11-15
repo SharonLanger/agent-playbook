@@ -1,10 +1,16 @@
 # Stage 02 — Langfuse milestones
 
-Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on Mac on 2026-11-14; PR #36 merged as `44d6919`. Delivery readback has a recorded limitation; M4 remains deferred.**
+## Current acceptance — 2026-11-15
+
+M4.2 + M4.3 native workflow tracing is implemented, final-reviewed and accepted by Sharon; PR #50 merged at b08060f0acba74f19bc8a32aedb21316eed149c1. The reviewed candidate is adbba215da77e1e618c3c699e1d84c1ba45c629e: 408 tests, static/lint/format checks and installed release passed. Sharon completed local success, routing, correlation, input/output, readable-name and controlled-failure checks. M1–M3 and M4.1 remain accepted/merged. Stage Design PR #47 stays open for documentation reconciliation and explicit stage closeout. Logging, real-agent cost/usage and scores/evaluations remain deferred. Earlier pending statements below are historical checkpoints, superseded by this acceptance.
+
+## Earlier status and retained history
+
+Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on Mac on 2026-11-14; PR #36 merged as `44d6919`. Delivery readback has a recorded limitation; M4.1 is accepted/merged; the combined M4.2/M4.3 implementation is unmerged, continuing round 02 under approved SDK-first amendment 82b967d; review and local acceptance remain pending.**
 Milestone 1's fixed checkpoint remains available; see
 [findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
 Milestone 2 adds a project connection check, and milestone 3 adds the explicit
-mock playground. M4.1 is implemented, final-reviewed and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 design is active; M4.3 remains deferred.
+mock playground. M4.1 is implemented, final-reviewed and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 design/test/plan are approved at `ab3fab459c97eed44cc0b202402e559a827a71cf`. The approved round-02 amendment accepts visible framework events to enable automatic tracing, native input/output capture and readable naming; see [follow-up evidence](workflow-integration/m2-3-workflow-tracing/follow-ups.md).
 
 ## Start here
 

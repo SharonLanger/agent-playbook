@@ -143,5 +143,9 @@ def present_workflow(
     except WorkflowExecutionError as error:
         print(f"Workflow failed: {error}", file=sys.stderr)
         return 1
+    finally:
+        from agent_playbook.observability.adapters.langfuse.runtime import flush_tracing
+
+        flush_tracing()
     print(f"[{result.workflow_id.upper()}] result: {result.serialized_output}")
     return 0

@@ -99,7 +99,7 @@ are hidden in Python. The committed base file provides the safe initial values.
 |---|---|---|---|
 | `usage_telemetry_enabled` | `false` | `AGENT_PLAYBOOK_CREWAI_USAGE_TELEMETRY_ENABLED` | Inverse of `CREWAI_DISABLE_TELEMETRY` |
 | `tracing_enabled` | `false` | `AGENT_PLAYBOOK_CREWAI_TRACING_ENABLED` | `CREWAI_TRACING_ENABLED` and flow `tracing` |
-| `show_framework_events` | `false` | `AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS` | Inverse of flow `suppress_flow_events` |
+| `show_framework_events` | `true` | `AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS` | Inverse of flow `suppress_flow_events` |
 
 Environment booleans accept `true` or `false` (case-insensitive). YAML booleans must
 be actual booleans, not quoted strings or numbers. These application overrides take
@@ -248,3 +248,9 @@ No new PyCharm task is required. Existing Run/WF tasks use the default selection
 add `--config` to their parameters only when selecting another file.
 
 A selected entry or defaults error names the configured ID, field and validation type (for example, `customer-job CONFIGURATION: defaults.initial (int_type)`). A selected flow import or construction defect exits 1 with its phase; invalid implementation settings explicitly reported as configuration exit 2. Release creation still prepares and executes every built-in implementation, even though normal runs load only the selected flow.
+
+### Tracing lifetime and quiet Flow limitation
+
+Langfuse enablement now controls native runner tracing as well as explicit connection/mock operations. Set destination and keys using the existing [Langfuse settings](#langfuse-settings); no second exporter or cloud telemetry service is needed. Startup applies CrewAI telemetry settings before instrumentor/framework initialization. Tracing settings are process-scoped; restart a Python process when changing them. Disabled mode needs no exporting pipeline.
+
+The committed default is `show_framework_events: true`, which enables visible CrewAI framework output and automatic Flow/method spans. An explicit `false` remains respected, but the pinned OpenInference 1.1.25 instrumentor then skips automatic Flow/method spans; only the runner observation remains. Startup sets CrewAI’s supported `CREWAI_DISABLE_VERSION_CHECK=true` switch to suppress its console PyPI update lookup; CrewAI cloud telemetry/tracing remain disabled by default. See [native workflow tracing](workflows.md#native-workflow-tracing) for scope, payload and cleanup behavior. Native input/output/exception capture does not automatically redact secrets embedded in business data.

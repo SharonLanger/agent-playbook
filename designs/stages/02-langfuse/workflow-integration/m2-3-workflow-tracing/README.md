@@ -1,5 +1,14 @@
 # M2–M3 — Native runner and CrewAI tracing
 
+## Current status — 2026-11-15
+
+**Accepted and merged:** M4.2 + M4.3 merged via PR #50 at `b08060f0acba74f19bc8a32aedb21316eed149c1`. RUN-18 is complete on Sharon's local confirmation; 408-test gate and installed release passed. Two review rounds used, with no third round required. PR #47 stays open for stage closeout.
+
+See [final review](../history/tracing-final-review.md). Earlier planning and pending statements below retain their historical evidence cutoff.
+
+## Earlier checkpoints
+
+
 This combined package develops the native Langfuse runner observation and automatic CrewAI Flow/step tracing that were previously discussed as M4.2 and M4.3. The revised detailed package is a review draft; application implementation awaits approval of its contract and applicable guarded amendments. PAYLOAD-01 is accepted: native workflow payload capture with mandatory exclusion of configuration and credentials.
 
 ## Package
