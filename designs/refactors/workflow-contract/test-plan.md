@@ -105,3 +105,7 @@ Before changing code, record the baseline full-gate result. After implementation
 Record commands, revision, outcomes and limitations. Sharon's manual gate should show default WF-01, WF-02 with two inputs, both WF-03 routes, a YAML alias and representative input/execution failures. No Langfuse server or real agent is required for this refactor.
 
 Documentation-only verification is recorded separately in the implementation plan; it does not stand in for any test above.
+
+## Dated M4.1 test cross-reference — 2026-11-14
+
+Existing lifecycle and selection acceptance obligations remain. Maintained direct constructor tests now provide the required context argument. The [CTX-01–17 cases](../../stages/02-langfuse/workflow-integration/01-context-test-cases.md) add identity, actual Flow propagation, isolation and installed-release evidence for the separately approved M4.1 milestone.

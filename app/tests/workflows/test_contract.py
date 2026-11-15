@@ -7,9 +7,11 @@ from typing import Mapping
 import pytest
 
 from agent_playbook.config.models import CrewAISettings
+from agent_playbook.context.models import ExecutionContext
 from agent_playbook.workflows.contracts import Workflow
 from agent_playbook.workflows.errors import WorkflowOrderError
 from agent_playbook.workflows.lifecycle import WorkflowPhase, WorkflowStatus
+from tests.context_support import TEST_CONTEXT
 
 SETTINGS = CrewAISettings(
     usage_telemetry_enabled=False, tracing_enabled=False, show_framework_events=False
@@ -27,9 +29,10 @@ class Probe(Workflow[ReviewResult | None]):
         *,
         settings: CrewAISettings = SETTINGS,
         config: Mapping[str, object] = {},
+        context: ExecutionContext = TEST_CONTEXT,
         fail: WorkflowPhase | None = None,
     ) -> None:
-        super().__init__(settings=settings, config=config)
+        super().__init__(settings=settings, config=config, context=context)
         self.fail = fail
         self.seen: list[WorkflowStatus] = []
         self.value: ReviewResult | None = ReviewResult((2, 3))
@@ -172,7 +175,7 @@ def test_each_missing_hook_prevents_instantiation(missing: str) -> None:
         {name: getattr(Probe, name) for name in names if name != missing},
     )
     with pytest.raises(TypeError, match="abstract"):
-        incomplete(settings=SETTINGS, config={})
+        incomplete(settings=SETTINGS, config={}, context=TEST_CONTEXT)
 
 
 @pytest.mark.parametrize("target", list(WorkflowPhase))

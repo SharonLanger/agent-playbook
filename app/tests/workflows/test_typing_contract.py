@@ -7,10 +7,13 @@ from pathlib import Path
 from agent_playbook.application.workflow_registry import workflow_registry
 from agent_playbook.workflows.contracts import Workflow
 from tests.application.test_followup_boundaries import SETTINGS, Review, RichWorkflow
+from tests.context_support import TEST_CONTEXT
 
 
 def concrete_type_contract() -> tuple[int, ...]:
-    known: Workflow[Review] = RichWorkflow(settings=SETTINGS, config={})
+    known: Workflow[Review] = RichWorkflow(
+        settings=SETTINGS, config={}, context=TEST_CONTEXT
+    )
     known.prepare({})
     known.validate_output(known.execute())
     registry: dict[str, type[Workflow[object]]] = {"rich": RichWorkflow}

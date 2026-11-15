@@ -7,6 +7,7 @@ from pydantic import ValidationError
 from agent_playbook.config.diagnostics import validation_fields
 from agent_playbook.config.errors import ConfigurationError
 from agent_playbook.config.models import CrewAISettings
+from agent_playbook.context.models import ExecutionContext
 from agent_playbook.workflows.contracts import Workflow
 from agent_playbook.workflows.errors import WorkflowInputError
 from agent_playbook.workflows.wf_02_shared_state.config import SharedStateConfig
@@ -14,9 +15,13 @@ from agent_playbook.workflows.wf_02_shared_state.config import SharedStateConfig
 
 class SharedStateWorkflow(Workflow[int]):
     def __init__(
-        self, *, settings: CrewAISettings, config: Mapping[str, object]
+        self,
+        *,
+        settings: CrewAISettings,
+        config: Mapping[str, object],
+        context: ExecutionContext,
     ) -> None:
-        super().__init__(settings=settings, config=config)
+        super().__init__(settings=settings, config=config, context=context)
         try:
             self._defaults = SharedStateConfig.model_validate(config).defaults
         except ValidationError as error:
@@ -46,6 +51,7 @@ class SharedStateWorkflow(Workflow[int]):
                 increment=numbers.increment,
                 multiplier=numbers.multiplier,
             ),
+            context=self.context,
             tracing=self._settings.tracing_enabled,
             suppress_flow_events=not self._settings.show_framework_events,
         )

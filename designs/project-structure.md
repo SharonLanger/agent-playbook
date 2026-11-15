@@ -124,3 +124,7 @@ The Atlas is maintained from canonical Markdown and a navigation catalog. It doe
 PR #34 was accepted and merged at `96cb1f8`. The current paths above include the application assembly/factory/runner split, release discovery/launcher split, extracted CLI parser and app-root YAML. Personal examples are excluded from default application tests, types, lint, formatting and release source inputs; explicit manual sandbox lint/format remains possible on request.
 
 The earlier [runtime proposal](refactors/2026-11-12-runtime-structure/proposal.md) preserves optional role/harness/tool thinking; consult the exploration index before extending it. Those candidate paths are not approved implementation contracts. The temporary Verify Refactor task/helper are removed with Sharon's approval; standard application check/test commands remain the maintained verification entry points.
+
+## M4.1 context placement (approved 2026-11-14)
+
+`app/src/agent_playbook/context/models.py` owns frozen, data-only `ExecutionContext` and `ObservabilityContext`. It depends only on the standard library. Application runner/factory and workflows may import these types; the context package imports no application, workflow, execution adapter or telemetry SDK. The runner creates invocation identity after selection, the factory forwards it, and the Workflow ABC and concrete wrappers forward it into the selected CrewAI Flow. The context remains outside business state and provider clients.

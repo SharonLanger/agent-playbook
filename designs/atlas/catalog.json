@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 01 completed, accepted and locked; PR #40 merged. Stage 02 local Langfuse/mock exercise accepted on Mac; PR #36 merged as 44d6919, delivery-readback limitation recorded; M4 deferred. Agent execution foundation: draft planning package on docs/agent-execution-foundation-planning; no runtime implementation or roadmap change. PR #45 is the ongoing Stage 04 design workspace and merges last after Stage 04 implementation; five initial event names/meanings accepted, payloads open.",
+  "snapshot": "Stage 01 accepted and locked. Stage 02 M1–M3 accepted/merged; M4.1 implemented, verified and accepted, merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 design active; M4.3/logging deferred. Roadmap: Stage 04 foundation may progress early with milestone approval; native integration is Stage 05. Stage Design PRs require separate explicit closeout/merge authorization. Stage 04 has an ongoing draft design workspace in PR #45; approved milestone boundaries, no implementation; merge last.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -35,6 +35,16 @@
     "designs/stages/02-langfuse/main-reconciliation.md",
     "designs/stages/02-langfuse/resolution-2026-11-13.md",
     "designs/stages/02-langfuse/acceptance-2026-11-14.md",
+    "designs/stages/02-langfuse/workflow-integration/README.md",
+    "designs/stages/02-langfuse/workflow-integration/requirements.md",
+    "designs/stages/02-langfuse/workflow-integration/decisions.md",
+    "designs/stages/02-langfuse/workflow-integration/repository-updates.md",
+    "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
+    "designs/stages/02-langfuse/workflow-integration/01-context-design.md",
+    "designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md",
+    "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md",
+    "designs/governance/stage-milestone-workflow.md",
+    "designs/governance/codex-handover-rules.md",
     "designs/stages/04-agent-execution/README.md",
     "designs/stages/04-agent-execution/specifications.md",
     "designs/stages/04-agent-execution/decisions.md",
@@ -1984,7 +1994,9 @@
               "name": "Langfuse milestones",
               "path": "designs/stages/02-langfuse/README.md",
               "text": "Local UI, connection check and editable mock runs first; real workflows last.",
-              "to": "langfuse_setup"
+              "to": "langfuse_setup",
+              "label": "M1–M3 accepted / M4.1 accepted",
+              "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred."
             }
           ],
           "note": "EXPLORATION ONLY — optional candidate, not an approved target. Traces are evidence. They are not the workflow state store or a durable recovery mechanism.",
@@ -2229,7 +2241,7 @@
         "langfuse_setup": {
           "name": "Langfuse milestones",
           "parent": "observability",
-          "label": "Main reconciled / delivery and CLI work next",
+          "label": "M1–M3 accepted / M4.1 accepted",
           "title": "Local UI to real workflows",
           "text": "First configure, connect and explore mock traces; workflow/context integration comes last.",
           "blocks": [
@@ -2310,12 +2322,67 @@
               "path": "designs/stages/02-langfuse/acceptance-2026-11-14.md",
               "text": "Mac project access, visible traces and restart persistence confirmed; bounded readback limitation retained.",
               "to": null
+            },
+            {
+              "name": "Workflow context and native tracing",
+              "path": "designs/stages/02-langfuse/workflow-integration/README.md",
+              "text": "Permanent draft: detailed context/test/review package, research and repository reconciliation.",
+              "to": "workflow_observability"
             }
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "Sharon approved the six main conflict resolutions. PR #36 merged as 44d6919. Reconciliation and follow-up verification are recorded; local setup and mock-trace exercise accepted on Mac, with delivery-readback limitation recorded. M4 remains deferred.",
+          "note": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.",
           "diagram": null
+        },
+        "workflow_observability": {
+          "name": "Workflow observability draft",
+          "parent": "langfuse_setup",
+          "label": "M4.1 accepted / M4.2 design",
+          "title": "Context, runner, then automatic CrewAI tracing",
+          "text": "M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.",
+          "blocks": [
+            {
+              "name": "Context design",
+              "path": "designs/stages/02-langfuse/workflow-integration/01-context-design.md",
+              "text": "Exact schema, runner/factory/workflow/Flow path, correlation preservation and proposed guarded amendments.",
+              "to": null
+            },
+            {
+              "name": "Test cases",
+              "path": "designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md",
+              "text": "CTX-01–17 required scenarios, meaningful assertions and evidence limits.",
+              "to": null
+            },
+            {
+              "name": "Codex implementation plan",
+              "path": "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md",
+              "text": "Coder plus design-drift/test reviewers; at most three rounds with permanent reports.",
+              "to": null
+            },
+            {
+              "name": "Requirements and decisions",
+              "path": "designs/stages/02-langfuse/workflow-integration/requirements.md",
+              "text": "Shared spec, current agreements and explicit deferrals.",
+              "to": null
+            },
+            {
+              "name": "CrewAI research",
+              "path": "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
+              "text": "1.1.25 instrumentor, eight cases/44 spans; actual application and local ingestion still pending.",
+              "to": null
+            },
+            {
+              "name": "Repository reconciliation",
+              "path": "designs/stages/02-langfuse/workflow-integration/repository-updates.md",
+              "text": "Pending guarded changes, progress updates and later acceptance gates.",
+              "to": null
+            }
+          ],
+          "note": "M4.1 candidate 16c1580: two review rounds, final review PASS. D30/R31 retained; M4.2 draft policies await agreement.",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/stages/02-langfuse/workflow-integration/README.md"
         },
         "execution_foundation": {
           "name": "Execution foundation planning",
@@ -2343,7 +2410,7 @@
               "to": null
             }
           ],
-          "note": "ONGOING DESIGN — PR #45 MERGES LAST after all Stage 04 implementation PRs. Five initial event names/basic meanings accepted; payloads and implementation remain pending.",
+          "note": "Stage 04 boundaries and dependency gates approved; M1 ready for detailed design, M2–M4 await predecessor contracts. Five event schemas and frozen dataclasses accepted. No runtime implementation. PR #45 is the Stage Design workspace and merges last.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/stages/04-agent-execution/README.md"
@@ -4164,6 +4231,46 @@
           "path": "designs/stages/02-langfuse/acceptance-2026-11-14.md",
           "status": "Local exercise accepted; PR #36 merged as 44d6919",
           "purpose": "2026-11-14 user-reported Mac acceptance, revision-specific tests and remaining delivery-readback limitation."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/README.md",
+          "status": "Draft planning / bounded research; no implementation approval",
+          "purpose": "Start here: current status, milestone sequence and maintenance rules."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/requirements.md",
+          "status": "Draft planning / bounded research; no implementation approval",
+          "purpose": "Current shared specification, stable requirement IDs and deferrals."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/decisions.md",
+          "status": "Draft planning / bounded research; no implementation approval",
+          "purpose": "Accepted discussion choices, supersession and unresolved details."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/repository-updates.md",
+          "status": "Draft planning / bounded research; no implementation approval",
+          "purpose": "Pending progress, guarded-baseline and closeout reconciliation."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
+          "status": "Draft planning / bounded research; no implementation approval",
+          "purpose": "Released instrumentor probe: eight cases/44 spans; application/UI acceptance pending."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/01-context-design.md",
+          "status": "Approved M4.1 contract; implemented, verified and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6",
+          "purpose": "Draft typed context contract and full runner/Flow propagation."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md",
+          "status": "Approved M4.1 contract; implemented, verified and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6",
+          "purpose": "Draft CTX-01–17 acceptance and meaningful assertion mapping."
+        },
+        {
+          "path": "designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md",
+          "status": "Approved M4.1 contract; implemented, verified and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6",
+          "purpose": "Draft Codex handoff: coder, two reviewers, max three rounds and permanent reports."
         },
         {
           "path": "designs/stages/04-agent-execution/README.md",

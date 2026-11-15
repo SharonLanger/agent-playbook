@@ -1,6 +1,6 @@
 # Four milestones and their checkpoints
 
-Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on 2026-11-14; PR #36 merged as `44d6919`. Delivery-readback limits are recorded; M4 remains deferred.**
+Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on 2026-11-14; PR #36 merged as `44d6919`. Delivery-readback limits are recorded. M4.1 is accepted and merged via PR #44; M4.2 design is active and M4.3 remains deferred.**
 [Review entry point](README.md) · [Required agent verification](verification.md) · [M1 Codex brief](implementation-handoff.md)
 
 Current state: WF-01/02/03 still run without Langfuse. PR #36 implements the
@@ -129,3 +129,11 @@ Regenerate Atlas from reconciled sources; do not hand-merge generated HTML.
 No merge is automatic at a checkpoint. Milestones 1–3 do not wait for the workflow
 refactor; milestone 4 does. Before milestone 4, update this draft from the merged
 contract and explicitly review any guarded logical changes.
+
+## M4 checkpoints — approved context sequence, 2026-11-14
+
+M4.R research established bounded released-version CrewAI/Langfuse feasibility. M4.1 is the separately approved [data-only context design](workflow-integration/01-context-design.md), with an implementation PR under review; it requires identity, runner/factory/Workflow/Flow forwarding, isolation and CTX-01–17 evidence. M4.2 will separately review native runner tracing; M4.3 will separately review CrewAI automatic observations. M1–M3 acceptance and historical checks remain unchanged. Approval of M4.1 does not mark all M4 implemented or Stage 02 complete.
+
+## M4.1 acceptance and merge checkpoint — 2026-11-14
+
+M4.1 is implemented, verified, accepted by Sharon and merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Approved data-only context semantics and M1–M3 history remain unchanged. M4.2 native runner tracing is the next design; M4.3/logging remain later. See [context status](workflow-integration/reviews/context/status.md).

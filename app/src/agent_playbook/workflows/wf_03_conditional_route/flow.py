@@ -1,12 +1,35 @@
 """WF-03: route to exactly one terminal listener; no join is needed."""
 
 from crewai.flow.flow import Flow, listen, router, start
+from pydantic import PrivateAttr
 
+from agent_playbook.context.models import ExecutionContext
 from agent_playbook.workflows.wf_03_conditional_route import steps
 from agent_playbook.workflows.wf_03_conditional_route.state import Decision, ScoreState
 
 
 class ConditionalRouteFlow(Flow[ScoreState]):
+    _app_context: ExecutionContext = PrivateAttr()
+
+    def __init__(
+        self,
+        *,
+        context: ExecutionContext,
+        initial_state: ScoreState | None = None,
+        tracing: bool | None = None,
+        suppress_flow_events: bool = False,
+    ) -> None:
+        super().__init__(
+            initial_state=initial_state,
+            tracing=tracing,
+            suppress_flow_events=suppress_flow_events,
+        )
+        self._app_context = context
+
+    @property
+    def context(self) -> ExecutionContext:
+        return self._app_context
+
     @start()
     def begin(self) -> int:
         print("[WF-03] begin started")

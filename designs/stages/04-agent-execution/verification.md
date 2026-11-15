@@ -50,3 +50,7 @@ D37/D38 and the approved reviewer match example are recorded consistently in the
 ## Revision 18 dependency-gate proposal
 
 Read-only current-main roadmap/progress/context/governance evidence supports D39 and the pending BC03 matrix. No Stage 02/03 or global authority files are changed; no runtime verification is claimed. Working-record consistency, relative links, preserved history/guards and Atlas freshness are checked. PR #45 remains draft and merge-last; main reconciliation is not performed by this update.
+
+## Revision 19 main integration and planning approval
+
+Two-parent integration uses PR head b3af3dbf038fc4cd36c49f15909fe3b4fed8670c and main fefe4cc1065642b710a018ecb1088ececde852db. Compared with main, only the Stage 04 package and six existing navigation/progress/Atlas files differ. Exploration-index conflict keeps main's Stage 02 status and our Stage 04 link; catalog retains main state plus Stage 04 planning; generated HTML is rebuilt. Guarded authorities, other stages and all runtime/test/config blobs are unchanged from main. Scoped documentation/links/record checks and Atlas freshness are run; no runtime tests are needed or claimed for this source-preserving documentation update. PR #45 remains open/draft; stage/milestone implementation is not authorized.

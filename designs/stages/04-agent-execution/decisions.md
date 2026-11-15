@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 18 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 19 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 ## How to read this board
@@ -972,6 +972,25 @@ Recommendation: keep four milestones, complete standalone M1–M3 first, gate M4
 
 Sources: [roadmap at inspected main](https://github.com/SharonLanger/agent-playbook/blob/fefe4cc1065642b710a018ecb1088ececde852db/designs/roadmap.md), [context design](https://github.com/SharonLanger/agent-playbook/blob/fefe4cc1065642b710a018ecb1088ececde852db/designs/stages/02-langfuse/workflow-integration/01-context-design.md), [stage method](https://github.com/SharonLanger/agent-playbook/blob/fefe4cc1065642b710a018ecb1088ececde852db/designs/governance/stage-milestone-workflow.md). No global files or guarded meanings changed in this iteration.
 
+## Main alignment and milestone-boundary approval — revision 19
+
+| ID | Decision | Evidence and consequence |
+|---|---|---|
+| D40 | **Approved:** four milestone boundaries and BC03 explicit prerequisites: M1–M3 standalone, M4 integration only after its concrete dependencies are ready. | Sharon says he likes the milestone definition and asks to define all boundaries. BC03 moves from Pending to Accepted/applied. No additional context type, tracing work or native integration is approved. Detail/test/implementation approvals remain separate. |
+| D41 | **Approved planning approach:** assess readiness and questions for every milestone, but defer dependent detailed decisions until predecessor outcomes clarify them. | Sharon explicitly asks to avoid deep-diving M2 questions that M1 can answer. Focus detailed design on M1 now; retain later questions/dependencies without creating premature implementation contracts. |
+
+### Alignment checkpoint and source integration — 2026-11-15
+
+User explicitly requests bringing main into the Stage 04 design branch and following the merged rules. Integrate main fefe4cc1065642b710a018ecb1088ececde852db with PR #45 head b3af3dbf038fc4cd36c49f15909fe3b4fed8670c, preserving main's full runtime and other stages. Adopt the Stage Design PR title/notice/index, per-milestone folders, requirement-to-test traceability, incremental approval and frozen implementation handoffs. No Stage 04 handoff is active; no other stage's handed-off documents are edited relative to main.
+
+Outside this stage: designs/README.md, designs/explorations/README.md and designs/atlas/README.md retain main content plus Stage 04 discovery links; designs/progress.md retains main status plus this planning entry; catalog keeps main's Stage 02/workflow-observability data plus the execution-foundation node/source inventory; index.html is regenerated. The exploration index had a textual overlap: keep main's Stage 02 row and Stage 04's own planning link. The catalog is reconciled by ownership rather than taking the old branch snapshot. Charter/principles/architecture/structure/governance/instructions are exactly main's versions; no new guarded logical amendment here. Runtime/application/tests/config and other stage content are exactly main.
+
+Full working records and milestone plan retain prior history; D40/D41 reconcile their current status. Broad sequencing conflict Q37 is resolved by main's roadmap exception; C01/Q12 execution-versus-observability ownership remains an M1 design/implementation-lock issue. Main's approved context exists; standalone foundation does not construct it. Detailed dependency readiness must be checked again at each implementation handoff.
+
+Research supports the accepted small event boundary at its earlier recorded snapshots; no new SDK research or live-provider acceptance is claimed. Scope fits the new charter/principle 9 exception, principles 3/5/9/12/15 and the previously recorded full principle assessment. No secrets, endpoints, runtime dependencies, sandbox access or product behavior change; remaining principles retain their prior applicability assessment. Documentation checks verify source consistency, not native runtime behavior.
+
+Outcome: ready to draft M1 design/test/plan together. M2–M4 boundaries ready, detailed decisions wait for predecessor contracts and actual integration evidence. Exact open questions/readiness are in the milestone plan and canonical README table. No milestone is implementation-ready merely because its boundary is approved.
+
 ## Maintenance rule
 
 Read both files before progressing the design. Update this board with evidence and explicit status; update the specification only for accepted decisions. Detect conflicts before edits. Tell Sharon before changing any agreement; retain superseded entries and rationale. Maintain the two active repository records, keeping cross-links and revision numbers consistent; original saved files are history. Boundary changes must first be proposed in [milestone-plan.md](milestone-plan.md), then applied under D32 across all affected records. Do not turn a recommendation into “Approved” because it appears in a file.
@@ -998,3 +1017,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 16 | 2026-11-14 | D36 accepts fields, renames tool_call_id, retains output; separates missing identity from unknown outcome; class notation remains illustrative. |
 | 17 | 2026-11-15 | D37 approves frozen dataclasses, enum statuses and role match dispatch; D38 forbids guessed pairing; reviewer example and M1 readiness recorded. |
 | 18 | 2026-11-15 | D39 records dependency-gated parallel work; BC03 proposes M1–M3 standalone/M4 integration gates; current context and roadmap evidence recorded without adoption of AgentContext. |
+| 19 | 2026-11-15 | D40 accepts boundaries/gates; D41 defers dependent detail; main governance integrated and current milestone readiness recorded. |

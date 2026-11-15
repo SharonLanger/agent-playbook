@@ -19,8 +19,10 @@ from agent_playbook.config.models import (
     IntegrationSettings,
     SecretsSettings,
 )
+from agent_playbook.context.models import ExecutionContext
 from agent_playbook.workflows.contracts import Workflow
 from agent_playbook.workflows.errors import WorkflowInputError, WorkflowOrderError
+from tests.context_support import TEST_CONTEXT
 
 SETTINGS = CrewAISettings(
     usage_telemetry_enabled=False, tracing_enabled=False, show_framework_events=False
@@ -83,7 +85,11 @@ def test_real_rich_result_through_arbitrary_registry_key() -> None:
 def test_unexpected_constructor_errors_are_execution_failures(error: Exception) -> None:
     class Broken(RichWorkflow):
         def __init__(
-            self, *, settings: CrewAISettings, config: Mapping[str, object]
+            self,
+            *,
+            settings: CrewAISettings,
+            config: Mapping[str, object],
+            context: ExecutionContext,
         ) -> None:
             raise error
 
@@ -108,7 +114,11 @@ def test_unexpected_constructor_errors_are_execution_failures(error: Exception) 
 def test_explicit_constructor_config_error_stays_configuration() -> None:
     class Broken(RichWorkflow):
         def __init__(
-            self, *, settings: CrewAISettings, config: Mapping[str, object]
+            self,
+            *,
+            settings: CrewAISettings,
+            config: Mapping[str, object],
+            context: ExecutionContext,
         ) -> None:
             raise ConfigurationError("defaults.initial (int_type)")
 
@@ -177,6 +187,9 @@ def test_failure_stops_before_success(boundary: str) -> None:
             construction,
         ),
         patch("agent_playbook.application.workflow_runner.RunResult", result),
+        patch(
+            "agent_playbook.application.workflow_runner.ExecutionContext"
+        ) as context_constructor,
     ):
         if boundary == "selection":
             with pytest.raises(ConfigurationError, match="selected entry invalid"):
@@ -218,6 +231,8 @@ def test_failure_stops_before_success(boundary: str) -> None:
         sequence[:4] if boundary == "json" else sequence[: sequence.index(boundary) + 1]
     )
     assert calls == expected
+    if boundary in {"assembly", "registry", "selection"}:
+        context_constructor.assert_not_called()
     result.assert_not_called()
     if boundary in {"construction", "json"}:
         workflow.prepare.assert_not_called()
@@ -305,7 +320,7 @@ assert main(['dev-run','--config',sys.argv[1],'--workflow','wf-03']) == 1
     "method", ["prepare", "execute", "validate_output", "serialize_output"]
 )
 def test_order_error_at_public_boundary_is_execution_category(method: str) -> None:
-    workflow = RichWorkflow(settings=SETTINGS, config={})
+    workflow = RichWorkflow(settings=SETTINGS, config={}, context=TEST_CONTEXT)
     original = WorkflowOrderError("wrong order")
     with (
         patch.object(workflow, method, side_effect=original),
@@ -358,7 +373,7 @@ def test_unused_implementation_constructor_never_runs() -> None:
 
 
 def test_execute_input_named_exception_is_execution_failure() -> None:
-    workflow = RichWorkflow(settings=SETTINGS, config={})
+    workflow = RichWorkflow(settings=SETTINGS, config={}, context=TEST_CONTEXT)
     original = WorkflowInputError("private")
     with (
         patch.object(workflow, "_execute", side_effect=original),
@@ -384,7 +399,7 @@ def test_execute_input_named_exception_is_execution_failure() -> None:
 
 
 def test_prepare_state_construction_validation_error_is_execution_failure() -> None:
-    workflow = RichWorkflow(settings=SETTINGS, config={})
+    workflow = RichWorkflow(settings=SETTINGS, config={}, context=TEST_CONTEXT)
     original = ValidationError.from_exception_data(
         "State", [{"type": "int_type", "loc": ("value",), "input": True}]
     )

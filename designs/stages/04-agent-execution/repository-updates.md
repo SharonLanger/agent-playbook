@@ -64,3 +64,7 @@ No unresolved item in this table prevents **creating the draft planning PR**. It
 ## PR #45 final merge gate — D33
 
 Keep PR #45 open as the ongoing design workspace. After every Stage 04 implementation milestone has its required evidence/acceptance and its implementation PR is merged, reconcile all current records against main, preserve decision history, resolve remaining draft status/conflicts and run documentation/Atlas checks. Only then is PR #45 eligible for Sharon's explicit final merge instruction. Do not merge it merely to make a milestone design available to an implementation branch; carry the necessary approved milestone material in that focused work and reconcile afterward. No merge happens automatically.
+
+## Main integration and remaining gates — revision 19
+
+Main fefe4cc1065642b710a018ecb1088ececde852db supplies the approved Stage 04 sequencing exception and reusable governance; older sequencing-unresolved entries above are historical. Preserve its charter, principles, architecture, structure, guard register and other-stage files exactly. C01/Q12 is not resolved by main integration: M1 design must present execution-event versus observability ownership and agents/ placement amendments before implementation lock. No such guarded change is made here. Stage Design naming/readiness table and progressive milestone planning are applied within this package.

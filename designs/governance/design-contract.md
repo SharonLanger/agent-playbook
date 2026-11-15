@@ -78,3 +78,9 @@ The builder checks hierarchy, references, statuses, sandbox boundaries and gener
 - Guarded changes and the user approval covering them.
 - Design, Atlas and public-documentation impact, including justified no-impact cases.
 - Checks, observed results, limitations and the exact revision where relevant.
+
+## Stage boundaries and milestone approval
+
+Approve the stage's overall goal, boundaries and dependencies first. Detailed milestones may then be designed and approved incrementally: only the milestone whose design, test cases and implementation plan are explicitly approved at a pinned revision may be implemented under the relevant authorization. Approval of the stage or one milestone does not approve later milestone contracts. Preserve existing locked contracts.
+
+The [roadmap](../roadmap.md#sequencing-and-approval) defines the sole Stage 04 early-foundation exception; it changes sequencing, not these gates. The [stage working method](stage-milestone-workflow.md#stage-design-pr-lifecycle) defines the ongoing Stage Design PR and its separate explicit merge authorization. The [Codex handover rules](codex-handover-rules.md) govern delegated implementation and the frozen handoff window.

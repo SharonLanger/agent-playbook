@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 18 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 19 · Updated: 2026-11-15 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 ## Status and authority
@@ -262,9 +262,17 @@ Q08 is now answered for event/result representation and remains open for validat
 
 ## Dependency-gated progress — revision 18
 
-D39 requires useful independent milestones and explicit prerequisite gates for dependent integration, allowing progress alongside Stages 02/03. [BC03](milestone-plan.md#bc03--explicit-dependency-gates-for-parallel-delivery) proposes the concrete allocation; its detailed gates are not yet an approved implementation baseline. The independent foundation must not require context construction or placeholder context data. The five accepted event payloads remain unchanged. Deferred behavior must have a named owner, trigger and acceptance evidence before implementation of that integration.
+D39 requires useful independent milestones and explicit prerequisite gates for dependent integration, allowing progress alongside Stages 02/03. [BC03](milestone-plan.md#bc03--explicit-dependency-gates-for-parallel-delivery) proposes the concrete allocation; D40 now accepts that allocation and its prerequisite gates; no detailed milestone implementation baseline is approved. The independent foundation must not require context construction or placeholder context data. The five accepted event payloads remain unchanged. Deferred behavior must have a named owner, trigger and acceptance evidence before implementation of that integration.
 
 Current main now records basic workflow context as merged and permits independent Stage 04 foundation progress. Existing ExecutionContext.for_agent already derives agent metadata; an additional AgentContext is not selected. Standalone context compatibility and propagation remain Q35, separate from tracing completion. No workflow IDs may be invented for a standalone agent. No Stage 02/03 edits or new context subsystem are authorized by this requirement.
+
+## Current delivery agreement — revision 19
+
+D40 approves the four milestone boundaries and BC03 gates: contracts/models; harness/fake; standalone DemoAgent; workflow integration. M1–M3 are usable without context, workflow invocation or telemetry. M4 reuses specific merged compatible application/workflow/context contracts; whole Stage 02/03 completion is not required by the foundation exception. Detailed milestones still need their own approved design/test/plan and implementation authorization.
+
+D41 requires progressive design: start M1 now and defer dependent later choices until prior contracts/results clarify them. The README owns the canonical milestone readiness/status table; milestone-plan.md owns boundaries and the question/dependency matrix. Each milestone's detailed package will have its own folder under the merged stage-working method. Shared requirements remain here; decisions/research/history stay at stage root. No placeholders, guessed IDs or competing context model are introduced.
+
+Main's roadmap resolves Q37 broad sequencing; C01/Q12 still requires a concrete guarded ownership proposal before M1 implementation lock. Main synchronization preserves the new governance and other stages. Stage Design PR #45 remains draft and merges last only with explicit final authorization.
 
 ## Research status
 
@@ -323,3 +331,4 @@ Maintain both active records in this repository package with matching revision e
 | 16 | 2026-11-14 | Accepted D36 field baseline and tool_call_id naming; retained open fallback/lifecycle/representation questions. |
 | 17 | 2026-11-15 | Accepted event/result dataclasses and role match dispatch; recorded no-guessing rule and remaining M1 design questions. |
 | 18 | 2026-11-15 | Recorded D39 parallel-delivery requirement, linked proposed dependency gates and distinguished merged context from future integration. |
+| 19 | 2026-11-15 | Accepted four gated milestones and progressive detailed design; reconciled main governance and remaining canonical ownership gate. |

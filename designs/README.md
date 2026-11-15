@@ -35,8 +35,12 @@ Some Markdown viewers suppress SVG animation; the browser viewer remains a fallb
 ## Stage documents
 
 Each stage has its own end-state architecture and plan, plus findings and learning
-exercises. Future implementation baselines wait for their stage. Explicitly requested optional research/POCs belong in explorations and must not be mistaken for approved targets.
+exercises. Future implementation baselines wait for their stage except for the scoped Stage 04 foundation exception in [roadmap.md](roadmap.md#sequencing-and-approval). Explicitly requested optional research/POCs belong in explorations and must not be mistaken for approved targets.
 The historical [sandbox](../sandbox/) is outside the active application architecture.
+
+## Stage and milestone working process
+
+Read [Stage and milestone working method](governance/stage-milestone-workflow.md) before planning a stage or milestone: shared requirements/decisions/progress, alignment checkpoint, milestone subfolders, design/test/plan and approval. Before implementation delegation, read [Codex handover rules](governance/codex-handover-rules.md): Sol roles, coder plus two independent reviewers, three rounds maximum, permanent reports and exact copyable outgoing/return templates. These rules apply across the repository; existing approved packages are not automatically reorganized.
 
 ## Permanent material and handoffs
 
@@ -59,4 +63,3 @@ Read charter, principles, architecture, project structure, roadmap and progress,
 - [Atlas change record](refactors/atlas/README.md): approval scope and verification for #35.
 
 Official product documentation lives in app/docs; internal/refactor review material belongs here. Personal examples are not a source to inspect during architectural discovery.
-

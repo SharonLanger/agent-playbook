@@ -44,3 +44,20 @@ Any other document or portion explicitly approved, locked or guarded remains pro
 Progress, findings, exploration notes and navigation may evolve from verified evidence without becoming frozen baselines. That permission does not permit rewriting historical acceptance, altering guarded meaning through a summary, or labeling a new idea approved.
 
 Use the logical-change approval process in [design-contract.md](design-contract.md). Record additions to this register when a new baseline is approved. Preserve prior guard records during merges, particularly when reconciling PR #34 and #35.
+
+## M4.1 approved baseline — 2026-11-14
+
+Sharon's implementation instruction explicitly approved revision `11bba581291c1b166973848ea8db6a9e2a142413` and guarded amendments G01–G08 in design section 9. The following files are guarded from that approval:
+
+- `designs/stages/02-langfuse/workflow-integration/01-context-design.md`
+- `designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md`
+- `designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md`
+
+## Reusable development process — 2026-11-15
+
+Sharon requested the generalized stage/milestone and Codex handover process as guarded reusable rules, published separately from ongoing stage design. This registration preserves all existing protections and does not approve any milestone implementation.
+
+- `designs/governance/stage-milestone-workflow.md`
+- `designs/governance/codex-handover-rules.md`
+
+The 2026-11-15 PR #48 alignment extends these procedures with the Stage Design PR lifecycle, incremental milestone approval and separate explicit merge gate. It also amends charter/principle 9 for the narrow Stage 04 sequencing exception. All existing protections remain; no draft Stage 04 milestone is registered as a locked baseline by this change.

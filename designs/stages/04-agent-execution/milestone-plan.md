@@ -2,14 +2,14 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 4 · 2026-11-15 · Owner: Sharon
-Status: **draft plan for review; no locked implementation baseline or implementation authorization.**
+Revision: 5 · 2026-11-15 · Owner: Sharon
+Status: **overall milestone boundaries and BC03 gates approved (D40); detailed milestone design/test/plan not yet locked; no implementation authorization.**
 
 [Start here](README.md) · [Specification](specifications.md) · [Decision board](decisions.md) · [Repository reconciliation](repository-updates.md)
 
 ## Authority and sequence
 
-Sharon authorized this planning PR, explicit milestone boundaries and a plan-first change process. The shared-foundation → deterministic-agent → CrewAI demonstration direction is accepted in the discussion. The detailed allocations and acceptance criteria below are proposed for review, not automatically approved by publication.
+Sharon authorized this planning PR, explicit milestone boundaries and a plan-first change process. The shared-foundation → deterministic-agent → CrewAI demonstration direction is accepted in the discussion. D40 approves the four milestone boundaries and BC03 prerequisite gates. Detailed acceptance cases and design/test/plan revisions still require their own approval.
 
 `S04.M1`–`S04.M4` are stable local planning IDs. They are distinct from Stage 02's M4.1/M4.2/M4.3. They do not activate Stage 04, change the roadmap's order, or move real native integration to a newly approved global stage. Each milestone later needs an approved detailed design, scoped implementation authorization and its own evidence. An approved plan is not proof of implementation; passing tests is not user acceptance or merge approval.
 
@@ -21,7 +21,7 @@ P08's six design topics still guide the design work within these delivery checkp
 
 **Outside all four milestones unless deliberately amended:** real Claude/Codex SDKs and concrete native adapters/mappers; real coder/reviewer/verifier roles; new Stage 02 context fields or propagation; Langfuse instrumentation/export; a logging backend/store/viewer; a second context or tracing system; human approval waiting; session pooling/replay; durable queues/event buses; automatic task retries; a custom filesystem-permission or tool-policy contradiction engine; wholesale external-framework/UI adoption; roadmap changes. Existing contracts and logging requirements remain recorded, with integration deferred rather than declared fulfilled.
 
-Different folders reduce textual overlap; shared contracts still create dependencies. Design may proceed in parallel with PR #43. M1/M2 can be designed independently of context implementation. M3/M4 must recheck the merged application/context signatures before implementation. No invented workflow IDs or placeholder context ABC are permitted to hide a missing agreement.
+Different folders reduce textual overlap; shared contracts still create dependencies. Design may proceed in parallel with PR #43. M1–M3 deliver standalone behavior without required context. M4 must recheck the merged application/context signatures and concrete dependency evidence before implementation. No invented workflow IDs or placeholder context ABC are permitted to hide a missing agreement.
 
 ## Milestone overview
 
@@ -76,7 +76,7 @@ Different folders reduce textual overlap; shared contracts still create dependen
 
 **Placement:** candidate `agents/demo/` with `agent.py` and only justified role data/helper modules, plus maintained tests. This adds a demo for the first exercise; it does not silently delete the accepted longer-term coder/reviewer tree. Q34 still governs role helper organization.
 
-**Entry / decisions to close:** Q33 exact task entry and result ownership; Q34 handler/helper responsibilities; Q35 standalone context boundary if context has since become mandatory. The task method need not become a new mandatory Agent ABC method without approval.
+**Entry / decisions to close:** Q33 exact task entry and result ownership; Q34 handler/helper responsibilities; Q35 standalone context integration remains deferred; M3 must work without constructing context or invented workflow IDs. The task method need not become a new mandatory Agent ABC method without approval.
 
 **Proposed acceptance:** a caller receives predictable typed output through DemoAgent → harness → fake adapter → fake mapper → shared callback; the role handler observes agreed events; a controlled failure propagates honestly. If Sharon's suggested visible delay is retained, it is configurable, with short/zero duration in automated checks. Exact delay/default/input is still Q36.
 
@@ -138,9 +138,9 @@ D37/D38 approve event/result dataclasses, role match dispatch and no guessed too
 
 ## BC03 — explicit dependency gates for parallel delivery
 
-**Pending detailed allocation; principle approved by D39.** Old plan: M1/M2 independent, M3/M4 recheck context before implementation, with context integration generally deferred. Proposed refinement: M1–M3 demonstrate a genuinely standalone foundation without required context construction/imports; M4 alone connects to actual application/workflow boundaries once its specific dependencies are ready. Preserve M1–M4 IDs and core outcomes. Do not quietly add context propagation or tracing acceptance to an already approved milestone.
+**Accepted and applied under D40 on 2026-11-15.** Historical allocation: M1/M2 independent, M3/M4 recheck context before implementation, with context integration generally deferred. Accepted refinement: M1–M3 demonstrate a genuinely standalone foundation without required context construction/imports; M4 alone connects to actual application/workflow boundaries once its specific dependencies are ready. Preserve M1–M4 IDs and core outcomes. Do not quietly add context propagation or tracing acceptance to an already approved milestone.
 
-| Milestone | Standalone outcome | Proposed entry gate | External dependency |
+| Milestone | Standalone outcome | Approved prerequisite gate | External dependency |
 |---|---|---|---|
 | S04.M1 | Importable typed contracts/events/result/settings/permission data | Approved and locked M1 design/test/plan, canonical C01 reconciliation as applicable | No Stage 02/03 completion, Langfuse or context object required |
 | S04.M2 | Request through fake native messages, mapper and callbacks to a result | M1 accepted and merged; M2 design/test/plan approved | No context construction, tracing service or Stage 03 patterns |
@@ -154,3 +154,20 @@ Gate record for each detailed milestone: required capability/document, owner, ap
 Deferred slice rule: finish the independent behavior, name the later integration slice and owning milestone/workstream, describe its trigger and completion evidence. Do not create context=None placeholders or duplicate context classes simply to hide a dependency. If an event's actual meaning requires context, defer that event/capability or explicitly split its scope before approval; do not emit an incomplete event and call it complete. The existing five accepted event payloads do not require context. Later mandatory fields/signature changes require explicit impact review, not a promise of zero rework.
 
 BC03 impacts D27/Q35/Q09 and M3/M4 entry wording, not accepted event fields, native ownership or the Stage 05 boundary. Any new agent-context propagation acceptance beyond existing M4 scope must be separately approved here before being assigned. AgentContext is exploratory; first inspect existing ExecutionContext.for_agent and standalone needs. No M5/M7 is created, no Stage 02/03 file is changed, no current implementation baseline is amended.
+
+## Design progression and readiness — D40/D41
+
+The stage README owns the canonical milestone/status index. Boundaries and dependency gates are accepted; no exact implementation contract is locked. Each detailed milestone package will live in its own folder with README.md, design.md, test-cases.md and implementation-plan.md, created together when that milestone enters detailed design. Do not publish speculative later designs as approved or create empty review PASS reports. Existing specifications.md remains the shared requirement owner rather than introducing a competing requirements.md.
+
+| Milestone / future folder | Design readiness | Resolve in that design | Wait for predecessor / avoid now |
+|---|---|---|---|
+| M1 / m1-contracts-models | Ready to draft now with listed choices | Lifecycle owner and terminal/result consistency; callback ordering/error contract; request/settings/permissions; JSON/nested-mutation validation policy; event-local identity; C01 canonical ownership amendment | No Stage 02/03 wait. Do not specify real SDK mapping or build harness code |
+| M2 / m2-fake-execution | Boundary ready; detailed design waits for M1 contract approval, with review against merged M1 before implementation | Fake scripts/native fixtures, mapper isolation, harness cleanup/failure behavior and observable acceptance | M1 settles field shape, lifecycle and callback promises; do not reopen them speculatively |
+| M3 / m3-demo-agent | Boundary ready; detailed design waits for M2 design to settle the executable path; implementation waits for accepted/merged M2 | One simple task/input/result, no-op versus useful handler behavior, optional visible delay, repeated invocation evidence | Use M1 request/result and M2 fake behavior. Do not design reviewer prompts, AgentContext or a role framework |
+| M4 / m4-workflow-integration | Boundary/dependencies ready to assess; concrete design waits for M3's invocation contract and current main compatibility review | Workflow input/output and sync/async entry, construction/config selection, context at the integration boundary only where necessary, success/failure CLI evidence | Reuse actual merged context. No Stage 03 parallel/join requirement unless explicitly added; no tracing/logging redesign |
+
+Detailed design may begin after the prior design is approved without waiting for all implementation to finish if the boundary is stable; record any assumptions and recheck actual predecessor acceptance/merge before implementation handoff. Default focus is one milestone at a time. In parallel, collect bounded source evidence or prerequisite status that will still be useful; do not freeze dependent signatures early.
+
+Every milestone entry requires: approved design/test/plan at a pinned SHA; its listed prerequisite capabilities accepted/merged and checked; scoped implementation authorization. Every exit requires meaningful tests, reviewed evidence, explicit acceptance and separate implementation merge. Stage Design PR stays open. These are not yet satisfied by this planning update.
+
+First next action: draft M1's four-file package, beginning with lifecycle/event ownership. Track its open choices in that draft and resolve them before lock. Later milestone questions stay assigned to their owners; they do not block M1.

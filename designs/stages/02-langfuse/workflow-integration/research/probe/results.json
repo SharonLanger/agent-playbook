@@ -1,0 +1,1249 @@
+{
+  "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]",
+  "packages": {
+    "typer": "0.29.1",
+    "opentelemetry-proto": "1.45.2",
+    "opentelemetry-exporter-otlp-common": "0.66b2",
+    "orjson": "3.13.0",
+    "charset-normalizer": "3.5.2",
+    "propcache": "0.5.4",
+    "jsonschema-specifications": "2025.9.1",
+    "annotated-doc": "0.0.6",
+    "json5": "0.10.0",
+    "tenacity": "9.2.1",
+    "httpcore": "1.0.9",
+    "uv": "0.13.6",
+    "appdirs": "1.4.4",
+    "lance-namespace-urllib3-client": "0.13.0",
+    "Pygments": "2.21.0",
+    "certifi": "2026.10.23",
+    "multidict": "7.2.1",
+    "jiter": "0.14.0",
+    "aiosqlite": "0.21.0",
+    "python-multipart": "0.0.33",
+    "portalocker": "2.7.0",
+    "platformdirs": "4.14.5",
+    "websockets": "17.4",
+    "PyYAML": "6.0.3",
+    "pycparser": "3.12",
+    "packaging": "26.3",
+    "aiohappyeyeballs": "2.7.1",
+    "requests-oauthlib": "2.0.0",
+    "docstring_parser": "0.18.0",
+    "markdown-it-py": "4.3.0",
+    "lancedb": "0.41.0",
+    "typing-inspection": "0.4.5",
+    "tqdm": "4.70.1",
+    "mdit-py-plugins": "0.7.0",
+    "distro": "1.9.0",
+    "protobuf": "7.36.2",
+    "tokenizers": "0.23.3",
+    "mcp": "1.30.0",
+    "grpcio": "1.85.1",
+    "opentelemetry-instrumentation": "0.66b2",
+    "typing_extensions": "4.16.0",
+    "pdfplumber": "0.11.10",
+    "aiofiles": "24.1.0",
+    "opentelemetry-exporter-otlp-proto-common": "1.45.2",
+    "instructor": "1.15.4",
+    "tomli": "2.0.2",
+    "importlib_resources": "7.1.0",
+    "click": "8.5.1",
+    "et_xmlfile": "2.0.0",
+    "mmh3": "5.3.1",
+    "h11": "0.16.0",
+    "cryptography": "50.0.2",
+    "hf-xet": "1.8.0",
+    "pyproject_hooks": "1.3.3",
+    "openpyxl": "3.1.5",
+    "pydantic": "2.12.5",
+    "frozenlist": "1.8.0",
+    "requests": "2.34.2",
+    "attrs": "26.1.0",
+    "bcrypt": "5.0.0",
+    "httpx": "0.28.1",
+    "watchfiles": "1.3.0",
+    "MarkupSafe": "3.0.4",
+    "tomli_w": "1.1.0",
+    "mdurl": "0.1.2",
+    "opentelemetry-semantic-conventions": "0.66b2",
+    "lark": "1.3.1",
+    "starlette": "1.10.0",
+    "backoff": "2.2.1",
+    "annotated-types": "0.8.0",
+    "chromadb": "1.5.9",
+    "opentelemetry-exporter-otlp-proto-grpc": "1.45.2",
+    "opentelemetry-sdk": "1.45.2",
+    "pydantic-settings": "2.16.2",
+    "httpx-sse": "0.4.3",
+    "httpx2": "2.16.0",
+    "pypdfium2": "5.15.2",
+    "json_repair": "0.60.1",
+    "openinference-instrumentation-crewai": "1.1.25",
+    "PyPika": "0.51.1",
+    "pendulum": "3.3.0",
+    "pdfminer.six": "20260107",
+    "six": "1.17.0",
+    "filelock": "4.2.10",
+    "yarl": "1.25.1",
+    "opentelemetry-api": "1.45.2",
+    "openinference-semantic-conventions": "0.1.44",
+    "aiosignal": "1.4.0",
+    "aiohttp": "3.14.5",
+    "truststore": "0.10.5",
+    "jsonschema": "4.26.0",
+    "uvloop": "0.23.0",
+    "flatbuffers": "25.12.19",
+    "google-re2": "1.1.20251105",
+    "kubernetes": "36.0.3",
+    "Jinja2": "3.1.6",
+    "fsspec": "2026.9.0",
+    "pillow": "13.0.0",
+    "PyJWT": "2.15.1",
+    "regex": "2026.1.15",
+    "anyio": "4.16.0",
+    "urllib3": "2.8.0",
+    "idna": "3.20",
+    "sse-starlette": "3.7.0",
+    "sniffio": "1.3.1",
+    "rich": "14.3.4",
+    "build": "1.6.1",
+    "numpy": "2.5.4",
+    "shellingham": "1.5.4",
+    "uvicorn": "0.54.0",
+    "jmespath": "1.1.0",
+    "pydantic_core": "2.41.5",
+    "langfuse": "5.2.0",
+    "onnxruntime": "1.31.1",
+    "textual": "8.2.8",
+    "deprecation": "2.1.0",
+    "linkify-it-py": "2.2.0",
+    "websocket-client": "1.9.2",
+    "crewai-core": "1.15.40",
+    "python-dateutil": "4.0.0",
+    "rpds-py": "2026.9.1",
+    "huggingface_hub": "2.4.0",
+    "wrapt": "2.5.2",
+    "pyarrow": "26.0.1",
+    "durationpy": "0.11",
+    "overrides": "7.7.0",
+    "googleapis-common-protos": "1.76.0",
+    "cel-python": "0.5.0",
+    "httpcore2": "2.16.0",
+    "crewai-cli": "1.15.40",
+    "jsonref": "1.1.0",
+    "cffi": "2.1.1",
+    "openinference-instrumentation": "0.1.77",
+    "crewai": "1.15.40",
+    "oauthlib": "4.0.1",
+    "opentelemetry-exporter-http-transport": "0.66b2",
+    "opentelemetry-exporter-otlp-proto-http": "1.45.2",
+    "lance-namespace": "0.13.0",
+    "referencing": "0.37.0",
+    "tzdata": "2026.6",
+    "pybase64": "1.5.2",
+    "python-dotenv": "1.2.4",
+    "httptools": "0.9.0",
+    "openai": "2.54.0"
+  },
+  "network_attempts": [
+    {
+      "event": "socket.getaddrinfo",
+      "host": "pypi.org",
+      "stack": [
+        "  File \"/usr/lib/python3.13/threading.py\", line 1014, in _bootstrap\n    self._bootstrap_inner()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 1043, in _bootstrap_inner\n    self.run()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 994, in run\n    self._target(*self._args, **self._kwargs)\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 93, in _worker\n    work_item.run()\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 59, in run\n    result = self.fn(*self.args, **self.kwargs)\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_bus.py\", line 419, in _call_handlers\n    if (error := is_call_handler_safe(handler, source, event, state))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/handlers.py\", line 78, in is_call_handler_safe\n    handler(source, event)  # type: ignore[call-arg]\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_listener.py\", line 423, in on_flow_started\n    self.formatter.handle_flow_started(event.flow_name, str(source.flow_id))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 338, in handle_flow_started\n    self._show_version_update_message_if_needed()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 79, in _show_version_update_message_if_needed\n    is_newer, current, latest = is_newer_version_available()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 186, in is_newer_version_available\n    current, latest = check_version()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 180, in check_version\n    latest = get_latest_version_from_pypi()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 125, in get_latest_version_from_pypi\n    with request.urlopen(\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 189, in urlopen\n    return opener.open(url, data, timeout)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 489, in open\n    response = self._open(req, data)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 506, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 466, in _call_chain\n    result = func(*args)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1367, in https_open\n    return self.do_open(http.client.HTTPSConnection, req,\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1319, in do_open\n    h.request(req.get_method(), req.selector, req.data, headers,\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1367, in request\n    self._send_request(method, url, body, headers, encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1413, in _send_request\n    self.endheaders(body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1362, in endheaders\n    self._send_output(message_body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1122, in _send_output\n    self.send(msg)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1066, in send\n    self.connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1501, in connect\n    super().connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1032, in connect\n    self.sock = self._create_connection(\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 840, in create_connection\n    for res in getaddrinfo(host, port, 0, SOCK_STREAM):\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 977, in getaddrinfo\n    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/probe.py\", line 12, in audit\n    network_attempts.append({'event': event, 'host': str(args[0]) if event == 'socket.getaddrinfo' else 'socket', 'stack': traceback.format_stack(limit=30)})\n"
+      ]
+    },
+    {
+      "event": "socket.getaddrinfo",
+      "host": "pypi.org",
+      "stack": [
+        "  File \"/usr/lib/python3.13/threading.py\", line 1014, in _bootstrap\n    self._bootstrap_inner()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 1043, in _bootstrap_inner\n    self.run()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 994, in run\n    self._target(*self._args, **self._kwargs)\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 93, in _worker\n    work_item.run()\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 59, in run\n    result = self.fn(*self.args, **self.kwargs)\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_bus.py\", line 419, in _call_handlers\n    if (error := is_call_handler_safe(handler, source, event, state))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/handlers.py\", line 78, in is_call_handler_safe\n    handler(source, event)  # type: ignore[call-arg]\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_listener.py\", line 423, in on_flow_started\n    self.formatter.handle_flow_started(event.flow_name, str(source.flow_id))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 338, in handle_flow_started\n    self._show_version_update_message_if_needed()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 79, in _show_version_update_message_if_needed\n    is_newer, current, latest = is_newer_version_available()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 186, in is_newer_version_available\n    current, latest = check_version()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 180, in check_version\n    latest = get_latest_version_from_pypi()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 125, in get_latest_version_from_pypi\n    with request.urlopen(\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 189, in urlopen\n    return opener.open(url, data, timeout)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 489, in open\n    response = self._open(req, data)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 506, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 466, in _call_chain\n    result = func(*args)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1367, in https_open\n    return self.do_open(http.client.HTTPSConnection, req,\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1319, in do_open\n    h.request(req.get_method(), req.selector, req.data, headers,\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1367, in request\n    self._send_request(method, url, body, headers, encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1413, in _send_request\n    self.endheaders(body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1362, in endheaders\n    self._send_output(message_body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1122, in _send_output\n    self.send(msg)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1066, in send\n    self.connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1501, in connect\n    super().connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1032, in connect\n    self.sock = self._create_connection(\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 840, in create_connection\n    for res in getaddrinfo(host, port, 0, SOCK_STREAM):\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 977, in getaddrinfo\n    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/probe.py\", line 12, in audit\n    network_attempts.append({'event': event, 'host': str(args[0]) if event == 'socket.getaddrinfo' else 'socket', 'stack': traceback.format_stack(limit=30)})\n"
+      ]
+    },
+    {
+      "event": "socket.getaddrinfo",
+      "host": "pypi.org",
+      "stack": [
+        "  File \"/usr/lib/python3.13/threading.py\", line 1014, in _bootstrap\n    self._bootstrap_inner()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 1043, in _bootstrap_inner\n    self.run()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 994, in run\n    self._target(*self._args, **self._kwargs)\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 93, in _worker\n    work_item.run()\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 59, in run\n    result = self.fn(*self.args, **self.kwargs)\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_bus.py\", line 419, in _call_handlers\n    if (error := is_call_handler_safe(handler, source, event, state))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/handlers.py\", line 78, in is_call_handler_safe\n    handler(source, event)  # type: ignore[call-arg]\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_listener.py\", line 423, in on_flow_started\n    self.formatter.handle_flow_started(event.flow_name, str(source.flow_id))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 338, in handle_flow_started\n    self._show_version_update_message_if_needed()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 79, in _show_version_update_message_if_needed\n    is_newer, current, latest = is_newer_version_available()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 186, in is_newer_version_available\n    current, latest = check_version()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 180, in check_version\n    latest = get_latest_version_from_pypi()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 125, in get_latest_version_from_pypi\n    with request.urlopen(\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 189, in urlopen\n    return opener.open(url, data, timeout)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 489, in open\n    response = self._open(req, data)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 506, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 466, in _call_chain\n    result = func(*args)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1367, in https_open\n    return self.do_open(http.client.HTTPSConnection, req,\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1319, in do_open\n    h.request(req.get_method(), req.selector, req.data, headers,\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1367, in request\n    self._send_request(method, url, body, headers, encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1413, in _send_request\n    self.endheaders(body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1362, in endheaders\n    self._send_output(message_body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1122, in _send_output\n    self.send(msg)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1066, in send\n    self.connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1501, in connect\n    super().connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1032, in connect\n    self.sock = self._create_connection(\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 840, in create_connection\n    for res in getaddrinfo(host, port, 0, SOCK_STREAM):\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 977, in getaddrinfo\n    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/probe.py\", line 12, in audit\n    network_attempts.append({'event': event, 'host': str(args[0]) if event == 'socket.getaddrinfo' else 'socket', 'stack': traceback.format_stack(limit=30)})\n"
+      ]
+    },
+    {
+      "event": "socket.getaddrinfo",
+      "host": "pypi.org",
+      "stack": [
+        "  File \"/usr/lib/python3.13/threading.py\", line 1014, in _bootstrap\n    self._bootstrap_inner()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 1043, in _bootstrap_inner\n    self.run()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 994, in run\n    self._target(*self._args, **self._kwargs)\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 93, in _worker\n    work_item.run()\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 59, in run\n    result = self.fn(*self.args, **self.kwargs)\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_bus.py\", line 419, in _call_handlers\n    if (error := is_call_handler_safe(handler, source, event, state))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/handlers.py\", line 78, in is_call_handler_safe\n    handler(source, event)  # type: ignore[call-arg]\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_listener.py\", line 423, in on_flow_started\n    self.formatter.handle_flow_started(event.flow_name, str(source.flow_id))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 338, in handle_flow_started\n    self._show_version_update_message_if_needed()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 79, in _show_version_update_message_if_needed\n    is_newer, current, latest = is_newer_version_available()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 186, in is_newer_version_available\n    current, latest = check_version()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 180, in check_version\n    latest = get_latest_version_from_pypi()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 125, in get_latest_version_from_pypi\n    with request.urlopen(\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 189, in urlopen\n    return opener.open(url, data, timeout)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 489, in open\n    response = self._open(req, data)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 506, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 466, in _call_chain\n    result = func(*args)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1367, in https_open\n    return self.do_open(http.client.HTTPSConnection, req,\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1319, in do_open\n    h.request(req.get_method(), req.selector, req.data, headers,\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1367, in request\n    self._send_request(method, url, body, headers, encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1413, in _send_request\n    self.endheaders(body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1362, in endheaders\n    self._send_output(message_body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1122, in _send_output\n    self.send(msg)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1066, in send\n    self.connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1501, in connect\n    super().connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1032, in connect\n    self.sock = self._create_connection(\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 840, in create_connection\n    for res in getaddrinfo(host, port, 0, SOCK_STREAM):\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 977, in getaddrinfo\n    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/probe.py\", line 12, in audit\n    network_attempts.append({'event': event, 'host': str(args[0]) if event == 'socket.getaddrinfo' else 'socket', 'stack': traceback.format_stack(limit=30)})\n"
+      ]
+    },
+    {
+      "event": "socket.getaddrinfo",
+      "host": "pypi.org",
+      "stack": [
+        "  File \"/usr/lib/python3.13/threading.py\", line 1014, in _bootstrap\n    self._bootstrap_inner()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 1043, in _bootstrap_inner\n    self.run()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 994, in run\n    self._target(*self._args, **self._kwargs)\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 93, in _worker\n    work_item.run()\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 59, in run\n    result = self.fn(*self.args, **self.kwargs)\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_bus.py\", line 419, in _call_handlers\n    if (error := is_call_handler_safe(handler, source, event, state))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/handlers.py\", line 78, in is_call_handler_safe\n    handler(source, event)  # type: ignore[call-arg]\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_listener.py\", line 423, in on_flow_started\n    self.formatter.handle_flow_started(event.flow_name, str(source.flow_id))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 338, in handle_flow_started\n    self._show_version_update_message_if_needed()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 79, in _show_version_update_message_if_needed\n    is_newer, current, latest = is_newer_version_available()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 186, in is_newer_version_available\n    current, latest = check_version()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 180, in check_version\n    latest = get_latest_version_from_pypi()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 125, in get_latest_version_from_pypi\n    with request.urlopen(\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 189, in urlopen\n    return opener.open(url, data, timeout)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 489, in open\n    response = self._open(req, data)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 506, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 466, in _call_chain\n    result = func(*args)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1367, in https_open\n    return self.do_open(http.client.HTTPSConnection, req,\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1319, in do_open\n    h.request(req.get_method(), req.selector, req.data, headers,\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1367, in request\n    self._send_request(method, url, body, headers, encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1413, in _send_request\n    self.endheaders(body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1362, in endheaders\n    self._send_output(message_body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1122, in _send_output\n    self.send(msg)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1066, in send\n    self.connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1501, in connect\n    super().connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1032, in connect\n    self.sock = self._create_connection(\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 840, in create_connection\n    for res in getaddrinfo(host, port, 0, SOCK_STREAM):\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 977, in getaddrinfo\n    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/probe.py\", line 12, in audit\n    network_attempts.append({'event': event, 'host': str(args[0]) if event == 'socket.getaddrinfo' else 'socket', 'stack': traceback.format_stack(limit=30)})\n"
+      ]
+    },
+    {
+      "event": "socket.getaddrinfo",
+      "host": "pypi.org",
+      "stack": [
+        "  File \"/usr/lib/python3.13/threading.py\", line 1014, in _bootstrap\n    self._bootstrap_inner()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 1043, in _bootstrap_inner\n    self.run()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 994, in run\n    self._target(*self._args, **self._kwargs)\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 93, in _worker\n    work_item.run()\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 59, in run\n    result = self.fn(*self.args, **self.kwargs)\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_bus.py\", line 419, in _call_handlers\n    if (error := is_call_handler_safe(handler, source, event, state))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/handlers.py\", line 78, in is_call_handler_safe\n    handler(source, event)  # type: ignore[call-arg]\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_listener.py\", line 423, in on_flow_started\n    self.formatter.handle_flow_started(event.flow_name, str(source.flow_id))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 338, in handle_flow_started\n    self._show_version_update_message_if_needed()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 79, in _show_version_update_message_if_needed\n    is_newer, current, latest = is_newer_version_available()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 186, in is_newer_version_available\n    current, latest = check_version()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 180, in check_version\n    latest = get_latest_version_from_pypi()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 125, in get_latest_version_from_pypi\n    with request.urlopen(\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 189, in urlopen\n    return opener.open(url, data, timeout)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 489, in open\n    response = self._open(req, data)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 506, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 466, in _call_chain\n    result = func(*args)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1367, in https_open\n    return self.do_open(http.client.HTTPSConnection, req,\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1319, in do_open\n    h.request(req.get_method(), req.selector, req.data, headers,\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1367, in request\n    self._send_request(method, url, body, headers, encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1413, in _send_request\n    self.endheaders(body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1362, in endheaders\n    self._send_output(message_body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1122, in _send_output\n    self.send(msg)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1066, in send\n    self.connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1501, in connect\n    super().connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1032, in connect\n    self.sock = self._create_connection(\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 840, in create_connection\n    for res in getaddrinfo(host, port, 0, SOCK_STREAM):\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 977, in getaddrinfo\n    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/probe.py\", line 12, in audit\n    network_attempts.append({'event': event, 'host': str(args[0]) if event == 'socket.getaddrinfo' else 'socket', 'stack': traceback.format_stack(limit=30)})\n"
+      ]
+    },
+    {
+      "event": "socket.getaddrinfo",
+      "host": "pypi.org",
+      "stack": [
+        "  File \"/usr/lib/python3.13/threading.py\", line 1014, in _bootstrap\n    self._bootstrap_inner()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 1043, in _bootstrap_inner\n    self.run()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 994, in run\n    self._target(*self._args, **self._kwargs)\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 93, in _worker\n    work_item.run()\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 59, in run\n    result = self.fn(*self.args, **self.kwargs)\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_bus.py\", line 419, in _call_handlers\n    if (error := is_call_handler_safe(handler, source, event, state))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/handlers.py\", line 78, in is_call_handler_safe\n    handler(source, event)  # type: ignore[call-arg]\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_listener.py\", line 423, in on_flow_started\n    self.formatter.handle_flow_started(event.flow_name, str(source.flow_id))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 338, in handle_flow_started\n    self._show_version_update_message_if_needed()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 79, in _show_version_update_message_if_needed\n    is_newer, current, latest = is_newer_version_available()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 186, in is_newer_version_available\n    current, latest = check_version()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 180, in check_version\n    latest = get_latest_version_from_pypi()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 125, in get_latest_version_from_pypi\n    with request.urlopen(\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 189, in urlopen\n    return opener.open(url, data, timeout)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 489, in open\n    response = self._open(req, data)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 506, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 466, in _call_chain\n    result = func(*args)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1367, in https_open\n    return self.do_open(http.client.HTTPSConnection, req,\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1319, in do_open\n    h.request(req.get_method(), req.selector, req.data, headers,\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1367, in request\n    self._send_request(method, url, body, headers, encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1413, in _send_request\n    self.endheaders(body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1362, in endheaders\n    self._send_output(message_body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1122, in _send_output\n    self.send(msg)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1066, in send\n    self.connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1501, in connect\n    super().connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1032, in connect\n    self.sock = self._create_connection(\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 840, in create_connection\n    for res in getaddrinfo(host, port, 0, SOCK_STREAM):\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 977, in getaddrinfo\n    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/probe.py\", line 12, in audit\n    network_attempts.append({'event': event, 'host': str(args[0]) if event == 'socket.getaddrinfo' else 'socket', 'stack': traceback.format_stack(limit=30)})\n"
+      ]
+    },
+    {
+      "event": "socket.getaddrinfo",
+      "host": "pypi.org",
+      "stack": [
+        "  File \"/usr/lib/python3.13/threading.py\", line 1014, in _bootstrap\n    self._bootstrap_inner()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 1043, in _bootstrap_inner\n    self.run()\n",
+        "  File \"/usr/lib/python3.13/threading.py\", line 994, in run\n    self._target(*self._args, **self._kwargs)\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 93, in _worker\n    work_item.run()\n",
+        "  File \"/usr/lib/python3.13/concurrent/futures/thread.py\", line 59, in run\n    result = self.fn(*self.args, **self.kwargs)\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_bus.py\", line 419, in _call_handlers\n    if (error := is_call_handler_safe(handler, source, event, state))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/handlers.py\", line 78, in is_call_handler_safe\n    handler(source, event)  # type: ignore[call-arg]\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/event_listener.py\", line 423, in on_flow_started\n    self.formatter.handle_flow_started(event.flow_name, str(source.flow_id))\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 338, in handle_flow_started\n    self._show_version_update_message_if_needed()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai/events/utils/console_formatter.py\", line 79, in _show_version_update_message_if_needed\n    is_newer, current, latest = is_newer_version_available()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 186, in is_newer_version_available\n    current, latest = check_version()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 180, in check_version\n    latest = get_latest_version_from_pypi()\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/venv/lib/python3.13/site-packages/crewai_core/version.py\", line 125, in get_latest_version_from_pypi\n    with request.urlopen(\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 189, in urlopen\n    return opener.open(url, data, timeout)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 489, in open\n    response = self._open(req, data)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 506, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 466, in _call_chain\n    result = func(*args)\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1367, in https_open\n    return self.do_open(http.client.HTTPSConnection, req,\n",
+        "  File \"/usr/lib/python3.13/urllib/request.py\", line 1319, in do_open\n    h.request(req.get_method(), req.selector, req.data, headers,\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1367, in request\n    self._send_request(method, url, body, headers, encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1413, in _send_request\n    self.endheaders(body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1362, in endheaders\n    self._send_output(message_body, encode_chunked=encode_chunked)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1122, in _send_output\n    self.send(msg)\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1066, in send\n    self.connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1501, in connect\n    super().connect()\n",
+        "  File \"/usr/lib/python3.13/http/client.py\", line 1032, in connect\n    self.sock = self._create_connection(\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 840, in create_connection\n    for res in getaddrinfo(host, port, 0, SOCK_STREAM):\n",
+        "  File \"/usr/lib/python3.13/socket.py\", line 977, in getaddrinfo\n    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):\n",
+        "  File \"/workspace/scratch/bbf1a44245d5/crewai-probe/probe.py\", line 12, in audit\n    network_attempts.append({'event': event, 'host': str(args[0]) if event == 'socket.getaddrinfo' else 'socket', 'stack': traceback.format_stack(limit=30)})\n"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "case": "wf01",
+      "result": "[Hello, workflow!]",
+      "spans": [
+        {
+          "name": "Flow_41a12367-6325-4388-b0da-72bdc3da2128.produce",
+          "trace_id": "0ddff9d54b2c437d4a5a4bfac319a85c",
+          "span_id": "8c726adad8046372",
+          "parent_span_id": "91e300359032c3ea",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf01\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf01\"",
+            "flow.node.name": "produce",
+            "flow.node.type": "start",
+            "output.value": "Hello, workflow!",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_41a12367-6325-4388-b0da-72bdc3da2128.decorate",
+          "trace_id": "0ddff9d54b2c437d4a5a4bfac319a85c",
+          "span_id": "da0a76ce25176186",
+          "parent_span_id": "91e300359032c3ea",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf01\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf01\"",
+            "flow.node.name": "decorate",
+            "flow.node.type": "listen",
+            "output.value": "[Hello, workflow!]",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_41a12367-6325-4388-b0da-72bdc3da2128.finish",
+          "trace_id": "0ddff9d54b2c437d4a5a4bfac319a85c",
+          "span_id": "68d19a9f703ad93c",
+          "parent_span_id": "91e300359032c3ea",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf01\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf01\"",
+            "flow.node.name": "finish",
+            "flow.node.type": "listen",
+            "output.value": "[Hello, workflow!]",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_41a12367-6325-4388-b0da-72bdc3da2128.kickoff",
+          "trace_id": "0ddff9d54b2c437d4a5a4bfac319a85c",
+          "span_id": "91e300359032c3ea",
+          "parent_span_id": "ef0abb2fc4360591",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf01\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf01\"",
+            "flow_id": "41a12367-6325-4388-b0da-72bdc3da2128",
+            "flow_inputs": "",
+            "output.value": "[Hello, workflow!]",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "wf01",
+          "trace_id": "0ddff9d54b2c437d4a5a4bfac319a85c",
+          "span_id": "ef0abb2fc4360591",
+          "parent_span_id": null,
+          "status": "UNSET",
+          "attributes": {
+            "langfuse.internal.is_app_root": true,
+            "langfuse.observation.type": "span",
+            "langfuse.environment": "research",
+            "langfuse.trace.metadata.workflow_id": "\"research-wf01\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf01\""
+          },
+          "event_names": [],
+          "scope": "langfuse-sdk"
+        }
+      ]
+    },
+    {
+      "case": "wf02",
+      "result": 20,
+      "spans": [
+        {
+          "name": "Flow_ef8d31a5-b4e8-4be9-a010-40168eda0cc6.initialize",
+          "trace_id": "986026d27fc5b4be9d25bdadb64bc8e1",
+          "span_id": "83b30b93f74ce744",
+          "parent_span_id": "c3a4214c0f8f0cab",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02\"",
+            "flow.node.name": "initialize",
+            "flow.node.type": "start",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_ef8d31a5-b4e8-4be9-a010-40168eda0cc6.add",
+          "trace_id": "986026d27fc5b4be9d25bdadb64bc8e1",
+          "span_id": "b9a96aaa1f592021",
+          "parent_span_id": "c3a4214c0f8f0cab",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02\"",
+            "flow.node.name": "add",
+            "flow.node.type": "listen",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_ef8d31a5-b4e8-4be9-a010-40168eda0cc6.multiply",
+          "trace_id": "986026d27fc5b4be9d25bdadb64bc8e1",
+          "span_id": "5e24d66356779f97",
+          "parent_span_id": "c3a4214c0f8f0cab",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02\"",
+            "flow.node.name": "multiply",
+            "flow.node.type": "listen",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_ef8d31a5-b4e8-4be9-a010-40168eda0cc6.finish",
+          "trace_id": "986026d27fc5b4be9d25bdadb64bc8e1",
+          "span_id": "7a84243dbc2a5969",
+          "parent_span_id": "c3a4214c0f8f0cab",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02\"",
+            "flow.node.name": "finish",
+            "flow.node.type": "listen",
+            "output.value": "20",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_ef8d31a5-b4e8-4be9-a010-40168eda0cc6.kickoff",
+          "trace_id": "986026d27fc5b4be9d25bdadb64bc8e1",
+          "span_id": "c3a4214c0f8f0cab",
+          "parent_span_id": "d630201558d102d7",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02\"",
+            "flow_id": "ef8d31a5-b4e8-4be9-a010-40168eda0cc6",
+            "flow_inputs": "",
+            "output.value": "20",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "wf02",
+          "trace_id": "986026d27fc5b4be9d25bdadb64bc8e1",
+          "span_id": "d630201558d102d7",
+          "parent_span_id": null,
+          "status": "UNSET",
+          "attributes": {
+            "langfuse.internal.is_app_root": true,
+            "langfuse.observation.type": "span",
+            "langfuse.environment": "research",
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02\""
+          },
+          "event_names": [],
+          "scope": "langfuse-sdk"
+        }
+      ]
+    },
+    {
+      "case": "wf03-pass",
+      "result": "pass",
+      "spans": [
+        {
+          "name": "Flow_c1dced4e-0017-440a-87d3-f73428e2cee9.begin",
+          "trace_id": "a4772d03f337b54db41df6b2858f31bf",
+          "span_id": "288956ef4b55c96d",
+          "parent_span_id": "98de4405c4327a4c",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-pass\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-pass\"",
+            "flow.node.name": "begin",
+            "flow.node.type": "start",
+            "output.value": "80",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_c1dced4e-0017-440a-87d3-f73428e2cee9.choose",
+          "trace_id": "a4772d03f337b54db41df6b2858f31bf",
+          "span_id": "2bb5c81599e8d610",
+          "parent_span_id": "98de4405c4327a4c",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-pass\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-pass\"",
+            "flow.node.name": "choose",
+            "flow.node.type": "router",
+            "output.value": "pass",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_c1dced4e-0017-440a-87d3-f73428e2cee9.accept",
+          "trace_id": "a4772d03f337b54db41df6b2858f31bf",
+          "span_id": "2d6bb7096745f1e3",
+          "parent_span_id": "98de4405c4327a4c",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-pass\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-pass\"",
+            "flow.node.name": "accept",
+            "flow.node.type": "listen",
+            "output.value": "pass",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_c1dced4e-0017-440a-87d3-f73428e2cee9.kickoff",
+          "trace_id": "a4772d03f337b54db41df6b2858f31bf",
+          "span_id": "98de4405c4327a4c",
+          "parent_span_id": "95491e198df38187",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-pass\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-pass\"",
+            "input.value": "{\"score\": 80}",
+            "input.mime_type": "application/json",
+            "flow_id": "c1dced4e-0017-440a-87d3-f73428e2cee9",
+            "flow_inputs": "{\"score\": 80}",
+            "output.value": "pass",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "wf03-pass",
+          "trace_id": "a4772d03f337b54db41df6b2858f31bf",
+          "span_id": "95491e198df38187",
+          "parent_span_id": null,
+          "status": "UNSET",
+          "attributes": {
+            "langfuse.internal.is_app_root": true,
+            "langfuse.observation.type": "span",
+            "langfuse.environment": "research",
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-pass\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-pass\""
+          },
+          "event_names": [],
+          "scope": "langfuse-sdk"
+        }
+      ]
+    },
+    {
+      "case": "wf03-revise",
+      "result": "needs_work",
+      "spans": [
+        {
+          "name": "Flow_64404638-a85f-4fd0-b4ec-c008bdff661e.begin",
+          "trace_id": "0514287368ce8b5c3834ae9e2ee2882a",
+          "span_id": "b461ef1b941d25cb",
+          "parent_span_id": "3b69e11bdbc88fbc",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-revise\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-revise\"",
+            "flow.node.name": "begin",
+            "flow.node.type": "start",
+            "output.value": "20",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_64404638-a85f-4fd0-b4ec-c008bdff661e.choose",
+          "trace_id": "0514287368ce8b5c3834ae9e2ee2882a",
+          "span_id": "efcda65d23d7df33",
+          "parent_span_id": "3b69e11bdbc88fbc",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-revise\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-revise\"",
+            "flow.node.name": "choose",
+            "flow.node.type": "router",
+            "output.value": "needs_work",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_64404638-a85f-4fd0-b4ec-c008bdff661e.revise",
+          "trace_id": "0514287368ce8b5c3834ae9e2ee2882a",
+          "span_id": "f8534903059c2a88",
+          "parent_span_id": "3b69e11bdbc88fbc",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-revise\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-revise\"",
+            "flow.node.name": "revise",
+            "flow.node.type": "listen",
+            "output.value": "needs_work",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_64404638-a85f-4fd0-b4ec-c008bdff661e.kickoff",
+          "trace_id": "0514287368ce8b5c3834ae9e2ee2882a",
+          "span_id": "3b69e11bdbc88fbc",
+          "parent_span_id": "62b443e318201161",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-revise\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-revise\"",
+            "input.value": "{\"score\": 20}",
+            "input.mime_type": "application/json",
+            "flow_id": "64404638-a85f-4fd0-b4ec-c008bdff661e",
+            "flow_inputs": "{\"score\": 20}",
+            "output.value": "needs_work",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "wf03-revise",
+          "trace_id": "0514287368ce8b5c3834ae9e2ee2882a",
+          "span_id": "62b443e318201161",
+          "parent_span_id": null,
+          "status": "UNSET",
+          "attributes": {
+            "langfuse.internal.is_app_root": true,
+            "langfuse.observation.type": "span",
+            "langfuse.environment": "research",
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-revise\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-revise\""
+          },
+          "event_names": [],
+          "scope": "langfuse-sdk"
+        }
+      ]
+    },
+    {
+      "case": "wf02-repeat",
+      "result": 20,
+      "spans": [
+        {
+          "name": "Flow_370bb618-64a0-454c-b3ea-47d7d8a59f1c.initialize",
+          "trace_id": "e4c7602a806d113bbad75478c66548d8",
+          "span_id": "486f79d631dafd14",
+          "parent_span_id": "eb44cd826fd97424",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02-repeat\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02-repeat\"",
+            "flow.node.name": "initialize",
+            "flow.node.type": "start",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_370bb618-64a0-454c-b3ea-47d7d8a59f1c.add",
+          "trace_id": "e4c7602a806d113bbad75478c66548d8",
+          "span_id": "dda61319ba3a8666",
+          "parent_span_id": "eb44cd826fd97424",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02-repeat\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02-repeat\"",
+            "flow.node.name": "add",
+            "flow.node.type": "listen",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_370bb618-64a0-454c-b3ea-47d7d8a59f1c.multiply",
+          "trace_id": "e4c7602a806d113bbad75478c66548d8",
+          "span_id": "412212e592f4da9e",
+          "parent_span_id": "eb44cd826fd97424",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02-repeat\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02-repeat\"",
+            "flow.node.name": "multiply",
+            "flow.node.type": "listen",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_370bb618-64a0-454c-b3ea-47d7d8a59f1c.finish",
+          "trace_id": "e4c7602a806d113bbad75478c66548d8",
+          "span_id": "63d4f89044d843c2",
+          "parent_span_id": "eb44cd826fd97424",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02-repeat\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02-repeat\"",
+            "flow.node.name": "finish",
+            "flow.node.type": "listen",
+            "output.value": "20",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_370bb618-64a0-454c-b3ea-47d7d8a59f1c.kickoff",
+          "trace_id": "e4c7602a806d113bbad75478c66548d8",
+          "span_id": "eb44cd826fd97424",
+          "parent_span_id": "5d63cc6a04626502",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02-repeat\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02-repeat\"",
+            "flow_id": "370bb618-64a0-454c-b3ea-47d7d8a59f1c",
+            "flow_inputs": "",
+            "output.value": "20",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "wf02-repeat",
+          "trace_id": "e4c7602a806d113bbad75478c66548d8",
+          "span_id": "5d63cc6a04626502",
+          "parent_span_id": null,
+          "status": "UNSET",
+          "attributes": {
+            "langfuse.internal.is_app_root": true,
+            "langfuse.observation.type": "span",
+            "langfuse.environment": "research",
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02-repeat\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02-repeat\""
+          },
+          "event_names": [],
+          "scope": "langfuse-sdk"
+        }
+      ]
+    },
+    {
+      "case": "wf02-failure",
+      "result": null,
+      "spans": [
+        {
+          "name": "Flow_54a9266e-1e64-480e-a79b-977f114e101f.initialize",
+          "trace_id": "cc6e046f8619923dfb32b2a2f2e67a90",
+          "span_id": "71016f43d592114c",
+          "parent_span_id": "e120813c693de256",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02-failure\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02-failure\"",
+            "flow.node.name": "initialize",
+            "flow.node.type": "start",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_54a9266e-1e64-480e-a79b-977f114e101f.add",
+          "trace_id": "cc6e046f8619923dfb32b2a2f2e67a90",
+          "span_id": "b17f959e809fb95a",
+          "parent_span_id": "e120813c693de256",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02-failure\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02-failure\"",
+            "flow.node.name": "add",
+            "flow.node.type": "listen",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_54a9266e-1e64-480e-a79b-977f114e101f.multiply",
+          "trace_id": "cc6e046f8619923dfb32b2a2f2e67a90",
+          "span_id": "bb63c159f6dac848",
+          "parent_span_id": "e120813c693de256",
+          "status": "ERROR",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02-failure\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02-failure\"",
+            "flow.node.name": "multiply",
+            "flow.node.type": "listen",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [
+            "exception"
+          ],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_54a9266e-1e64-480e-a79b-977f114e101f.kickoff",
+          "trace_id": "cc6e046f8619923dfb32b2a2f2e67a90",
+          "span_id": "e120813c693de256",
+          "parent_span_id": "f2d8df4fb2749b55",
+          "status": "ERROR",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02-failure\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02-failure\"",
+            "flow_id": "54a9266e-1e64-480e-a79b-977f114e101f",
+            "flow_inputs": "",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [
+            "exception"
+          ],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "wf02-failure",
+          "trace_id": "cc6e046f8619923dfb32b2a2f2e67a90",
+          "span_id": "f2d8df4fb2749b55",
+          "parent_span_id": null,
+          "status": "ERROR",
+          "attributes": {
+            "langfuse.internal.is_app_root": true,
+            "langfuse.observation.type": "span",
+            "langfuse.environment": "research",
+            "langfuse.trace.metadata.workflow_id": "\"research-wf02-failure\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf02-failure\""
+          },
+          "event_names": [
+            "exception"
+          ],
+          "scope": "langfuse-sdk"
+        }
+      ]
+    },
+    {
+      "case": "conditions",
+      "result": 9,
+      "spans": [
+        {
+          "name": "Flow_a3728312-1bcb-4030-93a6-7a60c12ee8ad.begin",
+          "trace_id": "817b7bd7d845f0bcd5290bdec5b7ffa1",
+          "span_id": "79c698745f988918",
+          "parent_span_id": "256e125b79a69ee9",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-conditions\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-conditions\"",
+            "flow.node.name": "begin",
+            "flow.node.type": "start",
+            "output.value": "1",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_a3728312-1bcb-4030-93a6-7a60c12ee8ad.left",
+          "trace_id": "817b7bd7d845f0bcd5290bdec5b7ffa1",
+          "span_id": "73096940e697de16",
+          "parent_span_id": "256e125b79a69ee9",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-conditions\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-conditions\"",
+            "flow.node.name": "left",
+            "flow.node.type": "listen",
+            "output.value": "2",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_a3728312-1bcb-4030-93a6-7a60c12ee8ad.right",
+          "trace_id": "817b7bd7d845f0bcd5290bdec5b7ffa1",
+          "span_id": "aaef718a6c588098",
+          "parent_span_id": "256e125b79a69ee9",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-conditions\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-conditions\"",
+            "flow.node.name": "right",
+            "flow.node.type": "listen",
+            "output.value": "3",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_a3728312-1bcb-4030-93a6-7a60c12ee8ad.joined",
+          "trace_id": "817b7bd7d845f0bcd5290bdec5b7ffa1",
+          "span_id": "2988792d6e211aa2",
+          "parent_span_id": "256e125b79a69ee9",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-conditions\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-conditions\"",
+            "flow.node.name": "joined",
+            "flow.node.type": "listen",
+            "output.value": "9",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_a3728312-1bcb-4030-93a6-7a60c12ee8ad.finish",
+          "trace_id": "817b7bd7d845f0bcd5290bdec5b7ffa1",
+          "span_id": "3210370854e111a5",
+          "parent_span_id": "256e125b79a69ee9",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-conditions\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-conditions\"",
+            "flow.node.name": "finish",
+            "flow.node.type": "listen",
+            "output.value": "9",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_a3728312-1bcb-4030-93a6-7a60c12ee8ad.kickoff",
+          "trace_id": "817b7bd7d845f0bcd5290bdec5b7ffa1",
+          "span_id": "256e125b79a69ee9",
+          "parent_span_id": "9d1b99725227e6f5",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-conditions\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-conditions\"",
+            "flow_id": "a3728312-1bcb-4030-93a6-7a60c12ee8ad",
+            "flow_inputs": "",
+            "output.value": "9",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "conditions",
+          "trace_id": "817b7bd7d845f0bcd5290bdec5b7ffa1",
+          "span_id": "9d1b99725227e6f5",
+          "parent_span_id": null,
+          "status": "UNSET",
+          "attributes": {
+            "langfuse.internal.is_app_root": true,
+            "langfuse.observation.type": "span",
+            "langfuse.environment": "research",
+            "langfuse.trace.metadata.workflow_id": "\"research-conditions\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-conditions\""
+          },
+          "event_names": [],
+          "scope": "langfuse-sdk"
+        }
+      ]
+    },
+    {
+      "case": "wf03-async",
+      "result": "pass",
+      "spans": [
+        {
+          "name": "Flow_3bb5d1c1-ce5f-466e-ad7e-a1013d13b7c9.begin",
+          "trace_id": "d7ddf96c8ba31ea7c853344e658d66b1",
+          "span_id": "8655041acbb7b58f",
+          "parent_span_id": "8523829e3cdb1c17",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-async\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-async\"",
+            "flow.node.name": "begin",
+            "flow.node.type": "start",
+            "output.value": "80",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_3bb5d1c1-ce5f-466e-ad7e-a1013d13b7c9.choose",
+          "trace_id": "d7ddf96c8ba31ea7c853344e658d66b1",
+          "span_id": "215497477b6729f8",
+          "parent_span_id": "8523829e3cdb1c17",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-async\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-async\"",
+            "flow.node.name": "choose",
+            "flow.node.type": "router",
+            "output.value": "pass",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_3bb5d1c1-ce5f-466e-ad7e-a1013d13b7c9.accept",
+          "trace_id": "d7ddf96c8ba31ea7c853344e658d66b1",
+          "span_id": "fbd68169d5d9b374",
+          "parent_span_id": "8523829e3cdb1c17",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-async\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-async\"",
+            "flow.node.name": "accept",
+            "flow.node.type": "listen",
+            "output.value": "pass",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "Flow_3bb5d1c1-ce5f-466e-ad7e-a1013d13b7c9.kickoff",
+          "trace_id": "d7ddf96c8ba31ea7c853344e658d66b1",
+          "span_id": "8523829e3cdb1c17",
+          "parent_span_id": "f83935b21f99ff04",
+          "status": "OK",
+          "attributes": {
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-async\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-async\"",
+            "input.value": "{\"score\": 80}",
+            "input.mime_type": "application/json",
+            "flow_id": "3bb5d1c1-ce5f-466e-ad7e-a1013d13b7c9",
+            "flow_inputs": "{\"score\": 80}",
+            "output.value": "pass",
+            "output.mime_type": "text/plain",
+            "openinference.span.kind": "CHAIN"
+          },
+          "event_names": [],
+          "scope": "openinference.instrumentation.crewai"
+        },
+        {
+          "name": "wf03-async",
+          "trace_id": "d7ddf96c8ba31ea7c853344e658d66b1",
+          "span_id": "f83935b21f99ff04",
+          "parent_span_id": null,
+          "status": "UNSET",
+          "attributes": {
+            "langfuse.internal.is_app_root": true,
+            "langfuse.observation.type": "span",
+            "langfuse.environment": "research",
+            "langfuse.trace.metadata.workflow_id": "\"research-wf03-async\"",
+            "langfuse.trace.metadata.workflow_run_id": "\"run-wf03-async\""
+          },
+          "event_names": [],
+          "scope": "langfuse-sdk"
+        }
+      ]
+    }
+  ]
+}
