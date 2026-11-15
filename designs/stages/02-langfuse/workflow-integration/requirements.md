@@ -1,7 +1,7 @@
 # Agent Playbook — execution context and native Langfuse integration
 
-Version: 0.27 · 2026-11-14 · Sharon
-Status: **M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.**
+Version: 0.28 · 2026-11-15 · Sharon
+Status: **M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Combined M4.2 + M4.3 detailed design authorized in iteration 40; implementation awaits revised-contract approval. Logging remains deferred.**
 
 ## 1. Current goal and authority
 
@@ -58,9 +58,8 @@ These are the integration milestones under Stage 02's previously deferred M4. Ex
 | Milestone | Starting point | Goal / evidence | Status |
 | --- | --- | --- | --- |
 | M4.R — CrewAI/Langfuse research | Merged PR #36 pins and maintained Flow definitions; automatic coverage not established. | Released compatible integration and reproducible coverage evidence before application tracing work. | Delivered: eight isolated cases/44 spans; application/local-UI acceptance not yet established. |
-| M4.1 — context | Existing runner/factory/Workflow ABC, no general context; D18/D19 structure agreed. | Typed context, constructor propagation and parent/child isolation; focused tests without backend export. | [Design](01-context-design.md), [test cases](01-context-test-cases.md) and [implementation plan](01-context-implementation-plan.md) approved at 11bba58; candidate 16c1580 passed both reviews and final review, accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. |
-| M4.2 — runner | Accepted/tested context plus existing configured local Langfuse client setup. | Native root scope, workflow/run correlation, real trace identity, lifecycle/disabled behavior and local root acceptance. | Small integration foundation; no custom step-tracing layer. |
-| M4.3 — CrewAI | Runner scope plus M4.R's tested instrumentor recommendation. | Enable automatic Flow/start/listen/router observations for WF-01/02/03; verify actual application and local UI. | Immediate next integration priority; no manual instrumentation on each step by default. |
+| M4.1 — context | Existing runner/factory/Workflow ABC, no general context; D18/D19 structure agreed. | Typed context, constructor propagation and parent/child isolation; focused tests without backend export. | [Design](m1-context/design.md), [test cases](m1-context/test-cases.md) and [implementation plan](m1-context/implementation-plan.md) approved at 11bba58; candidate 16c1580 passed both reviews and final review, accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. |
+| M4.2 + M4.3 — combined tracing | Accepted M4.1 context and tested M4.R integration. | Native runner scope and automatic Flow/start/listen/router observations, exact correlation, lifecycle/disabled/failure behavior and local UI acceptance. | One implementation milestone/PR; native SDK and instrumentor, no custom step-tracing layer. |
 | Later — logs and advanced features | Working correlated tracing. | Local application logs in a separate PR; scores/evaluations incrementally. | Deferred; local/no-service/Apache and replacement requirements retained. |
 
 ### M4.R — CrewAI-to-Langfuse research alongside milestone 1
@@ -82,7 +81,7 @@ The report and [probe evidence](research/probe/README.md) contain the exact reci
 
 ### M4.1 — Execution context
 
-**M4.1 implemented and accepted.** The approved design/test/plan at 11bba581 and G01–G08 were implemented in PR #44; candidate 16c1580 passed two independent reviews and final review. See [permanent status](reviews/context/status.md). Its data-only contract is unchanged by documentation reconciliation.
+**M4.1 implemented and accepted.** The approved design/test/plan at 11bba581 and G01–G08 were implemented in PR #44; candidate 16c1580 passed two independent reviews and final review. See [permanent status](m1-context/reviews/status.md). Its data-only contract is unchanged by documentation reconciliation.
 
 Implement the agreed ordinary typed ExecutionContext and nested ObservabilityContext together in one shared file. Runner creates one context per invocation; the existing factory forwards it into the workflow constructor. Workflow retains self.context and supplies its CrewAI Flow. M4.1 includes this actual wiring and parent/sibling isolation, not only class definitions. No Langfuse export yet.
 
@@ -92,7 +91,7 @@ Follow D25/D26: omit stored trace/span IDs, placeholder trace_id=None and live s
 
 Exit: Sharon approves the concrete contract and listed guarded amendments; implementation satisfies CTX-01–17, both independent reviews and relevant project gates while preserving current workflow behavior. D29 caps implementation/review at three total rounds and preserves all reports. Drafting the contract is not its implementation or test acceptance.
 
-### M4.2 — Runner tracing
+### Combined milestone: runner acceptance (formerly M4.2)
 
 Use the real Langfuse SDK around the selected workflow execution boundary, with the configured local client and M4.1 context. Record correlation_id from ExecutionContext plus workflow_id and workflow_run_id as consistent safe metadata; obtain the actual trace ID from the SDK-created/joined trace. Retain access to that ID for correlation. Final native result/presentation changes require an explicit contract, not an incidental CLI-output rewrite.
 
@@ -114,7 +113,7 @@ Future context-associated logs carry correlation_id even with tracing disabled o
 
 Next decisions: root lifetime across constructor/input/prepare/execute/validation/serialization; client initialization/reuse and CLI flush versus shutdown; disabled/outage/error behavior; selected metadata and acceptance tests. Discuss these before the detailed 02-runner-design.md. Plan against pinned M4.1 and reconcile its actual implementation before tracing code. Logging and agent lifecycle remain deferred.
 
-### M4.3 — CrewAI Flow and step tracing
+### Combined milestone: CrewAI acceptance (formerly M4.3)
 
 Enable a compatible existing in-process CrewAI instrumentor once at the appropriate initialization boundary. Run actual maintained workflows under the runner's active Langfuse scope. Prefer automatic Flow/step observations over adding tracing calls to every @start/@listen method. Preserve framework routing and existing outputs.
 
@@ -141,7 +140,7 @@ Supported native SDK context managers, decorators, explicit observation lifecycl
 
 ## 6. Context contract — pinned M4.1 handoff
 
-The [M4.1 detailed design](01-context-design.md) is the single current proposal for exact fields, types/defaults, package location, dataclass flags, constructor signatures, derivation and Flow storage. D18/D19's composition/route, D24's stable identity, D25/D26's SDK-managed tracing and D27's application correlation are accepted discussion choices. D28 originally authorized drafting; iteration 29 records Sharon forwarding the subsequent explicit implementation authorization at 11bba58.
+The [M4.1 detailed design](m1-context/design.md) is the single current proposal for exact fields, types/defaults, package location, dataclass flags, constructor signatures, derivation and Flow storage. D18/D19's composition/route, D24's stable identity, D25/D26's SDK-managed tracing and D27's application correlation are accepted discussion choices. D28 originally authorized drafting; iteration 29 records Sharon forwarding the subsequent explicit implementation authorization at 11bba58.
 
 Implemented source: app/src/agent_playbook/context/models.py. ExecutionContext holds correlation_id and observability. ObservabilityContext holds workflow_id, workflow_run_id and optional agent_type/agent_run_id. Frozen keyword-only fields and scalar/frozen nested values avoid parent mutation. No Context ABC, broker, live SDK object, mutable extension dict or empty future context sections.
 
@@ -149,7 +148,7 @@ The for_agent helper uses dataclasses.replace on both the inner and outer object
 
 R29 remains: pass one context through intermediary signatures; field definitions and actual producers/consumers evolve without manually rebuilding all inherited fields. New required semantics may still require callers to provide a value. Review any future mutable fields explicitly. Telemetry projection stays selective, not automatic asdict export.
 
-The separate [test-cases contract](01-context-test-cases.md) covers identity, derivation, actual maintained Flow access, state separation, existing behavior, typing/offline checks and installed packaging. The [orchestration plan](01-context-implementation-plan.md) governs the delegated M4.1 implementation, not an application agent feature.
+The separate [test-cases contract](m1-context/test-cases.md) covers identity, derivation, actual maintained Flow access, state separation, existing behavior, typing/offline checks and installed packaging. The [orchestration plan](m1-context/implementation-plan.md) governs the delegated M4.1 implementation, not an application agent feature.
 
 ## 7. Deferred requirements retained
 
@@ -162,7 +161,7 @@ The separate [test-cases contract](01-context-test-cases.md) covers identity, de
 
 ## 8. Repository reconciliation and scope
 
-The exact data-only M4.1 amendments are G01–G08 in [design section 9](01-context-design.md#9-guarded-logical-amendments-to-approve-with-this-design). They cover context placement, constructor/Flow routing, dated amendments to the existing workflow contract, M4 submilestones and registration of the approved baseline. These are authorized by the forwarded M4.1 instruction and are to be applied by its implementing Codex; this planning update does not apply them or claim them completed.
+The exact data-only M4.1 amendments are G01–G08 in [design section 9](m1-context/design.md#9-guarded-logical-amendments-to-approve-with-this-design). They cover context placement, constructor/Flow routing, dated amendments to the existing workflow contract, M4 submilestones and registration of the approved baseline. These are authorized by the forwarded M4.1 instruction and are to be applied by its implementing Codex; this planning update does not apply them or claim them completed.
 
 The no-broker/native-SDK direction remains accepted. Its tracing-specific exception to existing provider-isolation wording must be reconciled before M4.2, not before data-only M4.1. Do not weaken agent-execution adapter isolation. [repository-updates.md](repository-updates.md) separates those gates and their concrete affected files.
 
@@ -170,9 +169,9 @@ This update adds the detailed design/test/implementation drafts, accepted correl
 
 ## 9. Immediate actions
 
-1. Complete the authorized documentation reconciliation/merge and preserve the accepted M4.1 contract and CTX evidence.
-2. Start M4.2 preliminary design against that pinned contract, including D30/R31; reconcile the actual implementation before tracing code. The three-round implementation cap remains unchanged.
-3. M4.2 resolves runner tracing scope, client lifecycle, error/outage/disabled policy and native metadata projection including correlation_id. M4.3 follows the researched CrewAI integration and its remaining real-application/local-UI checks.
+1. Preserve completed M4.1 and CTX evidence.
+2. Review the version-2 combined design/test/plan, retain accepted PAYLOAD-01 and approve exact contract/guarded amendments before implementation.
+3. Prepare the filled Codex handoff under the standing rules, implement one combined PR, and verify automatic observations through the actual runner and local UI. Documentation PR #47 merges last.
 
 Q25 is resolved at the application-ID level by D27; ownership and constructor details are proposed concretely in M4.1. Q01/Q02/Q04/Q06/Q12/Q15/Q18 have reviewable M4.1 answers in that draft; their later-feature parts stay deferred. Q21 remains closed: no broker. Agent lifecycle and local logger/viewer questions remain outside M4.1. Follow the [README maintenance rules](README.md#rules-that-prevent-design-drift).
 
@@ -233,3 +232,9 @@ The accepted A–D classification and assessment rubric is retained in [decision
 ## Iteration 35 closeout clarification
 
 M4.1 draft-era proposals above are implemented under the approved three-file contract; G01–G08 are applied. Final review passed with an independent 43-test rerun; the implementation reports the full 380-test/release gates. M4.2 and M4.3 proposals remain unapproved. No application behavior is changed in this reconciliation.
+
+## Iteration 40 — accepted consolidation and reusable handover rules
+
+On 2026-11-15 Sharon accepted combining M4.2 and M4.3 into one implementation milestone and authorized the simplified detailed design. Use native Langfuse plus the released OpenInference CrewAI instrumentor for existing workflows; no broker, manual per-step instrumentation, custom SDK lifecycle or new agent runtime. Earlier separate-milestone sequencing is historical. This accepts scope and drafting, not an unseen detailed contract or application implementation.
+
+The reusable [Codex handover rules](../../../governance/codex-handover-rules.md) now govern every handoff: pinned design/test/plan, one coder, two independent reviewers, three rounds maximum, permanent evidence and exact outgoing/return copyable messages. PR #47 remains MERGE LAST. Detailed payload handling and tracing-specific guarded amendments must be explicit at contract review; do not silently turn earlier unapproved policies into requirements.

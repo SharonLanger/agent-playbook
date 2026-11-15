@@ -1,8 +1,17 @@
 # Four milestones and their checkpoints
 
+## Stage 02 closeout — 2026-11-15
+
+Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals.
+
+Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files.
+
+## Historical checkpoints
+
+
 ## Current acceptance — 2026-11-15
 
-M4.2 + M4.3 native workflow tracing is implemented, final-reviewed and accepted by Sharon; PR #50 is authorized for merge. The reviewed candidate is adbba215da77e1e618c3c699e1d84c1ba45c629e: 408 tests, static/lint/format checks and installed release passed. Sharon completed local success, routing, correlation, input/output, readable-name and controlled-failure checks. M1–M3 and M4.1 remain accepted/merged. Stage Design PR #47 stays open for documentation reconciliation and explicit stage closeout. Logging, real-agent cost/usage and scores/evaluations remain deferred. Earlier pending statements below are historical checkpoints, superseded by this acceptance.
+M4.2 + M4.3 native workflow tracing is implemented, final-reviewed and accepted by Sharon; PR #50 merged at b08060f0acba74f19bc8a32aedb21316eed149c1. The reviewed candidate is adbba215da77e1e618c3c699e1d84c1ba45c629e: 408 tests, static/lint/format checks and installed release passed. Sharon completed local success, routing, correlation, input/output, readable-name and controlled-failure checks. M1–M3 and M4.1 remain accepted/merged. Stage Design PR #47 stays open for documentation reconciliation and explicit stage closeout. Logging, real-agent cost/usage and scores/evaluations remain deferred. Earlier pending statements below are historical checkpoints, superseded by this acceptance.
 
 ## Earlier status and retained history
 
@@ -138,11 +147,11 @@ contract and explicitly review any guarded logical changes.
 
 ## M4 checkpoints — approved context sequence, 2026-11-14
 
-M4.R research established bounded released-version CrewAI/Langfuse feasibility. M4.1 is the separately approved [data-only context design](workflow-integration/01-context-design.md), with an implementation PR under review; it requires identity, runner/factory/Workflow/Flow forwarding, isolation and CTX-01–17 evidence. M4.2 will separately review native runner tracing; M4.3 will separately review CrewAI automatic observations. M1–M3 acceptance and historical checks remain unchanged. Approval of M4.1 does not mark all M4 implemented or Stage 02 complete.
+M4.R research established bounded released-version CrewAI/Langfuse feasibility. M4.1 is the separately approved [data-only context design](workflow-integration/m1-context/design.md), with an implementation PR under review; it requires identity, runner/factory/Workflow/Flow forwarding, isolation and CTX-01–17 evidence. M4.2 will separately review native runner tracing; M4.3 will separately review CrewAI automatic observations. M1–M3 acceptance and historical checks remain unchanged. Approval of M4.1 does not mark all M4 implemented or Stage 02 complete.
 
 ## M4.1 acceptance and merge checkpoint — 2026-11-14
 
-M4.1 is implemented, verified, accepted by Sharon and merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Approved data-only context semantics and M1–M3 history remain unchanged. M4.2 native runner tracing is the next design; M4.3/logging remain later. See [context status](workflow-integration/reviews/context/status.md).
+M4.1 is implemented, verified, accepted by Sharon and merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Approved data-only context semantics and M1–M3 history remain unchanged. M4.2 native runner tracing is the next design; M4.3/logging remain later. See [context status](workflow-integration/m1-context/reviews/status.md).
 
 ## M4.2/M4.3 combined checkpoint — approved 2026-11-15
 

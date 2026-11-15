@@ -1,8 +1,8 @@
 # M4.1 — Codex implementation and review plan
 
-Status: **APPROVED AND LOCKED at `11bba581`; implemented, verified, accepted and merged in PR #44 at `942e59344c429454263319e783ea76ad297b7ea6`.** The contract below is preserved; draft-era wording is historical. See [current status](reviews/context/status.md).
+Status: **APPROVED AND LOCKED at `11bba581`; implemented, verified, accepted and merged in PR #44 at `942e59344c429454263319e783ea76ad297b7ea6`.** The contract below is preserved; draft-era wording is historical. See [current status](reviews/status.md).
 
-[Design](01-context-design.md) · [Test cases](01-context-test-cases.md) · [Shared entry point](README.md) · [Repository reconciliation](repository-updates.md)
+[Design](design.md) · [Test cases](test-cases.md) · [Shared entry point](../README.md) · [Repository reconciliation](../repository-updates.md)
 
 ## 1. Handoff and authority
 
@@ -34,7 +34,7 @@ The coder finishes before reviews start. Both reviewers inspect the same immutab
 - Record approved design revision, approval reference, G01–G08 authorization, refreshed base and existing uncommitted-work handling. Do not discard other work.
 - Review shared-file overlap: runner/factory/contracts, maintained Flow constructors/tests, official workflow guide, design records and Atlas. Do not assume concurrent agent-adapter work has no overlap.
 - Ensure a normal pinned development environment via the existing bootstrap instructions. No new dependency or optional CrewAI instrumentation install is part of this milestone.
-- Create `reviews/context/status.md` in this package, with current round 0, maximum rounds 3, branch/base/design references, roles and the gate state. This is a plain durable Markdown record.
+- Create `reviews/status.md` in this package, with current round 0, maximum rounds 3, branch/base/design references, roles and the gate state. This is a plain durable Markdown record.
 
 ### Coder work — first candidate
 

@@ -1,6 +1,24 @@
 # Repository reconciliation checklist
 
-Status: **M4.1 closeout: M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 remains design-only; M4.3 and logging are deferred.** [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
+## Stage 02 closeout — 2026-11-15
+
+Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals.
+
+Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files.
+
+## Historical checkpoints
+
+
+## Current status — 2026-11-15
+
+**Accepted and merged:** M4.2 + M4.3 merged via PR #50 at `b08060f0acba74f19bc8a32aedb21316eed149c1`. RUN-18 is complete on Sharon's local confirmation; 408-test gate and installed release passed. Two review rounds used, with no third round required. PR #47 stays open for stage closeout.
+
+See [final review](history/tracing-final-review.md). Earlier planning and pending statements below retain their historical evidence cutoff.
+
+## Earlier checkpoints
+
+
+Status: **M4.1 closeout: M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Combined M4.2 + M4.3 detailed design authorized; implementation awaits revised contract approval. Logging is deferred.** [README](README.md) · [Decisions](decisions.md) · [Requirements](requirements.md)
 
 ## Historical planning-PR checklist
 
@@ -8,7 +26,7 @@ Status: **M4.1 closeout: M4.1 implemented, independently reviewed and accepted b
 - [x] Preserve CrewAI research, the exact 13-file probe/results/dependencies and provenance.
 - [x] Maintain permanent entry rules, Stage 02/exploration links and draft Atlas navigation.
 - [x] Record D27 correlation, D28 permission to draft, D29 bounded implementation review, and R30 application correlation.
-- [x] Draft [context design](01-context-design.md), [test cases](01-context-test-cases.md) and [Codex implementation/review plan](01-context-implementation-plan.md).
+- [x] Draft [context design](m1-context/design.md), [test cases](m1-context/test-cases.md) and [Codex implementation/review plan](m1-context/implementation-plan.md).
 - [x] Reconcile shared records, progress and Atlas with draft-review status; preserve implemented M1–M3 status.
 - [x] Sharon reports sending the explicit M4.1/G01–G08 authorization pinned to 11bba58 to Codex. The implementing agent records the reference/applies those amendments; final evidence and review remain pending.
 
@@ -16,7 +34,7 @@ No product-guide update is needed yet: supported runtime behavior, CLI/configura
 
 ## M4.1 guarded amendments — approved implementation history
 
-[Design section 9](01-context-design.md#9-guarded-logical-amendments-to-approve-with-this-design) is the canonical file-specific G01–G08 list. It proposes data-only context placement, runner/factory/ABC/Flow routing, dated workflow-contract amendments, M4 checkpoints and registration of the approved design/test/implementation documents. No guarded file is edited in this draft.
+[Design section 9](m1-context/design.md#9-guarded-logical-amendments-to-approve-with-this-design) is the canonical file-specific G01–G08 list. It proposes data-only context placement, runner/factory/ABC/Flow routing, dated workflow-contract amendments, M4 checkpoints and registration of the approved design/test/implementation documents. No guarded file is edited in this draft.
 
 The orchestrator records the approved revision and Sharon's approval reference, applies only authorized amendments and does not ask again for that scope. Identify missing approval by G-number and file before affected work. Preserve prior acceptance and PR #40's lifecycle history. M4.1 needs no provider-isolation exception: its shared model uses the standard library and contains no SDK/client handles; Flow integration uses existing CrewAI/Pydantic within workflow code.
 
@@ -65,10 +83,19 @@ progress and Stage 02 summary, and preserves the earlier records. Runtime
 settings, CLI options, dependencies and YAML are unchanged, so the other public
 guides have no user-facing change. Atlas navigation is refreshed for the context
 package and implementation review status. Candidate-specific checks and review
-findings are recorded in `reviews/context/` rather than claimed here.
+findings are recorded in `m1-context/reviews/` rather than claimed here.
 
 Iteration 29 records D30/R31 metadata correlation and starts M4.2 preliminary design without editing the three pinned M4.1 milestone documents. The focused SDK-only metadata check is recorded in research/history with its limits; it is not an application or live-server acceptance result. Documentation checks passed: Atlas build/freshness, 140 relative links, R01–R31/D01–D30/Q01–Q25 retention, prior discussion and 13-file probe preservation, unchanged guarded baselines/current-edit whitespace. The three pinned M4.1 files were also compared byte-for-byte to the published handoff and remain unchanged.
 
 ## Iteration 35 integration
 
 Sharon authorized conflict resolution and merge. PR #43 is merged as c8f129e. Both documentation streams are retained; D30 is correlation and the implementation approval entry is a dated unnumbered heading. Runtime/tests stay identical to reviewed candidate 16c1580. G01–G08 and all round reports remain. Generated Atlas is rebuilt from reconciled sources; PR #44 merged at 942e59344c429454263319e783ea76ad297b7ea6. M4.2 drafts remain separate and unapproved.
+
+
+## Iteration 40 reconciliation
+
+- Standing handover rules published and linked from both READMEs; combined milestone accepted, detailed version-2 package is for review.
+- Before implementation: retain accepted PAYLOAD-01 and obtain the specific RUN-G approvals in the revised design. Do not apply old catch/project/rethrow or custom cache proposals.
+- After approved implementation: reconcile Stage 02 milestone/architecture and global status against actual results; coordinate broader stage alignment work separately. No unrelated stage renumbering here.
+- After each implementation PR merges: update this ongoing PR's evidence/status. Merge #47 LAST, only with separate explicit authorization.
+- No application product documentation changes now: only a design/process revision, with no supported behavior change. Public guides change with implementation. Atlas reflects draft scope, not implementation.

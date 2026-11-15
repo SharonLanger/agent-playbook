@@ -13,3 +13,7 @@ Sharon requested merging implementation PR #50 and updating stage progress. Merg
 ## Final acceptance — 2026-11-15
 
 Sharon confirmed the updated successful routes, input/output and readable names, then deliberately raised an error in WF-02 multiply and confirmed the expected failed-step/kickoff/runner trace and skipped finish. He explicitly requested finalizing and merging PR #50. RUN-18 is accepted on this user-reported local evidence; DD-02/TG-04 are closed by this addendum. Final design-session review found no further implementation blocker. The 408-test gate and installed release are candidate evidence; no runtime changes or third round were needed. Stage Design PR #47 remains open. Historical reviewer verdicts below retain their original evidence cutoff.
+
+## Merge record
+
+PR #50 merged into main at `b08060f0acba74f19bc8a32aedb21316eed149c1` on 2026-11-15. PR #47 remains open.

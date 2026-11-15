@@ -1,8 +1,8 @@
 # M4.1 — execution context design
 
-Status: **APPROVED AND LOCKED at `11bba581`; implemented, verified, accepted and merged in PR #44 at `942e59344c429454263319e783ea76ad297b7ea6`.** The contract below is preserved; draft-era wording is historical. See [current status](reviews/context/status.md).
+Status: **APPROVED AND LOCKED at `11bba581`; implemented, verified, accepted and merged in PR #44 at `942e59344c429454263319e783ea76ad297b7ea6`.** The contract below is preserved; draft-era wording is historical. See [current status](reviews/status.md).
 
-[Start here](README.md) · [Test cases](01-context-test-cases.md) · [Implementation and review plan](01-context-implementation-plan.md) · [Shared requirements](requirements.md) · [Decisions](decisions.md)
+[Start here](../README.md) · [Test cases](test-cases.md) · [Implementation and review plan](implementation-plan.md) · [Shared requirements](../requirements.md) · [Decisions](../decisions.md)
 
 ## 1. Goal, baseline and scope
 
@@ -201,7 +201,7 @@ Deferred without blocking M4.1: client startup/flush/outages; trace binding and 
 | app/docs/workflows.md | After implementation, explain internal construction/context access and unchanged CLI usage |
 | Shared records, progress, stage summary, Atlas | Revision-specific status and review evidence; never promote draft to implementation |
 
-R01–R04, R16, R21, R23, R24, R29 and R30 are directly covered. R05 is bounded to existing configuration access and exclusion of secrets; no config bundle is added. R06–R14/R18/R25 and logger choices stay deferred. R17/R19 error observation is later; existing application failure behavior is preserved now. R20/R22/R26–R28 need no invented runtime observations in this milestone. [Test cases](01-context-test-cases.md) supplies the exact acceptance mapping.
+R01–R04, R16, R21, R23, R24, R29 and R30 are directly covered. R05 is bounded to existing configuration access and exclusion of secrets; no config bundle is added. R06–R14/R18/R25 and logger choices stay deferred. R17/R19 error observation is later; existing application failure behavior is preserved now. R20/R22/R26–R28 need no invented runtime observations in this milestone. [Test cases](test-cases.md) supplies the exact acceptance mapping.
 
 The shared A–D rubric applies to these capabilities. They support both later tracing and logging, but M4.1 sends neither:
 
@@ -249,4 +249,4 @@ Principle 5, root adapter instructions and the tracing-specific exporter rules d
 
 Inspected maintained runner/factory/ABC, all three wrappers/Flows, relevant tests, configuration and quality gate at the baseline above. Inspected released CrewAI 1.15.40 source: Flow runtime inherits BaseModel, has a separate execution_context field, and initializes decorated methods before kickoff. Pydantic 2.12.5 is already a project dependency; PrivateAttr needs no new package. No application test or new runtime compatibility probe was run while drafting.
 
-References: [Python 3.13 dataclasses](https://docs.python.org/3.13/library/dataclasses.html), [Pydantic private attributes](https://pydantic.dev/docs/validation/2.12/api/pydantic/fields/#pydantic.fields.PrivateAttr), and the existing [CrewAI research and its limits](research/crewai-langfuse.md). Research tracing success does not satisfy the M4.1 test cases.
+References: [Python 3.13 dataclasses](https://docs.python.org/3.13/library/dataclasses.html), [Pydantic private attributes](https://pydantic.dev/docs/validation/2.12/api/pydantic/fields/#pydantic.fields.PrivateAttr), and the existing [CrewAI research and its limits](../research/crewai-langfuse.md). Research tracing success does not satisfy the M4.1 test cases.

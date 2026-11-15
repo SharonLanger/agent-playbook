@@ -1,5 +1,14 @@
 # Native CrewAI tracing follow-ups
 
+## Current status — 2026-11-15
+
+**Accepted and merged:** M4.2 + M4.3 merged via PR #50 at `b08060f0acba74f19bc8a32aedb21316eed149c1`. RUN-18 is complete on Sharon's local confirmation; 408-test gate and installed release passed. Two review rounds used, with no third round required. PR #47 stays open for stage closeout.
+
+See [final review](../history/tracing-final-review.md). Earlier planning and pending statements below retain their historical evidence cutoff.
+
+## Earlier checkpoints
+
+
 ## Current round-02 continuation — 2026-11-15
 
 Sharon approved SDK-first amendment `82b967dda1fbf942cc1067a3539328c74abc303a` to original frozen contract `ab3fab459c97eed44cc0b202402e559a827a71cf`. This supersedes the pending-decision status below only for the explicit amendment scope. Round 02 of three is active; earlier findings/evidence remain historical.
