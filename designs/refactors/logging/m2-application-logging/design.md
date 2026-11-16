@@ -45,20 +45,18 @@ Proposed fields, under the existing integrations owner:
 integrations:
   langfuse:
     enabled: true
-    required_start: true
     # Existing base_url, environment and key references remain.
   logging:
     enabled: true
-    required_start: true
     level: DEBUG
     endpoint: http://127.0.0.1:9428/insert/opentelemetry/v1/logs
 ```
 
-The checked-in application YAML enables logging. For compatibility with older configuration files, an absent logging section means disabled; when supplied, document enabled explicitly. required_start defaults true for either integration; level defaults DEBUG. Existing Langfuse defaults/keys remain intact. The per-integration enabled flag is independent of required_start.
+The checked-in application YAML enables logging. For compatibility with older configuration files, an absent logging section means disabled; when supplied, document enabled explicitly. There is no required_start setting; level defaults DEBUG. Existing Langfuse defaults/keys remain intact. The enabled flag controls whether SDK setup is attempted.
 
-Extend the existing loader/models rather than adding another configuration system. Use its shared YAML → local overlay → documented environment override precedence. Proposed overrides: AGENT_PLAYBOOK_LOGGING_ENABLED, AGENT_PLAYBOOK_LOGGING_REQUIRED_START, AGENT_PLAYBOOK_LOGGING_LEVEL, AGENT_PLAYBOOK_LOGGING_ENDPOINT and AGENT_PLAYBOOK_LANGFUSE_REQUIRED_START. Never repurpose global OTEL_EXPORTER_OTLP_ENDPOINT or trace settings.
+Extend the existing loader/models rather than adding another configuration system. Use its shared YAML → local overlay → documented environment override precedence. Proposed overrides: AGENT_PLAYBOOK_LOGGING_ENABLED, AGENT_PLAYBOOK_LOGGING_LEVEL, AGENT_PLAYBOOK_LOGGING_ENDPOINT. Never repurpose global OTEL_EXPORTER_OTLP_ENDPOINT or trace settings.
 
-This milestone runs Python on the local host: require an HTTP loopback-IP endpoint with path /insert/opentelemetry/v1/logs, a valid explicit port and no credentials/query/fragment. Configure Requests session to ignore environment proxies and refuse redirects, as in M1. Future container-hostname/alternate OTLP backend configuration is a deliberate deployment extension, not a workflow-code change. Validation errors remain normal ConfigurationError failures regardless of required_start; the flag governs validly configured integration initialization, not broken YAML/credentials.
+This milestone runs Python on the local host: require an HTTP loopback-IP endpoint with path /insert/opentelemetry/v1/logs, a valid explicit port and no credentials/query/fragment. Configure Requests session to ignore environment proxies and refuse redirects, as in M1. Future container-hostname/alternate OTLP backend configuration is a deliberate deployment extension, not a workflow-code change. Invalid application configuration remains a ConfigurationError. Backend unavailability and operational SDK initialization failures warn and allow workflow execution; malformed YAML or missing required credential references are not service-health failures.
 
 Retention remains seven days in Compose, not duplicated in application YAML. No generic exporter-selection framework. Different compatible local OTLP backends need an adapter/config change, not changes to application log calls; query/UI/data migration is outside that interchangeability.
 
@@ -75,7 +73,7 @@ Order:
 4. Emit records while executing the existing runner/ABC lifecycle and native tracing scopes.
 5. Close observation scopes, then attempt SDK log flush/shutdown and existing trace flush, even on exceptions. Remove only our installed logging handler; do not shut down the shared Langfuse tracer provider.
 
-If initialization is partially complete, release resources already acquired. required_start=true initialization errors stop before workflow execution; false yields a warning and disables the failed integration for that invocation. Keep "configured enabled" separate from "successfully initialized" in ordinary runtime state, not ExecutionContext. No backend ping, auth check or synthetic ingestion is added to normal run initialization. SDK initialization succeeding is not proof the server is reachable.
+If initialization is partially complete, release resources already acquired. Operational initialization failure yields a warning and disables the failed integration for that invocation; it does not block workflow execution. Keep "configured enabled" separate from "successfully initialized" in ordinary runtime state, not ExecutionContext. No backend ping, auth check or synthetic ingestion is added to normal run initialization. SDK initialization succeeding is not proof the server is reachable.
 
 Once workflow execution begins, logging/tracing failures only warn, including flush/close errors. Catch Exception only around telemetry operations; never put a broad suppressing catch around workflow execution. Do not rerun the workflow, hide a business exception or replace it with an exit-scope failure. Native tracing scope entry/attribute update/exit must honor this policy; if native APIs cannot satisfy it with narrow containment, report the concrete design gap before building a facade. Existing automatic instrumentation needs a focused regression check rather than a new interception layer.
 
@@ -109,7 +107,7 @@ Paths relative to app/src/agent_playbook/:
 | config/models.py and config/loader.py | Settings and existing override path |
 | application/assembly.py | Integration setup under the agreed initialization policy |
 | application/workflow_runner.py | Logging lifetime, lifecycle records and narrow telemetry-failure containment |
-| observability/adapters/langfuse/runtime.py | Existing native setup/flush, required-start integration and fixed failure diagnostics |
+| observability/adapters/langfuse/runtime.py | Existing native setup/flush, best-effort initialization and fixed failure diagnostics |
 | cli/commands.py | Preserve output/exit mapping; avoid double flush ownership |
 | context/models.py | Unchanged; no clients or logging behavior |
 
@@ -127,9 +125,9 @@ No guarded file is edited by this draft. Before implementation, explain and obta
 
 | ID | File | Proposed change / consequence |
 |---|---|---|
-| LOG-G01 | designs/architecture.md | Add the small context logging boundary and OTLP adapter; replace logging-deferred wording only for this scope; specify init-required/runtime-warn policy. Native tracing and workflow control remain intact. |
+| LOG-G01 | designs/architecture.md | Add the small context logging boundary and OTLP adapter; replace logging-deferred wording only for this scope; specify best-effort initialization/runtime warning policy. Native tracing and workflow control remain intact. |
 | LOG-G02 | designs/project-structure.md | Activate observability logging helpers and concrete OTLP adapter within existing ownership; record runner lifetime and no SDK-bearing context. |
-| LOG-G03 | designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md | Append a dated M2 amendment for Langfuse required_start and narrow runtime telemetry failure containment, preserving the historical approved contract, native capabilities and exception semantics. |
+| LOG-G03 | designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md | Append a dated M2 amendment for Langfuse best-effort initialization and narrow runtime telemetry failure containment, preserving the historical approved contract, native capabilities and exception semantics. |
 | LOG-G04 | designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md | Append the new initialization/runtime failure cases by reference to LG-05/06/08; retain existing RUN acceptance history. |
 | LOG-G05 | designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md | Add a dated follow-on pointer to logging M2, not a rewrite of the completed implementation. |
 | LOG-G06 | designs/governance/guarded-files.md | Register M2 design/test/plan only when a concrete revision is approved. |
@@ -154,3 +152,15 @@ The user's behavioral agreement authorizes drafting these proposals, not silent 
 | 13 Sandbox | No personal examples access/dependency |
 | 14 Docs | Configuration, usage and troubleshooting updated with implementation |
 | 15 Status | Draft package; no approved SHA/implementation/acceptance claim |
+
+## 10. Explicit reusable component checks (LD27)
+
+No required_start setting, automatic connection check or doctor call in the workflow path. Users run explicit diagnostics and repair services before later workflow runs. The future coordinator/doctor is deferred, not a registry or orchestration class to build now.
+
+Reuse observability/adapters/langfuse/connection.py check_connection(settings): validates project access through the existing read-only authenticated request. Add the analogous check_connection(settings) under observability/adapters/otel_logging/connection.py for the selected VictoriaLogs local deployment. Use the existing validated settings/loader; no second YAML parser. A small plain result can report component, status and safe reason; reuse the existing result conventions where practical, with no provider/plugin hierarchy. Disabled integration returns skipped.
+
+Each check is bounded and read-only: validate applicable settings, reach the configured local service, use its documented health/readiness endpoint and verify authentication/access when the configured deployment has authentication. VictoriaLogs' direct local deployment currently has no credentials: report authentication not applicable, not tested or proven. Verify the pinned release's endpoint/response before implementation. A healthy HTTP response does not establish successful OTLP ingestion, disk durability or full service functionality. Preserve explicit M1 smoke testing for that distinction.
+
+Exercise both methods through one small opt-in tooling script plus focused tests (LG-12). The script uses existing configuration, prints per-component results and exits nonzero for a failed enabled component; no writes, auto-start, repair or service changes. Configuration errors are reported safely before network access. No automatic health polling. Future CLI doctor can call these same methods directly. This increment prepares reusable functions, not the doctor command.
+
+HTTP checks retain timeouts and local endpoint/proxy/redirect safeguards where applicable. Avoid exposing credentials, response bodies or raw authentication exceptions. Update public diagnostics instructions when the script is implemented.

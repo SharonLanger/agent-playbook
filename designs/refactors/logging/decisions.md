@@ -16,7 +16,7 @@
 
 | ID | Open question | Gate |
 |---|---|---|
-| LQ01 | Resolved policy under LD21: required initialization by default; runtime and cleanup failures warn only. Durable replay not selected. | M2 implementation detail |
+| LQ01 | Resolved policy under LD27: no startup requirement; explicit reusable health checks; operational telemetry failures warn only. Durable replay not selected. | M2 implementation detail |
 | LQ02 | Resolved direction: VictoriaLogs store/UI and direct OTLP; exact artifacts and viewer behavior remain to check | M1/M2 |
 | LQ03 | Resolved API shape: explicit context + message through small level helpers; accepted context is ExecutionContext (LD22) | M2 |
 | LQ04 | Exception details agreed under LD26; optional-field rules and safe capture specified in M2 draft | M2 review |
@@ -131,3 +131,11 @@ LD26 — Sharon accepted standard exception type, message and stack trace with n
 These choices are settled for design. "Lock it and proceed to milestone two" authorizes recording them and preparing the M2 package; it does not approve an unseen concrete M2 design/test/plan revision or guarded amendments. No frozen implementation handoff is active.
 
 Alignment: main 529fe15895afc8211d833fc2544e98f0d18fb451 retains the inspected runtime/config/context. The intervening Stage 03 merge does not change these contracts. Pinned handler v0.66b2 uses Python traceback.format_exception for exception.stacktrace; no custom cause processing is needed. M1 has not been implemented; M2's local integration acceptance depends on it. [M2](m2-application-logging/README.md) is ready for design review with guarded amendments listed, not applied.
+
+## Explicit checks; no required startup — 2026-11-16
+
+LD27 — Sharon removed required_start from current scope, superseding LD21's startup gating and the subsequent proposal to add automatic health checks. Do not add the flag, its overrides or a coordinator to the workflow path. Operational telemetry initialization/export/cleanup failures warn; workflow execution remains available without functioning logging/tracing. Invalid application YAML/settings still follow ordinary validation errors.
+
+Each integration owns a reusable method for checking configuration, connection/health and authentication where applicable. Reuse Langfuse check_connection; add the small VictoriaLogs equivalent using its documented endpoint. An explicit small tooling script/tests may exercise them now. Later CLI doctor can aggregate these methods; its coordinator/class, required-service policy and automatic startup use are deferred. No monitoring framework or extra services.
+
+The user may run diagnostics and fix services before future workflows. Checks are bounded/read-only; smoke writes remain a separate explicit action. A direct local VictoriaLogs deployment without auth must report auth as not applicable. Connectivity/health does not prove log delivery. M2 design/tests/plan updated; no runtime or guarded baseline changed.

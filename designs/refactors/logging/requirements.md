@@ -61,7 +61,7 @@ These are explicit user requirements; the detailed implementation is not yet app
 | LOG-19 | Verify the actual logging path | Distinguish service availability from explicit synthetic emit/export/ingest/query round trip; bounded timeouts and honest failure |
 | LOG-20 | Configuration-first, low/no custom infrastructure | Existing logger/collector/store/UI; explain necessary setup/context/CLI glue; no broker solely for abstraction |
 
-Docker services are accepted. LOG-05's outage policy is configurable under LOG-26; initialization is required by default, while runtime failures warn only. LOG-08 requires an Apache-2.0 option for new selected projects; MIT-only does not qualify. Exact bundled/transitive artifact licensing is a review gate, not yet certified. See [research](research/2026-11-15-victorialogs.md) and [action items](action-items.md).
+Docker services are accepted. LOG-05's outage policy is configurable under LOG-26; checks are explicit and operational initialization/runtime failures warn only (LD27). LOG-08 requires an Apache-2.0 option for new selected projects; MIT-only does not qualify. Exact bundled/transitive artifact licensing is a review gate, not yet certified. See [research](research/2026-11-15-victorialogs.md) and [action items](action-items.md).
 
 ## Current scope clarification — 2026-11-15
 
@@ -81,9 +81,9 @@ Cleanup scope: ordinary scope exit and Python exception unwinding are covered. F
 
 | ID | Requirement | State |
 |---|---|---|
-| LOG-26 | Each integration has required_start (default true), alongside enabled. Enabled integration initialization failure blocks startup when required, otherwise warns. Runtime/export/cleanup failures warn only and preserve workflow outcomes/exceptions. Disabled integrations do not block startup. | User clarification LD21; supersedes strict_logging |
+| LOG-26 | No required_start setting or automatic service-health gate. Operational telemetry initialization/runtime/cleanup failures warn and preserve workflow execution/outcomes. Invalid application configuration remains an error. | LD27 supersedes LD21 startup requirement |
 
-M2 must isolate logging/tracing infrastructure failures from workflow errors and surface safe terminal diagnostics. required_start concerns initialization only, not a mandatory backend connectivity probe. No assertion of backend availability, durable delivery or automatic replay. Diagnostic error-level records alone still do not fail a workflow (LOG-07).
+M2 must isolate logging/tracing infrastructure failures from workflow errors and surface safe terminal diagnostics. Component checks are explicit diagnostics, not a workflow startup prerequisite. No assertion of backend availability, durable delivery or automatic replay. Diagnostic error-level records alone still do not fail a workflow (LOG-07).
 
 ## Application diagnostic coverage — 2026-11-15
 
@@ -114,3 +114,10 @@ Automatic context extraction does not mean automatic interception of every opera
 | LOG-32 | Reuse SDKs for formatting, exception conversion, batching, export, retries and shutdown; our code is limited to context mapping, configuration/lifecycle wiring and necessary failure containment | Explicit user constraint; LD26 |
 
 The SDK's exception field representation is authoritative; do not reconstruct an alternate exception tree or pretend exception.message always equals Python str(exception). Native traceback includes chain details without capturing local variable values. Existing secret/configuration exclusions still apply; no universal automatic secret-recognition promise.
+
+## Explicit component diagnostics — 2026-11-16
+
+| ID | Requirement | State |
+|---|---|---|
+| LOG-33 | Each integration exposes a reusable bounded read-only configuration/connection/health check, including authentication where applicable; reuse the existing Langfuse check and provider-supported VictoriaLogs facilities | User agreed LD27 |
+| LOG-34 | Exercise checks through a small explicit script/tests; report per-component success/failure/skipped and authentication applicability honestly. Future doctor aggregation is deferred; normal workflow runs never invoke these checks | User agreed LD27 |

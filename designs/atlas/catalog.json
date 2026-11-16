@@ -2401,7 +2401,7 @@
           "parent": "observability",
           "label": "Design workspace / Draft",
           "title": "Design correlated local application logs",
-          "text": "SDK-first local logging: ExecutionContext/message/optional fields, native exceptions, initialization-only requirement, DEBUG and seven-day retention agreed. M1 and M2 concrete drafts; no implementation.",
+          "text": "SDK-first local logging: ExecutionContext/message/optional fields, native exceptions, explicit health checks without startup gating, DEBUG and seven-day retention agreed. M1 and M2 concrete drafts; no implementation.",
           "blocks": [
             {
               "name": "Requirements and decisions",

@@ -33,3 +33,5 @@ Historical starting points: [kickoff](history/2026-11-15-kickoff.md), [earlier c
 M2 includes context mapping, optional-field rules, lifecycle cleanup, a small useful set of workflow/agent log calls, failure policy and practical filtering. M3 packages logging and Langfuse under a common Compose entry point without changing their independent ownership. M4 makes setup and operations discoverable. M2 now has a concrete draft; M3/M4 remain outlines. Standard SDK exception/stack-trace capture is agreed; automatic observation/event duplication remains deferred.
 
 Sequencing clarification: create the logging Compose component separately from M1. M3 adds the main entry point referencing it and the Langfuse component; no combined-then-split migration. Sharon retained this four-part outline for discussion. Detailed designs remain draft and will be developed together through one open question at a time.
+
+Current health-check policy (LD27): reusable per-integration checks and an explicit verification script in M2; no required_start setting or health gate in workflow execution. M4/future doctor reuses the checks; coordinator design is deferred.

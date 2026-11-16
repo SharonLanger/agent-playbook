@@ -8,7 +8,7 @@ Read [design](design.md), [test cases](test-cases.md), [implementation plan](imp
 
 Prerequisites: existing immutable ExecutionContext and native Langfuse integration; M1 local component/smoke available before live acceptance. Offline implementation can be checked without a running service.
 
-Included: thin logging helpers; configuration; scoped runner lifecycle; diagnostic calls; standard exception handling; consistent initialization-only requirement for logging and Langfuse; runtime telemetry failures warn only.
+Included: thin logging helpers; configuration; scoped runner lifecycle; diagnostic calls; standard exception handling; reusable explicit component health/connection checks and a small verification script; operational initialization/runtime failures warn only.
 
 Excluded: custom logger/transport/queue/exception engine, generic broker, automatic Stage 04 events, observation duplication, M3 Compose migration, M4 management CLI, package/distribution redesign and durable replay.
 
