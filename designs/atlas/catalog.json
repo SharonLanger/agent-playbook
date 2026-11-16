@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals. Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent\u2019s files.",
+  "snapshot": "Stage 03 completed and accepted by Sharon on 2026-11-16: eight standalone CrewAI recipes merged in PR #53; temporary verification scripts removed at authorized design closeout #52. Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance.  Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -52,7 +52,8 @@
     "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md",
     "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/follow-ups.md",
     "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/reviews/status.md",
-    "designs/stages/02-langfuse/closeout.md"
+    "designs/stages/02-langfuse/closeout.md",
+    "designs/stages/03-orchestration-patterns/README.md"
   ],
   "views": {
     "current": {
@@ -128,7 +129,7 @@
             {
               "name": "Completed workflow contract and review evidence",
               "path": "designs/refactors/workflow-contract/README.md",
-              "text": "Merged ABC/YAML lifecycle, class registry and selected validation; A1\u2013F6 and Q1\u2013Q4 evidence retains its tested revisions.",
+              "text": "Merged ABC/YAML lifecycle, class registry and selected validation; A1–F6 and Q1–Q4 evidence retains its tested revisions.",
               "to": null
             }
           ],
@@ -1484,7 +1485,7 @@
               "to": null
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. These blocks describe one repository. They are not separate deployed services.",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. These blocks describe one repository. They are not separate deployed services.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1521,7 +1522,7 @@
               "to": null
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1576,7 +1577,7 @@
               "to": "release"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1643,7 +1644,7 @@
               "to": "release"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": "01-source",
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1680,7 +1681,7 @@
               "to": null
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1701,7 +1702,7 @@
             {
               "name": "Code review flow",
               "path": "app/src/agent_playbook/workflows/wf_code_review/flow.py",
-              "text": "Future coder \u2192 reviewer \u2192 report, with bounded revision routing.",
+              "text": "Future coder → reviewer → report, with bounded revision routing.",
               "to": null
             },
             {
@@ -1729,7 +1730,7 @@
               "to": "agents"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1766,7 +1767,7 @@
               "to": "execution"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1781,7 +1782,7 @@
             {
               "name": "Task orchestration",
               "path": "app/src/agent_playbook/agents/reviewer/agent.py",
-              "text": "Input \u2192 request \u2192 event consumption \u2192 validated ReviewResult.",
+              "text": "Input → request → event consumption → validated ReviewResult.",
               "to": null
             },
             {
@@ -1815,7 +1816,7 @@
               "to": null
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. This reviewer layout is also the template for coder and verifier. A role need not create every file before it has relevant behavior.",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. This reviewer layout is also the template for coder and verifier. A role need not create every file before it has relevant behavior.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1858,7 +1859,7 @@
               "to": "harness"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": "02-execution",
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1891,11 +1892,11 @@
             {
               "name": "Event mapping",
               "path": "app/src/agent_playbook/execution/adapters/<provider>/event_mapper.py",
-              "text": "Native messages \u2192 canonical typed events.",
+              "text": "Native messages → canonical typed events.",
               "to": "events"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. Select the Codex transport during its SDK experiment. TypeScript SDK events and app-server notifications are different protocols. A role never selects native message classes.",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. Select the Codex transport during its SDK experiment. TypeScript SDK events and app-server notifications are different protocols. A role never selects native message classes.",
           "diagram": "03-events",
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1944,7 +1945,7 @@
               "to": "observability"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": "03-events",
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -1991,11 +1992,11 @@
               "path": "designs/stages/02-langfuse/README.md",
               "text": "Local UI, connection check and editable mock runs first; real workflows last.",
               "to": "langfuse_setup",
-              "label": "M1\u2013M3 accepted / M4.1 accepted",
-              "note": "Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals. Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent\u2019s files."
+              "label": "M1–M3 accepted / M4.1 accepted",
+              "note": "Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals. Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files."
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. Traces are evidence. They are not the workflow state store or a durable recovery mechanism.",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. Traces are evidence. They are not the workflow state store or a durable recovery mechanism.",
           "diagram": "04-observability",
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -2032,7 +2033,7 @@
               "to": "adapters"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. app/tooling/checks.py serves developer maintenance. Installed runtime tools should not import checkout-only tooling.",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. app/tooling/checks.py serves developer maintenance. Installed runtime tools should not import checkout-only tooling.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -2069,7 +2070,7 @@
               "to": "tools"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -2112,7 +2113,7 @@
               "to": "tools"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -2149,7 +2150,7 @@
               "to": "application"
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -2186,7 +2187,7 @@
               "to": null
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": "05-release",
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -2229,7 +2230,7 @@
               "to": null
             }
           ],
-          "note": "EXPLORATION ONLY \u2014 optional candidate, not an approved target. ",
+          "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
           "diagram": null,
           "status": "exploration",
           "source": "designs/explorations/agent-execution/architecture-notes.md"
@@ -2237,7 +2238,7 @@
         "langfuse_setup": {
           "name": "Langfuse milestones",
           "parent": "observability",
-          "label": "M1\u2013M3 accepted / M4.1 accepted",
+          "label": "M1–M3 accepted / M4.1 accepted",
           "title": "Local UI to real workflows",
           "text": "First configure, connect and explore mock traces; workflow/context integration comes last.",
           "blocks": [
@@ -2286,7 +2287,7 @@
             {
               "name": "Separate local verification files",
               "path": "designs/stages/02-langfuse/user-verification.md",
-              "text": "One combined tested-revision Drive guide is current; M1\u2013M3 files retain historical checkpoint evidence.",
+              "text": "One combined tested-revision Drive guide is current; M1–M3 files retain historical checkpoint evidence.",
               "to": null
             },
             {
@@ -2328,15 +2329,15 @@
           ],
           "status": "exploration",
           "source": "designs/stages/02-langfuse/README.md",
-          "note": "Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals. Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent\u2019s files.",
+          "note": "Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals. Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files.",
           "diagram": null
         },
         "workflow_observability": {
           "name": "Workflow observability",
           "parent": "langfuse_setup",
-          "label": "M4.1\u2013M4.3 accepted and merged",
+          "label": "M4.1–M4.3 accepted and merged",
           "title": "Context, runner, then automatic CrewAI tracing",
-          "text": "Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals. Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent\u2019s files.",
+          "text": "Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals. Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files.",
           "blocks": [
             {
               "name": "Context design",
@@ -2347,7 +2348,7 @@
             {
               "name": "Test cases",
               "path": "designs/stages/02-langfuse/workflow-integration/m1-context/test-cases.md",
-              "text": "CTX-01\u201317 required scenarios, meaningful assertions and evidence limits.",
+              "text": "CTX-01–17 required scenarios, meaningful assertions and evidence limits.",
               "to": null
             },
             {
@@ -4175,7 +4176,7 @@
         {
           "path": "designs/stages/02-langfuse/user-verification.md",
           "status": "Requested implementation handoff",
-          "purpose": "One combined tested-revision Drive guide is current; M1\u2013M3 files retain historical checkpoint evidence."
+          "purpose": "One combined tested-revision Drive guide is current; M1–M3 files retain historical checkpoint evidence."
         },
         {
           "path": "designs/stages/02-langfuse/review-2026-11-13.md",
@@ -4230,7 +4231,7 @@
         {
           "path": "designs/stages/02-langfuse/workflow-integration/m1-context/test-cases.md",
           "status": "Approved M4.1 contract; implemented, verified and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6",
-          "purpose": "Draft CTX-01\u201317 acceptance and meaningful assertion mapping."
+          "purpose": "Draft CTX-01–17 acceptance and meaningful assertion mapping."
         },
         {
           "path": "designs/stages/02-langfuse/workflow-integration/m1-context/implementation-plan.md",
@@ -4242,27 +4243,27 @@
   },
   "diagrams": {
     "05-release": {
-      "title": "05 \u00b7 Build and launch are different",
+      "title": "05 · Build and launch are different",
       "static": "diagrams/05-release.svg",
       "animated": "diagrams/05-release.animated.svg"
     },
     "04-observability": {
-      "title": "04 \u00b7 Observability is a projection",
+      "title": "04 · Observability is a projection",
       "static": "diagrams/04-observability.svg",
       "animated": "diagrams/04-observability.animated.svg"
     },
     "02-execution": {
-      "title": "02 \u00b7 Inside execution",
+      "title": "02 · Inside execution",
       "static": "diagrams/02-execution.svg",
       "animated": "diagrams/02-execution.animated.svg"
     },
     "01-source": {
-      "title": "01 \u00b7 Runtime ownership",
+      "title": "01 · Runtime ownership",
       "static": "diagrams/01-source.svg",
       "animated": "diagrams/01-source.animated.svg"
     },
     "03-events": {
-      "title": "03 \u00b7 Native messages to shared events",
+      "title": "03 · Native messages to shared events",
       "static": "diagrams/03-events.svg",
       "animated": "diagrams/03-events.animated.svg"
     }
