@@ -8,8 +8,9 @@ Use a local Docker daemon and local volume. Docker Engine 28+ is required for th
 documented loopback publishing semantics (older engines have a same-L2 exposure
 caveat). Install Docker Compose v2 and bootstrap the application Python environment.
 The configuration was resolved with Docker CLI 29.9.2 and Compose 2.40.3 on Linux;
-the daemon was inaccessible, so container startup and UI delivery remain untested.
-Docker Desktop/macOS compatibility must be checked on that host.
+Sharon's first Docker Desktop/macOS run started the service but failed to publish
+port 9428 on the former internal-only network. The bridge correction still needs
+a fresh local post-cleanup UI record.
 
 From the repository root:
 
@@ -18,7 +19,9 @@ docker version
 docker compose version
 docker context show
 docker compose -f app/tooling/logging/compose.yaml config
+docker compose -f app/tooling/logging/compose.yaml down
 docker compose -f app/tooling/logging/compose.yaml up -d
+docker compose -f app/tooling/logging/compose.yaml ps
 app/.venv/bin/python app/tooling/logging/logging_smoke.py --endpoint http://127.0.0.1:9428/insert/opentelemetry/v1/logs
 ```
 
@@ -26,9 +29,11 @@ Check that the selected Docker context uses your local daemon, not a remote host
 All Compose commands use the file's project name `agent-playbook-logging-smoke`.
 The only service is `victoriametrics/victoria-logs:v1.54.0`, with a local named
 volume, seven-day retention, local Docker logging driver, loopback port 9428 and
-one internal network. Change `-retentionPeriod=7d` in this component's Compose file
-to change retention. Do not attach it to Langfuse networks or remove network
-isolation to work around a host compatibility issue.
+one ordinary bridge network. Change `-retentionPeriod=7d` in this component's Compose file
+to change retention. The ordinary bridge allows container outbound traffic;
+localhost publishing restricts inbound access to this host, not outbound traffic.
+This setup relies on local VictoriaLogs configuration and software behavior, not
+an enforced outbound firewall. Do not attach it to Langfuse networks.
 
 The explicit argument above is also the script's documented default. Only
 `http://127.0.0.1[:PORT]/insert/opentelemetry/v1/logs` is accepted. If changing the
@@ -41,6 +46,11 @@ force-flush timeout, but the pinned SDK batch processor currently ignores that
 argument and flushes synchronously. SDK shutdown is attempted in `finally` (its
 batch worker join has a 30-second SDK default). These are cleanup attempts, not a
 delivery or hard whole-process deadline guarantee.
+
+The `ps` output must show `127.0.0.1:9428->9428/tcp`; `9428/tcp` alone
+means the host port was not published. `down` removes this component's container
+and network but keeps the named volume; never use `down -v` here. Recreating the
+network is necessary when moving from the old internal-only configuration.
 
 Open <http://127.0.0.1:9428/select/vmui> after the script exits. Paste this LogsQL
 query, replacing the value with the printed correlation:
