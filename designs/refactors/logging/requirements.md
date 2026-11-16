@@ -121,3 +121,7 @@ The SDK's exception field representation is authoritative; do not reconstruct an
 |---|---|---|
 | LOG-33 | Each integration exposes a reusable bounded read-only configuration/connection/health check, including authentication where applicable; reuse the existing Langfuse check and provider-supported VictoriaLogs facilities | User agreed LD27 |
 | LOG-34 | Exercise checks through a small explicit script/tests; report per-component success/failure/skipped and authentication applicability honestly. Future doctor aggregation is deferred; normal workflow runs never invoke these checks | User agreed LD27 |
+
+## M1 Docker Desktop correction — 2026-11-16
+
+LOG-24 local operation uses a local Docker daemon/volume and loopback-only published port on an ordinary bridge. Docker's internal-only bridge cannot publish this port on Sharon's Engine 29.6.2. Ordinary bridging allows container outbound traffic; the local-only configuration relies on selected software behavior, with no absolute egress guarantee. Confirm the effective runtime port mapping and a real post-cleanup UI record. The first local LS-02 attempt failed with connection refused.

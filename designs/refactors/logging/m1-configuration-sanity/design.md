@@ -39,12 +39,12 @@ volumes:
 
 networks:
   logs-local:
-    internal: true
+    driver: bridge
 ```
 
 Use explicit Compose project identity agent-playbook-logging-smoke consistently. Do not migrate or attach to Langfuse networks/volumes. Do not delete volumes as part of a successful smoke. Seven days is the user-agreed default retention for both the probe and planned application setup (LD25), configurable through the logging component Compose settings.
 
-Use Docker Engine 28+ for loopback publishing semantics documented by Docker (older versions have a same-L2 exposure caveat). Record actual Docker/Desktop and Compose versions, do not invent a tested minimum. Validate that internal networking plus loopback publication works on the actual platform; do not silently remove isolation if it does not.
+Use Docker Engine 28+ for loopback publishing semantics documented by Docker (older versions have a same-L2 exposure caveat). Record actual Docker/Desktop and Compose versions, do not invent a tested minimum. The ordinary bridge permits Docker to publish the loopback port on Docker Desktop. It also permits container egress; this is a documented trust choice, not an enforced outbound firewall. Recreate the network without deleting the volume when changing this setting. Confirm actual port publication and the post-cleanup UI record on the host.
 
 ## Python configuration and record
 
