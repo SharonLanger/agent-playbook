@@ -6,7 +6,7 @@ does not configure Langfuse or the application runner.
 
 Use a local Docker daemon and local volume. Docker Engine 28+ is required for the
 documented loopback publishing semantics (older engines have a same-L2 exposure
-caveat). Install Docker Compose v2 and bootstrap the application Python environment.
+caveat). Install the Docker Compose plugin and bootstrap the application Python environment.
 The configuration was resolved with Docker CLI 29.9.2 and Compose 2.40.3 on Linux;
 Sharon's first Docker Desktop/macOS run started the service but failed to publish
 port 9428 on the former internal-only network. The bridge correction still needs
