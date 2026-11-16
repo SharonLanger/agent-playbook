@@ -44,3 +44,7 @@ The originating design session reviews the actual diff/evidence. Its review does
 ## 5. Current next step
 
 The design session supplies a pinned copyable implementation instruction. Sharon forwarding that instruction explicitly authorizes this design/test/plan and the listed narrow RUN-G01–08 amendments. Record that instruction as the approval reference; do not infer approval merely from this document's existence. Once implementation starts, keep this contract unchanged until the returned output is reviewed; record later changes in a separate follow-ups.md. Use the standing rules' required return report.
+
+## LOG-G05 — Stage 02 follow-on implementation pointer, 2026-11-16
+
+Logging M2 implementation may add narrowly scoped best-effort handling of native Langfuse operational failures per LOG-G03/04. Preserve Stage 02's accepted native integration and historical implementation evidence. The new implementation, tests and review evidence belong to the separate logging M2 PR and its LG-05/06/08 cases; this note does not reopen or rewrite the completed Stage 02 implementation.

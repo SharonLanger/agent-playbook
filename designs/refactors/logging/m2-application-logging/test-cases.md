@@ -1,6 +1,6 @@
 # M2 test cases
 
-**Draft.** Use focused tests of our contracts. The SDK's implementation is not ours to re-test.
+**Behavior approved by Sharon on 2026-11-16; implementation evidence pending.** Use focused tests of our contracts. The SDK's implementation is not ours to re-test.
 
 | ID | Scenario and meaningful assertions | Level / mapping |
 |---|---|---|

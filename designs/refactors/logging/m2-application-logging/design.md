@@ -1,6 +1,6 @@
 # M2 design — application logging
 
-**Draft for review.** Shared LD15–26 and LOG-01–15/20–24/26–32 govern. No implementation approved.
+**Behavior and LOG-G01–06 approved by Sharon on 2026-11-16; implementation handoff revision to be pinned.** Shared LD15–26 and LOG-01–15/20–24/26–32 govern. No implementation approved.
 
 ## 1. Minimal integration
 
@@ -121,7 +121,7 @@ M1 owns installation/pins and a baseline local smoke. M2 uses those aligned depe
 
 ## Guarded amendments for review
 
-No guarded file is edited by this draft. Before implementation, explain and obtain approval for these logical amendments:
+Sharon approved these logical amendments on 2026-11-16 after the logging behavior was explained. They are recorded as dated follow-ons in their guarded owners; earlier approved Stage 02 history is preserved:
 
 | ID | File | Proposed change / consequence |
 |---|---|---|

@@ -1,12 +1,12 @@
 # M2 implementation plan
 
-**Draft — no implementation authorization or handoff yet.**
+**Approved M2 behavior and LOG-G01–06 on 2026-11-16; pin this concrete revision for the implementation handoff.**
 
-Inspected main: 529fe15895afc8211d833fc2544e98f0d18fb451. Design PR: [#51](https://github.com/SharonLanger/agent-playbook/pull/51), draft/open. Approved design SHA: none. M1 implementation/evidence: not started.
+Inspected main: 529fe15895afc8211d833fc2544e98f0d18fb451. Design PR: [#51](https://github.com/SharonLanger/agent-playbook/pull/51), draft/open. Approved design SHA: none. M1 PR #54 is draft and unmerged; Sharon observed the smoke record and matching correlation locally after the bridge-network fix. Remaining field-level inspection was consciously deferred.
 
 ## Work order
 
-1. Review design/tests/plan together; approve a concrete immutable revision and the exact LOG-G01–06 logical amendments. Confirm M1 artifact versions. Refresh main and instructions before implementation; preserve unrelated Stage 03/04 work.
+1. Review design/tests/plan together; pin the concrete revision; LOG-G01–06 were approved by Sharon on 2026-11-16. Confirm M1 artifact versions. Refresh main and instructions before implementation; preserve unrelated Stage 03/04 work.
 2. Extend config/models.py and loader.py with LoggingSettings and documented overrides (no required_start). Update application.yaml; preserve existing invalid-config behavior and secrets handling. Add LG-04/05 coverage.
 3. Add observability/logging.py with thin standard-level helpers, explicit ExecutionContext extraction, optional fields and native exc_info. Add real OTel in-memory export checks LG-01–03. No serializers, traceback construction or custom logger classes.
 4. Add observability/adapters/otel_logging/runtime.py using SDK configuration/contextlib lifecycle. Reuse aligned SDK dependencies from M1. Configure endpoint/session isolation, logger propagation and disabled NullHandler behavior.
@@ -18,7 +18,7 @@ Inspected main: 529fe15895afc8211d833fc2544e98f0d18fb451. Design PR: [#51](https
 
 ## Handoff and review
 
-Implementation belongs in a separate PR targeting current main, after its M1 dependency is available. The plan must be converted into the fully filled immutable-link handoff prescribed by [Codex handover rules](../../../governance/codex-handover-rules.md). No placeholder handoff is ready now.
+Implementation belongs in a separate PR targeting current main, after refreshing main and resolving the M1 dependency without silently assuming it is merged. The plan must be converted into the fully filled immutable-link handoff prescribed by [Codex handover rules](../../../governance/codex-handover-rules.md). No placeholder handoff is ready now.
 
 Follow its Sol orchestrator/coder and independent design-drift/test-gap reviewer roles, same frozen candidate, at most three rounds, and permanent reports under m2-application-logging/reviews. Those reports are created only when reviews run. Return for originating design review; user acceptance and merge are separate. PR #51 remains open until explicitly authorized.
 
