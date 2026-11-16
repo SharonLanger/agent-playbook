@@ -2,7 +2,7 @@
 
 ## Logging M2 implementation review — 2026-11-16
 
-The approved application logging M2 contract is pinned at `caeb1637bd9aa611447703f4c19c38becacfe412` on the draft, open logging design PR #51. M1 is merged on main at `8895c2dbf6674716656d5b780f8c181a743e44f2`. M2 implementation is in progress on the separate `feat/logging-m2-application` branch, based on that main commit; review and user acceptance remain pending. The branch adds context-based application logging and explicit service checks under the approved scope. Offline checks and permanent review evidence are recorded under [M2 reviews](refactors/logging/m2-application-logging/reviews/status.md) when frozen. Live VictoriaLogs record inspection is not available in this environment and remains NOT RUN. Neither implementation nor design PR is authorized for merge.
+The approved application logging M2 contract is pinned at `caeb1637bd9aa611447703f4c19c38becacfe412` on the draft, open logging design PR #51. M1 is merged on main at `8895c2dbf6674716656d5b780f8c181a743e44f2`. M2 implementation is in progress on the separate `feat/logging-m2-application` branch and draft PR #55, based on that main commit; review and user acceptance remain pending. The branch adds context-based application logging and explicit service checks under the approved scope. Round 01's code/test candidate `2bd162c` passed its local gate, but both independent reviewers required changes; see [M2 reviews](refactors/logging/m2-application-logging/reviews/status.md). Live VictoriaLogs record inspection is not available in this environment and remains NOT RUN. Neither implementation nor design PR is authorized for merge.
 
 ## Stage 03 closeout — 2026-11-16
 
