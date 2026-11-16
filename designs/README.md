@@ -62,3 +62,6 @@ Read charter, principles, architecture, project structure, roadmap and progress,
 - [Atlas change record](refactors/atlas/README.md): approval scope and verification for #35.
 
 Official product documentation lives in app/docs; internal/refactor review material belongs here. Personal examples are not a source to inspect during architectural discovery.
+
+
+[Stage 03 — completed CrewAI recipe collection](stages/03-orchestration-patterns/README.md): accepted 2026-11-16; temporary checks removed at closeout; permanent examples and review evidence retained.

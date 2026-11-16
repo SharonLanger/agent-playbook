@@ -11,6 +11,7 @@ Use Python 3.13 and the existing CrewAI 1.15.40 project environment. Open `run.p
 - [07 fixed loop](recipe_07_fixed_loop/README.md)
 - [08 revision loop](recipe_08_revision_loop/README.md)
 
-Each folder is copyable and includes a local input, diagram and temporary `verify.py` for review. Recipe 05 deliberately fails by default; recipe 06 fails when its threshold is reached. Verification catches those expected failures. These scripts remain for Sharon’s hands-on checks and will be removed before merge.
+Each folder is copyable and includes a local input and diagram. Recipe 05 deliberately fails by default; recipe 06 fails when its threshold is reached.
 
 [Concepts](../concepts/README.md) · [Workflow index](../README.md)
+

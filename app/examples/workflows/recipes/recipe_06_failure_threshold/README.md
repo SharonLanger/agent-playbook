@@ -12,10 +12,9 @@ Use the existing project interpreter (`app/.venv/bin/python`, Python 3.13, CrewA
 
 ```bash
 /absolute/path/to/app/.venv/bin/python /absolute/path/to/recipe_06_failure_threshold/run.py
-/absolute/path/to/app/.venv/bin/python /absolute/path/to/recipe_06_failure_threshold/verify.py
 ```
 
-Both entries resolve input/assets beside themselves and work from another working directory. Edit `input.json` for the small local scenario. `run.py` prints step markers, `STATE_JSON=...` and, on success, `RESULT_JSON=...`. Temporary `verify.py` checks defaults, variants, fresh-state isolation and direct/copied-folder entries. It remains for Sharon's hands-on review and will be deleted before merge.
+The entry resolves input/assets beside themselves and work from another working directory. Edit `input.json` for the small local scenario. `run.py` prints step markers, `STATE_JSON=...` and, on success, `RESULT_JSON=...`. 
 
 ## Wiring and default outcome
 
@@ -39,3 +38,4 @@ The diagram preserves the approved walkthrough's topology and example labels. Mo
 
 - [CrewAI 1.15.40 Flow guide](https://github.com/crewAIInc/crewAI/blob/main/docs/v1.15.40/en/concepts/flows.mdx): typed state, listeners, async methods and routing.
 - [Official routing patterns](https://github.com/crewAIInc/skills/blob/main/skills/build-flow/references/routing-patterns.md): joins, route labels and bounded loops; guidance may differ by version.
+
