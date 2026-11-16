@@ -161,7 +161,9 @@ def _run_configured(
                             "UNKNOWN",
                         )
                     },
-                    exception=None if isinstance(error, ConfigurationError) else error,
+                    exception=None
+                    if isinstance(error, (ConfigurationError, WorkflowInputError))
+                    else error,
                 )
                 raise
             log_info(context, "Workflow completed")
@@ -226,7 +228,11 @@ def _run_selected(
         raise WorkflowExecutionError(
             f"{workflow_id} SERIALIZE_OUTPUT failed."
         ) from error
-    _update_span(settings, output=_OUTPUT.dump_python(output, mode="json"))
+    if settings.enabled and settings.public_key is not None:
+        try:
+            _update_span(settings, output=_OUTPUT.dump_python(output, mode="json"))
+        except Exception:
+            warn("Langfuse observation update failed.")
     return RunResult(workflow_id, output, serialized)
 
 
