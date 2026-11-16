@@ -132,3 +132,7 @@ The earlier [runtime proposal](refactors/2026-11-12-runtime-structure/proposal.m
 ## M4.2/M4.3 placement approval — 2026-11-15
 
 Sharon explicitly approved the M4.2/M4.3 design, tests and plan at `ab3fab459c97eed44cc0b202402e559a827a71cf` and RUN-G01–08 in the implementation handoff on 2026-11-15. The narrow native tracing dependency exception above supersedes the exporter-only rule for these reviewed boundaries; no component moves or context API changes are authorized.
+
+## LOG-G02 — application logging placement, 2026-11-16
+
+Sharon approved `observability/logging.py` for thin context-based logging helpers and `observability/adapters/otel_logging/` for OTLP setup, explicit connection check and scoped cleanup. Existing config models/loader own enabled, level and endpoint settings. Assembly configures the integration and the runner owns one logging lifetime per CLI run, preserving its existing context identity. ExecutionContext remains data-only and never stores a logger, provider or client. No new generalized broker or startup registry is introduced.

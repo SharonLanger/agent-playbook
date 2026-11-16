@@ -112,3 +112,7 @@ Before implementation, confirm the minimal failure/initialization placement abov
 Use [Codex handover rules](../../../../governance/codex-handover-rules.md). One combined implementation PR; two independently testable acceptance sections (runner and CrewAI). Keep documentation PR #47 open until all covered implementation is merged and Sharon separately authorizes it.
 
 Sources: [official CrewAI integration](https://langfuse.com/integrations/frameworks/crewai), [native instrumentation](https://langfuse.com/docs/observability/sdk/instrumentation), [metadata](https://langfuse.com/docs/observability/features/metadata), [Python API](https://python.reference.langfuse.com/langfuse), and the pinned research above.
+
+## LOG-G03 — Stage 02 tracing follow-on for logging M2, 2026-11-16
+
+This dated amendment does not rewrite the approved Stage 02 tracing implementation. During logging M2, operational Langfuse initialization, observation scope entry/update/exit and flush faults must be narrowly contained: issue a safe terminal warning and preserve the business workflow result or original exception. Disabled tracing skips initialization. Invalid configuration and missing required credential references retain existing validation errors. Preserve native SDK scopes, CrewAI instrumentation and capture; do not wrap them in a generic observability broker. Refer to logging M2 LG-05/06/08 for acceptance.

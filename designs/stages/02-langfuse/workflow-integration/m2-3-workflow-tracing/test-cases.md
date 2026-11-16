@@ -32,3 +32,7 @@ For RUN-11, a spy may establish flush ordering, but real SDK export cases must a
 The test-gap reviewer maps each ID to exact pytest nodes and meaningful assertions, or to explicit manual acceptance evidence for RUN-18. Never classify missing/skipped/blocked/unrun as PASS. Record initial failures and valid reruns with environment changes. Required manual acceptance can remain blocked awaiting Sharon; do not claim the milestone accepted.
 
 Follow [handover rules](../../../../governance/codex-handover-rules.md): both reviewers use one candidate, maximum three rounds, permanent reports. Review the actual coverage, not just a green total.
+
+## LOG-G04 — Stage 02 follow-on tests, 2026-11-16
+
+Logging M2 LG-05/06/08 add focused acceptance for best-effort Langfuse operational initialization, observation entry/update/exit and cleanup faults while preserving the workflow outcome and original business exception; enabled and disabled logging coexist with native tracing. These are new follow-on cases, not retroactive changes to Stage 02 RUN results. No mock success substitutes for the Stage 02 live acceptance evidence.

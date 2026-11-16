@@ -54,3 +54,6 @@ Use **Dev Run** for source edits, **Run** for the latest release, and **Check** 
 
 
 Native runner tracing uses the configured Langfuse destination. Framework events are visible by default so the pinned CrewAI integration records Flow and step observations; see [workflow tracing behavior and limits](docs/workflows.md#native-workflow-tracing). Local acceptance remains pending.
+
+
+Application logging configuration, helper usage and explicit read-only service diagnostics are documented in [Application logging](docs/logging.md).

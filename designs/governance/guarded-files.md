@@ -73,3 +73,17 @@ Sharon explicitly approved the M4.2/M4.3 design, tests and plan at `ab3fab459c97
 | `designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md` | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md) |
 
 All previous guards remain. This registers only the approved baseline and does not authorize merging PR #47 or changing frozen shared requirements/decisions.
+
+
+## LOG-G06 — logging M2 approved baseline, 2026-11-16
+
+Sharon approved M2 behavior and LOG-G01–06 at immutable revision `caeb1637bd9aa611447703f4c19c38becacfe412`. The following contract files remain guarded on the open design workspace; this registration does not authorize merging it:
+
+| Guarded path | Immutable authority |
+|---|---|
+| `designs/refactors/logging/m2-application-logging/design.md` | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/caeb1637bd9aa611447703f4c19c38becacfe412/designs/refactors/logging/m2-application-logging/design.md) |
+| `designs/refactors/logging/m2-application-logging/test-cases.md` | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/caeb1637bd9aa611447703f4c19c38becacfe412/designs/refactors/logging/m2-application-logging/test-cases.md) |
+| `designs/refactors/logging/m2-application-logging/implementation-plan.md` | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/caeb1637bd9aa611447703f4c19c38becacfe412/designs/refactors/logging/m2-application-logging/implementation-plan.md) |
+
+
+All earlier protection and Stage 02 history remain intact.
