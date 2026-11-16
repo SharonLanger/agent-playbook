@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="flowsvg" width="100%" viewBox="0 0 372 464" role="img" aria-roledescription="flowchart" aria-labelledby="flowsvg-title" aria-describedby="flowsvg-desc"><style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace; background: #020617;
+         min-height: 100vh; padding: 2rem; color: #e2e8f0; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .header { display: flex; align-items: center; gap: 12px; margin-bottom: 0.4rem; }
+  .pulse-dot { width: 10px; height: 10px; border-radius: 50%; background: #34d399; }
+  h1 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
+  .subtitle { color: #64748b; font-size: 0.8rem; margin-bottom: 1.5rem; }
+  .diagram-card { border: 1px solid #1e293b; border-radius: 12px; position: relative;
+    background: repeating-linear-gradient(0deg, #0f1b33 0 0.5px, transparent 0.5px 40px),
+      repeating-linear-gradient(90deg, #0f1b33 0 0.5px, transparent 0.5px 40px), #030a1c;
+    padding: 1.25rem 1rem; }
+  .pause-btn { position: absolute; top: 12px; right: 12px; z-index: 2; background: transparent;
+    border: 1px solid #1e293b; color: #64748b; border-radius: 6px; padding: 4px 10px;
+    font: inherit; font-size: 11px; cursor: pointer; }
+  .pause-btn:hover { color: #e2e8f0; border-color: #334155; }
+  .footer { color: #475569; font-size: 0.7rem; margin-top: 1rem; }
+  .flow { stroke-dasharray: 5 5; }
+  .flow-async { stroke-dasharray: 2 4; }
+  .flow-auth { stroke-dasharray: 4 4; }
+  @media (prefers-reduced-motion: no-preference) {
+    .flow { animation: dashmove 0.75s linear infinite; }
+    .flow-async { animation: dashasync 0.9s linear infinite; }
+    .flow-auth { animation: dashauth 1.2s linear infinite; }
+    .pulse-dot { animation: pulse 2s ease-in-out infinite; }
+  }
+  @keyframes dashmove { to { stroke-dashoffset: -10; } }
+  @keyframes dashasync { to { stroke-dashoffset: -12; } }
+  @keyframes dashauth { to { stroke-dashoffset: -8; } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  body.paused .flow, body.paused .flow-async, body.paused .flow-auth,
+  body.paused .pulse-dot { animation-play-state: paused; }
+</style><rect width="372" height="464" fill="#020617"/><title id="flowsvg-title">Count outcomes, then decide animated diagram</title><desc id="flowsvg-desc">Top-down flow diagram; dashed connectors animate in the direction of flow and dots ride the main paths.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><g fill="none"><path class="flow" d="M186 92 V144" stroke="#10b981" stroke-width="1" opacity="0.85" marker-end="url(#arrow)"/><path class="flow" d="M186 206 V258" stroke="#10b981" stroke-width="1" opacity="0.85" marker-end="url(#arrow)"/><path class="flow" d="M186 306 V337.5 H102.5 V365" stroke="#10b981" stroke-width="1" opacity="0.85" marker-end="url(#arrow)"/><path class="flow" d="M186 306 V334 H269.5 V358" stroke="#10b981" stroke-width="1" opacity="0.85" marker-end="url(#arrow)"/></g><text x="154.2" y="334.5" fill="#64748b" font-size="10">yes</text><text x="233.8" y="331" fill="#64748b" font-size="10">no</text><g></g><g font-family="JetBrains Mono, ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace" text-anchor="middle"><rect x="120" y="34" width="132" height="58" rx="8" fill="rgba(16,185,129,0.04)" stroke="#10b981"/><text x="186" y="60" fill="#e2e8f0" font-size="13" font-weight="500"><tspan x="186">Start 5 checks</tspan><tspan x="186" dy="15">· In parallel</tspan></text><rect x="108" y="148" width="156" height="58" rx="8" fill="rgba(16,185,129,0.04)" stroke="#10b981"/><text x="186" y="174" fill="#e2e8f0" font-size="13" font-weight="500"><tspan x="186">Collect all ·</tspan><tspan x="186" dy="15">success / failure</tspan></text><rect x="124" y="262" width="124" height="44" rx="8" fill="rgba(16,185,129,0.04)" stroke="#10b981" stroke-dasharray="4 3"/><text x="186" y="288" fill="#e2e8f0" font-size="13" font-weight="500">Failures ≥ 3?</text><rect x="34" y="369" width="137" height="44" rx="8" fill="rgba(16,185,129,0.04)" stroke="#10b981"/><text x="102.5" y="395" fill="#e2e8f0" font-size="13" font-weight="500">Overall failure</text><rect x="201" y="362" width="137" height="58" rx="8" fill="rgba(16,185,129,0.04)" stroke="#10b981"/><text x="269.5" y="388" fill="#e2e8f0" font-size="13" font-weight="500"><tspan x="269.5">Return results</tspan><tspan x="269.5" dy="15">· with failures</tspan></text></g></svg>

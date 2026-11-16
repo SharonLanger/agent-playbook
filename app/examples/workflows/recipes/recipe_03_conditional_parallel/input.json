@@ -1,0 +1,10 @@
+{
+  "numbers": [
+    2,
+    4,
+    6
+  ],
+  "mode": "detailed",
+  "sum_delay": 0.01,
+  "max_delay": 0.02
+}

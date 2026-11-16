@@ -1,8 +1,8 @@
 # Stage 03 — CrewAI concepts and recipes
 
-Status: **S03.M1 implementation merged through PR #53 at 529fe15895afc8211d833fc2544e98f0d18fb451 on 2026-11-15, with Sharon's explicit authorization. Final review PASS. Stage 03 closeout and design PR #52 merge remain pending.**
+Status: **Complete — accepted by Sharon on 2026-11-16; PR #53 merged; design closeout and cleanup delivered through PR #52 with his explicit merge authorization.**
 
-**Closeout gate:** [remove the eight temporary verify.py files](m1-recipe-batch/closeout.md) before marking Stage 03 done and merging #52. Sharon explicitly deferred this cleanup from implementation merge to design closeout (U10 / S03-D26). Mac/PyCharm execution has not been confirmed.
+[Acceptance and cleanup record](m1-recipe-batch/closeout.md).
 
 [Final review and remaining work](m1-recipe-batch/reviews/final-review.md) records independent checks and distinguishes them from the implementation reviewers' runtime evidence.
 
@@ -57,18 +57,18 @@ Keep setup minimal. If the pinned framework needs example-local configuration, e
 
 ## Existing coverage map
 
-Code, example documentation and selected tests were inspected at main 4ed7a318e25653d481705d9cb40c35de9ab649c7. They were not rerun in this design session. Current links point to the pre-move locations still present on this design branch. PR #53 has merged their unchanged relocation into concepts/ on main; reconcile these links when incorporating main into this design branch before closeout.
+Code, example documentation and selected tests were inspected at main 4ed7a318e25653d481705d9cb40c35de9ab649c7. They were not rerun in this design session. Links now use the merged concepts/ locations.
 
 | Existing example | Coverage | Reuse / gap |
 |---|---|---|
-| [01 — Sequence](../../../app/examples/workflows/ex_01_step_sequence/README.md) | Sequence and returned values | Existing concept reference |
-| [02 — Method completion](../../../app/examples/workflows/ex_02_method_completion/README.md) | Method references and method-name listeners | Existing concept reference |
-| [03 — Router labels](../../../app/examples/workflows/ex_03_router_labels/README.md) | Exclusive conditional path | Do not reteach as an isolated new recipe |
-| [04 — Name collision](../../../app/examples/workflows/ex_04_name_collision/README.md) | Method-name / route-label collision | Existing caution/reference |
-| [05 — Revision loop](../../../app/examples/workflows/ex_05_revision_loop/README.md) | Bounded review/revision routing | Adapt the idea into a practical coder/reviewer-shaped recipe, using only counters |
-| [06 — Nested conditions](../../../app/examples/workflows/ex_06_nested_conditions/README.md) | Async overlap and A AND (B OR C) join | Existing join wiring; does not show collecting all branch outputs into a useful report |
-| [07 — Chained routers](../../../app/examples/workflows/ex_07_chained_routers/README.md) | Two successive routing decisions | Reuse when composing conditional recipes |
-| [08 — Persisted routing](../../../app/examples/workflows/ex_08_persisted_routing/README.md) | Routing, convergence and restored saved state | Existing concept; no claim of resuming an interrupted instruction |
+| [01 — Sequence](../../../app/examples/workflows/concepts/ex_01_step_sequence/README.md) | Sequence and returned values | Existing concept reference |
+| [02 — Method completion](../../../app/examples/workflows/concepts/ex_02_method_completion/README.md) | Method references and method-name listeners | Existing concept reference |
+| [03 — Router labels](../../../app/examples/workflows/concepts/ex_03_router_labels/README.md) | Exclusive conditional path | Do not reteach as an isolated new recipe |
+| [04 — Name collision](../../../app/examples/workflows/concepts/ex_04_name_collision/README.md) | Method-name / route-label collision | Existing caution/reference |
+| [05 — Revision loop](../../../app/examples/workflows/concepts/ex_05_revision_loop/README.md) | Bounded review/revision routing | Adapt the idea into a practical coder/reviewer-shaped recipe, using only counters |
+| [06 — Nested conditions](../../../app/examples/workflows/concepts/ex_06_nested_conditions/README.md) | Async overlap and A AND (B OR C) join | Existing join wiring; does not show collecting all branch outputs into a useful report |
+| [07 — Chained routers](../../../app/examples/workflows/concepts/ex_07_chained_routers/README.md) | Two successive routing decisions | Reuse when composing conditional recipes |
+| [08 — Persisted routing](../../../app/examples/workflows/concepts/ex_08_persisted_routing/README.md) | Routing, convergence and restored saved state | Existing concept; no claim of resuming an interrupted instruction |
 
 The [existing collection guide](../../../app/examples/workflows/README.md) describes independent copy/run behavior. Official WF-03 also covers exclusive routing, but these recipes do not depend on that application workflow.
 
@@ -101,7 +101,7 @@ Only CrewAI recipe behavior and directly affected files are checked; no integrat
 
 | Milestone / outcome | Design and approved revision | Implementation PR | Review evidence | Acceptance | Merge |
 |---|---|---|---|---|---|
-| S03.M1 — eight runnable copyable recipes and concepts/recipes organization | Approved contract 6067fb652f0bffe2fa1f8a0e53f045a421a16f11 | [#53](https://github.com/SharonLanger/agent-playbook/pull/53) | Both implementation reviews PASS, 1/3 rounds; [design-session final review PASS](m1-recipe-batch/reviews/final-review.md), published head 906e0e5 | Sharon authorized implementation merge with temporary checks retained; local execution not confirmed; stage closeout pending | #53 merged at 529fe15; #52 draft/open |
+| S03.M1 — eight runnable copyable recipes and concepts/recipes organization | Approved contract 6067fb652f0bffe2fa1f8a0e53f045a421a16f11 | [#53](https://github.com/SharonLanger/agent-playbook/pull/53) | Both implementation reviews PASS, 1/3 rounds; [design-session final review PASS](m1-recipe-batch/reviews/final-review.md), published head 906e0e5 | Accepted by Sharon 2026-11-16; temporary checks removed at closeout | #53 merged at 529fe15; #52 closeout explicitly authorized |
 
 Start with [M1 README](m1-recipe-batch/README.md). The outgoing handoff gives immutable links and the full contract SHA. Sending that prompt authorizes its concrete revision. Codex implements the whole batch using one coder plus independent design-drift and test-gap/behavior reviewers; maximum three rounds on frozen candidates. This design session reviews the returned evidence before any merge.
 
@@ -112,3 +112,8 @@ Start with [M1 README](m1-recipe-batch/README.md). The outgoing handoff gives im
 Sharon's explicit standalone CrewAI/no-permanent-tests/batch instructions govern this stage's working direction. The global roadmap still mentions correlated traces as Stage 03 evidence; this package records the narrower user-approved direction rather than claiming those words have been amended. The design session owns shared roadmap/progress/Atlas semantic reconciliation before stage closeout; this does not add integration work to the explicit recipe-only contract. No general governance rewrite, runtime change or folder move is performed by this handoff-authoring turn. The package and diagram reference are permanent stage material.
 
 Stage Design PR #52 remains open/draft; batch implementation and stage closeout merge authorization are separate. No auto-merge.
+
+
+## Closeout supersession — 2026-11-16
+
+Stage 03 is complete and accepted by Sharon on 2026-11-16. He confirmed that he checked everything and that it was good, authorized removal of the temporary verification scripts, and explicitly authorized merging design PR #52. Implementation PR #53 merged at 529fe15895afc8211d833fc2544e98f0d18fb451. Temporary-check lifecycle instructions above are retained as the agreed process; cleanup is now complete. Earlier pending reconciliation and keep-open wording is superseded by this recorded closeout authorization. No further Stage 03 milestone is planned.

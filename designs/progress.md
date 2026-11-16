@@ -1,5 +1,9 @@
 # Progress and acceptance
 
+## Stage 03 closeout — 2026-11-16
+
+Stage 03 is complete and accepted by Sharon on 2026-11-16. He confirmed that he checked everything and that it was good, authorized removal of the temporary verification scripts, and explicitly authorized merging design PR #52. Implementation PR #53 merged at 529fe15895afc8211d833fc2544e98f0d18fb451. The eight temporary recipe verify.py files are removed in this closeout; existing concept tests and permanent recipe behavior are preserved. Review evidence remains at test-bearing revision 906e0e5921fae726f37c5bdbb61551578373c908. See [Stage 03](stages/03-orchestration-patterns/README.md). Logging and Stage 04 remain separately owned.
+
 ## Stage 02 closeout — 2026-11-15
 
 Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals.
@@ -386,3 +390,4 @@ M4.3 instrumentation and local logging remain later work.
 Sharon approved applying PR #46's broad roadmap direction through PR #48, the Stage 04-only sequencing exception, deferred logging, incremental milestone approval and the Stage Design PR convention. This is an approved documentation/governance change; it does not mark Stage 02 complete or Stage 04 implemented. Stage-specific files, their PR titles and detailed design reconciliation remain with their owners.
 
 The permanent [roadmap approval record](roadmap.md#approval-and-scope-record) preserves the handover's lasting decisions. [Stage working method](governance/stage-milestone-workflow.md) and [Codex handover rules](governance/codex-handover-rules.md) own the reusable process, including frozen handoff contracts. Runtime architecture/structure, application behavior and existing stage acceptance are unchanged. C01/Q12 ownership reconciliation remains with Stage 04's owner and is not resolved by this roadmap change.
+
