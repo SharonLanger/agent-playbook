@@ -7,7 +7,7 @@ constraints = [{ name = "uv", specifier = "==0.13.6" }]
 
 [[package]]
 name = "agent-playbook"
-version = "0.1.4"
+version = "0.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "crewai" },
