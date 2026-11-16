@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 26 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 27 · Updated: 2026-11-16 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 ## Status and authority
@@ -344,6 +344,10 @@ Sharon asks whether both sync and async handlers should be supported. Recommenda
 
 Q10 is answered for per-execution callback sequencing. Cancellation, slow-handler timeout policy and concrete cleanup diagnostic representation remain open. M1 specifies the contract; M2 verifies it with the fake adapter/mapper. Existing milestone boundaries and prerequisites remain unchanged; no runtime implementation or merge is authorized.
 
+## Open hook-scope evaluation — revision 27
+
+Sharon asks to evaluate runtime-affecting pre-tool callbacks. P13 in the decision board and pending BC04 in the milestone plan compare deferring hooks, designing one optional request/response contract with fake verification, and implementing native hooks now. The recommendation is the middle option, not an approved scope change. Current event-only callback, sequential delivery and native-integration deferral remain unchanged. Fresh Claude SDK source supports the pattern; equivalent Codex effects have not been established. No hook schema, new ABC, timeout policy or implementation is selected.
+
 ## Research status
 
 Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event/result fields and representation are now accepted under D36/D37; validation, lifecycle guarantees and permission settings remain unresolved.
@@ -409,3 +413,4 @@ Maintain both active records in this repository package with matching revision e
 | 24 | 2026-11-15 | D47 skips terminal notification on adapter exceptions even with a healthy handler; result-return delivery remains unchanged. |
 | 25 | 2026-11-15 | D48 preserves the original exception and cleanup diagnostics; a sole cleanup exception propagates normally. |
 | 26 | 2026-11-15 | D49 accepts sequential awaited callbacks per execution; clarifies existing async contract and records dual-mode support as unselected. |
+| 27 | 2026-11-16 | Tracks open P13 hook evaluation and pending BC04; accepted specification unchanged. |

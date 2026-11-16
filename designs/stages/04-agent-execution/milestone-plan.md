@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 12 · 2026-11-15 · Owner: Sharon
+Revision: 13 · 2026-11-16 · Owner: Sharon
 Status: **overall milestone boundaries and BC03 gates approved (D40); detailed milestone design/test/plan not yet locked; no implementation authorization.**
 
 [Start here](README.md) · [Specification](specifications.md) · [Decision board](decisions.md) · [Repository reconciliation](repository-updates.md)
@@ -199,3 +199,13 @@ D48 preserves the original exception and cleanup diagnostic evidence, with a sol
 ## Sequential callback checkpoint — revision 26
 
 D49 accepts per-execution sequential delivery through the existing async callback. M1 contract/M2 verification scope remains unchanged. Dual sync/async callback support is not selected; cancellation and slow-handler policies remain open.
+
+## BC04 — narrow blocking-hook contract (Pending, 2026-11-16)
+
+Trigger: Sharon asks to evaluate hooks that influence the runtime before it continues, such as providing context before tool execution. He has not approved an implementation or scope expansion. P13 records the proposal and evidence.
+
+Proposed delta: M1 designs one optional typed pre-tool request/response contract, registration/capability behavior and failure/timeout/cancellation semantics. M2 adds one fake native checkpoint proving the action waits, the response is applied, and failure cannot silently continue the action. Existing sequential observation events remain unchanged. Native provider wiring and capability verification remain in Stage 05; M3/M4 do not gain new acceptance obligations automatically.
+
+Before acceptance: agree the first hook's actual response effects and confirm matching semantics against selected SDK surfaces. Unsupported requested capabilities should fail clearly rather than be silently ignored (proposal). Fake evidence cannot establish real-provider support. No new required Agent ABC method, mandatory hooks hierarchy, script runner or generic hook engine is proposed. D26/D34/D49 remain unchanged; D13/D29 native deferral is preserved. Q06 is reopened for this concrete use case. Hook failure handling must be designed explicitly rather than copying notification policies blindly.
+
+Owner/trigger/evidence: Stage 04 design owns this pending contract/scope choice; implementation only after explicit BC04 acceptance and a locked milestone design. Stage 05 owns real mappings and provider tests. Required fake evidence would include waiting before side effects, response translation, failure/timeout behavior and no-hook behavior. Cost/risk: small-to-medium design expansion, moderate fake implementation/tests; native integration remains provider-dependent. No day estimate is justified before defining the first response effect. If rejected/deferred, current M1/M2 boundaries remain unchanged.

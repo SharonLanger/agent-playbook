@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 26 · Updated: 2026-11-15 · Owner: Sharon
+Revision: 27 · Updated: 2026-11-16 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 ## How to read this board
@@ -1061,6 +1061,28 @@ Sharon asks whether both sync and async handlers should be supported. Recommenda
 
 Q10 is answered for per-execution callback sequencing. Cancellation, slow-handler timeout policy and concrete cleanup diagnostic representation remain open. M1 specifies the contract; M2 verifies it with the fake adapter/mapper. Existing milestone boundaries and prerequisites remain unchanged; no runtime implementation or merge is authorized.
 
+## P13 — observation callbacks and runtime-control hooks (Proposed, 2026-11-16)
+
+Sharon wants to evaluate adding a hook that can run agent-owned code and affect execution before the runtime proceeds, including supplying context. This is a proposal discussion, not approval of a new contract. BC04 in milestone-plan.md records the pending boundary delta first.
+
+Clarification: D49's adapter awaits local observation delivery; there is no approved detached event-worker queue. A separate native process may nevertheless continue. A callback that returns None cannot express a typed decision or contextual response to that process. Waiting for observation handling and waiting at a native control checkpoint are distinct guarantees. Sequential delivery preserves received/mapped order; it does not repair an incorrectly ordered native stream or invent missing pre/post pairs.
+
+Recommendation: retain async handle_event(event) -> None for observations; design one optional async hook request/response boundary for a native pre-tool checkpoint. The native runtime invokes its hook, the adapter maps the request, awaits agent code, translates the reply, and returns it through the SDK before the affected action proceeds. This is illustrative ownership, not an approved signature. First agree whether the minimal reply supplies context, modifies input or controls permission; these are different effects and must not all be included by assumption. Adding context does not itself guarantee that an already-planned tool call is replanned. No human approval is required for an automated code callback.
+
+Alternatives and estimated effort:
+- Defer all hook design: least MVP work; later add request/response models, callback wiring and tests. Existing observation events can remain, but assumptions about adapter inputs/capabilities may need revision.
+- Design one contract now plus fake verification in M2 (recommended): small-to-medium extra design and moderate fake/testing work. Reveals waiting, response, failure and capability requirements early without adding real adapters.
+- Implement full Claude/Codex hook support now: largest and most uncertain scope; requires real adapters, supported-version choices, response mapping, native timeout/error semantics and integration evidence. Conflicts with current native-integration deferral unless explicitly amended.
+
+Minimum new design work: one request/reply shape and optional callback placement; supported-capability behavior; wait/timeout/cancellation/failure contract; ownership/order relative to observation callbacks. Avoid routing a blocking hook behind observation delivery that itself waits on the runtime, creating a dependency cycle. Prefer SDK facilities for native waiting and execution; do not recreate the native tool loop or implement a general shell-script runner. An unsupported required hook should fail before execution rather than silently degrade to an observation (recommendation awaiting approval).
+
+Fresh primary-source evidence, inspected 2026-11-16:
+- Claude Agent SDK hooks documentation: https://code.claude.com/docs/en/agent-sdk/hooks describes native callback registration and typed outputs for decisions, input modification and context. Python async callbacks can participate in this request/response path. Background hook execution is a different mode and is not the proposed blocking contract.
+- Official Python SDK types: https://github.com/anthropics/claude-agent-sdk-python/blob/main/src/claude_agent_sdk/types.py includes PreToolUseHookSpecificOutput.additionalContext and updatedInput. This is source evidence, not a pinned-version runtime test.
+- Codex app-server documentation: https://github.com/openai/codex/blob/main/codex-rs/app-server/README.md documents server-initiated approval requests with responses; this does not establish a general equivalent of Claude PreToolUse context injection. Full parity has not been verified.
+
+No SDK was run, dependency selected or new hook behavior approved. Q06 remains Open and BC04 Pending. Current accepted D26/D49 event callback and all failure policies remain unchanged. Next review should settle whether to adopt BC04 and the narrow first use case before choosing new interfaces or implementation details.
+
 ## Maintenance rule
 
 Read both files before progressing the design. Update this board with evidence and explicit status; update the specification only for accepted decisions. Detect conflicts before edits. Tell Sharon before changing any agreement; retain superseded entries and rationale. Maintain the two active repository records, keeping cross-links and revision numbers consistent; original saved files are history. Boundary changes must first be proposed in [milestone-plan.md](milestone-plan.md), then applied under D32 across all affected records. Do not turn a recommendation into “Approved” because it appears in a file.
@@ -1095,3 +1117,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 24 | 2026-11-15 | D47 skips terminal notification on adapter exceptions even with a healthy handler; result-return delivery remains unchanged. |
 | 25 | 2026-11-15 | D48 preserves the original exception and cleanup diagnostics; a sole cleanup exception propagates normally. |
 | 26 | 2026-11-15 | D49 accepts sequential awaited callbacks per execution; clarifies existing async contract and records dual-mode support as unselected. |
+| 27 | 2026-11-16 | P13/BC04 evaluate native blocking hooks versus observations; no scope or contract approval. |

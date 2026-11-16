@@ -82,3 +82,7 @@ D48 records primary-error preservation and visible secondary cleanup evidence, i
 ## Revision 26 sequential delivery approval
 
 D49 records sequential awaited delivery without changing the existing async signature or adding dual-mode support. Atlas regeneration/freshness and scoped documentation checks validate references, continuity and unchanged guarded/history sources. No runtime or native buffering guarantees are verified by this documentation update.
+
+## Revision 27 hook-scope evaluation
+
+P13/BC04 is pending, not accepted implementation scope. Primary-source documentation/types were inspected; no SDK or provider parity test ran. Atlas regeneration/freshness and scoped documentation checks cover references, continuity and unchanged guarded/history sources. No runtime or canonical changes.
