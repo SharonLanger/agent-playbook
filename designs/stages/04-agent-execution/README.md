@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Updated: 2026-11-16 · Working records revision 27
+Updated: 2026-11-16 · Working records revision 28
 Status: **draft planning PR authorized by Sharon; no runtime implementation, stage activation, locked milestone baseline or merge authorization.**
 
 This is the permanent Stage 04 design workspace on `docs/agent-execution-foundation-planning`. Main `fefe4cc1065642b710a018ecb1088ececde852db` is incorporated in this update. Stage 04's boundary and four milestone allocations/gates are approved; detailed milestone designs and implementation are not. PR #45 follows `[Stage 04 Design] Agent execution foundation` and stays draft through stage closeout.
@@ -62,3 +62,5 @@ D39 requires independent progress without placeholder context. D40 accepts BC03 
 While an implementation handoff is active, freeze its governing milestone and shared contract files; capture new issues separately as follow-ups under the merged Codex rules. No Stage 04 handoff is active now.
 
 Current discussion: P13/BC04 evaluates a narrow runtime-control hook alongside observation events. Scope change is pending; review before adding hook contracts or M2 acceptance.
+
+Product target (D50/D51): replaceable execution supporting a real coder/reviewer workflow after native integration. P14 records the reference comparison and proposed control/data boundaries; current Stage 04 deliverables and pending BC04 status remain unchanged.

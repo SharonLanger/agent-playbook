@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 13 · 2026-11-16 · Owner: Sharon
+Revision: 14 · 2026-11-16 · Owner: Sharon
 Status: **overall milestone boundaries and BC03 gates approved (D40); detailed milestone design/test/plan not yet locked; no implementation authorization.**
 
 [Start here](README.md) · [Specification](specifications.md) · [Decision board](decisions.md) · [Repository reconciliation](repository-updates.md)
@@ -209,3 +209,9 @@ Proposed delta: M1 designs one optional typed pre-tool request/response contract
 Before acceptance: agree the first hook's actual response effects and confirm matching semantics against selected SDK surfaces. Unsupported requested capabilities should fail clearly rather than be silently ignored (proposal). Fake evidence cannot establish real-provider support. No new required Agent ABC method, mandatory hooks hierarchy, script runner or generic hook engine is proposed. D26/D34/D49 remain unchanged; D13/D29 native deferral is preserved. Q06 is reopened for this concrete use case. Hook failure handling must be designed explicitly rather than copying notification policies blindly.
 
 Owner/trigger/evidence: Stage 04 design owns this pending contract/scope choice; implementation only after explicit BC04 acceptance and a locked milestone design. Stage 05 owns real mappings and provider tests. Required fake evidence would include waiting before side effects, response translation, failure/timeout behavior and no-hook behavior. Cost/risk: small-to-medium design expansion, moderate fake implementation/tests; native integration remains provider-dependent. No day estimate is justified before defining the first response effect. If rejected/deferred, current M1/M2 boundaries remain unchanged.
+
+## Product acceptance and P14 assessment — revision 28
+
+D50/D51 record the explicit low-coupling requirement and coder/reviewer product target. Stage 04 remains the deterministic foundation; native adapters and real roles remain Stage 05. No roadmap renumbering or implicit M4 expansion. A fake demonstration alone does not satisfy the real product MVP. BC04 remains Pending: request for assessment and conditional support for a small response shape does not approve its complete hook/failure/capability design.
+
+P14 proposes keeping observations, optional hook responses and cancellation controls distinct, with serializable boundary data and shared adapter contract tests. These are design recommendations, not new required ABC methods or remote transport implementation. If cancellation or hooks are added to M1/M2 acceptance, first amend BC04 or add a separately reviewed boundary delta. The product scenario should inform minimal request/settings/artifact/result design without importing all later-stage work into M1.

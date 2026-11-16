@@ -86,3 +86,7 @@ D49 records sequential awaited delivery without changing the existing async sign
 ## Revision 27 hook-scope evaluation
 
 P13/BC04 is pending, not accepted implementation scope. Primary-source documentation/types were inspected; no SDK or provider parity test ran. Atlas regeneration/freshness and scoped documentation checks cover references, continuity and unchanged guarded/history sources. No runtime or canonical changes.
+
+## Revision 28 product-boundary assessment
+
+D50/D51 are user-stated constraints/acceptance goals; P14 is an unapproved contract recommendation based on primary documentation and small interface examples. No code audit, adoption ranking, native parity or runtime behavior test claimed. Atlas and scoped documentation checks cover references/continuity/unchanged guards. Stage boundaries and BC04 pending status preserved; no guarded or application changes.

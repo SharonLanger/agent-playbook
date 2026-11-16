@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 27 · Updated: 2026-11-16 · Owner: Sharon
+Revision: 28 · Updated: 2026-11-16 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 ## How to read this board
@@ -1083,6 +1083,33 @@ Fresh primary-source evidence, inspected 2026-11-16:
 
 No SDK was run, dependency selected or new hook behavior approved. Q06 remains Open and BC04 Pending. Current accepted D26/D49 event callback and all failure policies remain unchanged. Next review should settle whether to adopt BC04 and the narrow first use case before choosing new interfaces or implementation details.
 
+## Product target and replaceable execution — revision 28
+
+D50 — **Approved requirement:** Sharon prioritizes avoiding strong coupling and a large future rewrite when execution gains capabilities or becomes a separately deployed service. Microservice extraction is a future possibility, not an instruction to build a service now. Continue the small MVP; do not promise zero refactoring, universal SDK parity or a stable network protocol merely from Python ABCs.
+
+D51 — **Approved product acceptance target:** the first useful product must support a coder/reviewer workflow. The coder receives an implementation plan in Markdown and the necessary scoped permissions to edit/create/delete files and implement code/tests. The reviewer receives the design/test plan and produced work and checks coverage/conformance. Workflow code determines the next action; an extra decision agent is only a possibility. Precise permission fields, review output schema, test-execution policy and retry behavior remain to be designed. This refines the product goal beyond a demonstration, not the accepted Stage 04 native-integration boundary.
+
+Stage 04 supplies contracts/harness/fake/standalone demo/workflow integration; native adapters and real roles are still later work. The product target is achieved only after real integration is verified. Coder and reviewer must refer to the same produced workspace/artifact revision. Reviewer write restrictions and whether it executes tests need explicit design; a read-only instruction alone is not enforcement. No new context model or logging dependency is introduced.
+
+The event stream alone is not the entire execution API. Current handle_event returns None and D49 serializes local callback consumption; neither guarantees a pause before the next native model call. The runtime owns its internal loop. A hook reply can affect execution only through a supported native control boundary and adapter response mapping. Current contracts have no selected graceful stop/interrupt API; fail-fast exceptions are not a designed substitute for user-requested cancellation.
+
+## P14 — reference-led boundary review (Proposed, 2026-11-16)
+
+Scope: documentation and small published interface examples only, no deep code scan or live SDK tests. These references are relevant examples, not a verified ranking of adoption. No dependency, copied code or new ABC selected.
+
+Primary documentation inspected:
+- Vercel architecture: https://github.com/vercel/ai/blob/main/architecture/harness-abstraction.md separates a versioned harness specification, native translation, stream/control surfaces and session lifecycle. Documents host-driven and bridge-backed runtime placement. Current page assigns supplied sandbox ownership to the caller; earlier snapshot wording assigning general sandbox lifecycle to HarnessAgent must not be treated as current. Harness packages remain experimental per https://github.com/vercel/ai/blob/main/content/docs/03-ai-sdk-harnesses/01-overview.mdx.
+- Triad provider design: https://github.com/Triad-Labs-Inc/harness-sdk/blob/main/docs/provider-adapters.md documents startTurn events separately from optional steer/interrupt/respondToPermission/respondToInput; a native callback can remain pending while a correlated application response is mapped back. Includes capability reporting and shared adapter tests. Its interface example is explicitly subject to finalization, not proof of complete implemented parity.
+- AgentDock: https://docs.agdc.dev/developer/agent-adapters assigns launch, event mapping, interaction responses and stop/resume to the adapter. https://docs.agdc.dev/developer/ipc separates request/response from subscriptions. Its provider-specific capability limitations describe its chosen transport, not every possible native Codex surface. Architecture reference only; prior license caution remains, no reuse authorized.
+
+Recommendation: retain events for observations; add only concretely needed typed request/response hooks and an explicit cancellation control rather than making every event return a generic command. Handler code may request cancellation through that control without importing a native SDK; registration and signature remain open. A cancellation request is cooperative and is not a guarantee of immediate process termination or rollback. Keep hook replies small but meaningful (for example an optional additional_context field if context injection is selected), rather than an opaque number/string with unspecified semantics. Correlation IDs become necessary when responses cross a transport or multiple requests can be pending. No specific shape or fourth ABC approved.
+
+To reduce future rewrite risk: keep native types and SDK imports inside adapters; keep requests/events/results/hook payloads representable as data; keep role decisions outside provider code; use explicit capabilities and shared behavioral tests. Callable injection is a local API convenience, not a serializable wire value. A remote transport would exchange correlated messages and call the role locally or deploy it with execution; do not try to send Python callbacks or exception objects over an API. Workspace/artifact access, authentication, network interruption, error envelopes and reconnect/cancel semantics remain real future work. Define transport-facing version/compatibility policy when designing that transport; adding optional fields locally alone does not guarantee wire compatibility.
+
+Small MVP proposal: task plus plan/design/test artifacts, a workspace and scoped native-enforced permissions, observable progress, explicit result/error behavior, coder-produced changes/tests and reviewer findings/verdict. Workflow routes on the role result, not incidental text events. Prefer a small validated review-result object for reliable routing; this is proposed and does not amend the accepted ExecutionResult fields. Advanced hooks are not inherently required to pass this basic workflow when all needed instructions are supplied before execution. Validate one concrete hook separately if BC04 is accepted, rather than building a full hooks framework before a real coder/reviewer run.
+
+M1 impact is modest boundary/schema design plus contract tests later; optional hooks/cancellation add genuine failure/timeout work. No need to replace the five observation events or build HTTP now. P13/BC04 remains Pending; the user has requested this evaluation, not locked a new contract. Next recommendation: agree the minimal coder-to-reviewer input/output scenario, then select only the controls it requires.
+
 ## Maintenance rule
 
 Read both files before progressing the design. Update this board with evidence and explicit status; update the specification only for accepted decisions. Detect conflicts before edits. Tell Sharon before changing any agreement; retain superseded entries and rationale. Maintain the two active repository records, keeping cross-links and revision numbers consistent; original saved files are history. Boundary changes must first be proposed in [milestone-plan.md](milestone-plan.md), then applied under D32 across all affected records. Do not turn a recommendation into “Approved” because it appears in a file.
@@ -1118,3 +1145,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 25 | 2026-11-15 | D48 preserves the original exception and cleanup diagnostics; a sole cleanup exception propagates normally. |
 | 26 | 2026-11-15 | D49 accepts sequential awaited callbacks per execution; clarifies existing async contract and records dual-mode support as unselected. |
 | 27 | 2026-11-16 | P13/BC04 evaluate native blocking hooks versus observations; no scope or contract approval. |
+| 28 | 2026-11-16 | D50/D51 record replaceability and real coder/reviewer product acceptance; P14 compares reference contracts without changing stage scope. |

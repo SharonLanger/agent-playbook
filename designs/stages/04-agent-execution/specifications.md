@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 27 · Updated: 2026-11-16 · Owner: Sharon
+Revision: 28 · Updated: 2026-11-16 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 ## Status and authority
@@ -348,6 +348,18 @@ Q10 is answered for per-execution callback sequencing. Cancellation, slow-handle
 
 Sharon asks to evaluate runtime-affecting pre-tool callbacks. P13 in the decision board and pending BC04 in the milestone plan compare deferring hooks, designing one optional request/response contract with fake verification, and implementing native hooks now. The recommendation is the middle option, not an approved scope change. Current event-only callback, sequential delivery and native-integration deferral remain unchanged. Fresh Claude SDK source supports the pattern; equivalent Codex effects have not been established. No hook schema, new ABC, timeout policy or implementation is selected.
 
+## Product target and replaceable execution — revision 28
+
+D50 — **Approved requirement:** Sharon prioritizes avoiding strong coupling and a large future rewrite when execution gains capabilities or becomes a separately deployed service. Microservice extraction is a future possibility, not an instruction to build a service now. Continue the small MVP; do not promise zero refactoring, universal SDK parity or a stable network protocol merely from Python ABCs.
+
+D51 — **Approved product acceptance target:** the first useful product must support a coder/reviewer workflow. The coder receives an implementation plan in Markdown and the necessary scoped permissions to edit/create/delete files and implement code/tests. The reviewer receives the design/test plan and produced work and checks coverage/conformance. Workflow code determines the next action; an extra decision agent is only a possibility. Precise permission fields, review output schema, test-execution policy and retry behavior remain to be designed. This refines the product goal beyond a demonstration, not the accepted Stage 04 native-integration boundary.
+
+Stage 04 supplies contracts/harness/fake/standalone demo/workflow integration; native adapters and real roles are still later work. The product target is achieved only after real integration is verified. Coder and reviewer must refer to the same produced workspace/artifact revision. Reviewer write restrictions and whether it executes tests need explicit design; a read-only instruction alone is not enforcement. No new context model or logging dependency is introduced.
+
+The event stream alone is not the entire execution API. Current handle_event returns None and D49 serializes local callback consumption; neither guarantees a pause before the next native model call. The runtime owns its internal loop. A hook reply can affect execution only through a supported native control boundary and adapter response mapping. Current contracts have no selected graceful stop/interrupt API; fail-fast exceptions are not a designed substitute for user-requested cancellation.
+
+P14 in the decision board compares reference designs and proposes observation/control separation and portable data. BC04 remains pending; no hook response, cancellation API, network protocol or new required method is selected.
+
 ## Research status
 
 Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event/result fields and representation are now accepted under D36/D37; validation, lifecycle guarantees and permission settings remain unresolved.
@@ -414,3 +426,4 @@ Maintain both active records in this repository package with matching revision e
 | 25 | 2026-11-15 | D48 preserves the original exception and cleanup diagnostics; a sole cleanup exception propagates normally. |
 | 26 | 2026-11-15 | D49 accepts sequential awaited callbacks per execution; clarifies existing async contract and records dual-mode support as unselected. |
 | 27 | 2026-11-16 | Tracks open P13 hook evaluation and pending BC04; accepted specification unchanged. |
+| 28 | 2026-11-16 | D50/D51 add explicit low-coupling constraint and coder/reviewer product target; proposed controls remain open. |
