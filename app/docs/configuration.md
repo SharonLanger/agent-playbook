@@ -90,6 +90,13 @@ integrations:
 Set the local value to `true` when keys are ready. Keep your machine-specific
 choice in the ignored local file rather than repeatedly editing shared defaults.
 
+## Optional local logging smoke
+
+For a synthetic developer check, follow the [local logging smoke guide](../tooling/logging/README.md).
+It starts an isolated local VictoriaLogs service and emits one record to an explicit
+loopback endpoint. Confirm delivery in its bundled UI. This checkout-only tool does
+not configure normal workflow logging or add settings to `application.yaml`.
+
 ## CrewAI settings
 
 All three fields are required in the merged configuration; no duplicate defaults
