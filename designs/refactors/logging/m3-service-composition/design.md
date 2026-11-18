@@ -1,6 +1,8 @@
 # M3 draft design — independent local services and shared configuration
 
-Status: DRAFT. Sharon confirmed the requirements below on 2026-11-18. Detailed Compose wiring, migration and acceptance tests still require a concrete reviewed contract before implementation. M1 and M2 are merged; M2 live acceptance LG-10 remains NOT RUN.
+Status: **Behavioral design approved by Sharon on 2026-11-18** at source revision `c516c94926af0355e387b3bbb92ac5d6118e7390`. Approval: “The design of m3 is fine with me. Please mark it and create the files in the new m3 PR and let me know what to give the Codex agent.” The listed remaining technical design choices are still unresolved; approval does not supply their missing answers. Complete and review the concrete design/test/plan before runtime implementation. M1 and M2 are merged; M2 live acceptance LG-10 remains NOT RUN.
+
+The active M3 design-completion package is now in [PR #57](https://github.com/SharonLanger/agent-playbook/pull/57), initially pinned at `7c2872e71c3753d9924c9057412ef7130c4bca14`. Continue design/test/plan work there; this file preserves the approved behavior snapshot. PR #51 remains the overall logging design workspace.
 
 ## Confirmed behavior
 
