@@ -12,7 +12,7 @@ Current paths and sandbox exclusions reflect the merged runtime. The Atlas statu
 
 ## Authority and maintenance
 
-Read [design instructions](../AGENTS.md), the [guarded design contract](../governance/design-contract.md) and [guard register](../governance/guarded-files.md). The Atlas is a projection, not a second architectural authority. Approved design, implemented behavior and exploration are distinct.
+Read [design instructions](../AGENTS.md), the [guarded design contract](../governance/design-contract.md), the [guard register](../governance/guarded-files.md) and the [stage and milestone working method](../governance/stage-milestone-workflow.md). The Atlas is a projection, not a second architectural authority. Approved design, implemented behavior and exploration are distinct.
 
 When adding a responsibility: identify its governing decision; consult [relevant explorations](../explorations/README.md); explain repository → component → subcomponent → file placement; get approval for guarded changes; implement within scope; update canonical documents, catalog, public docs and progress; verify. Routine helpers do not require a new architecture block.
 

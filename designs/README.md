@@ -33,8 +33,9 @@ Some Markdown viewers suppress SVG animation; the browser viewer remains a fallb
 
 ## Stage documents
 
-Each stage has its own end-state architecture and plan, plus findings and learning
-exercises. Future implementation baselines wait for their stage except for the scoped Stage 04 foundation exception in [roadmap.md](roadmap.md#sequencing-and-approval). Explicitly requested optional research/POCs belong in explorations and must not be mistaken for approved targets.
+For new stages, follow the [stage layout](governance/stage-milestone-workflow.md#1-shared-workspace-and-ownership). Keep stage-specific learning and research with their stage when there is material to retain. The [exploration index](explorations/README.md) tracks cross-cutting research and POCs as non-binding material. Existing stage architecture, plans and findings remain accessible through this index.
+
+Future implementation baselines wait for their stage except for the scoped Stage 04 foundation exception in [roadmap.md](roadmap.md#sequencing-and-approval).
 The historical [sandbox](../sandbox/) is outside the active application architecture.
 
 ## Stage and milestone working process
