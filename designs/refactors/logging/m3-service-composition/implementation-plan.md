@@ -1,0 +1,52 @@
+# M3 plan and Codex handoff
+
+## Authority and approval
+
+Sharon approved the existing M3 behavioral design at `c516c94926af0355e387b3bbb92ac5d6118e7390` on 2026-11-18 and requested a separate M3 PR plus Codex instructions. The design explicitly listed unfinished technical choices. This preparation package records approval accurately and supplies proposed test cases. Follow [Codex handover rules](../../../governance/codex-handover-rules.md) and [stage/milestone workflow](../../../governance/stage-milestone-workflow.md).
+
+Base main: `cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4`. Target main. Continue the separate draft M3 PR; do not merge the design branch wholesale. Design PR #51 remains draft/open. The full ACT rename belongs to issue #56.
+
+## First task: finish the concrete design
+
+Read current repo instructions, guarded authorities and approved design. Inspect actual current configuration loader/models and setup/management code, excluding personal examples and secret values.
+
+Resolve and write concrete choices in this package:
+1. Docker project ownership: two independent names versus a single aggregate Compose project. Establish the minimal main entry point that preserves approved independent behavior. Do not assume Compose include preserves two independent project identities. Verify chosen Compose semantics with official docs and a disposable config probe.
+2. Exact config-to-Compose bridge: fields, loader reuse, selection behavior, disabled-component credentials, settings-to-container mapping and existing Langfuse compatibility. Avoid designing a full M4 CLI.
+3. Existing volume and credential migration: old/new identity mapping, collision detection, no concurrent writers, preserving encrypted Langfuse data, conflict handling, non-destructive repeat execution and recovery instructions. Existing Docker secrets currently live separately from the application's secrets.file.
+4. Concrete source paths, commands, schema additions, timeout/exit policy, required public docs and exact guarded logical amendments. Retain all existing project/file/path names; Docker components alone receive the new names.
+5. Turn MC-01–12 into concrete checks against those choices and reconcile the implementation order.
+
+Inspect existing owners:
+- app/tooling/logging/compose.yaml
+- app/tooling/observability/compose.yaml, manage.py, setup.py, README.md and tracked .env.example (never real .env)
+- app/src/agent_playbook/config/loader.py, models.py, paths.py
+- existing Langfuse CLI delegation and app/tests/tooling/test_langfuse_manage.py
+- logging/Langfuse read-only connection checks
+- app/docs/configuration.md, logging.md and setup/connection guides.
+
+The user has authorized drafting the shared-configuration principle and AGENTS.md rule. Present exact amendments within the completed design; preserve historical Stage 02 contracts. Do not silently turn an unresolved ownership change into an approved implementation decision.
+
+**Return the completed technical design/test/plan and unresolved policy choices to the originating design session before changing runtime code.** The guarded milestone workflow requires approval of a concrete revision. Do not describe the earlier behavioral approval as approval of subsequently invented migration/schema contracts. No runtime code, Docker data or credentials should be changed during this first task.
+
+## Bounded independent review
+
+Use Sol (gpt-6.1-sol when available) for delegated roles, record actual model IDs. One author/coder prepares the package; two separate reviewers inspect the same frozen candidate: design correctness/drift and test coverage. Maximum three total review rounds for this M3 delegation, including corrections; keep count across later continuation rather than resetting it. Reports under reviews/status.md and round-01/{implementation,design-drift,test-gap,orchestrator}.md; create later rounds only when used. During design completion explicitly label reports as documentation/design review, not runtime implementation PASS.
+
+Once concrete approval is obtained, follow the same governance for coding and same-candidate independent reviews; do not assume unused review rounds grant scope or merge authorization. If the cap is reached, report BLOCKED.
+
+## Subsequent implementation order (after concrete approval)
+
+1. Configuration/secret reuse and synthetic migration tests.
+2. Independent Compose definitions and identity/data-preserving transition.
+3. Minimal common entry point and compatibility with existing Langfuse tooling.
+4. MC regressions, component and combined validation, live acceptance when possible.
+5. Public configuration/setup docs, approved principle/AGENTS changes, Atlas/progress reconciliation.
+6. Mac verification .txt with exact supported commands and all remaining manual checks.
+7. Freeze candidate, independent reviews, final handoff. No merge.
+
+## Return format
+
+Return one copyable LOGGING M3 — DESIGN COMPLETION HANDOFF first: PR and candidate SHA; behavioral approval revision; completed design/test/plan links; technical decisions and evidence; proposed guarded changes; each reviewer verdict and reports; rounds used; unresolved questions; exact scope for next approval. Clearly state runtime implementation NOT STARTED.
+
+After actual implementation, use the full final-review return template in Codex handover rules. Distinguish candidate/published head, all MC IDs, failed/unrun evidence, models, rounds, branch drift and Mac/manual gap. Preserve M2 LG-10 until demonstrated.
