@@ -1,8 +1,14 @@
 # Application logging design
 
-**DRAFT — selected direction; concrete milestone approval pending.**
+**DRAFT — M1 and M2 implementation merged; live M2 acceptance pending.**
 
-Independent logging follow-on to completed Stage 02. It does not block Stage 03/04. Keep [PR #51](https://github.com/SharonLanger/agent-playbook/pull/51) draft and open; no merge or runtime implementation is authorized by this documentation update.
+Independent logging follow-on to completed Stage 02. It does not block Stage 03/04. Keep [PR #51](https://github.com/SharonLanger/agent-playbook/pull/51) draft and open pending the closeout requirement below.
+
+## Required before design closeout — 2026-11-18
+
+Sharon authorized implementation PR #55 to merge after the originating design-session final review passed. It merged at `180b6e769d979015ed76e09128e25a32456ed5a4`. M1 PR #54 is also merged. M2's approved contract is pinned at `caeb1637bd9aa611447703f4c19c38becacfe412`; the reviewed code/test candidate is `8770d076c5c586ff9f9830c43432dd127585033c`.
+
+**Before finalizing this logging design PR, close the LG-10 manual testing gap.** Run a real local M2 workflow against VictoriaLogs and record the exact workflow/correlation query, stored lifecycle/DEBUG/native chained-exception records, UI ordering and observed shutdown behavior. LG-10 remains **NOT RUN**. M1's observed smoke record does not substitute for this M2 evidence. Implementation merge approval does not establish live acceptance or authorize merging PR #51. See the [current M2 review status on main](https://github.com/SharonLanger/agent-playbook/blob/main/designs/refactors/logging/m2-application-logging/reviews/status.md).
 
 ## Current direction
 
@@ -21,8 +27,8 @@ Python logging → OpenTelemetry OTLP/HTTP → local VictoriaLogs (storage, quer
 
 | ID / outcome | Design / approved SHA | Implementation | Acceptance / merge |
 |---|---|---|---|
-| [M1: local configuration and synthetic log visible](m1-configuration-sanity/README.md) | Draft design/tests/plan; no approved SHA | Not started | Pending; unmerged |
-| [M2: runner-owned context logging](m2-application-logging/README.md) | Draft design/tests/plan; choices settled, concrete revision not approved | Not started | Pending |
+| [M1: local configuration and synthetic log visible](m1-configuration-sanity/README.md) | Approved M1 contract | Implemented | PR #54 merged; observed smoke evidence retained |
+| [M2: runner-owned context logging](m2-application-logging/README.md) | Approved `caeb1637` | Implemented; final design review PASS | PR #55 merged; LG-10 NOT RUN |
 | M3: main Compose entry point | Separate logging component exists from M1; reference component files and preserve Langfuse data/identity | Not started | Not approved |
 | M4: setup and logging management CLI | Proposed for discussion; prerequisites, start/stop/status/open/check | Not started | Not approved |
 
