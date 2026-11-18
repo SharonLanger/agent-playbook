@@ -1,8 +1,10 @@
 # Progress and acceptance
 
-## Logging M2 implementation review — 2026-11-18
+## Logging M2 merged — 2026-11-18
 
-The approved application logging M2 contract is pinned at `caeb1637bd9aa611447703f4c19c38becacfe412` on the draft, open logging design PR #51. M1 is merged on main at `8895c2dbf6674716656d5b780f8c181a743e44f2`. M2 is implemented on the separate `feat/logging-m2-application` branch and draft PR #55, based on that main commit. Both independent reviewers passed the round 02 code/test candidate `8770d07` after round 01 required changes; see [M2 reviews](refactors/logging/m2-application-logging/reviews/status.md). This is ready for originating design-session final review, while user acceptance and merge remain pending. Live VictoriaLogs stored-record/UI inspection and actual local shutdown observation remain NOT RUN in this environment. Neither implementation nor design PR is authorized for merge.
+Sharon authorized merging implementation PR #55 after the originating design-session final review passed with no required code corrections. PR #55 merged at `180b6e769d979015ed76e09128e25a32456ed5a4`; the reviewed code/test candidate remains `8770d076c5c586ff9f9830c43432dd127585033c` (reported full gate: 464 tests passed). M1 remains merged through PR #54.
+
+**Required before finalizing logging design PR #51:** close LG-10's manual testing gap with a real local M2 workflow run against VictoriaLogs. Record the exact workflow/correlation identity, inspect stored lifecycle and DEBUG records plus native chained-exception details, check UI ordering, and observe shutdown behavior. LG-10 remains **NOT RUN**; merge authorization does not establish live ingestion or user acceptance. Keep design PR #51 draft/open until this gap is closed and Sharon separately authorizes its finalization/merge. See [M2 review status](refactors/logging/m2-application-logging/reviews/status.md).
 
 ## Stage 03 closeout — 2026-11-16
 
