@@ -42,22 +42,16 @@ Freeze this design/test/plan candidate before two independent reviews. Reviewers
 Implementation sequence after that approval:
 
 1. Add narrow service-mode loader API and optional `local_service` typed blocks in `app/src/agent_playbook/config/{models,loader}.py`; adapt `app/application.yaml` with safe non-secret defaults and named references. Preserve workflow loader and existing env precedence. Test MC-02/05/06/07 fixtures first.
-2. Add `app/tooling/services/manage.py` and private mapping manifest handling. Reuse `app/tooling/observability/{manage,setup,compose}.py/yaml`, `app/tooling/logging/compose.yaml` and `check_services.py`. Force the two project names through `-p`; add external named volume interpolation and selected environment only. Wire direct Langfuse helper and its existing CLI delegation without changing CLI spelling. Validate migration and MC-01/03/04/08/09.
-3. Update canonical user configuration, local Langfuse, logging and connection guides, tooling READMEs and docs discovery. Apply only the separately approved guarded logical additions to principle 6, root AGENTS, architecture and project structure. Update status and Atlas after implementation evidence; preserve Stage 02 history.
+2. Add `app/tooling/services/manage.py` and private mapping manifest handling. Reuse `app/tooling/observability/{manage,setup,compose}.py/yaml`, `app/tooling/logging/compose.yaml` and `app/tooling/logging/check_services.py`. Force the two project names through `-p`; add external named volume interpolation and selected environment only. Wire direct Langfuse helper and its existing CLI delegation without changing CLI spelling. Validate migration and MC-01/03/04/08/09.
+3. Update canonical user configuration, local Langfuse, logging and connection guides, tooling READMEs and `app/docs/cli.md` plus docs discovery. Apply only the separately approved guarded logical additions to principle 6, root AGENTS, architecture and project structure. Update status and Atlas after implementation evidence; preserve Stage 02 history.
 4. Run `python3 designs/atlas/build.py --check` and app's maintained `app/.venv/bin/agent-playbook check` and `app/.venv/bin/agent-playbook test` with app/examples excluded. Run disposable `docker compose config --quiet` for both projects and relevant live checks when daemon available. Record exact revision, versions, failures and skips. Create Mac `.txt` in M3 for Sharon's real-data verification, including LG-10. Never use `down -v`.
 5. Freeze code/test candidate; one coder and two independent Sol reviewers assess the same SHA, at most three rounds per the handover rules. Reports retained under `reviews/`; no merge or ready-for-review promotion without originating design-session final review and Sharon's later decision.
 
-The current design-stage local probe used Docker CLI 29.9.2 / Compose v2.40.3. `docker compose config` ran without daemon; Docker API access was denied, so no live Docker or Mac acceptance was performed. Official semantics: [project name](https://docs.docker.com/compose/how-tos/project-name/), [interpolation](https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/), [external volume](https://docs.docker.com/reference/compose-file/volumes/), [down](https://docs.docker.com/reference/cli/docker/compose/down).
+The current design-stage local probe used Docker CLI 29.9.2 / Compose v2.40.3. A second probe with a synthetic `/tmp/.env` and `COMPOSE_DISABLE_ENV_FILE=1` failed on the required missing `TARGET`, confirming default dotenv suppression in this installed Compose version. `docker compose config` ran without daemon; Docker API access was denied, so no live Docker or Mac acceptance was performed. Official semantics: [project name](https://docs.docker.com/compose/how-tos/project-name/), [interpolation](https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/), [external volume](https://docs.docker.com/reference/compose-file/volumes/), [down](https://docs.docker.com/reference/cli/docker/compose/down).
 
-## Subsequent implementation order (after concrete approval)
+## Implementation order summary
 
-1. Configuration/secret reuse and synthetic migration tests.
-2. Independent Compose definitions and identity/data-preserving transition.
-3. Minimal common entry point and compatibility with existing Langfuse tooling.
-4. MC regressions, component and combined validation, live acceptance when possible.
-5. Public configuration/setup docs, approved principle/AGENTS changes, Atlas/progress reconciliation.
-6. Mac verification .txt with exact supported commands and all remaining manual checks.
-7. Freeze candidate, independent reviews, final handoff. No merge.
+The five steps above are the complete order. Use the exact proposed commands and migration gate in [design.md](design.md#exact-operator-commands-repository-root-proposal). Do not treat the design-stage reports as implementation evidence.
 
 ## Return format
 
