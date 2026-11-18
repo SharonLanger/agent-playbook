@@ -35,6 +35,20 @@ Use Sol (gpt-6.1-sol when available) for delegated roles, record actual model ID
 
 Once concrete approval is obtained, follow the same governance for coding and same-candidate independent reviews; do not assume unused review rounds grant scope or merge authorization. If the cap is reached, report BLOCKED.
 
+## Concrete design gate and implementation sequence proposal
+
+Freeze this design/test/plan candidate before two independent reviews. Reviewers inspect the same candidate SHA, then report design correctness and MC coverage separately; no runtime PASS can be granted in this phase. Publish reports under `reviews/` and distinguish candidate from report-only head. Do not edit runtime, guarded files or public shipped-behavior guides before Sharon approves this completed contract and each enumerated guarded logical amendment.
+
+Implementation sequence after that approval:
+
+1. Add narrow service-mode loader API and optional `local_service` typed blocks in `app/src/agent_playbook/config/{models,loader}.py`; adapt `app/application.yaml` with safe non-secret defaults and named references. Preserve workflow loader and existing env precedence. Test MC-02/05/06/07 fixtures first.
+2. Add `app/tooling/services/manage.py` and private mapping manifest handling. Reuse `app/tooling/observability/{manage,setup,compose}.py/yaml`, `app/tooling/logging/compose.yaml` and `check_services.py`. Force the two project names through `-p`; add external named volume interpolation and selected environment only. Wire direct Langfuse helper and its existing CLI delegation without changing CLI spelling. Validate migration and MC-01/03/04/08/09.
+3. Update canonical user configuration, local Langfuse, logging and connection guides, tooling READMEs and docs discovery. Apply only the separately approved guarded logical additions to principle 6, root AGENTS, architecture and project structure. Update status and Atlas after implementation evidence; preserve Stage 02 history.
+4. Run `python3 designs/atlas/build.py --check` and app's maintained `app/.venv/bin/agent-playbook check` and `app/.venv/bin/agent-playbook test` with app/examples excluded. Run disposable `docker compose config --quiet` for both projects and relevant live checks when daemon available. Record exact revision, versions, failures and skips. Create Mac `.txt` in M3 for Sharon's real-data verification, including LG-10. Never use `down -v`.
+5. Freeze code/test candidate; one coder and two independent Sol reviewers assess the same SHA, at most three rounds per the handover rules. Reports retained under `reviews/`; no merge or ready-for-review promotion without originating design-session final review and Sharon's later decision.
+
+The current design-stage local probe used Docker CLI 29.9.2 / Compose v2.40.3. `docker compose config` ran without daemon; Docker API access was denied, so no live Docker or Mac acceptance was performed. Official semantics: [project name](https://docs.docker.com/compose/how-tos/project-name/), [interpolation](https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/), [external volume](https://docs.docker.com/reference/compose-file/volumes/), [down](https://docs.docker.com/reference/cli/docker/compose/down).
+
 ## Subsequent implementation order (after concrete approval)
 
 1. Configuration/secret reuse and synthetic migration tests.
