@@ -12,7 +12,7 @@ The caller only needs to identify this playbook and the PR URL. Resolve the sour
 
 Discover the design from the PR-specific rules first, then the PR description or explicitly supplied design reference. Record the exact revision and approval evidence. An absent or ambiguous design/approval is a review blocker, not a reason to ask the user to repeat information already discoverable. Continue useful inspection and report the unresolved input. Do not infer approval from a draft, a merge, or a previous review.
 
-Choose a local staging directory automatically and use the configured Drive destination below. The user does not need to supply an output path, review number, previous report, or handoff procedure.
+Choose a local staging directory automatically and use the Drive destination explicitly supplied for this invocation. Request the destination if it is missing. The user does not need to supply a local output path, review number, previous report, or handoff procedure.
 
 ## Instructions to load
 
@@ -47,11 +47,11 @@ Before reviewing, read `reviews.json` and list numbered folders in the configure
 
 ## Shared reports in Google Drive
 
-Use the existing Google Drive folder [agent-work](https://drive.google.com/drive/folders/11cjNdBxU--Yk9zTn4GSb0a-doMa2iWtW) as the shared destination. Resolve this folder by its ID; the display name is not its identity. A local workspace path is staging only; another session cannot be assumed to see it.
+Use only a Google Drive destination explicitly supplied for this invocation. No personal folder URL or ID is configured in this repository. Resolve the supplied folder by its ID; the display name is not its identity. A local workspace path is staging only; another session cannot be assumed to see it.
 
 ### Resolve the destination and write boundary
 
-1. Use the configured root folder above, or a replacement explicitly supplied by the user. Verify that it is an accessible folder. If missing, inaccessible, or ambiguous, request its link and report shared delivery as blocked. Do not create a replacement root or select a similarly named folder.
+1. Use the root folder explicitly supplied by the user for this invocation. Verify that it is an accessible folder. If missing, inaccessible, or ambiguous, request its link and report shared delivery as blocked. Do not create a replacement root or select a similarly named folder.
 2. Resolve children by parent folder ID and exact name, creating missing project and PR folders under the verified root as needed: `agent-work/<exact-project-key>/pr-<number>/`. For this project, use `system-one-harness` exactly. Verify the source repository and PR against the launch before uploading. If that project folder is already associated with another repository, stop and clarify.
 3. Read the current PR's `reviews.json` and list existing review folders. Allocate one more than the highest number in either location: `review-01`, `review-02`, etc., with at least two digits. Never reuse a number, including an incomplete run. Two reviews of the same commit still get different numbers. Record the returned folder ID; Drive names alone are not unique. Follow the index protocol below before beginning a new run.
 4. During this invocation, remote writes are limited to creating the necessary descendant folders, creating/updating artifacts inside this invocation's review directory, and maintaining its own entry in the current PR's `reviews.json`. Every file write must specify the verified parent or file ID. Never upload to Drive root by omitting the parent. Do not edit another PR, project, or review run; do not delete, move, or rename existing shared artifacts or alter sharing permissions. On retry, resume only a run whose exact ID is recorded for this invocation; otherwise create a new run.

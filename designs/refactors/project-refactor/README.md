@@ -99,9 +99,25 @@ The [design contract](../../governance/design-contract.md) and [guarded-file reg
 This note belongs under `designs/refactors/` because it records a proposed change to repository documentation structure and its eventual verification. The governing sources are the [charter](../../charter.md), [principles](../../principles.md), [project structure](../../project-structure.md) and [design contract](../../governance/design-contract.md). The [agent execution exploration](../../explorations/agent-execution/README.md) provides the historical role and path inventory. The [harness exploration](../../explorations/harness.md) provides context for keeping harness ideas separate from approved application responsibilities.
 
 - Principles 1, 3, 4, 8, 9, 11, 12, 13, 14 and 15 apply through explicit guarded approval, unchanged approved boundaries, learning ownership, revision-specific evidence, bounded scope, retention, provenance, personal-sandbox isolation, official-guide assessment and explicit draft status.
-- Principle 2 applies to keeping historical configuration and links as provenance while leaving access and publication assessment with the authorized owners. Principles 5, 6, 7 and 10 concern implementation, configuration, runtime gates and deployment. The draft adds a Markdown file and changes no executable behavior.
-- The draft leaves current status, official guides and Atlas inputs unaffected because it records a proposal inside an existing documentation boundary. The current Atlas should not present the proposed structure as implemented.
+- Principle 2 applies to keeping historical configuration and links as provenance while leaving access and publication assessment with the authorized owners. Principles 5, 6, 7 and 10 concern implementation, configuration, runtime gates and deployment. The PR records this proposal and removes private Drive URLs from current tracked Markdown; it changes no executable behavior.
+- The structural proposal leaves current status, official guides and Atlas inputs unaffected. The separately authorized Drive-link cleanup preserves status/verification claims and records private checklist titles without their URLs. The current Atlas should not present the proposed structure as implemented.
 - Baseline verification read all 17 sandbox files and checked the path dependencies. The existing Atlas builder completed its input checks, but `--check` reported a pre-existing freshness failure against `main` at the recorded SHA. All 76 input and output files used by the check matched their baseline Git blobs. Regeneration differed in the embedded diagrams, source fingerprint and final newline. The draft records that discrepancy for later reconciliation.
+
+## Publication-link decision and applied cleanup — 2026-11-18
+
+Sharon requested removal of Google Drive links from current repository files and explicitly accepted leaving their older commit-history occurrences unchanged. This authorizes the URL cleanup in this PR; the folder migration above remains proposed.
+
+The cleanup removes 10 Markdown link targets from these five files while retaining checklist names, historical verification claims, and repository-local guidance:
+
+- `designs/progress.md`
+- `designs/stages/02-langfuse/resolution-2026-11-13.md`
+- `designs/stages/02-langfuse/user-verification.md`
+- `designs/stages/02-langfuse/verification-simplification-plan.md`
+- `sandbox/agents/reviewer.md`
+
+The reviewer guide now requires an explicitly supplied Drive destination instead of configuring a personal folder in the repository. Destination discovery and delivery must still be verified; no external document or sharing setting is changed by this cleanup.
+
+Scope and verification: the preceding exposure audit located these links in current tracked content at the unchanged main baseline above; this branch previously added only this proposal. The five affected files and this proposal were checked for remaining Drive URLs and copied destination IDs after editing. The Markdown table labels and local navigation remain intact. Historical links are accepted by the owner and are not removed through a history rewrite. This decision resolves the intended treatment of audit item F-002; main still requires the PR to be merged before its current files reflect the cleanup. Other audit items, metadata-email decisions and coverage limits remain open.
 
 ## Remaining decisions
 
