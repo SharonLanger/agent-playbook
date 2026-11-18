@@ -232,6 +232,16 @@ def load_configuration(path: str | None = None) -> ApplicationSettings:
             else:
                 langfuse[field] = None
         integration["langfuse"] = langfuse
+        logging_settings = _mapping(integration.get("logging", empty))
+        for field in ("enabled", "level", "endpoint"):
+            variable = f"AGENT_PLAYBOOK_LOGGING_{field.upper()}"
+            if variable in environment:
+                logging_settings[field] = (
+                    _boolean(environment[variable], variable)
+                    if field == "enabled"
+                    else environment[variable]
+                )
+        integration["logging"] = logging_settings
         data["integrations"] = integration
         return ApplicationSettings.model_validate(data)
     except ValidationError as error:

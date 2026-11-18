@@ -6,6 +6,7 @@ This is the maintained official product documentation for new and existing users
 |---|---|
 | [CLI and releases](cli.md) | Commands, source versus installed runs, checks, formatting, version changes and releases |
 | [Configuration](configuration.md) | Which settings file is loaded, local/environment overrides, external secrets files, CrewAI controls and PyCharm examples |
+| [Application logging](logging.md) | Configure local OTLP diagnostics, use context helpers and explicitly check service health |
 | [Langfuse connection](langfuse-connection.md) | Store project keys outside the repository and explicitly check project authentication |
 | [Langfuse hands-on](langfuse-hands-on.md) | Authenticate, run synthetic traces, inspect steps and verify local persistence |
 | [Running workflows](workflows.md) | Choose supported integrated workflows, provide input, read results and understand native tracing limits |

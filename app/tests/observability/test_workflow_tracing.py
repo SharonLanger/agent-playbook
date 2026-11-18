@@ -625,3 +625,62 @@ def test_committed_framework_default(
         load_configuration(str(selected)).integrations.crewai.show_framework_events
         is False
     )
+
+
+def test_round2_simultaneous_production_logs_and_native_traces(
+    tracing: tuple[Langfuse, InMemorySpanExporter],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from opentelemetry.sdk._logs.export import InMemoryLogRecordExporter
+
+    from agent_playbook.observability.logging import log_error, logger
+
+    class Recovered(FixtureWorkflow):
+        def _execute(self) -> object:
+            try:
+                raise ValueError("recovered operation")
+            except ValueError as error:
+                log_error(self.context, "Recovered operation", exception=error)
+            return "recovered"
+
+    from opentelemetry.sdk._logs import LoggerProvider
+
+    original_flush = LoggerProvider.force_flush
+    cleanups: list[bool] = []
+
+    def flush(provider: LoggerProvider, timeout_millis: int = 30000) -> bool:
+        cleanups.append(not trace.get_current_span().get_span_context().is_valid)
+        return original_flush(provider, timeout_millis)
+
+    logs = InMemoryLogRecordExporter()
+    monkeypatch.setenv("AGENT_PLAYBOOK_LOGGING_ENABLED", "true")
+    global_provider = trace.get_tracer_provider()
+    handlers = list(logger.handlers)
+    with (
+        patch.object(LoggerProvider, "force_flush", flush),
+        patch(
+            "agent_playbook.observability.adapters.otel_logging.runtime.OTLPLogExporter",
+            return_value=logs,
+        ),
+        patch(
+            "agent_playbook.application.workflow_runner.workflow_registry",
+            return_value={"step_sequence": Recovered},
+        ),
+    ):
+        result = run_workflow("wf-01")
+    assert result.output == "recovered" and logger.handlers == handlers
+    assert cleanups == [True]
+    assert trace.get_tracer_provider() is global_provider
+    root = next(s for s in spans(tracing) if s.name == "wf-01")
+    records = [record.log_record for record in logs.get_finished_logs()]
+    assert [r.body for r in records if r.severity_text == "ERROR"] == [
+        "Recovered operation"
+    ]
+    assert records[-1].body == "Workflow completed"
+    for record in records:
+        assert record.trace_id == span_context(root).trace_id
+        assert record.span_id == span_context(root).span_id
+        assert record.attributes is not None
+        for field in ("correlation_id", "workflow_id", "workflow_run_id"):
+            assert record.attributes[field] == metadata(root, field)
+    assert root.status.status_code != StatusCode.ERROR

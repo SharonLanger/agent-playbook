@@ -1,0 +1,11 @@
+# Round 02 design-drift review
+
+Author: independent design-drift reviewer, `gpt-6.1-sol`. Frozen code/test candidate: `8770d076c5c586ff9f9830c43432dd127585033c`; base: `8895c2dbf6674716656d5b780f8c181a743e44f2`; approved contract: `caeb1637bd9aa611447703f4c19c38becacfe412`. Verdict: **PASS**. Scope: full implementation diff and round 01 findings. No edits or examples access.
+
+**DD-M2-01 — High — CLOSED.** `app/src/agent_playbook/application/workflow_runner.py:231` now converts native output only when Langfuse is enabled and keyed, inside telemetry exception containment. Actual `serialize_output()` remains within its classified business boundary. Independent probes supplied an unsupported `object()` as validated output and successful `"valid-display"` serialization: disabled and enabled tracing both returned `"valid-display"`; enabled conversion failure yielded only a fixed warning. The parametrized regression also asserts conversion call counts.
+
+**TG-01 — High — security correction verified.** At `workflow_runner.py:164`, native exception attachment is omitted for `WorkflowInputError` and `ConfigurationError`. Application exception classification and ValidationError cause remain raised. An independent real OTel memory export of rejected `INPUT_SECRET_SENTINEL` produced a failed record without the sentinel. Other operational exceptions retain native details, and separately approved native Langfuse capture is unchanged.
+
+The full delta remains within approved M2 scope. LOG-G01–06 dated amendments preserve Stage 02 history. Standard SDK/provider boundaries, explicit service checks, configuration safeguards, public documentation and pending acceptance status remain consistent. No new design-drift findings or deviations.
+
+Checks: selected maintained logging/runner checks **16 passed, 30 deselected**; unsupported-output and input-sentinel probes **PASS**; Atlas reference/hierarchy/guard/sandbox/freshness **PASS**; candidate diff whitespace **PASS**. The reviewer did not independently rerun the full application gate or release validation. Live LG-10 stored-record/UI/shutdown acceptance remains **NOT RUN**. PASS is design alignment, not user acceptance or merge authorization.

@@ -85,3 +85,18 @@ Selected project licenses are Apache-2.0:
 [OTel SDK/exporter v1.45.2](https://github.com/open-telemetry/opentelemetry-python/blob/v1.45.2/LICENSE),
 and [logging instrumentation v0.66b2](https://github.com/open-telemetry/opentelemetry-python-contrib/blob/v0.66b2/LICENSE).
 These project licenses do not certify all transitive dependencies or container layers.
+
+
+## Application integration and explicit checks
+
+Application workflow logging is configured through the existing YAML loader; see
+[Application logging](../../docs/logging.md) for defaults, helper calls, safe
+failure behavior and limitations. Run the read-only diagnostic explicitly:
+
+```bash
+.venv/bin/python tooling/logging/check_services.py --config application.yaml
+```
+
+The VictoriaLogs check uses the selected release's `/health` endpoint (HTTP 200),
+without writes, proxies or redirects; local direct deployment authentication is
+not applicable. Health success is distinct from the smoke's ingestion/UI check.

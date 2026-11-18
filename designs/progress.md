@@ -1,5 +1,9 @@
 # Progress and acceptance
 
+## Logging M2 implementation review — 2026-11-18
+
+The approved application logging M2 contract is pinned at `caeb1637bd9aa611447703f4c19c38becacfe412` on the draft, open logging design PR #51. M1 is merged on main at `8895c2dbf6674716656d5b780f8c181a743e44f2`. M2 is implemented on the separate `feat/logging-m2-application` branch and draft PR #55, based on that main commit. Both independent reviewers passed the round 02 code/test candidate `8770d07` after round 01 required changes; see [M2 reviews](refactors/logging/m2-application-logging/reviews/status.md). This is ready for originating design-session final review, while user acceptance and merge remain pending. Live VictoriaLogs stored-record/UI inspection and actual local shutdown observation remain NOT RUN in this environment. Neither implementation nor design PR is authorized for merge.
+
 ## Stage 03 closeout — 2026-11-16
 
 Stage 03 is complete and accepted by Sharon on 2026-11-16. He confirmed that he checked everything and that it was good, authorized removal of the temporary verification scripts, and explicitly authorized merging design PR #52. Implementation PR #53 merged at 529fe15895afc8211d833fc2544e98f0d18fb451. The eight temporary recipe verify.py files are removed in this closeout; existing concept tests and permanent recipe behavior are preserved. Review evidence remains at test-bearing revision 906e0e5921fae726f37c5bdbb61551578373c908. See [Stage 03](stages/03-orchestration-patterns/README.md). Logging and Stage 04 remain separately owned.
