@@ -39,7 +39,7 @@ The historical [sandbox](../sandbox/) is outside the active application architec
 
 ## Stage and milestone working process
 
-Read [Stage and milestone working method](governance/stage-milestone-workflow.md) before planning a stage or milestone: shared requirements/decisions/progress, alignment checkpoint, milestone subfolders, design/test/plan and approval. Before implementation delegation, read [Codex handover rules](governance/codex-handover-rules.md): Sol roles, coder plus two independent reviewers, three rounds maximum, permanent reports and exact copyable outgoing/return templates. These rules apply across the repository; existing approved packages are not automatically reorganized.
+Read the [stage and milestone working method](governance/stage-milestone-workflow.md) before planning a stage or milestone. It defines shared requirements and decisions, the milestone/status table and next action in the stage README, milestone folders and incremental approval. Before delegating implementation, read the [Codex handover rules](governance/codex-handover-rules.md) for the Sol roles, independent reviews, three-round cap, permanent reports and handoff templates. Existing approved packages retain their established layout.
 
 ## Permanent material and handoffs
 

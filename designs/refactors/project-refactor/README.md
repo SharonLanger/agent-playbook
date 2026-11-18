@@ -1,8 +1,8 @@
 # Project refactor
 
-**Status — draft proposal for review.** Based on [`main` at `cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4`](https://github.com/SharonLanger/agent-playbook/commit/cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4).
+**Status — draft PR.** The [stage and milestone structure](stage-structure.md) is approved and documented in this PR. The shared-learning and root-sandbox migration remains proposed. The migration inventory uses [`main` at `cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4`](https://github.com/SharonLanger/agent-playbook/commit/cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4).
 
-Sharon agreed to the structure and retention direction in the 2026-11-18 project-structure discussion and requested a Markdown proposal in a new PR. That authorizes recording the proposal. The archive location, the six destination filenames, the guarded amendments and the eventual migration still need approval. Every move, retirement and rewrite below describes future work.
+Sharon agreed to the structure and retention direction in the 2026-11-18 project-structure discussion and requested a Markdown proposal in a new PR. The archive location, the six destination filenames, the migration-specific guarded amendments and the migration itself still need approval. The moves, retirements and rewrites below describe a later phase of this PR.
 
 ## Goal and scope
 
@@ -74,7 +74,7 @@ Label the retained reference documents as historical and the three ideas as draf
 
 The baseline text search covered the relevant tracked Markdown, configs, source and generated Atlas output, excluding `app/examples/`. It found no live references to the moving paths in `app/docs/` or application code. Before a migration, repeat the targeted search on its actual base and inspect any affected branch or open PR references and known external links. Preserve immutable citations and validate live links from the new locations. Historical research inventories should remain understandable as snapshots even after old live paths leave `main`.
 
-### Guarded amendments for a later PR
+### Guarded amendments for the migration phase
 
 | Guarded file | Proposed logical change for Sharon to review |
 | --- | --- |

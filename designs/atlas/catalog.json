@@ -115,6 +115,12 @@
               "to": null
             },
             {
+              "name": "Stage and milestone working method",
+              "path": "designs/governance/stage-milestone-workflow.md",
+              "text": "Canonical guidance for stage and milestone documents, approvals, PRs and review.",
+              "to": null
+            },
+            {
               "name": "Approved design",
               "path": "designs/architecture.md",
               "text": "Component architecture; some integrations await implementation.",
@@ -1123,6 +1129,11 @@
           "path": "designs/principles.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
+        },
+        {
+          "path": "designs/governance/stage-milestone-workflow.md",
+          "status": "Guarded governance",
+          "purpose": "Canonical stage and milestone organization and working method."
         },
         {
           "path": "designs/progress.md",
