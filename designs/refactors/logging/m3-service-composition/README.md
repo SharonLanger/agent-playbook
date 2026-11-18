@@ -1,6 +1,6 @@
 # Logging M3 — independent service composition
 
-Behavioral design approved by Sharon on 2026-11-18 at `c516c94926af0355e387b3bbb92ac5d6118e7390`. Current package is a **design-completion handoff**, not a claim that unresolved deployment details are implemented or verified.
+Behavioral design approved by Sharon on 2026-11-18 at `c516c94926af0355e387b3bbb92ac5d6118e7390`. Current package is a **design-completion proposal**, not an implementation or live verification claim.
 
 ## Reading order
 
@@ -15,7 +15,7 @@ Base: main `cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4`, after merged Logging M1 a
 | Item | State |
 |---|---|
 | User-facing behavior | Approved |
-| Compose ownership / configuration bridge / credential and volume migration details | Require concrete design completion |
+| Compose ownership / configuration bridge / credential and volume migration details | Concrete proposal written; independent review and Sharon's approval pending |
 | Test cases and implementation plan | Drafted to operationalize approved behavior; review with completed technical design |
 | Runtime implementation and acceptance | Not started / NOT RUN |
 | M2 LG-10 live acceptance | NOT RUN; must close before finalizing logging design PR #51 |
