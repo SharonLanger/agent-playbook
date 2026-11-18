@@ -4,11 +4,11 @@ Status: DRAFT. Sharon confirmed the requirements below on 2026-11-18. Detailed C
 
 ## Confirmed behavior
 
-- Project name selected: ACT — Agent Casting Theater; full name agent-casting-theater. Repository/package/CLI-wide renaming is a separate refactor.
-- Component names selected: act-logs and act-langfuse.
+- Docker component names selected: act-logs and act-langfuse. These are the only naming changes in M3.
+- Repository, package, CLI, files, folders, user paths and broader documentation renaming are excluded from this design and tracked separately in [issue #56](https://github.com/SharonLanger/agent-playbook/issues/56).
 - Each component starts and stops independently. A shared service-management entry point selects components using their integration configuration's enabled property.
 - Service management is explicit; normal workflow execution does not automatically start Docker or introduce a health prerequisite.
-- Stop remains possible after disabling an integration. Start/stop preserves stored data. A rename must not silently create duplicate stacks or empty replacement volumes.
+- Stop remains possible after disabling an integration. Start/stop preserves stored data. Docker component renaming must not silently create duplicate stacks or empty replacement volumes.
 - Reuse each component's Compose definition. Exact aggregate/project ownership must be verified; two independent project names must not be represented as already solved by one Compose include.
 - Supply Sharon one plain-text Mac verification guide after implementation, containing exact commands, expected results, independent/combined operation, persistence checks and the remaining M2 live logging checks. Keep LG-10 open until actual evidence is recorded before finalizing design PR #51.
 
@@ -18,7 +18,7 @@ All integrations use the selected shared application YAML and its existing local
 
 Non-secret settings belong in shared application configuration. Tokens, passwords and other secret values belong in the same external secrets file selected by secrets.file, already used for Langfuse credentials and available to other integrations. YAML contains named references rather than literal secrets. Future components follow this same rule.
 
-The current default is ~/.config/agent-playbook/secrets.env. ACT naming does not silently relocate that file. Any later path migration must preserve existing contents and documented selection precedence.
+The current default remains ~/.config/agent-playbook/secrets.env. M3 preserves existing project, package, CLI, file and folder names and user paths; any broader naming migration belongs to issue #56. Shared-secret consolidation uses the existing configured secrets.file path.
 
 The selected direct local VictoriaLogs deployment currently requires no credentials. Document this explicitly; do not invent a token/password or add authentication middleware merely to populate the section. If a later approved deployment needs credentials, it uses the shared secrets mechanism.
 
@@ -41,7 +41,7 @@ The M3 implementation contract must include these locations and consequences:
 | designs/architecture.md and designs/project-structure.md | Reconcile configuration/deployment ownership where necessary; enumerate any concrete guarded changes before implementation. |
 | app/docs/configuration.md | Canonical user explanation: YAML sections, secrets.file, path/precedence, safe placeholder examples, adding future integration credentials, and application versus deployment consumers. Replace the currently separate Docker .env guidance only when migration is implemented. |
 | app/docs/logging.md and Langfuse setup/connection guides | Link to the canonical credentials section; explain VictoriaLogs currently needs no credentials and document the supported migration/setup procedure. |
-| Setup examples/templates and documentation discovery links | Use placeholders and references only; no real secrets. Keep names and links aligned with implemented behavior. |
+| Setup examples/templates and documentation discovery links | Use placeholders and references only; no real secrets. Document M3 Docker names and behavior; retain existing project, package, CLI and path names. |
 
 Sharon explicitly requested the guarded shared-configuration rule and AGENTS.md guidance, then confirmed shared YAML plus the same secrets file as Langfuse/CrewAI. This draft records that scope. Concrete protected-file amendments must remain inspectable and must not silently rewrite historical Stage 02 acceptance. Public guides must describe shipped behavior; this design draft does not claim migration has happened.
 
