@@ -2,7 +2,7 @@
 
 **Status — draft PR.** [Project refactor PR #59](https://github.com/SharonLanger/agent-playbook/pull/59) contains the approved [stage and milestone structure](stage-structure.md), the [existing-stage alignment](stage-alignment.md), and the authorized [shared-learning and root-sandbox migration](learning-sandbox-migration.md). The migration is applied on the draft branch. Its independent review has a separate evidence record.
 
-Sharon agreed to the structure and retention direction in the 2026-11-18 project-structure discussion. On 2026-11-19 she authorized the shared-learning and root-sandbox migration using the proposed destinations and archive, with the two guarded navigation and ownership amendments recorded in the [migration record](learning-sandbox-migration.md).
+Sharon agreed to the structure and retention direction in the 2026-11-18 project-structure discussion. On 2026-11-19 Sharon authorized the shared-learning and root-sandbox migration using the proposed destinations and archive, with the two guarded navigation and ownership amendments recorded in the [migration record](learning-sandbox-migration.md).
 
 ## Historical proposal and baseline inventory
 
