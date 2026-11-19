@@ -260,7 +260,7 @@
             {
               "name": "Execution and observability",
               "path": "app/src/agent_playbook/execution/ + observability/",
-              "text": "Reserved boundaries; SDK/telemetry integrations await implementation.",
+              "text": "Stage 02 delivered native Langfuse tracing. Native agent SDK integration remains future work.",
               "to": "integrations"
             }
           ],
@@ -465,7 +465,7 @@
             {
               "name": "Observability boundary",
               "path": "app/src/agent_playbook/observability/",
-              "text": "M2 project connection and M3 mock span writer merged through PR #36; workflow trace export remains future work.",
+              "text": "PR #36 delivered the project check and mock traces. PR #50 delivered native workflow tracing with automatic CrewAI observations.",
               "to": null
             },
             {
@@ -2400,7 +2400,7 @@
             {
               "name": "Context design",
               "path": "designs/stages/02-langfuse/workflow-integration/m1-context/design.md",
-              "text": "Exact schema, runner/factory/workflow/Flow path, correlation preservation and proposed guarded amendments.",
+              "text": "Exact schema, runner/factory/workflow/Flow path, correlation preservation and recorded guarded amendments.",
               "to": null
             },
             {
@@ -2424,17 +2424,17 @@
             {
               "name": "CrewAI research",
               "path": "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
-              "text": "1.1.25 instrumentor, eight cases/44 spans; actual application and local ingestion still pending.",
+              "text": "Historical released-version probe: instrumentor 1.1.25, eight cases and 44 spans. Stage 02 acceptance is recorded separately.",
               "to": null
             },
             {
               "name": "Repository reconciliation",
               "path": "designs/stages/02-langfuse/workflow-integration/repository-updates.md",
-              "text": "Pending guarded changes, progress updates and later acceptance gates.",
+              "text": "Historical reconciliation checklist for guarded changes, progress and acceptance. See the Stage 02 closeout for completed work.",
               "to": null
             }
           ],
-          "note": "M4.1 candidate 16c1580: two review rounds, final review PASS. D30/R31 retained; Combined tracing version-2 draft awaits contract approval.",
+          "note": "M4.1 candidate 16c1580 passed final review after two rounds. D30/R31 are retained. M4.2 and M4.3 were approved, accepted and merged together through PR #50.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/stages/02-langfuse/workflow-integration/README.md"
