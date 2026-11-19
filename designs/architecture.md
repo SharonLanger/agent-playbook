@@ -9,7 +9,7 @@ and testing workflows. A developer selects a workflow and supplies typed input.
 The application prepares the run; CrewAI Flows coordinates its steps; Python logic
 and agent SDK adapters perform the work; Langfuse exposes correlated execution traces.
 
-[Open the diagram collection](diagrams/README.md) · [Walk through a run](learning/architecture-walkthrough.md)
+[Open the diagram collection](diagrams/README.md) · [Walk through a run](architecture-walkthrough.md)
 
 ## System structure
 

@@ -6,7 +6,7 @@ Status: **Complete — accepted by Sharon on 2026-11-16; PR #53 merged; design c
 
 [Final review and remaining work](m1-recipe-batch/reviews/final-review.md) records independent checks and distinguishes them from the implementation reviewers' runtime evidence.
 
-[Decision log](decisions.md) records sources, rationale, superseded proposals and open choices. This README is the specification, coverage map and canonical batch index. Stage Design PR: [#52](https://github.com/SharonLanger/agent-playbook/pull/52).
+[Decision log](decisions.md) records sources, rationale, superseded proposals and open choices. This README is the stage index and coverage map. The shared requirements are in [requirements.md](requirements.md). Stage Design PR: [#52](https://github.com/SharonLanger/agent-playbook/pull/52).
 
 ## Agreed purpose
 
@@ -18,22 +18,7 @@ Stage 02 is completed. Logging remains a separate workstream. Stage 04 agent exe
 
 ## Requirements and current scope
 
-| ID | Requirement | Authority / status |
-|---|---|---|
-| S03-R01 | A bounded collection of eight useful, permanent, copyable recipes C01–C08. | Batch accepted in U09 |
-| S03-R02 | Map existing coverage first. Reuse prior examples, while allowing an existing concept to be composed into a practical recipe. | User clarification; revision-loop recipe explicitly requested |
-| S03-R03 | Check the CrewAI behavior being taught using example output and focused temporary verification where useful. No application or trace integration acceptance. | User clarification supersedes the initial application/tracing interpretation |
-| S03-R04 | CrewAI remains scheduler and Flow state owner. Label ordinary Python logic honestly; do not invent a new orchestration framework. | Existing architecture; scoped to standalone examples |
-| S03-R05 | Logging is separate and not a prerequisite. | Agreed |
-| S03-R06 | No real agents, production recovery framework, human approval service or distributed worker platform. Retry/fallback recovery is deferred. | Roadmap boundary and user scope |
-| S03-R07 | Agree and implement a complete batch together in one implementation PR, not a separate implementation cycle per recipe. Keep the ongoing Stage Design PR separate and draft/open. | User batch instruction; existing Stage Design lifecycle |
-| S03-R08 | Preserve decisions, rationale, sources and pending choices. | Agreed |
-| S03-R09 | Organize app/examples/workflows into concepts/ for existing examples and recipes/ for practical compositions. | Explicitly accepted; merged through PR #53 |
-| S03-R10 | Each new recipe contains README.md, flow.py, run.py and input.json. README is the learning guide. | Explicitly accepted |
-| S03-R11 | No permanent new test files. Retain the eight temporary verify.py scripts through implementation merge; remove them during Stage 03 closeout before marking the stage done and merging design PR #52. Preserve evidence. | U10 / S03-D26 supersedes the original cleanup timing |
-| S03-R12 | Direct PyCharm run.py execution and copying a whole recipe folder are primary uses. No imports from another example or application runtime are needed. | Agreed independence goal |
-
-Existing tests in the older concepts are not authorized for deletion by R11; that instruction concerns new recipes and temporary checks.
+Read the [shared Stage 03 requirements](requirements.md) for S03-R01–R12 and the scope of the temporary-test cleanup.
 
 ## Folder organization and shared recipe shape
 
@@ -101,9 +86,13 @@ Only CrewAI recipe behavior and directly affected files are checked; no integrat
 
 | Milestone / outcome | Design and approved revision | Implementation PR | Review evidence | Acceptance | Merge |
 |---|---|---|---|---|---|
-| S03.M1 — eight runnable copyable recipes and concepts/recipes organization | Approved contract 6067fb652f0bffe2fa1f8a0e53f045a421a16f11 | [#53](https://github.com/SharonLanger/agent-playbook/pull/53) | Both implementation reviews PASS, 1/3 rounds; [design-session final review PASS](m1-recipe-batch/reviews/final-review.md), published head 906e0e5 | Accepted by Sharon 2026-11-16; temporary checks removed at closeout | #53 merged at 529fe15; #52 closeout explicitly authorized |
+| S03.M1 — eight runnable copyable recipes and concepts/recipes organization | [Approved contract `6067fb65`](https://github.com/SharonLanger/agent-playbook/blob/6067fb652f0bffe2fa1f8a0e53f045a421a16f11/designs/stages/03-orchestration-patterns/m1-recipe-batch/design.md) | [#53](https://github.com/SharonLanger/agent-playbook/pull/53) | [Implementation reviews](m1-recipe-batch/reviews/status.md) PASS, 1/3 rounds; [final review](m1-recipe-batch/reviews/final-review.md) PASS; test-bearing head `906e0e5921fae726f37c5bdbb61551578373c908` | Accepted by Sharon 2026-11-16; temporary checks removed at closeout | [#53](https://github.com/SharonLanger/agent-playbook/pull/53) merged at `529fe15895afc8211d833fc2544e98f0d18fb451`; [#52](https://github.com/SharonLanger/agent-playbook/pull/52) merged at `50e8dcc9c84d120fb06df8ecda29f016431a356c` |
 
 Start with [M1 README](m1-recipe-batch/README.md). The outgoing handoff gives immutable links and the full contract SHA. Sending that prompt authorizes its concrete revision. Codex implements the whole batch using one coder plus independent design-drift and test-gap/behavior reviewers; maximum three rounds on frozen candidates. This design session reviews the returned evidence before any merge.
+
+## Next action
+
+Stage 03 is closed. The [milestone README](m1-recipe-batch/README.md) and [closeout record](m1-recipe-batch/closeout.md) are the entry points for revisiting the recipe batch. Further work proceeds under its own stage approvals.
 
 ## Governing records and reconciliation
 
@@ -111,7 +100,7 @@ Start with [M1 README](m1-recipe-batch/README.md). The outgoing handoff gives im
 
 Sharon's explicit standalone CrewAI/no-permanent-tests/batch instructions govern this stage's working direction. The global roadmap still mentions correlated traces as Stage 03 evidence; this package records the narrower user-approved direction rather than claiming those words have been amended. The design session owns shared roadmap/progress/Atlas semantic reconciliation before stage closeout; this does not add integration work to the explicit recipe-only contract. No general governance rewrite, runtime change or folder move is performed by this handoff-authoring turn. The package and diagram reference are permanent stage material.
 
-Stage Design PR #52 remains open/draft; batch implementation and stage closeout merge authorization are separate. No auto-merge.
+At the recorded implementation handoff, Stage Design PR #52 was draft and open under a separate merge gate. The closeout below records Sharon’s subsequent authorization.
 
 
 ## Closeout supersession — 2026-11-16

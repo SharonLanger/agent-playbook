@@ -426,9 +426,9 @@ resolution record instead of erasing what was reproduced. Update PR #36's body
 so it describes the actual final state. Do not mark it accepted or merge it.
 
 Publish the single copyable Drive checklist only after testing the implementation.
-Keep the existing [M1](https://drive.google.com/file/d/1ASuYt3GuwGhfnUJW2EvwhJVnKYxv5XEc/view),
-[M2](https://drive.google.com/file/d/18AgG1LrCXiag_cHG5QYev0dpwyrhMzoR/view) and
-[M3](https://drive.google.com/file/d/1P2nLMatSnBhCBOMUUKpp5PRWzLAYSjvi/view)
+Keep the existing M1,
+M2 and
+M3
 files as history and link the new combined guide from them. Use the Agent Playbook
 folder; no private keys or generated `.env` contents belong in those documents.
 Include the exact tested commit, safe checkout/update instructions, CLI setup,

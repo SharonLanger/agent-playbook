@@ -64,15 +64,15 @@ The 2026-11-15 PR #48 alignment extends these procedures with the Stage Design P
 
 ## M4.2/M4.3 approved baseline — 2026-11-15
 
-Sharon explicitly approved the M4.2/M4.3 design, tests and plan at `ab3fab459c97eed44cc0b202402e559a827a71cf` and RUN-G01–08 in the implementation handoff on 2026-11-15. The following locked files remain on the pinned Stage Design PR #47 revision during implementation; absence from main does not remove protection:
+Sharon explicitly approved the M4.2/M4.3 design, tests and plan at `ab3fab459c97eed44cc0b202402e559a827a71cf` and RUN-G01–08 in the implementation handoff on 2026-11-15. Stage Design PR #47 has merged, and the following guarded documents are now present in the repository. Use the local links for current reading; the immutable links preserve the exact approved baseline:
 
 | Guarded path | Immutable authority |
 |---|---|
-| `designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md` | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md) |
-| `designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md` | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md) |
-| `designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md` | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md) |
+| [designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md](../stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md) | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md) |
+| [designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md](../stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md) | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md) |
+| [designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md](../stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md) | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md) |
 
-All previous guards remain. This registers only the approved baseline and does not authorize merging PR #47 or changing frozen shared requirements/decisions.
+All previous guards and the recorded approval baseline remain. PR #47's merge does not remove protection or authorize changes to these documents or frozen shared requirements/decisions.
 
 
 ## LOG-G06 — logging M2 approved baseline, 2026-11-16
