@@ -119,9 +119,9 @@
               "to": null
             },
             {
-              "name": "Stage and milestone working method",
+              "name": "Stage, refactor and milestone working method",
               "path": "designs/governance/stage-milestone-workflow.md",
-              "text": "Canonical guidance for stage and milestone documents, approvals, PRs and review.",
+              "text": "Canonical guidance for stages, independent refactors and optional refactor milestones, with shared approval, PR and review gates.",
               "to": null
             },
             {
@@ -1156,7 +1156,7 @@
         {
           "path": "designs/governance/stage-milestone-workflow.md",
           "status": "Guarded governance",
-          "purpose": "Canonical stage and milestone organization and working method."
+          "purpose": "Canonical stage/refactor organization, root packages or milestones, and shared working method."
         },
         {
           "path": "designs/progress.md",

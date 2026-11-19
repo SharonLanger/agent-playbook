@@ -6,18 +6,18 @@ This repository has one active design workspace in `designs/` and an executable 
 
 For every repository task, explicitly load `designs/AGENTS.md`, `designs/governance/design-contract.md` and `designs/governance/guarded-files.md`, including work under app/. Follow their required decision flow: identify governing decisions, consult relevant explorations, explain placement, obtain required approval, maintain affected documents/Atlas and verify. A nested instruction file is not assumed to load automatically.
 
-For stage/milestone planning and implementation handoffs, also read `designs/governance/stage-milestone-workflow.md` and `designs/governance/codex-handover-rules.md`. These define alignment before design, milestone folders and the bounded independent-review process.
+For stage/refactor planning and implementation handoffs, including a refactor without milestones, also read `designs/governance/stage-milestone-workflow.md` and `designs/governance/codex-handover-rules.md`. These define alignment before design, stage/refactor folders, optional refactor milestones and the bounded independent-review process. When Sharon identifies work as a refactor, create or reuse `designs/refactors/<slug>/` and follow the refactor startup procedure in the working method; do not require him to restate the convention.
 
 ## Read before working
 1. Read `designs/README.md` for the document inventory.
 2. Read `designs/charter.md`, `designs/architecture.md`, `designs/principles.md`, `designs/roadmap.md`, and `designs/progress.md`.
 3. Read `designs/project-structure.md`; it is the guarded authority for code placement and dependency boundaries.
-4. For an active stage, read its approved architecture and plan before implementation.
+4. For an active stage or refactor, read its approved design and plan before implementation.
 5. For diagrams and visual explanations, read `designs/diagrams/AUTHORING.md`: Dashmotion is the default; Animated SVG handles timed/narrated walkthroughs.
 
 ## Governance
 - Charter, architecture and principles are guarded approved baselines. Preserve all existing guards, including approved stage material with stale proposed-status headings. New baselines require explicit approval.
-- Approve a stage's overall boundary first; each milestone's concrete design/test/plan must be explicitly approved and locked **before its implementation**. Later milestone details may remain draft. Follow the Stage Design PR lifecycle in designs/governance/stage-milestone-workflow.md.
+- Approve a stage or refactor's overall boundary first; each milestone's concrete design/test/plan must be explicitly approved and locked **before its implementation**. Later milestone details may remain draft. A refactor without milestones approves its root design/test/plan as one work package. Follow the Stage or Refactor Design PR lifecycle in designs/governance/stage-milestone-workflow.md.
 - Never change protected text without explaining the logical additions/removals and consequences for each affected guarded file and obtaining Sharon’s explicit approval beforehand; retain an inspectable diff.
 - Stop when a proposed implementation contradicts the target or locked stage design. Experiments may explore alternatives without silently changing baselines.
 - Progress, learning explanations, and findings may evolve with verified evidence. Distinguish hypotheses from observations.

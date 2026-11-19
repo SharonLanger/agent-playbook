@@ -1,6 +1,6 @@
-# Stage and milestone working method
+# Stage, refactor and milestone working method
 
-**Status: GUARDED — standing method requested by Sharon on 2026-11-15.** Applies to all future stages and milestone design/implementation handoffs. Complements the [design contract](design-contract.md) and [Codex handover rules](codex-handover-rules.md); it does not approve individual designs.
+**Status: GUARDED — standing method requested by Sharon on 2026-11-15.** Applies to all future stages, independent refactors and their design/implementation handoffs, including refactors without milestones. Complements the [design contract](design-contract.md) and [Codex handover rules](codex-handover-rules.md); it does not approve individual designs.
 
 ## 1. Shared workspace and ownership
 
@@ -19,6 +19,34 @@ Place a new stage under `designs/stages/<two-digit-number>-<slug>/`. Keep requir
 Keep stage-level milestone tracking in the README. Link to [repository-wide progress](../progress.md) for the project roll-up. Avoid creating a competing stage `milestones.md` or `progress.md`. Link to the owning requirement, decision or evidence instead of copying it across levels. Additional records, such as discussion history or repository reconciliation, belong with their owner when needed.
 
 Existing stages and named working packages may retain their established paths, filenames, IDs and historical records. Link to those records from the stage README. Changing their layout or guards requires the applicable explicit approval.
+
+## Independent refactors
+
+When Sharon identifies a workstream as a **refactor**, the agent MUST apply this method without asking him to repeat the folder or review conventions. A refactor is an independently scoped workstream outside numbered stages; logging is an example. It may run alongside stages when its actual prerequisites are satisfied. The name does not permit bypassing charter/architecture, guarded stage scope, sequencing restrictions on stage-owned features, or approval gates. Record dependencies and coordinate overlapping owners.
+
+### Refactor startup and structure
+
+1. Create or reuse `designs/refactors/<slug>/`; do not assign a stage number or create a duplicate workspace for the same refactor. Read its existing contracts/history before extending it.
+2. Establish `README.md`, `requirements.md` and `decisions.md` with substantive content. The README owns scope, dependencies, reading order, current status/evidence and next action. Requirements and decisions have the same roles, stable IDs and approval distinctions as for stages.
+3. Add `research/` and `learning/` only when there is material to retain. Keep shared history with this owner. Do not create empty directories or placeholder rounds.
+4. Decide from bounded outcomes whether milestones are useful. For one work package, keep `design.md`, `test-cases.md`, `implementation-plan.md` and its `reviews/` directly at the refactor root; an artificial M1 is not required. For multiple milestones, put these files in `m<number>-<outcome-slug>/` with each milestone's README, and keep the one canonical milestone/status table in the refactor README. Do not introduce a competing progress/milestones file.
+5. Apply the same alignment checkpoint, requirements-to-tests traceability, explicit design/test/plan approval at a pinned revision, frozen handoff, independent reviews, evidence and final acceptance as for stages. In the remaining sections, a refactor root work package follows every milestone-package gate even though it has no milestone number.
+
+The choice of root package or milestones changes placement, not rigor. Size documents to the actual scope. For documentation-only work, test cases describe meaningful document/link/scope checks; this process does not require irrelevant application tests. If an approved root package later needs milestones, agree the split and preserve IDs, approval history, links and guards; do not move an active frozen handoff.
+
+### Refactor Design PR lifecycle
+
+Maintain one draft `[Refactor Design] <name>` PR for the workstream and one separate implementation PR per approved milestone, titled `[Refactor <name> · M<number>] <outcome>`. For a root package without milestones, use one `[Refactor <name>] <outcome>` implementation PR. Permanent refactor design/evidence belongs in its folder; implementation changes belong in the implementation PR. Shared governance/navigation changes must be identified and authorized as for a Stage Design PR.
+
+Put this notice first in the design PR description:
+
+> **REFACTOR DESIGN WORKSPACE — KEEP OPEN**
+>
+> This PR maintains this refactor's design and evidence. Keep it draft until closeout. Design approval, acceptance and implementation-PR merge do not authorize merging this PR. Merge only after Sharon explicitly authorizes this Refactor Design PR.
+
+The README's milestone table (or root-package status record) tracks the approved SHA, implementation PR, verification, acceptance and merge state using the same fields as a stage. Closeout requires all scoped work accepted and implementation PRs merged, or explicitly removed/deferred by Sharon with reasons retained. Reconcile records, public-documentation impact and Atlas, then obtain explicit authorization identifying the Refactor Design PR. Never enable auto-merge or infer design-PR merge permission from implementation approval.
+
+Existing refactors, including the active logging workspace and this authorized documentation-only PR #59, retain their established PRs, paths, historical files and frozen contracts. This convention does not retroactively require splitting those PRs, renaming them, migrating files or resetting review rounds. Their owners reconcile duplicate/stale summaries when authorized and outside frozen handoffs; old files retain their history and approval meaning.
 
 ## Stage Design PR lifecycle
 

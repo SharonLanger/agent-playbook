@@ -126,3 +126,11 @@ Scope and verification: the preceding exposure audit located these links in curr
 ## Remaining decisions
 
 The migration's independent review and Sharon's disposition are recorded separately from this proposal. PR #59 remains draft and unmerged.
+
+## Refactor process clarification — 2026-11-19
+
+Sharon requested that identifying work as a refactor automatically selects the same requirements, decisions, design, approval and bounded-review process as stages, with research/learning when needed and milestones only when useful. The shared [working method](../../governance/stage-milestone-workflow.md#independent-refactors) now defines that startup procedure, root-package alternative and Refactor Design PR lifecycle. Root/design agent instructions make discovery mandatory. The guarded project structure defines placement; the guarded design contract extends authority/registration to approved refactor baselines; the guarded handover rules cover root packages and identify the refactor PR in both handoff directions. Stage sequencing and existing protection remain intact.
+
+This applies the user's explicit request within draft PR #59, without migrating active logging/stage contracts or changing runtime behavior. Architecture/charter/principles and public product guides need no changes: this is a shared development procedure and adds no supported application capability. Atlas navigation reflects the expanded working method. Existing stage-standard/alignment/migration review reports apply to their recorded candidates; this follow-up does not claim those independent reviews cover these new edits.
+
+Verification for this clarification: Atlas regeneration and `python3 designs/atlas/build.py --check` passed; 94 relative Markdown links and their local anchors resolved against the checked repository inventory; changed Markdown passed whitespace and Drive-URL checks. The diff is limited to the two agent instruction files, four shared governance/ownership documents, design/refactor indexes and Atlas catalog/generated view. No application tests were run for this procedure-only change. These are originating-session checks, not a new independent implementation-review round.

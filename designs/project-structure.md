@@ -115,13 +115,14 @@ execution after structural moves. macOS PyCharm execution of changed paths requi
 | `designs/governance/guarded-files.md` | Minimum guarded-file register; existing protection is never silently removed |
 | `designs/atlas/` | Permanent generated Current/Explorations viewer, catalog, builder, diagrams and viewing instructions |
 | `designs/explorations/` | Indexed non-binding research, alternatives, POCs and unresolved discussions |
-| `designs/refactors/` | Refactor-specific rationale, approval/review records and verification. Historical records preserved by a refactor stay under its archive. |
+| `designs/refactors/<slug>/` | Independent workstream: README owns scope/status/next action; requirements and decisions are shared; research and learning exist when needed. A single package keeps design/test-cases/implementation-plan/reviews here without requiring M1. Historical records preserved by a refactor stay under its archive. |
+| `designs/refactors/<slug>/m<number>-<outcome-slug>/` | Optional milestones when outcomes warrant them: README, design, test cases, implementation plan and reviews, with the same approvals and bounded review process as stages |
 | `designs/stages/` | Permanent stage contracts, lessons and evidence |
 | `designs/stages/<stage>/learning/` | Stage-specific explanations and exercises, within the owning stage |
 | `designs/stages/<two-digit-number>-<slug>/` | Stage README with the canonical milestone/status table and next action, shared requirements and decisions, and stage learning or research as needed |
 | `designs/stages/<stage>/m<number>-<outcome-slug>/` | Milestone README, design, test cases, implementation plan and its own review evidence |
 
-Follow the [stage and milestone working method](governance/stage-milestone-workflow.md) for file contents, approvals and review. Existing stage layouts and named working packages retain their paths, stable IDs, history and guards. [Repository-wide progress](progress.md) owns the project roll-up.
+Follow the [stage, refactor and milestone working method](governance/stage-milestone-workflow.md) for file contents, approvals and review. Existing stage/refactor layouts and named working packages retain their paths, stable IDs, history and guards. [Repository-wide progress](progress.md) owns the project roll-up.
 
 The Atlas is maintained from canonical Markdown and a navigation catalog. It does not authorize candidate folders. Reviewer/event-adapter/harness details are discoverable explorations, not additions to the approved runtime file tree.
 

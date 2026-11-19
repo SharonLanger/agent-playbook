@@ -42,9 +42,9 @@ For new stages, follow the [stage layout](governance/stage-milestone-workflow.md
 Future implementation baselines wait for their stage except for the scoped Stage 04 foundation exception in [roadmap.md](roadmap.md#sequencing-and-approval).
 The [root sandbox](../sandbox/README.md) holds historical references and draft ideas outside active application work.
 
-## Stage and milestone working process
+## Stage, refactor and milestone working process
 
-Read the [stage and milestone working method](governance/stage-milestone-workflow.md) before planning a stage or milestone. It defines shared requirements and decisions, the milestone/status table and next action in the stage README, milestone folders and incremental approval. Before delegating implementation, read the [Codex handover rules](governance/codex-handover-rules.md) for the Sol roles, independent reviews, three-round cap, permanent reports and handoff templates. Existing approved packages retain their established layout.
+Read the [stage, refactor and milestone working method](governance/stage-milestone-workflow.md) before planning a stage, independent refactor or milestone. Calling work a refactor triggers its [startup procedure](governance/stage-milestone-workflow.md#independent-refactors): `refactors/<slug>/`, requirements and decisions, optional research/learning, and either one root design/test/plan package or milestone folders. The same approval, freeze, review and design-PR closeout gates apply. It defines shared requirements and decisions, the milestone/status table and next action in the stage README, milestone folders and incremental approval. Before delegating implementation, read the [Codex handover rules](governance/codex-handover-rules.md) for the Sol roles, independent reviews, three-round cap, permanent reports and handoff templates. Existing approved packages retain their established layout.
 
 ## Permanent material and handoffs
 
