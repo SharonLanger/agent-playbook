@@ -15,6 +15,8 @@
     "designs/explorations/README.md",
     "designs/explorations/agent-execution/architecture-notes.md",
     "designs/explorations/agent-execution/candidate-file-structure.md",
+    "designs/stages/00-environment/README.md",
+    "designs/stages/01-crewai-flows/README.md",
     "designs/stages/02-langfuse/README.md",
     "designs/stages/02-langfuse/architecture.md",
     "designs/stages/02-langfuse/smoke-plan.md",
@@ -53,7 +55,8 @@
     "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/follow-ups.md",
     "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/reviews/status.md",
     "designs/stages/02-langfuse/closeout.md",
-    "designs/stages/03-orchestration-patterns/README.md"
+    "designs/stages/03-orchestration-patterns/README.md",
+    "designs/stages/03-orchestration-patterns/requirements.md"
   ],
   "views": {
     "current": {
@@ -92,7 +95,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "design": {
@@ -121,6 +124,30 @@
               "to": null
             },
             {
+              "name": "Stage 00 — Development environment",
+              "path": "designs/stages/00-environment/README.md",
+              "text": "Accepted local tooling substages and closeout evidence.",
+              "to": null
+            },
+            {
+              "name": "Stage 01 — CrewAI Flows",
+              "path": "designs/stages/01-crewai-flows/README.md",
+              "text": "Accepted workflow batch, five learning and verification substages, and retained contracts.",
+              "to": null
+            },
+            {
+              "name": "Stage 02 — Langfuse",
+              "path": "designs/stages/02-langfuse/README.md",
+              "text": "Accepted setup, context and native tracing checkpoints, with original verification evidence.",
+              "to": null
+            },
+            {
+              "name": "Stage 03 — Orchestration patterns",
+              "path": "designs/stages/03-orchestration-patterns/README.md",
+              "text": "Accepted standalone recipe batch, requirements and closeout evidence.",
+              "to": null
+            },
+            {
               "name": "Approved design",
               "path": "designs/architecture.md",
               "text": "Component architecture; some integrations await implementation.",
@@ -141,7 +168,7 @@
           ],
           "status": "approved-design",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "app": {
@@ -190,7 +217,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "src": {
@@ -239,7 +266,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "application": {
@@ -282,7 +309,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "workflows": {
@@ -313,7 +340,7 @@
           ],
           "status": "implemented",
           "source": "designs/stages/01-crewai-flows/architecture.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "config": {
@@ -338,7 +365,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "release": {
@@ -363,7 +390,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "tooling": {
@@ -400,7 +427,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "tests": {
@@ -419,7 +446,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "integrations": {
@@ -450,7 +477,7 @@
           ],
           "status": "approved-design",
           "source": "designs/architecture.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         }
       },
@@ -1138,7 +1165,7 @@
         {
           "path": "designs/progress.md",
           "status": "Current stage status",
-          "purpose": "Stage 00 accepted, Stage 01 completed and accepted, Stage 02 in progress."
+          "purpose": "Stage 00 through Stage 03 completed and accepted; consult progress for the verification and merge record."
         },
         {
           "path": "designs/project-structure.md",
@@ -1164,6 +1191,11 @@
           "path": "designs/roadmap.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
+        },
+        {
+          "path": "designs/stages/00-environment/README.md",
+          "status": "Completed and accepted Stage 00",
+          "purpose": "Accepted local tooling substages and closeout evidence."
         },
         {
           "path": "designs/stages/00-environment/architecture.md",
@@ -1218,7 +1250,7 @@
         {
           "path": "designs/stages/01-crewai-flows/README.md",
           "status": "Completed and accepted Stage 01",
-          "purpose": "Stage summary with implementation/refactor links and retained learning material."
+          "purpose": "Accepted workflow batch, five learning and verification substages, and retained contracts."
         },
         {
           "path": "designs/stages/01-crewai-flows/architecture.md",
@@ -1424,6 +1456,21 @@
           "path": "app/src/agent_playbook/observability/adapters/langfuse/observations.py",
           "status": "Merged PR #36",
           "purpose": "Explicit M3 mock observation adapter."
+        },
+        {
+          "path": "designs/stages/02-langfuse/README.md",
+          "status": "Completed and accepted Stage 02",
+          "purpose": "Accepted setup, context and native tracing checkpoints, with original verification evidence."
+        },
+        {
+          "path": "designs/stages/03-orchestration-patterns/README.md",
+          "status": "Completed and accepted Stage 03",
+          "purpose": "Accepted standalone recipe batch, requirements and closeout evidence."
+        },
+        {
+          "path": "designs/stages/03-orchestration-patterns/requirements.md",
+          "status": "Approved Stage 03 requirements",
+          "purpose": "Shared S03-R01–R12 and the later temporary-check cleanup decision."
         },
         {
           "path": "designs/refactors/workflow-contract/README.md",
@@ -2001,9 +2048,9 @@
             {
               "name": "Langfuse milestones",
               "path": "designs/stages/02-langfuse/README.md",
-              "text": "Local UI, connection check and editable mock runs first; real workflows last.",
+              "text": "Completed Stage 02 stage index and evidence, linked for observability context.",
               "to": "langfuse_setup",
-              "label": "M1–M3 accepted / M4.1 accepted",
+              "label": "Stage 02 accepted and merged",
               "note": "Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals. Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files."
             }
           ],
@@ -2249,14 +2296,20 @@
         "langfuse_setup": {
           "name": "Langfuse milestones",
           "parent": "observability",
-          "label": "M1–M3 accepted / M4.1 accepted",
+          "label": "Stage 02 accepted and merged",
           "title": "Local UI to real workflows",
-          "text": "First configure, connect and explore mock traces; workflow/context integration comes last.",
+          "text": "The completed stage progressed from a local UI through connection and mock traces to context and native workflow tracing.",
           "blocks": [
             {
-              "name": "Four local checkpoints",
+              "name": "Canonical Stage 02 milestone index",
+              "path": "designs/stages/02-langfuse/README.md",
+              "text": "Accepted outcomes, exact approval evidence where recorded, implementation PRs, verification and closeout.",
+              "to": null
+            },
+            {
+              "name": "Historical milestone plan",
               "path": "designs/stages/02-langfuse/milestones.md",
-              "text": "Starting state, deliverable, manual exercise, checks and acceptance at each milestone.",
+              "text": "Original checkpoints, acceptance gates and dated handoff agreements.",
               "to": null
             },
             {
@@ -2269,12 +2322,6 @@
               "name": "Personal mock playground",
               "path": "designs/stages/02-langfuse/smoke-plan.md",
               "text": "Editable success/failure runs for Sharon; automated fixtures remain separate.",
-              "to": null
-            },
-            {
-              "name": "Scope and PR policy",
-              "path": "designs/stages/02-langfuse/README.md",
-              "text": "Keep the existing review thread; split PRs only when overlap is checked.",
               "to": null
             },
             {
@@ -2334,7 +2381,7 @@
             {
               "name": "Workflow context and native tracing",
               "path": "designs/stages/02-langfuse/workflow-integration/README.md",
-              "text": "Permanent draft: detailed context/test/review package, research and repository reconciliation.",
+              "text": "Completed context and tracing packages with permanent approvals, implementation reviews, research and limits.",
               "to": "workflow_observability"
             }
           ],
@@ -4151,33 +4198,33 @@
         },
         {
           "path": "designs/stages/02-langfuse/README.md",
-          "status": "Draft stage proposal",
-          "purpose": "Agreed milestone direction, draft implementation details; no runtime capability."
+          "status": "Completed Stage 02 reference",
+          "purpose": "Canonical milestone index and accepted closeout."
         },
         {
           "path": "designs/stages/02-langfuse/architecture.md",
-          "status": "Draft stage proposal",
-          "purpose": "Agreed milestone direction, draft implementation details; no runtime capability."
+          "status": "Stage 02 architecture record",
+          "purpose": "Retained configuration and integration boundaries with dated checkpoints."
         },
         {
           "path": "designs/stages/02-langfuse/smoke-plan.md",
-          "status": "Draft stage proposal",
-          "purpose": "Agreed milestone direction, draft implementation details; no runtime capability."
+          "status": "Historical Stage 02 plan",
+          "purpose": "Personal mock-trace exercise and verification boundary."
         },
         {
           "path": "designs/stages/02-langfuse/milestones.md",
-          "status": "Draft stage proposal",
-          "purpose": "Four explicit acceptance checkpoints; only real workflow integration waits for the refactor."
+          "status": "Historical Stage 02 milestone plan",
+          "purpose": "Original gates and checkpoint history; the stage README owns current milestone status."
         },
         {
           "path": "designs/stages/02-langfuse/verification.md",
-          "status": "Draft stage proposal",
-          "purpose": "Requested agent verification/handoff requirements; not evidence of implementation."
+          "status": "Historical Stage 02 verification requirements",
+          "purpose": "Original handoff checks; observed acceptance remains in the evidence records."
         },
         {
           "path": "designs/stages/02-langfuse/implementation-handoff.md",
-          "status": "Draft stage proposal",
-          "purpose": "Requested agent verification/handoff requirements; not evidence of implementation."
+          "status": "Historical Stage 02 implementation handoff",
+          "purpose": "Original M1 setup and port follow-up assignment."
         },
         {
           "path": "designs/stages/02-langfuse/connection-playground-handoff.md",

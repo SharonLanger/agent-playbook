@@ -17,11 +17,10 @@ and learn it. Progress records what has actually been accepted.
 | [principles.md](principles.md) | Engineering and approval rules |
 | [roadmap.md](roadmap.md) | Incremental learning and implementation order |
 | [progress.md](progress.md) | Current stage status, accepted work and historical revision-specific evidence |
-| [stages/00-environment/architecture.md](stages/00-environment/architecture.md) | Stage 00 development-foundation end state |
-| [stages/00-environment/plan.md](stages/00-environment/plan.md) | Stage 00 substages and acceptance criteria |
-| [stages/00-environment/findings.md](stages/00-environment/findings.md) | Executed experiments and limitations |
-| [Stage 01 — CrewAI Flows](stages/01-crewai-flows/README.md) | Completed and accepted stage; permanent architecture, learning, workflow contracts, test specification, diagrams and code-reading guides |
-| [Stage 02 — Langfuse milestones](stages/02-langfuse/README.md) | Local UI, connection check, editable mock playground, then real workflow integration; only the last milestone waits for the refactor |
+| [Stage 00 — Development environment](stages/00-environment/README.md) | Accepted foundation; seven substages, learning, plan and evidence |
+| [Stage 01 — CrewAI Flows](stages/01-crewai-flows/README.md) | Accepted workflow batch; five substages, contracts, verification and code-reading guides |
+| [Stage 02 — Langfuse](stages/02-langfuse/README.md) | Accepted local setup, connection and mock work, execution context and native tracing |
+| [Stage 03 — Orchestration patterns](stages/03-orchestration-patterns/README.md) | Accepted standalone CrewAI recipe batch; requirements, decisions and closeout evidence |
 | [../AGENTS.md](../AGENTS.md) | Repository operating instructions |
 
 ## Viewing diagrams
@@ -33,7 +32,7 @@ Some Markdown viewers suppress SVG animation; the browser viewer remains a fallb
 
 ## Stage documents
 
-For new stages, follow the [stage layout](governance/stage-milestone-workflow.md#1-shared-workspace-and-ownership). Keep stage-specific learning and research with their stage when there is material to retain. The [exploration index](explorations/README.md) tracks cross-cutting research and POCs as non-binding material. Existing stage architecture, plans and findings remain accessible through this index.
+For new stages, follow the [stage layout](governance/stage-milestone-workflow.md#1-shared-workspace-and-ownership). Keep stage-specific learning and research with their stage when there is material to retain. The [exploration index](explorations/README.md) tracks cross-cutting research and POCs as non-binding material. Each stage README is the entry point for its milestone status, next action and the original stage architecture, plans and evidence.
 
 Future implementation baselines wait for their stage except for the scoped Stage 04 foundation exception in [roadmap.md](roadmap.md#sequencing-and-approval).
 The historical [sandbox](../sandbox/) is outside the active application architecture.
@@ -63,6 +62,3 @@ Read charter, principles, architecture, project structure, roadmap and progress,
 - [Atlas change record](refactors/atlas/README.md): approval scope and verification for #35.
 
 Official product documentation lives in app/docs; internal/refactor review material belongs here. Personal examples are not a source to inspect during architectural discovery.
-
-
-[Stage 03 — completed CrewAI recipe collection](stages/03-orchestration-patterns/README.md): accepted 2026-11-16; temporary checks removed at closeout; permanent examples and review evidence retained.

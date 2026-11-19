@@ -4,6 +4,8 @@
 
 Sharon agreed to the structure and retention direction in the 2026-11-18 project-structure discussion and requested a Markdown proposal in a new PR. The archive location, the six destination filenames, the migration-specific guarded amendments and the migration itself still need approval. The moves, retirements and rewrites below describe a later phase of this PR.
 
+The [existing-stage alignment](stage-alignment.md) applies the approved structure to the completed stage indexes and Stage 03's shared requirements. It has its own verification record.
+
 ## Goal and scope
 
 Make system-wide design easier to find, keep stage learning and evidence with their owners, and restart the root `sandbox/` as a small collection of useful references and ideas. Keep the existing repository and its history. Preserve complete design records, useful learning, stable identifiers and revision-specific evidence.

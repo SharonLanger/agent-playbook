@@ -6,6 +6,22 @@ self-contained experiments. The [runtime structure refactor](../../refactors/202
 Start with the code-reading guide, then learn the workflows one at a time. Verification
 snapshots remain in findings and the refactor evidence records; current acceptance is recorded in [progress](../../progress.md).
 
+## Canonical milestone index
+
+The [approved design package](https://github.com/SharonLanger/agent-playbook/pull/29) and [implementation sequence](plan.md) define substages 01.1–01.5. Sharon authorized delivery in one batch through [PR #30](https://github.com/SharonLanger/agent-playbook/pull/30). The design merge at `4754bf4b03ef122e5e248ce1f6f5f600c2212f15` records the shared plan, acceptance specification and workflow contracts.
+
+| Substage and outcome | Design and approval | Implementation PR | Verification evidence | Acceptance | Merge |
+|---|---|---|---|---|---|
+| 01.1 — First flow and dependency setup | [WF-01 contract](workflows/wf-01-step-sequence.md) | [#30](https://github.com/SharonLanger/agent-playbook/pull/30) | [Executed checks](findings.md#executed-checks) and [release evidence](findings.md#release-identity-and-size) | Accepted in the Stage 01 batch | Merged |
+| 01.2 — Typed state | [WF-02 contract](workflows/wf-02-shared-state.md) | [#30](https://github.com/SharonLanger/agent-playbook/pull/30) | [Executed checks](findings.md#executed-checks) | Accepted in the Stage 01 batch | Merged |
+| 01.3 — Conditional routing | [WF-03 contract](workflows/wf-03-conditional-route.md) | [#30](https://github.com/SharonLanger/agent-playbook/pull/30) | [Executed checks](findings.md#executed-checks) | Accepted in the Stage 01 batch | Merged |
+| 01.4 — Failure behavior | [Architecture and failure semantics](architecture.md#failure-semantics) and [test specification](test-plan.md) | [#30](https://github.com/SharonLanger/agent-playbook/pull/30) | [Executed checks](findings.md#executed-checks) | Accepted in the Stage 01 batch | Merged |
+| 01.5 — Complete-stage verification | [Shared test and acceptance specification](test-plan.md) | [#30](https://github.com/SharonLanger/agent-playbook/pull/30) | [Full checks](findings.md#executed-checks) and [isolated release](findings.md#release-identity-and-size) | Accepted in the Stage 01 batch | Merged |
+
+## Next action
+
+Stage 01 is closed. Use the code-reading guide below to revisit the workflows, or continue to [Stage 02](../02-langfuse/README.md) for accepted observability work.
+
 ## Start here
 
 **[Verify first, then read the code](learning/00-reading-the-code.md)** provides setup,
