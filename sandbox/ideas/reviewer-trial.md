@@ -1,5 +1,7 @@
 # f-01-reviewer-trial — Verify the reviewer and its handoff
 
+**Draft idea.** This preserves the trial as proposed, including the design-approval and persistence-test questions observed at inspection. The [archived PR 46 requirements](../../designs/refactors/project-refactor/archive/system-one-harness/reviews/pr-46.md) record the later persistence-test clarification and the remaining design approval condition. [Original location at the migration base](https://github.com/SharonLanger/agent-playbook/blob/ef7b22492d6091c8c4b47c4226a24550a9b23ccb/sandbox/projects/agent-playbook/features/f-01-reviewer-trial/design.md).
+
 - Project: `agent-playbook`
 - Source repository: https://github.com/SharonLanger/agent-playbook
 - Status: Draft; not approved for implementation.
@@ -15,7 +17,7 @@ The reviewer guide is written, but we have not evaluated a completed review from
 
 Use the already requested review of system-one-harness PR 46 as the first real trial. If that review is already running or finished, inspect its report rather than launch a duplicate. Record the source head actually reviewed, playbook revision, design revision, and model/effort used. Evaluate findings against source evidence; do not equate a long report or a passing status with a good review.
 
-Check whether the report follows the general reviewer guide and projects/system-one-harness/reviews/pr-46.md. The design was marked draft at inspection, and dedicated persistence tests conflict with the stricter PR rules. Obtain the user's actual decision about those points; never manufacture approval to make a trial pass.
+Check whether the report follows the [historical reviewer guide](../references/reviewer.md) and the [archived PR 46 requirements](../../designs/refactors/project-refactor/archive/system-one-harness/reviews/pr-46.md) (formerly `projects/system-one-harness/reviews/pr-46.md`). The design was marked draft at inspection, and dedicated persistence tests conflict with the stricter PR rules. Obtain the user's actual decision about those points; never manufacture approval to make a trial pass.
 
 Add a short reusable verification checklist for future reviewer changes. Use small disposable examples only for cases the real trial does not exercise. Real source edits are outside this feature. No permanent testing framework is needed.
 

@@ -1,5 +1,7 @@
 # Designer / Planner
 
+**Historical reference.** The playbook-root `projects/` lookup, numbering and save flow describe the earlier designer trial. Current design work uses the [root instructions](../../AGENTS.md) and the [design contract](../../designs/governance/design-contract.md). [Original location at the migration base](https://github.com/SharonLanger/agent-playbook/blob/ef7b22492d6091c8c4b47c4226a24550a9b23ccb/sandbox/agents/designer.md).
+
 ## Scope
 
 Work with the user to turn a feature request into a design for review. This guide supports initial design creation and discovery. Autonomous replanning and deviation approval are not yet implemented; report that limitation if asked to perform them.

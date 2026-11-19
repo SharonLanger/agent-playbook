@@ -1,10 +1,12 @@
 # Reviewer handoff verification
 
+**Historical verification checklist.** These are planned delivery and readback checks for the earlier [reviewer trial](reviewer.md). The outcomes in the table are expectations, while actual outcomes require revision-specific evidence. The old minimal prompt documented below predates the explicit destination requirement in the preserved reviewer reference. [Original location at the migration base](https://github.com/SharonLanger/agent-playbook/blob/ef7b22492d6091c8c4b47c4226a24550a9b23ccb/sandbox/verification/reviewer-handoff.md).
+
 Use this checklist for the first run under the updated reviewer guide and after relevant changes. Record actual results as pass, fail, or not run, with the review folder and code/playbook revisions. Do not alter unrelated Drive files or production code to manufacture a test.
 
 ## Minimal invocation check
 
-Start a fresh session with only the PR URL and the playbook reviewer-guide URL, using the README prompt. Confirm that it discovers project/PR rules and the design, finds previous review folders/index without being given their links, checks evidence revisions, and chooses the next review number. Record unresolved design approval separately from successfully discovered inputs.
+Start a fresh session with only the PR URL and the playbook reviewer-guide URL, using the [former README prompt](https://github.com/SharonLanger/agent-playbook/blob/ef7b22492d6091c8c4b47c4226a24550a9b23ccb/sandbox/README.md#run-one-reviewer-directly). Confirm that it discovers project/PR rules and the design, finds previous review folders/index without being given their links, checks evidence revisions, and chooses the next review number. Record unresolved design approval separately from successfully discovered inputs.
 
 Repeat against a PR with an existing run. The new report must distinguish reused evidence from new checks, reassess findings affected by changed rules, and preserve the old run. Use an existing legacy run without a manifest to verify explicit limitations; do not deliberately damage completed artifacts.
 

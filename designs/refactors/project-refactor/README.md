@@ -1,10 +1,12 @@
 # Project refactor
 
-**Status — draft PR.** The [stage and milestone structure](stage-structure.md) is approved and documented in this PR. The shared-learning and root-sandbox migration remains proposed. The migration inventory uses [`main` at `cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4`](https://github.com/SharonLanger/agent-playbook/commit/cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4).
+**Status — draft PR.** [Project refactor PR #59](https://github.com/SharonLanger/agent-playbook/pull/59) contains the approved [stage and milestone structure](stage-structure.md), the [existing-stage alignment](stage-alignment.md), and the authorized [shared-learning and root-sandbox migration](learning-sandbox-migration.md). The migration is applied on the draft branch. Its independent review has a separate evidence record.
 
-Sharon agreed to the structure and retention direction in the 2026-11-18 project-structure discussion and requested a Markdown proposal in a new PR. The archive location, the six destination filenames, the migration-specific guarded amendments and the migration itself still need approval. The moves, retirements and rewrites below describe a later phase of this PR.
+Sharon agreed to the structure and retention direction in the 2026-11-18 project-structure discussion. On 2026-11-19 she authorized the shared-learning and root-sandbox migration using the proposed destinations and archive, with the two guarded navigation and ownership amendments recorded in the [migration record](learning-sandbox-migration.md).
 
-The [existing-stage alignment](stage-alignment.md) applies the approved structure to the completed stage indexes and Stage 03's shared requirements. It has its own verification record.
+## Historical proposal and baseline inventory
+
+The proposal below records the original design and pre-implementation verification. Its proposed paths describe the original inventory, inspected on [main at `cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4`](https://github.com/SharonLanger/agent-playbook/commit/cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4). The migration record links the applied dispositions and the exact pre-migration PR revision.
 
 ## Goal and scope
 
@@ -107,7 +109,7 @@ This note belongs under `designs/refactors/` because it records a proposed chang
 
 ## Publication-link decision and applied cleanup — 2026-11-18
 
-Sharon requested removal of Google Drive links from current repository files and explicitly accepted leaving their older commit-history occurrences unchanged. This authorizes the URL cleanup in this PR; the folder migration above remains proposed.
+Sharon requested removal of Google Drive links from current repository files and explicitly accepted leaving their older commit-history occurrences unchanged. This authorized the URL cleanup in this PR. The folder migration was still proposed at the time of that decision.
 
 The cleanup removes 10 Markdown link targets from these five files while retaining checklist names, historical verification claims, and repository-local guidance:
 
@@ -123,5 +125,4 @@ Scope and verification: the preceding exposure audit located these links in curr
 
 ## Remaining decisions
 
-1. Confirm the archive location and the six proposed destination filenames.
-2. Approve the concrete migration revision and any guarded logical amendments before applying them. Resolve any live-link or snapshot-labeling questions discovered on that revision.
+The migration's independent review and Sharon's disposition are recorded separately from this proposal. PR #59 remains draft and unmerged.

@@ -1,5 +1,7 @@
 # Reviewer
 
+**Historical reference.** This records the earlier reviewer trial protocol. Its invocation, routing, project lookup and write permissions describe that trial. In particular, the playbook-root `projects/` lookup and the `system-one-harness` destination example refer to the former layout. Current repository work uses the [root instructions](../../AGENTS.md) and the approvals for the active task. [Original location at the migration base](https://github.com/SharonLanger/agent-playbook/blob/ef7b22492d6091c8c4b47c4226a24550a9b23ccb/sandbox/agents/reviewer.md).
+
 Review a completed PR or scoped change independently against its approved design, accepted deviations, project rules, and test plan. Report actionable findings; do not edit the implementation or decide the workflow's next step.
 
 ## Responsibility and boundaries
@@ -113,4 +115,4 @@ Return the Drive report and review-folder links in the user-facing response so t
 
 Use `passed` when the review is complete, required inputs and evidence are available, and no must-fix findings remain. Optional improvements alone do not request changes. Use `changes_requested` for must-fix findings. Use `blocked` when missing inputs, unresolved instruction conflicts, or missing evidence prevent a trustworthy conclusion. Explain the reason in the report. A passing review does not merge or approve a PR on GitHub; the user decides whether to merge.
 
-For the acceptance walkthrough, use [reviewer handoff verification](../verification/reviewer-handoff.md). Do not claim that checklist has passed without recording actual observations.
+For the acceptance walkthrough, use [reviewer handoff verification](reviewer-handoff.md). Do not claim that checklist has passed without recording actual observations.

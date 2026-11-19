@@ -35,7 +35,7 @@ approval wording and CrewAI acceptance discrepancy are tracked in progress.md.
 | `app/tests/` | Maintained application/tooling tests with independent fixtures; no dependency on personal examples |
 | `app/docs/` | Maintained official product documentation; update affected guides/indexes in the same PR; no internal/temporary material |
 | `app/dist/` | Generated local releases; ignored by Git |
-| `sandbox/` | Historical experiments; outside active application work |
+| `sandbox/` | Curated historical references and draft ideas, outside the application and its governing design |
 
 `src` is a packaging boundary. Put application code inside `agent_playbook`,
 then inside its owning component. Keep only package entry points and build metadata
@@ -110,12 +110,14 @@ execution after structural moves. macOS PyCharm execution of changed paths requi
 | Path | Responsibility |
 |---|---|
 | `designs/AGENTS.md` | Mandatory design instructions, explicitly loaded from root instructions |
+| `designs/architecture-walkthrough.md` | System-wide illustration of the target, beside the architecture it explains |
 | `designs/governance/design-contract.md` | Guarded change/placement/maintenance contract |
 | `designs/governance/guarded-files.md` | Minimum guarded-file register; existing protection is never silently removed |
 | `designs/atlas/` | Permanent generated Current/Explorations viewer, catalog, builder, diagrams and viewing instructions |
 | `designs/explorations/` | Indexed non-binding research, alternatives, POCs and unresolved discussions |
-| `designs/refactors/` | Refactor-specific rationale, approval/review records and verification |
+| `designs/refactors/` | Refactor-specific rationale, approval/review records and verification. Historical records preserved by a refactor stay under its archive. |
 | `designs/stages/` | Permanent stage contracts, lessons and evidence |
+| `designs/stages/<stage>/learning/` | Stage-specific explanations and exercises, within the owning stage |
 | `designs/stages/<two-digit-number>-<slug>/` | Stage README with the canonical milestone/status table and next action, shared requirements and decisions, and stage learning or research as needed |
 | `designs/stages/<stage>/m<number>-<outcome-slug>/` | Milestone README, design, test cases, implementation plan and its own review evidence |
 

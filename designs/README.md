@@ -8,11 +8,12 @@ and learn it. Progress records what has actually been accepted.
 |---|---|
 | [Workflow contract refactor](refactors/workflow-contract/README.md) | Completed and accepted ABC lifecycle and YAML contract; [A1–F6 mapping](refactors/workflow-contract/review-follow-up.md) and [Q1–Q4 test corrections](refactors/workflow-contract/review-test-quality.md) retain revision-specific evidence |
 | [Runtime structure refactor](refactors/2026-11-12-runtime-structure/README.md) | Accepted runtime refactor record, exploratory future-tree proposal and revision-specific verification evidence |
+| [Project refactor](refactors/project-refactor/README.md) | Stage document structure, existing-stage alignment and the learning and sandbox migration in draft PR #59 |
 | [project-structure.md](project-structure.md) | Guarded folder ownership, dependency rules and current source layout |
 | [architecture.md](architecture.md) | Components, ownership, execution, errors, data and integration boundaries |
 | [diagrams/](diagrams/README.md) | Animated SVGs, static SVGs and a local visual viewer |
 | [Diagram authoring](diagrams/AUTHORING.md) | When and how future agents use Dashmotion and Animated SVG |
-| [learning/](learning/README.md) | Plain-language explanations spanning the whole system |
+| [Architecture walkthrough](architecture-walkthrough.md) | Plain-language example connecting one run to the target architecture and execution diagram |
 | [charter.md](charter.md) | Purpose, outcomes and scope |
 | [principles.md](principles.md) | Engineering and approval rules |
 | [roadmap.md](roadmap.md) | Incremental learning and implementation order |
@@ -30,12 +31,16 @@ the Stage 01 architecture and lessons. Static siblings remain available. The opt
 HTML viewers add pause/resume controls without a server, installation or external requests.
 Some Markdown viewers suppress SVG animation; the browser viewer remains a fallback.
 
+## Learning
+
+The [system-wide walkthrough](architecture-walkthrough.md) connects the diagrams to one concrete run. The [target architecture](architecture.md) defines the system boundaries. For stage exercises and code-reading guides, start with [Stage 00 learning](stages/00-environment/learning/) and [Stage 01 learning](stages/01-crewai-flows/learning/), or open the relevant stage index above.
+
 ## Stage documents
 
 For new stages, follow the [stage layout](governance/stage-milestone-workflow.md#1-shared-workspace-and-ownership). Keep stage-specific learning and research with their stage when there is material to retain. The [exploration index](explorations/README.md) tracks cross-cutting research and POCs as non-binding material. Each stage README is the entry point for its milestone status, next action and the original stage architecture, plans and evidence.
 
 Future implementation baselines wait for their stage except for the scoped Stage 04 foundation exception in [roadmap.md](roadmap.md#sequencing-and-approval).
-The historical [sandbox](../sandbox/) is outside the active application architecture.
+The [root sandbox](../sandbox/README.md) holds historical references and draft ideas outside active application work.
 
 ## Stage and milestone working process
 

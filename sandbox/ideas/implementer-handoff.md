@@ -1,5 +1,7 @@
 # f-02-implementer-handoff — Implement the writer and reviewer handoff
 
+**Draft idea.** The role filename and launch procedure describe the former sandbox layout. The old writer file was an unimplemented placeholder. [Original location at the migration base](https://github.com/SharonLanger/agent-playbook/blob/ef7b22492d6091c8c4b47c4226a24550a9b23ccb/sandbox/projects/agent-playbook/features/f-02-implementer-handoff/design.md).
+
 - Project: `agent-playbook`
 - Source repository: https://github.com/SharonLanger/agent-playbook
 - Status: Draft; not approved for implementation.
@@ -9,11 +11,11 @@
 
 ## Problem and intended outcome
 
-agents/code-writer.md is a stop placeholder. Define an implementer that can consume an approved design, deliver code and tests, and respond to a reviewer without changing the requirements to fit its implementation.
+The [former `agents/code-writer.md`](https://github.com/SharonLanger/agent-playbook/blob/ef7b22492d6091c8c4b47c4226a24550a9b23ccb/sandbox/agents/code-writer.md) is a stop placeholder. Define an implementer that can consume an approved design, deliver code and tests, and respond to a reviewer without changing the requirements to fit its implementation.
 
 ## Scope and approach
 
-Implement the existing agents/code-writer.md role; retain that filename to avoid a second overlapping role. Use a direct session invocation first. The user supplies the exact project name, source repository, feature/design path and approved revision, working branch, and report destination. An existing review report is an optional input for a fix pass.
+Implement the existing `agents/code-writer.md` role; retain that filename to avoid a second overlapping role. Use a direct session invocation first. The user supplies the exact project name, source repository, feature/design path and approved revision, working branch, and report destination. An existing review report is an optional input for a fix pass.
 
 The implementer reads relevant repository instructions and approved deviations, writes code and meaningful tests, runs required checks, and fixes routine failures. It may create or update an authorized feature branch and PR. It must not push to main/master, merge, rewrite the approved design, or approve its own review.
 
@@ -48,7 +50,7 @@ Use one small real feature after approval and supplement only missing cases with
 
 ## Delivery sequence and dependencies
 
-Evaluate f-01-reviewer-trial before finalizing the handoff format. Then implement the role and README invocation, run one implementer-to-reviewer handoff manually, and save a concise outcome record. Keep automated coordination deferred.
+Evaluate [f-01-reviewer-trial](reviewer-trial.md) before finalizing the handoff format. Then implement the role and README invocation, run one implementer-to-reviewer handoff manually, and save a concise outcome record. Keep automated coordination deferred.
 
 ## Open decisions
 

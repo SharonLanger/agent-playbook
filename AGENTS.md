@@ -1,6 +1,6 @@
 # Agent Playbook — Agent Instructions
 
-This repository has one active design workspace in `designs/` and an executable project in `app/`. `sandbox/` contains historical experiments and must not be changed without a separate request.
+This repository has one active design workspace in `designs/` and an executable project in `app/`. `sandbox/` holds curated historical references and draft ideas and must not be changed without a separate request.
 
 ## Mandatory design entry
 

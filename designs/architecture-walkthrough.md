@@ -15,8 +15,8 @@ illustration of the target, not an additional feature commitment.
 6. **Observe:** related events form a run/step/agent trace in Langfuse.
 7. **Finish:** the runner returns output and run identity, or a visible failure.
 
-[See the execution diagram](../diagrams/02-execution.svg) or open
-[the animated viewer](../diagrams/index.html) locally.
+[See the execution diagram](diagrams/02-execution.svg) or open
+[the animated viewer](diagrams/index.html) locally.
 
 ## Who makes which decision?
 

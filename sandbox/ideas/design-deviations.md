@@ -1,5 +1,7 @@
 # f-03-design-deviations — Record and resolve material design deviations
 
+**Draft idea.** This preserves the earlier planner-based alternative and its proposed authority boundaries. The role instructions, record layout and launch procedure cited below belong to the draft. [Original location at the migration base](https://github.com/SharonLanger/agent-playbook/blob/ef7b22492d6091c8c4b47c4226a24550a9b23ccb/sandbox/projects/agent-playbook/features/f-03-design-deviations/design.md).
+
 - Project: `agent-playbook`
 - Source repository: https://github.com/SharonLanger/agent-playbook
 - Status: Draft; not approved for implementation.
@@ -50,7 +52,7 @@ Verify baseline preservation with an actual before/after diff, rather than relyi
 
 ## Delivery sequence and dependencies
 
-Use the implementer handoff from f-02 to define deviation inputs. Extend agents/designer.md and the README, exercise the authority and preservation cases, and save an outcome record. No separate replanner agent or workflow engine is introduced.
+Use the [implementer handoff from f-02](implementer-handoff.md) to define deviation inputs. Extend the [former `agents/designer.md` guide](../references/designer.md) and the former README, exercise the authority and preservation cases, and save an outcome record. No separate replanner agent or workflow engine is introduced.
 
 ## Open decisions
 

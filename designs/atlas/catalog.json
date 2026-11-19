@@ -7,6 +7,7 @@
     "designs/charter.md",
     "designs/principles.md",
     "designs/architecture.md",
+    "designs/architecture-walkthrough.md",
     "designs/project-structure.md",
     "designs/roadmap.md",
     "designs/progress.md",
@@ -87,9 +88,9 @@
               "to": null
             },
             {
-              "name": "Historical sandbox",
+              "name": "Root sandbox",
               "path": "sandbox/",
-              "text": "Outside active work; no inspection performed.",
+              "text": "PR #59 documents the curated collection of historical references and draft ideas outside active application work.",
               "to": null
             }
           ],
@@ -1078,6 +1079,11 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
+          "path": "designs/architecture-walkthrough.md",
+          "status": "Draft PR #59 documentation",
+          "purpose": "System-wide target illustration moved beside the architecture."
+        },
+        {
           "path": "designs/architecture.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
@@ -1139,16 +1145,6 @@
         },
         {
           "path": "designs/diagrams/render.py",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
-          "path": "designs/learning/README.md",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
-          "path": "designs/learning/architecture-walkthrough.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
@@ -1539,7 +1535,7 @@
             {
               "name": "Historical experiments",
               "path": "sandbox/",
-              "text": "Existing experiments remain available and outside active refactoring.",
+              "text": "Former role and project paths are preserved in the pre-migration main snapshot linked in the inventory.",
               "to": null
             }
           ],
@@ -3813,13 +3809,13 @@
         },
         {
           "path": "designs/learning/architecture-walkthrough.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained architecture, governance or design material."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "designs/learning/README.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained architecture, governance or design material."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "designs/principles.md",
@@ -4108,88 +4104,88 @@
         },
         {
           "path": "sandbox/AGENTS.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/agents/code-writer.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/agents/designer.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/agents/orchestrator.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/agents/replanner.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/agents/reviewer.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/agents/tester.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/agent-playbook/features/f-01-reviewer-trial/design.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/agent-playbook/features/f-02-implementer-handoff/design.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/agent-playbook/features/f-03-design-deviations/design.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/project-a/review-rules.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/project-a/reviews/pr-14.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/system-one-harness/features/f-01-offline-test-suite/design.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/system-one-harness/reviews/pr-46.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/README.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/verification/reviewer-handoff.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/workflows/implement-change.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "app/examples/",
