@@ -17,6 +17,8 @@ module entry point is `python -m agent_playbook.cli`.
 | `agent-playbook run --version 0.1.0` | Run the latest completed release of that version |
 | `agent-playbook version` | Show version/source metadata of the CLI you invoked |
 | `agent-playbook check` | Types, lint, formatting verification, then tests |
+| `agent-playbook services --help` | Start, inspect or stop the local services together |
+| `agent-playbook logs --help` | Start, inspect or stop only local VictoriaLogs |
 | `agent-playbook langfuse --help` | Local Langfuse management and project check options |
 | `agent-playbook check --types` | Pyright only |
 | `agent-playbook check --lint` | Ruff lint only |
@@ -37,13 +39,48 @@ PASS means only that selection passed. Release always runs the complete gate.
 `format` changes formatting only; it does not automatically fix lint errors.
 Review its edits and rerun `check`.
 
+## Local services
+
+In a bootstrapped source checkout, use exactly one action with `services` or `logs`.
+
+| Command | `--start` | `--status` | `--stop` |
+|---|---|---|---|
+| `agent-playbook services` | Start integrations enabled by effective configuration, VictoriaLogs first | Check both local projects and report their enabled flags and readiness | Stop Langfuse first and VictoriaLogs second, regardless of configuration |
+| `agent-playbook logs` | Start local VictoriaLogs even with workflow logging disabled | Show only VictoriaLogs state and health | Stop only VictoriaLogs, retaining its named volume |
+
+`services --start/--status --config PATH` selects application YAML; otherwise
+the normal environment or checkout default applies. `services --stop` works
+without application YAML. Pass `--env-file PATH` to **every** aggregate action
+when Langfuse uses a custom private Compose settings file. Both paths resolve
+from your invocation directory. The logging project is always
+`agent-playbook-logging-smoke` on `http://127.0.0.1:9428`. Langfuse typically
+uses project `observability` and `http://localhost:3000`. The local checks are
+independent of workflow destinations. See [application logging](logging.md)
+and [local Langfuse](langfuse-local.md).
+
+Aggregate start with both integrations disabled exits 0 without contacting
+Docker. Aggregate status exits 0 when enabled services are ready, even if a
+disabled service is stopped. Every component is reported. Exit 1 indicates an
+operational failure, non-ready enabled service, timeout or interruption. Exit 2
+covers invalid invocation, invalid configuration or a local settings/project
+conflict. An invalid selection still allows status to report both projects.
+A sibling's ordinary failure does not prevent another selected component from
+being attempted. Stops retain named volumes.
+
+Start caps are 12 minutes per component and 25 minutes for the aggregate.
+Status and stop caps are one minute per component and two minutes ten seconds
+for the aggregate. The caps include local process cleanup. After Ctrl-C or a
+timeout, inspect `--status` before retrying because Docker may still finish work.
+`run` and `dev-run` never start or require these services. All local management
+commands require a source checkout and exit 2 in installed releases.
+
 ## Optional local Langfuse
 
 From a source checkout after bootstrap, use `app/.venv/bin/agent-playbook langfuse` with **exactly one** action flag:
 
 | Flag | Action |
 |---|---|
-| `--start` | Initialize private local settings if missing, start/apply Compose and wait for UI readiness |
+| `--start` | Initialize private local settings for a fresh project, apply Compose and wait for UI readiness |
 | `--stop` | Stop this stack; retain settings and volumes |
 | `--status` | Report service state and UI readiness |
 | `--logs` | Show recent Docker service logs; add `--follow` to stream until Ctrl-C |

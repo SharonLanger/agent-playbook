@@ -43,6 +43,19 @@ def build_parser() -> argparse.ArgumentParser:
         "--env-file", help="Private Compose settings for local actions."
     )
     langfuse.add_argument("--config", help="Selected application YAML for --check.")
+    for command, help_text in (
+        ("services", "Manage local services together (source checkout)."),
+        ("logs", "Manage local VictoriaLogs (source checkout)."),
+    ):
+        service = commands.add_parser(command, help=help_text)
+        actions = service.add_mutually_exclusive_group(required=True)
+        for name in ("start", "status", "stop"):
+            actions.add_argument(f"--{name}", action="store_true")
+        if command == "services":
+            service.add_argument("--config", help="Application YAML for start/status.")
+            service.add_argument(
+                "--env-file", help="Private Langfuse Compose settings."
+            )
     check_parser = commands.add_parser(
         "check", help="Run all checks, or selected checks."
     )

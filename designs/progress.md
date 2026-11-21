@@ -4,6 +4,12 @@
 
 The [approved package and final review](refactors/pr-ci/README.md) track issue #62. The originating session passed the corrected code on [implementation PR #64](https://github.com/SharonLanger/agent-playbook/pull/64) at `ba9a18a`. The implementation team recorded 483 passing tests and a verified 0.2.0 wheel on Linux. Sharon accepted #64 and it merged at [`19e4f22`](https://github.com/SharonLanger/agent-playbook/commit/19e4f22de6ac637a9487db8129bc8dad56c52f6d). Sharon authorized design closeout in #63. Private hosted jobs were skipped and main was unprotected at closeout. [Issue #62](https://github.com/SharonLanger/agent-playbook/issues/62) tracks public macOS verification, branch enforcement and the final coordinated fresh run.
 
+## Logging M3 implementation acceptance — 2026-11-21
+
+The `impl/logging-m3-service-control` branch implements checkout-only local service management against the approved [Logging M3 contract at `c4e0951`](https://github.com/SharonLanger/agent-playbook/tree/c4e0951bd87c81e627d58127841494d4812732ab/designs/refactors/logging/m3-service-composition). The candidate adds aggregate enablement selection, a VictoriaLogs manager and Langfuse project/settings guards. The [implementation reviewers](refactors/logging/m3-service-composition/reviews/status.md) reproduced a Docker live-follow diagnostic disclosure at the reviewed candidate. Sharon accepted deferring the fix to [issue #66](https://github.com/SharonLanger/agent-playbook/issues/66) and authorized merging #65. The original review verdicts remain recorded. See the [local CLI guide](../app/docs/cli.md#local-services).
+
+Sharon accepted the Mac sanity check. Individual service start and status returned zero, and a fresh workflow produced a trace and log records. Issue #66 tracks the deferred Docker live-follow diagnostic bug. Remaining LG-10 cases are open.
+
 ## Logging M2 merged — 2026-11-18
 
 Sharon authorized merging implementation PR #55 after the originating design-session final review passed with no required code corrections. PR #55 merged at `180b6e769d979015ed76e09128e25a32456ed5a4`; the reviewed code/test candidate remains `8770d076c5c586ff9f9830c43432dd127585033c` (reported full gate: 464 tests passed). M1 remains merged through PR #54.

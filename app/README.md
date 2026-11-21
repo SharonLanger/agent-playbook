@@ -24,7 +24,7 @@ in `app/.venv`, and runs default WF-01 and local quality checks. Run the
 same command again to refresh the environment. The prerequisite is Python 3.10+
 with `venv` and `ensurepip`; initial provisioning may require network access.
 
-For the optional local trace UI, see [local Langfuse setup](docs/langfuse-local.md). Docker is required for that local service, not for ordinary workflows or a hosted Langfuse endpoint. Configure project keys with the [external secrets file and connection check](docs/langfuse-connection.md); do not put project keys in Docker's `.env`.
+For local VictoriaLogs and Langfuse lifecycle commands, see [local service management](docs/cli.md#local-services). For the optional local trace UI, see [local Langfuse setup](docs/langfuse-local.md). Docker is required for that local service, not for ordinary workflows or a hosted Langfuse endpoint. Configure project keys with the [external secrets file and connection check](docs/langfuse-connection.md); do not put project keys in Docker's `.env`.
 
 ## Documentation
 
