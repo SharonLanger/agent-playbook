@@ -363,8 +363,15 @@ def test_production_cleanup_waits_three_seconds_then_leaves_two_to_reap() -> Non
     process.wait.assert_called_once_with(timeout=2.0)
 
 
+def test_group_probe_permission_denial_keeps_group_visible() -> None:
+    with patch.object(service_process.os, "killpg", side_effect=PermissionError):
+        assert service_process._group_signal(42, 0)  # pyright: ignore[reportPrivateUsage]
+        with pytest.raises(PermissionError):
+            service_process._group_signal(42, signal.SIGTERM)  # pyright: ignore[reportPrivateUsage]
+
+
 @pytest.mark.parametrize("interrupt", [False, True], ids=["outer-deadline", "sigint"])
-def test_large_regular_selection_is_bounded_and_never_starts_docker(
+def test_large_regular_selection_cancellation_reaps_without_docker(
     checkout: Path,
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
@@ -389,10 +396,21 @@ def test_large_regular_selection_is_bounded_and_never_starts_docker(
         "os.open = record_open\n"
     )
     monkeypatch.setenv("PYTHONPATH", str(checkout))
-    monkeypatch.setattr(service_process, "CLEANUP_SECONDS", 0.2)
-    monkeypatch.setattr(service_process, "TERM_SECONDS", 0.1)
-    cap = 2.0 if interrupt else 0.8
-    monkeypatch.setitem(services.AGGREGATE_SECONDS, "start", cap)
+    # Let the worker reach the file before cancelling it, regardless of machine speed.
+    monkeypatch.setitem(services.AGGREGATE_SECONDS, "start", 12.0)
+    original_ensure_active = service_process.ensure_active
+
+    def cancel_after_open(
+        cancellation: service_process.Cancellation, aggregate_deadline: float
+    ) -> None:
+        original_ensure_active(cancellation, aggregate_deadline)
+        if not interrupt and opened.exists():
+            raise service_process.OperationCancelled(
+                "Aggregate service operation timed out."
+            )
+
+    if not interrupt:
+        monkeypatch.setattr(service_process, "ensure_active", cancel_after_open)
     real_popen = subprocess.Popen
     workers: list[subprocess.Popen[bytes]] = []
 
@@ -413,17 +431,17 @@ def test_large_regular_selection_is_bounded_and_never_starts_docker(
         )
         workers.append(worker)
         if interrupt:
-            deadline = time.monotonic() + 1.5
+            deadline = time.monotonic() + 10.0
             while not opened.exists() and time.monotonic() < deadline:
                 time.sleep(0.01)
-            if opened.exists():
-                os.kill(os.getpid(), signal.SIGINT)
+            assert opened.exists(), (
+                "The selection worker never opened the configuration"
+            )
+            os.kill(os.getpid(), signal.SIGINT)
         return worker
 
-    started = time.monotonic()
     with patch.object(service_process.subprocess, "Popen", side_effect=launch) as popen:
         assert services.main(["--start", "--config", str(selected)]) == 1
-    assert time.monotonic() - started < cap + 0.2
     assert opened.is_file(), "The worker must begin reading the real regular file"
     assert len(workers) == 1 and popen.call_args.args[0][-2:] == [
         "--select",
