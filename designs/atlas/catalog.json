@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 03 completed and accepted by Sharon on 2026-11-16: eight standalone CrewAI recipes merged in PR #53; temporary verification scripts removed at authorized design closeout #52. Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance.  Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files. Logging M2 implementation PR #55 merged on 2026-11-18 after both round 02 reviewers and originating design-session final review passed. LG-10 live manual testing remains NOT RUN and must be completed before finalizing logging design PR #51, which stays draft/open.",
+  "snapshot": "Stage 03 completed and accepted by Sharon on 2026-11-16: eight standalone CrewAI recipes merged in PR #53; temporary verification scripts removed at authorized design closeout #52. Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance.  Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files. Logging M2 implementation PR #55 merged on 2026-11-18 after both round 02 reviewers and originating design-session final review passed. LG-10 live manual testing remains NOT RUN and must be completed before finalizing logging design PR #51, which stays draft/open. Logging M3 revised service-control contract is proposed in draft PR #57 on 2026-11-21; explicit logs start is independent of workflow logging, while aggregate start selects enabled components. Runtime implementation and M3 acceptance have not started.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -53,7 +53,11 @@
     "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/follow-ups.md",
     "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/reviews/status.md",
     "designs/stages/02-langfuse/closeout.md",
-    "designs/stages/03-orchestration-patterns/README.md"
+    "designs/stages/03-orchestration-patterns/README.md",
+    "designs/refactors/logging/m3-service-composition/README.md",
+    "designs/refactors/logging/m3-service-composition/design.md",
+    "designs/refactors/logging/m3-service-composition/test-cases.md",
+    "designs/refactors/logging/m3-service-composition/implementation-plan.md"
   ],
   "views": {
     "current": {
@@ -550,11 +554,6 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "README.md",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
           "path": "app/.gitignore",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
@@ -565,17 +564,7 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "app/README.md",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
           "path": "app/application.yaml",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
-          "path": "app/docs/README.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
@@ -586,6 +575,16 @@
         },
         {
           "path": "app/docs/configuration.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked project material; consult canonical status and ownership records."
+        },
+        {
+          "path": "app/docs/langfuse-connection.md",
+          "status": "Merged PR #36",
+          "purpose": "Official M2 connection instructions."
+        },
+        {
+          "path": "app/docs/README.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
@@ -601,6 +600,11 @@
         },
         {
           "path": "app/pyproject.toml",
+          "status": "Current snapshot",
+          "purpose": "Tracked project material; consult canonical status and ownership records."
+        },
+        {
+          "path": "app/README.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
@@ -670,11 +674,6 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "app/src/agent_playbook/config/README.md",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
           "path": "app/src/agent_playbook/config/__init__.py",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
@@ -705,7 +704,7 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "app/src/agent_playbook/execution/README.md",
+          "path": "app/src/agent_playbook/config/README.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
@@ -715,12 +714,27 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "app/src/agent_playbook/observability/README.md",
+          "path": "app/src/agent_playbook/execution/README.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
+          "path": "app/src/agent_playbook/observability/adapters/langfuse/connection.py",
+          "status": "Merged PR #36",
+          "purpose": "Langfuse SDK project authentication adapter."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/adapters/langfuse/observations.py",
+          "status": "Merged PR #36",
+          "purpose": "Explicit M3 mock observation adapter."
+        },
+        {
           "path": "app/src/agent_playbook/observability/adapters/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked project material; consult canonical status and ownership records."
+        },
+        {
+          "path": "app/src/agent_playbook/observability/README.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
@@ -740,12 +754,12 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "app/src/agent_playbook/workflows/README.md",
+          "path": "app/src/agent_playbook/workflows/__init__.py",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "app/src/agent_playbook/workflows/__init__.py",
+          "path": "app/src/agent_playbook/workflows/README.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
@@ -801,11 +815,6 @@
         },
         {
           "path": "app/src/agent_playbook/workflows/wf_03_conditional_route/steps.py",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
-          "path": "app/tests/README.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
@@ -870,6 +879,11 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
+          "path": "app/tests/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked project material; consult canonical status and ownership records."
+        },
+        {
           "path": "app/tests/releases/test_release_selection.py",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
@@ -920,17 +934,17 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "app/tests/workflows/README.md",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
           "path": "app/tests/workflows/__init__.py",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "app/tests/workflows/conftest.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked project material; consult canonical status and ownership records."
+        },
+        {
+          "path": "app/tests/workflows/README.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
@@ -990,11 +1004,6 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "app/tooling/README.md",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
           "path": "app/tooling/__init__.py",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
@@ -1006,6 +1015,16 @@
         },
         {
           "path": "app/tooling/checks.py",
+          "status": "Current snapshot",
+          "purpose": "Tracked project material; consult canonical status and ownership records."
+        },
+        {
+          "path": "app/tooling/observability/check_connection.py",
+          "status": "Merged PR #36",
+          "purpose": "Explicit read-only M2 checker."
+        },
+        {
+          "path": "app/tooling/README.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
@@ -1036,11 +1055,6 @@
         },
         {
           "path": "app/uv.lock",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
-          "path": "designs/README.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
@@ -1090,11 +1104,6 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "designs/diagrams/README.md",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
           "path": "designs/diagrams/build_viewer.py",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
@@ -1105,17 +1114,22 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
+          "path": "designs/diagrams/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked project material; consult canonical status and ownership records."
+        },
+        {
           "path": "designs/diagrams/render.py",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "designs/learning/README.md",
+          "path": "designs/learning/architecture-walkthrough.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "designs/learning/architecture-walkthrough.md",
+          "path": "designs/learning/README.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
@@ -1135,9 +1149,9 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "designs/refactors/2026-11-12-runtime-structure/README.md",
-          "status": "Completed Stage 01 refactor",
-          "purpose": "Accepted merged runtime split; proposal and verification remain historical."
+          "path": "designs/README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/refactors/2026-11-12-runtime-structure/proposal.md",
@@ -1145,9 +1159,69 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
+          "path": "designs/refactors/2026-11-12-runtime-structure/README.md",
+          "status": "Completed Stage 01 refactor",
+          "purpose": "Accepted merged runtime split; proposal and verification remain historical."
+        },
+        {
           "path": "designs/refactors/2026-11-12-runtime-structure/verification.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
+        },
+        {
+          "path": "designs/refactors/logging/m3-service-composition/design.md",
+          "status": "Proposed revised design; not implemented",
+          "purpose": "Logging M3 service-control design review in draft PR #57; exact-revision approval pending."
+        },
+        {
+          "path": "designs/refactors/logging/m3-service-composition/implementation-plan.md",
+          "status": "Proposed revised design; not implemented",
+          "purpose": "Logging M3 service-control design review in draft PR #57; exact-revision approval pending."
+        },
+        {
+          "path": "designs/refactors/logging/m3-service-composition/README.md",
+          "status": "Proposed revised design; not implemented",
+          "purpose": "Logging M3 service-control design review in draft PR #57; exact-revision approval pending."
+        },
+        {
+          "path": "designs/refactors/logging/m3-service-composition/test-cases.md",
+          "status": "Proposed revised design; not implemented",
+          "purpose": "Logging M3 service-control design review in draft PR #57; exact-revision approval pending."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/design.md",
+          "status": "Completed Stage 01 refactor",
+          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/file-structure.md",
+          "status": "Completed Stage 01 refactor",
+          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/implementation-plan.md",
+          "status": "Completed Stage 01 refactor",
+          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/README.md",
+          "status": "Completed Stage 01 refactor",
+          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/review-follow-up.md",
+          "status": "Historical review and verification evidence",
+          "purpose": "Revision-specific findings and checks for the merged workflow-contract refactor."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/review-test-quality.md",
+          "status": "Historical review and verification evidence",
+          "purpose": "Revision-specific findings and checks for the merged workflow-contract refactor."
+        },
+        {
+          "path": "designs/refactors/workflow-contract/test-plan.md",
+          "status": "Completed Stage 01 refactor",
+          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
         },
         {
           "path": "designs/roadmap.md",
@@ -1203,11 +1277,6 @@
           "path": "designs/stages/00-environment/plan.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
-          "path": "designs/stages/01-crewai-flows/README.md",
-          "status": "Completed and accepted Stage 01",
-          "purpose": "Stage summary with implementation/refactor links and retained learning material."
         },
         {
           "path": "designs/stages/01-crewai-flows/architecture.md",
@@ -1300,17 +1369,17 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
+          "path": "designs/stages/01-crewai-flows/diagrams/index.html",
+          "status": "Current snapshot",
+          "purpose": "Tracked project material; consult canonical status and ownership records."
+        },
+        {
           "path": "designs/stages/01-crewai-flows/diagrams/README.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
           "path": "designs/stages/01-crewai-flows/diagrams/THIRD-PARTY-NOTICES.txt",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
-          "path": "designs/stages/01-crewai-flows/diagrams/index.html",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
@@ -1370,6 +1439,11 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
+          "path": "designs/stages/01-crewai-flows/README.md",
+          "status": "Completed and accepted Stage 01",
+          "purpose": "Stage summary with implementation/refactor links and retained learning material."
+        },
+        {
           "path": "designs/stages/01-crewai-flows/sources.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
@@ -1395,59 +1469,9 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "app/docs/langfuse-connection.md",
-          "status": "Merged PR #36",
-          "purpose": "Official M2 connection instructions."
-        },
-        {
-          "path": "app/tooling/observability/check_connection.py",
-          "status": "Merged PR #36",
-          "purpose": "Explicit read-only M2 checker."
-        },
-        {
-          "path": "app/src/agent_playbook/observability/adapters/langfuse/connection.py",
-          "status": "Merged PR #36",
-          "purpose": "Langfuse SDK project authentication adapter."
-        },
-        {
-          "path": "app/src/agent_playbook/observability/adapters/langfuse/observations.py",
-          "status": "Merged PR #36",
-          "purpose": "Explicit M3 mock observation adapter."
-        },
-        {
-          "path": "designs/refactors/workflow-contract/README.md",
-          "status": "Completed Stage 01 refactor",
-          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
-        },
-        {
-          "path": "designs/refactors/workflow-contract/design.md",
-          "status": "Completed Stage 01 refactor",
-          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
-        },
-        {
-          "path": "designs/refactors/workflow-contract/file-structure.md",
-          "status": "Completed Stage 01 refactor",
-          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
-        },
-        {
-          "path": "designs/refactors/workflow-contract/test-plan.md",
-          "status": "Completed Stage 01 refactor",
-          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
-        },
-        {
-          "path": "designs/refactors/workflow-contract/implementation-plan.md",
-          "status": "Completed Stage 01 refactor",
-          "purpose": "Approved ABC/YAML design implemented and merged through PR #40."
-        },
-        {
-          "path": "designs/refactors/workflow-contract/review-follow-up.md",
-          "status": "Historical review and verification evidence",
-          "purpose": "Revision-specific findings and checks for the merged workflow-contract refactor."
-        },
-        {
-          "path": "designs/refactors/workflow-contract/review-test-quality.md",
-          "status": "Historical review and verification evidence",
-          "purpose": "Revision-specific findings and checks for the merged workflow-contract refactor."
+          "path": "README.md",
+          "status": "Current snapshot",
+          "purpose": "Tracked project material; consult canonical status and ownership records."
         }
       ]
     },
