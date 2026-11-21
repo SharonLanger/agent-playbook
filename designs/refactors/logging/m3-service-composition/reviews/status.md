@@ -1,5 +1,7 @@
 # M3 design completion reviews
 
+Historical review record for the earlier scope. See the [revised contract](../design.md) and [current plan](../implementation-plan.md) for the November 21 command groups. The verdicts below apply to the listed frozen revisions.
+
 Behavioral approval: c516c94926af0355e387b3bbb92ac5d6118e7390 (2026-11-18). Base/target: cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4 / main. The concrete technical contract is **not approved**. Runtime implementation NOT STARTED. All MC-01–12 implementation/live acceptance and M2 LG-10: NOT RUN.
 
 | Round | Frozen documentation candidate | Design reviewer | Test reviewer | Disposition |
