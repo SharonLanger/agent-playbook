@@ -6,6 +6,7 @@ and learn it. Progress records what has actually been accepted.
 
 | Location | Purpose |
 |---|---|
+| [PR quality and local versions](refactors/pr-ci/README.md) | Approved design, implementation review findings and public activation status |
 | [Workflow contract refactor](refactors/workflow-contract/README.md) | Completed and accepted ABC lifecycle and YAML contract; [A1–F6 mapping](refactors/workflow-contract/review-follow-up.md) and [Q1–Q4 test corrections](refactors/workflow-contract/review-test-quality.md) retain revision-specific evidence |
 | [Runtime structure refactor](refactors/2026-11-12-runtime-structure/README.md) | Accepted runtime refactor record, exploratory future-tree proposal and revision-specific verification evidence |
 | [Project refactor](refactors/project-refactor/README.md) | Stage document structure, existing-stage alignment and the learning and sandbox migration in draft PR #59 |

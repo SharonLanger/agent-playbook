@@ -2,6 +2,8 @@
 
 Status: **PROPOSED / AWAITING EXPLICIT USER APPROVAL**. Do not implement or lock yet.
 
+**Later decision, 2026-11-21.** Stage 00 used local checks and tied minor versions to stages. [Sharon’s approval](https://github.com/SharonLanger/agent-playbook/pull/63#issuecomment-7062463938) of the [PR CI design](../../refactors/pr-ci/README.md) adds hosted PR checks once public. Maintainer versions now advance independently of stages. Patch covers compatible fixes, minor covers features and may include documented breaking changes in 0.x, and moving to 1.0 is an explicit stability decision. The original Stage 00 decisions below remain the record of that stage.
+
 ## Goal
 A reproducible, strongly type-checked Python application that runs from PyCharm or a terminal, can be tested deterministically, and can be built and executed as a versioned isolated Wheel release. No CrewAI dependency, agent workflow or Langfuse integration in this stage. Each substage introduces only one principal new concept; the single bootstrap command evolves incrementally.
 

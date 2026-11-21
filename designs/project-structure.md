@@ -25,6 +25,8 @@ approval wording and CrewAI acceptance discrepancy are tracked in progress.md.
 |---|---|
 | `designs/` | Architecture, guarded structure, stage plans and learning records |
 | `designs/diagrams/` | Diagram sources, static/animated SVG and viewer |
+| `.github/workflows/` | Hosted PR automation; the PR quality workflow invokes maintained local tooling |
+| `CHANGELOG.md` | Maintainer version history and merged PR numbers/titles between recorded main cutoffs |
 | `.run/` | Shared portable PyCharm tasks |
 | `app/pyproject.toml`, `app/uv.lock` | Package metadata, dependency pins and check configuration |
 | `app/application.yaml`, `app/application.local.yaml` | Shared external runtime YAML and ignored machine overrides; user guide in `app/docs/configuration.md` |

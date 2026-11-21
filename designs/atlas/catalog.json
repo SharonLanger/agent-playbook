@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 03 completed and accepted by Sharon on 2026-11-16: eight standalone CrewAI recipes merged in PR #53; temporary verification scripts removed at authorized design closeout #52. Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance.  Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files. Logging M2 implementation PR #55 merged on 2026-11-18 after both round 02 reviewers and originating design-session final review passed. LG-10 live manual testing remains NOT RUN and must be completed before finalizing logging design PR #51, which stays draft/open.",
+  "snapshot": "Stage 03 completed and accepted by Sharon on 2026-11-16: eight standalone CrewAI recipes merged in PR #53; temporary verification scripts removed at authorized design closeout #52. Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance.  Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files. Logging M2 implementation PR #55 merged on 2026-11-18 after both round 02 reviewers and originating design-session final review passed. LG-10 live manual testing remains NOT RUN and must be completed before finalizing logging design PR #51, which stays draft/open. PR quality and local versions: design approved in #63. Originating review requested two corrections in #64. Hosted macOS and main enforcement pending.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -57,7 +57,13 @@
     "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/reviews/status.md",
     "designs/stages/02-langfuse/closeout.md",
     "designs/stages/03-orchestration-patterns/README.md",
-    "designs/stages/03-orchestration-patterns/requirements.md"
+    "designs/stages/03-orchestration-patterns/requirements.md",
+    "designs/refactors/pr-ci/README.md",
+    "designs/refactors/pr-ci/requirements.md",
+    "designs/refactors/pr-ci/decisions.md",
+    "designs/refactors/pr-ci/design.md",
+    "designs/refactors/pr-ci/test-cases.md",
+    "designs/refactors/pr-ci/implementation-plan.md"
   ],
   "views": {
     "current": {
@@ -1502,6 +1508,36 @@
           "path": "designs/refactors/workflow-contract/review-test-quality.md",
           "status": "Historical review and verification evidence",
           "purpose": "Revision-specific findings and checks for the merged workflow-contract refactor."
+        },
+        {
+          "path": "designs/refactors/pr-ci/README.md",
+          "status": "Current review status",
+          "purpose": "PR CI implementation review, verification and acceptance status."
+        },
+        {
+          "path": "designs/refactors/pr-ci/requirements.md",
+          "status": "Approved design",
+          "purpose": "Pinned PR CI and local version tracking package approved in #63."
+        },
+        {
+          "path": "designs/refactors/pr-ci/decisions.md",
+          "status": "Approved design",
+          "purpose": "Pinned PR CI and local version tracking package approved in #63."
+        },
+        {
+          "path": "designs/refactors/pr-ci/design.md",
+          "status": "Approved design",
+          "purpose": "Pinned PR CI and local version tracking package approved in #63."
+        },
+        {
+          "path": "designs/refactors/pr-ci/test-cases.md",
+          "status": "Approved design",
+          "purpose": "Pinned PR CI and local version tracking package approved in #63."
+        },
+        {
+          "path": "designs/refactors/pr-ci/implementation-plan.md",
+          "status": "Approved design",
+          "purpose": "Pinned PR CI and local version tracking package approved in #63."
         }
       ]
     },

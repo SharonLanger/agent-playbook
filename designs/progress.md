@@ -1,5 +1,9 @@
 # Progress and acceptance
 
+## PR CI and local version tracking — 2026-11-21
+
+The [approved package and final-review findings](refactors/pr-ci/README.md) track issue #62. Round 2 of [implementation PR #64](https://github.com/SharonLanger/agent-playbook/pull/64) recorded 480 passing tests and a verified local wheel on Linux. The originating review requests two focused corrections. Both hosted jobs inspected were skipped while private. Main enforcement, user acceptance, merges and the final coordinated fresh run remain pending.
+
 ## Logging M2 merged — 2026-11-18
 
 Sharon authorized merging implementation PR #55 after the originating design-session final review passed with no required code corrections. PR #55 merged at `180b6e769d979015ed76e09128e25a32456ed5a4`; the reviewed code/test candidate remains `8770d076c5c586ff9f9830c43432dd127585033c` (reported full gate: 464 tests passed). M1 remains merged through PR #54.
