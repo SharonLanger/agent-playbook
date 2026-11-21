@@ -54,7 +54,7 @@ Never hand-merge generated Atlas HTML; rebuild from reconciled sources.
 
 Deliver validated external settings, a narrow Langfuse-specific integration and
 an explicitly invoked standalone checker. Follow the configuration proposal in
-[architecture](architecture.md); choose concrete names consistent with the current
+[architecture](../../architecture.md); choose concrete names consistent with the current
 loader and document them. Existing YAML files that omit Langfuse must still load
 with Langfuse disabled. Do not create a second application configuration loader.
 
@@ -92,7 +92,7 @@ Langfuse is disabled/stopped, and normal checks require no live server.
 
 ### M2 verification
 
-Follow [verification.md](verification.md). Use maintained fixtures under
+Follow [verification.md](../verification.md). Use maintained fixtures under
 `app/tests/` to verify old YAML compatibility, precedence, valid/invalid enabled
 settings, missing/invalid key references, disabled/no-client/no-network behavior,
 sanitized diagnostic output, bounded failure handling and documented exit codes.
@@ -111,7 +111,7 @@ project tooling; no release/version bump or publication is requested.
 
 Implement the specifically requested `app/examples/langfuse/run.py` and README,
 using M2's configuration/connection and a small observation interface in the
-Langfuse adapter. Follow [smoke-plan.md](smoke-plan.md): initialize → add →
+Langfuse adapter. Follow [smoke-plan.md](../smoke-plan.md): initialize → add →
 multiply → finish, defaults `(3 + 2) * 4 = 20`, editable inputs and a choice of
 failure at add or multiply. Use fresh run/trace identifiers, actual timings,
 small synthetic payloads and explicit mock labels. No actual CrewAI/model calls.
@@ -150,7 +150,7 @@ than implying that all checks ran. Keep M1/M2/M3 acceptance pending until Sharon
 reports his respective local checks. M4 is out of scope even if its refactor
 merges during this task.
 
-See [user-verification.md](user-verification.md) for the existing Drive files.
+See [user-verification.md](../user-verification.md) for the existing Drive files.
 After each milestone, update its own text file in place with the exact tested
 full commit SHA and literal fetch/checkout/install/configure/run/stop commands.
 Keep the M1 file pinned; don't replace its hash with an M2/M3 revision. Include

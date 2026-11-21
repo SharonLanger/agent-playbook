@@ -14,27 +14,37 @@ The [repository progress record](../../progress.md#stage-02-closeout--2026-11-15
 
 | Milestone and outcome | Design and approval | Implementation PR | Verification and review evidence | Acceptance | Merge |
 |---|---|---|---|---|---|
-| M1 — Local Langfuse UI and persistence | [Agreed setup checkpoint](milestones.md#1-langfuse-runs-locally) and [handoff](implementation-handoff.md) | [#36](https://github.com/SharonLanger/agent-playbook/pull/36) | [Setup findings](findings.md#milestone-1-findings) and [local results](acceptance-2026-11-14.md#observed-results) | Accepted by Sharon on 2026-11-14 | Merged |
-| M2 — Explicit project connection check | [Agreed connection checkpoint](milestones.md#2-our-code-can-connect) and [shared handoff](connection-playground-handoff.md#milestone-2--connection-only) | [#36](https://github.com/SharonLanger/agent-playbook/pull/36) | [Connection findings](findings.md#m2-project-connection--2026-11-13) and [local results](acceptance-2026-11-14.md#observed-results) | Accepted by Sharon on 2026-11-14 | Merged |
-| M3 — Editable mock traces | [Agreed playground checkpoint](milestones.md#3-i-can-see-and-change-mock-runs) and [manual exercise](smoke-plan.md) | [#36](https://github.com/SharonLanger/agent-playbook/pull/36) | [Mock findings](findings.md#m3-editable-mock-playground--2026-11-13) and [readback limitation](acceptance-2026-11-14.md#remaining-delivery-confirmation-limitation) | Accepted by Sharon on 2026-11-14, with the recorded readback limitation | Merged |
-| M4.R — Released-version tracing research | [Workflow-integration research](workflow-integration/research/crewai-langfuse.md) | Research prerequisite | [Coverage and limits](workflow-integration/research/crewai-langfuse.md#coverage-and-limits) | Research evidence only | Recorded in the merged design workspace |
-| [M4.1 — Execution context](workflow-integration/m1-context/README.md) | [Approved revision `11bba581`](https://github.com/SharonLanger/agent-playbook/blob/11bba581291c1b166973848ea8db6a9e2a142413/designs/stages/02-langfuse/workflow-integration/01-context-design.md) | [#44](https://github.com/SharonLanger/agent-playbook/pull/44) | [Two review rounds](workflow-integration/m1-context/reviews/status.md) and [final review](workflow-integration/history/context-final-review.md) | Accepted by Sharon on 2026-11-14 | Merged at `942e59344c429454263319e783ea76ad297b7ea6` |
-| [M4.2 + M4.3 — Native runner and automatic CrewAI tracing](workflow-integration/m2-3-workflow-tracing/README.md) | [Approved revision `ab3fab45`](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md) and [round-02 SDK-first approval `82b967dd`](https://github.com/SharonLanger/agent-playbook/commit/82b967dda1fbf942cc1067a3539328c74abc303a) | [#50](https://github.com/SharonLanger/agent-playbook/pull/50) | [Two review rounds](workflow-integration/m2-3-workflow-tracing/reviews/status.md), [final review](workflow-integration/history/tracing-final-review.md) and [local acceptance](workflow-integration/m2-3-workflow-tracing/reviews/local-acceptance.md) | Accepted by Sharon on 2026-11-15 | Merged at `b08060f0acba74f19bc8a32aedb21316eed149c1` |
+| M1 — Local Langfuse UI and persistence | [Agreed setup checkpoint](milestones.md#1-langfuse-runs-locally) and [handoff](m1-3-local-langfuse/history/implementation-handoff.md) | [#36](https://github.com/SharonLanger/agent-playbook/pull/36) | [Setup findings](m1-3-local-langfuse/reviews/findings.md#milestone-1-findings) and [local results](m1-3-local-langfuse/reviews/acceptance-2026-11-14.md#observed-results) | Accepted by Sharon on 2026-11-14 | Merged |
+| M2 — Explicit project connection check | [Agreed connection checkpoint](milestones.md#2-our-code-can-connect) and [shared handoff](m1-3-local-langfuse/history/connection-playground-handoff.md#milestone-2--connection-only) | [#36](https://github.com/SharonLanger/agent-playbook/pull/36) | [Connection findings](m1-3-local-langfuse/reviews/findings.md#m2-project-connection--2026-11-13) and [local results](m1-3-local-langfuse/reviews/acceptance-2026-11-14.md#observed-results) | Accepted by Sharon on 2026-11-14 | Merged |
+| M3 — Editable mock traces | [Agreed playground checkpoint](milestones.md#3-i-can-see-and-change-mock-runs) and [manual exercise](m1-3-local-langfuse/smoke-plan.md) | [#36](https://github.com/SharonLanger/agent-playbook/pull/36) | [Mock findings](m1-3-local-langfuse/reviews/findings.md#m3-editable-mock-playground--2026-11-13) and [readback limitation](m1-3-local-langfuse/reviews/acceptance-2026-11-14.md#remaining-delivery-confirmation-limitation) | Accepted by Sharon on 2026-11-14, with the recorded readback limitation | Merged |
+| M4.R — Released-version tracing research | [Workflow-integration research](m4-workflow-integration/research/crewai-langfuse.md) | Research prerequisite | [Coverage and limits](m4-workflow-integration/research/crewai-langfuse.md#coverage-and-limits) | Research evidence only | Recorded in the merged design workspace |
+| [M4.1 — Execution context](m4-workflow-integration/m4-1-context/README.md) | [Approved revision `11bba581`](https://github.com/SharonLanger/agent-playbook/blob/11bba581291c1b166973848ea8db6a9e2a142413/designs/stages/02-langfuse/workflow-integration/01-context-design.md) | [#44](https://github.com/SharonLanger/agent-playbook/pull/44) | [Two review rounds](m4-workflow-integration/m4-1-context/reviews/status.md) and [final review](m4-workflow-integration/m4-1-context/reviews/context-final-review.md) | Accepted by Sharon on 2026-11-14 | Merged at `942e59344c429454263319e783ea76ad297b7ea6` |
+| [M4.2 + M4.3 — Native runner and automatic CrewAI tracing](m4-workflow-integration/m4-2-3-workflow-tracing/README.md) | [Approved revision `ab3fab45`](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md) and [round-02 SDK-first approval `82b967dd`](https://github.com/SharonLanger/agent-playbook/commit/82b967dda1fbf942cc1067a3539328c74abc303a) | [#50](https://github.com/SharonLanger/agent-playbook/pull/50) | [Two review rounds](m4-workflow-integration/m4-2-3-workflow-tracing/reviews/status.md), [final review](m4-workflow-integration/m4-2-3-workflow-tracing/reviews/tracing-final-review.md) and [local acceptance](m4-workflow-integration/m4-2-3-workflow-tracing/reviews/local-acceptance.md) | Accepted by Sharon on 2026-11-15 | Merged at `b08060f0acba74f19bc8a32aedb21316eed149c1` |
 
 M1–M3 used a single implementation PR at `44d69194f6add6f646795b14f7c3f43c656baeda`. Their original checkpoints preceded the current per-milestone pinning convention. [Stage Design PR #47](https://github.com/SharonLanger/agent-playbook/pull/47) merged last at `4ed7a318e25653d481705d9cb40c35de9ab649c7`.
 
-The [workflow-integration package](workflow-integration/README.md) owns the shared [requirements](workflow-integration/requirements.md), [decisions](workflow-integration/decisions.md) and research for M4. Its local package IDs M1 and M2–M3 correspond to Stage 02 milestones M4.1 and M4.2 + M4.3.
+The [workflow-integration package](m4-workflow-integration/README.md) owns the shared [requirements](m4-workflow-integration/requirements.md), [decisions](m4-workflow-integration/decisions.md) and research for M4. Earlier records use the package-local IDs M1 and M2–M3 for Stage 02 milestones M4.1 and M4.2 + M4.3 respectively.
+
+## Read the stage records
+
+1. [M1–M3 · Local Langfuse](m1-3-local-langfuse/README.md) groups the setup, connection and mock-trace verification with the acceptance record and earlier handoffs.
+2. [M4 · Workflow integration](m4-workflow-integration/README.md) leads to the shared requirements and decisions, M4.R research, the M4.1 context package and the combined M4.2 + M4.3 tracing package.
+3. [Stage architecture](architecture.md), the [original milestone plan](milestones.md) and the [final closeout](closeout.md) retain the stage-wide contracts, checkpoints and delivery evidence.
 
 ## Next action
 
-Stage 02 is closed. For context and tracing details, follow the merged milestone packages above. For the next learning stage, see [Stage 03](../03-orchestration-patterns/README.md).
+Stage 02 is closed. Use the milestone packages above to review its deliverables and the [repository progress record](../../progress.md) for subsequent work.
 
 ## Historical checkpoints
+
+The 2026-11-15 closeout pointed to [Stage 03](../03-orchestration-patterns/README.md) as the next learning stage. For context and tracing details it directed readers to the merged milestone packages above.
 
 The following entries preserve the stage's original planning, handoff and verification records. Their status and PR instructions describe their recorded checkpoints. [The original milestone plan](milestones.md) remains the source for the agreed historical gates.
 
 
-### Current acceptance — 2026-11-15
+<a name="current-acceptance--2026-11-15"></a>
+
+### Implementation acceptance before design closeout — 2026-11-15
 
 M4.2 + M4.3 native workflow tracing is implemented, final-reviewed and accepted by Sharon; PR #50 merged at b08060f0acba74f19bc8a32aedb21316eed149c1. The reviewed candidate is adbba215da77e1e618c3c699e1d84c1ba45c629e: 408 tests, static/lint/format checks and installed release passed. Sharon completed local success, routing, correlation, input/output, readable-name and controlled-failure checks. M1–M3 and M4.1 remain accepted/merged. Stage Design PR #47 stays open for documentation reconciliation and explicit stage closeout. Logging, real-agent cost/usage and scores/evaluations remain deferred. Earlier pending statements below are historical checkpoints, superseded by this acceptance.
 
@@ -42,19 +52,21 @@ M4.2 + M4.3 native workflow tracing is implemented, final-reviewed and accepted 
 
 Status: **M1–M3 local setup and mock-trace exercise accepted by Sharon on Mac on 2026-11-14; PR #36 merged as `44d6919`. Delivery readback has a recorded limitation; M4.1 is accepted/merged; the combined M4.2/M4.3 implementation is unmerged, continuing round 02 under approved SDK-first amendment 82b967d; review and local acceptance remain pending.**
 Milestone 1's fixed checkpoint remains available; see
-[findings](findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
+[findings](m1-3-local-langfuse/reviews/findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
 Milestone 2 adds a project connection check, and milestone 3 adds the explicit
-mock playground. M4.1 is implemented, final-reviewed and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 design/test/plan are approved at `ab3fab459c97eed44cc0b202402e559a827a71cf`. The approved round-02 amendment accepts visible framework events to enable automatic tracing, native input/output capture and readable naming; see [follow-up evidence](workflow-integration/m2-3-workflow-tracing/follow-ups.md).
+mock playground. M4.1 is implemented, final-reviewed and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 design/test/plan are approved at `ab3fab459c97eed44cc0b202402e559a827a71cf`. The approved round-02 amendment accepts visible framework events to enable automatic tracing, native input/output capture and readable naming; see [follow-up evidence](m4-workflow-integration/m4-2-3-workflow-tracing/follow-ups.md).
 
-### Start here
+<a name="start-here"></a>
 
-M4 planning now has a [permanent workflow-integration workspace](workflow-integration/README.md): current requirements, decisions, CrewAI research and the pending repository-update checklist. PR #43 now includes a [detailed M4.1 context draft](workflow-integration/m1-context/design.md), separate test cases and a capped implementation/review plan. M4.1 candidate 16c1580 passed implementation and final review; Sharon accepted it and authorized merging. M4.2 preliminary design is active, including shared correlation metadata. The earlier PR #36 milestone/branch policy below records M1–M3; M4 uses the separate milestone PR direction in the new workspace.
+### Earlier navigation and handoff — November 2026
 
-Latest: [local acceptance and remaining limitation](acceptance-2026-11-14.md),
-[approved main reconciliation](main-reconciliation.md),
-[the original review](review-2026-11-13.md),
-[the follow-up resolution](resolution-2026-11-13.md) and the
-[CLI plan / Codex handoff](verification-simplification-plan.md).
+M4 planning now has a [permanent workflow-integration workspace](m4-workflow-integration/README.md): current requirements, decisions, CrewAI research and the pending repository-update checklist. PR #43 now includes a [detailed M4.1 context draft](m4-workflow-integration/m4-1-context/design.md), separate test cases and a capped implementation/review plan. M4.1 candidate 16c1580 passed implementation and final review; Sharon accepted it and authorized merging. M4.2 preliminary design is active, including shared correlation metadata. The earlier PR #36 milestone/branch policy below records M1–M3; M4 uses the separate milestone PR direction in the new workspace.
+
+Latest: [local acceptance and remaining limitation](m1-3-local-langfuse/reviews/acceptance-2026-11-14.md),
+[approved main reconciliation](m1-3-local-langfuse/history/main-reconciliation.md),
+[the original review](m1-3-local-langfuse/reviews/review-2026-11-13.md),
+[the follow-up resolution](m1-3-local-langfuse/reviews/resolution-2026-11-13.md) and the
+[CLI plan / Codex handoff](m1-3-local-langfuse/history/verification-simplification-plan.md).
 Sharon approved the six conflict resolutions. Main's workflow refactor and the
 Langfuse branch are combined; verification is recorded in the reconciliation
 file. R1/R3 delivery reporting and R4 status prose have been corrected on this
@@ -66,11 +78,11 @@ trace; that limitation remains open. Real workflow/context integration remains l
 
 Read [the four milestones and local checkpoints](milestones.md), then
 [configuration and ownership](architecture.md) and the
-[playground/manual exercise](smoke-plan.md).
-Implementing agents must follow [verification before handoff](verification.md).
-The [M1 brief](implementation-handoff.md) covers setup and its port follow-up.
-The [M2/M3 handoff](connection-playground-handoff.md) and
-[combined current verification guide and historical milestone files](user-verification.md) record their scope and
+[playground/manual exercise](m1-3-local-langfuse/smoke-plan.md).
+Implementing agents must follow [verification before handoff](m1-3-local-langfuse/verification.md).
+The [M1 brief](m1-3-local-langfuse/history/implementation-handoff.md) covers setup and its port follow-up.
+The [M2/M3 handoff](m1-3-local-langfuse/history/connection-playground-handoff.md) and
+[combined current verification guide and historical milestone files](m1-3-local-langfuse/user-verification.md) record their scope and
 exact local checkpoints.
 
 The goal is gradual, visible progress: first an empty working UI, then a connection
@@ -109,7 +121,7 @@ not the workflow examples.
 When implementing the requested playground, the agent must smoke-run its success
 and selected failure scenarios before delivery. This targeted manual verification
 is authorized for the new Langfuse example; it is not an automated application
-gate or permission to inspect other examples. See [verification.md](verification.md).
+gate or permission to inspect other examples. See [verification.md](m1-3-local-langfuse/verification.md).
 
 The future CLI diagnostic feature is tracked in
 [issue #37 — doctor](https://github.com/SharonLanger/agent-playbook/issues/37).
@@ -155,6 +167,6 @@ its own learning README when created.
 Sharon approved the M4.1 package at `11bba581291c1b166973848ea8db6a9e2a142413`
 and G01–G08 in his implementation instruction. The data-only context and actual
 workflow propagation are being implemented on `feat/m4-1-context` and are not
-merged or accepted. [Round status and evidence](workflow-integration/m1-context/reviews/status.md)
+merged or accepted. [Round status and evidence](m4-workflow-integration/m4-1-context/reviews/status.md)
 track the independent design and test reviews. M1–M3 history is unchanged;
 Langfuse tracing and automatic CrewAI observations remain separate checkpoints.

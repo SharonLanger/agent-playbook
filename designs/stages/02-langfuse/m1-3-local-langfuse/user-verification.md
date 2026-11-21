@@ -2,10 +2,10 @@
 
 Status: **Sharon accepted the local setup and mock-trace exercise on 2026-11-14. PR #36 merged as `44d6919`; M4 is deferred.**
 
-The [acceptance record](acceptance-2026-11-14.md) distinguishes observed Mac/UI
+The [acceptance record](reviews/acceptance-2026-11-14.md) distinguishes observed Mac/UI
 results from automated verification and the remaining delivery-readback limitation.
-Use the maintained [connection guide](../../../app/docs/langfuse-connection.md)
-and [hands-on exercise](../../../app/docs/langfuse-hands-on.md) for current YAML-selected
+Use the maintained [connection guide](../../../../app/docs/langfuse-connection.md)
+and [hands-on exercise](../../../../app/docs/langfuse-hands-on.md) for current YAML-selected
 credentials and runnable commands. The older Drive files below retain their original
 SHAs and setup instructions; they are historical rather than current onboarding.
 Their titles are retained below; private Drive URLs are omitted from the repository.
@@ -22,7 +22,7 @@ They do not reopen accepted local setup or authorize M4.
 
 ## Historical checklist preparation instructions
 
-Follow [the M2/M3 handoff](connection-playground-handoff.md). Update each file
+Follow [the M2/M3 handoff](history/connection-playground-handoff.md). Update each file
 only after its implementation exists. State the full pushed SHA, branch, platform,
 checks and remaining local acceptance; include exact fetch/checkout commands,
 working directories, dependency installation, private configuration, run command,

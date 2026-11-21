@@ -54,24 +54,24 @@ Stage 01 details and retained learning material are in the [stage summary](stage
 
 ## M4.1 current closeout — 2026-11-14
 
-M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 combined contract is approved; the unmerged `impl/m4-2-3-native-tracing` candidate implements native runner setup/scopes/CLI delivery, round 02 applies the approved visible-framework default and native input/output/naming amendment. Verification/review and local acceptance remain pending. Logging remains deferred. PR #43 merged as c8f129e. Reviewed candidate 16c1580 passed the reported 380-test quality gate/release and final reviewer's independent 43-test rerun. See [final review](stages/02-langfuse/workflow-integration/history/context-final-review.md). Documentation conflicts and duplicate D30 are reconciled without runtime/test changes; the merge was confirmed by GitHub at 942e59344c429454263319e783ea76ad297b7ea6.
+M4.1 implemented, independently reviewed and accepted by Sharon; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 combined contract is approved; the unmerged `impl/m4-2-3-native-tracing` candidate implements native runner setup/scopes/CLI delivery, round 02 applies the approved visible-framework default and native input/output/naming amendment. Verification/review and local acceptance remain pending. Logging remains deferred. PR #43 merged as c8f129e. Reviewed candidate 16c1580 passed the reported 380-test quality gate/release and final reviewer's independent 43-test rerun. See [final review](stages/02-langfuse/m4-workflow-integration/m4-1-context/reviews/context-final-review.md). Documentation conflicts and duplicate D30 are reconciled without runtime/test changes; the merge was confirmed by GitHub at 942e59344c429454263319e783ea76ad297b7ea6.
 
 ## M4.2/M4.3 round-02 continuation — 2026-11-15
 
-Sharon approved SDK-first continuation at `82b967dda1fbf942cc1067a3539328c74abc303a`, supplementing the frozen original `ab3fab459c97eed44cc0b202402e559a827a71cf` contract. The unmerged PR #50 candidate sets visible framework events by default while preserving explicit false, records validated business input/output using native SDK updates, gives maintained Flows native readable names, and suppresses the PyPI update check using CrewAI’s supported switch. Native public project-key scope metadata is the only payload-policy exception; secret/configuration exclusions remain. Round-02 evidence and remaining local checks are recorded in [follow-ups](stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/follow-ups.md). PR #47 remains draft/open; no acceptance or merge is claimed.
+Sharon approved SDK-first continuation at `82b967dda1fbf942cc1067a3539328c74abc303a`, supplementing the frozen original `ab3fab459c97eed44cc0b202402e559a827a71cf` contract. The unmerged PR #50 candidate sets visible framework events by default while preserving explicit false, records validated business input/output using native SDK updates, gives maintained Flows native readable names, and suppresses the PyPI update check using CrewAI’s supported switch. Native public project-key scope metadata is the only payload-policy exception; secret/configuration exclusions remain. Round-02 evidence and remaining local checks are recorded in [follow-ups](stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/follow-ups.md). PR #47 remains draft/open; no acceptance or merge is claimed.
 
 ## Historical M4.2/M4.3 round-01 checkpoint — 2026-11-15
 
 Sharon approved the design/test/plan at `ab3fab459c97eed44cc0b202402e559a827a71cf` and narrow RUN-G01–08 amendments. Base: main `fefe4cc1065642b710a018ecb1088ececde852db`; governance `293fe88a404f9aa9bd37e897b6d65f0ef4d0ee1f` is included. Branch `impl/m4-2-3-native-tracing` is unmerged. The native setup, runner scopes/three-field propagation and CLI finally delivery are implemented; context/business Flow settings remain unchanged.
 
-Actual runner integration reveals a blocker: OpenInference CrewAI 1.1.25 skips all automatic Flow/method observations under the maintained quiet setting. Tests preserve the expected hierarchy and fail rather than treating runner-only export as complete. See the [permanent follow-up](stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/follow-ups.md) for released-source evidence and unapproved choices. The approved package remains frozen on draft PR #47. Automated verification, independent review, installed-release integration and live UI/user acceptance remain distinct; no completion or acceptance is claimed.
+Actual runner integration reveals a blocker: OpenInference CrewAI 1.1.25 skips all automatic Flow/method observations under the maintained quiet setting. Tests preserve the expected hierarchy and fail rather than treating runner-only export as complete. See the [permanent follow-up](stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/follow-ups.md) for released-source evidence and unapproved choices. The approved package remains frozen on draft PR #47. Automated verification, independent review, installed-release integration and live UI/user acceptance remain distinct; no completion or acceptance is claimed.
 
 ## Historical M4.1 handoff / M4.2 planning — 2026-11-14
 
 [Draft PR #43](https://github.com/SharonLanger/agent-playbook/pull/43) contains the
-[context design](stages/02-langfuse/workflow-integration/m1-context/design.md),
-[separate test cases](stages/02-langfuse/workflow-integration/m1-context/test-cases.md)
-and [Codex implementation/review plan](stages/02-langfuse/workflow-integration/m1-context/implementation-plan.md).
+[context design](stages/02-langfuse/m4-workflow-integration/m4-1-context/design.md),
+[separate test cases](stages/02-langfuse/m4-workflow-integration/m4-1-context/test-cases.md)
+and [Codex implementation/review plan](stages/02-langfuse/m4-workflow-integration/m4-1-context/implementation-plan.md).
 Sharon authorized drafting, accepted a stable application correlation_id and requested
 one coder plus independent design-drift/test reviewers, with permanent reports and
 at most three total rounds. Sharon now reports sending the explicit M4.1 implementation
@@ -83,7 +83,7 @@ isolated evidence, not real-application or local-UI acceptance.
 
 ## Local acceptance and merge — 2026-11-14
 
-The [local acceptance record](stages/02-langfuse/acceptance-2026-11-14.md)
+The [local acceptance record](stages/02-langfuse/m1-3-local-langfuse/reviews/acceptance-2026-11-14.md)
 records Sharon's Mac/UI results and the remaining `delivery: unconfirmed`
 readback limitation despite visible ingestion. PR #40 is already merged and
 accepted; its dated review findings below remain historical. Sharon authorized
@@ -94,7 +94,7 @@ Real workflow/context tracing remains a separate deferred step.
 PR #36 was explicitly authorized and merged on 2026-11-14 as `44d69194f6add6f646795b14f7c3f43c656baeda`.
 The resulting main was inspected. The isolated local-state regression passed
 at `0a5bf88`; the complete 363-test gate remains pinned to `dafeaed`.
-The next agent should start from the [acceptance/handoff record](stages/02-langfuse/acceptance-2026-11-14.md).
+The next agent should start from the [acceptance/handoff record](stages/02-langfuse/m1-3-local-langfuse/reviews/acceptance-2026-11-14.md).
 M4 and logging/context design remain separate work; the delivery-readback
 limitation is retained. This merge does not complete all of Stage 02.
 
@@ -114,8 +114,8 @@ Mac/UI acceptance remain pending; real workflow/context tracing is deferred.
 The histories below retain their original revisions and earlier pending/merged
 wording. They are historical evidence, not the current state. Integration
 verification and the approved conflict choices are in the
-[Stage 02 reconciliation record](stages/02-langfuse/main-reconciliation.md).
-The [follow-up resolution](stages/02-langfuse/resolution-2026-11-13.md) records
+[Stage 02 reconciliation record](stages/02-langfuse/m1-3-local-langfuse/history/main-reconciliation.md).
+The [follow-up resolution](stages/02-langfuse/m1-3-local-langfuse/reviews/resolution-2026-11-13.md) records
 the SDK/reporting fixes, current checks and live blocker.
 
 
@@ -194,26 +194,26 @@ The personal playground is for manual UI learning and scenario edits, not automa
 
 ### Agent verification and implementation handoff
 
-Sharon requested practical sanity checks before an implementation reaches his manual review, while leaving simple UI/account steps to him when automation would be disproportionate. The stage now has [verification requirements](stages/02-langfuse/verification.md) and a [milestone 1 Codex brief](stages/02-langfuse/implementation-handoff.md). They require actual available checks, explicit blocked/unrun results, targeted smoke runs of the specifically requested new Langfuse playground during M3, and independent automated fixtures. This update is documentation only; no milestone implementation or live verification has been performed.
+Sharon requested practical sanity checks before an implementation reaches his manual review, while leaving simple UI/account steps to him when automation would be disproportionate. The stage now has [verification requirements](stages/02-langfuse/m1-3-local-langfuse/verification.md) and a [milestone 1 Codex brief](stages/02-langfuse/m1-3-local-langfuse/history/implementation-handoff.md). They require actual available checks, explicit blocked/unrun results, targeted smoke runs of the specifically requested new Langfuse playground during M3, and independent automated fixtures. This update is documentation only; no milestone implementation or live verification has been performed.
 
 ## Stage 02 milestone 1 — implementation on PR #36
 
 Sharon authorized milestone 1 only. The PR branch now includes a pinned local
 Langfuse Compose stack, one-time ignored secret generation and an official UI
-setup guide. See [M1 findings](stages/02-langfuse/findings.md) for live
+setup guide. See [M1 findings](stages/02-langfuse/m1-3-local-langfuse/reviews/findings.md) for live
 verification, limits and remaining manual acceptance. This pending PR is
 implemented and agent-verified, not yet accepted or merged. No Python
 integration, playground, workflow or context change is included.
 
 ## Stage 02 next implementation assignment
 
-On 2026-11-13 Sharon requested [M2/M3 implementation instructions](stages/02-langfuse/connection-playground-handoff.md) for Codex to work while his M1 local check is pending. M2 connects/authenticates without traces; M3 explicitly sends editable synthetic traces. Separate tested commits and per-milestone Drive text checklists preserve independent verification. Shared configuration files overlap workflow PR #40 and must be reconciled; no zero-conflict claim is made. This handoff update implements neither milestone, changes no guarded meaning, and does not accept M1 or authorize M4. [Verification file status](stages/02-langfuse/user-verification.md).
+On 2026-11-13 Sharon requested [M2/M3 implementation instructions](stages/02-langfuse/m1-3-local-langfuse/history/connection-playground-handoff.md) for Codex to work while his M1 local check is pending. M2 connects/authenticates without traces; M3 explicitly sends editable synthetic traces. Separate tested commits and per-milestone Drive text checklists preserve independent verification. Shared configuration files overlap workflow PR #40 and must be reconciled; no zero-conflict claim is made. This handoff update implements neither milestone, changes no guarded meaning, and does not accept M1 or authorize M4. [Verification file status](stages/02-langfuse/m1-3-local-langfuse/user-verification.md).
 
 ## Stage 02 milestone 2 — pending PR #36 checkpoint
 
 The branch implements an explicit Langfuse project authentication checker with
 disabled-by-default external settings and SDK 5.2.0. Existing workflows are not
-instrumented. [M2 findings](stages/02-langfuse/findings.md) record offline and
+instrumented. [M2 findings](stages/02-langfuse/m1-3-local-langfuse/reviews/findings.md) record offline and
 packaging checks plus the blocked live-auth check. Sharon's local acceptance is
 pending. M3 and M4 are not implemented at this checkpoint.
 
@@ -221,7 +221,7 @@ pending. M3 and M4 are not implemented at this checkpoint.
 
 The branch now includes the explicitly invoked personal
 `app/examples/langfuse/run.py` mock playground and a narrow observation writer.
-No ordinary workflow emits traces. [M3 findings](stages/02-langfuse/findings.md)
+No ordinary workflow emits traces. [M3 findings](stages/02-langfuse/m1-3-local-langfuse/reviews/findings.md)
 record independent adapter tests, targeted personal-script smoke runs and the
 blocked live ingestion/readback check. Sharon's M1, M2 and M3 local acceptance
 remain pending; M4 is not implemented.
@@ -230,7 +230,7 @@ remain pending; M4 is not implemented.
 ## PR #36 independent review and verification proposal — 2026-11-13
 
 Sharon requested a permanent record of the four review findings and a simpler
-manual exercise before implementation resumes. The [review](stages/02-langfuse/review-2026-11-13.md)
+manual exercise before implementation resumes. The [review](stages/02-langfuse/m1-3-local-langfuse/reviews/review-2026-11-13.md)
 applies to PR head `5bfcb889215d000d76629c3d4198d33bea99398d`: a real-SDK
 connection/tracing lifecycle defect prevents mock export; rejected export can
 still print submission success; latest-main integration remains unresolved;
@@ -241,7 +241,7 @@ claimed. Prior checkpoint results above remain revision-specific history.
 
 Read-only comparison with main `53764abeb9402d596ee26bef19872fc2ebd7d888`
 found conflicts in the three configuration files, progress, Atlas catalog and
-generated HTML. No merge or resolution was applied. The [proposed follow-up](stages/02-langfuse/verification-simplification-plan.md)
+generated HTML. No merge or resolution was applied. The [proposed follow-up](stages/02-langfuse/m1-3-local-langfuse/history/verification-simplification-plan.md)
 starts with updating from main and agreeing on conflict choices with Sharon,
 then delivery fixes, a small lifecycle helper, agent verification and one
 current-revision Drive checklist. It awaits agreement; its commands are proposed,
@@ -263,7 +263,7 @@ result above belongs to the independent review of `5bfcb889`.
 
 Sharon agreed with the simple Docker operation/verification direction and asked
 for the design to include complete newcomer installation guidance and the needed
-management scripts. The [follow-up plan](stages/02-langfuse/verification-simplification-plan.md)
+management scripts. The [follow-up plan](stages/02-langfuse/m1-3-local-langfuse/history/verification-simplification-plan.md)
 now assigns public-guide updates, a first-use walkthrough, exact version/evidence
 labels, prerequisite checks, repeated-start/stop behavior, helpful failures and
 existing-installation preservation. Official Docker/Langfuse references were
@@ -284,7 +284,7 @@ guarded baseline or broader event/harness design changes.
 Sharon selected double-dash action flags under `agent-playbook langfuse`:
 `--start`, `--stop`, `--status`, `--logs`, `--open`, `--check`, with `--follow`
 only for logs and normal `--help`. He requested the Markdown update and complete
-Codex context before starting. The [plan and handoff](stages/02-langfuse/verification-simplification-plan.md)
+Codex context before starting. The [plan and handoff](stages/02-langfuse/m1-3-local-langfuse/history/verification-simplification-plan.md)
 now define exclusive actions, responsibilities, exits, existing configuration
 selectors, development-checkout dispatch, direct-script fallback, newcomer
 guides and independent verification. A fresh Codex instruction starts with
@@ -378,7 +378,7 @@ The existing public configuration guide already states that merge keys reject an
 
 ## PR #36 Langfuse review follow-up — 2026-11-13
 
-The draft branch implements the R1/R3 fixes, R4 factual status correction, optional management helper/CLI and newcomer guides. [Resolution evidence](stages/02-langfuse/resolution-2026-11-13.md) records 350 passing maintained tests and actual-SDK loopback regressions. An isolated Linux Docker start was stopped because its `vfs` driver consumed nearly all free workspace disk before the six services were created. Live ingestion/persistence and Sharon's Mac acceptance remain pending. No M4 or workflow instrumentation is included; PR #36 is unmerged.
+The draft branch implements the R1/R3 fixes, R4 factual status correction, optional management helper/CLI and newcomer guides. [Resolution evidence](stages/02-langfuse/m1-3-local-langfuse/reviews/resolution-2026-11-13.md) records 350 passing maintained tests and actual-SDK loopback regressions. An isolated Linux Docker start was stopped because its `vfs` driver consumed nearly all free workspace disk before the six services were created. Live ingestion/persistence and Sharon's Mac acceptance remain pending. No M4 or workflow instrumentation is included; PR #36 is unmerged.
 
 The current combined Drive checklist supersedes the historical M1–M3 checkout guides for local acceptance, while retaining their original tested SHAs. The code commit passed isolated release verification; the later documentation commit is rechecked separately.
 
@@ -401,7 +401,7 @@ implementation plan at `11bba581291c1b166973848ea8db6a9e2a142413`, including
 G01–G08. The focused `feat/m4-1-context` branch implements data-only context
 identity and runner/factory/Workflow/CrewAI Flow forwarding. The branch is under
 its capped independent review; candidate and check evidence belong in
-[permanent review status](stages/02-langfuse/workflow-integration/m1-context/reviews/status.md).
+[permanent review status](stages/02-langfuse/m4-workflow-integration/m4-1-context/reviews/status.md).
 This is unmerged implementation evidence, not Stage 02 acceptance. M4.2 tracing,
 M4.3 instrumentation and local logging remain later work.
 

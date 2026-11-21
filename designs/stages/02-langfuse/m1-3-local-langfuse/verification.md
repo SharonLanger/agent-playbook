@@ -1,7 +1,7 @@
 # Verification before handing a milestone to Sharon
 
 Status: **Requested implementation/handoff requirement; no checks below are claimed as executed by this documentation update.**
-[Milestones](milestones.md) · [Milestone 1 implementation brief](implementation-handoff.md)
+[Milestones](../milestones.md) · [Milestone 1 implementation brief](history/implementation-handoff.md)
 
 ## Working rule
 

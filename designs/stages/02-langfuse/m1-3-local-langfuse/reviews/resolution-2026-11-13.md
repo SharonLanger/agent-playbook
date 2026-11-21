@@ -1,6 +1,6 @@
 # PR #36 Langfuse review follow-up — 2026-11-13
 
-[Four original findings](review-2026-11-13.md) · [Combined acceptance plan](verification-simplification-plan.md) · [Main reconciliation](main-reconciliation.md)
+[Four original findings](review-2026-11-13.md) · [Combined acceptance plan](../history/verification-simplification-plan.md) · [Main reconciliation](../history/main-reconciliation.md)
 
 Historical checkpoint: **Implemented and independently checked on draft PR #36 at the revisions below.** Current local acceptance and the later delivery-readback limitation are recorded in [2026-11-14 acceptance](acceptance-2026-11-14.md). Main `53764abeb9402d596ee26bef19872fc2ebd7d888` was already reconciled under the six approved decisions. This turn refreshed branch `939e4ef671d9803abd1e13ab71b43028562e74d8` by fast-forward, without new conflicts. M4, workflow contexts, real-agent tracing and PR merge are outside this change.
 
@@ -31,5 +31,5 @@ The loopback smoke's `delivery: verified` is fixture response evidence; it must 
 
 At implementation commit `bd48e01d6db7d98d29a798c21c4eb37f57063ff2`, `UV_CACHE_DIR=/workspace/.uv-cache .venv/bin/python -m tooling.release` from `app/` passed its repeated 350-test gate, hashed locked dependency installation, 141-package compatibility check, isolated installed built-in/alias/failure/offline verifier and source identity. Wheel SHA-256: `2c835c6c9b6affd77715f6f037b976b76684efa9247a5629fffc710dc5886bd2`. Direct installed `langfuse --status` rejected checkout-only tooling with exit 2. The code is unchanged by the later guide-link documentation commit.
 
-The historical single combined Drive checklist records the earlier Mac exercise. Current credentials and run instructions are in [official application docs](../../../app/docs/langfuse-hands-on.md). The three old milestone guides remain historical and link to it. The final Drive file is pinned to the last gate-tested commit, independent of this document's historical code commit.
+The historical single combined Drive checklist records the earlier Mac exercise. Current credentials and run instructions are in [official application docs](../../../../../app/docs/langfuse-hands-on.md). The three old milestone guides remain historical and link to it. The final Drive file is pinned to the last gate-tested commit, independent of this document's historical code commit.
 

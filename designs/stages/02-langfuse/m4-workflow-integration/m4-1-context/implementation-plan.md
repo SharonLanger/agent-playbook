@@ -2,7 +2,7 @@
 
 Status: **APPROVED AND LOCKED at `11bba581`; implemented, verified, accepted and merged in PR #44 at `942e59344c429454263319e783ea76ad297b7ea6`.** The contract below is preserved; draft-era wording is historical. See [current status](reviews/status.md).
 
-[Design](design.md) · [Test cases](test-cases.md) · [Shared entry point](../README.md) · [Repository reconciliation](../repository-updates.md)
+[Design](design.md) · [Test cases](test-cases.md) · [Shared entry point](../README.md) · [Repository reconciliation](../history/repository-updates.md)
 
 ## 1. Handoff and authority
 

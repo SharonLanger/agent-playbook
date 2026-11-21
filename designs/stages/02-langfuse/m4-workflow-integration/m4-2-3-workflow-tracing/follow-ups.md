@@ -4,7 +4,7 @@
 
 **Accepted and merged:** M4.2 + M4.3 merged via PR #50 at `b08060f0acba74f19bc8a32aedb21316eed149c1`. RUN-18 is complete on Sharon's local confirmation; 408-test gate and installed release passed. Two review rounds used, with no third round required. PR #47 stays open for stage closeout.
 
-See [final review](../history/tracing-final-review.md). Earlier planning and pending statements below retain their historical evidence cutoff.
+See [final review](reviews/tracing-final-review.md). Earlier planning and pending statements below retain their historical evidence cutoff.
 
 ## Earlier checkpoints
 

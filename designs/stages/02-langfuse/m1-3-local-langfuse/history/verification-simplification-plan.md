@@ -2,7 +2,7 @@
 
 Status: **Main conflict resolutions approved and applied; remaining Langfuse/CLI implementation is next. See the reconciliation record for verification and remaining issues.**
 
-[Review: four open findings](review-2026-11-13.md) · [Stage entry](README.md)
+[Review: four open findings](../reviews/review-2026-11-13.md) · [Stage entry](../../README.md)
 
 **Codex: first read [main-reconciliation.md](main-reconciliation.md), then the
 [implementation handoff](#codex-implementation-handoff). The six recorded
@@ -340,11 +340,11 @@ Read in this order, using actual files at the fetched revisions:
 
 1. Root `AGENTS.md`, `designs/AGENTS.md`, the design contract/guard register and
    their required core documents. Preserve personal-sandbox boundaries.
-2. This plan and [the four findings](review-2026-11-13.md), including the actual
+2. This plan and [the four findings](../reviews/review-2026-11-13.md), including the actual
    SDK reproductions and six-file conflict inventory. Do not infer delivery
    correctness from the earlier 133-test pass.
-3. Stage [architecture](architecture.md), [verification](verification.md),
-   [implementation evidence](findings.md) and relevant observability exploration.
+3. Stage [architecture](../../architecture.md), [verification](../verification.md),
+   [implementation evidence](../reviews/findings.md) and relevant observability exploration.
    Old milestone SHAs are historical; the combined acceptance approach and CLI
    spelling in this plan supersede their separate-checkout instructions for the
    new handoff. Existing approved boundaries and all four review items remain.

@@ -49,9 +49,9 @@ Use the logical-change approval process in [design-contract.md](design-contract.
 
 Sharon's implementation instruction explicitly approved revision `11bba581291c1b166973848ea8db6a9e2a142413` and guarded amendments G01–G08 in design section 9. The following files are guarded from that approval:
 
-- `designs/stages/02-langfuse/workflow-integration/m1-context/design.md`
-- `designs/stages/02-langfuse/workflow-integration/m1-context/test-cases.md`
-- `designs/stages/02-langfuse/workflow-integration/m1-context/implementation-plan.md`
+- `designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/design.md`
+- `designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/test-cases.md`
+- `designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/implementation-plan.md`
 
 ## Reusable development process — 2026-11-15
 
@@ -68,9 +68,9 @@ Sharon explicitly approved the M4.2/M4.3 design, tests and plan at `ab3fab459c97
 
 | Guarded path | Immutable authority |
 |---|---|
-| [designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md](../stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md) | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md) |
-| [designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md](../stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md) | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md) |
-| [designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md](../stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md) | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md) |
+| [designs/stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/design.md](../stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/design.md) | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md) |
+| [designs/stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/test-cases.md](../stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/test-cases.md) | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md) |
+| [designs/stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/implementation-plan.md](../stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/implementation-plan.md) | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md) |
 
 All previous guards and the recorded approval baseline remain. PR #47's merge does not remove protection or authorize changes to these documents or frozen shared requirements/decisions.
 

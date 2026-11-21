@@ -8,9 +8,9 @@ Application logging is separate work owned by a different agent under `designs/r
 
 | Milestone | Evidence | Delivery |
 |---|---|---|
-| M1–M3: local setup, connection, mock traces | [Acceptance](acceptance-2026-11-14.md) | PR #36 merged |
-| M4.1: execution context | [Context review status](workflow-integration/m1-context/reviews/status.md) | PR #44 merged |
-| M4.2 + M4.3: native workflow tracing | [Review status](workflow-integration/m2-3-workflow-tracing/reviews/status.md), [local acceptance](workflow-integration/m2-3-workflow-tracing/reviews/local-acceptance.md) | PR #50 merged |
+| M1–M3: local setup, connection, mock traces | [Acceptance](m1-3-local-langfuse/reviews/acceptance-2026-11-14.md) | PR #36 merged |
+| M4.1: execution context | [Context review status](m4-workflow-integration/m4-1-context/reviews/status.md) | PR #44 merged |
+| M4.2 + M4.3: native workflow tracing | [Review status](m4-workflow-integration/m4-2-3-workflow-tracing/reviews/status.md), [local acceptance](m4-workflow-integration/m4-2-3-workflow-tracing/reviews/local-acceptance.md) | PR #50 merged |
 | Stage documentation | Final reconciliation and Sharon’s explicit closeout/merge authorization | PR #47 merged last |
 
 ## Retained limits and future work

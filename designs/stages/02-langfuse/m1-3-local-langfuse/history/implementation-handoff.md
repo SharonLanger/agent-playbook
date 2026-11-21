@@ -6,7 +6,7 @@ apply to the original setup assignment, not to that later assignment.
 
 Status: **Handoff instructions to use when Sharon requests implementation.**
 This documentation update does not itself start implementation or approve unrelated
-guarded changes. [Milestones](milestones.md) · [Verification requirements](verification.md)
+guarded changes. [Milestones](../../milestones.md) · [Verification requirements](../verification.md)
 
 ## Read and align before editing
 
@@ -48,7 +48,7 @@ The Python integration/configuration is M2; the personal example is M3.
 
 ## Verify before handing over
 
-Follow [verification.md](verification.md), including real stack startup and
+Follow [verification.md](../verification.md), including real stack startup and
 readiness/restart checks when the environment supports them. Use an isolated
 verification instance and never touch Sharon's existing volumes. Check the
 documented commands. Do not expose resolved Compose secrets in diagnostic output;

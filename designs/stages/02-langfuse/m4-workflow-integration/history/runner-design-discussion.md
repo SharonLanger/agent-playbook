@@ -56,7 +56,7 @@ Only the boundary proposal is being presented for agreement first. Do not turn t
 
 ## Potential M4.1 follow-ups
 
-No runtime/context-contract follow-up was identified in the iteration-33 final review. Documentation integration does need the duplicate D30 decision identifier and reported target conflicts reconciled; see [the separate final review](context-final-review.md). Required correlation data and forwarding already exist; Langfuse metadata projection belongs to M4.2.
+No runtime/context-contract follow-up was identified in the iteration-33 final review. Documentation integration does need the duplicate D30 decision identifier and reported target conflicts reconciled; see [the separate final review](../m4-1-context/reviews/context-final-review.md). Required correlation data and forwarding already exist; Langfuse metadata projection belongs to M4.2.
 
 If a necessary M4.1 change is discovered, create a separate `context-followups.md` beside this file. Each entry must state the affected approved contract/file, concrete problem, smallest proposed change, why M4.2 cannot handle it locally, test impact, whether it changes a decision, and its pending/approved/handed-off status. Do not apply the change to active M4.1 work. No placeholder follow-up file is needed while there are no entries.
 
@@ -82,11 +82,11 @@ Root will inspect the actual M4.1 PR/diff and permanent reports once Sharon supp
 
 ## Iteration 33 — M4.1 final review
 
-Sharon supplied the full implementation handoff and requested review of the actual diff and linked evidence, plus the parallel design agent's status. Inspected PR #44 candidate 16c1580 against approved 11bba581 and published head 9392b39. [Final review](context-final-review.md): runtime/design PASS, independent targeted 43 tests PASS; full 380-test/release evidence inspected rather than repeated. Prior two-reviewer rounds remain 2/3; no merge or implementation edit authorized by this review.
+Sharon supplied the full implementation handoff and requested review of the actual diff and linked evidence, plus the parallel design agent's status. Inspected PR #44 candidate 16c1580 against approved 11bba581 and published head 9392b39. [Final review](../m4-1-context/reviews/context-final-review.md): runtime/design PASS, independent targeted 43 tests PASS; full 380-test/release evidence inspected rather than repeated. Prior two-reviewer rounds remain 2/3; no merge or implementation edit authorized by this review.
 
 One new documentation integration finding: both branches use D30 for different decisions (correlation requirement versus M4.1 approval/status). Preserve both meanings and reconcile the identifier/references when combining streams. GitHub also reports the known target documentation merge conflicts. These do not require a context redesign; neither branch was modified. The separate review records the exact revisions, limitations and proposed integration correction.
 
-The M4.2 design agent finished all three review drafts: [design](../m2-3-workflow-tracing/design.md), [test cases](../m2-3-workflow-tracing/test-cases.md) and [implementation/review plan](../m2-3-workflow-tracing/implementation-plan.md). It validated 27 relative links/anchors, stable RUN-01–20/RUN-D01–05/RUN-G01–08 identifiers, fences/whitespace and Atlas freshness. Root also checked the review/discussion links and Atlas. No application tests or SDK probe were run for drafting. The drafts cite the completed M4.1 final review; their five explicit policy choices remain proposals for Sharon, not an approved implementation contract. All new documents remain on the separate discussion branch; PRs #43 and #44 are untouched.
+The M4.2 design agent finished all three review drafts: [design](../m4-2-3-workflow-tracing/design.md), [test cases](../m4-2-3-workflow-tracing/test-cases.md) and [implementation/review plan](../m4-2-3-workflow-tracing/implementation-plan.md). It validated 27 relative links/anchors, stable RUN-01–20/RUN-D01–05/RUN-G01–08 identifiers, fences/whitespace and Atlas freshness. Root also checked the review/discussion links and Atlas. No application tests or SDK probe were run for drafting. The drafts cite the completed M4.1 final review; their five explicit policy choices remain proposals for Sharon, not an approved implementation contract. All new documents remain on the separate discussion branch; PRs #43 and #44 are untouched.
 
 ## Iterations 34–35 — correlation clarification and authorized merges
 
