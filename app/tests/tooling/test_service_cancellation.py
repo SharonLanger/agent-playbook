@@ -5,6 +5,7 @@ import signal
 import subprocess
 import sys
 import time
+import traceback
 from collections.abc import Callable
 from pathlib import Path
 from typing import IO
@@ -398,7 +399,7 @@ def test_large_regular_selection_cancellation_reaps_without_docker(
         try:
             original_cleanup(process, pgid, deadline)
         except Exception as error:
-            cleanup_errors.append(f"{type(error).__name__}: {error}")
+            cleanup_errors.append("".join(traceback.format_exception(error)))
             raise
 
     monkeypatch.setattr(service_process, "_cleanup", inspect_cleanup)
