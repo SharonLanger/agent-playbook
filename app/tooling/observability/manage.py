@@ -41,17 +41,13 @@ PROJECT = re.compile(r"[a-z0-9][a-z0-9_-]*\Z")
 VOLUMES = frozenset(
     {"postgres_data", "clickhouse_data", "clickhouse_logs", "redis_data", "minio_data"}
 )
-INFRASTRUCTURE_KEYS = frozenset(
-    {
-        "POSTGRES_PASSWORD",
-        "CLICKHOUSE_PASSWORD",
-        "REDIS_AUTH",
-        "MINIO_ROOT_PASSWORD",
-        "NEXTAUTH_SECRET",
-        "SALT",
-        "ENCRYPTION_KEY",
-    }
-)
+DEPLOYMENT_SECRET_FIELDS = {
+    "postgres": ("POSTGRES_PASSWORD",),
+    "clickhouse": ("CLICKHOUSE_PASSWORD",),
+    "redis": ("REDIS_AUTH",),
+    "minio": ("MINIO_ROOT_PASSWORD",),
+    "langfuse-web": ("NEXTAUTH_SECRET", "SALT", "ENCRYPTION_KEY"),
+}
 SERVICES = frozenset(
     {"langfuse-web", "langfuse-worker", "postgres", "clickhouse", "redis", "minio"}
 )
@@ -239,29 +235,42 @@ def _inventory(project: str | None = None) -> set[str]:
         ) from None
 
 
-def _log_redactor(env_file: Path, project: str) -> Callable[[str], str]:
-    # Compose applies dotenv interpolation and shell precedence before printing
-    # its interpolation environment. Use just the infrastructure values in memory.
-    resolved = _compose(env_file, "config", "--environment", project=project)
-    if resolved.returncode:
-        raise SettingsConflict("Could not verify log redaction from private settings.")
-    values: dict[str, str] = {}
-    for line in resolved.stdout.splitlines():
-        key, separator, value = line.partition("=")
-        if not separator:
-            raise SettingsConflict(
-                "Could not verify log redaction from private settings."
-            )
-        if key in INFRASTRUCTURE_KEYS:
-            if key in values:
-                raise SettingsConflict(
-                    "Could not verify log redaction from private settings."
-                )
-            values[key] = value
-    if values.keys() != INFRASTRUCTURE_KEYS or not all(values.values()):
-        raise SettingsConflict("Could not verify log redaction from private settings.")
+def _json_mapping(value: object) -> dict[str, object]:
+    if not isinstance(value, dict):
+        raise ValueError
+    return cast(dict[str, object], value)
 
-    secrets = set(values.values())
+
+def _resolved_log_secrets(env_file: Path, project: str) -> set[str]:
+    # This project-scoped redaction lookup is separate from identity resolution.
+    # JSON preserves newlines within interpolated environment values.
+    rendered = _compose(env_file, "config", "--format", "json", project=project)
+    if rendered.returncode:
+        raise SettingsConflict("Could not verify log redaction from private settings.")
+    try:
+        model = _json_mapping(json.loads(rendered.stdout))
+        services = _json_mapping(model["services"])
+        secrets: set[str] = set()
+        for service, keys in DEPLOYMENT_SECRET_FIELDS.items():
+            environment = _json_mapping(_json_mapping(services[service])["environment"])
+            for key in keys:
+                value = environment[key]
+                if not isinstance(value, str) or not value:
+                    raise ValueError
+                if value.splitlines() != [value]:
+                    raise SettingsConflict(
+                        "Could not verify log redaction for a multiline private setting."
+                    )
+                secrets.add(value)
+        return secrets
+    except (KeyError, ValueError, RecursionError):
+        raise SettingsConflict(
+            "Could not verify log redaction from private settings."
+        ) from None
+
+
+def _log_redactor(env_file: Path, project: str) -> Callable[[str], str]:
+    secrets = _resolved_log_secrets(env_file, project)
     for entry in env_file.read_text(encoding="utf-8").splitlines():
         if "=" not in entry or entry.lstrip().startswith("#"):
             continue

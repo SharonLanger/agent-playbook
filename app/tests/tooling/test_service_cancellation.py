@@ -7,12 +7,12 @@ import sys
 import time
 from collections.abc import Callable
 from pathlib import Path
+from typing import IO
 from unittest.mock import MagicMock, patch
 
 import pytest
 
 from agent_playbook.cli import development, service_process
-from agent_playbook.config.loader import ServiceSelection
 from tooling import services
 
 pytestmark = pytest.mark.skipif(os.name != "posix", reason="POSIX process groups")
@@ -114,9 +114,7 @@ def test_outer_deadline_cleans_group_and_stops_aggregate(
     (checkout / "active").write_text(active)
     monkeypatch.setitem(services.AGGREGATE_SECONDS, action, 1.5)
     monkeypatch.setitem(service_process.COMPONENT_SECONDS, action, 4.0)
-    with patch.object(
-        services, "load_service_selection", return_value=ServiceSelection(True, True)
-    ):
+    with patch.object(services, "_select", return_value=(True, True)):
         started = time.monotonic()
         assert services.main([f"--{action}"]) == 1
         assert time.monotonic() - started < 1.65
@@ -156,8 +154,8 @@ def test_inner_timeout_or_stray_cleans_group_before_next_component(
     with (
         patch.object(
             services,
-            "load_service_selection",
-            return_value=ServiceSelection(True, True),
+            "_select",
+            return_value=(True, True),
         ),
         patch.object(services, "supervise_component", side_effect=check_before_next),
     ):
@@ -178,9 +176,10 @@ def interrupt_after_spawn(checkout: Path) -> Callable[..., subprocess.Popen[byte
         cwd: Path,
         env: dict[str, str] | None = None,
         start_new_session: bool = False,
+        stdout: IO[bytes] | None = None,
     ) -> subprocess.Popen[bytes]:
         process = real_popen(
-            argv, cwd=cwd, env=env, start_new_session=start_new_session
+            argv, cwd=cwd, env=env, start_new_session=start_new_session, stdout=stdout
         )
         until = time.monotonic() + 2
         while not (checkout / "grandchild").exists() and time.monotonic() < until:
@@ -199,8 +198,8 @@ def test_aggregate_ctrl_c_between_spawn_and_wait(
     with (
         patch.object(
             services,
-            "load_service_selection",
-            return_value=ServiceSelection(True, True),
+            "_select",
+            return_value=(True, True),
         ),
         patch.object(
             service_process.subprocess,
@@ -262,9 +261,10 @@ def test_bridge_forwards_a_signal_sent_only_to_it(
         cwd: Path,
         env: dict[str, str] | None = None,
         start_new_session: bool = False,
+        stdout: IO[bytes] | None = None,
     ) -> subprocess.Popen[bytes]:
         process = real_popen(
-            argv, cwd=cwd, env=env, start_new_session=start_new_session
+            argv, cwd=cwd, env=env, start_new_session=start_new_session, stdout=stdout
         )
         until = time.monotonic() + 2
         while not (checkout / "coordinator").exists() and time.monotonic() < until:
@@ -303,8 +303,8 @@ def test_production_caps_reserve_cleanup_inside_elapsed_limits(
         patch.object(service_process, "_cleanup") as cleanup,
         patch.object(
             services,
-            "load_service_selection",
-            return_value=ServiceSelection(True, True),
+            "_select",
+            return_value=(True, True),
         ),
         patch.object(
             services, "supervise_component", wraps=service_process.supervise_component
@@ -361,3 +361,78 @@ def test_production_cleanup_waits_three_seconds_then_leaves_two_to_reap() -> Non
         service_process._cleanup(process, 42, 1005.0)  # pyright: ignore[reportPrivateUsage]
     assert delivered == [(1000.0, signal.SIGTERM), (1003.0, signal.SIGKILL)]
     process.wait.assert_called_once_with(timeout=2.0)
+
+
+@pytest.mark.parametrize("interrupt", [False, True], ids=["outer-deadline", "sigint"])
+def test_large_regular_selection_is_bounded_and_never_starts_docker(
+    checkout: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    interrupt: bool,
+) -> None:
+    selected = checkout / "large.yaml"
+    selected.write_text(
+        "# large synthetic configuration comment\n" * 450_000
+        + "integrations: {logging: {enabled: true}}\n"
+        + "secrets: {file: synthetic.env}\n"
+    )
+    (checkout / "synthetic.env").write_text("")
+    opened = checkout / "selection-opened"
+    (checkout / "sitecustomize.py").write_text(
+        "import os\n"
+        "from pathlib import Path\n"
+        "real_open = os.open\n"
+        "def record_open(path, *args, **kwargs):\n"
+        f"    if isinstance(path, (str, os.PathLike)) and Path(path) == Path({str(selected)!r}):\n"
+        f"        Path({str(opened)!r}).write_text(str(os.getpid()))\n"
+        "    return real_open(path, *args, **kwargs)\n"
+        "os.open = record_open\n"
+    )
+    monkeypatch.setenv("PYTHONPATH", str(checkout))
+    monkeypatch.setattr(service_process, "CLEANUP_SECONDS", 0.2)
+    monkeypatch.setattr(service_process, "TERM_SECONDS", 0.1)
+    cap = 2.0 if interrupt else 0.8
+    monkeypatch.setitem(services.AGGREGATE_SECONDS, "start", cap)
+    real_popen = subprocess.Popen
+    workers: list[subprocess.Popen[bytes]] = []
+
+    def launch(
+        argv: list[str],
+        *,
+        cwd: Path,
+        env: dict[str, str],
+        start_new_session: bool,
+        stdout: IO[bytes] | None = None,
+    ) -> subprocess.Popen[bytes]:
+        worker = real_popen(
+            argv,
+            cwd=cwd,
+            env=env,
+            start_new_session=start_new_session,
+            stdout=stdout,
+        )
+        workers.append(worker)
+        if interrupt:
+            deadline = time.monotonic() + 1.5
+            while not opened.exists() and time.monotonic() < deadline:
+                time.sleep(0.01)
+            if opened.exists():
+                os.kill(os.getpid(), signal.SIGINT)
+        return worker
+
+    started = time.monotonic()
+    with patch.object(service_process.subprocess, "Popen", side_effect=launch) as popen:
+        assert services.main(["--start", "--config", str(selected)]) == 1
+    assert time.monotonic() - started < cap + 0.2
+    assert opened.is_file(), "The worker must begin reading the real regular file"
+    assert len(workers) == 1 and popen.call_args.args[0][-2:] == [
+        "--select",
+        str(selected),
+    ]
+    assert workers[0].pid == int(opened.read_text())
+    assert workers[0].returncode == -signal.SIGTERM
+    with pytest.raises(ChildProcessError):
+        os.waitpid(workers[0].pid, os.WNOHANG)
+    assert not (checkout / "docker-calls").exists()
+    assert not (checkout / "calls").exists()
+    assert ("interrupted" if interrupt else "timed out") in capsys.readouterr().err

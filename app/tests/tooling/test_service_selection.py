@@ -128,7 +128,7 @@ def test_invalid_selection_blocks_start_but_reports_status(
 
 def test_stop_ignores_yaml_attempts_both_and_forwards_env_file() -> None:
     with (
-        patch.object(services, "load_service_selection", side_effect=AssertionError),
+        patch.object(services, "_select", side_effect=AssertionError),
         patch.object(
             services, "supervise_component", side_effect=[2, 0, 0, 0]
         ) as component,

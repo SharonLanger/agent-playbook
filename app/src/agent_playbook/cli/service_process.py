@@ -9,6 +9,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from types import FrameType
+from typing import IO
 
 WORK_DEADLINE_ENV = "_AGENT_PLAYBOOK_SERVICE_WORK_DEADLINE"
 COMPONENT_SECONDS = {"start": 720.0, "status": 60.0, "stop": 60.0}
@@ -115,8 +116,28 @@ def supervise_component(
     *,
     aggregate_deadline: float = float("inf"),
 ) -> int:
+    return supervise_helper(
+        argv,
+        cwd,
+        name,
+        cancellation,
+        aggregate_deadline=aggregate_deadline,
+        component_seconds=COMPONENT_SECONDS[action],
+    )
+
+
+def supervise_helper(
+    argv: list[str],
+    cwd: Path,
+    name: str,
+    cancellation: Cancellation,
+    *,
+    aggregate_deadline: float,
+    component_seconds: float = float("inf"),
+    stdout: IO[bytes] | None = None,
+) -> int:
     ensure_active(cancellation, aggregate_deadline)
-    deadline = min(time.monotonic() + COMPONENT_SECONDS[action], aggregate_deadline)
+    deadline = min(time.monotonic() + component_seconds, aggregate_deadline)
     work_deadline = deadline - CLEANUP_SECONDS
     process: subprocess.Popen[bytes] | None = None
     pgid: int | None = None
@@ -128,6 +149,7 @@ def supervise_component(
             cwd=cwd,
             env=_local_service_environment(name, work_deadline),
             start_new_session=True,
+            stdout=stdout,
         )
         pgid = process.pid
         while True:

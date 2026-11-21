@@ -159,7 +159,8 @@ volumes. Repeated starts, an already-stopped stop, and start after stop are safe
 Docker Desktop and unrelated containers stay untouched. The CLI masks the
 selected deployment's resolved infrastructure secrets in service logs,
 including values interpolated by Compose. If it cannot verify the redaction
-values, it reports a settings error and withholds the logs.
+values or finds a multiline deployment secret, it reports a settings error
+and withholds the logs.
 
 ## Private service settings
 

@@ -137,6 +137,24 @@ def test_logs_follow_interrupt_does_not_stop(tmp_path: Path) -> None:
     process.terminate.assert_called_once_with()
 
 
+def rendered_secret_settings(postgres: str) -> str:
+    return json.dumps(
+        {
+            "services": {
+                name: {
+                    "environment": {
+                        key: postgres
+                        if key == "POSTGRES_PASSWORD"
+                        else "other-synthetic-secret"
+                        for key in fields
+                    }
+                }
+                for name, fields in manage.DEPLOYMENT_SECRET_FIELDS.items()
+            }
+        }
+    )
+
+
 @pytest.mark.parametrize("follow", [False, True])
 def test_service_logs_redact_interpolated_secrets_and_auth_header(
     tmp_path: Path,
@@ -150,7 +168,7 @@ def test_service_logs_redact_interpolated_secrets_and_auth_header(
     resolved = subprocess.CompletedProcess(
         [],
         0,
-        "".join(f"{key}=private-marker-123\n" for key in manage.INFRASTRUCTURE_KEYS),
+        rendered_secret_settings("private-marker-123"),
         "redaction-stderr-marker",
     )
     line = "startup normal: private-marker-123 Authorization: Basic abc123\n"
@@ -169,7 +187,8 @@ def test_service_logs_redact_interpolated_secrets_and_auth_header(
         if follow:
             args.append("--follow")
         assert manage.main(args) == 0
-    assert compose.call_args_list[0].args[-2:] == ("config", "--environment")
+    assert compose.call_args_list[0].args[-3:] == ("config", "--format", "json")
+    assert compose.call_args_list[0].kwargs["project"] == "observability"
     assert popen.call_count == int(follow)
     output = capsys.readouterr()
     assert "startup normal:" in output.out and "[REDACTED]" in output.out
@@ -263,3 +282,42 @@ def test_logs_fail_closed_when_redaction_cannot_be_established(
     output = capsys.readouterr()
     assert "Could not verify log redaction" in output.err
     assert "hidden-" not in output.out + output.err
+
+
+@pytest.mark.parametrize("follow", [False, True])
+def test_multiline_interpolated_secret_with_assignment_withholds_both_log_modes(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    follow: bool,
+) -> None:
+    settings = tmp_path / "selected.env"
+    settings.write_text("POSTGRES_PASSWORD=${SYNTHETIC_MULTILINE}\n")
+    secret = "synthetic-first-line\ncontinuation=synthetic-continuation"
+    monkeypatch.setenv("POSTGRES_PASSWORD", secret)
+    structured_result = subprocess.CompletedProcess(
+        [],
+        0,
+        rendered_secret_settings(secret),
+        "synthetic-render-stderr",
+    )
+    with (
+        patch.object(manage, "_docker_ready", return_value=True),
+        patch.object(manage, "_compose", side_effect=[structured_result]) as compose,
+        patch.object(manage.subprocess, "Popen", side_effect=AssertionError) as popen,
+    ):
+        args = ["--logs", "--env-file", str(settings)]
+        if follow:
+            args.append("--follow")
+        assert manage.main(args) == 2
+    assert compose.call_args.args[-3:] == ("config", "--format", "json")
+    assert compose.call_count == 1
+    popen.assert_not_called()
+    output = capsys.readouterr()
+    assert "multiline private setting" in output.err
+    for marker in (
+        "synthetic-first-line",
+        "synthetic-continuation",
+        "synthetic-render-stderr",
+    ):
+        assert marker not in output.out + output.err

@@ -6,6 +6,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 from typing import cast
+from unittest.mock import patch
 
 from tooling.observability import manage
 
@@ -100,6 +101,27 @@ def main() -> int:
             passed = observed == expected
             print(
                 f"Langfuse {label}: expected {expected}, observed {observed}, {'PASS' if passed else 'FAIL'}"
+            )
+            failed = failed or not passed
+        settings.write_text(values)
+        with patch.dict(os.environ, environment, clear=True):
+            redact = manage._log_redactor(settings, "observability")  # pyright: ignore[reportPrivateUsage]
+            passed = MARKER not in redact(f"synthetic logs: {MARKER}")
+            print(
+                f"Langfuse structured single-line redaction: {'PASS' if passed else 'FAIL'}"
+            )
+            failed = failed or not passed
+
+            os.environ["POSTGRES_PASSWORD"] = (
+                "synthetic-first-line\ncontinuation=synthetic-continuation"
+            )
+            passed = False
+            try:
+                manage._log_redactor(settings, "observability")  # pyright: ignore[reportPrivateUsage]
+            except manage.SettingsConflict as error:
+                passed = "multiline private setting" in str(error)
+            print(
+                f"Langfuse structured multiline rejection: {'PASS' if passed else 'FAIL'}"
             )
             failed = failed or not passed
     return int(failed)
