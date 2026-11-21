@@ -3,13 +3,14 @@
 import os
 import re
 from collections.abc import Hashable
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, cast
 
 import yaml
 from pydantic import TypeAdapter, ValidationError
 from yaml.constructor import ConstructorError
-from yaml.nodes import MappingNode
+from yaml.nodes import MappingNode, Node, ScalarNode
 
 from agent_playbook.config.errors import ConfigurationError
 from agent_playbook.config.models import ApplicationSettings, SecretsSettings
@@ -46,6 +47,26 @@ class StrictLoader(yaml.SafeLoader):
         return super().construct_mapping(node, deep=deep)
 
 
+class ServiceSelectionLoader(StrictLoader):
+    """Treat YAML 1.1 synonyms such as 'on' as strings for service selection."""
+
+
+def _literal_boolean(_loader: StrictLoader, node: Node) -> bool | str:
+    assert isinstance(node, ScalarNode)
+    if node.value.lower() in ("true", "false"):
+        return node.value.lower() == "true"
+    return node.value
+
+
+ServiceSelectionLoader.add_constructor("tag:yaml.org,2002:bool", _literal_boolean)
+
+
+@dataclass(frozen=True)
+class ServiceSelection:
+    logging: bool
+    langfuse: bool
+
+
 _MAPPING = TypeAdapter(dict[str, object])
 _OVERRIDES = {
     "usage_telemetry_enabled": "AGENT_PLAYBOOK_CREWAI_USAGE_TELEMETRY_ENABLED",
@@ -53,7 +74,6 @@ _OVERRIDES = {
     "show_framework_events": "AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS",
 }
 _LANGFUSE_OVERRIDES = {
-    "enabled": "AGENT_PLAYBOOK_LANGFUSE_ENABLED",
     "base_url": "AGENT_PLAYBOOK_LANGFUSE_BASE_URL",
     "environment": "AGENT_PLAYBOOK_LANGFUSE_ENVIRONMENT",
 }
@@ -63,10 +83,10 @@ def _mapping(value: object) -> dict[str, object]:
     return _MAPPING.validate_python(value, strict=True)
 
 
-def _read(path: Path) -> dict[str, object]:
+def _read(path: Path, loader: type[StrictLoader]) -> dict[str, object]:
     try:
         with path.open(encoding="utf-8") as source:
-            value: object = yaml.load(source, Loader=StrictLoader)
+            value: object = yaml.load(source, Loader=loader)
         return _mapping(value)
     except (OSError, UnicodeError, yaml.YAMLError, ValidationError):
         # YAML/parser errors can include source lines containing private values.
@@ -163,29 +183,68 @@ def _secrets_file_path(value: str, configuration: Path) -> Path:
     return path
 
 
+def _selected_values(
+    path: str | None, loader: type[StrictLoader] = StrictLoader
+) -> tuple[dict[str, object], dict[str, str]]:
+    selected = configuration_path(path)
+    data = _read(selected, loader)
+    local = selected.with_name(f"{selected.stem}.local{selected.suffix}")
+    if local.exists():
+        data = _merge(data, _read(local, loader))
+    try:
+        secrets_data = _mapping(data.get("secrets"))
+    except ValidationError:
+        raise ConfigurationError(
+            "Invalid configuration: secrets.file must name a nonempty file path."
+        ) from None
+    file_value = secrets_data.get("file")
+    if not isinstance(file_value, str) or not file_value.strip():
+        raise ConfigurationError(
+            "Invalid configuration: secrets.file must name a nonempty file path."
+        )
+    secrets = SecretsSettings.model_validate(secrets_data)
+    secret_values = _parse_secrets_file(_secrets_file_path(secrets.file, selected))
+    # Process values, including explicit empty strings, take precedence.
+    return data, secret_values | dict(os.environ)
+
+
+def _enabled_override(name: str, environment: dict[str, str]) -> bool | None:
+    variable = f"AGENT_PLAYBOOK_{name.upper()}_ENABLED"
+    return (
+        _boolean(environment[variable], variable) if variable in environment else None
+    )
+
+
+def _enabled(
+    integration: dict[str, object], name: str, environment: dict[str, str]
+) -> bool:
+    settings = _mapping(integration.get(name, {}))
+    enabled = settings.get("enabled", False)
+    if not isinstance(enabled, bool):
+        raise ConfigurationError(f"integrations.{name}.enabled must be a YAML boolean.")
+    override = _enabled_override(name, environment)
+    return enabled if override is None else override
+
+
+def load_service_selection(path: str | None = None) -> ServiceSelection:
+    """Select local services without resolving project keys or workflow settings."""
+    try:
+        data, environment = _selected_values(path, ServiceSelectionLoader)
+        integration = _mapping(data.get("integrations"))
+        return ServiceSelection(
+            logging=_enabled(integration, "logging", environment),
+            langfuse=_enabled(integration, "langfuse", environment),
+        )
+    except ConfigurationError:
+        raise
+    except (ValidationError, OSError, RuntimeError, ValueError):
+        raise ConfigurationError("Invalid service selection configuration.") from None
+
+
 def load_configuration(path: str | None = None) -> ApplicationSettings:
     """Reload for each run; never cache files or print resolved setting values."""
-    selected = configuration_path(path)
-    data = _read(selected)
-    local = selected.with_name(f"{selected.stem}.local{selected.suffix}")
     try:
-        if local.exists():
-            data = _merge(data, _read(local))
-        try:
-            secrets_data = _mapping(data.get("secrets"))
-        except ValidationError:
-            raise ConfigurationError(
-                "Invalid configuration: secrets.file must name a nonempty file path."
-            ) from None
-        file_value = secrets_data.get("file")
-        if not isinstance(file_value, str) or not file_value.strip():
-            raise ConfigurationError(
-                "Invalid configuration: secrets.file must name a nonempty file path."
-            )
-        secrets = SecretsSettings.model_validate(secrets_data)
-        secret_values = _parse_secrets_file(_secrets_file_path(secrets.file, selected))
-        # Process values, including explicit empty strings, take precedence.
-        environment = secret_values | dict(os.environ)
+        data, environment = _selected_values(path)
         integration = _mapping(data.get("integrations"))
         crewai = _mapping(integration.get("crewai"))
         for field, variable in _OVERRIDES.items():
@@ -208,11 +267,10 @@ def load_configuration(path: str | None = None) -> ApplicationSettings:
         langfuse = _mapping(integration.get("langfuse", empty))
         for field, variable in _LANGFUSE_OVERRIDES.items():
             if variable in environment:
-                langfuse[field] = (
-                    _boolean(environment[variable], variable)
-                    if field == "enabled"
-                    else environment[variable]
-                )
+                langfuse[field] = environment[variable]
+        langfuse_enabled = _enabled_override("langfuse", environment)
+        if langfuse_enabled is not None:
+            langfuse["enabled"] = langfuse_enabled
         for field in ("public_key", "secret_key"):
             if field not in langfuse:
                 continue
@@ -233,14 +291,13 @@ def load_configuration(path: str | None = None) -> ApplicationSettings:
                 langfuse[field] = None
         integration["langfuse"] = langfuse
         logging_settings = _mapping(integration.get("logging", empty))
-        for field in ("enabled", "level", "endpoint"):
+        for field in ("level", "endpoint"):
             variable = f"AGENT_PLAYBOOK_LOGGING_{field.upper()}"
             if variable in environment:
-                logging_settings[field] = (
-                    _boolean(environment[variable], variable)
-                    if field == "enabled"
-                    else environment[variable]
-                )
+                logging_settings[field] = environment[variable]
+        logging_enabled = _enabled_override("logging", environment)
+        if logging_enabled is not None:
+            logging_settings["enabled"] = logging_enabled
         integration["logging"] = logging_settings
         data["integrations"] = integration
         return ApplicationSettings.model_validate(data)

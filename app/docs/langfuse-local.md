@@ -181,18 +181,28 @@ Shell environment variables override Docker `.env` values. Remove stale override
 if a URL or port differs unexpectedly.
 
 Use `--env-file /absolute/path/to/private.env` on **every local action** to select
-a separately prepared Docker service file. A first `--start --env-file PATH`
-creates the file if its parent directory exists. Keep the file and project
-directory stable: Compose's project identity is `observability`, so its five
-named volumes stay associated with the same data. The UI and MinIO bind to
-loopback. This is a local learning deployment, not a backup or production setup.
+a separately prepared Docker service file. Include the exact same `--env-file PATH` in `agent-playbook services
+--start`, `services --status` and `services --stop` whenever you use this
+custom file. The aggregate start selects Langfuse from effective application
+configuration. Aggregate status inspects the local project regardless of that
+flag, and aggregate stop also attempts VictoriaLogs.
+
+A first start creates settings only if Docker inventory finds no candidate
+Langfuse containers or named volumes. If the selected file is missing and an
+old project is present, restore its original settings file and project
+selection. Status reports observed asset labels with readiness unknown, and
+stop refuses Langfuse teardown until the correct file is available. The default
+Compose project is `observability`. Compose resolves any custom
+`COMPOSE_PROJECT_NAME` from the selected env file and shell, with the shell
+taking precedence. Keep using the same file and effective project to retain all
+five named volumes. The VictoriaLogs project name
+`agent-playbook-logging-smoke` is reserved. The UI and MinIO bind to loopback. This is a local learning deployment, not a backup or production setup.
 
 Project API keys used by [connection checking](langfuse-connection.md) belong
 in the external `~/.config/agent-playbook/secrets.env` file selected by the general `secrets.file` setting in `app/application.yaml`. They are separate from Docker's `.env` deployment
 secrets. Follow the connection guide to configure YAML and run
 `agent-playbook langfuse --check` before using the [Langfuse hands-on guide](langfuse-hands-on.md).
-The check can address a hosted endpoint without local Docker. Workflows remain
-uninstrumented; the playground explicitly creates synthetic traces.
+The check can address a hosted endpoint without local Docker. Workflows trace to the configured project when tracing is enabled. The hands-on guide provides a separate synthetic trace exercise.
 
 ## Troubleshooting
 
@@ -203,7 +213,7 @@ uninstrumented; the playground explicitly creates synthetic traces.
 | First start times out or download fails | Check network and free disk space; run `--status` and `--logs`, then retry `--start`. Existing settings/data are retained. |
 | Port already allocated | Choose free `LANGFUSE_PORT` and `MINIO_PORT` in the private `.env`, then run `--start`. Keep old secrets unchanged. |
 | Service unhealthy or UI not ready | Run `--status` and `--logs`; check Docker's memory allocation (at least 8 GiB) and disk. Do not delete volumes. |
-| UI appears empty after an earlier successful install | Check that the same `.env`, `--env-file` selection, Docker context and `observability` project/volumes are in use before making a new project. |
+| UI appears empty after an earlier successful install | Check that the same `.env`, `--env-file` selection, Docker context and effective Compose project/volumes are in use before making a new project. |
 | Browser does not open | Copy the URL printed by `--open` into your browser. `--open` does not start services. |
 
 See [Docker's official installation guide](https://docs.docker.com/desktop/setup/install/mac-install/), [Docker Desktop release notes](https://docs.docker.com/desktop/release-notes/#4990), and [Langfuse's Compose guide](https://langfuse.com/self-hosting/deployment/docker-compose).

@@ -10,6 +10,15 @@ import pytest
 from tooling.observability import manage
 
 
+@pytest.fixture(autouse=True)
+def synthetic_project(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("COMPOSE_PROJECT_NAME", raising=False)
+    monkeypatch.setattr(
+        manage, "_resolve_project", MagicMock(return_value="observability")
+    )
+    monkeypatch.setattr(manage, "_inventory", MagicMock(return_value=set()))
+
+
 def test_invalid_and_help_do_not_touch_docker_or_settings(tmp_path: Path) -> None:
     with (
         patch.object(manage, "_docker_ready", side_effect=AssertionError),
@@ -98,7 +107,7 @@ def test_compose_state_parses_json_array(tmp_path: Path) -> None:
         "_compose",
         return_value=subprocess.CompletedProcess([], 0, json.dumps(rows), ""),
     ):
-        assert manage._state(tmp_path / "private.env")[0] == "running"  # pyright: ignore[reportPrivateUsage]
+        assert manage._state(tmp_path / "private.env", "observability")[0] == "running"  # pyright: ignore[reportPrivateUsage]
 
 
 def test_missing_docker_and_browser_failure(tmp_path: Path) -> None:
@@ -183,7 +192,7 @@ def test_start_timeout_and_unhealthy_are_failures(
     ):
         assert manage.main(["--start", "--env-file", str(env_file)]) == 1
     ticks = iter([0.0, 301.0])
-    monkeypatch.setattr(manage.time, "monotonic", lambda: next(ticks))
+    monkeypatch.setattr(manage.time, "monotonic", lambda: next(ticks, 302.0))
     with (
         patch.object(manage, "_docker_ready", return_value=True),
         patch.object(

@@ -1,0 +1,196 @@
+Logging M3 Mac verification (SC-10) and remaining Logging M2 LG-10 checks
+
+Evidence status
+SC-10 independent/combined lifecycle, persistence and sibling isolation — NOT RUN
+LG-10 actual workflow success, chained failure, UI order and shutdown — NOT RUN
+
+1. Record your checkout and Docker context
+
+From the repository root with app/.venv ready. Use your local Docker Desktop
+context and retain the original Langfuse deployment settings and named volumes.
+
+git rev-parse HEAD
+docker version
+docker compose version
+docker context show
+ap() { app/.venv/bin/agent-playbook "$@"; }
+
+If you use a custom private Langfuse Compose env file, add
+--env-file /absolute/path/private.env to every langfuse or services lifecycle
+command below. Keep the same project selection throughout. Record the actual
+Langfuse project from its status once started (default observability).
+
+2. Start and inspect each service independently
+
+ap logs --start; echo "exit=$?"
+ap logs --status; echo "exit=$?"
+ap langfuse --start; echo "exit=$?"
+ap langfuse --status; echo "exit=$?"
+
+Expect both ready. Record the state and URL for each. Prepare a test project in
+the local Langfuse UI and store its test keys in the application YAML's selected
+secrets.file, as described in app/docs/langfuse-connection.md. Keep the keys and
+the separate private Docker .env out of any evidence.
+
+3. Record container projects and physical volume identity
+
+Set LF_PROJECT to the Langfuse project reported in step 2.
+
+LF_PROJECT=observability
+docker ps -a --format '{{.Names}} {{.Label "com.docker.compose.project"}} {{.Label "com.docker.compose.service"}}'
+docker volume inspect --format '{{.Name}} {{.CreatedAt}} {{.Mountpoint}} {{index .Labels "com.docker.compose.project"}}' \
+  agent-playbook-logging-smoke_logs-data \
+  "${LF_PROJECT}_postgres_data" "${LF_PROJECT}_clickhouse_data" \
+  "${LF_PROJECT}_clickhouse_logs" "${LF_PROJECT}_redis_data" "${LF_PROJECT}_minio_data"
+
+Record the exact six names, timestamps and mountpoints as volume identity.
+For a complete view of possible duplicates, record relevant project labels from:
+
+docker volume ls --format '{{.Name}} {{.Label "com.docker.compose.project"}} {{.Label "com.docker.compose.volume"}}'
+
+4. Exercise the M2 LG-10 real workflow and seed the trace
+
+Run this step once both projects are ready. Use the UI URL from step 2 for lf_url.
+Use the local test Langfuse project
+for the success run. If any config override is needed, export an absolute
+AGENT_PLAYBOOK_CONFIG for the selected YAML before running these commands.
+The first run executes maintained wf-01 normally. The failure run injects a
+synthetic chained exception into execution in memory, keeping normal CLI and
+logging cleanup. No workflow file is changed.
+
+lf_url=http://localhost:3000
+for scenario in success failure; do
+  time env AGENT_PLAYBOOK_LOGGING_ENABLED=true AGENT_PLAYBOOK_LOGGING_LEVEL=DEBUG \
+    AGENT_PLAYBOOK_LOGGING_ENDPOINT=http://127.0.0.1:9428/insert/opentelemetry/v1/logs \
+    AGENT_PLAYBOOK_LANGFUSE_ENABLED=true AGENT_PLAYBOOK_LANGFUSE_BASE_URL="$lf_url" \
+    app/.venv/bin/python - "$scenario" <<'PY'
+import sys
+from unittest.mock import patch
+from opentelemetry import trace
+from agent_playbook.application import workflow_runner as runner
+from agent_playbook.cli.commands import main
+from agent_playbook.workflows.wf_01_step_sequence.workflow import StepSequenceWorkflow
+
+make_context = runner.ExecutionContext
+execute_workflow = StepSequenceWorkflow._execute
+
+def identified(*args, **kwargs):
+    context = make_context(*args, **kwargs)
+    print(f"correlation_id={context.correlation_id}", flush=True)
+    print(f"workflow_run_id={context.observability.workflow_run_id}", flush=True)
+    return context
+
+def execute(workflow):
+    trace_id = trace.get_current_span().get_span_context().trace_id
+    print(f"trace_id={trace_id:032x}", flush=True)
+    if sys.argv[1] == "failure":
+        try:
+            raise ValueError("LG-10 synthetic inner cause")
+        except ValueError as cause:
+            raise RuntimeError("LG-10 synthetic outer failure") from cause
+    return execute_workflow(workflow)
+
+with patch.object(runner, "ExecutionContext", identified):
+    with patch.object(StepSequenceWorkflow, "_execute", execute):
+        raise SystemExit(main(["dev-run", "--workflow", "wf-01"]))
+PY
+  echo "$scenario exit=$?"
+done
+
+Record process exits (success 0, failure 1), termination/shutdown time or any
+stall, and any cleanup warning. After each process exits, query its exact
+correlation_id:="VALUE" in VictoriaLogs as in step 5. Record the query and
+matching workflow_run_id, _time, severity and _msg. Success should contain
+Workflow started, DEBUG progress and Workflow completed. Failure should contain
+Workflow started, DEBUG progress and one Workflow failed at EXECUTE, with the
+native chained traceback including both synthetic messages. Check that the
+failure has no Workflow completed record. In VMUI inspect oldest-to-newest
+order and record the lifecycle/DEBUG sequence. The response must contain actual
+stored records after process exit to establish readback.
+
+5. Seed and read unique records
+
+app/.venv/bin/python app/tooling/logging/logging_smoke.py
+
+Record the printed correlation ID and exact LogsQL query, substituting this ID
+for LOG_CORRELATION_ID. Run it in http://127.0.0.1:9428/select/vmui or:
+
+curl --fail --silent --show-error http://127.0.0.1:9428/select/logsql/query \
+  --data-urlencode 'query=correlation_id:="LOG_CORRELATION_ID"'
+
+Record matching _msg (Logging smoke check), severity (INFO), workflow_id
+(logging-smoke), workflow_run_id and correlation_id. Use the real workflow in
+step 4 to seed a unique synthetic Langfuse trace. In the local Langfuse project
+open Traces, filter by Trace ID using the printed nonzero success trace ID,
+and open the wf-01 trace. Record the exact Trace ID filter, trace URL,
+matching correlation/workflow/run IDs and a child observation.
+Use the same exact trace URL and ID in step 6 after restart.
+
+6. Prove sibling independence and actual readback
+
+ap logs --stop
+ap logs --status; echo "exit=$?"
+ap langfuse --status; echo "exit=$?"
+
+Expect logs stopped (1) and Langfuse ready (0). Open the seed trace URL and
+confirm the same ID and child observation while logging is stopped.
+
+ap logs --start
+ap logs --status
+ap langfuse --stop
+ap langfuse --status; echo "exit=$?"
+ap logs --status; echo "exit=$?"
+
+Expect Langfuse stopped (1) and logs ready (0). Run the exact LogsQL query again
+and record that the same fields and IDs are still present after logging restart
+and while Langfuse is stopped.
+
+ap langfuse --start
+ap langfuse --status
+
+Reopen the exact trace URL and record the same trace ID, correlated metadata
+and child observation after Langfuse restart. Repeat the commands in step 3 and
+compare identities and project labels. Record whether any unexpected second
+project or replacement volume appears.
+
+7. Exercise all four aggregate selections
+
+Run this block once. The first line sets the private Compose file argument
+when needed. Leave it empty when using the default file.
+
+lf_env=''
+for pair in 'false false' 'true false' 'false true' 'true true'; do
+  l=${pair% *}
+  f=${pair#* }
+  printf '\nlogging=%s langfuse=%s\n' "$l" "$f"
+  if [ -n "$lf_env" ]; then
+    set -- --env-file "$lf_env"
+  else
+    set --
+  fi
+  ap services --stop "$@"; echo "stop exit=$?"
+  AGENT_PLAYBOOK_LOGGING_ENABLED="$l" AGENT_PLAYBOOK_LANGFUSE_ENABLED="$f" app/.venv/bin/agent-playbook services --start "$@"; echo "start exit=$?"
+  AGENT_PLAYBOOK_LOGGING_ENABLED="$l" AGENT_PLAYBOOK_LANGFUSE_ENABLED="$f" app/.venv/bin/agent-playbook services --status "$@"; echo "status exit=$?"
+done
+
+false false: both skipped on start, both stopped on status, exit 0 for both
+true  false: logs ready, Langfuse skipped/stopped, exit 0 for both
+false true:  logs skipped/stopped, Langfuse ready, exit 0 for both
+true  true:  logs then Langfuse ready, exit 0 for both
+
+After true/true, run these commands with the same terminal arguments:
+
+AGENT_PLAYBOOK_LOGGING_ENABLED=false AGENT_PLAYBOOK_LANGFUSE_ENABLED=false app/.venv/bin/agent-playbook services --status "$@"; echo "status exit=$?"
+for attempt in 1 2; do
+  AGENT_PLAYBOOK_LOGGING_ENABLED=false AGENT_PLAYBOOK_LANGFUSE_ENABLED=false app/.venv/bin/agent-playbook services --stop "$@"; echo "stop $attempt exit=$?"
+done
+
+Expect both projects reported disabled and ready, then Langfuse followed by logs
+on each stop. Both stops should exit 0 and retain the same volume identities.
+Record actual commands, output and each exit.
+
+8. Return evidence
+
+Include the tested SHA, versions/context, exact non-secret commands, exits,
+IDs/queries, matching fields, before/after volume identity and observations.
+Mark each unobserved step NOT RUN and retain the known limitations separately.

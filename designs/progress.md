@@ -1,5 +1,9 @@
 # Progress and acceptance
 
+## Logging M3 implementation candidate — 2026-11-21
+
+The `impl/logging-m3-service-control` branch implements checkout-only local service management against the approved [Logging M3 contract at `c4e0951`](https://github.com/SharonLanger/agent-playbook/tree/c4e0951bd87c81e627d58127841494d4812732ab/designs/refactors/logging/m3-service-composition). The candidate adds aggregate enablement selection, a VictoriaLogs manager and Langfuse project/settings guards. Independent review, user acceptance and merge remain pending. See the [local CLI guide](../app/docs/cli.md#local-services) and [Mac acceptance guide](refactors/logging/m3-service-composition/mac-verification.txt). Mac SC-10 and the remaining M2 LG-10 are **NOT RUN**.
+
 ## Logging M2 merged — 2026-11-18
 
 Sharon authorized merging implementation PR #55 after the originating design-session final review passed with no required code corrections. PR #55 merged at `180b6e769d979015ed76e09128e25a32456ed5a4`; the reviewed code/test candidate remains `8770d076c5c586ff9f9830c43432dd127585033c` (reported full gate: 464 tests passed). M1 remains merged through PR #54.

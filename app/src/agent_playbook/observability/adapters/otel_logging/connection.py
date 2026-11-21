@@ -15,7 +15,9 @@ class ConnectionResult:
     authentication: str = "not_applicable"
 
 
-def check_connection(settings: LoggingSettings) -> ConnectionResult:
+def check_connection(
+    settings: LoggingSettings, timeout_seconds: float = 5
+) -> ConnectionResult:
     if not settings.enabled:
         return ConnectionResult("skipped")
     url = urlsplit(settings.endpoint)
@@ -23,7 +25,9 @@ def check_connection(settings: LoggingSettings) -> ConnectionResult:
         with requests.Session() as session:
             session.trust_env = False
             response = session.get(
-                f"http://{url.netloc}/health", timeout=5, allow_redirects=False
+                f"http://{url.netloc}/health",
+                timeout=timeout_seconds,
+                allow_redirects=False,
             )
         return ConnectionResult(
             "ok"

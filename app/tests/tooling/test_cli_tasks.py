@@ -70,7 +70,10 @@ def test_patch_rejects_nonstandard_version(current: str) -> None:
         next_patch(current)
 
 
-@pytest.mark.parametrize("task", ["check", "test", "format", "release", "version"])
+@pytest.mark.parametrize(
+    "task",
+    ["check", "test", "format", "release", "version", "services", "logs", "langfuse"],
+)
 def test_installed_release_cannot_mutate_checkout(task: str) -> None:
     with (
         patch.object(development, "SOURCE_COMMIT", "release-commit"),
@@ -90,3 +93,31 @@ def test_release_output_is_resolved_at_cli_boundary(tmp_path: Path) -> None:
         "release",
         ["--output", str(tmp_path / "new folder")],
     )
+
+
+@pytest.mark.parametrize("command", ["logs", "services"])
+@pytest.mark.parametrize(
+    ("flags", "code"), [(["--help"], 0), ([], 2), (["--start", "--stop"], 2)]
+)
+def test_service_parser_early_exit(command: str, flags: list[str], code: int) -> None:
+    with patch.object(commands, "run_development", side_effect=AssertionError):
+        with pytest.raises(SystemExit) as result:
+            commands.main([command, *flags])
+    assert result.value.code == code
+
+
+@pytest.mark.parametrize("entry", ["run", "dev-run"])
+def test_workflow_entry_points_do_not_delegate_service_management(entry: str) -> None:
+    with (
+        patch.object(commands, "SOURCE_COMMIT", "development"),
+        patch.object(commands, "present_workflow", return_value=0) as workflow,
+        patch.object(commands, "present_release", return_value=0) as release,
+        patch.object(commands, "run_development", side_effect=AssertionError),
+    ):
+        assert commands.main([entry, "--workflow", "wf-01"]) == 0
+    if entry == "run":
+        release.assert_called_once_with(None, ["--workflow", "wf-01"])
+        workflow.assert_not_called()
+    else:
+        workflow.assert_called_once_with("wf-01", None, None)
+        release.assert_not_called()

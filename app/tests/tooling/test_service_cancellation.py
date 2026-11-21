@@ -1,0 +1,276 @@
+"""Exercise real POSIX helper groups without Docker or private settings."""
+
+import os
+import signal
+import subprocess
+import sys
+import time
+from collections.abc import Callable
+from pathlib import Path
+from unittest.mock import patch
+
+import pytest
+
+from agent_playbook.cli import development, service_process
+from agent_playbook.config.loader import ServiceSelection
+from tooling import services
+
+pytestmark = pytest.mark.skipif(os.name != "posix", reason="POSIX process groups")
+
+HELPER = r"""
+import os
+import signal
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+root = Path.cwd()
+name = Path(__file__).parent.name
+with (root / 'calls').open('a') as calls:
+    calls.write(f"{name} {sys.argv[1]}\n")
+if name != (root / 'active').read_text():
+    raise SystemExit(0)
+subprocess.run(["docker", "info"], check=True)
+subprocess.run(["docker", "compose", "ps"], check=True)
+child = subprocess.Popen([sys.executable, '-c',
+    "import os, signal, time; from pathlib import Path; "
+    "signal.signal(signal.SIGTERM, signal.SIG_IGN); "
+    "Path('grandchild').write_text(str(os.getpid())); time.sleep(30)"
+])
+(root / 'helper').write_text(str(os.getpid()))
+while not (root / 'grandchild').exists():
+    time.sleep(.01)
+if (root / 'stray').exists():
+    raise SystemExit(0)
+time.sleep(30)
+"""
+
+
+@pytest.fixture
+def checkout(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+    for component in ("logging", "observability"):
+        path = tmp_path / "tooling" / component / "manage.py"
+        path.parent.mkdir(parents=True)
+        path.write_text(HELPER)
+    docker = tmp_path / "docker"
+    invocation_log = tmp_path / "docker-calls"
+    docker.write_text(
+        f"#!{sys.executable}\n"
+        + r"""
+import sys
+from pathlib import Path
+with Path(sys.argv[0]).with_name("docker-calls").open("a") as handle:
+    handle.write(" ".join(sys.argv[1:]) + "\n")
+"""
+    )
+    docker.chmod(0o755)
+    monkeypatch.setenv("PATH", str(tmp_path) + os.pathsep + os.defpath)
+    assert not invocation_log.exists()
+    monkeypatch.setattr(services, "APP", tmp_path)
+    monkeypatch.setattr(
+        development,
+        "__file__",
+        str(tmp_path / "src" / "agent_playbook" / "cli" / "development.py"),
+    )
+    monkeypatch.setattr(service_process, "CLEANUP_SECONDS", 0.6)
+    monkeypatch.setattr(service_process, "TERM_SECONDS", 0.25)
+    monkeypatch.setattr(service_process, "WAIT_SLICE", 0.025)
+    return tmp_path
+
+
+def assert_reaped(root: Path) -> None:
+    assert (root / "docker-calls").read_text().splitlines() == ["info", "compose ps"]
+    helper = int((root / "helper").read_text())
+    grandchild = int((root / "grandchild").read_text())
+    with pytest.raises(ChildProcessError):
+        os.waitpid(helper, os.WNOHANG)
+    for pid in (helper, grandchild):
+        for _ in range(25):
+            status = subprocess.run(
+                ["ps", "-o", "stat=", "-p", str(pid)],
+                capture_output=True,
+                text=True,
+                timeout=2,
+                check=False,
+            ).stdout.strip()
+            if not status or status.startswith("Z"):
+                break
+            time.sleep(0.02)
+        else:
+            os.kill(pid, signal.SIGKILL)
+            pytest.fail(f"Helper process {pid} was still live")
+
+
+@pytest.mark.parametrize("action", ["start", "status", "stop"])
+def test_outer_deadline_cleans_group_and_stops_aggregate(
+    checkout: Path,
+    action: str,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    active = "observability" if action == "stop" else "logging"
+    (checkout / "active").write_text(active)
+    monkeypatch.setitem(services.AGGREGATE_SECONDS, action, 1.5)
+    monkeypatch.setitem(service_process.COMPONENT_SECONDS, action, 4.0)
+    with patch.object(
+        services, "load_service_selection", return_value=ServiceSelection(True, True)
+    ):
+        started = time.monotonic()
+        assert services.main([f"--{action}"]) == 1
+        assert time.monotonic() - started < 1.65
+    assert "Aggregate service operation timed out" in capsys.readouterr().err
+    assert (checkout / "calls").read_text().splitlines() == [f"{active} --{action}"]
+    assert_reaped(checkout)
+
+
+@pytest.mark.parametrize("stray", [False, True])
+def test_inner_timeout_or_stray_cleans_group_before_next_component(
+    checkout: Path,
+    stray: bool,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    (checkout / "active").write_text("logging")
+    if stray:
+        (checkout / "stray").touch()
+    monkeypatch.setitem(services.AGGREGATE_SECONDS, "start", 4.0)
+    monkeypatch.setitem(service_process.COMPONENT_SECONDS, "start", 1.5)
+    original = services.supervise_component
+
+    def check_before_next(
+        argv: list[str],
+        cwd: Path,
+        name: str,
+        action: str,
+        cancellation: service_process.Cancellation,
+        *,
+        aggregate_deadline: float,
+    ) -> int:
+        if name == "langfuse":
+            assert_reaped(checkout)
+        return original(
+            argv, cwd, name, action, cancellation, aggregate_deadline=aggregate_deadline
+        )
+
+    with (
+        patch.object(
+            services,
+            "load_service_selection",
+            return_value=ServiceSelection(True, True),
+        ),
+        patch.object(services, "supervise_component", side_effect=check_before_next),
+    ):
+        assert services.main(["--start"]) == (0 if stray else 1)
+    assert (checkout / "calls").read_text().splitlines() == [
+        "logging --start",
+        "observability --start",
+    ]
+
+
+def interrupt_after_spawn(checkout: Path) -> Callable[..., subprocess.Popen[bytes]]:
+    """Deliver a signal inside Popen's return window, before the owner can wait."""
+    real_popen = subprocess.Popen
+
+    def launch(
+        argv: list[str],
+        *,
+        cwd: Path,
+        env: dict[str, str] | None = None,
+        start_new_session: bool = False,
+    ) -> subprocess.Popen[bytes]:
+        process = real_popen(
+            argv, cwd=cwd, env=env, start_new_session=start_new_session
+        )
+        until = time.monotonic() + 2
+        while not (checkout / "grandchild").exists() and time.monotonic() < until:
+            time.sleep(0.01)
+        os.kill(os.getpid(), signal.SIGINT)
+        return process
+
+    return launch
+
+
+def test_aggregate_ctrl_c_between_spawn_and_wait(
+    checkout: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    (checkout / "active").write_text("logging")
+    with (
+        patch.object(
+            services,
+            "load_service_selection",
+            return_value=ServiceSelection(True, True),
+        ),
+        patch.object(
+            service_process.subprocess,
+            "Popen",
+            side_effect=interrupt_after_spawn(checkout),
+        ),
+    ):
+        assert services.main(["--start"]) == 1
+    assert "interrupted" in capsys.readouterr().err
+    assert (checkout / "calls").read_text().splitlines() == ["logging --start"]
+    assert_reaped(checkout)
+
+
+@pytest.mark.parametrize(
+    ("command", "active"), [("logs", "logging"), ("langfuse", "observability")]
+)
+@pytest.mark.parametrize("interrupt", [False, True])
+def test_direct_component_timeout_or_ctrl_c_cleans_group(
+    checkout: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    command: str,
+    active: str,
+    interrupt: bool,
+) -> None:
+    (checkout / "active").write_text(active)
+    monkeypatch.setitem(service_process.COMPONENT_SECONDS, "status", 1.5)
+    if interrupt:
+        with patch.object(
+            service_process.subprocess,
+            "Popen",
+            side_effect=interrupt_after_spawn(checkout),
+        ):
+            assert development.run_development(command, ["--status"]) == 1
+    else:
+        assert development.run_development(command, ["--status"]) == 1
+    assert (checkout / "calls").read_text().splitlines() == [f"{active} --status"]
+    assert_reaped(checkout)
+
+
+def test_bridge_forwards_a_signal_sent_only_to_it(
+    checkout: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    (checkout / "tooling" / "services.py").write_text(
+        "import signal, time\n"
+        "from pathlib import Path\n"
+        "def cancel(*_):\n"
+        "    Path('forwarded').write_text('yes')\n"
+        "    raise SystemExit(1)\n"
+        "signal.signal(signal.SIGINT, cancel)\n"
+        "Path('coordinator').touch()\n"
+        "time.sleep(5)\n"
+    )
+    real_popen = subprocess.Popen
+
+    def launch(
+        argv: list[str],
+        *,
+        cwd: Path,
+        env: dict[str, str] | None = None,
+        start_new_session: bool = False,
+    ) -> subprocess.Popen[bytes]:
+        process = real_popen(
+            argv, cwd=cwd, env=env, start_new_session=start_new_session
+        )
+        until = time.monotonic() + 2
+        while not (checkout / "coordinator").exists() and time.monotonic() < until:
+            time.sleep(0.01)
+        os.kill(os.getpid(), signal.SIGINT)
+        return process
+
+    monkeypatch.setattr(service_process.subprocess, "Popen", launch)
+    assert development.run_development("services", ["--status"]) == 1
+    assert (checkout / "forwarded").read_text() == "yes"
