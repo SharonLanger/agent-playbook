@@ -1,0 +1,30 @@
+# Shared learning and root sandbox migration — round 01 test-gap review
+
+**CHANGES REQUIRED.** The migration checks pass. CT07 requires a factual correction to the approval attribution in the refactor index.
+
+- Date and role. 2026-11-19, independent test-gap reviewer, `gpt-6.2-sol`.
+- Scope. [LSM01–LSM06](../../../learning-sandbox-migration.md#verification-and-review) on [draft PR #59](https://github.com/SharonLanger/agent-playbook/pull/59).
+- Frozen candidate. [`b7d255dedaece9dae805b9a82338e68b8cdaa26d`](https://github.com/SharonLanger/agent-playbook/commit/b7d255dedaece9dae805b9a82338e68b8cdaa26d), tree `0ecb0f8b9e950ee5f85fc778ada57eeca757f832`.
+- Starting head. [`ef7b22492d6091c8c4b47c4226a24550a9b23ccb`](https://github.com/SharonLanger/agent-playbook/commit/ef7b22492d6091c8c4b47c4226a24550a9b23ccb).
+- Checked main. [`cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4`](https://github.com/SharonLanger/agent-playbook/commit/cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4).
+
+## Required correction
+
+**CT07 — Correct the approval attribution.** The refactor index attributes the 2026-11-19 authorization to Sharon using the wrong pronoun. Use “On 2026-11-19 Sharon authorized” in line 5. The migration record already attributes the authorization directly to Sharon. [Frozen refactor index](https://github.com/SharonLanger/agent-playbook/blob/b7d255dedaece9dae805b9a82338e68b8cdaa26d/designs/refactors/project-refactor/README.md#L5).
+
+## Acceptance evidence
+
+| ID | Check | Result |
+| --- | --- | --- |
+| CT01 | LSM01 | PASS. Compared the 19 disposition-table rows and their pinned destinations to the published base tree. All original labels equal their linked paths. The base has two shared-learning files and 17 root-sandbox Markdown files. The candidate has zero old shared-learning entries and exactly eight root-sandbox Markdown files, comprising two maintenance files, three references and three ideas. |
+| CT02 | LSM02 | PASS. Reversing the two diagram link edits reproduces the exact walkthrough input. The existing execution SVG parses and the linked HTML viewer is present. The new design-index learning section links the walkthrough and its governing architecture separately, then points to the Stage 00 and Stage 01 learning directories. The architecture's inbound link targets the new path. |
+| CT03 | LSM03 | PASS. Removed the six provenance paragraphs in memory and reversed the eight scoped navigation and markup replacements. All six resulting bodies equal their base inputs. The three feature IDs, Draft 1 markers, inspection revisions and approval caveats remain. Historical procedures have explicit framing, and root sandbox navigation reaches the six retained files. The reviewer still requires an explicitly supplied Drive destination. The historical checklist retains its planned-outcome framing and links to the pinned old invocation. |
+| CT04 | LSM04 | PASS. The archived test-suite design and PR 46 rules retain source blob SHAs `0f2950ad131a031a39070b4b1bdfaaf7f537fd30` and `80259fb4afa3f929f6c5a42e02aff2e2c136df06`. The existing relative link resolves to the archived design, and the external PR citations and subsequent file-persistence clarification are unchanged by the byte comparison. The seven retired paths are absent at the candidate and independently present at the pinned base. |
+| CT05 | LSM05 | PASS. Atlas freshness and in-memory regeneration pass. Current contains the moved walkthrough once with the draft PR #59 documentation label and neither old learning entries nor sandbox contents. Explorations has exactly the 19 historical rows and each path exists at the pinned main tree. The generated payload agrees with the catalog and the view links the immutable main snapshot. Resolved 155 relative occurrences, four heading fragments and 34 pinned references. Checked all 212 tracked Markdown files outside the personal examples directory for inbound links to retired paths and found zero. Bare historical path labels and pinned citations remain. |
+| CT06 | LSM06 | PASS for the structural, privacy and PR-state checks. The published candidate is one commit ahead, with 38 changed leaf paths or 29 entries including nine renames. Architecture changes one link. Project structure changes the sandbox description and three documentation ownership entries. The published application, stages, governance, prior refactor reviews and diagrams have identical tree objects. Charter, principles, roadmap and progress have identical blobs. Verified the 10 historical Drive links and five unique identifiers against main and found none in the 21 candidate-side changed files. GitHub reports #59 open, draft and unmerged at the frozen candidate, main at the recorded SHA, and #45, #51 and #57 at their earlier observed draft heads. |
+
+## Commands and limits
+
+- GitHub commit, tree, compare, file and PR-metadata reads verified the published objects. All 117 starting and 110 candidate snapshot files matched the corresponding published blob hashes. GitHub reads supplied the 118 eligible Markdown files missing from the local candidate snapshot. Application scope used tree identity and did not access the personal examples subtree.
+- `PYTHONDONTWRITEBYTECODE=1 python3 designs/atlas/build.py --check` exited 0. An independent in-memory `runpy.run_path('designs/atlas/build.py')['build']()` regenerated the exact candidate HTML bytes, blob `0e3df4453c07bc71541c86171aa2553c760c68c4`. `git diff --cached --check` exited 0. Python and JavaScript assertions performed source comparison, path inventory, link and anchor resolution, view checks, and identifier matching. Existing external PR citations remained byte-identical and were outside the link-availability check.
+- Application suites and browser interaction are outside this documentation-only review. The draft PR description still described the migration as proposed at inspection. Its update is separate publication metadata and remains pending after this frozen review. Neither this report nor the archived review requirements establish acceptance or merge.

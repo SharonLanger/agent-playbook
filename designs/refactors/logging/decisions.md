@@ -1,5 +1,7 @@
 # Decisions and open questions
 
+Historical design record. The [final milestone status and follow-ups](progress.md) supersede earlier pending items below.
+
 **DRAFT register.** Sharon owns scope/policy approval; the designer supplies evidence. No implementation authorization.
 
 | ID | State | Direction |

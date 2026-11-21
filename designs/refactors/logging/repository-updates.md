@@ -1,5 +1,7 @@
 # Repository impact and principle assessment
 
+Historical design record. The [final milestone status and follow-ups](progress.md) supersede earlier pending items below.
+
 ## Placement and authority
 
 Read root/design AGENTS, design-contract, guarded-files, charter, principles, architecture, project-structure, roadmap/progress, Stage 02 architecture/milestones/closeout, stage-milestone-workflow and codex-handover-rules. Consulted observability exploration and agent-execution notes; reuse correlation/log-versus-trace reasoning, not superseded broker/exporter proposals.

@@ -1,23 +1,23 @@
 # Agent Playbook — Agent Instructions
 
-This repository has one active design workspace in `designs/` and an executable project in `app/`. `sandbox/` contains historical experiments and must not be changed without a separate request.
+This repository has one active design workspace in `designs/` and an executable project in `app/`. `sandbox/` holds curated historical references and draft ideas and must not be changed without a separate request.
 
 ## Mandatory design entry
 
 For every repository task, explicitly load `designs/AGENTS.md`, `designs/governance/design-contract.md` and `designs/governance/guarded-files.md`, including work under app/. Follow their required decision flow: identify governing decisions, consult relevant explorations, explain placement, obtain required approval, maintain affected documents/Atlas and verify. A nested instruction file is not assumed to load automatically.
 
-For stage/milestone planning and implementation handoffs, also read `designs/governance/stage-milestone-workflow.md` and `designs/governance/codex-handover-rules.md`. These define alignment before design, milestone folders and the bounded independent-review process.
+For stage/refactor planning and implementation handoffs, including a refactor without milestones, also read `designs/governance/stage-milestone-workflow.md` and `designs/governance/codex-handover-rules.md`. These define alignment before design, stage/refactor folders, optional refactor milestones and the bounded independent-review process. When Sharon identifies work as a refactor, create or reuse `designs/refactors/<slug>/` and follow the refactor startup procedure in the working method; do not require him to restate the convention.
 
 ## Read before working
 1. Read `designs/README.md` for the document inventory.
 2. Read `designs/charter.md`, `designs/architecture.md`, `designs/principles.md`, `designs/roadmap.md`, and `designs/progress.md`.
 3. Read `designs/project-structure.md`; it is the guarded authority for code placement and dependency boundaries.
-4. For an active stage, read its approved architecture and plan before implementation.
+4. For an active stage or refactor, read its approved design and plan before implementation.
 5. For diagrams and visual explanations, read `designs/diagrams/AUTHORING.md`: Dashmotion is the default; Animated SVG handles timed/narrated walkthroughs.
 
 ## Governance
 - Charter, architecture and principles are guarded approved baselines. Preserve all existing guards, including approved stage material with stale proposed-status headings. New baselines require explicit approval.
-- Approve a stage's overall boundary first; each milestone's concrete design/test/plan must be explicitly approved and locked **before its implementation**. Later milestone details may remain draft. Follow the Stage Design PR lifecycle in designs/governance/stage-milestone-workflow.md.
+- Approve a stage or refactor's overall boundary first; each milestone's concrete design/test/plan must be explicitly approved and locked **before its implementation**. Later milestone details may remain draft. A refactor without milestones approves its root design/test/plan as one work package. Follow the Stage or Refactor Design PR lifecycle in designs/governance/stage-milestone-workflow.md.
 - Never change protected text without explaining the logical additions/removals and consequences for each affected guarded file and obtaining Sharon’s explicit approval beforehand; retain an inspectable diff.
 - Stop when a proposed implementation contradicts the target or locked stage design. Experiments may explore alternatives without silently changing baselines.
 - Progress, learning explanations, and findings may evolve with verified evidence. Distinguish hypotheses from observations.
@@ -41,7 +41,7 @@ conflicts before proceeding. Passing tests alone does not establish compliance.
 ## Engineering
 - Keep external integrations isolated behind explicit contracts/adapters. The approved M4.2/M4.3 native tracing exception permits direct Langfuse scope/propagation at the application runner and setup at assembly, with concrete setup/flush functions in its adapter; it does not permit provider imports in workflow business steps or weaken agent execution adapter isolation. Configure provider endpoints, credentials, and environment-specific settings externally; never commit secrets.
 - Prefer deterministic regression tests and strict static checking; record actual verification results, not unverified success claims.
-- No GitHub Actions CI is required for now. When Stage 00 defines the local quality-check command, run it before declaring code changes ready and document it in `README.md` and `app/README.md`. Never claim tests ran if they did not.
+- Run the local quality gate before declaring code changes ready. The approved [PR CI design](designs/refactors/pr-ci/README.md) requires the same offline checks, Atlas freshness and a clean installed-wheel check for every PR targeting public `main`. Keep hosted jobs dormant while private. Report actual run and protection evidence separately.
 - Keep implementation-facing plans distinct from learner-facing Markdown under stage `learning/`. Use Mermaid for static diagrams and self-contained animated SVG where movement clarifies behavior, with a static fallback. Verify rendered assets where possible.
 - Future-stage implementation designs await their stage except for the specific Stage 04 foundation exception in designs/roadmap.md; ordinary approval gates and actual dependencies remain. Explicitly requested research and POCs may be recorded under designs/explorations/ as non-binding explorations; they do not authorize implementation or replace the guarded architecture.
 

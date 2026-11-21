@@ -1,8 +1,7 @@
-# Maintaining This Repository
+# Root sandbox maintenance
 
-Keep role instructions in `agents/`, coordination instructions in `workflows/`, and project-specific rules in `projects/`.
-Keep the orchestrator limited to launching agents and following explicit workflow routes; pass specialist instruction paths without reading or pasting their contents.
-Do not turn examples or placeholders into finalized behavior without a requested change.
-Files marked `UNIMPLEMENTED` do not define runnable roles or workflows.
+Follow the [root repository instructions](../AGENTS.md), including the requirement for a separate request to change this folder.
 
-Use exact project folder names (for example, `system-one-harness`). Feature folders use `f-<number>-<slug>`, numbered within each project with at least two digits and a lowercase slug of at most three words. Design lookup and saving instructions are in `agents/designer.md`.
+Keep historical Markdown under `references/` and unapproved proposals under `ideas/`. Preserve original identifiers, source revisions and dated evidence. Label former launch procedures, role permissions and paths as historical. Record future retirement or archival decisions with the owning refactor and repair affected navigation.
+
+Keep this collection documentation-only. The [design workspace](../designs/README.md) owns current design and governance.

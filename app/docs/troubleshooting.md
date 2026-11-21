@@ -119,3 +119,6 @@ A `SETUP` or `CONSTRUCTION` failure is an application defect (exit 1); `PREPARE`
 The pinned CrewAI instrumentor 1.1.25 skips these observations when the Flow suppresses framework events. An explicit `show_framework_events: false` override triggers that behavior. The committed default is `true`, accepting visible framework output to enable automatic tracing. Check local YAML and `AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS` if only the runner appears. Startup uses the native `CREWAI_DISABLE_VERSION_CHECK=true` switch to suppress the framework’s external PyPI update check.
 
 If no runner observation is visible, check Langfuse enablement, endpoint/project keys and server availability using the [connection guide](langfuse-connection.md). The CLI's flush is a delivery attempt; verify actual ingestion in the UI. A cleanup diagnostic does not mean the workflow computation failed.
+
+
+Application logging configuration, helper usage and explicit read-only service diagnostics are documented in [Application logging](logging.md).

@@ -8,13 +8,14 @@ Use the maintained [connection guide](../../../app/docs/langfuse-connection.md)
 and [hands-on exercise](../../../app/docs/langfuse-hands-on.md) for current YAML-selected
 credentials and runnable commands. The older Drive files below retain their original
 SHAs and setup instructions; they are historical rather than current onboarding.
+Their titles are retained below; private Drive URLs are omitted from the repository.
 
 | Historical file | Checkpoint |
 |---|---|
-| [Combined acceptance checklist](https://drive.google.com/file/d/1vxH9napBHThAPX7ELtdTFoO0ONI8jBgE/view?usp=drivesdk) | Earlier combined final-head exercise before YAML-selected credentials |
-| [M1 verification](https://drive.google.com/file/d/1ASuYt3GuwGhfnUJW2EvwhJVnKYxv5XEc/view?usp=drivesdk) | Local UI milestone checkpoint |
-| [M2 verification](https://drive.google.com/file/d/18AgG1LrCXiag_cHG5QYev0dpwyrhMzoR/view?usp=drivesdk) | Project authentication checkpoint |
-| [M3 verification](https://drive.google.com/file/d/1P2nLMatSnBhCBOMUUKpp5PRWzLAYSjvi/view?usp=drivesdk) | Explicit mock tracing checkpoint |
+| Combined acceptance checklist | Earlier combined final-head exercise before YAML-selected credentials |
+| M1 verification | Local UI milestone checkpoint |
+| M2 verification | Project authentication checkpoint |
+| M3 verification | Explicit mock tracing checkpoint |
 
 Historical checklist-preparation instructions and verification evidence follow.
 They do not reopen accepted local setup or authorize M4.

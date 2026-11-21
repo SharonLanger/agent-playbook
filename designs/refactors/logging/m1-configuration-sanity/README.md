@@ -1,6 +1,6 @@
 # M1 — local logging configuration sanity
 
-**Draft; no approved revision or implementation PR.**
+**Complete. Implementation #54 merged.**
 
 Outcome: start the pinned local VictoriaLogs component and see one synthetic context/message record sent by Python/OpenTelemetry in its built-in UI.
 

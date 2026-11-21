@@ -1,5 +1,7 @@
 # Setup and management action items
 
+Historical design record. The [final milestone status and follow-ups](progress.md) supersede earlier pending items below.
+
 Requested requirements; implementation and exact command contracts await design approval.
 
 | ID | Action | Completion evidence |

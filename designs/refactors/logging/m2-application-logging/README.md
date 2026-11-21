@@ -1,6 +1,6 @@
 # M2 — application logging
 
-**M2 behavior and LOG-G01–06 approved by Sharon on 2026-11-16. Concrete implementation revision is pinned in the handoff.**
+**Complete. Implementation #55 merged. [Closeout](../progress.md) records the scope of live acceptance.**
 
 Outcome: normal CLI workflow runs produce correlated application logs in local VictoriaLogs, with useful exceptions and debugging details. Calls stay context + message + optional fields. SDKs own the logging machinery.
 

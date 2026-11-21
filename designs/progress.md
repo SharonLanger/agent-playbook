@@ -1,5 +1,29 @@
 # Progress and acceptance
 
+## Application logging refactor complete — 2026-11-21
+
+M1 (#54), M2 (#55), M3 (#65 and #57), and overall design #51 are merged. Sharon accepted the Mac workflow and service sanity check. See the [milestone record](refactors/logging/progress.md) for deferred live checks, CLI doctor #37, and security follow-up #66. Guided setup is deferred.
+
+## PR CI and local version tracking — 2026-11-21
+
+The [approved package and final review](refactors/pr-ci/README.md) track issue #62. The originating session passed the corrected code on [implementation PR #64](https://github.com/SharonLanger/agent-playbook/pull/64) at `ba9a18a`. The implementation team recorded 483 passing tests and a verified 0.2.0 wheel on Linux. Sharon accepted #64 and it merged at [`19e4f22`](https://github.com/SharonLanger/agent-playbook/commit/19e4f22de6ac637a9487db8129bc8dad56c52f6d). Sharon authorized design closeout in #63. Private hosted jobs were skipped and main was unprotected at closeout. [Issue #62](https://github.com/SharonLanger/agent-playbook/issues/62) tracks public macOS verification, branch enforcement and the final coordinated fresh run.
+
+## Logging M3 implementation acceptance — 2026-11-21
+
+The `impl/logging-m3-service-control` branch implements checkout-only local service management against the approved [Logging M3 contract at `c4e0951`](https://github.com/SharonLanger/agent-playbook/tree/c4e0951bd87c81e627d58127841494d4812732ab/designs/refactors/logging/m3-service-composition). The candidate adds aggregate enablement selection, a VictoriaLogs manager and Langfuse project/settings guards. The [implementation reviewers](refactors/logging/m3-service-composition/reviews/status.md) reproduced a Docker live-follow diagnostic disclosure at the reviewed candidate. Sharon accepted deferring the fix to [issue #66](https://github.com/SharonLanger/agent-playbook/issues/66) and authorized merging #65. The original review verdicts remain recorded. See the [local CLI guide](../app/docs/cli.md#local-services).
+
+Sharon accepted the Mac sanity check. Individual service start and status returned zero, and a fresh workflow produced a trace and log records. Issue #66 tracks the deferred Docker live-follow diagnostic bug. Remaining LG-10 cases are open.
+
+## Logging M2 merged — 2026-11-18
+
+Sharon authorized merging implementation PR #55 after the originating design-session final review passed with no required code corrections. PR #55 merged at `180b6e769d979015ed76e09128e25a32456ed5a4`; the reviewed code/test candidate remains `8770d076c5c586ff9f9830c43432dd127585033c` (reported full gate: 464 tests passed). M1 remains merged through PR #54.
+
+**Required before finalizing logging design PR #51:** close LG-10's manual testing gap with a real local M2 workflow run against VictoriaLogs. Record the exact workflow/correlation identity, inspect stored lifecycle and DEBUG records plus native chained-exception details, check UI ordering, and observe shutdown behavior. LG-10 remains **NOT RUN**; merge authorization does not establish live ingestion or user acceptance. Keep design PR #51 draft/open until this gap is closed and Sharon separately authorizes its finalization/merge. See [M2 review status](refactors/logging/m2-application-logging/reviews/status.md).
+
+## Stage 03 closeout — 2026-11-16
+
+Stage 03 is complete and accepted by Sharon on 2026-11-16. He confirmed that he checked everything and that it was good, authorized removal of the temporary verification scripts, and explicitly authorized merging design PR #52. Implementation PR #53 merged at 529fe15895afc8211d833fc2544e98f0d18fb451. The eight temporary recipe verify.py files are removed in this closeout; existing concept tests and permanent recipe behavior are preserved. Review evidence remains at test-bearing revision 906e0e5921fae726f37c5bdbb61551578373c908. See [Stage 03](stages/03-orchestration-patterns/README.md). Logging and Stage 04 remain separately owned.
+
 ## Stage 02 closeout — 2026-11-15
 
 Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals.
@@ -356,7 +380,7 @@ The existing public configuration guide already states that merge keys reject an
 
 The draft branch implements the R1/R3 fixes, R4 factual status correction, optional management helper/CLI and newcomer guides. [Resolution evidence](stages/02-langfuse/resolution-2026-11-13.md) records 350 passing maintained tests and actual-SDK loopback regressions. An isolated Linux Docker start was stopped because its `vfs` driver consumed nearly all free workspace disk before the six services were created. Live ingestion/persistence and Sharon's Mac acceptance remain pending. No M4 or workflow instrumentation is included; PR #36 is unmerged.
 
-The [current combined Drive checklist](https://drive.google.com/file/d/1vxH9napBHThAPX7ELtdTFoO0ONI8jBgE/view?usp=drivesdk) supersedes the historical M1–M3 checkout guides for local acceptance, while retaining their original tested SHAs. The code commit passed isolated release verification; the later documentation commit is rechecked separately.
+The current combined Drive checklist supersedes the historical M1–M3 checkout guides for local acceptance, while retaining their original tested SHAs. The code commit passed isolated release verification; the later documentation commit is rechecked separately.
 
 ## PR #41 main reconciliation — 2026-11-14
 
@@ -386,3 +410,4 @@ M4.3 instrumentation and local logging remain later work.
 Sharon approved applying PR #46's broad roadmap direction through PR #48, the Stage 04-only sequencing exception, deferred logging, incremental milestone approval and the Stage Design PR convention. This is an approved documentation/governance change; it does not mark Stage 02 complete or Stage 04 implemented. Stage-specific files, their PR titles and detailed design reconciliation remain with their owners.
 
 The permanent [roadmap approval record](roadmap.md#approval-and-scope-record) preserves the handover's lasting decisions. [Stage working method](governance/stage-milestone-workflow.md) and [Codex handover rules](governance/codex-handover-rules.md) own the reusable process, including frozen handoff contracts. Runtime architecture/structure, application behavior and existing stage acceptance are unchanged. C01/Q12 ownership reconciliation remains with Stage 04's owner and is not resolved by this roadmap change.
+

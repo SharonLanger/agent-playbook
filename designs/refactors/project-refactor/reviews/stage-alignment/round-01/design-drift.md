@@ -1,0 +1,25 @@
+# Existing-stage alignment — round 01 design-drift review
+
+**Verdict — PASS.** No required design-drift findings.
+
+| Review record | Value |
+|---|---|
+| Date | 2026-11-19 |
+| Role and model | Independent design-drift reviewer, `gpt-6.2-sol` |
+| Scope | [Existing-stage alignment, AL01–AL06](../../../stage-alignment.md) on draft [PR #59](https://github.com/SharonLanger/agent-playbook/pull/59) |
+| Starting PR head | `a8d7153965f1006fa0ce8d79697ac21a98e4dfc6` |
+| Frozen candidate | `965418d8671f10f7763ea31f640ef526b1971f79` |
+| Main base | `cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4` |
+
+The 2026-11-19 instruction authorizes an existing-stage compatibility pass under the [approved stage standard](../../../stage-structure.md). I compared the one-commit [candidate delta](https://github.com/SharonLanger/agent-playbook/compare/a8d7153965f1006fa0ce8d79697ac21a98e4dfc6...965418d8671f10f7763ea31f640ef526b1971f79) with that scope, the source stage records and the [guarded design contract](../../../../../governance/design-contract.md).
+
+| Review ID | Acceptance | Disposition and evidence |
+|---|---|---|
+| AD-01 | AL01 | PASS. [Stage 00](../../../../../stages/00-environment/README.md), [Stage 01](../../../../../stages/01-crewai-flows/README.md), [Stage 02](../../../../../stages/02-langfuse/README.md) and [Stage 03](../../../../../stages/03-orchestration-patterns/README.md) each have one canonical milestone index and one next action. Stage 00 follows the PRs' 00.1–00.7 labels and explains the guarded plan's 0.1–0.7 notation. Stage 01 preserves 01.1–01.5 under one delivery batch. Stage 02 preserves M4.R as research and the combined M4.2 + M4.3 package. Stage 03 retains S03.M1 as one batch. These compatibility indexes point to the original records and approval arrangements. |
+| AD-02 | AL02 | PASS. GitHub confirms merged design PRs #15 and #29, individual Stage 00 implementation PRs #17–#23, Stage 00 closeout #26 and Stage 01 batch #30. Stage 02 delivery PRs #36, #44 and #50 and closeout #47 are merged at the documented revisions. Stage 03 delivery #53 and closeout #52 are merged at the documented revisions. I checked the linked stage findings and acceptance records for the reported user observations, test/release evidence and remaining mock readback limit. The new historical section in the Stage 02 README retains the pre-closeout evidence and its anchors. The pinned M4.1, M4.2/M4.3 and S03.M1 design links resolve to the original files at `11bba581`, `ab3fab45` and `6067fb65`. |
+| AD-03 | AL03 | PASS. I retrieved both source and destination from GitHub and compared the complete R01–R12 table and trailing scope note. All 2,330 bytes match, including R11's U10 / S03-D26 cleanup timing and the limit protecting concept tests. The original `#requirements-and-current-scope` heading remains with a link to the relocated text, whose preamble preserves source provenance and protection. The earlier pinned S03.M1 contract, decision history and guarded package files retain their paths and contents. |
+| AD-04 | AL04 | PASS. The [design index](../../../../../README.md), [Atlas](../../../../../atlas/README.md) and [exploration index](../../../../../explorations/README.md) point to the completed Stage 02 records. The Atlas preserves the distinction between earlier CrewAI research, accepted Stage 02 delivery and separately owned logging. I checked the principal stage, approval, findings and closeout targets and ran `python3 designs/atlas/build.py --check` on the candidate snapshot. References, hierarchy, guards, the sandbox boundary and generated freshness passed. |
+| AD-05 | AL05 | PASS. GitHub's compare reports exactly twelve paths covering four stage READMEs, the relocated Stage 03 requirements, the design and exploration indexes, three Atlas files, and two refactor records. The delta preserves protected Stage 00/01 baselines, the Stage 02 and 03 milestone packages, the earlier structure-review records and the earlier publication-link cleanup. The shared learning and root sandbox migration stay at proposal status. Official application guides, runtime and personal examples are outside the delta. |
+| AD-06 | AL06 | PASS. GitHub reports PR #59 open, draft and unmerged on `docs/project-refactor` at the frozen candidate. Separate draft PRs #45, #51 and #57 were observed at their respective preflight heads `3d1e9e968b4ebd25ca0e641797dd6b1c21cc6fe0`, `54784c09f76346d91e37d2a11973f2b7b7c8da67` and `bc6499f3fe59039d48815d105240492f862a8b37`. The candidate's scope preserves their existing contracts and does not depend on merging any of those branches. |
+
+The Stage 00 CrewAI import acceptance item and scope exclusion remain documented in the original records. Existing Atlas and index overlap with the separate draft branches remains a matter for their owners at integration. This review evaluates documentation scope and adopted meaning. It used the published diff, pinned repository evidence and the partial candidate checkout. Runtime tests, live Langfuse verification and Atlas browser rendering were outside this review.

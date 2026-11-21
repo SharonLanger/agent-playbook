@@ -1,0 +1,3 @@
+# Round 1 author report
+
+Role: author/coder (root Codex; model GPT-6 per session, exact serving ID unavailable). Candidate: b1c5ede0b6603208109e9f985176d717585800db. Scope: design/test/plan only; no runtime, secret, volume or guarded-file edit. Added two-project Compose design, shared-loader bridge, migration and MC mapping. Checked Docker CLI 29.9.2 / Compose v2.40.3 with a disposable config probe: -p act-logs overrode top-level legacy-name and selected explicit external volume; Docker API denied, so live acceptance NOT RUN. Four package files changed. Limitations: technical contract and guarded amendments still require Sharon's concrete approval; MC-01–12 and LG-10 not run.
