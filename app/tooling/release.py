@@ -1,21 +1,25 @@
 """Gate, archive a clean Git revision, build, hash, and verify an isolated release."""
 
 import argparse
+import configparser
 import hashlib
 import io
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tarfile
 import tempfile
 import tomllib
+import zipfile
 from pathlib import Path
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from tooling.toolchain import pinned_uv
+from tooling.verify_runtime import offline_environment
 from tooling.verify_wheel import verify_wheel
 
 APP = Path(__file__).resolve().parents[1]
@@ -148,6 +152,41 @@ def build_wheel(repo: Path, commit: str, destination: Path, uv: str) -> Path:
     return wheels[0]
 
 
+def verify_wheel_contents(wheel: Path) -> None:
+    """Require the console contract and runtime inputs in the distributed package."""
+    with zipfile.ZipFile(wheel) as archive:
+        names = archive.namelist()
+        entry_points = [
+            name for name in names if name.endswith(".dist-info/entry_points.txt")
+        ]
+        if len(entry_points) != 1:
+            raise RuntimeError("Wheel must declare its console entry point.")
+        entries = configparser.ConfigParser()
+        entries.read_string(archive.read(entry_points[0]).decode())
+        if (
+            entries.get("console_scripts", "agent-playbook", fallback="")
+            != "agent_playbook.cli:main"
+        ):
+            raise RuntimeError("Wheel console entry point differs from its contract.")
+        for required in (
+            "agent_playbook/__init__.py",
+            "agent_playbook/_build_info.py",
+            "agent_playbook/cli/__init__.py",
+        ):
+            if required not in names:
+                raise RuntimeError(f"Wheel lacks runtime input: {required}")
+        for name in names:
+            if set(Path(name).parts) & {
+                "tests",
+                "examples",
+                "tooling",
+                ".venv",
+                "designs",
+                ".git",
+            }:
+                raise RuntimeError(f"Wheel contains checkout-only path: {name}")
+
+
 def write_release_manifest(destination: Path, evidence: dict[str, str | bool]) -> None:
     (destination / "release.json").write_text(json.dumps(evidence, indent=2) + "\n")
 
@@ -183,13 +222,7 @@ def verify_installed_release(
 ) -> tuple[str, Path]:
     """Verify application behavior, identity, isolation and checkout-only guards."""
     environment = destination / "venv"
-    clean_env = os.environ.copy()
-    for key in ("PYTHONPATH", "PYTHONHOME"):
-        clean_env.pop(key, None)
-    clean_env["PYTHONNOUSERSITE"] = "1"
-    for key in list(clean_env):
-        if key.endswith("_API_KEY") or key in ("OPENAI_API_KEY", "CREWAI_TOKEN"):
-            clean_env.pop(key)
+    clean_env = offline_environment(os.environ)
     # A fresh process installs the network audit guard before importing the app.
     run(
         [str(python), "-I", str(Path(__file__).with_name("verify_runtime.py")), "run"],
@@ -217,12 +250,44 @@ def verify_installed_release(
     )
     if not location.is_relative_to(environment):
         raise RuntimeError("Release imported code outside its isolated environment.")
+    executable = python.parent / (
+        "agent-playbook.exe" if os.name == "nt" else "agent-playbook"
+    )
+    console_reported = capture([str(executable), "version"], destination, clean_env)
+    if console_reported != reported:
+        raise RuntimeError("Installed console metadata differs from release evidence.")
+    fixture = destination / "offline.yaml"
+    shutil.copyfile(APP / "tests/fixtures/offline.yaml", fixture)
+    shutil.copyfile(
+        APP / "tests/fixtures/empty-secrets.env", destination / "empty-secrets.env"
+    )
+    output = capture(
+        [
+            str(executable),
+            "run",
+            "--config",
+            str(fixture),
+            "--workflow",
+            "wf-03",
+            "--input",
+            '{"score":80}',
+        ],
+        destination,
+        clean_env,
+    )
+    if "[WF-03] result: pass" not in output.splitlines():
+        raise RuntimeError(
+            "Installed console workflow result differs from its contract."
+        )
+    print("PASS installed console version/source and wf-03 -> pass")
     for arguments in (
         ["test"],
         ["check"],
         ["format"],
         ["release"],
         ["version", "patch"],
+        ["version", "minor"],
+        ["version", "major"],
     ):
         result = subprocess.run(
             [str(python), "-I", "-m", "agent_playbook.cli", *arguments],
@@ -271,6 +336,7 @@ def build_release(output: Path | None) -> None:
         f"{digest}  {wheel.name}\n{requirements_hash}  requirements.txt\n{lock_hash}  uv.lock\n"
     )
     verify_wheel(wheel, digest)
+    verify_wheel_contents(wheel)
 
     python = install_release(destination, wheel, uv)
     reported, location = verify_installed_release(destination, python, version, commit)

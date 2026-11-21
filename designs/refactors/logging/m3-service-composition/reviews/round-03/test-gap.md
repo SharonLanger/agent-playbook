@@ -1,12 +1,7 @@
-# Round 3 independent test coverage review
+# Round 03 test coverage review
 
-Role: test gap reviewer. Configured model: gpt-6.2-sol; served ID unavailable. Candidate: 3c641fe4760adfcd487e6eacdc468bcf44148236. Verdict: **CHANGES REQUIRED / BLOCKED under three-round cap**. Static review only.
+Independent reviewer; configured model `gpt-6.2-sol`, serving ID unavailable. Frozen candidate: `912e5bc7289960baf14333427d9f0b2a08cbcd58`. Verdict: **PASS for test coverage**; this does not override the design review's M3-D03 finding.
 
-| ID | Severity | Required finding |
-|---|---|---|
-| TG-M3-01 | High | MC-01 still assigns real Compose to maintained test while default gate promises Docker-free; explicitly separate fake default test and opt-in Compose CLI probe in plan and evidence. |
-| TG-M3-07 | High | Legacy Compose-effective credentials may differ from strict-parsed file or be overridden by shell; test effective-value equivalence with synthetic override/quoting cases and safe preflight. |
-| TG-M3-04 | Medium | Bound each Docker/Compose readiness refresh by remaining health deadline, not only HTTP probe. |
-| TG-M3-06 | Medium | Add post-success missing-volume case so an initialized stack never silently creates replacement data; manifest-first partial fresh retry otherwise addressed. |
+**TG-M3-05 closed:** snapshot and follow tests reject a synthetic multiline secret whose continuation contains `=`, before retrieving/printing logs, and check both streams. Real Compose v2.40.3 structured-resolution smoke passed single-line redaction and multiline refusal. TG-M3-01–04 remained closed. Large regular-YAML selection tests prove the worker entered the read and was reaped on shortened outer timeout and SIGINT without Docker. Real POSIX SC-07 tests still cover outer start/status/stop, inner timeout, stubborn descendant, TERM/KILL, stray cleanup, Ctrl-C, direct CLI cleanup and no implicit down.
 
-TG-M3-02/03/05 addressed; MC-10–12 retained. No runtime, Docker daemon, Mac or LG-10 evidence. [Reviewed tests](https://github.com/SharonLanger/agent-playbook/blob/3c641fe4760adfcd487e6eacdc468bcf44148236/designs/refactors/logging/m3-service-composition/test-cases.md).
+Independent focused seven-file suite: 125 passed in 33.36 seconds. Independent type/lint/format, synthetic Compose v2.40.3 syntax/project lookup/redaction, Atlas and whitespace checks passed. Coder's full exact-candidate gate passed 553 tests. Acceptance mapping for all SC-01–12 is in [status](../status.md). Live Mac SC-10 and M2 LG-10 NOT RUN. Reviewer made no edits.

@@ -1,7 +1,7 @@
 # Logging M3 — local service commands
 
-Status: revised concrete design **proposed for Sharon's approval**. Sharon approved the three command groups/actions on 2026-11-21 and confirmed that explicit `logs --start` starts VictoriaLogs even when workflow logging is disabled, without editing YAML. Aggregate `services --start` selects by effective enabled settings. Runtime implementation and M3 acceptance have **not started**.
+**Complete.** Implementation #65 merged at `8b26d85`. Sharon accepted the Mac sanity check: individual Langfuse and VictoriaLogs start/status succeeded, and a fresh workflow produced a trace and application logs.
 
-Read [design](design.md), [revised acceptance cases](test-cases.md) and [implementation plan](implementation-plan.md). The earlier three review rounds cover a superseded, broader proposal and remain intact under [historical reviews](reviews/status.md). The separately authorized revised design review is recorded under `reviews/revised-2026-11-21/`.
+[Approved design](design.md) · [Test cases](test-cases.md) · [Implementation plan](implementation-plan.md) · [Original design reviews](original-design-reviews/status.md) · [Implementation reviews](reviews/status.md).
 
-PR #57 stays draft. The existing Docker project and volume names remain; renaming belongs to [issue #56](https://github.com/SharonLanger/agent-playbook/issues/56). [Overall logging design PR #51](https://github.com/SharonLanger/agent-playbook/pull/51) stays draft/open. The remaining M2 LG-10 check is pending. No runtime code, Compose data or private credentials are changed by this design work.
+The broader Docker name change is tracked in #56. The failed Docker live-follow diagnostic disclosure remains open in #66. Full aggregate/restart coverage and the remaining LG-10 cases were not run in the Mac sanity check.

@@ -1,12 +1,9 @@
-# Round 3 independent design review
+# Round 03 design correctness/drift review
 
-Role: design correctness/drift reviewer. Configured model: gpt-6.2-sol; served ID unavailable. Candidate: 3c641fe4760adfcd487e6eacdc468bcf44148236. Verdict: **CHANGES REQUIRED / BLOCKED under three-round cap**. Static GitHub connector review only.
+Independent reviewer; configured model `gpt-6.2-sol`, serving ID unavailable. Frozen candidate: `912e5bc7289960baf14333427d9f0b2a08cbcd58`. Verdict: **CHANGES REQUIRED**.
 
-| ID | Severity | Required finding |
-|---|---|---|
-| DD-03 | High | Reconstruction from incomplete legacy volumes using managed old Compose can create empty replacement volumes and false mount evidence. Hard stop on missing/partial physical volumes; independent evidence before reconstruction. |
-| DD-05 | Medium | Legacy stop/down/rollback commands inherit shell variables that override selected --env-file credentials; use a controlled environment and specify backup procedure. |
-| DD-06 | Medium | Candidate lacks actual design-ready discovery/Atlas change or observed build blocker; report pending. |
-| DD-07 | Medium | Both localhost and 127.0.0.1 local origins are allowed but Compose hardcodes localhost NEXTAUTH_URL; choose canonical origin or pass validated origin. |
+- **M3-D01 closed:** malformed tagged YAML receives sanitized configuration error.
+- **M3-D02 closed:** the aggregate now supervises a selection worker; real large regular-file timeout and SIGINT tests verify reaping before Docker action. The previous shortened-deadline reproduction no longer exceeds its cap.
+- **M3-D03 remains open:** structured Compose JSON fixes the multiline current-settings leak, but snapshot/follow redaction derives secrets from settings selected **now**. An existing container may have been started with different shell/env-file settings. With Compose v2.40.3 and only synthetic values, the reviewer confirmed that the redactor masks the current credential but preserves a different synthetic startup credential in a simulated service diagnostic. Expected no unredacted service logs. No live service was tested for emitting such a diagnostic. `app/tooling/observability/manage.py:_resolved_log_secrets`.
 
-DD-01/02/04 closed in round 2. No runtime, Docker data, Mac or LG-10 evidence. [Reviewed design](https://github.com/SharonLanger/agent-playbook/blob/3c641fe4760adfcd487e6eacdc468bcf44148236/designs/refactors/logging/m3-service-composition/design.md).
+Independent six-file focused suite: 118 passed in 32.94 seconds. Compose syntax/identity/redaction smoke, Atlas and whitespace passed. Live Mac SC-10 and M2 LG-10 NOT RUN. Reviewer made no edits. The cap of three rounds requires a BLOCKED handoff, not an unreviewed fourth correction.

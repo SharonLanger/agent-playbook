@@ -1,14 +1,9 @@
-# Round 1 independent design review
+# Round 01 design correctness/drift review
 
-Role: design correctness/drift reviewer. Configured model: gpt-6.2-sol (served ID unavailable). Candidate: b1c5ede0b6603208109e9f985176d717585800db. Verdict: **CHANGES REQUIRED**. Static GitHub connector review; no runtime/Docker/Mac tests.
+Independent reviewer; configured model `gpt-6.2-sol`, serving ID unavailable. Frozen candidate: `319950acba1beabc36e9c3ed5dcac8126bffa1be`. Verdict: **CHANGES REQUIRED**.
 
-| ID | Severity | Expected versus observed |
-|---|---|---|
-| DD-01 | High | Stop/status without configuration promised; proposed Compose down requires missing interpolation. |
-| DD-02 | High | Guarded M2 fixes seven-day retention in Compose; candidate moved retention into YAML without approved supersession. |
-| DD-03 | High | Migration requires old container mount evidence and old down, but promises those containers for rollback; sequencing/coexistence unclear. |
-| DD-04 | High | Omission of --env-file does not disable implicit .env discovery; stored/process value comparisons and custom references insufficient. |
-| DD-05 | Medium | Exact migration/rollback/probe commands and existing direct helper/CLI behavior insufficient; cli.md omitted. |
-| DD-06 | Medium | Design-ready discovery/Atlas timing conflicts with implementation-stage deferral. |
+- **M3-D01 required:** malformed tagged YAML `enabled: !!bool [false]` escapes the service-selection configuration path. Expected sanitized exit 2, with aggregate status still inspecting both projects; observed start/status exit 1 and generic failure. `app/src/agent_playbook/config/loader.py:_literal_boolean`.
+- **M3-D02 required:** synchronous YAML/secrets reads can block the aggregate deadline and Ctrl-C. A synthetic FIFO selector remained alive two seconds after SIGINT to the bridge. Expected bounded cancellation and active-worker cleanup. `app/tooling/services.py:main`, `config/loader.py:_read`.
+- **M3-D03 required:** existing Langfuse log redaction misses an interpolated synthetic infrastructure secret; the marker survived the filter for snapshot/follow logs. Expected no unredacted service log output. `app/tooling/observability/manage.py:_redact`.
 
-Evidence: [candidate design](https://github.com/SharonLanger/agent-playbook/blob/b1c5ede0b6603208109e9f985176d717585800db/designs/refactors/logging/m3-service-composition/design.md), [candidate plan](https://github.com/SharonLanger/agent-playbook/blob/b1c5ede0b6603208109e9f985176d717585800db/designs/refactors/logging/m3-service-composition/implementation-plan.md), guarded M2 design caeb1637. All findings carried to round 2; no PASS claim.
+Independent focused pytest: 101 passed. Atlas, diff whitespace and daemon-free Compose v2.40.3 syntax/default/file/shell identity checks passed. These checks did not close the findings. Live Mac, actual service diagnostic and M2 LG-10 NOT RUN. Reviewer made no edits.

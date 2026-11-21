@@ -1,6 +1,6 @@
 # Application logging
 
-Application diagnostics use Python logging through OpenTelemetry to local VictoriaLogs. Start the local service using [the logging setup](../tooling/logging/README.md). The checked-in YAML enables logging at DEBUG; older configuration without a logging section leaves it disabled.
+Application diagnostics use Python logging through OpenTelemetry to local VictoriaLogs. Start, inspect and stop it explicitly from a bootstrapped source checkout. The checked-in YAML enables logging at DEBUG; older configuration without a logging section leaves it disabled.
 
 ```yaml
 integrations:
@@ -10,7 +10,21 @@ integrations:
     endpoint: http://127.0.0.1:9428/insert/opentelemetry/v1/logs
 ```
 
-Shared YAML, optional local YAML and environment overrides apply in that order. `AGENT_PLAYBOOK_LOGGING_ENABLED`, `AGENT_PLAYBOOK_LOGGING_LEVEL` and `AGENT_PLAYBOOK_LOGGING_ENDPOINT` override those values. Levels are DEBUG, INFO, WARNING, ERROR and CRITICAL. The destination must use HTTP, a loopback IP, an explicit port and the exact OTLP logs path shown above, without credentials, query or fragment. Requests ignore proxy environment settings and reject redirects. Logging never changes the Langfuse destination.
+```sh
+app/.venv/bin/agent-playbook logs --start
+app/.venv/bin/agent-playbook logs --status
+app/.venv/bin/agent-playbook logs --stop
+```
+
+These commands manage `agent-playbook-logging-smoke` separately from Langfuse.
+`logs --start` works even when workflow logging is disabled and leaves
+configuration files unchanged. `services --start` selects by both workflow
+integration flags. The local service always uses `127.0.0.1:9428` and retains
+`agent-playbook-logging-smoke_logs-data` on stop. See the
+[CLI guide](cli.md#local-services) for options and exit codes, and the
+[logging smoke](../tooling/logging/README.md) for ingestion verification.
+
+Shared YAML, optional local YAML, the selected secrets file and process environment overrides apply in that order. `AGENT_PLAYBOOK_LOGGING_ENABLED`, `AGENT_PLAYBOOK_LOGGING_LEVEL` and `AGENT_PLAYBOOK_LOGGING_ENDPOINT` override those values. Levels are DEBUG, INFO, WARNING, ERROR and CRITICAL. The destination must use HTTP, a loopback IP, an explicit port and the exact OTLP logs path shown above, without credentials, query or fragment. Requests ignore proxy environment settings and reject redirects. Logging never changes the Langfuse destination.
 
 Maintained workflow runs emit started/completed/failed records and DEBUG phase progress. Search the local UI at http://127.0.0.1:9428/select/vmui for `correlation_id`, `workflow_id` or `workflow_run_id`. Logging level describes diagnostics; it does not determine workflow success.
 

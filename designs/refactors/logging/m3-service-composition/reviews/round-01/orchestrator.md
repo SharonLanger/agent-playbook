@@ -1,3 +1,5 @@
-# Round 1 disposition
+# Round 01 disposition
 
-Role: orchestrator (root Codex). Candidate: b1c5ede0b6603208109e9f985176d717585800db. Both independent reviewers assessed the same frozen SHA. Verdict: **CHANGES REQUIRED**; no implementation approval. DD-01–06 and TG-M3-01–05 retained in their original reports. Author will correct stop/status, fixed retention, migration rollback, Compose dotenv isolation, compatibility, exact commands, test assertions and design-ready Atlas status; then freeze a new documentation candidate for both reviewers in round 2. Rounds used: 1/3. No runtime or live acceptance.
+Author role: orchestrator. Frozen candidate: `319950acba1beabc36e9c3ed5dcac8126bffa1be`. The independent design and test reviewers both examined this SHA without edits. Configured reviewer models: `gpt-6.2-sol`; serving IDs unavailable.
+
+Design: **CHANGES REQUIRED**, M3-D01–03. Test coverage: **CHANGES REQUIRED**, TG-M3-01–04. The candidate's green full repository gate did not override these findings. Corrections were consolidated for the sole coder and routed into round 02. No merge or acceptance. See [coder](implementation.md), [design](design-drift.md) and [tests](test-gap.md).

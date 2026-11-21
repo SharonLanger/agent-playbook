@@ -90,6 +90,23 @@ integrations:
 Set the local value to `true` when keys are ready. Keep your machine-specific
 choice in the ignored local file rather than repeatedly editing shared defaults.
 
+## Local service selection
+
+`agent-playbook services --start` selects the local projects from
+`integrations.logging.enabled` and `integrations.langfuse.enabled`. The
+selected YAML, sibling local YAML, selected `secrets.file` and process
+environment apply in the usual order. Use unquoted YAML booleans and
+`true`/`false` for `AGENT_PLAYBOOK_LOGGING_ENABLED` and
+`AGENT_PLAYBOOK_LANGFUSE_ENABLED` in the environment or secrets file.
+
+Local management needs no Langfuse project API keys. The application secrets
+file still supplies keys for workflows and the project connection check.
+Langfuse's private Docker settings stay in `app/tooling/observability/.env`
+or the custom file selected with `--env-file`. Explicit `logs --start`
+starts the fixed local VictoriaLogs project even with workflow logging
+disabled. Workflow endpoints can differ from these local service addresses.
+See [local service commands](cli.md#local-services).
+
 ## Optional local logging smoke
 
 For a synthetic developer check, follow the [local logging smoke guide](../tooling/logging/README.md).

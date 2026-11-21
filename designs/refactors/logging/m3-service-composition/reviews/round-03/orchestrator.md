@@ -1,3 +1,5 @@
-# Round 3 disposition
+# Round 03 final disposition
 
-Role: orchestrator (root Codex). Documentation candidate: 3c641fe4760adfcd487e6eacdc468bcf44148236. Both independent gpt-6.2-sol reviewers assessed the same frozen SHA. Both returned CHANGES REQUIRED. Maximum three rounds used, so design completion is **BLOCKED**, not approved or ready for runtime implementation. No fourth coding/review round will occur without Sharon's explicit new decision. Open findings: DD-03/05/06/07 and TG-M3-01/07/04/06; preserve prior reports and closed findings. Proposed next scope: authorize a new bounded design correction/review plan addressing the exact findings; then approve the resulting concrete revision and guarded logical amendments separately before runtime changes. PR #57 and design PR #51 remain draft/open; M2 LG-10 NOT RUN.
+Author role: orchestrator. Frozen code/test candidate: `912e5bc7289960baf14333427d9f0b2a08cbcd58`. Both independent reviewers assessed this same SHA without edits; configured models `gpt-6.2-sol`, serving IDs unavailable.
+
+Design correctness/drift: **CHANGES REQUIRED**, M3-D03 historical-container credential redaction remains open. Test coverage: **PASS**, TG-M3-01–05 closed. A passing 553-test repository gate and synthetic Compose smoke do not establish the historical-container secret guarantee or live acceptance. Rounds used: **3/3**. Stop BLOCKED; no fourth code/review round or merge without Sharon's new explicit decision. See [coder](implementation.md), [design](design-drift.md) and [tests](test-gap.md).

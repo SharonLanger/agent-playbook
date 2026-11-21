@@ -1,3 +1,7 @@
-# Round 1 author report
+# Round 01 coder record
 
-Role: author/coder (root Codex; model GPT-6 per session, exact serving ID unavailable). Candidate: b1c5ede0b6603208109e9f985176d717585800db. Scope: design/test/plan only; no runtime, secret, volume or guarded-file edit. Added two-project Compose design, shared-loader bridge, migration and MC mapping. Checked Docker CLI 29.9.2 / Compose v2.40.3 with a disposable config probe: -p act-logs overrode top-level legacy-name and selected explicit external volume; Docker API denied, so live acceptance NOT RUN. Four package files changed. Limitations: technical contract and guarded amendments still require Sharon's concrete approval; MC-01–12 and LG-10 not run.
+Role: sole coder; configured model `gpt-6.2-sol`, serving ID unavailable. Candidate: `319950acba1beabc36e9c3ed5dcac8126bffa1be`. Base main: `46e9062d1fbedefbc04240c280d12001cfdea0ac`. Approved contract: `c4e0951bd87c81e627d58127841494d4812732ab`.
+
+Implemented checkout-only services/logs CLI, narrow loader selection, VictoriaLogs and aggregate managers, Langfuse identity/preflight, process-group supervision, Docker-free tests, public documentation, Atlas/progress and Mac guide. No Compose YAML, project/volume name, runner, guarded design or app/examples change.
+
+Exact candidate focused suite: 101 passed. Full gate later passed Pyright (0 diagnostics), Ruff lint/format and 536 pytest tests in 59.65 seconds with writable scratch CrewAI storage outside the sandbox. First full-gate attempt stalled in a standalone LanceDB storage open in the default sandbox; it was not counted as a pass. Synthetic Compose v2.40.3 syntax/project lookup, Atlas and diff whitespace passed. Mac SC-10 and M2 LG-10 NOT RUN. Review findings are preserved in the companion reports.

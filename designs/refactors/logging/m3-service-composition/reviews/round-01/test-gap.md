@@ -1,13 +1,10 @@
-# Round 1 independent test coverage review
+# Round 01 test coverage review
 
-Role: test gap reviewer. Configured model: gpt-6.2-sol (served ID unavailable). Candidate: b1c5ede0b6603208109e9f985176d717585800db. Verdict: **CHANGES REQUIRED**. Static review; no runtime/Docker/Mac tests.
+Independent reviewer; configured model `gpt-6.2-sol`, serving ID unavailable. Frozen candidate: `319950acba1beabc36e9c3ed5dcac8126bffa1be`. Verdict: **CHANGES REQUIRED**.
 
-| ID | Severity | Expected versus observed |
-|---|---|---|
-| TG-M3-01 | High | MC-01–03 need Docker-free ordinary tests, opt-in Compose probe, four selection states and independent survival. |
-| TG-M3-02 | High | MC-04/06/12 need manifest/context/race, interruption/rollback and same physical-volume record/trace evidence. |
-| TG-M3-03 | High | MC-05–07 need parser round-trip, remapped references, ambient dotenv and secret leakage fault paths. |
-| TG-M3-04 | Medium | MC-08 needs exact deadlines/order/aggregation and invalid-config no-mutation assertions. |
-| TG-M3-05 | Medium | MC-09/11 need direct pre-bootstrap and hosted check contracts plus cli.md. |
+- **TG-M3-01 required, SC-07:** POSIX tests prove eventual cleanup but would pass with immediate KILL, override all production cap/reserve constants, and do not prove TERM before KILL or production arithmetic. Strengthen signal/deadline assertions. `app/tests/tooling/test_service_cancellation.py`.
+- **TG-M3-02 required, SC-06/08:** aggregate tests mock the supervisor while persistence/safety tests invoke a manager directly. Add actual aggregate CLI/coordinator/manager lifecycle with custom env, retained state, disabled-running status and unsafe Langfuse stop followed by real logging teardown. `test_service_selection.py`, `test_service_managers.py`.
+- **TG-M3-03 required, SC-03/04/11:** explicit disabled-logging test calls raw helper rather than supported CLI. Exercise direct logs and aggregate logs-only CLI with absent Langfuse keys, process override and unchanged YAML. `test_service_managers.py`.
+- **TG-M3-04 required, SC-08/09:** successful Compose identity lookup checks only stdout redaction; add marker-bearing stderr and assert both streams. `test_service_managers.py`.
 
-Evidence: [candidate tests](https://github.com/SharonLanger/agent-playbook/blob/b1c5ede0b6603208109e9f985176d717585800db/designs/refactors/logging/m3-service-composition/test-cases.md) and existing Langfuse CLI/public guides. MC-10 suitable; MC-12 artifact/live distinction retained. All findings carried to round 2.
+Real POSIX outer start/status/stop, Ctrl-C, direct cleanup and no-down cases did run. Independent tooling-only run: 135 passed, one unchanged release-completion test failed with a different workflow error; baseline cause unverified. The coder's later full gate passed at this same SHA with a writable LanceDB scratch location. Daemon-free Compose syntax/identity and Atlas passed. Live Mac and LG-10 NOT RUN. Reviewer made no edits.
