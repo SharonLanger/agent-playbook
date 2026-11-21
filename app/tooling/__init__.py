@@ -1,1 +1,1 @@
-"""Checkout-only development tooling."""
+"""Checkout-only tooling for bootstrap, checks, and release verification."""
