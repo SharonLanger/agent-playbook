@@ -19,6 +19,8 @@ from tooling.version import next_patch
         (["format"], "format", []),
         (["test"], "test", []),
         (["version", "patch"], "version", ["patch"]),
+        (["version", "minor"], "version", ["minor"]),
+        (["version", "major"], "version", ["major"]),
         (["release"], "release", []),
     ],
 )

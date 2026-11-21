@@ -25,6 +25,8 @@ module entry point is `python -m agent_playbook.cli`.
 | `agent-playbook test` | Run pytest |
 | `agent-playbook format` | Apply Ruff formatting to source, tooling and tests |
 | `agent-playbook version patch` | Increase patch version; update TOML and lockfile |
+| `agent-playbook version minor` | Increase minor version and reset patch |
+| `agent-playbook version major` | Increase major version and reset minor/patch |
 | `agent-playbook release` | Build and verify the current committed version |
 | `agent-playbook release --output <new-directory>` | Build into an unused directory; relative to your invocation directory |
 
@@ -118,7 +120,7 @@ app/dist/<actual-release-folder>/venv/bin/agent-playbook version
 app/dist/<actual-release-folder>/venv/bin/agent-playbook run --config "$PWD/app/application.yaml"
 ```
 
-Developer commands (`check`, `test`, `format`, `version patch`, `release`, `langfuse`) require
+Developer commands (`check`, `test`, `format`, `version patch/minor/major`, `release`, `langfuse`) require
 the source checkout and its environment. Installed wheels reject them clearly;
 checkout tooling is not bundled into the wheel.
 
@@ -130,9 +132,11 @@ checkout tooling is not bundled into the wheel.
 4. Run `agent-playbook run` to execute the new release.
 
 The version command finds bootstrap's pinned uv, updates project metadata and
-lockfile, and syncs the editable environment. It does not commit, push or build.
+lockfile together, restoring both files if the update fails. It does not commit, push or build.
 The bump reads the current TOML version, so repeated calls increment again.
-There is no automatic major/minor bump command. Set an exact version with:
+From `0.2.7`, patch gives `0.2.8`, minor gives `0.3.0`, and major gives `1.0.0`.
+In 0.x, a minor may introduce documented breaking changes; choosing 1.0 declares
+stability. Set an exact version with:
 
 ```sh
 python3 app/tooling/version.py 0.1.0
@@ -144,6 +148,17 @@ a local release. A clean committed checkout is mandatory: if release fails,
 inspect the listed paths or run `git status --short`. Commit intended changes;
 do not discard unrelated edits just to make the build pass.
 
+At a maintainer bump, reconcile [CHANGELOG.md](../../CHANGELOG.md) against all merged
+PRs between the previous committed version bump and the included main revision.
+Record both commit endpoints and list each PR number/title once, including docs
+and maintenance PRs already listed under Unreleased. Move those entries into a
+dated version heading, keeping Unreleased for later work. Include a one-line
+upgrade note for a breaking change. The version-preparation PR belongs to the next
+interval if it merges after the recorded cutoff. Use Git history and GitHub merged
+PRs where necessary; the local bump itself stays offline. An empty interval or an
+offline clone must not invent history. The initial lower bound is the first 0.2.0
+commit recorded in the changelog; earlier history is not reconstructed.
+
 ## Release behavior
 
 Release runs the full gate, archives the exact Git commit, builds a Wheel,
@@ -151,7 +166,9 @@ exports production dependencies with hashes from that same archived lockfile, in
 in an isolated environment, then installs the hash-verified application wheel with no new
 dependency resolution. It checks dependency consistency, every workflow/both routes, invalid
 input, a network-denied fresh-process probe using a dedicated offline fixture, import isolation and version/source metadata. It also verifies rejection of developer
-commands. A release is marked complete only after verification succeeds.
+commands. It also verifies the wheel console entry point and runtime inputs,
+rejects checkout-only wheel paths, and invokes the installed console outside the
+checkout with a copied offline fixture. A release is marked complete only after verification succeeds.
 
 Default output is `app/dist/<version>-<commit-prefix>/`, containing the wheel,
 `release.json`, `SHA256SUMS`, `requirements.txt`, the archived `uv.lock`, and `venv/`.
@@ -192,7 +209,7 @@ These are Python configurations using module `agent_playbook.cli`.
 Stage 01 adds **WF-01 Sequence**, **WF-02 State**, **WF-03 Route** with `dev-run --workflow wf-0N`.
 It also adds **Test WF-01**, **Test WF-02**, **Test WF-03**, using module `pytest` with
 `-q tests/workflows/<named-workflow-folder>`. All 18 tasks use the project interpreter.
-For an exact major/minor version, manually run `app/tooling/version.py` with the
+For an exact version, manually run `app/tooling/version.py` with the
 version as its parameter. If tasks are missing, confirm the repository root is
 open and inspect Run → Edit Configurations. Existing manually saved tasks may
 need their module/parameters updated; avoid duplicate names.
