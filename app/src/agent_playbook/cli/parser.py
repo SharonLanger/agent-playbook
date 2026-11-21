@@ -73,12 +73,12 @@ def build_parser() -> argparse.ArgumentParser:
         "--output", help="Unused output directory (relative to your current directory)."
     )
     version_parser = commands.add_parser(
-        "version", help="Show version, or bump the checkout patch version."
+        "version", help="Show version, or bump the checkout version."
     )
     version_parser.add_argument(
         "action",
         nargs="?",
-        choices=("patch",),
+        choices=("patch", "minor", "major"),
         help="Update TOML and lockfile; review and commit before release.",
     )
     return parser

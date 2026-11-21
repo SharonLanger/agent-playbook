@@ -1,8 +1,14 @@
 # Progress and acceptance
 
+## PR CI and local version tracking — 2026-11-21
+
+The [approved package and final review](refactors/pr-ci/README.md) track issue #62. The originating session passed the corrected code on [implementation PR #64](https://github.com/SharonLanger/agent-playbook/pull/64) at `ba9a18a`. The implementation team recorded 483 passing tests and a verified 0.2.0 wheel on Linux. Sharon accepted #64 and it merged at [`19e4f22`](https://github.com/SharonLanger/agent-playbook/commit/19e4f22de6ac637a9487db8129bc8dad56c52f6d). Sharon authorized design closeout in #63. Private hosted jobs were skipped and main was unprotected at closeout. [Issue #62](https://github.com/SharonLanger/agent-playbook/issues/62) tracks public macOS verification, branch enforcement and the final coordinated fresh run.
+
 ## Logging M3 implementation candidate — 2026-11-21
 
 The `impl/logging-m3-service-control` branch implements checkout-only local service management against the approved [Logging M3 contract at `c4e0951`](https://github.com/SharonLanger/agent-playbook/tree/c4e0951bd87c81e627d58127841494d4812732ab/designs/refactors/logging/m3-service-composition). The candidate adds aggregate enablement selection, a VictoriaLogs manager and Langfuse project/settings guards. [Implementation review](refactors/logging/m3-service-composition/reviews/status.md) is **BLOCKED** after the original three rounds and Sharon's one additional focused M3-D03 round: failed `langfuse --logs --follow` Docker diagnostics can reach stderr before command failure is known. The corrected code/test candidate is `df64582af4e3accb4b0747e3c1b44a429d541a6b`; offline checks passed, but design/test reviewers both require a fix. User acceptance and merge have not occurred. See the [local CLI guide](../app/docs/cli.md#local-services). Mac SC-10 and the remaining M2 LG-10 are **NOT RUN**; M3 is not ready for Mac verification.
+
+Sharon accepted the Mac sanity check. Individual service start and status returned zero, and a fresh workflow produced a trace and log records. Issue #66 tracks the deferred Docker live-follow diagnostic bug. Remaining LG-10 cases are open.
 
 ## Logging M2 merged — 2026-11-18
 
