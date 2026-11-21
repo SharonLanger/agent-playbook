@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 29 · Updated: 2026-11-21 · Owner: Sharon
+Revision: 30 · Updated: 2026-11-21 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 The [milestone table](README.md#canonical-milestone-and-readiness-index) owns current status. The [November 21 checkpoint](decisions.md#scope-and-methodology-checkpoint) identifies questions answered after earlier revisions. Dated sections below preserve their original revision context.
@@ -430,3 +430,4 @@ Maintain both active records in this repository package with matching revision e
 | 27 | 2026-11-16 | Tracks open P13 hook evaluation and pending BC04; accepted specification unchanged. |
 | 28 | 2026-11-16 | D50/D51 add explicit low-coupling constraint and coder/reviewer product target; proposed controls remain open. |
 | 29 | 2026-11-21 | D52 records Stage 04-only PR scope and the methodology reconciliation. Product decisions and milestone boundaries retain their existing approvals. |
+| 30 | 2026-11-21 | D53 authorizes four shared navigation files. Stage requirements and milestone approvals retain their existing status. |

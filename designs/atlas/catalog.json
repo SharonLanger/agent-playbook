@@ -67,7 +67,11 @@
     "designs/refactors/pr-ci/implementation-plan.md",
     "designs/refactors/logging/README.md",
     "designs/refactors/logging/progress.md",
-    "designs/refactors/logging/m3-service-composition/README.md"
+    "designs/refactors/logging/m3-service-composition/README.md",
+    "designs/stages/04-agent-execution/README.md",
+    "designs/stages/04-agent-execution/decisions.md",
+    "designs/stages/04-agent-execution/specifications.md",
+    "designs/stages/04-agent-execution/milestone-plan.md"
   ],
   "views": {
     "current": {
@@ -1704,6 +1708,12 @@
               "path": "designs/diagrams/AUTHORING.md",
               "text": "Self-contained animated SVG, static fallback and verified local viewers.",
               "to": null
+            },
+            {
+              "name": "Stage 04 design",
+              "path": "designs/stages/04-agent-execution/README.md",
+              "text": "Agent execution foundation and milestone status.",
+              "to": "stage04_planning"
             }
           ],
           "note": "EXPLORATION ONLY — optional candidate, not an approved target. ",
@@ -2570,6 +2580,73 @@
           "diagram": null,
           "status": "exploration",
           "source": "designs/stages/02-langfuse/m4-workflow-integration/README.md"
+        },
+        "stage04_planning": {
+          "name": "Stage 04",
+          "parent": "design",
+          "label": "Stage 04 / Design in progress",
+          "title": "Agent execution foundation",
+          "text": "The stage README tracks all four milestones. Open a design record below or follow the source link to the stage README.",
+          "blocks": [
+            {
+              "name": "Decision board",
+              "path": "designs/stages/04-agent-execution/decisions.md",
+              "text": "Approvals, alternatives and open questions.",
+              "to": "stage04_planning_decisions"
+            },
+            {
+              "name": "Specification",
+              "path": "designs/stages/04-agent-execution/specifications.md",
+              "text": "Agreed requirements for agent execution and the remaining design choices.",
+              "to": "stage04_planning_specification"
+            },
+            {
+              "name": "Milestone plan",
+              "path": "designs/stages/04-agent-execution/milestone-plan.md",
+              "text": "The four outcomes, their boundaries and their prerequisites.",
+              "to": "stage04_planning_milestones"
+            }
+          ],
+          "note": "Milestone boundaries are approved. Detailed design for M1 is paused.",
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/stages/04-agent-execution/README.md"
+        },
+        "stage04_planning_decisions": {
+          "name": "Decision board",
+          "parent": "stage04_planning",
+          "label": "Stage 04 / Design in progress",
+          "title": "Decision board",
+          "text": "Approvals, alternatives and open questions.",
+          "blocks": [],
+          "note": null,
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/stages/04-agent-execution/decisions.md"
+        },
+        "stage04_planning_specification": {
+          "name": "Specification",
+          "parent": "stage04_planning",
+          "label": "Stage 04 / Design in progress",
+          "title": "Specification",
+          "text": "Agreed requirements for agent execution and the remaining design choices.",
+          "blocks": [],
+          "note": null,
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/stages/04-agent-execution/specifications.md"
+        },
+        "stage04_planning_milestones": {
+          "name": "Milestone plan",
+          "parent": "stage04_planning",
+          "label": "Stage 04 / Design in progress",
+          "title": "Milestone plan",
+          "text": "The four outcomes, their boundaries and their prerequisites.",
+          "blocks": [],
+          "note": null,
+          "diagram": null,
+          "status": "exploration",
+          "source": "designs/stages/04-agent-execution/milestone-plan.md"
         }
       },
       "files": [

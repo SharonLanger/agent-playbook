@@ -2,10 +2,10 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Updated: 2026-11-21 · Working records revision 29
+Updated: 2026-11-21 · Working records revision 30
 Status: **draft planning PR authorized by Sharon; no runtime implementation, stage activation, locked milestone baseline or merge authorization.**
 
-This is the permanent Stage 04 design workspace on `docs/agent-execution-foundation-planning`. This branch incorporates [main at `5f0ac632`](https://github.com/SharonLanger/agent-playbook/commit/5f0ac632bf0676c831a07c1189972d07dcc5ac7e). Its diff is confined to this directory. Shared navigation, progress and Atlas follow main. Stage 04's boundary and four milestone allocations/gates are approved; detailed milestone designs and implementation are not. PR #45 follows `[Stage 04 Design] Agent execution foundation` and stays draft through stage closeout.
+This is the permanent Stage 04 design workspace on `docs/agent-execution-foundation-planning`. This branch incorporates [main at `5f0ac632`](https://github.com/SharonLanger/agent-playbook/commit/5f0ac632bf0676c831a07c1189972d07dcc5ac7e). The [navigation exception](decisions.md#shared-navigation-exception) adds four shared discovery files to the stage package. Stage 04's boundary and four milestone allocations/gates are approved; detailed milestone designs and implementation are not. PR #45 follows `[Stage 04 Design] Agent execution foundation` and stays draft through stage closeout.
 
 ## Read in this order
 

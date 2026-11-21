@@ -24,6 +24,7 @@ and learn it. Progress records what has actually been accepted.
 | [Stage 01 — CrewAI Flows](stages/01-crewai-flows/README.md) | Accepted workflow batch; five substages, contracts, verification and code-reading guides |
 | [Stage 02 — Langfuse](stages/02-langfuse/README.md) | Accepted local setup, connection and mock work, execution context and native tracing |
 | [Stage 03 — Orchestration patterns](stages/03-orchestration-patterns/README.md) | Accepted standalone CrewAI recipe batch; requirements, decisions and closeout evidence |
+| [Stage 04 — Agent execution foundation](stages/04-agent-execution/README.md) | Design in progress. Four milestones cover shared contracts, fake execution, a standalone agent and CrewAI integration. |
 | [../AGENTS.md](../AGENTS.md) | Repository operating instructions |
 
 ## Viewing diagrams

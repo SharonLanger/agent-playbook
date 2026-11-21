@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 29 · Updated: 2026-11-21 · Owner: Sharon
+Revision: 30 · Updated: 2026-11-21 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 The [November 21 checkpoint](#scope-and-methodology-checkpoint) records current scope and status. Dated checkpoints retain the evidence and open questions from their revision.
@@ -1127,6 +1127,10 @@ Read both files before progressing the design. Update this board with evidence a
 - **Open choices.** The M1 discussion may address request/settings/permission fields, validation, missing evidence and concrete cleanup diagnostics. Hook responses, cancellation controls and a service transport have no implementation approval.
 - **Outcome.** M1 can be drafted with those choices open when Sharon resumes the discussion. The detailed contract, test cases and implementation plan will need their own approval.
 
+## Shared navigation exception
+
+2026-11-21 · D53 · **Approved.** Sharon approved adding Stage 04 navigation to the design index, exploration index, Atlas guide and Atlas catalog. Readers can find the active design from the existing project entry points. D52 continues to govern the rest of the repository. Write the entries against current main. Sharon will regenerate the Atlas HTML. Project-wide progress is reserved for a later discussion.
+
 ## Revision history
 
 | Revision | Date | Change |
@@ -1160,3 +1164,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 27 | 2026-11-16 | P13/BC04 evaluate native blocking hooks versus observations; no scope or contract approval. |
 | 28 | 2026-11-16 | D50/D51 record replaceability and real coder/reviewer product acceptance; P14 compares reference contracts without changing stage scope. |
 | 29 | 2026-11-21 | D52 records Stage 04-only PR scope and the methodology reconciliation. Product decisions and milestone boundaries retain their existing approvals. |
+| 30 | 2026-11-21 | D53 authorizes four shared navigation files. Stage requirements and milestone approvals retain their existing status. |

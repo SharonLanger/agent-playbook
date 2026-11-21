@@ -8,7 +8,7 @@ Status: **open checklist for future design/implementation; no guarded changes ma
 
 ## Current scope
 
-D52 confines PR #45 to this directory. Main owns the shared files. The [alignment checkpoint](decisions.md#scope-and-methodology-checkpoint) and [milestone table](README.md#canonical-milestone-and-readiness-index) record current status. The evidence below identifies earlier baselines by revision.
+D52 establishes the stage-local default. [D53](decisions.md#shared-navigation-exception) authorizes four shared navigation files. The [alignment checkpoint](decisions.md#scope-and-methodology-checkpoint) and [milestone table](README.md#canonical-milestone-and-readiness-index) record current status. The evidence below identifies earlier baselines by revision.
 
 ## Original change record
 
@@ -30,7 +30,7 @@ D52 confines PR #45 to this directory. Main owns the shared files. The [alignmen
 | RU06 | Logging/observability owner | Define how normalized execution evidence is observed and recorded, failure/redaction policy, correlation and acceptance. No tracing broker or execution-owned logging backend. | Q17/Q38 remain open. D12's product requirement is not fulfilled by a fake/test recorder. |
 | RU07 | Existing application assembly/configuration/workflow contract | During S04.M4 detail, specify only needed construction, selected YAML data, role invocation and sync/async boundary. Preserve validation/lifecycle and CrewAI scheduling. | Not a prerequisite to designing isolated M1 data; required before workflow implementation. |
 | RU08 | Official app/docs, checks and release inputs | Publish supported commands/configuration only with working implementation. Use maintained independent test fixtures, standard quality gates and applicable release checks. | No current public-guide impact: this PR changes no supported behavior, commands, defaults, installation or output. |
-| RU09 | Progress, navigation and Atlas | Keep shared progress, navigation, catalog and generated output at main. Record Stage 04 status in the stage README. | D52. Any future shared update needs separate scope. |
+| RU09 | Progress, navigation and Atlas | Add Stage 04 navigation in `designs/README.md`, `designs/explorations/README.md`, `designs/atlas/README.md` and `designs/atlas/catalog.json`. Record milestone status in the stage README. | D53. Sharon owns HTML regeneration. Project-wide progress awaits separate discussion. |
 | RU10 | Native integration | Select/reverify SDK/runtime versions, licensing if code/dependencies are reused, native mapping/capability evidence, permission enforcement and lifecycle acceptance. | Later design, separate from fake contract acceptance; no dependency adopted here. |
 
 No unresolved item in this table prevents **creating the draft planning PR**. Items become blocking at their named design/implementation gate. No author may resolve a conflict by simply relabeling an exploration as approved.
@@ -62,7 +62,7 @@ No unresolved item in this table prevents **creating the draft planning PR**. It
 - Check that every milestone declares inputs, exclusions, dependencies and exit limits.
 - Check a proposed scope change must be recorded in the plan **before** decisions/specification are amended, without treating that proposal as authorization.
 - Verify roadmap, all guarded files, app source/tests/settings/dependencies and historical sandbox are untouched.
-- Verify that the PR diff contains only Stage 04 paths, including after integrating a newer main.
+- Verify that the PR diff is limited to Stage 04 and its explicitly approved exceptions, including after integrating a newer main.
 - Record checks for the exact candidate. Do not merge this PR or begin implementation without the corresponding user instruction.
 
 ## PR #45 final merge gate — D33
