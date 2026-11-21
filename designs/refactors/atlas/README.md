@@ -1,6 +1,6 @@
 # PR #35 — Atlas and design-governance change record
 
-Status: logical scope explicitly approved by Sharon on 13 November 2026; implementation in this draft PR awaits merge review. Do not merge automatically. The permanent viewer is now [designs/atlas](../../atlas/README.md); optional reasoning lives in [explorations](../../explorations/README.md). Earlier proposal patches are superseded by these approved edits, not retained as competing instructions.
+Status: logical scope explicitly approved by Sharon on 13 November 2026; [PR #35](https://github.com/SharonLanger/agent-playbook/pull/35) is merged. The permanent viewer is [designs/atlas](../../atlas/README.md); optional reasoning lives in [explorations](../../explorations/README.md). The sections below retain the approved change record and integration checkpoint for PR #35. Earlier proposal patches are superseded by those approved edits, not retained as competing instructions.
 
 ## Approved logical changes per guarded file
 
