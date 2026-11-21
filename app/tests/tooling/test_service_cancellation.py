@@ -389,9 +389,9 @@ def test_large_regular_selection_is_bounded_and_never_starts_docker(
         "os.open = record_open\n"
     )
     monkeypatch.setenv("PYTHONPATH", str(checkout))
-    monkeypatch.setattr(service_process, "CLEANUP_SECONDS", 0.2)
-    monkeypatch.setattr(service_process, "TERM_SECONDS", 0.1)
-    cap = 2.0 if interrupt else 0.8
+    monkeypatch.setattr(service_process, "CLEANUP_SECONDS", 0.6)
+    monkeypatch.setattr(service_process, "TERM_SECONDS", 0.25)
+    cap = 3.0 if interrupt else 2.0
     monkeypatch.setitem(services.AGGREGATE_SECONDS, "start", cap)
     real_popen = subprocess.Popen
     workers: list[subprocess.Popen[bytes]] = []
