@@ -252,7 +252,8 @@ def test_langfuse_config_identity_controls_every_subsequent_operation(
     monkeypatch.setenv("COMPOSE_PROJECT_NAME", shell)
     project = shell or "file-project"
     lookup = finished(
-        stdout=json.dumps({"name": project, "password": "synthetic-secret-marker"})
+        stdout=json.dumps({"name": project, "password": "synthetic-secret-marker"}),
+        stderr="synthetic-secret-stderr-marker",
     )
     running = finished(
         stdout=json.dumps(
@@ -321,7 +322,9 @@ def test_langfuse_config_identity_controls_every_subsequent_operation(
     volumes = compose["volumes"]
     assert isinstance(volumes, dict) and volumes.keys() == langfuse.VOLUMES
     assert settings.read_bytes() == initial
-    assert "synthetic-secret-marker" not in capsys.readouterr().out
+    output = capsys.readouterr()
+    assert "synthetic-secret-marker" not in output.out + output.err
+    assert "synthetic-secret-stderr-marker" not in output.out + output.err
 
 
 @pytest.mark.parametrize("present", [False, True])

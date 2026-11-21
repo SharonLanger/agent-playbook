@@ -156,7 +156,10 @@ app/.venv/bin/agent-playbook langfuse --start
 
 `--stop` removes this stack's containers but retains the `.env` and named data
 volumes. Repeated starts, an already-stopped stop, and start after stop are safe.
-Docker Desktop and unrelated containers stay untouched. Keep service logs private.
+Docker Desktop and unrelated containers stay untouched. The CLI masks the
+selected deployment's resolved infrastructure secrets in service logs,
+including values interpolated by Compose. If it cannot verify the redaction
+values, it reports a settings error and withholds the logs.
 
 ## Private service settings
 

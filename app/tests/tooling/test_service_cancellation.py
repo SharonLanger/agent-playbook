@@ -7,7 +7,7 @@ import sys
 import time
 from collections.abc import Callable
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -35,7 +35,7 @@ subprocess.run(["docker", "info"], check=True)
 subprocess.run(["docker", "compose", "ps"], check=True)
 child = subprocess.Popen([sys.executable, '-c',
     "import os, signal, time; from pathlib import Path; "
-    "signal.signal(signal.SIGTERM, signal.SIG_IGN); "
+    "signal.signal(signal.SIGTERM, lambda *_: Path('received-term').write_text('TERM')); "
     "Path('grandchild').write_text(str(os.getpid())); time.sleep(30)"
 ])
 (root / 'helper').write_text(str(os.getpid()))
@@ -81,6 +81,7 @@ with Path(sys.argv[0]).with_name("docker-calls").open("a") as handle:
 
 def assert_reaped(root: Path) -> None:
     assert (root / "docker-calls").read_text().splitlines() == ["info", "compose ps"]
+    assert (root / "received-term").read_text() == "TERM"
     helper = int((root / "helper").read_text())
     grandchild = int((root / "grandchild").read_text())
     with pytest.raises(ChildProcessError):
@@ -274,3 +275,89 @@ def test_bridge_forwards_a_signal_sent_only_to_it(
     monkeypatch.setattr(service_process.subprocess, "Popen", launch)
     assert development.run_development("services", ["--status"]) == 1
     assert (checkout / "forwarded").read_text() == "yes"
+
+
+@pytest.mark.parametrize(
+    ("action", "component_cap", "aggregate_cap"),
+    [
+        ("start", 720, 1500),
+        ("status", 60, 130),
+        ("stop", 60, 130),
+    ],
+)
+def test_production_caps_reserve_cleanup_inside_elapsed_limits(
+    tmp_path: Path,
+    action: str,
+    component_cap: int,
+    aggregate_cap: int,
+) -> None:
+    start = 1000.0
+    process = MagicMock()
+    process.pid = 42
+    process.wait.return_value = 0
+    with (
+        patch.object(service_process.time, "monotonic", return_value=start),
+        patch.object(
+            service_process.subprocess, "Popen", return_value=process
+        ) as popen,
+        patch.object(service_process, "_cleanup") as cleanup,
+        patch.object(
+            services,
+            "load_service_selection",
+            return_value=ServiceSelection(True, True),
+        ),
+        patch.object(
+            services, "supervise_component", wraps=service_process.supervise_component
+        ) as child,
+    ):
+        assert (
+            service_process.supervise_component(
+                ["synthetic"], tmp_path, "logs", action, service_process.Cancellation()
+            )
+            == 0
+        )
+        assert services.main([f"--{action}"]) == 0
+    for launch in popen.call_args_list:
+        assert (
+            float(launch.kwargs["env"][service_process.WORK_DEADLINE_ENV])
+            == start + component_cap - 5
+        )
+    for group in cleanup.call_args_list:
+        assert group.args == (process, 42, start + component_cap)
+    assert all(
+        call.kwargs["aggregate_deadline"] == start + aggregate_cap
+        for call in child.call_args_list
+    )
+    assert child.call_count == 2
+    assert process.wait.call_args.kwargs["timeout"] == 0.25
+    with patch.object(
+        service_process.time, "monotonic", return_value=start + aggregate_cap - 5
+    ):
+        with pytest.raises(
+            service_process.OperationCancelled, match="Aggregate.*timed out"
+        ):
+            service_process.ensure_active(
+                service_process.Cancellation(), start + aggregate_cap
+            )
+
+
+def test_production_cleanup_waits_three_seconds_then_leaves_two_to_reap() -> None:
+    clock = [1000.0]
+    delivered: list[tuple[float, int]] = []
+    process = MagicMock()
+
+    def sleep(seconds: float) -> None:
+        clock[0] += seconds
+
+    def send(_pgid: int, signum: int) -> None:
+        if signum:
+            delivered.append((clock[0], signum))
+
+    with (
+        patch.object(service_process.time, "monotonic", side_effect=lambda: clock[0]),
+        patch.object(service_process.time, "sleep", side_effect=sleep),
+        patch.object(service_process.os, "killpg", side_effect=send),
+    ):
+        service_process._cleanup(process, 42, 1005.0)  # pyright: ignore[reportPrivateUsage]
+    assert delivered == [(1000.0, signal.SIGTERM), (1003.0, signal.SIGKILL)]
+    process.wait.assert_called_once_with(timeout=2.0)

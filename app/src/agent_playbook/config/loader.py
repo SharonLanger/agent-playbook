@@ -2,10 +2,11 @@
 
 import os
 import re
+import stat
 from collections.abc import Hashable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, cast
+from typing import IO, Any, cast
 
 import yaml
 from pydantic import TypeAdapter, ValidationError
@@ -52,7 +53,10 @@ class ServiceSelectionLoader(StrictLoader):
 
 
 def _literal_boolean(_loader: StrictLoader, node: Node) -> bool | str:
-    assert isinstance(node, ScalarNode)
+    if not isinstance(node, ScalarNode):
+        raise ConstructorError(
+            None, None, "Expected a YAML boolean scalar", node.start_mark
+        )
     if node.value.lower() in ("true", "false"):
         return node.value.lower() == "true"
     return node.value
@@ -83,9 +87,26 @@ def _mapping(value: object) -> dict[str, object]:
     return _MAPPING.validate_python(value, strict=True)
 
 
+def _open_regular(path: Path) -> IO[str]:
+    """Open a selection file without waiting for a FIFO writer."""
+    descriptor = os.open(path, os.O_RDONLY | os.O_NONBLOCK)
+    try:
+        if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+            raise OSError("Service selection needs a regular file.")
+        return os.fdopen(descriptor, encoding="utf-8")
+    except BaseException:
+        os.close(descriptor)
+        raise
+
+
 def _read(path: Path, loader: type[StrictLoader]) -> dict[str, object]:
     try:
-        with path.open(encoding="utf-8") as source:
+        reader = (
+            _open_regular(path)
+            if loader is ServiceSelectionLoader
+            else path.open(encoding="utf-8")
+        )
+        with reader as source:
             value: object = yaml.load(source, Loader=loader)
         return _mapping(value)
     except (OSError, UnicodeError, yaml.YAMLError, ValidationError):
@@ -115,11 +136,12 @@ def _boolean(value: str, name: str) -> bool:
 _ENV_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*\Z")
 
 
-def _parse_secrets_file(path: Path) -> dict[str, str]:
+def _parse_secrets_file(path: Path, *, regular_only: bool = False) -> dict[str, str]:
     """Read a strict, non-executing dotenv subset from an explicitly selected file."""
     values: dict[str, str] = {}
     try:
-        with path.open(encoding="utf-8") as source:
+        reader = _open_regular(path) if regular_only else path.open(encoding="utf-8")
+        with reader as source:
             for raw_line in source:
                 line = raw_line.strip()
                 if not line or line.startswith("#"):
@@ -203,7 +225,10 @@ def _selected_values(
             "Invalid configuration: secrets.file must name a nonempty file path."
         )
     secrets = SecretsSettings.model_validate(secrets_data)
-    secret_values = _parse_secrets_file(_secrets_file_path(secrets.file, selected))
+    secret_values = _parse_secrets_file(
+        _secrets_file_path(secrets.file, selected),
+        regular_only=loader is ServiceSelectionLoader,
+    )
     # Process values, including explicit empty strings, take precedence.
     return data, secret_values | dict(os.environ)
 
@@ -237,7 +262,16 @@ def load_service_selection(path: str | None = None) -> ServiceSelection:
         )
     except ConfigurationError:
         raise
-    except (ValidationError, OSError, RuntimeError, ValueError):
+    except (
+        OSError,
+        RuntimeError,
+        ValueError,
+        TypeError,
+        LookupError,
+        AttributeError,
+        OverflowError,
+    ):
+        # Explicit YAML tags can fail in PyYAML's scalar constructors outside YAMLError.
         raise ConfigurationError("Invalid service selection configuration.") from None
 
 

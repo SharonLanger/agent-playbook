@@ -89,7 +89,7 @@ def test_real_loader_precedence_and_status(
 
 
 @pytest.mark.parametrize(
-    "failure", ["syntax", "quoted", "yaml-synonym", "dotenv", "process", "blank"]
+    "failure", ["syntax", "tag", "quoted", "yaml-synonym", "dotenv", "process", "blank"]
 )
 def test_invalid_selection_blocks_start_but_reports_status(
     selection: Path,
@@ -99,6 +99,10 @@ def test_invalid_selection_blocks_start_but_reports_status(
 ) -> None:
     if failure == "syntax":
         selection.write_text("SYNTHETIC-MARKER: [")
+    elif failure == "tag":
+        selection.with_name("selected.local.yaml").write_text(
+            "integrations: {logging: {enabled: !!bool [SYNTHETIC-MARKER]}}"
+        )
     elif failure in ("quoted", "yaml-synonym"):
         value = '"SYNTHETIC-MARKER"' if failure == "quoted" else "on"
         selection.with_name("selected.local.yaml").write_text(
@@ -192,3 +196,37 @@ def test_langfuse_disabled_project_check_is_docker_free(selection: Path) -> None
     )
     assert result.returncode == 3
     assert "disabled; no connection attempted" in result.stdout.lower()
+
+
+@pytest.mark.skipif(os.name != "posix", reason="FIFO paths require POSIX")
+@pytest.mark.parametrize("which", ["base", "local", "secrets"])
+def test_selection_rejects_fifo_without_waiting_for_writer(
+    selection: Path, which: str
+) -> None:
+    fifo = {
+        "base": selection,
+        "local": selection.with_name("selected.local.yaml"),
+        "secrets": selection.with_name("local.env"),
+    }[which]
+    if fifo.exists():
+        fifo.unlink()
+    os.mkfifo(fifo)
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "agent_playbook.cli",
+            "services",
+            "--start",
+            "--config",
+            str(selection),
+        ],
+        cwd=selection.parent,
+        env={"PATH": str(selection.parent)},
+        capture_output=True,
+        text=True,
+        timeout=5,
+    )
+    assert result.returncode == 2
+    assert "Service selection unavailable" in result.stderr
+    assert "Traceback" not in result.stderr

@@ -10,6 +10,7 @@ import time
 import urllib.error
 import urllib.request
 import webbrowser
+from collections.abc import Callable
 from pathlib import Path
 from typing import cast
 
@@ -39,6 +40,17 @@ DEFAULT_PROJECT = "observability"
 PROJECT = re.compile(r"[a-z0-9][a-z0-9_-]*\Z")
 VOLUMES = frozenset(
     {"postgres_data", "clickhouse_data", "clickhouse_logs", "redis_data", "minio_data"}
+)
+INFRASTRUCTURE_KEYS = frozenset(
+    {
+        "POSTGRES_PASSWORD",
+        "CLICKHOUSE_PASSWORD",
+        "REDIS_AUTH",
+        "MINIO_ROOT_PASSWORD",
+        "NEXTAUTH_SECRET",
+        "SALT",
+        "ENCRYPTION_KEY",
+    }
 )
 SERVICES = frozenset(
     {"langfuse-web", "langfuse-worker", "postgres", "clickhouse", "redis", "minio"}
@@ -227,30 +239,49 @@ def _inventory(project: str | None = None) -> set[str]:
         ) from None
 
 
-def _redact(line: str, env_file: Path) -> str:
+def _log_redactor(env_file: Path, project: str) -> Callable[[str], str]:
+    # Compose applies dotenv interpolation and shell precedence before printing
+    # its interpolation environment. Use just the infrastructure values in memory.
+    resolved = _compose(env_file, "config", "--environment", project=project)
+    if resolved.returncode:
+        raise SettingsConflict("Could not verify log redaction from private settings.")
+    values: dict[str, str] = {}
+    for line in resolved.stdout.splitlines():
+        key, separator, value = line.partition("=")
+        if not separator:
+            raise SettingsConflict(
+                "Could not verify log redaction from private settings."
+            )
+        if key in INFRASTRUCTURE_KEYS:
+            if key in values:
+                raise SettingsConflict(
+                    "Could not verify log redaction from private settings."
+                )
+            values[key] = value
+    if values.keys() != INFRASTRUCTURE_KEYS or not all(values.values()):
+        raise SettingsConflict("Could not verify log redaction from private settings.")
+
+    secrets = set(values.values())
     for entry in env_file.read_text(encoding="utf-8").splitlines():
         if "=" not in entry or entry.lstrip().startswith("#"):
             continue
         key, value = entry.split("=", 1)
         secret = value.strip().strip("\"'")
         if key.strip() not in ("LANGFUSE_PORT", "MINIO_PORT") and secret:
-            line = line.replace(secret, "[REDACTED]")
-    for key in (
-        "POSTGRES_PASSWORD",
-        "CLICKHOUSE_PASSWORD",
-        "REDIS_AUTH",
-        "MINIO_ROOT_PASSWORD",
-        "NEXTAUTH_SECRET",
-        "SALT",
-        "ENCRYPTION_KEY",
-    ):
-        value = os.environ.get(key, "")
-        if value:
-            line = line.replace(value, "[REDACTED]")
-    return re.sub(r"(?i)(authorization\s*[:=]\s*)[^\r\n,}]+", r"\1[REDACTED]", line)
+            secrets.add(secret)
+    secret_pattern = re.compile(
+        "|".join(re.escape(secret) for secret in sorted(secrets, key=len, reverse=True))
+    )
+    auth_pattern = re.compile(r"(?i)(authorization\s*[:=]\s*)[^\r\n,}]+")
+
+    def redact(line: str) -> str:
+        line = secret_pattern.sub("[REDACTED]", line)
+        return auth_pattern.sub(r"\1[REDACTED]", line)
+
+    return redact
 
 
-def _follow_logs(env_file: Path, project: str) -> int:
+def _follow_logs(env_file: Path, project: str, redact: Callable[[str], str]) -> int:
     process = subprocess.Popen(
         _compose_argv(env_file, "logs", "--tail", "80", "--follow", project=project),
         cwd=DEPLOY,
@@ -261,7 +292,7 @@ def _follow_logs(env_file: Path, project: str) -> int:
     try:
         assert process.stdout is not None
         for line in process.stdout:
-            print(_redact(line, env_file), end="", flush=True)
+            print(redact(line), end="", flush=True)
         return 0 if process.wait() == 0 else 1
     except KeyboardInterrupt:
         process.terminate()
@@ -455,10 +486,11 @@ def _main(argv: list[str] | None = None) -> int:
         )
         return 0
     if args.logs:
+        redact = _log_redactor(env_file, project)
         if args.follow:
-            return _follow_logs(env_file, project)
+            return _follow_logs(env_file, project, redact)
         result = _compose(env_file, "logs", "--tail", "80", project=project)
-        print(_redact(result.stdout, env_file), end="")
+        print(redact(result.stdout), end="")
         return 0 if result.returncode == 0 else 1
     state, detail = _state(env_file, project)
     ready = state == "running" and _health(port)

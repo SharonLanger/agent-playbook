@@ -130,27 +130,51 @@ def test_logs_follow_interrupt_does_not_stop(tmp_path: Path) -> None:
     with (
         patch.object(manage, "_docker_ready", return_value=True),
         patch.object(manage.subprocess, "Popen", return_value=process) as popen,
+        patch.object(manage, "_log_redactor", return_value=str),
     ):
         assert manage.main(["--logs", "--follow", "--env-file", str(env_file)]) == 0
     assert popen.call_args.args[0][-4:] == ["logs", "--tail", "80", "--follow"]
     process.terminate.assert_called_once_with()
 
 
-def test_service_logs_redact_secrets_and_auth_header(
-    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+@pytest.mark.parametrize("follow", [False, True])
+def test_service_logs_redact_interpolated_secrets_and_auth_header(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    follow: bool,
 ) -> None:
     env_file = tmp_path / "private.env"
-    env_file.write_text("POSTGRES_PASSWORD=private-marker-123\nLANGFUSE_PORT=3000\n")
-    result = subprocess.CompletedProcess(
-        [], 0, "password private-marker-123 Authorization: Basic abc123\n", ""
+    env_file.write_text(
+        "POSTGRES_PASSWORD=${M3_TEST_DB_PASSWORD}\nLANGFUSE_PORT=3000\n"
     )
+    resolved = subprocess.CompletedProcess(
+        [],
+        0,
+        "".join(f"{key}=private-marker-123\n" for key in manage.INFRASTRUCTURE_KEYS),
+        "redaction-stderr-marker",
+    )
+    line = "startup normal: private-marker-123 Authorization: Basic abc123\n"
+    result = subprocess.CompletedProcess([], 0, line, "")
+    process = MagicMock()
+    process.stdout.__iter__.return_value = iter([line])
+    process.wait.return_value = 0
     with (
         patch.object(manage, "_docker_ready", return_value=True),
-        patch.object(manage, "_compose", return_value=result),
+        patch.object(
+            manage, "_compose", side_effect=[resolved] if follow else [resolved, result]
+        ) as compose,
+        patch.object(manage.subprocess, "Popen", return_value=process) as popen,
     ):
-        assert manage.main(["--logs", "--env-file", str(env_file)]) == 0
-    output = capsys.readouterr().out
-    assert "private-marker-123" not in output and "abc123" not in output
+        args = ["--logs", "--env-file", str(env_file)]
+        if follow:
+            args.append("--follow")
+        assert manage.main(args) == 0
+    assert compose.call_args_list[0].args[-2:] == ("config", "--environment")
+    assert popen.call_count == int(follow)
+    output = capsys.readouterr()
+    assert "startup normal:" in output.out and "[REDACTED]" in output.out
+    for marker in ("private-marker-123", "abc123", "redaction-stderr-marker"):
+        assert marker not in output.out + output.err
 
 
 def test_missing_and_stopped_docker_engine_without_compose_start(
@@ -215,3 +239,27 @@ def test_fresh_checkout_status_and_stop_without_settings(tmp_path: Path) -> None
     ):
         assert manage.main(["--status"]) == 1
         assert manage.main(["--stop"]) == 0
+
+
+@pytest.mark.parametrize("follow", [False, True])
+def test_logs_fail_closed_when_redaction_cannot_be_established(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    follow: bool,
+) -> None:
+    settings = tmp_path / "selected.env"
+    settings.write_text("")
+    resolved = subprocess.CompletedProcess([], 1, "hidden-stdout", "hidden-stderr")
+    with (
+        patch.object(manage, "_docker_ready", return_value=True),
+        patch.object(manage, "_compose", return_value=resolved) as compose,
+        patch.object(manage.subprocess, "Popen", side_effect=AssertionError),
+    ):
+        args = ["--logs", "--env-file", str(settings)]
+        if follow:
+            args.append("--follow")
+        assert manage.main(args) == 2
+    assert compose.call_count == 1
+    output = capsys.readouterr()
+    assert "Could not verify log redaction" in output.err
+    assert "hidden-" not in output.out + output.err
