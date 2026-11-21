@@ -4,7 +4,7 @@
 
 ## Current status and reconciliation
 
-`designs/progress.md` owns the current project status. Stage summaries own milestone detail; findings retain dated evidence; the roadmap owns intended sequencing. Agent instructions link to these records instead of duplicating detailed progress.
+`designs/progress.md` owns the current project status. Stage/refactor summaries own work-package and milestone detail; findings retain dated evidence; the roadmap owns intended sequencing. Agent instructions link to these records instead of duplicating detailed progress.
 
 Before reporting work ready, check the affected progress summary, stage/refactor summaries, design documents and Atlas against the actual implementation and PR state. Replace superseded current-status statements. Preserve earlier evidence in clearly labeled historical sections.
 
@@ -18,7 +18,7 @@ Update canonical documents before rebuilding Atlas. Run its existing freshness a
 
 Every agent doing repository work MUST follow this procedure. The root AGENTS.md explicitly requires this file and designs/AGENTS.md even when working outside designs. Do not assume a client automatically discovers nested instruction files.
 
-Before editing, read the root instructions, designs/AGENTS.md, this contract, the guarded-file register, designs/README.md, charter.md, principles.md, architecture.md, project-structure.md, roadmap.md and progress.md. Then read the active stage's approved design and the relevant entries in explorations/README.md. Follow topic links only when relevant; do not bulk-load unrelated research. Reuse documents already read at the same revision in the current task; refresh when the branch or governing files change and after a handoff when their contents are unavailable.
+Before editing, read the root instructions, designs/AGENTS.md, this contract, the guarded-file register, designs/README.md, charter.md, principles.md, architecture.md, project-structure.md, roadmap.md and progress.md. Then read the active stage or refactor's approved design and the relevant entries in explorations/README.md. Follow topic links only when relevant; do not bulk-load unrelated research. Reuse documents already read at the same revision in the current task; refresh when the branch or governing files change and after a handoff when their contents are unavailable.
 
 Never inspect app/examples/ as part of this procedure. It is Sharon's personal sandbox and is excluded unless explicitly requested for the specific task.
 
@@ -42,7 +42,7 @@ For read-only advice, perform the relevant reading and reasoning; no write or ma
 | Principles and this contract | Mandatory engineering and change process |
 | Architecture | Approved component responsibilities and relationships |
 | Project structure | Approved ownership and placement rules |
-| Approved active-stage designs | Stage-specific contracts and implementation scope |
+| Approved active-stage/refactor designs | Workstream-specific contracts and implementation scope; refactor root packages and milestones have equal protection |
 | Roadmap | Provisional sequencing; does not itself approve implementation |
 | Progress and findings | Revision-specific evidence and acceptance history |
 | Explorations | Non-binding research, alternatives, POCs and discussion notes |
@@ -57,7 +57,7 @@ All existing guarded files stay guarded, including accepted historical stages wi
 
 Sharon approves **logical changes per guarded file**: what is added, removed or changed and the consequences. Line-by-line presentation is no longer mandatory; an inspectable diff remains available. Explicit approval is required before editing guarded meaning, removing guard status or changing this process. Historical line-level wording does not unguard historical files; this approved process supersedes that presentation requirement. No agent can grant itself approval.
 
-New approved stage baselines become guarded and must be registered. The register is not an escape hatch: an approved/locked file remains guarded even if accidentally omitted. When evidence of protection is ambiguous, preserve the file and resolve its status before changing it.
+New approved stage and refactor baselines, with or without milestones, become guarded and must be registered. The register is not an escape hatch: an approved/locked file remains guarded even if accidentally omitted. When evidence of protection is ambiguous, preserve the file and resolve its status before changing it.
 
 ## Personal sandbox and official documentation
 
@@ -84,3 +84,7 @@ The builder checks hierarchy, references, statuses, sandbox boundaries and gener
 Approve the stage's overall goal, boundaries and dependencies first. Detailed milestones may then be designed and approved incrementally: only the milestone whose design, test cases and implementation plan are explicitly approved at a pinned revision may be implemented under the relevant authorization. Approval of the stage or one milestone does not approve later milestone contracts. Preserve existing locked contracts.
 
 The [roadmap](../roadmap.md#sequencing-and-approval) defines the sole Stage 04 early-foundation exception; it changes sequencing, not these gates. The [stage working method](stage-milestone-workflow.md#stage-design-pr-lifecycle) defines the ongoing Stage Design PR and its separate explicit merge authorization. The [Codex handover rules](codex-handover-rules.md) govern delegated implementation and the frozen handoff window.
+
+## Refactor applicability
+
+When Sharon identifies work as a refactor, apply the [independent-refactor method](stage-milestone-workflow.md#independent-refactors): create or reuse its permanent folder, shared requirements and decisions, and scope-appropriate design/test/plan package. Research and learning are added when needed; milestones are optional, approval and review gates are not. A root package follows the same pinned approval and freeze as a milestone. Refactors are independent of stage numbering but cannot bypass actual dependencies, guarded contracts or stage-owned scope. The Refactor Design PR remains draft/open until its own closeout and explicit merge authorization.

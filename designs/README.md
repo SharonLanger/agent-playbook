@@ -6,23 +6,23 @@ and learn it. Progress records what has actually been accepted.
 
 | Location | Purpose |
 |---|---|
-| [Logging M3 revised service-control design](refactors/logging/m3-service-composition/README.md) | Draft PR #57: concrete revised design/test/plan awaiting independent review and Sharon's exact-revision approval; no runtime implementation or M3 acceptance |
+| [Logging M3 revised service-control design](refactors/logging/m3-service-composition/README.md) | Draft PR #57: revised design/test/plan awaiting independent review and Sharon's exact-revision approval; no M3 runtime implementation or acceptance |
 | [Workflow contract refactor](refactors/workflow-contract/README.md) | Completed and accepted ABC lifecycle and YAML contract; [A1–F6 mapping](refactors/workflow-contract/review-follow-up.md) and [Q1–Q4 test corrections](refactors/workflow-contract/review-test-quality.md) retain revision-specific evidence |
 | [Runtime structure refactor](refactors/2026-11-12-runtime-structure/README.md) | Accepted runtime refactor record, exploratory future-tree proposal and revision-specific verification evidence |
+| [Project refactor](refactors/project-refactor/README.md) | Stage document structure, existing-stage alignment and the learning and sandbox migration in draft PR #59 |
 | [project-structure.md](project-structure.md) | Guarded folder ownership, dependency rules and current source layout |
 | [architecture.md](architecture.md) | Components, ownership, execution, errors, data and integration boundaries |
 | [diagrams/](diagrams/README.md) | Animated SVGs, static SVGs and a local visual viewer |
 | [Diagram authoring](diagrams/AUTHORING.md) | When and how future agents use Dashmotion and Animated SVG |
-| [learning/](learning/README.md) | Plain-language explanations spanning the whole system |
+| [Architecture walkthrough](architecture-walkthrough.md) | Plain-language example connecting one run to the target architecture and execution diagram |
 | [charter.md](charter.md) | Purpose, outcomes and scope |
 | [principles.md](principles.md) | Engineering and approval rules |
 | [roadmap.md](roadmap.md) | Incremental learning and implementation order |
 | [progress.md](progress.md) | Current stage status, accepted work and historical revision-specific evidence |
-| [stages/00-environment/architecture.md](stages/00-environment/architecture.md) | Stage 00 development-foundation end state |
-| [stages/00-environment/plan.md](stages/00-environment/plan.md) | Stage 00 substages and acceptance criteria |
-| [stages/00-environment/findings.md](stages/00-environment/findings.md) | Executed experiments and limitations |
-| [Stage 01 — CrewAI Flows](stages/01-crewai-flows/README.md) | Completed and accepted stage; permanent architecture, learning, workflow contracts, test specification, diagrams and code-reading guides |
-| [Stage 02 — Langfuse milestones](stages/02-langfuse/README.md) | Local UI, connection check, editable mock playground, then real workflow integration; only the last milestone waits for the refactor |
+| [Stage 00 — Development environment](stages/00-environment/README.md) | Accepted foundation; seven substages, learning, plan and evidence |
+| [Stage 01 — CrewAI Flows](stages/01-crewai-flows/README.md) | Accepted workflow batch; five substages, contracts, verification and code-reading guides |
+| [Stage 02 — Langfuse](stages/02-langfuse/README.md) | Accepted local setup, connection and mock work, execution context and native tracing |
+| [Stage 03 — Orchestration patterns](stages/03-orchestration-patterns/README.md) | Accepted standalone CrewAI recipe batch; requirements, decisions and closeout evidence |
 | [../AGENTS.md](../AGENTS.md) | Repository operating instructions |
 
 ## Viewing diagrams
@@ -32,15 +32,20 @@ the Stage 01 architecture and lessons. Static siblings remain available. The opt
 HTML viewers add pause/resume controls without a server, installation or external requests.
 Some Markdown viewers suppress SVG animation; the browser viewer remains a fallback.
 
+## Learning
+
+The [system-wide walkthrough](architecture-walkthrough.md) connects the diagrams to one concrete run. The [target architecture](architecture.md) defines the system boundaries. For stage exercises and code-reading guides, start with [Stage 00 learning](stages/00-environment/learning/) and [Stage 01 learning](stages/01-crewai-flows/learning/), or open the relevant stage index above.
+
 ## Stage documents
 
-Each stage has its own end-state architecture and plan, plus findings and learning
-exercises. Future implementation baselines wait for their stage except for the scoped Stage 04 foundation exception in [roadmap.md](roadmap.md#sequencing-and-approval). Explicitly requested optional research/POCs belong in explorations and must not be mistaken for approved targets.
-The historical [sandbox](../sandbox/) is outside the active application architecture.
+For new stages, follow the [stage layout](governance/stage-milestone-workflow.md#1-shared-workspace-and-ownership). Keep stage-specific learning and research with their stage when there is material to retain. The [exploration index](explorations/README.md) tracks cross-cutting research and POCs as non-binding material. Each stage README is the entry point for its milestone status, next action and the original stage architecture, plans and evidence.
 
-## Stage and milestone working process
+Future implementation baselines wait for their stage except for the scoped Stage 04 foundation exception in [roadmap.md](roadmap.md#sequencing-and-approval).
+The [root sandbox](../sandbox/README.md) holds historical references and draft ideas outside active application work.
 
-Read [Stage and milestone working method](governance/stage-milestone-workflow.md) before planning a stage or milestone: shared requirements/decisions/progress, alignment checkpoint, milestone subfolders, design/test/plan and approval. Before implementation delegation, read [Codex handover rules](governance/codex-handover-rules.md): Sol roles, coder plus two independent reviewers, three rounds maximum, permanent reports and exact copyable outgoing/return templates. These rules apply across the repository; existing approved packages are not automatically reorganized.
+## Stage, refactor and milestone working process
+
+Read the [stage, refactor and milestone working method](governance/stage-milestone-workflow.md) before planning a stage, independent refactor or milestone. Calling work a refactor triggers its [startup procedure](governance/stage-milestone-workflow.md#independent-refactors): `refactors/<slug>/`, requirements and decisions, optional research/learning, and either one root design/test/plan package or milestone folders. The same approval, freeze, review and design-PR closeout gates apply. It defines shared requirements and decisions, the milestone/status table and next action in the stage README, milestone folders and incremental approval. Before delegating implementation, read the [Codex handover rules](governance/codex-handover-rules.md) for the Sol roles, independent reviews, three-round cap, permanent reports and handoff templates. Existing approved packages retain their established layout.
 
 ## Permanent material and handoffs
 
@@ -63,6 +68,3 @@ Read charter, principles, architecture, project structure, roadmap and progress,
 - [Atlas change record](refactors/atlas/README.md): approval scope and verification for #35.
 
 Official product documentation lives in app/docs; internal/refactor review material belongs here. Personal examples are not a source to inspect during architectural discovery.
-
-
-[Stage 03 — completed CrewAI recipe collection](stages/03-orchestration-patterns/README.md): accepted 2026-11-16; temporary checks removed at closeout; permanent examples and review evidence retained.

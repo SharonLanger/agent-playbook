@@ -1,5 +1,5 @@
 {
-  "snapshot": "Stage 03 completed and accepted by Sharon on 2026-11-16: eight standalone CrewAI recipes merged in PR #53; temporary verification scripts removed at authorized design closeout #52. Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance.  Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files. Logging M2 implementation PR #55 merged on 2026-11-18 after both round 02 reviewers and originating design-session final review passed. LG-10 live manual testing remains NOT RUN and must be completed before finalizing logging design PR #51, which stays draft/open. Logging M3 revised service-control contract is proposed in draft PR #57 on 2026-11-21; explicit logs start is independent of workflow logging, while aggregate start selects enabled components. Runtime implementation and M3 acceptance have not started.",
+  "snapshot": "Stage 03 completed and accepted by Sharon on 2026-11-16: eight standalone CrewAI recipes merged in PR #53; temporary verification scripts removed at authorized design closeout #52. Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance.  Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files. Logging M2 implementation PR #55 merged on 2026-11-18 after both round 02 reviewers and originating design-session final review passed. LG-10 live manual testing remains NOT RUN and must be completed before finalizing logging design PR #51, which stays draft/open. Logging M3 revised local service-control design is proposed in draft PR #57: explicit logs start is independent of workflow export; aggregate start selects enabled services. Runtime implementation and M3 acceptance have not started.",
   "sources": [
     "AGENTS.md",
     "designs/AGENTS.md",
@@ -7,6 +7,7 @@
     "designs/charter.md",
     "designs/principles.md",
     "designs/architecture.md",
+    "designs/architecture-walkthrough.md",
     "designs/project-structure.md",
     "designs/roadmap.md",
     "designs/progress.md",
@@ -15,6 +16,8 @@
     "designs/explorations/README.md",
     "designs/explorations/agent-execution/architecture-notes.md",
     "designs/explorations/agent-execution/candidate-file-structure.md",
+    "designs/stages/00-environment/README.md",
+    "designs/stages/01-crewai-flows/README.md",
     "designs/stages/02-langfuse/README.md",
     "designs/stages/02-langfuse/architecture.md",
     "designs/stages/02-langfuse/smoke-plan.md",
@@ -54,6 +57,7 @@
     "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/reviews/status.md",
     "designs/stages/02-langfuse/closeout.md",
     "designs/stages/03-orchestration-patterns/README.md",
+    "designs/stages/03-orchestration-patterns/requirements.md",
     "designs/refactors/logging/m3-service-composition/README.md",
     "designs/refactors/logging/m3-service-composition/design.md",
     "designs/refactors/logging/m3-service-composition/test-cases.md",
@@ -88,15 +92,15 @@
               "to": null
             },
             {
-              "name": "Historical sandbox",
+              "name": "Root sandbox",
               "path": "sandbox/",
-              "text": "Outside active work; no inspection performed.",
+              "text": "PR #59 documents the curated collection of historical references and draft ideas outside active application work.",
               "to": null
             }
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "design": {
@@ -116,6 +120,36 @@
               "name": "Guard register",
               "path": "designs/governance/guarded-files.md",
               "text": "Preserves all existing guards; omissions do not unguard files.",
+              "to": null
+            },
+            {
+              "name": "Stage, refactor and milestone working method",
+              "path": "designs/governance/stage-milestone-workflow.md",
+              "text": "Canonical guidance for stages, independent refactors and optional refactor milestones, with shared approval, PR and review gates.",
+              "to": null
+            },
+            {
+              "name": "Stage 00 — Development environment",
+              "path": "designs/stages/00-environment/README.md",
+              "text": "Accepted local tooling substages and closeout evidence.",
+              "to": null
+            },
+            {
+              "name": "Stage 01 — CrewAI Flows",
+              "path": "designs/stages/01-crewai-flows/README.md",
+              "text": "Accepted workflow batch, five learning and verification substages, and retained contracts.",
+              "to": null
+            },
+            {
+              "name": "Stage 02 — Langfuse",
+              "path": "designs/stages/02-langfuse/README.md",
+              "text": "Accepted setup, context and native tracing checkpoints, with original verification evidence.",
+              "to": null
+            },
+            {
+              "name": "Stage 03 — Orchestration patterns",
+              "path": "designs/stages/03-orchestration-patterns/README.md",
+              "text": "Accepted standalone recipe batch, requirements and closeout evidence.",
               "to": null
             },
             {
@@ -139,7 +173,7 @@
           ],
           "status": "approved-design",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "app": {
@@ -188,7 +222,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "src": {
@@ -231,13 +265,13 @@
             {
               "name": "Execution and observability",
               "path": "app/src/agent_playbook/execution/ + observability/",
-              "text": "Reserved boundaries; SDK/telemetry integrations await implementation.",
+              "text": "Stage 02 delivered native Langfuse tracing. Native agent SDK integration remains future work.",
               "to": "integrations"
             }
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "application": {
@@ -280,7 +314,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "workflows": {
@@ -311,7 +345,7 @@
           ],
           "status": "implemented",
           "source": "designs/stages/01-crewai-flows/architecture.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "config": {
@@ -336,7 +370,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "release": {
@@ -361,7 +395,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "tooling": {
@@ -398,7 +432,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "tests": {
@@ -417,7 +451,7 @@
           ],
           "status": "implemented",
           "source": "designs/project-structure.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         },
         "integrations": {
@@ -436,7 +470,7 @@
             {
               "name": "Observability boundary",
               "path": "app/src/agent_playbook/observability/",
-              "text": "M2 project connection and M3 mock span writer merged through PR #36; workflow trace export remains future work.",
+              "text": "PR #36 delivered the project check and mock traces. PR #50 delivered native workflow tracing with automatic CrewAI observations.",
               "to": null
             },
             {
@@ -448,7 +482,7 @@
           ],
           "status": "approved-design",
           "source": "designs/architecture.md",
-          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 in progress.",
+          "note": "Stage 00 accepted; Stage 01 completed and accepted after merged runtime PR #34 and workflow design/implementation PRs #38/#40 (merge a98e104). Stage 02 completed and accepted; Stage Design PR #47 merged.",
           "diagram": null
         }
       },
@@ -1059,6 +1093,11 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
+          "path": "designs/architecture-walkthrough.md",
+          "status": "Draft PR #59 documentation",
+          "purpose": "System-wide target illustration moved beside the architecture."
+        },
+        {
           "path": "designs/architecture.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
@@ -1124,14 +1163,9 @@
           "purpose": "Tracked project material; consult canonical status and ownership records."
         },
         {
-          "path": "designs/learning/architecture-walkthrough.md",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
-        },
-        {
-          "path": "designs/learning/README.md",
-          "status": "Current snapshot",
-          "purpose": "Tracked project material; consult canonical status and ownership records."
+          "path": "designs/governance/stage-milestone-workflow.md",
+          "status": "Guarded governance",
+          "purpose": "Canonical stage/refactor organization, root packages or milestones, and shared working method."
         },
         {
           "path": "designs/principles.md",
@@ -1141,7 +1175,7 @@
         {
           "path": "designs/progress.md",
           "status": "Current stage status",
-          "purpose": "Stage 00 accepted, Stage 01 completed and accepted, Stage 02 in progress."
+          "purpose": "Stage 00 through Stage 03 completed and accepted; consult progress for the verification and merge record."
         },
         {
           "path": "designs/project-structure.md",
@@ -1277,6 +1311,11 @@
           "path": "designs/stages/00-environment/plan.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
+        },
+        {
+          "path": "designs/stages/00-environment/README.md",
+          "status": "Completed and accepted Stage 00",
+          "purpose": "Accepted local tooling substages and closeout evidence."
         },
         {
           "path": "designs/stages/01-crewai-flows/architecture.md",
@@ -1441,7 +1480,7 @@
         {
           "path": "designs/stages/01-crewai-flows/README.md",
           "status": "Completed and accepted Stage 01",
-          "purpose": "Stage summary with implementation/refactor links and retained learning material."
+          "purpose": "Accepted workflow batch, five learning and verification substages, and retained contracts."
         },
         {
           "path": "designs/stages/01-crewai-flows/sources.md",
@@ -1467,6 +1506,21 @@
           "path": "designs/stages/01-crewai-flows/workflows/wf-03-conditional-route.md",
           "status": "Current snapshot",
           "purpose": "Tracked project material; consult canonical status and ownership records."
+        },
+        {
+          "path": "designs/stages/02-langfuse/README.md",
+          "status": "Completed and accepted Stage 02",
+          "purpose": "Accepted setup, context and native tracing checkpoints, with original verification evidence."
+        },
+        {
+          "path": "designs/stages/03-orchestration-patterns/README.md",
+          "status": "Completed and accepted Stage 03",
+          "purpose": "Accepted standalone recipe batch, requirements and closeout evidence."
+        },
+        {
+          "path": "designs/stages/03-orchestration-patterns/requirements.md",
+          "status": "Approved Stage 03 requirements",
+          "purpose": "Shared S03-R01–R12 and the later temporary-check cleanup decision."
         },
         {
           "path": "README.md",
@@ -1505,7 +1559,7 @@
             {
               "name": "Historical experiments",
               "path": "sandbox/",
-              "text": "Existing experiments remain available and outside active refactoring.",
+              "text": "Former role and project paths are preserved in the pre-migration main snapshot linked in the inventory.",
               "to": null
             }
           ],
@@ -2014,9 +2068,9 @@
             {
               "name": "Langfuse milestones",
               "path": "designs/stages/02-langfuse/README.md",
-              "text": "Local UI, connection check and editable mock runs first; real workflows last.",
+              "text": "Completed Stage 02 stage index and evidence, linked for observability context.",
               "to": "langfuse_setup",
-              "label": "M1–M3 accepted / M4.1 accepted",
+              "label": "Stage 02 accepted and merged",
               "note": "Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals. Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files."
             }
           ],
@@ -2262,14 +2316,20 @@
         "langfuse_setup": {
           "name": "Langfuse milestones",
           "parent": "observability",
-          "label": "M1–M3 accepted / M4.1 accepted",
+          "label": "Stage 02 accepted and merged",
           "title": "Local UI to real workflows",
-          "text": "First configure, connect and explore mock traces; workflow/context integration comes last.",
+          "text": "The completed stage progressed from a local UI through connection and mock traces to context and native workflow tracing.",
           "blocks": [
             {
-              "name": "Four local checkpoints",
+              "name": "Canonical Stage 02 milestone index",
+              "path": "designs/stages/02-langfuse/README.md",
+              "text": "Accepted outcomes, exact approval evidence where recorded, implementation PRs, verification and closeout.",
+              "to": null
+            },
+            {
+              "name": "Historical milestone plan",
               "path": "designs/stages/02-langfuse/milestones.md",
-              "text": "Starting state, deliverable, manual exercise, checks and acceptance at each milestone.",
+              "text": "Original checkpoints, acceptance gates and dated handoff agreements.",
               "to": null
             },
             {
@@ -2282,12 +2342,6 @@
               "name": "Personal mock playground",
               "path": "designs/stages/02-langfuse/smoke-plan.md",
               "text": "Editable success/failure runs for Sharon; automated fixtures remain separate.",
-              "to": null
-            },
-            {
-              "name": "Scope and PR policy",
-              "path": "designs/stages/02-langfuse/README.md",
-              "text": "Keep the existing review thread; split PRs only when overlap is checked.",
               "to": null
             },
             {
@@ -2347,7 +2401,7 @@
             {
               "name": "Workflow context and native tracing",
               "path": "designs/stages/02-langfuse/workflow-integration/README.md",
-              "text": "Permanent draft: detailed context/test/review package, research and repository reconciliation.",
+              "text": "Completed context and tracing packages with permanent approvals, implementation reviews, research and limits.",
               "to": "workflow_observability"
             }
           ],
@@ -2366,7 +2420,7 @@
             {
               "name": "Context design",
               "path": "designs/stages/02-langfuse/workflow-integration/m1-context/design.md",
-              "text": "Exact schema, runner/factory/workflow/Flow path, correlation preservation and proposed guarded amendments.",
+              "text": "Exact schema, runner/factory/workflow/Flow path, correlation preservation and recorded guarded amendments.",
               "to": null
             },
             {
@@ -2390,17 +2444,17 @@
             {
               "name": "CrewAI research",
               "path": "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
-              "text": "1.1.25 instrumentor, eight cases/44 spans; actual application and local ingestion still pending.",
+              "text": "Historical released-version probe: instrumentor 1.1.25, eight cases and 44 spans. Stage 02 acceptance is recorded separately.",
               "to": null
             },
             {
               "name": "Repository reconciliation",
               "path": "designs/stages/02-langfuse/workflow-integration/repository-updates.md",
-              "text": "Pending guarded changes, progress updates and later acceptance gates.",
+              "text": "Historical reconciliation checklist for guarded changes, progress and acceptance. See the Stage 02 closeout for completed work.",
               "to": null
             }
           ],
-          "note": "M4.1 candidate 16c1580: two review rounds, final review PASS. D30/R31 retained; Combined tracing version-2 draft awaits contract approval.",
+          "note": "M4.1 candidate 16c1580 passed final review after two rounds. D30/R31 are retained. M4.2 and M4.3 were approved, accepted and merged together through PR #50.",
           "diagram": null,
           "status": "exploration",
           "source": "designs/stages/02-langfuse/workflow-integration/README.md"
@@ -3779,13 +3833,13 @@
         },
         {
           "path": "designs/learning/architecture-walkthrough.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained architecture, governance or design material."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "designs/learning/README.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained architecture, governance or design material."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "designs/principles.md",
@@ -4074,88 +4128,88 @@
         },
         {
           "path": "sandbox/AGENTS.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/agents/code-writer.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/agents/designer.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/agents/orchestrator.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/agents/replanner.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/agents/reviewer.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/agents/tester.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/agent-playbook/features/f-01-reviewer-trial/design.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/agent-playbook/features/f-02-implementer-handoff/design.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/agent-playbook/features/f-03-design-deviations/design.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/project-a/review-rules.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/project-a/reviews/pr-14.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/system-one-harness/features/f-01-offline-test-suite/design.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/projects/system-one-harness/reviews/pr-46.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/README.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/verification/reviewer-handoff.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "sandbox/workflows/implement-change.md",
-          "status": "Historical PR baseline",
-          "purpose": "Retained historical experiment; outside active application work."
+          "status": "Historical pre-migration main snapshot",
+          "purpose": "Tracked at cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4. See the pinned snapshot linked above the inventory."
         },
         {
           "path": "app/examples/",
@@ -4164,33 +4218,33 @@
         },
         {
           "path": "designs/stages/02-langfuse/README.md",
-          "status": "Draft stage proposal",
-          "purpose": "Agreed milestone direction, draft implementation details; no runtime capability."
+          "status": "Completed Stage 02 reference",
+          "purpose": "Canonical milestone index and accepted closeout."
         },
         {
           "path": "designs/stages/02-langfuse/architecture.md",
-          "status": "Draft stage proposal",
-          "purpose": "Agreed milestone direction, draft implementation details; no runtime capability."
+          "status": "Stage 02 architecture record",
+          "purpose": "Retained configuration and integration boundaries with dated checkpoints."
         },
         {
           "path": "designs/stages/02-langfuse/smoke-plan.md",
-          "status": "Draft stage proposal",
-          "purpose": "Agreed milestone direction, draft implementation details; no runtime capability."
+          "status": "Historical Stage 02 plan",
+          "purpose": "Personal mock-trace exercise and verification boundary."
         },
         {
           "path": "designs/stages/02-langfuse/milestones.md",
-          "status": "Draft stage proposal",
-          "purpose": "Four explicit acceptance checkpoints; only real workflow integration waits for the refactor."
+          "status": "Historical Stage 02 milestone plan",
+          "purpose": "Original gates and checkpoint history; the stage README owns current milestone status."
         },
         {
           "path": "designs/stages/02-langfuse/verification.md",
-          "status": "Draft stage proposal",
-          "purpose": "Requested agent verification/handoff requirements; not evidence of implementation."
+          "status": "Historical Stage 02 verification requirements",
+          "purpose": "Original handoff checks; observed acceptance remains in the evidence records."
         },
         {
           "path": "designs/stages/02-langfuse/implementation-handoff.md",
-          "status": "Draft stage proposal",
-          "purpose": "Requested agent verification/handoff requirements; not evidence of implementation."
+          "status": "Historical Stage 02 implementation handoff",
+          "purpose": "Original M1 setup and port follow-up assignment."
         },
         {
           "path": "designs/stages/02-langfuse/connection-playground-handoff.md",
