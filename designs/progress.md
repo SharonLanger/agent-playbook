@@ -2,7 +2,7 @@
 
 ## PR CI and local version tracking — 2026-11-21
 
-The [approved package and final review](refactors/pr-ci/README.md) track issue #62. The originating session passed the corrected code on [implementation PR #64](https://github.com/SharonLanger/agent-playbook/pull/64) at `ba9a18a`. The implementation team recorded 483 passing tests and a verified 0.2.0 wheel on Linux. Private hosted jobs were skipped and main is unprotected. Owner acceptance, merges, public activation and the final coordinated fresh run remain pending.
+The [approved package and final review](refactors/pr-ci/README.md) track issue #62. The originating session passed the corrected code on [implementation PR #64](https://github.com/SharonLanger/agent-playbook/pull/64) at `ba9a18a`. The implementation team recorded 483 passing tests and a verified 0.2.0 wheel on Linux. Sharon accepted #64 and it merged at [`19e4f22`](https://github.com/SharonLanger/agent-playbook/commit/19e4f22de6ac637a9487db8129bc8dad56c52f6d). Sharon authorized design closeout in #63. Private hosted jobs were skipped and main was unprotected at closeout. [Issue #62](https://github.com/SharonLanger/agent-playbook/issues/62) tracks public macOS verification, branch enforcement and the final coordinated fresh run.
 
 ## Logging M2 merged — 2026-11-18
 

@@ -10,7 +10,7 @@
 | Approved revision | [`6ce53c2`](https://github.com/SharonLanger/agent-playbook/tree/6ce53c2377dc21541d94ca8a461bd02d66af7655/designs/refactors/pr-ci), [Sharon’s approval](https://github.com/SharonLanger/agent-playbook/pull/63#issuecomment-7062463938) |
 | Implementation and verification | [PR #64](https://github.com/SharonLanger/agent-playbook/pull/64), reviewed code `ba9a18a226a76ffd7a704b747dbe517b8731fe74`, published head `0871a1537df087804e2b332e8f5df97925d131ba`. The five later files are review reports. [Round 3 evidence](https://github.com/SharonLanger/agent-playbook/blob/0871a1537df087804e2b332e8f5df97925d131ba/designs/refactors/pr-ci/reviews/status.md) |
 | Originating final review | PASS on the third reviewed candidate. All three requested corrections are closed. |
-| Acceptance and merge | Awaiting Sharon’s decision on #64. Both PRs remain draft and open. |
+| Acceptance and merge | Sharon accepted #64 and it merged to main at [`19e4f22`](https://github.com/SharonLanger/agent-playbook/commit/19e4f22de6ac637a9487db8129bc8dad56c52f6d). Sharon authorized design PR #63 closeout on 2026-11-21. Public activation and final coordinated first-run evidence remain with [issue #62](https://github.com/SharonLanger/agent-playbook/issues/62). |
 
 ### Final review on 2026-11-21
 
