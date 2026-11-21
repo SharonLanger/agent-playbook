@@ -4,7 +4,7 @@
 
 Agent Playbook is a local-first Python environment for agent orchestration. Today it runs deterministic workflows with CrewAI Flows, captures their traces in Langfuse, and sends structured application logs to VictoriaLogs.
 
-> **Follow the engineering journey.** Each stage starts with a question about what the system needs to do. The repository keeps the decisions that shaped the answer, the exact design handed to a coding agent, and the evidence that changed the implementation. One review caught a tracing error that could overturn a successful workflow. Another showed how an invalid input could start a Flow while its rejection test stayed green.
+> Beyond the implementation, this repository preserves the reasoning behind Agent Playbook’s architecture. The design records show which alternatives were considered and what changed along the way. The learning guides carry those lessons forward, so you can explore not just what was built, but how and why.
 >
 > [Explore the engineering journey](#the-engineering-journey)
 
