@@ -29,7 +29,7 @@ One coder and two independent reviewers assessed each same-round frozen SHA. Cod
 | SC-07 | `test_service_cancellation.py` and manager budget tests: real POSIX shortened outer start/status/stop timeout, Ctrl-C, descendant cleanup, TERM/KILL order, no implicit down: offline PASS. |
 | SC-08 | `test_service_managers.py`, `test_langfuse_manage.py`: asset inventory, identity, guarded initialization and current-config redaction: offline tests PASS; **M3-D03 historical-container redaction remains open**. |
 | SC-09 | Maintained tests use fake Docker/synthetic settings: PASS. Separate opt-in Compose v2.40.3 syntax, project-name matrix and synthetic redaction: PASS. |
-| SC-10 | Live Mac lifecycle, ingestion/readback, trace and physical-volume acceptance: **NOT RUN**. See `../mac-verification.txt`. |
+| SC-10 | Live Mac lifecycle, ingestion/readback, trace and physical-volume acceptance: **NOT RUN**. |
 | SC-11 | Workflow dispatch isolation and explicit service/export independence in CLI integration and existing application tests: offline PASS. |
 | SC-12 | Public/tooling docs, indexes, Atlas and diff inspected: PASS for recorded scope; Mac SC-10 and M2 LG-10 remain NOT RUN. |
 
