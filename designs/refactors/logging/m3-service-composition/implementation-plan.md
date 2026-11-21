@@ -1,12 +1,24 @@
-# M3 Codex handoff
+# Logging M3 — revised design and implementation handoff plan
 
-Start on the design branch of PR #57 with the revised design and test cases and Sharon's explicit disabled-start decision. The historical three rounds exhausted the previous delegation. A new bounded design review begins only on Sharon's instruction.
+## Authority and scope
 
-## Design completion
-1. Read repository governance, the existing CLI dispatch, Langfuse management, YAML loader, VictoriaLogs Compose and health checks. Resolve exact entry points, repeat behavior, exit semantics and a complete readiness deadline using those existing owners.
-2. Refine design/test/plan, check discovery and Atlas, and list any guarded-file changes requiring approval. Keep historical reviews intact.
-3. Use one author and two independent reviewers (design correctness/drift and test coverage), both reviewing the same frozen revision. Cap the newly authorized design review at three rounds. Record reports under a distinct revised-contract path and report actual model IDs, verdicts and remaining findings.
-4. Return the frozen contract and evidence to Sharon. Implementation requires approval of that exact design/test/plan revision. Keep PRs draft for her decision.
+Starting revision: `671c72c35e2228fbddf404a61567c2964a4fc1f7`, draft PR #57 targeting main. Sharon approved the three command groups/actions on 2026-11-21 and explicitly confirmed that `logs --start` starts VictoriaLogs even when workflow logging is disabled, leaving YAML unchanged; aggregate `services --start` selects enabled components. The earlier three design-review rounds remain permanent history for a different, broader proposal. Sharon separately authorized this revised design-completion review, capped at three new rounds. No runtime implementation or merge is authorized yet.
 
-## Implementation after approval
-Wire the three groups to the existing component operations. Add focused offline CLI checks and update the CLI and setup docs. Use a separate implementation PR with a coder and both independent reviewers. Supply one Mac verification text file with copyable commands, expected results, component isolation, persistence and pending M2 checks. Preserve honest live-test status.
+Read root and designs AGENTS, design contract, guarded register, stage/milestone workflow, Codex handover rules, principles, architecture and project structure. Compare the actual PR and current main before coding. Existing component projects and credential owners remain; Docker renaming is issue #56. The proposed implementation adds commands within existing CLI/tooling/config ownership, so no guarded logical amendment is currently requested. If source inspection reveals a guarded conflict, stop and present the exact logical change for Sharon's approval.
+
+## Design completion and review
+
+1. Author completes the revised [design](design.md), [test cases](test-cases.md) and this plan together, recording exact decisions, commands, placement, failure policy and scope. Preserve earlier `reviews/round-01..03` and `reviews/status.md` unchanged. Reconcile M3 discovery/Atlas as **proposed, not implemented**; record any check that cannot run.
+2. Freeze a documentation candidate SHA. Two independent Sol reviewers assess that **same SHA**: one checks design correctness/drift, guarded scope and consistency with actual owners; the other checks SC-01–12 coverage, meaningful assertions, Docker-free versus opt-in/live evidence and no false PASS. Neither reviewer edits the candidate.
+3. Save reports under `reviews/revised-2026-11-21/status.md` and `round-01/{implementation,design-drift,test-gap,orchestrator}.md`; create `round-02` or `round-03` only when used. Record configured and, if available, served model IDs. Each round is candidate → both reviews → disposition; maximum **three** new rounds. Preserve failed findings and fixes. If round 3 has required findings, stop BLOCKED and request a new explicit user decision rather than starting round 4.
+4. Return the frozen candidate, published report-only head, both verdicts, checks/limitations and open decisions to Sharon. Stop before runtime coding. Approval of an exact revised design/test/plan revision is required for implementation; approval of the earlier behavioral choice alone does not suffice. Keep PR #57 and design PR #51 draft/open; do not merge.
+
+## Implementation only after exact-revision approval
+
+1. In `app/src/agent_playbook/config/loader.py`, reuse the existing selection/overlay/secrets/environment helpers for a narrow service-enable selector; keep workflow `load_configuration` behavior intact. Add real-loader selection tests.
+2. Extend `app/src/agent_playbook/cli/{parser,commands,development}.py` for checkout-only `services` and `logs`. Add `app/tooling/services.py` as a small coordinator, `app/tooling/logging/manage.py` for the existing VictoriaLogs project, and focused changes to `app/tooling/observability/manage.py` for missing-.env protection and whole-operation deadline. Keep its direct script and other actions.
+3. Implement SC-01–09 and SC-11 with Docker-free maintained tests under `app/tests/`, using synthetic data and no `app/examples/` access. Run `app/.venv/bin/agent-playbook check` from repository root (includes tests), plus opt-in `docker compose -f app/tooling/logging/compose.yaml config --quiet` and `docker compose -f app/tooling/observability/compose.yaml --env-file <synthetic-file> config --quiet` only with disposable values. Do not print resolved config or read real secrets. Record versions and exact results.
+4. Update `app/docs/cli.md`, configuration/logging/Langfuse guides, tooling README and discovery/Atlas for shipped behavior. Prepare one plain-text Mac guide with copyable commands, expected independent/combined states, persistence readback and remaining M2 LG-10 checks. No live PASS until observed.
+5. Freeze runtime/test candidate; one coder and two independent Sol reviewers inspect the same SHA under the standing handover rules, with their own bounded review and permanent evidence. Return to the originating design session for final review. Do not merge.
+
+The design-only phase changes no runtime source, Compose file, personal secrets or Docker data.
