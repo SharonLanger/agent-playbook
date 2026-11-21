@@ -1,3 +1,9 @@
 # Application tests
 
-Place deterministic tests for `application/` here as behavior is introduced. This folder reserves the agreed test boundary; it contains no new feature implementation.
+Tests for the shared application boundary live here:
+
+- Execution context and propagation.
+- Workflow registry selection and runner contracts.
+- Workflow execution, offline runtime behavior and follow-up boundary checks.
+
+Workflow-specific behavior is covered separately in [workflow tests](../workflows/README.md).

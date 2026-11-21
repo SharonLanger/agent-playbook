@@ -1090,7 +1090,7 @@
         },
         {
           "path": "designs/architecture-walkthrough.md",
-          "status": "Draft PR #59 documentation",
+          "status": "Merged PR #59 documentation",
           "purpose": "System-wide target illustration moved beside the architecture."
         },
         {
