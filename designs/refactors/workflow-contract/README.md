@@ -37,7 +37,7 @@ The [living discussion record](https://chatgpt.com/space/page_c032a077e22c8191b5
 - Preserve WF-01/02/03 computations, routing, inputs, CLI text and exit codes.
 - No compatibility work for old installed releases consuming new configuration.
 - Load concrete flow dependencies only for the selected workflow; release verification still exercises every built-in implementation.
-- Context and Langfuse are the next separate integration step.
+- Context and Langfuse were the next separate integration step at this refactor's closeout; they are now delivered in [completed Stage 02](../../stages/02-langfuse/README.md).
 - Child/composite workflows and recovery are future features.
 
 ## Completion and evidence
