@@ -2,6 +2,10 @@
 
 Approved design, test cases and plan: `c4e0951bd87c81e627d58127841494d4812732ab`, approved by Sharon on 2026-11-21. Implementation base/target: main `46e9062d1fbedefbc04240c280d12001cfdea0ac`. Branch: `impl/logging-m3-service-control`; draft PR #65. Design PR #57 and overall logging design PR #51 remain open/draft.
 
+**Current disposition after Sharon's one additional focused M3-D03 correction/review: BLOCKED.** The newly frozen code/test candidate is `df64582af4e3accb4b0747e3c1b44a429d541a6b`. Both independent reviewers assessed that same SHA and returned CHANGES REQUIRED: the design reviewer reproduced a failed `docker logs --follow` diagnostic reaching stderr before the CLI knows the subprocess failed; the test reviewer found that path absent from maintained tests. See [additional M3-D03 review](additional-m3-d03/status.md). The new authorization used **1/1** round; the earlier three-round history below remains intact. The PR is not ready for Mac verification or merge.
+
+## Earlier three-round implementation review — historical
+
 **Outcome: BLOCKED after 3/3 authorized implementation rounds.** The final code/test candidate is `912e5bc7289960baf14333427d9f0b2a08cbcd58`. No fourth correction/review round is authorized. M3-D03 remains open: the current Compose settings used to redact `langfuse --logs` may differ from settings held by existing containers, leaving an older credential visible in a service diagnostic. The reviewer reproduced the filter gap with synthetic values; whether a real container emits that diagnostic was not tested. Do not merge or claim M3 acceptance.
 
 | Round | Frozen candidate | Design verdict | Test verdict | Disposition |
