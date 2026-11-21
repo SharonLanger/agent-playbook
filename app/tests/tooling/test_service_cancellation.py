@@ -389,6 +389,19 @@ def test_large_regular_selection_cancellation_reaps_without_docker(
         "os.open = record_open\n"
     )
     monkeypatch.setenv("PYTHONPATH", str(checkout))
+    cleanup_errors: list[str] = []
+    original_cleanup = service_process._cleanup  # pyright: ignore[reportPrivateUsage]
+
+    def inspect_cleanup(
+        process: subprocess.Popen[bytes], pgid: int, deadline: float
+    ) -> None:
+        try:
+            original_cleanup(process, pgid, deadline)
+        except Exception as error:
+            cleanup_errors.append(f"{type(error).__name__}: {error}")
+            raise
+
+    monkeypatch.setattr(service_process, "_cleanup", inspect_cleanup)
     # Let the worker reach the file before cancelling it, regardless of machine speed.
     monkeypatch.setitem(services.AGGREGATE_SECONDS, "start", 12.0)
     original_ensure_active = service_process.ensure_active
@@ -435,6 +448,7 @@ def test_large_regular_selection_cancellation_reaps_without_docker(
 
     with patch.object(service_process.subprocess, "Popen", side_effect=launch) as popen:
         assert services.main(["--start", "--config", str(selected)]) == 1
+    assert not cleanup_errors, cleanup_errors
     assert opened.is_file(), "The worker must begin reading the real regular file"
     assert len(workers) == 1 and popen.call_args.args[0][-2:] == [
         "--select",
