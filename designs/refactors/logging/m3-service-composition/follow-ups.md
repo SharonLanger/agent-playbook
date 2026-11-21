@@ -1,5 +1,7 @@
 # M3 follow-ups after capped design review
 
+Historical scope note. The [current design](design.md) keeps the existing Docker names and generated Langfuse deployment settings. Routine M3 verification uses the existing installation. Renaming belongs to issue #56.
+
 ## Approved scope change — fresh deployment, 2026-11-18
 
 Sharon explicitly approved discarding the existing local Langfuse and VictoriaLogs deployment data and starting fresh. His clarification: “I called it sandbox. But I mean, we can delete all and start fresh.” This is a fresh-install decision for these two project stacks, not a reference to the repository's excluded app/examples/ or sandbox/ directories.
