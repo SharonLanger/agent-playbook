@@ -20,7 +20,7 @@ This is the maintained official product documentation for new and existing users
 - [Stage 01 learning guide](../../designs/stages/01-crewai-flows/learning/00-reading-the-code.md): understand the integrated workflows and read their code.
 - [Target architecture](../../designs/architecture.md) and [current progress](../../designs/progress.md): distinguish the intended system from what is implemented.
 
-The shared file is `app/application.yaml`; its user guide is here.
+The shared configuration file is `app/application.yaml`. Its settings are documented in [Configuration](configuration.md).
 Component ownership notes stay beside source code, and detailed stage lessons stay with
 their stage. This index links them rather than duplicating the same explanation.
 
