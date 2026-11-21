@@ -1,29 +1,21 @@
-# Logging M3 service control
+# Logging M3 — local service control
 
-Working design, revised 2026-11-21 after Sharon's Mac verification. PR #57 owns the design of one explicit command to start enabled local services. Runtime implementation follows agreement on the interface and review of the revised design, tests and plan.
+Sharon approved these three command groups and their actions on 2026-11-21. Each command begins with `agent-playbook`.
 
-## Agreed behavior
+| Group | --start | --status | --stop |
+|---|---|---|---|
+| services | Start each enabled local component using the effective YAML settings and existing override precedence. If neither is enabled, report that there is nothing to start. | Report each component separately, including disabled components already running. | Stop both managed projects regardless of enabled settings. |
+| langfuse | Start Langfuse using its existing CLI behavior. | Show Langfuse status. | Stop Langfuse alone. |
+| logs | Start VictoriaLogs alone. | Show VictoriaLogs status. | Stop VictoriaLogs alone. |
 
-- Reuse the existing VictoriaLogs and Langfuse Compose projects. Each can start and stop independently. An explicit shared start reads the existing application configuration and starts each service whose integration is enabled. Running a workflow never starts Docker.
-- Keep the Docker project identities `agent-playbook-logging-smoke` and `observability`. [Issue #56](https://github.com/SharonLanger/agent-playbook/issues/56) owns the future names `act-logs` and `act-langfuse`. M3 requires neither data migration nor a clean install. Ordinary stop/start preserves the project's volumes.
-- Reuse the existing settings loader, local overrides and component startup paths. Application credentials belong in the existing external file selected by `secrets.file`, normally `~/.config/agent-playbook/secrets.env`. Langfuse setup generates its own ignored deployment settings. VictoriaLogs currently requires no credential.
+Open decision before handoff: when logging is disabled for workflow export, should an explicit `logs --start` still start the local service? Recommended: yes, consistent with the existing explicit Langfuse command. Manual service startup leaves application settings untouched. Only aggregate start selects components by enabled flags.
 
-## Interface for discussion
+## Operating behavior
 
-Proposed checkout command: `agent-playbook services --start`. With logging alone enabled, it starts VictoriaLogs. With both enabled, it attempts both independently. With neither enabled, it reports that there is nothing to start. Repeating start should also work when a component is already running.
+Repeated starts and stops are safe. Stops retain volumes. Target the existing component Compose projects, scoped to this checkout's local deployment. A component failure during aggregate start is reported separately, the other enabled component is attempted, and the command reports failure. Bound readiness waits including subprocess and HTTP calls. Status distinguishes readiness from stored records. Workflow runs keep their independent lifecycle.
 
-Propose matching `--status` and `--stop` actions. Status reports each component separately. Stop acts on the managed projects even if their configuration has since been disabled. For individual control, retain the existing Langfuse command and logging Compose commands. A full logging CLI, guided first-time setup and combined doctor are later work.
+Reuse Langfuse's existing management path and options and the VictoriaLogs Compose file and local health check. A logs-only action operates independently of Langfuse keys. Keep the existing local UI origins and ports consistent with actual Compose publication. Use existing application configuration and its external secrets file for integration keys. Langfuse retains its generated, ignored local deployment settings. Docker renaming belongs to [issue #56](https://github.com/SharonLanger/agent-playbook/issues/56). Normal operation needs no reset or migration.
 
-Reuse each service's readiness check with a bounded wait and the configured local URL. If one component fails, report which service failed, continue with the other enabled service and return an unsuccessful command result. A readiness check reports whether the service responds. Actual stored logs and traces verify delivery.
+## Evidence and scope
 
-## Implementation sequence once approved
-
-1. Agree on the shared command spelling, actions and first-release scope.
-2. Bring the test cases and implementation plan into line with this design. Cover the four enabled combinations, repeat start, independent failure, stop after disabling, volume persistence and bounded readiness. Default tests run without Docker. Live Compose checks are opt-in.
-3. Review the revised contract, then implement the small coordinator using the existing component operations. Publish copyable Mac verification steps with the implementation.
-
-## Mac evidence and review history
-
-Sharon ran a real workflow on the existing services. He observed the trace in Langfuse, DEBUG records in VictoriaLogs and the same correlation ID in both. This verifies the current integration. Verification of the proposed shared command and the remaining M2 failure/shutdown cases is pending.
-
-The [previous design](https://github.com/SharonLanger/agent-playbook/blob/3c641fe4760adfcd487e6eacdc468bcf44148236/designs/refactors/logging/m3-service-composition/design.md), its reviews and the earlier follow-up record preserve the prior scope. The earlier tests and implementation plan require revision before handoff. The previous review exhausted its three rounds. The revised contract awaits a new review plan and approval.
+Sharon saw workflow traces and DEBUG records with matching correlation IDs on his Mac using the existing tools. M3 command acceptance and the remaining M2 failure/shutdown verification are pending. Guided setup, doctor and additional logging actions can be designed later. The prior design and its three reviews remain available at [the frozen candidate](https://github.com/SharonLanger/agent-playbook/tree/3c641fe4760adfcd487e6eacdc468bcf44148236/designs/refactors/logging/m3-service-composition).
