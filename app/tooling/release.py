@@ -19,6 +19,7 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from tooling.toolchain import pinned_uv
+from tooling.verify_runtime import offline_environment
 from tooling.verify_wheel import verify_wheel
 
 APP = Path(__file__).resolve().parents[1]
@@ -221,13 +222,7 @@ def verify_installed_release(
 ) -> tuple[str, Path]:
     """Verify application behavior, identity, isolation and checkout-only guards."""
     environment = destination / "venv"
-    clean_env = os.environ.copy()
-    for key in ("PYTHONPATH", "PYTHONHOME"):
-        clean_env.pop(key, None)
-    clean_env["PYTHONNOUSERSITE"] = "1"
-    for key in list(clean_env):
-        if key.endswith("_API_KEY") or key in ("OPENAI_API_KEY", "CREWAI_TOKEN"):
-            clean_env.pop(key)
+    clean_env = offline_environment(os.environ)
     # A fresh process installs the network audit guard before importing the app.
     run(
         [str(python), "-I", str(Path(__file__).with_name("verify_runtime.py")), "run"],

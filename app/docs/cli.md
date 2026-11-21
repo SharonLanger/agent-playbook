@@ -149,7 +149,9 @@ inspect the listed paths or run `git status --short`. Commit intended changes;
 do not discard unrelated edits just to make the build pass.
 
 At a maintainer bump, reconcile [CHANGELOG.md](../../CHANGELOG.md) against all merged
-PRs between the previous committed version bump and the included main revision.
+PRs in `previous-included-main..new-included-main`: the previous version entry’s
+included-main cutoff is exclusive and this entry’s cutoff is inclusive. Do not use
+the version-bump commit as the lower endpoint; its merge may follow its cutoff.
 Record both commit endpoints and list each PR number/title once, including docs
 and maintenance PRs already listed under Unreleased. Move those entries into a
 dated version heading, keeping Unreleased for later work. Include a one-line
@@ -157,7 +159,18 @@ upgrade note for a breaking change. The version-preparation PR belongs to the ne
 interval if it merges after the recorded cutoff. Use Git history and GitHub merged
 PRs where necessary; the local bump itself stays offline. An empty interval or an
 offline clone must not invent history. The initial lower bound is the first 0.2.0
-commit recorded in the changelog; earlier history is not reconstructed.
+commit recorded in the changelog (#54); earlier history is not reconstructed.
+
+For example, two successive hypothetical entries use these continuous intervals:
+
+| Version entry | Merged-PR interval |
+|---|---|
+| 0.2.1 (example) | `8895c2dbf6674716656d5b780f8c181a743e44f2..cutoff-A` |
+| 0.2.2 (example) | `cutoff-A..cutoff-B` |
+
+Record actual full cutoff SHAs and dates when preparing each entry. A PR merged
+after cutoff-A, including the 0.2.1 preparation PR, belongs to the second interval.
+These examples do not claim releases or invent merged PRs.
 
 ## Release behavior
 
