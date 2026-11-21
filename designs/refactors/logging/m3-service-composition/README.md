@@ -1,7 +1,5 @@
-# Logging M3 — service control
+# Logging M3 — local service commands
 
-Read the [current design](design.md) for the agreed behavior, proposed command, open interface decisions and Mac evidence. This draft PR defines the shared command that starts enabled components. Implementation and verification of that command are pending.
+Sharon approved the command groups and actions on 2026-11-21. [Design](design.md) records the behavior and the remaining question about explicitly starting a disabled integration. [Acceptance cases](test-cases.md) and the [Codex plan](implementation-plan.md) describe the revised scope. The earlier three review rounds apply to their frozen proposal. Runtime work awaits review and approval of the revised contract.
 
-The [test cases](test-cases.md), [implementation plan](implementation-plan.md), [follow-up note](follow-ups.md) and [review status](reviews/status.md) describe the earlier proposal. Revise the tests and implementation plan once the interface is agreed. Use the current design for scope.
-
-The [overall logging design](https://github.com/SharonLanger/agent-playbook/pull/51) tracks the refactor. [Issue #56](https://github.com/SharonLanger/agent-playbook/issues/56) owns the Docker project renames alongside the broader ACT rename.
+[Overall logging design PR #51](https://github.com/SharonLanger/agent-playbook/pull/51) · [Rename issue #56](https://github.com/SharonLanger/agent-playbook/issues/56)
