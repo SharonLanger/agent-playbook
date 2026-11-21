@@ -65,6 +65,10 @@ def _group_signal(pgid: int, signum: int) -> bool:
         os.killpg(pgid, signum)
     except ProcessLookupError:
         return False
+    except PermissionError:
+        if signum == 0:
+            return True
+        raise
     return True
 
 

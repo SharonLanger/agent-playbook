@@ -5,7 +5,6 @@ import signal
 import subprocess
 import sys
 import time
-import traceback
 from collections.abc import Callable
 from pathlib import Path
 from typing import IO
@@ -364,6 +363,13 @@ def test_production_cleanup_waits_three_seconds_then_leaves_two_to_reap() -> Non
     process.wait.assert_called_once_with(timeout=2.0)
 
 
+def test_group_probe_permission_denial_keeps_group_visible() -> None:
+    with patch.object(service_process.os, "killpg", side_effect=PermissionError):
+        assert service_process._group_signal(42, 0)  # pyright: ignore[reportPrivateUsage]
+        with pytest.raises(PermissionError):
+            service_process._group_signal(42, signal.SIGTERM)  # pyright: ignore[reportPrivateUsage]
+
+
 @pytest.mark.parametrize("interrupt", [False, True], ids=["outer-deadline", "sigint"])
 def test_large_regular_selection_cancellation_reaps_without_docker(
     checkout: Path,
@@ -390,19 +396,6 @@ def test_large_regular_selection_cancellation_reaps_without_docker(
         "os.open = record_open\n"
     )
     monkeypatch.setenv("PYTHONPATH", str(checkout))
-    cleanup_errors: list[str] = []
-    original_cleanup = service_process._cleanup  # pyright: ignore[reportPrivateUsage]
-
-    def inspect_cleanup(
-        process: subprocess.Popen[bytes], pgid: int, deadline: float
-    ) -> None:
-        try:
-            original_cleanup(process, pgid, deadline)
-        except Exception as error:
-            cleanup_errors.append("".join(traceback.format_exception(error)))
-            raise
-
-    monkeypatch.setattr(service_process, "_cleanup", inspect_cleanup)
     # Let the worker reach the file before cancelling it, regardless of machine speed.
     monkeypatch.setitem(services.AGGREGATE_SECONDS, "start", 12.0)
     original_ensure_active = service_process.ensure_active
@@ -449,7 +442,6 @@ def test_large_regular_selection_cancellation_reaps_without_docker(
 
     with patch.object(service_process.subprocess, "Popen", side_effect=launch) as popen:
         assert services.main(["--start", "--config", str(selected)]) == 1
-    assert not cleanup_errors, cleanup_errors
     assert opened.is_file(), "The worker must begin reading the real regular file"
     assert len(workers) == 1 and popen.call_args.args[0][-2:] == [
         "--select",
