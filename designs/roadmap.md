@@ -7,7 +7,7 @@ The roadmap owns intended sequencing and stage boundaries. [Architecture](archit
 | 00 | Development environment | Completed and accepted; preserve tooling, local gate and isolated-release evidence |
 | 01 | CrewAI Flows | Completed and accepted; preserve deterministic workflows, routing/state and failure-path evidence |
 | 02 | Workflow observability | Actual workflow runs have useful correlated traces, hierarchy and honest success/failure reporting |
-| 03 | Orchestration patterns | A bounded set of branching, parallel-work, join and failure-propagation scenarios |
+| 03 | Orchestration patterns | Completed and accepted 2026-11-16; eight standalone CrewAI recipes, preserved concepts and review evidence |
 | 04 | Agent execution foundation | Shared contracts, small harness, fake adapter/mapper, DemoAgent and deterministic CrewAI integration |
 | 05 | Native agent integration | SDK investigation, real adapters/mappers and verified compatible provider integration |
 | 06+ | Further capabilities | Individually selected extensions with their own design and acceptance |
@@ -33,7 +33,7 @@ Future-stage descriptions remain high level. Outside the specific exception, imp
 
 - **Starting point:** basic deterministic workflows and the agreed observation foundation are available.
 - **Outcome:** a small explicitly selected set of branching, parallel-work, joining and failure-propagation patterns is understood and verified.
-- **Evidence:** maintained scenarios demonstrate expected outputs, branch/join behavior, controlled failure and isolation between parallel branches/runs; correlated traces support inspection.
+- **Evidence:** maintained scenarios demonstrate expected outputs, branch/join behavior, controlled failure and isolation between parallel branches/runs. Stage 03 was accepted as standalone CrewAI learning recipes with temporary verification evidence; application tracing integration is outside its user-approved scope.
 - **Boundary:** CrewAI remains scheduler/state owner. Reuse Stage 01 evidence instead of repeating completed learning. Select exact scenarios in stage design; no unlimited complexity catalogue, native-agent dependency, logging prerequisite or durable recovery framework.
 
 ## Stage 04 — Agent execution foundation
@@ -76,3 +76,4 @@ Source: [PR #46 handover at its published revision](https://github.com/SharonLan
 - **RM08:** the original handover did not authorize runtime work or a merge. Sharon separately authorized merging #48 after verification in this conversation; that does not authorize merging any Stage Design PR or implementing a milestone.
 
 Earlier Stage 04 isolated real-SDK study is replaced by the shared foundation; SDK study moves into Stage 05. No extra SDK or logging stage is introduced. Broad approval resolves the sequencing direction, while detailed canonical ownership and milestone locks remain separate work. The original handover and historical stage records are retained.
+

@@ -1,6 +1,7 @@
 """Parse commands and present application outcomes."""
 
 import logging
+import os
 import sys
 from contextlib import contextmanager
 from importlib.metadata import version
@@ -40,6 +41,30 @@ def _safe_framework_errors() -> Iterator[None]:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    if args.command in ("services", "logs"):
+        action = next(
+            name for name in ("start", "status", "stop") if getattr(args, name)
+        )
+        forwarded = [f"--{action}"]
+        if args.command == "services":
+            if args.env_file is not None:
+                forwarded += ["--env-file", str(Path(args.env_file).resolve())]
+            if action != "stop":
+                config = args.config
+                if config is None:
+                    config = os.environ.get("AGENT_PLAYBOOK_CONFIG")
+                if config is not None:
+                    try:
+                        resolved = (
+                            str(Path(config).expanduser().absolute())
+                            if config.strip()
+                            else config
+                        )
+                    except (OSError, RuntimeError, ValueError):
+                        # Preserve an unusable selector for the coordinator's exit/status rules.
+                        resolved = config
+                    forwarded += ["--config", resolved]
+        return run_development(args.command, forwarded)
     if args.command == "langfuse":
         if args.follow and not args.logs:
             parser.error("--follow requires --logs")
@@ -60,8 +85,8 @@ def main(argv: list[str] | None = None) -> int:
             forwarded += ["--config", str(Path(args.config).resolve())]
         return run_development("langfuse", forwarded)
     if args.command == "version":
-        if args.action == "patch":
-            return run_development("version", ["patch"])
+        if args.action is not None:
+            return run_development("version", [args.action])
         print(f"agent-playbook {version('agent-playbook')} (source: {SOURCE_COMMIT})")
         return 0
     if args.command == "run":

@@ -47,7 +47,7 @@ Bootstrap needs Python 3.10+ on the host, network for initial provisioning and s
 | Component | Version/evidence |
 |---|---|
 | Docker Desktop for Mac | 4.99.0 (released 2026-11-09) is an upstream candidate, **awaiting Mac project verification**; an existing working installation need not change. Its listed bundled Engine is 29.9.3 and Compose is 5.7.0. Record the versions reported on your Mac. |
-| Docker Engine / Compose | A working `docker info` and `docker compose` plugin are functional prerequisites. The project-tested Linux versions and final results are recorded in [Stage 02 findings](../../designs/stages/02-langfuse/findings.md); they do not certify Mac. |
+| Docker Engine / Compose | A working `docker info` and `docker compose` plugin are functional prerequisites. The project-tested Linux versions and final results are recorded in [Stage 02 findings](../../designs/stages/02-langfuse/m1-3-local-langfuse/reviews/findings.md); they do not certify Mac. |
 | Host Python / app | Management script: Python 3.10+ standard library. App bootstrap: host Python 3.10+; app Python 3.13, uv 0.13.6. |
 | Langfuse and stores | Pinned [Compose images and digest](../tooling/observability/compose.yaml): Langfuse web/worker 4.80.0, PostgreSQL 17.7, ClickHouse 26.3.62.3, Redis 7.4.7 and pinned MinIO digest. No floating `latest`. |
 
@@ -156,7 +156,17 @@ app/.venv/bin/agent-playbook langfuse --start
 
 `--stop` removes this stack's containers but retains the `.env` and named data
 volumes. Repeated starts, an already-stopped stop, and start after stop are safe.
-Docker Desktop and unrelated containers stay untouched. Keep service logs private.
+Docker Desktop and unrelated containers stay untouched.
+
+Langfuse log output is labeled by service. The CLI masks credentials from the
+selected Compose settings and from the verified startup environment of the
+container that emitted the logs. If it cannot verify a container's identity
+or startup credentials, it withholds that container's logs and reports a
+settings error. Other verified containers can still show logs. During
+`--follow`, the CLI checks for replacements and verifies each new container
+before showing its output. If the selected Compose settings cannot be verified
+or contain a multiline deployment secret, the log command reports a settings
+error and withholds output.
 
 ## Private service settings
 
@@ -181,18 +191,28 @@ Shell environment variables override Docker `.env` values. Remove stale override
 if a URL or port differs unexpectedly.
 
 Use `--env-file /absolute/path/to/private.env` on **every local action** to select
-a separately prepared Docker service file. A first `--start --env-file PATH`
-creates the file if its parent directory exists. Keep the file and project
-directory stable: Compose's project identity is `observability`, so its five
-named volumes stay associated with the same data. The UI and MinIO bind to
-loopback. This is a local learning deployment, not a backup or production setup.
+a separately prepared Docker service file. Include the exact same `--env-file PATH` in `agent-playbook services
+--start`, `services --status` and `services --stop` whenever you use this
+custom file. The aggregate start selects Langfuse from effective application
+configuration. Aggregate status inspects the local project regardless of that
+flag, and aggregate stop also attempts VictoriaLogs.
+
+A first start creates settings only if Docker inventory finds no candidate
+Langfuse containers or named volumes. If the selected file is missing and an
+old project is present, restore its original settings file and project
+selection. Status reports observed asset labels with readiness unknown, and
+stop refuses Langfuse teardown until the correct file is available. The default
+Compose project is `observability`. Compose resolves any custom
+`COMPOSE_PROJECT_NAME` from the selected env file and shell, with the shell
+taking precedence. Keep using the same file and effective project to retain all
+five named volumes. The VictoriaLogs project name
+`agent-playbook-logging-smoke` is reserved. The UI and MinIO bind to loopback. This is a local learning deployment, not a backup or production setup.
 
 Project API keys used by [connection checking](langfuse-connection.md) belong
 in the external `~/.config/agent-playbook/secrets.env` file selected by the general `secrets.file` setting in `app/application.yaml`. They are separate from Docker's `.env` deployment
 secrets. Follow the connection guide to configure YAML and run
 `agent-playbook langfuse --check` before using the [Langfuse hands-on guide](langfuse-hands-on.md).
-The check can address a hosted endpoint without local Docker. Workflows remain
-uninstrumented; the playground explicitly creates synthetic traces.
+The check can address a hosted endpoint without local Docker. Workflows trace to the configured project when tracing is enabled. The hands-on guide provides a separate synthetic trace exercise.
 
 ## Troubleshooting
 
@@ -203,7 +223,7 @@ uninstrumented; the playground explicitly creates synthetic traces.
 | First start times out or download fails | Check network and free disk space; run `--status` and `--logs`, then retry `--start`. Existing settings/data are retained. |
 | Port already allocated | Choose free `LANGFUSE_PORT` and `MINIO_PORT` in the private `.env`, then run `--start`. Keep old secrets unchanged. |
 | Service unhealthy or UI not ready | Run `--status` and `--logs`; check Docker's memory allocation (at least 8 GiB) and disk. Do not delete volumes. |
-| UI appears empty after an earlier successful install | Check that the same `.env`, `--env-file` selection, Docker context and `observability` project/volumes are in use before making a new project. |
+| UI appears empty after an earlier successful install | Check that the same `.env`, `--env-file` selection, Docker context and effective Compose project/volumes are in use before making a new project. |
 | Browser does not open | Copy the URL printed by `--open` into your browser. `--open` does not start services. |
 
 See [Docker's official installation guide](https://docs.docker.com/desktop/setup/install/mac-install/), [Docker Desktop release notes](https://docs.docker.com/desktop/release-notes/#4990), and [Langfuse's Compose guide](https://langfuse.com/self-hosting/deployment/docker-compose).

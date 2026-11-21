@@ -90,6 +90,30 @@ integrations:
 Set the local value to `true` when keys are ready. Keep your machine-specific
 choice in the ignored local file rather than repeatedly editing shared defaults.
 
+## Local service selection
+
+`agent-playbook services --start` selects the local projects from
+`integrations.logging.enabled` and `integrations.langfuse.enabled`. The
+selected YAML, sibling local YAML, selected `secrets.file` and process
+environment apply in the usual order. Use unquoted YAML booleans and
+`true`/`false` for `AGENT_PLAYBOOK_LOGGING_ENABLED` and
+`AGENT_PLAYBOOK_LANGFUSE_ENABLED` in the environment or secrets file.
+
+Local management needs no Langfuse project API keys. The application secrets
+file still supplies keys for workflows and the project connection check.
+Langfuse's private Docker settings stay in `app/tooling/observability/.env`
+or the custom file selected with `--env-file`. Explicit `logs --start`
+starts the fixed local VictoriaLogs project even with workflow logging
+disabled. Workflow endpoints can differ from these local service addresses.
+See [local service commands](cli.md#local-services).
+
+## Optional local logging smoke
+
+For a synthetic developer check, follow the [local logging smoke guide](../tooling/logging/README.md).
+It starts an isolated local VictoriaLogs service and emits one record to an explicit
+loopback endpoint. Confirm delivery in its bundled UI. This checkout-only tool does
+not configure normal workflow logging or add settings to `application.yaml`.
+
 ## CrewAI settings
 
 All three fields are required in the merged configuration; no duplicate defaults
@@ -99,7 +123,7 @@ are hidden in Python. The committed base file provides the safe initial values.
 |---|---|---|---|
 | `usage_telemetry_enabled` | `false` | `AGENT_PLAYBOOK_CREWAI_USAGE_TELEMETRY_ENABLED` | Inverse of `CREWAI_DISABLE_TELEMETRY` |
 | `tracing_enabled` | `false` | `AGENT_PLAYBOOK_CREWAI_TRACING_ENABLED` | `CREWAI_TRACING_ENABLED` and flow `tracing` |
-| `show_framework_events` | `false` | `AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS` | Inverse of flow `suppress_flow_events` |
+| `show_framework_events` | `true` | `AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS` | Inverse of flow `suppress_flow_events` |
 
 Environment booleans accept `true` or `false` (case-insensitive). YAML booleans must
 be actual booleans, not quoted strings or numbers. These application overrides take
@@ -248,3 +272,12 @@ No new PyCharm task is required. Existing Run/WF tasks use the default selection
 add `--config` to their parameters only when selecting another file.
 
 A selected entry or defaults error names the configured ID, field and validation type (for example, `customer-job CONFIGURATION: defaults.initial (int_type)`). A selected flow import or construction defect exits 1 with its phase; invalid implementation settings explicitly reported as configuration exit 2. Release creation still prepares and executes every built-in implementation, even though normal runs load only the selected flow.
+
+### Tracing lifetime and quiet Flow limitation
+
+Langfuse enablement now controls native runner tracing as well as explicit connection/mock operations. Set destination and keys using the existing [Langfuse settings](#langfuse-settings); no second exporter or cloud telemetry service is needed. Startup applies CrewAI telemetry settings before instrumentor/framework initialization. Tracing settings are process-scoped; restart a Python process when changing them. Disabled mode needs no exporting pipeline.
+
+The committed default is `show_framework_events: true`, which enables visible CrewAI framework output and automatic Flow/method spans. An explicit `false` remains respected, but the pinned OpenInference 1.1.25 instrumentor then skips automatic Flow/method spans; only the runner observation remains. Startup sets CrewAI’s supported `CREWAI_DISABLE_VERSION_CHECK=true` switch to suppress its console PyPI update lookup; CrewAI cloud telemetry/tracing remain disabled by default. See [native workflow tracing](workflows.md#native-workflow-tracing) for scope, payload and cleanup behavior. Native input/output/exception capture does not automatically redact secrets embedded in business data.
+
+
+Application logging configuration, helper usage and explicit read-only service diagnostics are documented in [Application logging](logging.md).

@@ -7,6 +7,10 @@ PR #43 inspected at `11bba581291c1b166973848ea8db6a9e2a142413`, draft and unmerg
 
 Evidence applies to this package's introducing commit on `docs/agent-execution-foundation-planning` and its rebuilt Atlas. The PR identifies that candidate SHA; the baseline above identifies the unchanged application revision.
 
+## Current scope check — 2026-11-21
+
+The branch incorporates main `5f0ac632bf0676c831a07c1189972d07dcc5ac7e` and retains the 12 existing Stage 04 documents. The comparison with that main revision is confined to this stage. Earlier Atlas builds, link counts and guard counts below belong to their recorded candidates. This reconciliation covers documentation only.
+
 ## Introducing-commit results (historical)
 
 | Check | Observed result |

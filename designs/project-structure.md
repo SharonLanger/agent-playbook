@@ -25,6 +25,8 @@ approval wording and CrewAI acceptance discrepancy are tracked in progress.md.
 |---|---|
 | `designs/` | Architecture, guarded structure, stage plans and learning records |
 | `designs/diagrams/` | Diagram sources, static/animated SVG and viewer |
+| `.github/workflows/` | Hosted PR automation; the PR quality workflow invokes maintained local tooling |
+| `CHANGELOG.md` | Maintainer version history and merged PR numbers/titles between recorded main cutoffs |
 | `.run/` | Shared portable PyCharm tasks |
 | `app/pyproject.toml`, `app/uv.lock` | Package metadata, dependency pins and check configuration |
 | `app/application.yaml`, `app/application.local.yaml` | Shared external runtime YAML and ignored machine overrides; user guide in `app/docs/configuration.md` |
@@ -35,7 +37,7 @@ approval wording and CrewAI acceptance discrepancy are tracked in progress.md.
 | `app/tests/` | Maintained application/tooling tests with independent fixtures; no dependency on personal examples |
 | `app/docs/` | Maintained official product documentation; update affected guides/indexes in the same PR; no internal/temporary material |
 | `app/dist/` | Generated local releases; ignored by Git |
-| `sandbox/` | Historical experiments; outside active application work |
+| `sandbox/` | Curated historical references and draft ideas, outside the application and its governing design |
 
 `src` is a packaging boundary. Put application code inside `agent_playbook`,
 then inside its owning component. Keep only package entry points and build metadata
@@ -56,8 +58,8 @@ All paths below are relative to `app/src/agent_playbook/`.
 | `workflows/` | Shared ABC/lifecycle/errors and named packages with `workflow.py`, `flow.py`, `state.py`, `steps.py` | Stage 01 CrewAI flows with application-facing wrappers |
 | `execution/` | Provider-independent agent execution contracts | Responsibility note |
 | `execution/adapters/` | Separate SDK/provider implementations | Responsibility note |
-| `observability/` | Provider-neutral events, correlation and redaction | Responsibility note |
-| `observability/adapters/` | Exporters such as Langfuse | Responsibility note |
+| `observability/` | Native tracing integration; future event/logging contracts deferred | Langfuse adapter and responsibility note |
+| `observability/adapters/` | Concrete provider setup and delivery, including native Langfuse | Langfuse connection, explicit mock writer and runtime setup/flush |
 
 Create named workflows and provider subfolders as their stages introduce them.
 Do not create speculative classes or empty implementations. Keep each workflow's
@@ -71,7 +73,7 @@ state and steps with that workflow rather than in global `models` or `utils` fol
 - Release discovery does not start a process; the launcher does not select a release or print messages.
   Neither module imports the application runner. Launching a release crosses an interpreter boundary.
 - Workflows own routing/state and invoke execution contracts; provider clients stay in adapters.
-- Observability events are provider-neutral; only exporters depend on backend clients.
+- Native Langfuse instrumentation may be imported at the reviewed application runner (scope/propagation), assembly (initialization) and CLI cleanup boundaries. `observability/adapters/langfuse/runtime.py` owns concrete initialization/flush functions; configuration and client creation remain in the adapter. Context and workflow business steps stay provider-free. No broker or generic tracing facade is required. Agent execution adapter isolation is unchanged.
 - Runtime modules must not import checkout-only tooling or learning examples.
 - The CLI's development bridge may invoke checks, version and release scripts in `app/tooling/` as subprocesses
   only in a development checkout. Installed releases reject all developer commands clearly.
@@ -110,12 +112,19 @@ execution after structural moves. macOS PyCharm execution of changed paths requi
 | Path | Responsibility |
 |---|---|
 | `designs/AGENTS.md` | Mandatory design instructions, explicitly loaded from root instructions |
+| `designs/architecture-walkthrough.md` | System-wide illustration of the target, beside the architecture it explains |
 | `designs/governance/design-contract.md` | Guarded change/placement/maintenance contract |
 | `designs/governance/guarded-files.md` | Minimum guarded-file register; existing protection is never silently removed |
 | `designs/atlas/` | Permanent generated Current/Explorations viewer, catalog, builder, diagrams and viewing instructions |
 | `designs/explorations/` | Indexed non-binding research, alternatives, POCs and unresolved discussions |
-| `designs/refactors/` | Refactor-specific rationale, approval/review records and verification |
-| `designs/stages/` | Permanent stage contracts, lessons and evidence; existing guards retained |
+| `designs/refactors/<slug>/` | Independent workstream: README owns scope/status/next action; requirements and decisions are shared; research and learning exist when needed. A single package keeps design/test-cases/implementation-plan/reviews here without requiring M1. Historical records preserved by a refactor stay under its archive. |
+| `designs/refactors/<slug>/m<number>-<outcome-slug>/` | Optional milestones when outcomes warrant them: README, design, test cases, implementation plan and reviews, with the same approvals and bounded review process as stages |
+| `designs/stages/` | Permanent stage contracts, lessons and evidence |
+| `designs/stages/<stage>/learning/` | Stage-specific explanations and exercises, within the owning stage |
+| `designs/stages/<two-digit-number>-<slug>/` | Stage README with the canonical milestone/status table and next action, shared requirements and decisions, and stage learning or research as needed |
+| `designs/stages/<stage>/m<number>-<outcome-slug>/` | Milestone README, design, test cases, implementation plan and its own review evidence |
+
+Follow the [stage, refactor and milestone working method](governance/stage-milestone-workflow.md) for file contents, approvals and review. Existing stage/refactor layouts and named working packages retain their paths, stable IDs, history and guards. [Repository-wide progress](progress.md) owns the project roll-up.
 
 The Atlas is maintained from canonical Markdown and a navigation catalog. It does not authorize candidate folders. Reviewer/event-adapter/harness details are discoverable explorations, not additions to the approved runtime file tree.
 
@@ -128,3 +137,11 @@ The earlier [runtime proposal](refactors/2026-11-12-runtime-structure/proposal.m
 ## M4.1 context placement (approved 2026-11-14)
 
 `app/src/agent_playbook/context/models.py` owns frozen, data-only `ExecutionContext` and `ObservabilityContext`. It depends only on the standard library. Application runner/factory and workflows may import these types; the context package imports no application, workflow, execution adapter or telemetry SDK. The runner creates invocation identity after selection, the factory forwards it, and the Workflow ABC and concrete wrappers forward it into the selected CrewAI Flow. The context remains outside business state and provider clients.
+
+## M4.2/M4.3 placement approval — 2026-11-15
+
+Sharon explicitly approved the M4.2/M4.3 design, tests and plan at `ab3fab459c97eed44cc0b202402e559a827a71cf` and RUN-G01–08 in the implementation handoff on 2026-11-15. The narrow native tracing dependency exception above supersedes the exporter-only rule for these reviewed boundaries; no component moves or context API changes are authorized.
+
+## LOG-G02 — application logging placement, 2026-11-16
+
+Sharon approved `observability/logging.py` for thin context-based logging helpers and `observability/adapters/otel_logging/` for OTLP setup, explicit connection check and scoped cleanup. Existing config models/loader own enabled, level and endpoint settings. Assembly configures the integration and the runner owns one logging lifetime per CLI run, preserving its existing context identity. ExecutionContext remains data-only and never stores a logger, provider or client. No new generalized broker or startup registry is introduced.

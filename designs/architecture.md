@@ -9,7 +9,7 @@ and testing workflows. A developer selects a workflow and supplies typed input.
 The application prepares the run; CrewAI Flows coordinates its steps; Python logic
 and agent SDK adapters perform the work; Langfuse exposes correlated execution traces.
 
-[Open the diagram collection](diagrams/README.md) · [Walk through a run](learning/architecture-walkthrough.md)
+[Open the diagram collection](diagrams/README.md) · [Walk through a run](architecture-walkthrough.md)
 
 ## System structure
 
@@ -32,8 +32,8 @@ Python libraries. Langfuse is accessed through its configurable integration.
 | Agent execution contract | Provider-independent request/result semantics | Task + execution settings → result, failure and correlation metadata |
 | Claude / Codex adapters | SDK-specific invocation and session handling | Generic request → SDK execution → normalized outcome |
 | Deterministic executor | Controlled behavior for workflow regression tests | Fixture request → prescribed success or failure |
-| Observability boundary | Event normalization, correlation and redaction | Execution events → provider-neutral observations |
-| Langfuse adapter | Publishing observations to the selected backend | Observations + configured endpoint/credentials → traces/spans |
+| Observability boundary | Native tracing setup and selected application correlation; future event/logging contracts remain deferred | Execution scopes → native observations |
+| Langfuse adapter | Native client setup and delivery policy | Configured endpoint/credentials + native SDK/instrumentor → traces/spans |
 
 The runner selects a configured class through the registry and calls its final ABC lifecycle methods. The workflow wrapper validates input and output; CrewAI executes the workflow's control flow.
 A workflow can contain ordinary Python steps without invoking an agent.
@@ -102,8 +102,7 @@ Configuration selects the workflow and integrations, supplies external endpoints
 and supplies credentials through environment-specific settings. The runner validates
 required settings before execution. Secrets must not be copied into trace payloads.
 
-Workflow code depends on narrow request/result contracts. SDK and Langfuse clients
-remain inside their adapters. Changing a compatible implementation should change
+Workflow code depends on narrow request/result contracts. Agent SDK clients remain inside their execution adapters. Native Langfuse scope/propagation is permitted at the reviewed application runner boundary, with setup and resource policy centralized in the Langfuse adapter. Changing a compatible implementation should change
 assembly/configuration and the adapter, rather than every workflow step.
 
 Exact request fields, SDK transport/language choices and provider capability checks
@@ -154,3 +153,11 @@ The approved workflow-contract refactor is specified in [the five-file package](
 ## M4.1 execution identity amendment (approved 2026-11-14)
 
 The application runner creates a data-only `ExecutionContext` for each selected invocation. It contains a stable application correlation ID and nested workflow/run identity. The existing factory, Workflow constructor and concrete wrapper pass the same reference to the CrewAI Flow. Derived agent identity preserves the parent correlation and workflow run without mutating the parent. The context is separate from CrewAI business state and its framework execution_context. M4.1 does not export telemetry or alter `RunResult`; the later tracing target and provider isolation remain in force.
+
+## M4.2/M4.3 native tracing amendment (approved 2026-11-15)
+
+Sharon explicitly approved the M4.2/M4.3 design, tests and plan at `ab3fab459c97eed44cc0b202402e559a827a71cf` and RUN-G01–08 in the implementation handoff on 2026-11-15. Native Langfuse scopes and attribute propagation replace a mandatory provider-neutral observation/exporter path for this phase. Assembly initializes one shared native provider and automatic OpenInference CrewAI wrappers before execution; the runner scope begins after selection/context creation and encloses construction through RunResult. CrewAI owns scheduling; no client/handle is stored in context or business state. Native scopes record escaping failures while existing application error types and causes remain. Short-lived CLI finally attempts flush after scopes close; cleanup faults cannot replace workflow results/errors. Python callers retain shared SDK resources rather than shutting them down per call. Configuration is process-scoped. Disabled mode installs no pipeline. Native input/output/exception capture is retained; settings/credentials must not be trace payloads. No arbitrary business-secret recognition is promised. Logging remains deferred.
+
+## LOG-G01 — logging M2 follow-on, 2026-11-16
+
+Sharon approved application logging using the existing immutable ExecutionContext. Application code calls thin context/message/optional-field level helpers. A dedicated standard Python logger and OpenTelemetry logging provider export directly to local VictoriaLogs; logging setup belongs to assembly and its lifetime to the runner. The exporter and SDK state stay outside context and workflow code. Operational logging and native Langfuse initialization/runtime/cleanup failures produce safe terminal warnings without changing workflow outcomes; malformed application configuration remains an error. No generic broker or change to native tracing capture is authorized. This dated addition supersedes the final sentence above only for M2 scope; Stage 02's prior approved history remains intact.

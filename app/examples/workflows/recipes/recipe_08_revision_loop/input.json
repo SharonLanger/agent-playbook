@@ -1,0 +1,4 @@
+{
+  "accept_on_attempt": 3,
+  "max_attempts": 4
+}

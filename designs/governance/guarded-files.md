@@ -49,9 +49,9 @@ Use the logical-change approval process in [design-contract.md](design-contract.
 
 Sharon's implementation instruction explicitly approved revision `11bba581291c1b166973848ea8db6a9e2a142413` and guarded amendments G01–G08 in design section 9. The following files are guarded from that approval:
 
-- `designs/stages/02-langfuse/workflow-integration/01-context-design.md`
-- `designs/stages/02-langfuse/workflow-integration/01-context-test-cases.md`
-- `designs/stages/02-langfuse/workflow-integration/01-context-implementation-plan.md`
+- `designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/design.md`
+- `designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/test-cases.md`
+- `designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/implementation-plan.md`
 
 ## Reusable development process — 2026-11-15
 
@@ -61,3 +61,39 @@ Sharon requested the generalized stage/milestone and Codex handover process as g
 - `designs/governance/codex-handover-rules.md`
 
 The 2026-11-15 PR #48 alignment extends these procedures with the Stage Design PR lifecycle, incremental milestone approval and separate explicit merge gate. It also amends charter/principle 9 for the narrow Stage 04 sequencing exception. All existing protections remain; no draft Stage 04 milestone is registered as a locked baseline by this change.
+
+## M4.2/M4.3 approved baseline — 2026-11-15
+
+Sharon explicitly approved the M4.2/M4.3 design, tests and plan at `ab3fab459c97eed44cc0b202402e559a827a71cf` and RUN-G01–08 in the implementation handoff on 2026-11-15. Stage Design PR #47 has merged, and the following guarded documents are now present in the repository. Use the local links for current reading; the immutable links preserve the exact approved baseline:
+
+| Guarded path | Immutable authority |
+|---|---|
+| [designs/stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/design.md](../stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/design.md) | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md) |
+| [designs/stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/test-cases.md](../stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/test-cases.md) | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md) |
+| [designs/stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/implementation-plan.md](../stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/implementation-plan.md) | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/ab3fab459c97eed44cc0b202402e559a827a71cf/designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md) |
+
+All previous guards and the recorded approval baseline remain. PR #47's merge does not remove protection or authorize changes to these documents or frozen shared requirements/decisions.
+
+
+## LOG-G06 — logging M2 approved baseline, 2026-11-16
+
+Sharon approved M2 behavior and LOG-G01–06 at immutable revision `caeb1637bd9aa611447703f4c19c38becacfe412`. The following contract files remain guarded after design closeout in #51. The links preserve the approved revision.
+
+| Guarded path | Immutable authority |
+|---|---|
+| `designs/refactors/logging/m2-application-logging/design.md` | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/caeb1637bd9aa611447703f4c19c38becacfe412/designs/refactors/logging/m2-application-logging/design.md) |
+| `designs/refactors/logging/m2-application-logging/test-cases.md` | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/caeb1637bd9aa611447703f4c19c38becacfe412/designs/refactors/logging/m2-application-logging/test-cases.md) |
+| `designs/refactors/logging/m2-application-logging/implementation-plan.md` | [Pinned approved file](https://github.com/SharonLanger/agent-playbook/blob/caeb1637bd9aa611447703f4c19c38becacfe412/designs/refactors/logging/m2-application-logging/implementation-plan.md) |
+
+
+All earlier protection and Stage 02 history remain intact.
+
+## PR CI and local version tracking — 2026-11-21
+
+[Sharon’s approval](https://github.com/SharonLanger/agent-playbook/pull/63#issuecomment-7062463938) locked the [implementation package](https://github.com/SharonLanger/agent-playbook/tree/6ce53c2377dc21541d94ca8a461bd02d66af7655/designs/refactors/pr-ci) at `6ce53c2377dc21541d94ca8a461bd02d66af7655`. The package README tracks status and evidence. Implementation acceptance and hosted enforcement have their own gates.
+
+- `designs/refactors/pr-ci/requirements.md`
+- `designs/refactors/pr-ci/decisions.md`
+- `designs/refactors/pr-ci/design.md`
+- `designs/refactors/pr-ci/test-cases.md`
+- `designs/refactors/pr-ci/implementation-plan.md`

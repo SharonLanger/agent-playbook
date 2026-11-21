@@ -1,7 +1,16 @@
 # Langfuse setup and integration boundaries
 
-Status: **Approved milestone boundaries; M1–M3 merged through PR #36, with local setup/mock-trace acceptance recorded on 2026-11-14; see [acceptance and limits](acceptance-2026-11-14.md). This document retains its original proposal examples as historical design context.**
-[Milestones](milestones.md) · [Playground exercise](smoke-plan.md)
+## Stage 02 closeout — 2026-11-15
+
+Stage 02 is completed, accepted by Sharon and merged through Stage Design PR #47. Local Langfuse setup/mock work (PR #36), execution context (PR #44), and native runner plus automatic CrewAI tracing (PR #50) are delivered. PR #50 merged at `b08060f0acba74f19bc8a32aedb21316eed149c1`; its reviewed candidate passed 408 tests, static/lint/format checks and installed-release verification. Sharon completed local success, branch, correlation, input/output, readable-name and controlled-failure acceptance. Stage 03 can proceed under its own design approvals.
+
+Application logging is separate work owned by a different agent under `designs/refactors/logging/`, with its own design and implementation PRs. It is outside completed Stage 02 and does not block Stage 03. Earlier logging requirements and research remain historical inputs; this closeout selects no logger, store, viewer or logging architecture and does not create or edit the logging agent’s files.
+
+## Historical checkpoints
+
+
+Status: **Approved milestone boundaries; M1–M3 merged through PR #36, with local setup/mock-trace acceptance recorded on 2026-11-14; see [acceptance and limits](m1-3-local-langfuse/reviews/acceptance-2026-11-14.md). This document retains its original proposal examples as historical design context.**
+[Milestones](milestones.md) · [Playground exercise](m1-3-local-langfuse/smoke-plan.md)
 
 ## What exists before a workflow context
 
@@ -15,9 +24,7 @@ ABC, placeholder workflow fields, a generic event bus or speculative lifecycle
 interfaces. The integration can be reused later without deciding the final
 workflow-facing API now.
 
-Milestone 4 will decide how the merged workflow context receives an observability
-handle. The intended separation is shared integration setup versus per-run
-observation/correlation; exact classes and signatures wait for that review.
+Milestone 4 retains a data-only workflow context with no observability handle. Shared integration setup is separate from native per-run observation/correlation.
 Live clients are not workflow business state or a recoverability store.
 
 ## Proposed placement
@@ -138,4 +145,12 @@ The initial workflow context is data-only, with application correlation and work
 
 ## M4.1 acceptance and merge checkpoint — 2026-11-14
 
-M4.1 is implemented, verified, accepted by Sharon and merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Approved data-only context semantics and M1–M3 history remain unchanged. M4.2 native runner tracing is the next design; M4.3/logging remain later. See [context status](workflow-integration/reviews/context/status.md).
+M4.1 is implemented, verified, accepted by Sharon and merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Approved data-only context semantics and M1–M3 history remain unchanged. M4.2 native runner tracing is the next design; M4.3/logging remain later. See [context status](m4-workflow-integration/m4-1-context/reviews/status.md).
+
+## M4.2/M4.3 combined native tracing — approved 2026-11-15
+
+Sharon explicitly approved the M4.2/M4.3 design, tests and plan at `ab3fab459c97eed44cc0b202402e559a827a71cf` and RUN-G01–08 in the implementation handoff on 2026-11-15. Assembly configures the native Langfuse client and once-only OpenInference CrewAI instrumentor using one provider. The runner creates one native current observation around construction through RunResult after context creation, propagating only correlation_id, workflow_id and workflow_run_id. Automatic Flow/step observations retain native parentage; no manual step decorators, broker or additional exporter. Existing error classification/causes remain; CLI finally attempts flush without overriding outcomes. SDK resources stay shared across Python calls. Disabled mode installs no pipeline; configuration is process-scoped. Native workflow input/output/exception capture is accepted, excluding configuration/credentials. M1–M3 setup/checker/mock contracts and their historical evidence remain unchanged. Implementation and automated verification on the implementation branch do not establish live ingestion, user acceptance or merge.
+
+## Current implementation acceptance — 2026-11-15
+
+M4.2 + M4.3 are implemented, verified, accepted by Sharon and merged via PR #50 at b08060f0acba74f19bc8a32aedb21316eed149c1. The 408-test gate and installed release passed; RUN-18 local acceptance is complete, including the controlled failed step. M1–M3 and M4.1 remain accepted/merged. Stage Design PR #47 remains draft/open pending explicit stage closeout authorization. Logging and later agent telemetry enhancements remain deferred.

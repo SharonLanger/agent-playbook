@@ -2,6 +2,8 @@
 
 Status: **PROPOSED / NOT APPROVED / NO IMPLEMENTATION STARTED**
 
+**Later decision, 2026-11-21.** The CI exclusions below describe Stage 00. [Sharon’s approval](https://github.com/SharonLanger/agent-playbook/pull/63#issuecomment-7062463938) of the [PR CI design](../../refactors/pr-ci/README.md) adds hosted checks on public PRs while retaining the local gate and isolated wheel build.
+
 ## Learning approach
 For an experienced Java/C#/TypeScript developer: explain Python differences only where they affect the exercise. Use short learner-facing Markdown notes, examples and hands-on failures rather than a general Python course. Store these in `learning/` as the stage proceeds; record actual observations in `findings.md`.
 

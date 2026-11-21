@@ -1,5 +1,7 @@
 """Validated integration settings; workflow policies stay with their workflow."""
 
+from ipaddress import ip_address
+from typing import Literal
 from urllib.parse import urlsplit
 
 from pydantic import (
@@ -69,11 +71,43 @@ class LangfuseSettings(BaseModel):
         return self
 
 
+class LoggingSettings(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True, frozen=True)
+
+    enabled: bool = False
+    level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "DEBUG"
+    endpoint: str = "http://127.0.0.1:9428/insert/opentelemetry/v1/logs"
+
+    @field_validator("endpoint")
+    @classmethod
+    def local_endpoint(cls, value: str) -> str:
+        try:
+            url = urlsplit(value)
+            valid = (
+                url.scheme == "http"
+                and ip_address(url.hostname or "").is_loopback
+                and url.port is not None
+                and 1 <= url.port <= 65535
+                and url.path == "/insert/opentelemetry/v1/logs"
+                and url.username is None
+                and url.password is None
+                and not url.query
+                and not url.fragment
+                and not any(c.isspace() for c in value)
+            )
+        except ValueError:
+            valid = False
+        if not valid:
+            raise ValueError("endpoint must be a local HTTP OTLP logs endpoint")
+        return value
+
+
 class IntegrationSettings(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True, frozen=True)
 
     crewai: CrewAISettings
     langfuse: LangfuseSettings = LangfuseSettings()
+    logging: LoggingSettings = LoggingSettings()
 
 
 class SecretsSettings(BaseModel):

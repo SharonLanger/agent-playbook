@@ -9,6 +9,7 @@ import contextlib
 import io
 import os
 import sys
+from collections.abc import Mapping
 from pathlib import Path
 
 IMPLEMENTATION_CASES: dict[str, tuple[str, str, str]] = {
@@ -16,6 +17,32 @@ IMPLEMENTATION_CASES: dict[str, tuple[str, str, str]] = {
     "shared_state": ("wf-02", '{"initial":3,"increment":2,"multiplier":4}', "20"),
     "conditional_route": ("wf-03", '{"score":80}', "pass"),
 }
+
+
+def offline_environment(source: Mapping[str, str]) -> dict[str, str]:
+    """Isolate verification from checkout settings and provider opt-ins.
+
+    Only verification subprocesses use this policy; normal application commands
+    continue honoring their documented environment overrides.
+    """
+    clean = {
+        key: value
+        for key, value in source.items()
+        if key not in {"PYTHONPATH", "PYTHONHOME"}
+        and not key.startswith(("AGENT_PLAYBOOK_", "CREWAI_", "LANGFUSE_", "OTEL_"))
+        and not key.endswith(("_API_KEY", "_TOKEN"))
+    }
+    clean.update(
+        {
+            "PYTHONNOUSERSITE": "1",
+            "CREWAI_DISABLE_VERSION_CHECK": "true",
+            "CREWAI_DISABLE_TELEMETRY": "true",
+            "CREWAI_USAGE_TELEMETRY_ENABLED": "false",
+            "CREWAI_TRACING_ENABLED": "false",
+            "OTEL_SDK_DISABLED": "true",
+        }
+    )
+    return clean
 
 
 def main() -> None:
@@ -33,17 +60,9 @@ def main() -> None:
 
     # Verification uses committed fixture data, never the user's active settings.
     configuration = Path(__file__).resolve().parents[1] / "tests/fixtures/offline.yaml"
-    for name in (
-        "AGENT_PLAYBOOK_LANGFUSE_ENABLED",
-        "AGENT_PLAYBOOK_LANGFUSE_BASE_URL",
-        "AGENT_PLAYBOOK_LANGFUSE_ENVIRONMENT",
-        "LANGFUSE_PUBLIC_KEY",
-        "LANGFUSE_SECRET_KEY",
-        "AGENT_PLAYBOOK_CREWAI_USAGE_TELEMETRY_ENABLED",
-        "AGENT_PLAYBOOK_CREWAI_TRACING_ENABLED",
-        "AGENT_PLAYBOOK_CREWAI_SHOW_FRAMEWORK_EVENTS",
-    ):
-        os.environ.pop(name, None)
+    clean_env = offline_environment(os.environ)
+    os.environ.clear()
+    os.environ.update(clean_env)
     sys.addaudithook(block_network)
     from agent_playbook.application.workflow_registry import workflow_registry
     from agent_playbook.cli.commands import main as cli_main

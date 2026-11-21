@@ -1,0 +1,7 @@
+# Implementation plan
+
+1. Use the approved immutable design/test/plan revision and Sharon's per-file approval. Refresh main and open work. If #57 lands, reconcile shared CLI dispatch with its owner without changing the service contract.
+2. Implement the workflow and extend the existing parser, development dispatch and tooling/version.py. Preserve tooling/release.py as the owner of building and verification. Add regression cases only for uncovered behavior. Keep the version unchanged for this implementation.
+3. Add the short changelog and current CLI help/guide updates. Use the verified 0.2.0 main baseline in the design and refresh the merged PR list through the implementation base. Apply only the agreed guarded amendments, reconcile navigation and regenerate the Atlas as needed.
+4. Exercise T1–T6 where the environment allows. Use the [handover procedure](../../governance/codex-handover-rules.md) for one coder, two independent reviewers and at most three rounds on frozen candidates. Keep durable evidence under this package with revision-specific results.
+5. While private, report hosted protection as pending. After public activation, use one small PR to observe green, configure the actual named check, observe a blocked ordinary merge on red, then green eligibility. Record settings and observed results in #62 and the PR. Repeat the final coordinated fresh run against the merged candidate when authorized. Never merge or publish as part of verification.

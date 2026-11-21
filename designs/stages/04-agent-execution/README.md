@@ -2,10 +2,10 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Updated: 2026-11-16 · Working records revision 28
+Updated: 2026-11-21 · Working records revision 29
 Status: **draft planning PR authorized by Sharon; no runtime implementation, stage activation, locked milestone baseline or merge authorization.**
 
-This is the permanent Stage 04 design workspace on `docs/agent-execution-foundation-planning`. Main `fefe4cc1065642b710a018ecb1088ececde852db` is incorporated in this update. Stage 04's boundary and four milestone allocations/gates are approved; detailed milestone designs and implementation are not. PR #45 follows `[Stage 04 Design] Agent execution foundation` and stays draft through stage closeout.
+This is the permanent Stage 04 design workspace on `docs/agent-execution-foundation-planning`. This branch incorporates [main at `5f0ac632`](https://github.com/SharonLanger/agent-playbook/commit/5f0ac632bf0676c831a07c1189972d07dcc5ac7e). Its diff is confined to this directory. Shared navigation, progress and Atlas follow main. Stage 04's boundary and four milestone allocations/gates are approved; detailed milestone designs and implementation are not. PR #45 follows `[Stage 04 Design] Agent execution foundation` and stays draft through stage closeout.
 
 ## Read in this order
 
@@ -43,17 +43,14 @@ Future detailed packages: m1-contracts-models/, m2-fake-execution/, m3-demo-agen
 - Detailed milestone designs must identify their exact baseline, in/out scope, contracts/placement, requirement/decision IDs, dependencies, open blockers, acceptance cases and next-agent instructions. Those files do not exist yet; start with S04.M1 after boundary review.
 - Keep the roadmap and guarded meaning unchanged in this PR. Before implementation, propose the specific canonical amendments listed in repository-updates.md.
 - Read only maintained source/tests needed for the task. Personal examples remain excluded. Do not create a separate event bus, tracing broker, generic framework, context model or permission engine to fill a deferred dependency.
+- At implementation handoff, pin the approved design, test cases and plan. Freeze that contract. The design-drift and test-gap reviewers review the same candidate SHA in each round. Keep their evidence under the milestone and follow the three-round limit in the [handover rules](../../governance/codex-handover-rules.md). The design session records its final review before user acceptance and merge.
 - After meaningful progress, update these records and actual status/check evidence. This is an iteration rule, not an unattended scheduled task.
-
-## Parallel work
-
-The organization follows the useful parts of [PR #43](https://github.com/SharonLanger/agent-playbook/pull/43): one entry point, one current specification, decisions with evidence, preserved history and explicit reconciliation gates. Its context design remains separate. At the inspected head `11bba581291c1b166973848ea8db6a9e2a142413`, it was draft and unmerged.
-
-Parallel design is appropriate; different subfolders do not remove shared configuration, assembly, workflow-constructor or documentation dependencies. Reinspect current main/PR state before implementing a crossing boundary. Merge navigation and catalog edits by meaning, then regenerate Atlas; never hand-merge generated HTML.
 
 ## Next step
 
-Ready to begin S04.M1 detailed design. Keep its existing boundary and work through: D42 settles harness start/finish ownership and normal returned-result consistency. D43 accepts stop-and-propagate for handler exceptions; D44 tracks future per-agent customization without adding context now. D45 skips terminal notification after handler failure. D46 propagates unexpected adapter exceptions. D47 skips terminal notification on adapter exceptions even with a healthy handler. D48 preserves the primary exception and secondary cleanup diagnostics. D49 requires sequential awaited callbacks per execution. Next resolve (1) cancellation, slow-handler policy and concrete diagnostic representation, (2) missing-evidence behavior, (3) request/basic settings/permissions and model validation. Reconcile approved requirements/decisions and current canonical authority before locking the milestone. Then prepare its detailed design, acceptance cases and implementation handoff. These questions are inputs to detailed design, not reasons to design every later milestone first. No runtime implementation is authorized.
+Sharon paused M1 detailed design. The [alignment checkpoint](decisions.md#scope-and-methodology-checkpoint) records the open choices for when that discussion resumes. The milestone table above owns current status. Earlier readiness assessments in the plan and the dated revision sections describe their original checkpoints.
+
+Stage 02 context and tracing, Stage 03 orchestration and the logging refactor have merged. For M4, check the [actual workflow integration](../02-langfuse/m4-workflow-integration/README.md) against M3’s invocation contract. The [progress record](../../progress.md) links the merged evidence.
 
 ## Approved parallel-work gates
 

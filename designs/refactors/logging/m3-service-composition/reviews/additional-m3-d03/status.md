@@ -1,0 +1,11 @@
+# Additional M3-D03 implementation review
+
+Authorization: Sharon requested one focused correction and one additional review round on existing draft PR #65, limited to `langfuse --logs` and `--logs --follow`. Earlier round-01..03 reports remain unchanged. Approved M3 design/test/plan: `c4e0951bd87c81e627d58127841494d4812732ab`. Prior published head: `2243e8972c1a58329b2fbf9613f653316105d241`.
+
+Frozen corrected code/test candidate: `df64582af4e3accb4b0747e3c1b44a429d541a6b`. One coder and two independent reviewers used configured model `gpt-6.2-sol`; serving IDs were unavailable. The orchestrator's exact serving ID was unavailable (host identified it as GPT-6). Both reviewers examined the **same** SHA, made no edits, and returned [design CHANGES REQUIRED](round-01/design-drift.md) and [test CHANGES REQUIRED](round-01/test-gap.md). Additional rounds used: **1/1**.
+
+**Disposition: BLOCKED.** Startup and current credentials are masked on the verified success paths; per-container lookup failure withholds that container's output. A failed attached `docker logs --follow` can still emit an unknown-credential Docker diagnostic on stderr before its nonzero exit is known. Synthetic reproduction printed a private marker. Finding M3-D03 and test gap TG-M3-06 remain open. No further correction/review is authorized by this round. PR #65 is not ready for Mac verification or merge.
+
+Exact-candidate offline gate: `CREWAI_STORAGE_DIR=/workspace/scratch/m3-d03-followup-gate app/.venv/bin/agent-playbook check` PASS: Pyright 0 diagnostics, Ruff lint/format 126 files, 560 pytest tests in 81.62 seconds. It ran outside the default sandbox under automatic approval for LanceDB initialization. Coder focused suite: 22 PASS; independent test reviewer focused suite: 132 PASS. These passing tests do not cover the leak.
+
+Opt-in daemon-free Compose v2.40.3: both config syntax checks, default/file/shell project-name matrix, structured single-line redaction and multiline refusal PASS. Live Docker/Mac SC-10 and remaining M2 LG-10 NOT RUN. No personal examples or real secret values were accessed. No Compose/project/volume/data change. See [coder](round-01/implementation.md) and [orchestrator disposition](round-01/orchestrator.md).

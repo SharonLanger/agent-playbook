@@ -19,6 +19,7 @@ class StepSequenceFlow(Flow[FlowState]):
         suppress_flow_events: bool = False,
     ) -> None:
         super().__init__(
+            name=type(self).__name__,
             initial_state=initial_state,
             tracing=tracing,
             suppress_flow_events=suppress_flow_events,

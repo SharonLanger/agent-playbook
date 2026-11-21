@@ -2,7 +2,11 @@ integrations:
   crewai:
     usage_telemetry_enabled: false
     tracing_enabled: false
-    show_framework_events: false
+    show_framework_events: true
+  logging:
+    enabled: true
+    level: DEBUG
+    endpoint: http://127.0.0.1:9428/insert/opentelemetry/v1/logs
   langfuse:
     enabled: true
     base_url: http://localhost:3000

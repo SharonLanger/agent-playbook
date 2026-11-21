@@ -15,25 +15,52 @@ from tooling.toolchain import pinned_uv
 APP = Path(__file__).resolve().parents[1]
 
 
-def next_patch(current: str) -> str:
+def next_version(current: str, part: str) -> str:
     if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", current):
-        raise ValueError("Patch bump requires a MAJOR.MINOR.PATCH version.")
-    major, minor, patch = current.split(".")
-    return f"{major}.{minor}.{int(patch) + 1}"
+        raise ValueError("Bump requires a MAJOR.MINOR.PATCH version.")
+    major, minor, patch = map(int, current.split("."))
+    if part == "major":
+        return f"{major + 1}.0.0"
+    if part == "minor":
+        return f"{major}.{minor + 1}.0"
+    if part == "patch":
+        return f"{major}.{minor}.{patch + 1}"
+    raise ValueError("Use patch, minor or major.")
+
+
+def next_patch(current: str) -> str:
+    return next_version(current, "patch")
+
+
+def update_version(app: Path, uv: str, version: str) -> None:
+    """Restore both inputs if uv fails or leaves an inconsistent project lock."""
+    files = (app / "pyproject.toml", app / "uv.lock")
+    originals = {path: path.read_bytes() for path in files}
+    try:
+        subprocess.run([uv, "version", version, "--project", str(app)], check=True)
+        project = tomllib.loads(files[0].read_text())["project"]
+        lock = tomllib.loads(files[1].read_text())
+        locked = [p["version"] for p in lock["package"] if p["name"] == project["name"]]
+        if project["version"] != version or locked != [version]:
+            raise ValueError(
+                "Version update did not synchronize project metadata and lock."
+            )
+    except (OSError, ValueError, KeyError, TypeError, subprocess.CalledProcessError):
+        for path, content in originals.items():
+            path.write_bytes(content)
+        raise
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "version", help="New MAJOR.MINOR.PATCH, or patch to increase the current patch"
-    )
+    parser.add_argument("version", help="New MAJOR.MINOR.PATCH, or patch, minor, major")
     args = parser.parse_args()
-    if args.version == "patch":
+    if args.version in ("patch", "minor", "major"):
         try:
             current = tomllib.loads((APP / "pyproject.toml").read_text())["project"][
                 "version"
             ]
-            args.version = next_patch(current)
+            args.version = next_version(current, args.version)
         except (OSError, ValueError, KeyError, TypeError) as error:
             parser.exit(1, f"Could not read current version: {error}\n")
     if not re.fullmatch(r"\d+\.\d+\.\d+", args.version):
@@ -43,8 +70,14 @@ def main() -> None:
     if uv is None:
         parser.exit(1, "Pinned uv was not found; run app/tooling/bootstrap.py first.\n")
     try:
-        subprocess.run([uv, "version", args.version, "--project", str(APP)], check=True)
-    except (OSError, subprocess.CalledProcessError) as error:
+        update_version(APP, uv, args.version)
+    except (
+        OSError,
+        ValueError,
+        KeyError,
+        TypeError,
+        subprocess.CalledProcessError,
+    ) as error:
         parser.exit(1, f"Could not update version: {error}\n")
     print(
         "Updated app/pyproject.toml and app/uv.lock. Review and commit "

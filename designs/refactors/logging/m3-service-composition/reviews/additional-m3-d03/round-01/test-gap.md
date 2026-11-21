@@ -1,0 +1,7 @@
+# Additional M3-D03 round 01 — test coverage
+
+Independent reviewer; configured model `gpt-6.2-sol`, serving ID unavailable. Reviewed frozen SHA `df64582af4e3accb4b0747e3c1b44a429d541a6b` without edits. Verdict: **CHANGES REQUIRED**.
+
+**TG-M3-06 required.** The maintained follow test fails one sibling's inspect before attachment; attached `docker logs --follow` processes stream successfully until cancellation. It does not exercise a verified attached Docker command that emits a credential-bearing CLI stderr diagnostic and exits nonzero. The reviewer reproduced such a synthetic process: its unknown private marker appeared before the sanitized unavailable message. Add a maintained failure-path assertion that no diagnostic marker appears, a safe failure message is shown, and another verified container's ordinary diagnostic remains readable. Relevant files: `app/tooling/observability/logs.py` and `app/tests/tooling/test_langfuse_manage.py`.
+
+Verified success coverage: snapshot old/current credentials in both streams; replacement follow reinspection, current-settings refresh and split writes; individual lookup failure withholds that container while a verified sibling remains readable. Independent focused suite 132 PASS in 31.07 seconds; independent static/lint/format and synthetic Compose v2.40.3 smoke PASS. The independent full gate had reached pytest when the review closed; coder's exact-candidate gate later passed 560 tests. Docker daemon/Mac acceptance and LG-10 NOT RUN.

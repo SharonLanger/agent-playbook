@@ -1,0 +1,3 @@
+# Revised design round 3 disposition
+
+Role: orchestrator. Both independent gpt-6.2-sol reviewers assessed the same frozen documentation candidate 407e0c417b4fd8da108135446afe707d1f067569 and returned CHANGES REQUIRED. Revised review used its maximum 3/3 rounds; status **BLOCKED**, not approved for runtime implementation. Open RD-03/TG-SC-05: nested component process groups can survive the outer timeout or interruption; the test must exercise that exact condition. Preserve all prior reports. Sharon must explicitly decide whether to authorize a further bounded design correction/review; no fourth round is inferred. PR #57 and design PR #51 stay draft/open; no merge. M3 runtime and acceptance NOT STARTED/NOT RUN; M2 LG-10 NOT RUN.

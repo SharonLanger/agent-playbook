@@ -7,6 +7,8 @@ Status: **overall milestone boundaries and BC03 gates approved (D40); detailed m
 
 [Start here](README.md) · [Specification](specifications.md) · [Decision board](decisions.md) · [Repository reconciliation](repository-updates.md)
 
+Use the [stage README](README.md#canonical-milestone-and-readiness-index) for current milestone status and the [alignment checkpoint](decisions.md#scope-and-methodology-checkpoint) for current prerequisites. This plan owns boundaries and their change history. Earlier revision checkpoints retain the state known at the time.
+
 ## Authority and sequence
 
 Sharon authorized this planning PR, explicit milestone boundaries and a plan-first change process. The shared-foundation → deterministic-agent → CrewAI demonstration direction is accepted in the discussion. D40 approves the four milestone boundaries and BC03 prerequisite gates. Detailed acceptance cases and design/test/plan revisions still require their own approval.
@@ -92,7 +94,7 @@ Different folders reduce textual overlap; shared contracts still create dependen
 
 **Placement:** a named package under maintained `workflows/`, narrowly necessary assembly/configuration integration, independent `app/tests/` fixtures, and official `app/docs/` updates alongside working behavior. Exact workflow ID, source paths and CLI/YAML entry are a later detailed-design choice.
 
-**Entry:** M3 accepted for integration; inspect then-current main and the actual merged state of PR #43 or its implementation successor. Reconcile constructors/context injection and the synchronous/asynchronous call boundary with the existing Workflow ABC. Raise conflicts first. Stage 02 does not become complete through this exercise and is not redesigned here.
+**Entry:** M3 accepted for integration; check the [merged workflow/context contract](../02-langfuse/m4-workflow-integration/README.md) on then-current main. Reconcile constructors/context injection and the synchronous/asynchronous call boundary with the existing Workflow ABC. Raise conflicts first. Stage 02 does not become complete through this exercise and is not redesigned here.
 
 **Proposed acceptance:** a real maintained CrewAI Flow reaches the agent path; success returns validated output through the normal runner/CLI; a controlled agent failure is classified as failure and does not become a success; invalid workflow input follows existing rules; repeated invocations are isolated; ordinary checks need no model/server. Define exact commands, expected values, tests and applicable release checks in its detailed design.
 

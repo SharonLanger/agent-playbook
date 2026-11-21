@@ -4,7 +4,7 @@
 
 Read this file before producing a Codex handoff. Follow the [design contract](design-contract.md) and [guarded-file register](guarded-files.md). A milestone plan supplies concrete paths and acceptance criteria; it must reference these rules rather than silently weaken them.
 
-Read the [stage and milestone working method](stage-milestone-workflow.md) for requirements, decisions, alignment checkpoints and milestone folders. These rules apply to any stage or milestone, not only observability.
+Read the [stage and milestone working method](stage-milestone-workflow.md) for requirements, decisions, alignment checkpoints and milestone folders. These rules apply equally to stages, independent refactors and milestones, including a refactor root package without milestones. Use that root wherever these rules say the milestone package/review directory; a missing milestone number never waives approval, freeze, review, evidence or acceptance requirements.
 
 ## Model selection
 
@@ -49,14 +49,14 @@ Every report identifies author role, candidate SHA, scope, checks and limitation
 
 Distinguish code/test candidate from published head. If later commits only add reports, verify and report that exact diff. Any runtime/test change invalidates the claim that the old candidate reviews cover the new head.
 
-Passing implementation reviews means READY FOR FINAL REVIEW, not accepted or merged. Return the handoff to the originating design session. Do not merge without explicit authorization. The Stage Design PR stays draft and open under the [stage working method](stage-milestone-workflow.md#stage-design-pr-lifecycle). Merge requires stage closeout and Sharon's explicit authorization identifying that PR. Implementation approval or merge authorization never transfers to it. Older MERGE LAST labels retain the same protection.
+Passing implementation reviews means READY FOR FINAL REVIEW, not accepted or merged. Return the handoff to the originating design session. Do not merge without explicit authorization. The Stage or Refactor Design PR stays draft and open under the [shared working method](stage-milestone-workflow.md). Merge requires its workstream closeout and Sharon's explicit authorization identifying that PR. Implementation approval or merge authorization never transfers to it. Older MERGE LAST labels retain the same protection.
 
 ## Outgoing message template — design session to implementing Codex
 
 The design-session agent fills this template and gives the whole message to Sharon in one copyable block:
 
 ```text
-You are the implementation orchestrator for <milestone> in <repository URL>.
+You are the implementation orchestrator for <stage/refactor milestone or refactor root package> in <repository URL>.
 
 Read <pinned link to these rules> and follow them.
 Approved contract revision: <full SHA>.
@@ -73,8 +73,8 @@ Use Sol for implementation roles and record exact model IDs. Delegate to one cod
 Both reviewers must assess the same candidate commit. Keep the permanent per-round reports under <review path>. Maximum three total rounds; stop if unresolved after round three. Preserve all findings and evidence. Complete the milestone's agreed checks, explicitly identifying anything unrun or blocked.
 
 Open/update the separate implementation PR as specified. Do not merge it.
-Stage Design PR: <number/link and title; use not applicable only for work outside a stage>.
-Keep the Stage Design PR draft and open. Do not enable auto-merge or merge it; milestone approval/merge does not authorize its merge.
+Stage or Refactor Design PR: <number/link and title; do not use not applicable merely because the work is a refactor>.
+Keep that design PR draft and open. Do not enable auto-merge or merge it; milestone approval/merge does not authorize its merge.
 
 When finished, return ONE self-contained copyable final-review handoff using the required return template in the rules. The originating design session will perform the final review.
 ```
@@ -84,11 +84,11 @@ When finished, return ONE self-contained copyable final-review handoff using the
 Return the following as ONE copyable text block with all fields filled; use NOT RUN/UNKNOWN/BLOCKED when applicable, never omit limitations:
 
 ```text
-<MILESTONE> — FINAL REVIEW HANDOFF
+<MILESTONE OR REFACTOR ROOT PACKAGE> — FINAL REVIEW HANDOFF
 
 Outcome: READY FOR FINAL REVIEW / BLOCKED
 Repository and implementation PR:
-Stage Design PR (or not applicable for work outside a stage):
+Stage or Refactor Design PR:
 Approved design/test/plan revision and approval reference:
 Implementation branch, target and base commit:
 Final code/test candidate reviewed by BOTH reviewers:

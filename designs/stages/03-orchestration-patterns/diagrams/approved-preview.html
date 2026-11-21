@@ -1,0 +1,112 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Approved CrewAI recipe walkthroughs</title><style>
+:root{color-scheme:light dark;--background:light-dark(#ffffff,#15191f);--foreground:light-dark(#20242a,#edf1f6);--card:light-dark(#f8f9fb,#202630);--border:light-dark(#d4d8df,#46505d);--secondary:light-dark(#e9eef4,#2c3440);--muted-foreground:light-dark(#637083,#b5bfcd);--destructive:light-dark(#a82f34,#ff8b8b);--viz-series-1:light-dark(#296f92,#87ccea)}
+body{margin:20px auto;padding:0 16px;max-width:736px;font:16px system-ui;background:var(--background);color:var(--foreground)}h3{font-size:1.12rem;font-weight:500}.text-small{font-size:.875rem}.form-label{display:block;width:100%}.form-select{font:inherit;display:block;width:100%;max-width:100%;padding:10px;margin:8px 0 14px;background:var(--card);color:var(--foreground);border:1px solid var(--border);border-radius:8px}.viz-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.viz-badge{padding:5px 8px;border-radius:8px;background:var(--secondary)}
+</style><body>
+<div id="crewai-recipe-walkthroughs">
+  <div class="viz-controls">
+    <label class="form-label" for="crw-choice">Proposed recipe
+      <select class="form-select" id="crw-choice">
+        <option value="0">01 · Combine parallel results</option>
+        <option value="1">02 · Select the best result</option>
+        <option value="2">03 · Choose basic or detailed</option>
+        <option value="3">04 · Decide after the first calculation</option>
+        <option value="4">05 · One failure fails the flow</option>
+        <option value="5">06 · Fail at a threshold</option>
+        <option value="6">07 · Repeat exactly three times</option>
+        <option value="7">08 · Coder / reviewer loop</option>
+      </select>
+    </label>
+  </div>
+  <div class="viz-row"><span class="viz-badge">Design proposal</span><span class="text-small">Illustrative · not execution evidence</span></div>
+  <h3 id="crw-title"></h3>
+  <div id="crw-graph"></div>
+  <div id="crw-tags" class="text-small" aria-live="polite"></div>
+</div>
+<style>
+#crewai-recipe-walkthroughs { color:var(--foreground); }
+#crewai-recipe-walkthroughs .crw-svg { display:block; width:100%; }
+#crewai-recipe-walkthroughs .crw-node { fill:var(--card); stroke:var(--border); stroke-width:1.3; }
+#crewai-recipe-walkthroughs .crw-result { fill:color-mix(in srgb,var(--viz-series-1) 12%,var(--background)); }
+#crewai-recipe-walkthroughs .crw-decision { fill:var(--secondary); }
+#crewai-recipe-walkthroughs .crw-error { stroke:var(--destructive); }
+#crewai-recipe-walkthroughs .crw-edge { fill:none; stroke:var(--muted-foreground); stroke-width:1.5; }
+#crewai-recipe-walkthroughs .crw-label { fill:var(--foreground); paint-order:stroke; stroke:var(--background); stroke-width:5; stroke-linejoin:round; }
+#crewai-recipe-walkthroughs .crw-text { fill:var(--foreground); }
+</style>
+<script>
+(() => {
+  const root = document.getElementById('crewai-recipe-walkthroughs');
+  const pick = root.querySelector('#crw-choice');
+  const graph = root.querySelector('#crw-graph');
+  const title = root.querySelector('#crw-title');
+  const tags = root.querySelector('#crw-tags');
+  const n = (id,x,y,label,kind='') => ({id,x,y,label,kind});
+  const e = (a,b,label='',side='') => ({a,b,label,side});
+  const recipes = [
+    {title:'Two results → one report',tags:'Parallel work · wait for both · combine results',height:410,
+      nodes:[n('input',.5,38,'Numbers|[2, 4, 6]'),n('sum',.25,148,'Calculate sum|12'),n('max',.75,148,'Find maximum|6'),n('join',.5,258,'Wait for both|Combine results'),n('done',.5,368,'Report|sum 12 · max 6','result')],
+      edges:[e('input','sum'),e('input','max'),e('sum','join'),e('max','join'),e('join','done')]},
+    {title:'Wait for all, then choose',tags:'Parallel work · comparison · best result after all finish',height:410,
+      nodes:[n('input',.5,38,'Input|Make candidates'),n('a',.25,148,'Candidate A|score 70'),n('b',.75,148,'Candidate B|score 90'),n('join',.5,258,'Wait for both|Choose best'),n('done',.5,368,'Return B|score 90','result')],
+      edges:[e('input','a'),e('input','b'),e('a','join'),e('b','join'),e('join','done')]},
+    {title:'Choose the route first',tags:'Routing · conditional parallel work · common output',height:570,
+      nodes:[n('route',.5,38,'Choose mode','decision'),n('basic',.23,158,'Basic|Calculate sum'),n('detail',.77,158,'Detailed|Start both'),n('sum',.52,278,'Calculate sum'),n('max',.84,278,'Find maximum'),n('join',.68,398,'Wait for both|Combine'),n('done',.38,528,'Final report','result')],
+      edges:[e('route','basic','basic'),e('route','detail','detailed'),e('detail','sum'),e('detail','max'),e('sum','join'),e('max','join'),e('basic','done','','left'),e('join','done')]},
+    {title:'Let the result choose the route',tags:'Data-driven routing · optional parallel follow-up',height:650,
+      nodes:[n('sum',.5,38,'Calculate sum'),n('route',.5,138,'Sum above 10?','decision'),n('simple',.23,258,'Keep sum only'),n('more',.77,258,'More analysis|Start both'),n('min',.52,378,'Find minimum'),n('max',.84,378,'Find maximum'),n('join',.68,488,'Wait for both|Combine'),n('done',.38,608,'Final report','result')],
+      edges:[e('sum','route'),e('route','simple','no'),e('route','more','yes'),e('more','min'),e('more','max'),e('min','join'),e('max','join'),e('simple','done','','left'),e('join','done')]},
+    {title:'An exception reaches the caller',tags:'Exceptions · overall failure · sibling behavior to inspect',height:430,
+      nodes:[n('input',.5,38,'Start both'),n('a',.25,158,'Branch A|Raises error','error'),n('b',.75,158,'Branch B|Still working'),n('fail',.25,328,'Caller sees|failure','error'),n('observe',.75,328,'Sibling outcome|To verify')],
+      edges:[e('input','a'),e('input','b'),e('a','fail','propagate'),e('b','observe','observe')]},
+    {title:'Count outcomes, then decide',tags:'Captured outcomes · failure count · threshold policy',height:530,
+      nodes:[n('input',.5,38,'Start 5 checks|In parallel'),n('out',.5,148,'Collect all|success / failure'),n('count',.5,258,'Failures ≥ 3?','decision'),n('fail',.25,388,'Overall failure','error'),n('pass',.75,388,'Return results|with failures','result')],
+      edges:[e('input','out'),e('out','count'),e('count','fail','yes'),e('count','pass','no')]},
+    {title:'Repeat a step three times',tags:'Counter · routing back · fixed bound',height:470,
+      nodes:[n('start',.5,38,'Counter = 0'),n('work',.5,148,'Do work|Counter + 1'),n('check',.5,278,'Counter < 3?','decision'),n('end',.5,418,'Finish|3 iterations','result')],
+      edges:[e('start','work'),e('work','check'),e('check','work','yes: repeat','left'),e('check','end','no')]},
+    {title:'Revise until accepted or capped',tags:'Feedback loop · reviewer decision · bounded termination',height:630,
+      nodes:[n('start',.5,38,'Attempt = 0'),n('coder',.5,148,'Fake coder|Attempt + 1'),n('review',.5,258,'Fake reviewer|Accept?','decision'),n('accept',.78,388,'Accepted','result'),n('limit',.28,388,'At max attempts?','decision'),n('stop',.28,568,'Stop|Limit reached','error')],
+      edges:[e('start','coder'),e('coder','review'),e('review','accept','yes'),e('review','limit','no'),e('limit','coder','no: revise','left'),e('limit','stop','yes')]}
+  ];
+  const ns='http://www.w3.org/2000/svg';
+  function el(tag,attrs,parent){const a=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>a.setAttribute(k,String(v)));parent.appendChild(a);return a;}
+  function draw(){
+    const r=recipes[Number(pick.value)];
+    const width=Math.max(300,Math.round(graph.getBoundingClientRect().width));
+    graph.replaceChildren();title.textContent=r.title;tags.textContent=r.tags;
+    const svg=el('svg',{class:'crw-svg',viewBox:`0 0 ${width} ${r.height}`,height:r.height,role:'img','aria-label':r.title},graph);
+    el('title',{},svg).textContent=r.title;
+    el('desc',{},svg).textContent=r.nodes.map(v=>v.label.replaceAll('|',': ')).join('. ')+'. Proposed behavior; not a runtime trace.';
+    const defs=el('defs',{},svg),marker=el('marker',{id:'crw-arrow',markerWidth:8,markerHeight:8,refX:7,refY:4,orient:'auto'},defs);
+    el('path',{d:'M 0 0 L 7 4 L 0 8 Z',fill:'var(--muted-foreground)'},marker);
+    const nodeW=width<420?112:148,nodeH=58;
+    const coords={};r.nodes.forEach(v=>{coords[v.id]={...v,cx:Math.min(width-nodeW/2-8,Math.max(nodeW/2+8,v.x*width))};});
+    // Keep split calculation boxes readable on phone widths.
+    if(Number(pick.value)===2||Number(pick.value)===3){const left=Number(pick.value)===2?'sum':'min';coords[left].cx=width*.39;coords.max.cx=width*.80;}
+    const labels=[];
+    r.edges.forEach(v=>{
+      const a=coords[v.a],b=coords[v.b];let d,lx,ly;
+      if(v.side==='left'){
+        const x=14;const ax=a.cx-nodeW/2,bx=b.cx-nodeW/2;
+        d=`M ${ax} ${a.y} H ${x} V ${b.y} H ${bx}`;lx=x+10;ly=(a.y+b.y)/2;
+      }else{
+        const ay=a.y+nodeH/2,by=b.y-nodeH/2,mid=(ay+by)/2;
+        d=`M ${a.cx} ${ay} V ${mid} H ${b.cx} V ${by}`;lx=(a.cx+b.cx)/2;ly=mid-9;
+      }
+      el('path',{d,class:'crw-edge','marker-end':'url(#crw-arrow)'},svg);
+      if(v.label)labels.push({text:v.label,x:lx,y:ly,side:v.side});
+    });
+    labels.forEach(v=>{el('text',{x:v.x,y:v.y,class:'crw-label text-small','text-anchor':v.side==='left'?'start':'middle'},svg).textContent=v.text;});
+    r.nodes.forEach(v=>{
+      const a=coords[v.id];el('rect',{x:a.cx-nodeW/2,y:a.y-nodeH/2,width:nodeW,height:nodeH,rx:v.kind==='decision'?22:8,class:'crw-node '+(v.kind?'crw-'+v.kind:'')},svg);
+      const parts=v.label.split('|');const text=el('text',{x:a.cx,y:a.y-(parts.length-1)*9+5,'text-anchor':'middle',class:'crw-text text-small'},svg);
+      parts.forEach((line,i)=>el('tspan',{x:a.cx,dy:i?18:0},text).textContent=line);
+    });
+  }
+  pick.addEventListener('change',draw);
+  new ResizeObserver(draw).observe(graph);
+  draw();
+})();
+</script>
+
+</body></html>

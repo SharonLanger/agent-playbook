@@ -1,0 +1,7 @@
+# Additional M3-D03 round 01 — coder
+
+Role: sole coder. Configured model `gpt-6.2-sol`, serving ID unavailable. Frozen candidate: `df64582af4e3accb4b0747e3c1b44a429d541a6b`. Prior head: `2243e8972c1a58329b2fbf9613f653316105d241`. Scope: Sharon's one focused M3-D03 correction.
+
+Changed `app/tooling/observability/manage.py`, new `app/tooling/observability/logs.py`, `app/tests/tooling/test_langfuse_manage.py`, synthetic Compose smoke and the public Langfuse local guide. Snapshot and follow now discover full Compose container IDs, inspect each immutable ID/project/service and startup environment before retrieving that container's `docker logs`, and combine those values with current selected settings for redaction. Unverifiable containers are withheld individually. Follow rediscovers and reverifies replacements. No Docker data, Compose YAML or guarded design was changed.
+
+Exact-candidate repository gate PASS: Pyright 0 errors/warnings; Ruff lint/format 126 files; 560 pytest tests in 81.62 seconds. The gate ran outside the default sandbox with writable scratch CrewAI storage for LanceDB. Focused 22 PASS; Atlas/whitespace and synthetic daemon-free Compose v2.40.3 syntax, name matrix and structured redaction PASS. Live Mac SC-10 and M2 LG-10 NOT RUN. Independent review then found failed-follow Docker stderr could expose an unrecognized diagnostic before subprocess return; the coder made no post-freeze edit.

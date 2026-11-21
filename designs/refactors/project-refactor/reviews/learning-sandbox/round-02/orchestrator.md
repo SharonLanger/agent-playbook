@@ -1,0 +1,13 @@
+# Learning and sandbox cleanup — round 02 disposition and final review
+
+**READY FOR SHARON'S REVIEW.** Both independent reviewers and the originating final review pass on `0d2b605e9b11ce2ef3f9f52d213804f5be483b6c`. This does not authorize merging PR #59.
+
+Migration base: `ef7b22492d6091c8c4b47c4226a24550a9b23ccb`. Round 01: `b7d255dedaece9dae805b9a82338e68b8cdaa26d`. Main baseline: `cdbc06c2e9a9b87910b5145ac116aeb8a81e06e4`. Scope: both cleanups authorized by Sharon on 2026-11-19, with the nineteen dispositions in the [migration record](../../../learning-sandbox-migration.md).
+
+Coder and both independent reviewers used `gpt-6.2-sol`. The originating parent session orchestrated and performed final review; its exact model ID is unavailable. Two of the maximum three rounds were used. The same frozen candidate was reviewed by both reviewers. CT07 is resolved by the corrected attribution. LSM01–LSM06 all pass; the [test-gap report](test-gap.md) maps each criterion to independent evidence. The original finding and verdicts are retained.
+
+The originating session inspected the published migration and correction diffs, the two guarded changes, the root and sandbox instructions, all retained-document patches, the exact archive preservation evidence, navigation changes and both rounds' reports. The scope matches the approved moves and retirements. The six retained records preserve their substantive content and historical/draft status, both archived records are byte-identical, and application, stages and previous review evidence are unchanged. Final review: PASS.
+
+Complete publication by adding the four round 02 reports and final status only. Verify the candidate-to-publication delta contains those five review paths, then record the exact head and comparison in the existing PR description. Resolve CD01 there by replacing the proposed migration status with the implemented and reviewed branch result, retaining draft/open/unmerged status. Refresh the existing Drive master plan afterward and verify its readback. Publication metadata is separate from the frozen content verdict.
+
+Atlas generation/freshness, links, pinned provenance, exact preservation, scope and current private-link exclusion passed. Runtime suites and interactive browser rendering were outside this documentation migration. Main remains unchanged until a separately authorized merge. Stage 04 and logging branches are separately owned, and shared navigation overlap may need reconciliation by their owners. This migration does not complete the remaining publication audit, documentation review, clean first run, quality/release review or public README work.

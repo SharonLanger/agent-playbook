@@ -23,6 +23,7 @@ def test_verification_failure_keeps_manifest_incomplete(tmp_path: Path) -> None:
         patch.object(release, "assert_source_unchanged"),
         patch.object(release, "build_wheel", return_value=wheel),
         patch.object(release, "verify_wheel"),
+        patch.object(release, "verify_wheel_contents"),
         patch.object(
             release, "install_release", return_value=tmp_path / "venv/bin/python"
         ),

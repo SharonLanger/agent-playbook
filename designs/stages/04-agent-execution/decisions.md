@@ -2,8 +2,10 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 28 · Updated: 2026-11-16 · Owner: Sharon
+Revision: 29 · Updated: 2026-11-21 · Owner: Sharon
 Companion: [Specifications](specifications.md)
+
+The [November 21 checkpoint](#scope-and-methodology-checkpoint) records current scope and status. Dated checkpoints retain the evidence and open questions from their revision.
 
 ## How to read this board
 
@@ -1114,6 +1116,17 @@ M1 impact is modest boundary/schema design plus contract tests later; optional h
 
 Read both files before progressing the design. Update this board with evidence and explicit status; update the specification only for accepted decisions. Detect conflicts before edits. Tell Sharon before changing any agreement; retain superseded entries and rationale. Maintain the two active repository records, keeping cross-links and revision numbers consistent; original saved files are history. Boundary changes must first be proposed in [milestone-plan.md](milestone-plan.md), then applied under D32 across all affected records. Do not turn a recommendation into “Approved” because it appears in a file.
 
+## Scope and methodology checkpoint
+
+2026-11-21 · D52 · **Approved PR scope.** Sharon directed PR #45 to carry only `designs/stages/04-agent-execution/` and to take main as-is elsewhere. The previous approach included project-wide discovery, progress and Atlas updates. Main now has newer shared records and Sharon may revisit discovery separately. See the [original PR comparison](https://github.com/SharonLanger/agent-playbook/compare/fefe4cc1065642b710a018ecb1088ececde852db...3d1e9e968b4ebd25ca0e641797dd6b1c21cc6fe0).
+
+- **Goal and status.** D40 approves the four milestone outcomes and BC03 gates. The [stage README](README.md#canonical-milestone-and-readiness-index) tracks approval, verification, acceptance and merge. Sharon has paused M1 detailed design.
+- **Consistency.** D42–D49 settle lifecycle ownership, callback order and the recorded exception policies. Older entries listing these as open describe earlier revisions. P13/BC04 and P14 remain proposals.
+- **Research.** The [research notes](research/README.md) document interface examples. Native SDK selection and verification of provider parity belong to Stage 05.
+- **Dependencies and guarded authorities.** The merged context and workflow contracts are available for M4 compatibility review. C01/Q12 still requires explicit reconciliation of execution-event ownership and role placement with [architecture](../../architecture.md) and [project structure](../../project-structure.md) before implementation lock.
+- **Open choices.** The M1 discussion may address request/settings/permission fields, validation, missing evidence and concrete cleanup diagnostics. Hook responses, cancellation controls and a service transport have no implementation approval.
+- **Outcome.** M1 can be drafted with those choices open when Sharon resumes the discussion. The detailed contract, test cases and implementation plan will need their own approval.
+
 ## Revision history
 
 | Revision | Date | Change |
@@ -1146,3 +1159,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 26 | 2026-11-15 | D49 accepts sequential awaited callbacks per execution; clarifies existing async contract and records dual-mode support as unselected. |
 | 27 | 2026-11-16 | P13/BC04 evaluate native blocking hooks versus observations; no scope or contract approval. |
 | 28 | 2026-11-16 | D50/D51 record replaceability and real coder/reviewer product acceptance; P14 compares reference contracts without changing stage scope. |
+| 29 | 2026-11-21 | D52 records Stage 04-only PR scope and the methodology reconciliation. Product decisions and milestone boundaries retain their existing approvals. |
