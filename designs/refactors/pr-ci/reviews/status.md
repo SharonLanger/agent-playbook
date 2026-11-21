@@ -24,4 +24,6 @@ Wheel: `agent_playbook-0.2.0-py3-none-any.whl`, SHA-256 `723317328c76c24f13c9ea8
 
 Initial local runs could not collect the full suite because CrewAI wrote under a read-only home directory. The orchestrator repeated the full gate and release with normal home access. Round 01 then failed one test (479 passed, 1 failed); round 02 passed 480. No runtime/test change follows the reviewed round-02 candidate in these report commits.
 
+GitHub [run 44904510066](https://github.com/SharonLanger/agent-playbook/actions/runs/44904510066) on the reviewed candidate and [run 44904642872](https://github.com/SharonLanger/agent-playbook/actions/runs/44904642872) on the report-only head completed **skipped**; the latter has one `PR quality` job with conclusion **skipped** and no steps/logs. No hosted macOS check passed.
+
 Sharon and the originating design session retain guarded amendments, design/status/navigation and Atlas reconciliation under the approval comment. After public activation they must observe the hosted check, configure/read back the main ruleset and test red/green PR eligibility. Final coordinated fresh run follows relevant merges. Neither PR is merged or published.
