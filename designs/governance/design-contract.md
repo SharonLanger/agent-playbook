@@ -69,7 +69,7 @@ app/docs/ MUST contain maintained official product documentation for new and exi
 
 Maintain designs/atlas/catalog.json and its referenced documents; rebuild index.html with build.py whenever relevant ownership, status, links or scenarios change. Current and Explorations are separate views. Scenario walkthroughs such as reviewer runs must carry their status. Consult the guarded Markdown first; the catalog stores navigation and concise summaries, not competing decisions.
 
-The builder checks hierarchy, references, statuses, sandbox boundaries and generated-output freshness without traversing the sandbox. These checks do not prove that an agent read a document, that prose is accurate or that a design was approved. Review must inspect the decision record and approval evidence. No new CI service is required.
+The builder checks hierarchy, references, statuses, sandbox boundaries and generated-output freshness without traversing the sandbox. These checks do not prove that an agent read a document, that prose is accurate or that a design was approved. Review must inspect the decision record and approval evidence. The approved [PR CI workflow](../refactors/pr-ci/README.md) runs this same Atlas check on PRs targeting public `main`.
 
 ## Required PR record
 

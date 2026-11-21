@@ -87,3 +87,13 @@ Sharon approved M2 behavior and LOG-G01–06 at immutable revision `caeb1637bd9a
 
 
 All earlier protection and Stage 02 history remain intact.
+
+## PR CI and local version tracking — 2026-11-21
+
+[Sharon’s approval](https://github.com/SharonLanger/agent-playbook/pull/63#issuecomment-7062463938) locked the [implementation package](https://github.com/SharonLanger/agent-playbook/tree/6ce53c2377dc21541d94ca8a461bd02d66af7655/designs/refactors/pr-ci) at `6ce53c2377dc21541d94ca8a461bd02d66af7655`. The package README tracks status and evidence. Implementation acceptance and hosted enforcement have their own gates.
+
+- `designs/refactors/pr-ci/requirements.md`
+- `designs/refactors/pr-ci/decisions.md`
+- `designs/refactors/pr-ci/design.md`
+- `designs/refactors/pr-ci/test-cases.md`
+- `designs/refactors/pr-ci/implementation-plan.md`
