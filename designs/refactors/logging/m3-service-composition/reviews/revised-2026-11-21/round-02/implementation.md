@@ -1,0 +1,3 @@
+# Revised design round 2 author report
+
+Role: author/orchestrator (Codex; exact served model ID unavailable). Candidate 877e86a2dce24c21102d881c8bca025e7b59bf53. Corrected project identity/missing settings, caller-relative selectors, deadlines and SC evidence. Merged current main 46e9062 with the M3 branch, preserved all prior M3 reports, reconciled designs/README and rebuilt Atlas. python3 designs/atlas/build.py --check PASS in reconstructed current-main snapshot. No runtime source, Compose file, credential or Docker data change; app/Mac/LG-10 NOT RUN. Reviewers found remaining ordering and deadline-contract issues.

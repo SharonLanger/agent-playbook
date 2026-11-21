@@ -1,0 +1,3 @@
+# Revised design round 2 test coverage review
+
+Role: independent test reviewer. Configured model gpt-6.2-sol; served ID unavailable. Candidate 877e86a2dce24c21102d881c8bca025e7b59bf53. Verdict: **CHANGES REQUIRED**. TG-SC-01/02/03 closed. TG-SC-04 Medium new: SC-05/09 need opt-in daemon-free synthetic real-Compose JSON project-name lookup cases (default, env-file, shell override) using exact argv, plus redaction assertion for captured resolved config/errors. Static review only; runtime/Compose/Mac NOT RUN. [Reviewed tests](https://github.com/SharonLanger/agent-playbook/blob/877e86a2dce24c21102d881c8bca025e7b59bf53/designs/refactors/logging/m3-service-composition/test-cases.md).
