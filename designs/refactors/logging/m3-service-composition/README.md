@@ -1,5 +1,7 @@
 # Logging M3 — local service commands
 
-Sharon approved the command groups and actions on 2026-11-21. [Design](design.md) records the behavior and the remaining question about explicitly starting a disabled integration. [Acceptance cases](test-cases.md) and the [Codex plan](implementation-plan.md) describe the revised scope. The earlier three review rounds apply to their frozen proposal. Runtime work awaits review and approval of the revised contract.
+Status: revised concrete design **proposed for Sharon's approval**. Sharon approved the three command groups/actions on 2026-11-21 and confirmed that explicit `logs --start` starts VictoriaLogs even when workflow logging is disabled, without editing YAML. Aggregate `services --start` selects by effective enabled settings. Runtime implementation and M3 acceptance have **not started**.
 
-[Overall logging design PR #51](https://github.com/SharonLanger/agent-playbook/pull/51) · [Rename issue #56](https://github.com/SharonLanger/agent-playbook/issues/56)
+Read [design](design.md), [revised acceptance cases](test-cases.md) and [implementation plan](implementation-plan.md). The earlier three review rounds cover a superseded, broader proposal and remain intact under [historical reviews](reviews/status.md). The separately authorized revised design review is recorded under `reviews/revised-2026-11-21/`.
+
+PR #57 stays draft. The existing Docker project and volume names remain; renaming belongs to [issue #56](https://github.com/SharonLanger/agent-playbook/issues/56). [Overall logging design PR #51](https://github.com/SharonLanger/agent-playbook/pull/51) stays draft/open. The remaining M2 LG-10 check is pending. No runtime code, Compose data or private credentials are changed by this design work.
