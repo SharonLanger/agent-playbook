@@ -2465,43 +2465,43 @@
             {
               "name": "M1 setup and follow-up",
               "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/implementation-handoff.md",
-              "text": "Original setup assignment and the remaining configurable-storage-port improvement.",
+              "text": "Original setup assignment and configurable-storage-port follow-up.",
               "to": null
             },
             {
-              "name": "Implement connection and playground",
+              "name": "M2–M3 connection and playground handoff",
               "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/connection-playground-handoff.md",
-              "text": "M2 then M3, separate tested checkpoints, concurrent configuration changes and no workflow/context work.",
+              "text": "Original M2 connection and M3 playground sequence, tested checkpoints and configuration constraints.",
               "to": null
             },
             {
-              "name": "Separate local verification files",
+              "name": "M1–M3 user verification checkpoints",
               "path": "designs/stages/02-langfuse/m1-3-local-langfuse/user-verification.md",
               "text": "Retained M1–M3 user verification checkpoints from the original local exercise.",
               "to": null
             },
             {
-              "name": "Four review findings",
+              "name": "Original review findings from 2026-11-13",
               "path": "designs/stages/02-langfuse/m1-3-local-langfuse/reviews/review-2026-11-13.md",
-              "text": "SDK lifecycle, unresolved main conflicts, export reporting and stale status; revision-specific evidence.",
+              "text": "Revision-specific findings on SDK lifecycle, main conflicts, export reporting and status prose.",
               "to": null
             },
             {
-              "name": "CLI plan and Codex handoff",
+              "name": "Historical CLI plan and Codex handoff",
               "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/verification-simplification-plan.md",
-              "text": "Six agreed action flags, log following, newcomer setup, code ownership and verification gates. First present main conflicts and agree on resolutions.",
+              "text": "Earlier plan for six action flags, log following, newcomer setup, code ownership, verification and conflict resolution.",
               "to": null
             },
             {
               "name": "Approved main reconciliation",
               "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/main-reconciliation.md",
-              "text": "Agreed resolutions, combined verification, and the remaining implementation handoff.",
+              "text": "Agreed resolutions, combined verification and the implementation handoff at reconciliation.",
               "to": null
             },
             {
               "name": "Langfuse review follow-up",
               "path": "designs/stages/02-langfuse/m1-3-local-langfuse/reviews/resolution-2026-11-13.md",
-              "text": "R1/R3/R4 fixes, management CLI, checks and live blocker.",
+              "text": "R1/R3/R4 fixes, management CLI, checks and the live verification blocker at that checkpoint.",
               "to": null
             },
             {
@@ -2550,7 +2550,7 @@
             {
               "name": "Requirements and decisions",
               "path": "designs/stages/02-langfuse/m4-workflow-integration/requirements.md",
-              "text": "Shared spec, current agreements and explicit deferrals.",
+              "text": "Retained M4 requirements, decision history and explicit deferrals.",
               "to": null
             },
             {
@@ -4365,23 +4365,23 @@
         },
         {
           "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/connection-playground-handoff.md",
-          "status": "Requested implementation handoff",
-          "purpose": "M2 then M3, separate tested checkpoints, concurrent configuration changes and no workflow/context work."
+          "status": "Historical M2–M3 implementation handoff",
+          "purpose": "Original M2 connection and M3 playground sequence, tested checkpoints and configuration constraints."
         },
         {
           "path": "designs/stages/02-langfuse/m1-3-local-langfuse/user-verification.md",
-          "status": "Requested implementation handoff",
+          "status": "Historical M1–M3 user verification checkpoints",
           "purpose": "Retained M1–M3 user verification checkpoints from the original local exercise."
         },
         {
           "path": "designs/stages/02-langfuse/m1-3-local-langfuse/reviews/review-2026-11-13.md",
-          "status": "Open review findings",
-          "purpose": "SDK lifecycle, unresolved main conflicts, export reporting and stale status; revision-specific evidence."
+          "status": "Historical review findings from 2026-11-13",
+          "purpose": "Revision-specific findings on SDK lifecycle, main conflicts, export reporting and status prose."
         },
         {
           "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/verification-simplification-plan.md",
-          "status": "CLI direction agreed; execution pending",
-          "purpose": "Flag-based CLI and management specification, newcomer guides, independent checks and complete Codex handoff; joint conflict decisions first."
+          "status": "Historical CLI plan and implementation handoff",
+          "purpose": "Earlier CLI management plan, newcomer guidance, verification gates and the handoff for resolving main conflicts."
         },
         {
           "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/main-reconciliation.md",
@@ -4401,7 +4401,7 @@
         {
           "path": "designs/stages/02-langfuse/m4-workflow-integration/requirements.md",
           "status": "Retained M4 requirements",
-          "purpose": "Current shared specification, stable requirement IDs and deferrals."
+          "purpose": "Requirements for the approved M4 scope, with stable IDs, dated checkpoints and retained deferrals."
         },
         {
           "path": "designs/stages/02-langfuse/m4-workflow-integration/decisions.md",
@@ -4421,17 +4421,17 @@
         {
           "path": "designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/design.md",
           "status": "Approved M4.1 contract; implemented, verified and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6",
-          "purpose": "Draft typed context contract and full runner/Flow propagation."
+          "purpose": "Approved typed context contract and full runner/Flow propagation."
         },
         {
           "path": "designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/test-cases.md",
           "status": "Approved M4.1 contract; implemented, verified and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6",
-          "purpose": "Draft CTX-01–17 acceptance and meaningful assertion mapping."
+          "purpose": "Approved CTX-01–17 acceptance cases and assertion mapping."
         },
         {
           "path": "designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/implementation-plan.md",
           "status": "Approved M4.1 contract; implemented, verified and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6",
-          "purpose": "Draft Codex handoff: coder, two reviewers, max three rounds and permanent reports."
+          "purpose": "Approved implementation and review plan with a coder, two reviewers, at most three rounds and permanent reports."
         }
       ]
     }

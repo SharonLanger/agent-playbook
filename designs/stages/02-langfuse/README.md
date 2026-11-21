@@ -25,6 +25,8 @@ M1–M3 used a single implementation PR at `44d69194f6add6f646795b14f7c3f43c656b
 
 The [workflow-integration package](m4-workflow-integration/README.md) owns the shared [requirements](m4-workflow-integration/requirements.md), [decisions](m4-workflow-integration/decisions.md) and research for M4. Earlier records use the package-local IDs M1 and M2–M3 for Stage 02 milestones M4.1 and M4.2 + M4.3 respectively.
 
+<a name="start-here"></a>
+
 ## Read the stage records
 
 1. [M1–M3 · Local Langfuse](m1-3-local-langfuse/README.md) groups the setup, connection and mock-trace verification with the acceptance record and earlier handoffs.
@@ -55,8 +57,6 @@ Milestone 1's fixed checkpoint remains available; see
 [findings](m1-3-local-langfuse/reviews/findings.md) and the [local operation guide](../../../app/docs/langfuse-local.md).
 Milestone 2 adds a project connection check, and milestone 3 adds the explicit
 mock playground. M4.1 is implemented, final-reviewed and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. M4.2/M4.3 design/test/plan are approved at `ab3fab459c97eed44cc0b202402e559a827a71cf`. The approved round-02 amendment accepts visible framework events to enable automatic tracing, native input/output capture and readable naming; see [follow-up evidence](m4-workflow-integration/m4-2-3-workflow-tracing/follow-ups.md).
-
-<a name="start-here"></a>
 
 ### Earlier navigation and handoff — November 2026
 
