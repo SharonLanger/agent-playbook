@@ -60,8 +60,8 @@ def main(argv: list[str] | None = None) -> int:
             forwarded += ["--config", str(Path(args.config).resolve())]
         return run_development("langfuse", forwarded)
     if args.command == "version":
-        if args.action == "patch":
-            return run_development("version", ["patch"])
+        if args.action is not None:
+            return run_development("version", [args.action])
         print(f"agent-playbook {version('agent-playbook')} (source: {SOURCE_COMMIT})")
         return 0
     if args.command == "run":
