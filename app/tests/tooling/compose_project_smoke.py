@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import cast
 from unittest.mock import patch
 
-from tooling.observability import manage
+from tooling.observability import logs, manage
 
 APP = Path(__file__).resolve().parents[2]
 MARKER = "synthetic-compose-smoke-marker"
@@ -105,7 +105,8 @@ def main() -> int:
             failed = failed or not passed
         settings.write_text(values)
         with patch.dict(os.environ, environment, clear=True):
-            redact = manage._log_redactor(settings, "observability")  # pyright: ignore[reportPrivateUsage]
+            secrets = manage._current_log_secrets(settings, "observability")  # pyright: ignore[reportPrivateUsage]
+            redact = logs.redactor(secrets)
             passed = MARKER not in redact(f"synthetic logs: {MARKER}")
             print(
                 f"Langfuse structured single-line redaction: {'PASS' if passed else 'FAIL'}"
@@ -117,7 +118,7 @@ def main() -> int:
             )
             passed = False
             try:
-                manage._log_redactor(settings, "observability")  # pyright: ignore[reportPrivateUsage]
+                manage._current_log_secrets(settings, "observability")  # pyright: ignore[reportPrivateUsage]
             except manage.SettingsConflict as error:
                 passed = "multiline private setting" in str(error)
             print(

@@ -156,11 +156,17 @@ app/.venv/bin/agent-playbook langfuse --start
 
 `--stop` removes this stack's containers but retains the `.env` and named data
 volumes. Repeated starts, an already-stopped stop, and start after stop are safe.
-Docker Desktop and unrelated containers stay untouched. The CLI masks the
-selected deployment's resolved infrastructure secrets in service logs,
-including values interpolated by Compose. If it cannot verify the redaction
-values or finds a multiline deployment secret, it reports a settings error
-and withholds the logs.
+Docker Desktop and unrelated containers stay untouched.
+
+Langfuse log output is labeled by service. The CLI masks credentials from the
+selected Compose settings and from the verified startup environment of the
+container that emitted the logs. If it cannot verify a container's identity
+or startup credentials, it withholds that container's logs and reports a
+settings error. Other verified containers can still show logs. During
+`--follow`, the CLI checks for replacements and verifies each new container
+before showing its output. If the selected Compose settings cannot be verified
+or contain a multiline deployment secret, the log command reports a settings
+error and withholds output.
 
 ## Private service settings
 

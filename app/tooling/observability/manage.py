@@ -10,7 +10,6 @@ import time
 import urllib.error
 import urllib.request
 import webbrowser
-from collections.abc import Callable
 from pathlib import Path
 from typing import cast
 
@@ -22,6 +21,7 @@ else:
 if not __package__:
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
+from tooling.observability.logs import DEPLOYMENT_SECRET_FIELDS, show_logs
 from tooling.service_runtime import (
     LOGGING_PROJECT,
     captured,
@@ -41,13 +41,6 @@ PROJECT = re.compile(r"[a-z0-9][a-z0-9_-]*\Z")
 VOLUMES = frozenset(
     {"postgres_data", "clickhouse_data", "clickhouse_logs", "redis_data", "minio_data"}
 )
-DEPLOYMENT_SECRET_FIELDS = {
-    "postgres": ("POSTGRES_PASSWORD",),
-    "clickhouse": ("CLICKHOUSE_PASSWORD",),
-    "redis": ("REDIS_AUTH",),
-    "minio": ("MINIO_ROOT_PASSWORD",),
-    "langfuse-web": ("NEXTAUTH_SECRET", "SALT", "ENCRYPTION_KEY"),
-}
 SERVICES = frozenset(
     {"langfuse-web", "langfuse-worker", "postgres", "clickhouse", "redis", "minio"}
 )
@@ -269,7 +262,7 @@ def _resolved_log_secrets(env_file: Path, project: str) -> set[str]:
         ) from None
 
 
-def _log_redactor(env_file: Path, project: str) -> Callable[[str], str]:
+def _current_log_secrets(env_file: Path, project: str) -> set[str]:
     secrets = _resolved_log_secrets(env_file, project)
     for entry in env_file.read_text(encoding="utf-8").splitlines():
         if "=" not in entry or entry.lstrip().startswith("#"):
@@ -278,39 +271,7 @@ def _log_redactor(env_file: Path, project: str) -> Callable[[str], str]:
         secret = value.strip().strip("\"'")
         if key.strip() not in ("LANGFUSE_PORT", "MINIO_PORT") and secret:
             secrets.add(secret)
-    secret_pattern = re.compile(
-        "|".join(re.escape(secret) for secret in sorted(secrets, key=len, reverse=True))
-    )
-    auth_pattern = re.compile(r"(?i)(authorization\s*[:=]\s*)[^\r\n,}]+")
-
-    def redact(line: str) -> str:
-        line = secret_pattern.sub("[REDACTED]", line)
-        return auth_pattern.sub(r"\1[REDACTED]", line)
-
-    return redact
-
-
-def _follow_logs(env_file: Path, project: str, redact: Callable[[str], str]) -> int:
-    process = subprocess.Popen(
-        _compose_argv(env_file, "logs", "--tail", "80", "--follow", project=project),
-        cwd=DEPLOY,
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-    try:
-        assert process.stdout is not None
-        for line in process.stdout:
-            print(redact(line), end="", flush=True)
-        return 0 if process.wait() == 0 else 1
-    except KeyboardInterrupt:
-        process.terminate()
-        process.wait(timeout=5)
-        print("\nStopped following logs; containers remain running.")
-        return 0
-    finally:
-        if process.stdout is not None:
-            process.stdout.close()
+    return secrets
 
 
 def _state(
@@ -495,12 +456,20 @@ def _main(argv: list[str] | None = None) -> int:
         )
         return 0
     if args.logs:
-        redact = _log_redactor(env_file, project)
-        if args.follow:
-            return _follow_logs(env_file, project, redact)
-        result = _compose(env_file, "logs", "--tail", "80", project=project)
-        print(redact(result.stdout), end="")
-        return 0 if result.returncode == 0 else 1
+        return show_logs(
+            project,
+            lambda: _compose(
+                env_file,
+                "ps",
+                "--all",
+                "--no-trunc",
+                "--format",
+                "json",
+                project=project,
+            ),
+            lambda: _current_log_secrets(env_file, project),
+            follow=args.follow,
+        )
     state, detail = _state(env_file, project)
     ready = state == "running" and _health(port)
     print(
