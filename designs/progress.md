@@ -2,7 +2,7 @@
 
 ## PR CI and local version tracking — 2026-11-21
 
-The [approved package and final-review findings](refactors/pr-ci/README.md) track issue #62. Round 2 of [implementation PR #64](https://github.com/SharonLanger/agent-playbook/pull/64) recorded 480 passing tests and a verified local wheel on Linux. The originating review requests two focused corrections. Both hosted jobs inspected were skipped while private. Main enforcement, user acceptance, merges and the final coordinated fresh run remain pending.
+The [approved package and final-review findings](refactors/pr-ci/README.md) track issue #62. Round 2 of [implementation PR #64](https://github.com/SharonLanger/agent-playbook/pull/64) recorded 480 passing tests and a verified local wheel on Linux. The originating review requests corrections for offline verification, action pins and the changelog interval. Both hosted jobs inspected were skipped while private. Main enforcement, user acceptance, merges and the final coordinated fresh run remain pending.
 
 ## Logging M2 merged — 2026-11-18
 
