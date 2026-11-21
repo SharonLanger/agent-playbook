@@ -47,7 +47,7 @@ Bootstrap needs Python 3.10+ on the host, network for initial provisioning and s
 | Component | Version/evidence |
 |---|---|
 | Docker Desktop for Mac | 4.99.0 (released 2026-11-09) is an upstream candidate, **awaiting Mac project verification**; an existing working installation need not change. Its listed bundled Engine is 29.9.3 and Compose is 5.7.0. Record the versions reported on your Mac. |
-| Docker Engine / Compose | A working `docker info` and `docker compose` plugin are functional prerequisites. The project-tested Linux versions and final results are recorded in [Stage 02 findings](../../designs/stages/02-langfuse/findings.md); they do not certify Mac. |
+| Docker Engine / Compose | A working `docker info` and `docker compose` plugin are functional prerequisites. The project-tested Linux versions and final results are recorded in [Stage 02 findings](../../designs/stages/02-langfuse/m1-3-local-langfuse/reviews/findings.md); they do not certify Mac. |
 | Host Python / app | Management script: Python 3.10+ standard library. App bootstrap: host Python 3.10+; app Python 3.13, uv 0.13.6. |
 | Langfuse and stores | Pinned [Compose images and digest](../tooling/observability/compose.yaml): Langfuse web/worker 4.80.0, PostgreSQL 17.7, ClickHouse 26.3.62.3, Redis 7.4.7 and pinned MinIO digest. No floating `latest`. |
 

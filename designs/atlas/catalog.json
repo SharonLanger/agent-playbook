@@ -20,14 +20,15 @@
     "designs/stages/01-crewai-flows/README.md",
     "designs/stages/02-langfuse/README.md",
     "designs/stages/02-langfuse/architecture.md",
-    "designs/stages/02-langfuse/smoke-plan.md",
+    "designs/stages/02-langfuse/m1-3-local-langfuse/README.md",
+    "designs/stages/02-langfuse/m1-3-local-langfuse/smoke-plan.md",
     "designs/stages/02-langfuse/milestones.md",
-    "designs/stages/02-langfuse/verification.md",
-    "designs/stages/02-langfuse/implementation-handoff.md",
-    "designs/stages/02-langfuse/connection-playground-handoff.md",
-    "designs/stages/02-langfuse/user-verification.md",
-    "designs/stages/02-langfuse/review-2026-11-13.md",
-    "designs/stages/02-langfuse/verification-simplification-plan.md",
+    "designs/stages/02-langfuse/m1-3-local-langfuse/verification.md",
+    "designs/stages/02-langfuse/m1-3-local-langfuse/history/implementation-handoff.md",
+    "designs/stages/02-langfuse/m1-3-local-langfuse/history/connection-playground-handoff.md",
+    "designs/stages/02-langfuse/m1-3-local-langfuse/user-verification.md",
+    "designs/stages/02-langfuse/m1-3-local-langfuse/reviews/review-2026-11-13.md",
+    "designs/stages/02-langfuse/m1-3-local-langfuse/history/verification-simplification-plan.md",
     "designs/refactors/workflow-contract/README.md",
     "designs/refactors/workflow-contract/design.md",
     "designs/refactors/workflow-contract/file-structure.md",
@@ -35,26 +36,26 @@
     "designs/refactors/workflow-contract/implementation-plan.md",
     "designs/refactors/workflow-contract/review-follow-up.md",
     "designs/refactors/workflow-contract/review-test-quality.md",
-    "designs/stages/02-langfuse/main-reconciliation.md",
-    "designs/stages/02-langfuse/resolution-2026-11-13.md",
-    "designs/stages/02-langfuse/acceptance-2026-11-14.md",
-    "designs/stages/02-langfuse/workflow-integration/README.md",
-    "designs/stages/02-langfuse/workflow-integration/requirements.md",
-    "designs/stages/02-langfuse/workflow-integration/decisions.md",
-    "designs/stages/02-langfuse/workflow-integration/repository-updates.md",
-    "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
+    "designs/stages/02-langfuse/m1-3-local-langfuse/history/main-reconciliation.md",
+    "designs/stages/02-langfuse/m1-3-local-langfuse/reviews/resolution-2026-11-13.md",
+    "designs/stages/02-langfuse/m1-3-local-langfuse/reviews/acceptance-2026-11-14.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/README.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/requirements.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/decisions.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/history/repository-updates.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/research/crewai-langfuse.md",
     "designs/governance/stage-milestone-workflow.md",
     "designs/governance/codex-handover-rules.md",
-    "designs/stages/02-langfuse/workflow-integration/m1-context/README.md",
-    "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/README.md",
-    "designs/stages/02-langfuse/workflow-integration/m1-context/design.md",
-    "designs/stages/02-langfuse/workflow-integration/m1-context/test-cases.md",
-    "designs/stages/02-langfuse/workflow-integration/m1-context/implementation-plan.md",
-    "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/design.md",
-    "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/test-cases.md",
-    "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/implementation-plan.md",
-    "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/follow-ups.md",
-    "designs/stages/02-langfuse/workflow-integration/m2-3-workflow-tracing/reviews/status.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/README.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/README.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/design.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/test-cases.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/implementation-plan.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/design.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/test-cases.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/implementation-plan.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/follow-ups.md",
+    "designs/stages/02-langfuse/m4-workflow-integration/m4-2-3-workflow-tracing/reviews/status.md",
     "designs/stages/02-langfuse/closeout.md",
     "designs/stages/03-orchestration-patterns/README.md",
     "designs/stages/03-orchestration-patterns/requirements.md",
@@ -2432,6 +2433,12 @@
               "to": null
             },
             {
+              "name": "M1–M3 local Langfuse package",
+              "path": "designs/stages/02-langfuse/m1-3-local-langfuse/README.md",
+              "text": "Local setup, connection and mock-trace verification, acceptance and handoff records.",
+              "to": null
+            },
+            {
               "name": "Historical milestone plan",
               "path": "designs/stages/02-langfuse/milestones.md",
               "text": "Original checkpoints, acceptance gates and dated handoff agreements.",
@@ -2445,67 +2452,67 @@
             },
             {
               "name": "Personal mock playground",
-              "path": "designs/stages/02-langfuse/smoke-plan.md",
+              "path": "designs/stages/02-langfuse/m1-3-local-langfuse/smoke-plan.md",
               "text": "Editable success/failure runs for Sharon; automated fixtures remain separate.",
               "to": null
             },
             {
               "name": "Agent verification",
-              "path": "designs/stages/02-langfuse/verification.md",
+              "path": "designs/stages/02-langfuse/m1-3-local-langfuse/verification.md",
               "text": "Run practical checks before handoff; distinguish PASS from blocked/unrun checks and leave simple UI acceptance to Sharon.",
               "to": null
             },
             {
               "name": "M1 setup and follow-up",
-              "path": "designs/stages/02-langfuse/implementation-handoff.md",
-              "text": "Original setup assignment and the remaining configurable-storage-port improvement.",
+              "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/implementation-handoff.md",
+              "text": "Original setup assignment and configurable-storage-port follow-up.",
               "to": null
             },
             {
-              "name": "Implement connection and playground",
-              "path": "designs/stages/02-langfuse/connection-playground-handoff.md",
-              "text": "M2 then M3, separate tested checkpoints, concurrent configuration changes and no workflow/context work.",
+              "name": "M2–M3 connection and playground handoff",
+              "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/connection-playground-handoff.md",
+              "text": "Original M2 connection and M3 playground sequence, tested checkpoints and configuration constraints.",
               "to": null
             },
             {
-              "name": "Separate local verification files",
-              "path": "designs/stages/02-langfuse/user-verification.md",
-              "text": "One combined tested-revision Drive guide is current; M1–M3 files retain historical checkpoint evidence.",
+              "name": "M1–M3 user verification checkpoints",
+              "path": "designs/stages/02-langfuse/m1-3-local-langfuse/user-verification.md",
+              "text": "Retained M1–M3 user verification checkpoints from the original local exercise.",
               "to": null
             },
             {
-              "name": "Four review findings",
-              "path": "designs/stages/02-langfuse/review-2026-11-13.md",
-              "text": "SDK lifecycle, unresolved main conflicts, export reporting and stale status; revision-specific evidence.",
+              "name": "Original review findings from 2026-11-13",
+              "path": "designs/stages/02-langfuse/m1-3-local-langfuse/reviews/review-2026-11-13.md",
+              "text": "Revision-specific findings on SDK lifecycle, main conflicts, export reporting and status prose.",
               "to": null
             },
             {
-              "name": "CLI plan and Codex handoff",
-              "path": "designs/stages/02-langfuse/verification-simplification-plan.md",
-              "text": "Six agreed action flags, log following, newcomer setup, code ownership and verification gates. First present main conflicts and agree on resolutions.",
+              "name": "Historical CLI plan and Codex handoff",
+              "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/verification-simplification-plan.md",
+              "text": "Earlier plan for six action flags, log following, newcomer setup, code ownership, verification and conflict resolution.",
               "to": null
             },
             {
               "name": "Approved main reconciliation",
-              "path": "designs/stages/02-langfuse/main-reconciliation.md",
-              "text": "Agreed resolutions, combined verification, and the remaining implementation handoff.",
+              "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/main-reconciliation.md",
+              "text": "Agreed resolutions, combined verification and the implementation handoff at reconciliation.",
               "to": null
             },
             {
               "name": "Langfuse review follow-up",
-              "path": "designs/stages/02-langfuse/resolution-2026-11-13.md",
-              "text": "R1/R3/R4 fixes, management CLI, checks and live blocker.",
+              "path": "designs/stages/02-langfuse/m1-3-local-langfuse/reviews/resolution-2026-11-13.md",
+              "text": "R1/R3/R4 fixes, management CLI, checks and the live verification blocker at that checkpoint.",
               "to": null
             },
             {
               "name": "Local acceptance and limits",
-              "path": "designs/stages/02-langfuse/acceptance-2026-11-14.md",
+              "path": "designs/stages/02-langfuse/m1-3-local-langfuse/reviews/acceptance-2026-11-14.md",
               "text": "Mac project access, visible traces and restart persistence confirmed; bounded readback limitation retained.",
               "to": null
             },
             {
               "name": "Workflow context and native tracing",
-              "path": "designs/stages/02-langfuse/workflow-integration/README.md",
+              "path": "designs/stages/02-langfuse/m4-workflow-integration/README.md",
               "text": "Completed context and tracing packages with permanent approvals, implementation reviews, research and limits.",
               "to": "workflow_observability"
             }
@@ -2524,37 +2531,37 @@
           "blocks": [
             {
               "name": "Context design",
-              "path": "designs/stages/02-langfuse/workflow-integration/m1-context/design.md",
+              "path": "designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/design.md",
               "text": "Exact schema, runner/factory/workflow/Flow path, correlation preservation and recorded guarded amendments.",
               "to": null
             },
             {
               "name": "Test cases",
-              "path": "designs/stages/02-langfuse/workflow-integration/m1-context/test-cases.md",
+              "path": "designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/test-cases.md",
               "text": "CTX-01–17 required scenarios, meaningful assertions and evidence limits.",
               "to": null
             },
             {
               "name": "Codex implementation plan",
-              "path": "designs/stages/02-langfuse/workflow-integration/m1-context/implementation-plan.md",
+              "path": "designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/implementation-plan.md",
               "text": "Coder plus design-drift/test reviewers; at most three rounds with permanent reports.",
               "to": null
             },
             {
               "name": "Requirements and decisions",
-              "path": "designs/stages/02-langfuse/workflow-integration/requirements.md",
-              "text": "Shared spec, current agreements and explicit deferrals.",
+              "path": "designs/stages/02-langfuse/m4-workflow-integration/requirements.md",
+              "text": "Retained M4 requirements, decision history and explicit deferrals.",
               "to": null
             },
             {
               "name": "CrewAI research",
-              "path": "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
+              "path": "designs/stages/02-langfuse/m4-workflow-integration/research/crewai-langfuse.md",
               "text": "Historical released-version probe: instrumentor 1.1.25, eight cases and 44 spans. Stage 02 acceptance is recorded separately.",
               "to": null
             },
             {
               "name": "Repository reconciliation",
-              "path": "designs/stages/02-langfuse/workflow-integration/repository-updates.md",
+              "path": "designs/stages/02-langfuse/m4-workflow-integration/history/repository-updates.md",
               "text": "Historical reconciliation checklist for guarded changes, progress and acceptance. See the Stage 02 closeout for completed work.",
               "to": null
             }
@@ -2562,7 +2569,7 @@
           "note": "M4.1 candidate 16c1580 passed final review after two rounds. D30/R31 are retained. M4.2 and M4.3 were approved, accepted and merged together through PR #50.",
           "diagram": null,
           "status": "exploration",
-          "source": "designs/stages/02-langfuse/workflow-integration/README.md"
+          "source": "designs/stages/02-langfuse/m4-workflow-integration/README.md"
         }
       },
       "files": [
@@ -4332,7 +4339,12 @@
           "purpose": "Retained configuration and integration boundaries with dated checkpoints."
         },
         {
-          "path": "designs/stages/02-langfuse/smoke-plan.md",
+          "path": "designs/stages/02-langfuse/m1-3-local-langfuse/README.md",
+          "status": "Completed M1–M3 reference",
+          "purpose": "Reading order for local Langfuse setup, project connection and mock-trace evidence."
+        },
+        {
+          "path": "designs/stages/02-langfuse/m1-3-local-langfuse/smoke-plan.md",
           "status": "Historical Stage 02 plan",
           "purpose": "Personal mock-trace exercise and verification boundary."
         },
@@ -4342,84 +4354,84 @@
           "purpose": "Original gates and checkpoint history; the stage README owns current milestone status."
         },
         {
-          "path": "designs/stages/02-langfuse/verification.md",
+          "path": "designs/stages/02-langfuse/m1-3-local-langfuse/verification.md",
           "status": "Historical Stage 02 verification requirements",
           "purpose": "Original handoff checks; observed acceptance remains in the evidence records."
         },
         {
-          "path": "designs/stages/02-langfuse/implementation-handoff.md",
+          "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/implementation-handoff.md",
           "status": "Historical Stage 02 implementation handoff",
           "purpose": "Original M1 setup and port follow-up assignment."
         },
         {
-          "path": "designs/stages/02-langfuse/connection-playground-handoff.md",
-          "status": "Requested implementation handoff",
-          "purpose": "M2 then M3, separate tested checkpoints, concurrent configuration changes and no workflow/context work."
+          "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/connection-playground-handoff.md",
+          "status": "Historical M2–M3 implementation handoff",
+          "purpose": "Original M2 connection and M3 playground sequence, tested checkpoints and configuration constraints."
         },
         {
-          "path": "designs/stages/02-langfuse/user-verification.md",
-          "status": "Requested implementation handoff",
-          "purpose": "One combined tested-revision Drive guide is current; M1–M3 files retain historical checkpoint evidence."
+          "path": "designs/stages/02-langfuse/m1-3-local-langfuse/user-verification.md",
+          "status": "Historical M1–M3 user verification checkpoints",
+          "purpose": "Retained M1–M3 user verification checkpoints from the original local exercise."
         },
         {
-          "path": "designs/stages/02-langfuse/review-2026-11-13.md",
-          "status": "Open review findings",
-          "purpose": "SDK lifecycle, unresolved main conflicts, export reporting and stale status; revision-specific evidence."
+          "path": "designs/stages/02-langfuse/m1-3-local-langfuse/reviews/review-2026-11-13.md",
+          "status": "Historical review findings from 2026-11-13",
+          "purpose": "Revision-specific findings on SDK lifecycle, main conflicts, export reporting and status prose."
         },
         {
-          "path": "designs/stages/02-langfuse/verification-simplification-plan.md",
-          "status": "CLI direction agreed; execution pending",
-          "purpose": "Flag-based CLI and management specification, newcomer guides, independent checks and complete Codex handoff; joint conflict decisions first."
+          "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/verification-simplification-plan.md",
+          "status": "Historical CLI plan and implementation handoff",
+          "purpose": "Earlier CLI management plan, newcomer guidance, verification gates and the handoff for resolving main conflicts."
         },
         {
-          "path": "designs/stages/02-langfuse/main-reconciliation.md",
+          "path": "designs/stages/02-langfuse/m1-3-local-langfuse/history/main-reconciliation.md",
           "status": "Approved reconciliation; verification recorded",
           "purpose": "Preserved main and Langfuse work, combined checks, and next-agent boundary."
         },
         {
-          "path": "designs/stages/02-langfuse/acceptance-2026-11-14.md",
+          "path": "designs/stages/02-langfuse/m1-3-local-langfuse/reviews/acceptance-2026-11-14.md",
           "status": "Local exercise accepted; PR #36 merged as 44d6919",
           "purpose": "2026-11-14 user-reported Mac acceptance, revision-specific tests and remaining delivery-readback limitation."
         },
         {
-          "path": "designs/stages/02-langfuse/workflow-integration/README.md",
-          "status": "Draft planning / bounded research; no implementation approval",
+          "path": "designs/stages/02-langfuse/m4-workflow-integration/README.md",
+          "status": "Completed M4 reference",
           "purpose": "Start here: current status, milestone sequence and maintenance rules."
         },
         {
-          "path": "designs/stages/02-langfuse/workflow-integration/requirements.md",
-          "status": "Draft planning / bounded research; no implementation approval",
-          "purpose": "Current shared specification, stable requirement IDs and deferrals."
+          "path": "designs/stages/02-langfuse/m4-workflow-integration/requirements.md",
+          "status": "Retained M4 requirements",
+          "purpose": "Requirements for the approved M4 scope, with stable IDs, dated checkpoints and retained deferrals."
         },
         {
-          "path": "designs/stages/02-langfuse/workflow-integration/decisions.md",
-          "status": "Draft planning / bounded research; no implementation approval",
+          "path": "designs/stages/02-langfuse/m4-workflow-integration/decisions.md",
+          "status": "Retained M4 decisions",
           "purpose": "Accepted discussion choices, supersession and unresolved details."
         },
         {
-          "path": "designs/stages/02-langfuse/workflow-integration/repository-updates.md",
-          "status": "Draft planning / bounded research; no implementation approval",
-          "purpose": "Pending progress, guarded-baseline and closeout reconciliation."
+          "path": "designs/stages/02-langfuse/m4-workflow-integration/history/repository-updates.md",
+          "status": "Historical M4 reconciliation checklist",
+          "purpose": "Earlier progress, guarded-baseline and closeout reconciliation checkpoints."
         },
         {
-          "path": "designs/stages/02-langfuse/workflow-integration/research/crewai-langfuse.md",
-          "status": "Draft planning / bounded research; no implementation approval",
-          "purpose": "Released instrumentor probe: eight cases/44 spans; application/UI acceptance pending."
+          "path": "designs/stages/02-langfuse/m4-workflow-integration/research/crewai-langfuse.md",
+          "status": "Historical M4.R research evidence",
+          "purpose": "Released instrumentor probe: eight cases and 44 spans, with product acceptance recorded separately."
         },
         {
-          "path": "designs/stages/02-langfuse/workflow-integration/m1-context/design.md",
+          "path": "designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/design.md",
           "status": "Approved M4.1 contract; implemented, verified and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6",
-          "purpose": "Draft typed context contract and full runner/Flow propagation."
+          "purpose": "Approved typed context contract and full runner/Flow propagation."
         },
         {
-          "path": "designs/stages/02-langfuse/workflow-integration/m1-context/test-cases.md",
+          "path": "designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/test-cases.md",
           "status": "Approved M4.1 contract; implemented, verified and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6",
-          "purpose": "Draft CTX-01–17 acceptance and meaningful assertion mapping."
+          "purpose": "Approved CTX-01–17 acceptance cases and assertion mapping."
         },
         {
-          "path": "designs/stages/02-langfuse/workflow-integration/m1-context/implementation-plan.md",
+          "path": "designs/stages/02-langfuse/m4-workflow-integration/m4-1-context/implementation-plan.md",
           "status": "Approved M4.1 contract; implemented, verified and accepted; merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6",
-          "purpose": "Draft Codex handoff: coder, two reviewers, max three rounds and permanent reports."
+          "purpose": "Approved implementation and review plan with a coder, two reviewers, at most three rounds and permanent reports."
         }
       ]
     }

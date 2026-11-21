@@ -9,8 +9,8 @@ Application logging is separate work owned by a different agent under `designs/r
 ## Historical checkpoints
 
 
-Status: **Approved milestone boundaries; M1–M3 merged through PR #36, with local setup/mock-trace acceptance recorded on 2026-11-14; see [acceptance and limits](acceptance-2026-11-14.md). This document retains its original proposal examples as historical design context.**
-[Milestones](milestones.md) · [Playground exercise](smoke-plan.md)
+Status: **Approved milestone boundaries; M1–M3 merged through PR #36, with local setup/mock-trace acceptance recorded on 2026-11-14; see [acceptance and limits](m1-3-local-langfuse/reviews/acceptance-2026-11-14.md). This document retains its original proposal examples as historical design context.**
+[Milestones](milestones.md) · [Playground exercise](m1-3-local-langfuse/smoke-plan.md)
 
 ## What exists before a workflow context
 
@@ -145,7 +145,7 @@ The initial workflow context is data-only, with application correlation and work
 
 ## M4.1 acceptance and merge checkpoint — 2026-11-14
 
-M4.1 is implemented, verified, accepted by Sharon and merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Approved data-only context semantics and M1–M3 history remain unchanged. M4.2 native runner tracing is the next design; M4.3/logging remain later. See [context status](workflow-integration/m1-context/reviews/status.md).
+M4.1 is implemented, verified, accepted by Sharon and merged via PR #44 at 942e59344c429454263319e783ea76ad297b7ea6. Approved data-only context semantics and M1–M3 history remain unchanged. M4.2 native runner tracing is the next design; M4.3/logging remain later. See [context status](m4-workflow-integration/m4-1-context/reviews/status.md).
 
 ## M4.2/M4.3 combined native tracing — approved 2026-11-15
 

@@ -108,4 +108,4 @@ Documentation-only verification is recorded separately in the implementation pla
 
 ## Dated M4.1 test cross-reference — 2026-11-14
 
-Existing lifecycle and selection acceptance obligations remain. Maintained direct constructor tests now provide the required context argument. The [CTX-01–17 cases](../../stages/02-langfuse/workflow-integration/m1-context/test-cases.md) add identity, actual Flow propagation, isolation and installed-release evidence for the separately approved M4.1 milestone.
+Existing lifecycle and selection acceptance obligations remain. Maintained direct constructor tests now provide the required context argument. The [CTX-01–17 cases](../../stages/02-langfuse/m4-workflow-integration/m4-1-context/test-cases.md) add identity, actual Flow propagation, isolation and installed-release evidence for the separately approved M4.1 milestone.
