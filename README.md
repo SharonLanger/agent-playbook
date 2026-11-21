@@ -1,5 +1,7 @@
 # Agent Playbook
 
+![Agent Playbook banner with robots following a path across an open playbook](designs/diagrams/readme/agent-playbook-banner.jpg)
+
 ![Agent Playbook 0.2.0 · CrewAI 1.15.40 · Langfuse SDK 5.2.0 · VictoriaLogs 1.54.0](designs/diagrams/readme/stack.svg)
 
 Agent Playbook is a local-first Python environment for agent orchestration. Today it runs deterministic workflows with CrewAI Flows, captures their traces in Langfuse, and sends structured application logs to VictoriaLogs.
