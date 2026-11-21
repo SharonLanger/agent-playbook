@@ -1,5 +1,9 @@
 # Progress and acceptance
 
+## Application logging refactor complete — 2026-11-21
+
+M1 (#54), M2 (#55), M3 (#65 and #57), and overall design #51 are merged. Sharon accepted the Mac workflow and service sanity check. See the [milestone record](refactors/logging/progress.md) for deferred live checks, CLI doctor #37, and security follow-up #66. Guided setup is deferred.
+
 ## PR CI and local version tracking — 2026-11-21
 
 The [approved package and final review](refactors/pr-ci/README.md) track issue #62. The originating session passed the corrected code on [implementation PR #64](https://github.com/SharonLanger/agent-playbook/pull/64) at `ba9a18a`. The implementation team recorded 483 passing tests and a verified 0.2.0 wheel on Linux. Sharon accepted #64 and it merged at [`19e4f22`](https://github.com/SharonLanger/agent-playbook/commit/19e4f22de6ac637a9487db8129bc8dad56c52f6d). Sharon authorized design closeout in #63. Private hosted jobs were skipped and main was unprotected at closeout. [Issue #62](https://github.com/SharonLanger/agent-playbook/issues/62) tracks public macOS verification, branch enforcement and the final coordinated fresh run.

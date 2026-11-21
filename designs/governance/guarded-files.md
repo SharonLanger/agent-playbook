@@ -77,7 +77,7 @@ All previous guards and the recorded approval baseline remain. PR #47's merge do
 
 ## LOG-G06 — logging M2 approved baseline, 2026-11-16
 
-Sharon approved M2 behavior and LOG-G01–06 at immutable revision `caeb1637bd9aa611447703f4c19c38becacfe412`. The following contract files remain guarded on the open design workspace; this registration does not authorize merging it:
+Sharon approved M2 behavior and LOG-G01–06 at immutable revision `caeb1637bd9aa611447703f4c19c38becacfe412`. The following contract files remain guarded after design closeout in #51. The links preserve the approved revision.
 
 | Guarded path | Immutable authority |
 |---|---|
