@@ -4,7 +4,7 @@ These are optional research, POCs and preserved reasoning. They can be supersede
 
 | Topic / search terms | Read | Status and open question |
 |---|---|---|
-| Agent roles, coder, reviewer, verifier, Claude, Codex, events, normalization, capabilities | [Agent execution](agent-execution/README.md) | Exploration: contract size, native evidence, controls and role-specific handlers remain undecided |
+| Agent roles, coder, reviewer, verifier, Claude, Codex, events, normalization, capabilities | [Earlier agent execution exploration](agent-execution/README.md) · [Stage 04 decision board](../stages/04-agent-execution/decisions.md#three-abc-approval-and-design-review--revision-12) | Stage 04 records approval of the `Agent`, `ExecutionAdapter` and `EventMapper` abstract classes. Native provider behavior still needs verification. |
 | Logging, tracing, Langfuse, exporters, alternatives | [Observability](observability.md) · [Stage 02 milestone index](../stages/02-langfuse/README.md) · [Workflow-integration package and research](../stages/02-langfuse/m4-workflow-integration/README.md) | Stage 02 accepted and merged via #47. M1–M3, M4.1 and combined M4.2 + M4.3 delivered. The eight-case CrewAI probe is research evidence; final application and local acceptance are in the stage records. The separate [application logging refactor](../refactors/logging/README.md) is complete. |
 | Harness, tools, hooks, permissions, prompts | [Harness](harness.md) | Deferred exploration; avoid treating proposed paths as approved abstractions |
 
