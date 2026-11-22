@@ -10,4 +10,10 @@ Prerequisites: local Docker Engine/Desktop running; source checkout and Python e
 
 Excluded: production runner changes, generalized initialization framework, public API/distribution, log-management CLI, Langfuse Compose migration, exception formatting, durable replay and extensive product/security testing.
 
-Next: review and approve this concrete design/test/plan revision before implementing. The current update prepares the draft only.
+For current logging status and remaining live checks, see the [closeout record](../progress.md).
+
+## Historical design checkpoint
+
+Before implementation, the next action was to review and approve the concrete
+design/test/plan revision. That draft-only checkpoint is superseded by the
+completed implementation in merged PR #54; it is not a new implementation task.

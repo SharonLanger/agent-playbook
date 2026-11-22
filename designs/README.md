@@ -10,7 +10,7 @@ and learn it. Progress records what has actually been accepted.
 | [Workflow contract refactor](refactors/workflow-contract/README.md) | Completed and accepted ABC lifecycle and YAML contract; [A1–F6 mapping](refactors/workflow-contract/review-follow-up.md) and [Q1–Q4 test corrections](refactors/workflow-contract/review-test-quality.md) retain revision-specific evidence |
 | [Runtime structure refactor](refactors/2026-11-12-runtime-structure/README.md) | Accepted runtime refactor record, exploratory future-tree proposal and revision-specific verification evidence |
 | [Application logging](refactors/logging/README.md) | Complete. M1–M3 delivered local workflow logs and service controls. |
-| [Project refactor](refactors/project-refactor/README.md) | Stage document structure, existing-stage alignment and the learning and sandbox migration in draft PR #59 |
+| [Project refactor](refactors/project-refactor/README.md) | Stage document structure, existing-stage alignment and the learning and sandbox migration merged through PR #59 |
 | [project-structure.md](project-structure.md) | Guarded folder ownership, dependency rules and current source layout |
 | [architecture.md](architecture.md) | Components, ownership, execution, errors, data and integration boundaries |
 | [diagrams/](diagrams/README.md) | Animated SVGs, static SVGs and a local visual viewer |

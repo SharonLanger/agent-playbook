@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="593" height="692" viewBox="0 0 593 692" role="img" aria-labelledby="title desc">
+  <title id="title">From an approved milestone to merge authorization</title>
+  <desc id="desc">The boxed coding and independent review cycle allows up to three rounds in total. Required fixes go back to the coding agent. Passed reviews lead to final design review. If the contract must change, it goes back for maintainer approval. The maintainer separately accepts the result and authorizes the merge.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1">
+      <stop stop-color="#0c1725"/>
+      <stop offset="1" stop-color="#15263a"/>
+    </linearGradient>
+    <marker id="control" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#69d9ce"/>
+    </marker>
+    <marker id="fix" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#f5ba77"/>
+    </marker>
+    <marker id="revise" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#b4a3ff"/>
+    </marker>
+  </defs>
+  <style>text { font-family: Inter, Arial, sans-serif; }</style>
+  <rect width="593" height="692" rx="12" fill="url(#bg)"/>
+  <text x="22" y="32" fill="#f1f6fc" text-anchor="start" font-size="23" font-weight="700">One candidate, two independent reviews</text>
+  <rect x="115" y="49" width="322" height="62" rx="8" fill="#192b40" stroke="#a2b7ca" stroke-width="1" stroke-opacity=".6"/>
+  <rect x="116" y="58" width="3" height="44" rx="1.5" fill="#a2b7ca"/>
+  <text x="276" y="74" fill="#f1f6fc" text-anchor="middle" font-size="20" font-weight="700">Maintainer approves revision</text>
+  <text x="276" y="97" fill="#b9cada" text-anchor="middle" font-size="17" font-weight="400">Design &#183; test cases &#183; implementation plan</text>
+  <rect x="15" y="132" width="516" height="352" rx="10" fill="#101e2e" stroke="#69d9ce" stroke-width="1" stroke-opacity=".55"/>
+  <text x="31" y="158" fill="#69d9ce" text-anchor="start" font-size="14" font-weight="700" letter-spacing="1.4">IMPLEMENTATION REVIEW</text>
+  <text x="31" y="181" fill="#69d9ce" text-anchor="start" font-size="17" font-weight="700">Up to 3 total rounds</text>
+  <path d="M278 111 V192" fill="none" stroke="#69d9ce" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#control)" stroke-opacity=".8"/>
+  <rect x="144" y="194" width="268" height="40" rx="8" fill="#192b40" stroke="#69d9ce" stroke-width="1" stroke-opacity=".6"/>
+  <rect x="145" y="203" width="3" height="22" rx="1.5" fill="#69d9ce"/>
+  <text x="278" y="221" fill="#f1f6fc" text-anchor="middle" font-size="20" font-weight="700">Coding agent</text>
+  <path d="M278 234 V252" fill="none" stroke="#69d9ce" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#control)" stroke-opacity=".8"/>
+  <rect x="144" y="254" width="268" height="41" rx="8" fill="#192b40" stroke="#69d9ce" stroke-width="1" stroke-opacity=".6"/>
+  <rect x="145" y="263" width="3" height="23" rx="1.5" fill="#69d9ce"/>
+  <text x="278" y="281.5" fill="#f1f6fc" text-anchor="middle" font-size="20" font-weight="700">Freeze code and tests</text>
+  <path d="M278 295 V309 H155 V325" fill="none" stroke="#69d9ce" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#control)" stroke-opacity=".8"/>
+  <path d="M278 309 H399 V325" fill="none" stroke="#69d9ce" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#control)" stroke-opacity=".8"/>
+  <rect x="58" y="327" width="195" height="62" rx="8" fill="#192b40" stroke="#b4a3ff" stroke-width="1" stroke-opacity=".6"/>
+  <rect x="59" y="336" width="3" height="44" rx="1.5" fill="#b4a3ff"/>
+  <text x="155.5" y="352" fill="#f1f6fc" text-anchor="middle" font-size="20" font-weight="700">Design drift</text>
+  <text x="155.5" y="375" fill="#b9cada" text-anchor="middle" font-size="17" font-weight="400">Contract and boundaries</text>
+  <rect x="297" y="327" width="203" height="62" rx="8" fill="#192b40" stroke="#b4a3ff" stroke-width="1" stroke-opacity=".6"/>
+  <rect x="298" y="336" width="3" height="44" rx="1.5" fill="#b4a3ff"/>
+  <text x="398.5" y="352" fill="#f1f6fc" text-anchor="middle" font-size="20" font-weight="700">Test quality</text>
+  <text x="398.5" y="375" fill="#b9cada" text-anchor="middle" font-size="17" font-weight="400">Behavior and assertions</text>
+  <path d="M155 389 V402 H242 V415" fill="none" stroke="#69d9ce" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#control)" stroke-opacity=".8"/>
+  <path d="M399 389 V402 H311 V415" fill="none" stroke="#69d9ce" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#control)" stroke-opacity=".8"/>
+  <rect x="144" y="417" width="268" height="42" rx="8" fill="#192b40" stroke="#69d9ce" stroke-width="1" stroke-opacity=".6"/>
+  <rect x="145" y="426" width="3" height="24" rx="1.5" fill="#69d9ce"/>
+  <text x="278" y="445" fill="#f1f6fc" text-anchor="middle" font-size="20" font-weight="700">Consolidate findings</text>
+  <path d="M144 438 H35 V214 H142" fill="none" stroke="#f5ba77" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#fix)" stroke-opacity=".8"/>
+  <text x="45" y="236" fill="#f5ba77" text-anchor="start" font-size="16" font-weight="700">Fixes</text>
+  <text x="45" y="257" fill="#f5ba77" text-anchor="start" font-size="16" font-weight="700">needed</text>
+  <path d="M278 459 V522" fill="none" stroke="#69d9ce" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#control)" stroke-opacity=".8"/>
+  <text x="289" y="506" fill="#69d9ce" text-anchor="start" font-size="16" font-weight="700">Both pass</text>
+  <rect x="104" y="524" width="341" height="60" rx="8" fill="#192b40" stroke="#69d9ce" stroke-width="1" stroke-opacity=".6"/>
+  <rect x="105" y="533" width="3" height="42" rx="1.5" fill="#69d9ce"/>
+  <text x="274.5" y="549" fill="#f1f6fc" text-anchor="middle" font-size="20" font-weight="700">Final design review</text>
+  <text x="274.5" y="572" fill="#b9cada" text-anchor="middle" font-size="17" font-weight="400">Inspect the diff and verification evidence</text>
+  <path d="M445 554 H558 V80 H439" fill="none" stroke="#b4a3ff" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#revise)" stroke-opacity=".8"/>
+  <text x="453" y="531" fill="#b4a3ff" text-anchor="start" font-size="16" font-weight="700">Contract</text>
+  <text x="453" y="549" fill="#b4a3ff" text-anchor="start" font-size="16" font-weight="700">change</text>
+  <path d="M278 584 V605" fill="none" stroke="#69d9ce" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#control)" stroke-opacity=".8"/>
+  <rect x="85" y="607" width="386" height="63" rx="8" fill="#192b40" stroke="#a2b7ca" stroke-width="1" stroke-opacity=".6"/>
+  <rect x="86" y="616" width="3" height="45" rx="1.5" fill="#a2b7ca"/>
+  <text x="278" y="632" fill="#f1f6fc" text-anchor="middle" font-size="20" font-weight="700">Maintainer decision</text>
+  <text x="278" y="655" fill="#b9cada" text-anchor="middle" font-size="17" font-weight="400">Accept the outcome, then authorize merge</text>
+</svg>

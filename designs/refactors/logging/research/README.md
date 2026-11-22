@@ -25,7 +25,10 @@ Structlog and VictoriaLogs have different responsibilities and may be combined. 
 | R05 | Validate selected storage/delivery | Pinned versions; restart, rotation, concurrent writers, disk/queue limits, flushing, replay/duplicate measurements |
 | R06 | Trace/event integration if selected | Supported native enrichment/capture; no broker or duplicate records; Stage 04 coordination |
 
-Current next step: [M1 configuration sanity](../m1-configuration-sanity/README.md) for the selected direct-OTLP direction. R01 matters before production integration; broader R04/R05 and R06 remain later work.
+The selected direct-OTLP direction was implemented through M1–M3; see the
+[completed logging refactor](../README.md) for current status and remaining work.
+The research tasks above retain their original scope; completion of the refactor
+does not establish that every research question or live probe was completed.
 
 ## Future research record
 

@@ -1,6 +1,6 @@
 # Project refactor
 
-**Status — draft PR.** [Project refactor PR #59](https://github.com/SharonLanger/agent-playbook/pull/59) contains the approved [stage and milestone structure](stage-structure.md), the [existing-stage alignment](stage-alignment.md), and the authorized [shared-learning and root-sandbox migration](learning-sandbox-migration.md). The migration is applied on the draft branch. Its independent review has a separate evidence record.
+**Status — merged.** [Project refactor PR #59](https://github.com/SharonLanger/agent-playbook/pull/59) delivered the approved [stage and milestone structure](stage-structure.md), the [existing-stage alignment](stage-alignment.md), and the authorized [shared-learning and root-sandbox migration](learning-sandbox-migration.md). The migration is present on main. Its independent review remains attached to its recorded revision.
 
 Sharon agreed to the structure and retention direction in the 2026-11-18 project-structure discussion. On 2026-11-19 Sharon authorized the shared-learning and root-sandbox migration using the proposed destinations and archive, with the two guarded navigation and ownership amendments recorded in the [migration record](learning-sandbox-migration.md).
 
@@ -123,9 +123,9 @@ The reviewer guide now requires an explicitly supplied Drive destination instead
 
 Scope and verification: the preceding exposure audit located these links in current tracked content at the unchanged main baseline above; this branch previously added only this proposal. The five affected files and this proposal were checked for remaining Drive URLs and copied destination IDs after editing. The Markdown table labels and local navigation remain intact. Historical links are accepted by the owner and are not removed through a history rewrite. This decision resolves the intended treatment of audit item F-002; main still requires the PR to be merged before its current files reflect the cleanup. Other audit items, metadata-email decisions and coverage limits remain open.
 
-## Remaining decisions
+## Historical merge checkpoint
 
-The migration's independent review and Sharon's disposition are recorded separately from this proposal. PR #59 remains draft and unmerged.
+The migration's independent review and Sharon's disposition are recorded separately from this proposal. PR #59 was draft and unmerged at this checkpoint; the current merged status is recorded at the top of this file.
 
 ## Refactor process clarification — 2026-11-19
 

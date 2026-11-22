@@ -1,4 +1,19 @@
-# Local logging smoke
+# Local logging tooling
+
+Checkout-only tools for the local VictoriaLogs service and explicit checks.
+
+| File | Purpose |
+|---|---|
+| `manage.py` | Start, inspect or stop VictoriaLogs through `agent-playbook logs` |
+| `compose.yaml` | Local VictoriaLogs container, network and retained volume |
+| `logging_smoke.py` | Emit a synthetic record for manual ingestion/UI verification |
+| `check_services.py` | Read-only checks of configured Langfuse and logging connections |
+
+All commands below run from the repository root after bootstrap. For service
+commands and configuration, see the [CLI guide](../../docs/cli.md#local-services)
+and [application logging guide](../../docs/logging.md).
+
+## Local logging smoke
 
 This opt-in checkout tool emits one synthetic INFO record using the OpenTelemetry
 SDK directly to VictoriaLogs. It is separate from normal workflow logging and
@@ -7,10 +22,14 @@ does not configure Langfuse or the application runner.
 Use a local Docker daemon and local volume. Docker Engine 28+ is required for the
 documented loopback publishing semantics (older engines have a same-L2 exposure
 caveat). Install the Docker Compose plugin and bootstrap the application Python environment.
-The configuration was resolved with Docker CLI 29.9.2 and Compose 2.40.3 on Linux;
-Sharon's first Docker Desktop/macOS run started the service but failed to publish
-port 9428 on the former internal-only network. The bridge correction still needs
-a fresh local post-cleanup UI record.
+The earlier setup was checked with Docker CLI 29.9.2 and Compose 2.40.3 on Linux.
+An initial Docker Desktop/macOS run failed to publish port 9428 on the former
+internal-only network; the configuration now uses an ordinary bridge.
+The logging refactor subsequently closed on accepted Mac service/workflow sanity
+checks, including visible VictoriaLogs records. See the
+[logging progress record](../../../designs/refactors/logging/progress.md) for
+that acceptance and the detailed live checks still outstanding. Each synthetic
+smoke run below requires its own record inspection to confirm delivery.
 
 From the repository root:
 
@@ -24,7 +43,7 @@ app/.venv/bin/python app/tooling/logging/logging_smoke.py --endpoint http://127.
 ```
 
 Check that the selected Docker context uses your local daemon, not a remote host.
-The logging CLI pins the project name to `agent-playbook-logging-smoke` and manages only VictoriaLogs. Use `agent-playbook services --start` to select local components by enabled flags.
+The logging CLI pins the project name to `agent-playbook-logging-smoke` and manages only VictoriaLogs. Use `app/.venv/bin/agent-playbook services --start` to select local components by enabled flags.
 The only service is `victoriametrics/victoria-logs:v1.54.0`, with a local named
 volume, seven-day retention, local Docker logging driver, loopback port 9428 and
 one ordinary bridge network. Change `-retentionPeriod=7d` in this component's Compose file
@@ -93,7 +112,7 @@ Application workflow logging is configured through the existing YAML loader; see
 failure behavior and limitations. Run the read-only diagnostic explicitly:
 
 ```bash
-.venv/bin/python tooling/logging/check_services.py --config application.yaml
+app/.venv/bin/python app/tooling/logging/check_services.py --config app/application.yaml
 ```
 
 The VictoriaLogs check uses the selected release's `/health` endpoint (HTTP 200),
