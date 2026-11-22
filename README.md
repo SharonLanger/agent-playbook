@@ -1,5 +1,7 @@
 # Agent Playbook
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
 ![Agent Playbook banner with robots following a path across an open playbook](designs/diagrams/readme/agent-playbook-banner.jpg)
 
 ![Agent Playbook 0.2.0 · CrewAI 1.15.40 · Langfuse SDK 5.2.0 · VictoriaLogs 1.54.0](designs/diagrams/readme/stack.svg)
