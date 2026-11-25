@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 32 · Updated: 2026-11-25 · Owner: Sharon
+Revision: 33 · Updated: 2026-11-25 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 The [milestone table](README.md#canonical-milestone-and-readiness-index) owns current status. The [M1 alignment checkpoint](decisions.md#m1-alignment-checkpoint--2026-11-25) records resumed detailed design in PR #72; D54 below settles construction-time validation. Dated sections below preserve their original revision context.
@@ -150,7 +150,7 @@ The planned distinction is about ownership: role-facing execution evidence versu
 | Q05 | Answered for MVP: no human interaction (D16). Automatic policy defaults remain open; interactive permission/input callbacks are future scope. |
 | Q06 | Hooks, interruption/cancellation, steering and session reuse scope. |
 | Q07 | Which reference project's code or dependency, if any, to adopt. |
-| Q08 | ABC/callback declarations and frozen event/result dataclasses are settled (D26/D37). D54 settles construction-time schema validation and propagated creation errors. D55 selects TypeError/ValueError with model/field/rule diagnostics. Exact constraints/diagnostic formatting, other model representations, nested-mutation policy and serialization/versioning remain open. |
+| Q08 | ABC/callback declarations and frozen event/result dataclasses are settled (D26/D37). D54 settles construction-time schema validation and propagated creation errors. D55 selects TypeError/ValueError with model/field/rule diagnostics. Exact constraints/diagnostic formatting, other model representations, D56 settles immutable event snapshots; concrete representation and serialization/versioning remain open. |
 | Q09 | Correlation and observability integration without duplicating work in the logging/context stream. |
 | Q10 | Backpressure, callback exceptions, stream disconnects and retry behavior. |
 | Q11 | Any UI requirement and separation from the execution core. |
@@ -411,6 +411,14 @@ D55 — **Approved:** a wrong supplied type raises `TypeError`; a correctly type
 
 This refines Q08's exception representation only. Exact constraints, diagnostic formatting, multiple-error reporting and nested mutation remain open. Existing frozen dataclasses, lifecycle rules and milestone boundaries are unchanged. The M1 design/test/plan remain drafts pending full approval.
 
+## Immutable event snapshots and future hooks — revision 33
+
+D56 — **Approved:** events are immutable snapshots after construction, including nested JSON data. Mutating a producer's original containers must not change an event; consumers cannot mutate its nested contents through supported operations. This strengthens D37's frozen dataclasses. Exact container representation, helper placement and JSON conversion remain open.
+
+Immutability fixes an instance, not the schema forever: future reviewed contract revisions may add fields and create new instances. Future hooks may separately return newly constructed responses carrying additional context through supported adapter/native control points. The current observation callback still returns None. This extension direction does not approve any hook contract/implementation, provider guarantee or BC04 expansion; BC04 remains Pending.
+
+D54/D55 validation and construction errors remain unchanged. Preserving accepted JSON meaning in immutable containers is distinct from coercing invalid values. M1-T10/T11 and implementation steps 3–4 express the guarantee; request/settings/permission immutability and exact representation/serialization remain to be designed.
+
 ## Revision history
 
 | Revision | Date | Change |
@@ -447,3 +455,4 @@ This refines Q08's exception representation only. Exact constraints, diagnostic 
 | 30 | 2026-11-21 | D53 authorizes four shared navigation files. Stage requirements and milestone approvals retain their existing status. |
 | 31 | 2026-11-25 | D54 requires construction-time schema validation and propagation of creation errors; exact constraints/exception representation remain open; M1 detailed design resumes in #72. |
 | 32 | 2026-11-25 | D55 approves standard TypeError/ValueError validation exceptions and model/field/rule diagnostics; matching M1 design/test/plan updated. |
+| 33 | 2026-11-25 | D56 approves immutable event snapshots including nested data and preserves schema evolution/future hook responses; BC04 stays Pending. |

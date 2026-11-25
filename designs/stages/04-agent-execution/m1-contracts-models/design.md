@@ -25,13 +25,23 @@ For the already accepted fields, this means rejecting examples such as `TextProd
 
 The eventual request/settings/permission schemas must follow the same construction-time rule once their fields are agreed. This decision does not invent field constraints, require filesystem/network/provider access during construction, or add D17's excluded tool/policy contradiction engine. Provider support and permission enforcement require later execution/integration evidence. Cross-event relationships cannot be validated from one object, and missing relationships must not be guessed.
 
-Frozen event/result dataclasses remain approved; no new dependency or validation framework is selected. Construction validation does not settle how nested mutable containers are copied or protected after creation. D55 selects TypeError for wrong types and ValueError for correctly typed values violating an agreed constraint. Messages identify the model, field and violated rule; caller-visible failure propagates. No custom validation exception is introduced. Exact formatting and multiple-error reporting remain open. M2 owns applying the existing D43–D49 execution/cleanup rules when creation errors escape an adapter or handler.
+Frozen event/result dataclasses remain approved; no new dependency or validation framework is selected. D56 adds deep snapshot immutability for events; exact container representation remains open. D55 selects TypeError for wrong types and ValueError for correctly typed values violating an agreed constraint. Messages identify the model, field and violated rule; caller-visible failure propagates. No custom validation exception is introduced. Exact formatting and multiple-error reporting remain open. M2 owns applying the existing D43–D49 execution/cleanup rules when creation errors escape an adapter or handler.
 
 Traceability: G7/G8 and Q08 → D37/D54/D55 → construction-time rejection/propagation → M1-T05/T08/T09 → implementation step 3 and focused contract tests. Those tests remain planned, not executed.
 
 ### Validation exception examples — approved D55
 
 A `TextProduced` constructed with `text=42` raises `TypeError`; its diagnostic identifies `TextProduced`, `text` and the requirement for a string. A correctly typed value violating a subsequently agreed constraint raises `ValueError`; the test matrix must use an actually agreed constraint, not invent a nonempty-string rule. Nested invalid data follows the same type/value distinction. Constructors do not wrap these errors in a custom schema exception.
+
+## Immutable event snapshots — approved D56
+
+All five event variants are immutable after successful construction, including nested tool input/output and the existing immutable result carried by ExecutionFinished. Construction must detach mutable input containers so later producer edits cannot alter the event. Consumers cannot add, replace or remove nested content through supported operations. This is an application data contract, not a security boundary against deliberate Python runtime bypasses.
+
+Meaningful examples: construct an event from a dictionary containing a nested list and dictionary, then modify each original container; the event retains its original values. Attempts to modify the event's nested object/array fail and leave the snapshot unchanged. JSON meaning, array order, null and unknown evidence are preserved. Exact read-only container types, mutation-error details, accepted constructor container types and JSON conversion API remain to be designed before lock. D54/D55 still reject invalid data; freezing valid containers is not permission to coerce invalid input.
+
+Schema evolution remains possible through reviewed fields and newly constructed instances. A future hook may read an immutable request and return a separate new response with additional context. That illustrates extension compatibility, not M1 hook behavior or a promise about any native SDK. Current EventHandler returns None; BC04 remains Pending and no hook fixtures or implementation are added.
+
+Traceability: D37/D54/D56 → immutable validated snapshots → M1-T09/T10/T11 → implementation steps 3–4. Scope is event data; other model representations remain open.
 
 ## Boundary and proposed placement
 
@@ -45,7 +55,7 @@ M1 does not construct a harness, fake/provider adapter, demo role, workflow or r
 |---|---|
 | Request/result details | Exact required/optional fields, outcome distinctions, defaults and invalid input behavior. Respect D36/D42. |
 | Settings and permissions | Available, allowed and disallowed tool semantics, policy enforcement responsibility, unsupported capability behavior and defaults. Preserve honest provider-specific differences. |
-| Identity and validation | D54 settles construction-time validation and propagated errors. Still open: exact constraints and remaining diagnostic details, JSON details, nested-copy/mutation policy, event-local identity and whether a portable representation is needed now. |
+| Identity and validation | D54 settles construction-time validation and propagated errors. Still open: exact constraints and remaining diagnostic details, JSON details, concrete immutable-event representation/conversion, event-local identity and whether a portable representation is needed now. |
 | Error expression | Contract-level behavior for missing evidence, slow handlers, cleanup diagnostics and cancellation where necessary. D43–D49 already settle the documented primary failure and event order. |
 | Guarded ownership | Exact amendment to architecture and project structure for execution-owned mapping and role placement. Present the logical diff to Sharon first. |
 

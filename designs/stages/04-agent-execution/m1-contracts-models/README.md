@@ -22,6 +22,6 @@ This package is a focused design proposal based on Stage 04 PR #45 at `b9d912fa5
 | This detailed design, tests and plan | Draft for discussion, no approved SHA |
 | Implementation PR, verification, Sharon's acceptance | None, pending |
 
-**Current decision:** D54 approves construction-time schema validation and propagation of creation errors. D55 approves TypeError/ValueError with model/field/rule diagnostics. Field constraints, remaining diagnostic details and the other listed choices remain open; this is not approval of the complete detailed package.
+**Current decision:** D54 approves construction-time schema validation and propagation of creation errors. D55 approves TypeError/ValueError with model/field/rule diagnostics. D56 approves immutable event snapshots including nested data while preserving future schema evolution/hook responses. Concrete representation/conversion, field constraints, remaining diagnostic details and the other listed choices remain open; this is not approval of the complete detailed package.
 
 **Next action:** design agent resolves the remaining M1 choices with Sharon one at a time, reconciles affected guarded architecture and structure explicitly, then prepares the three detailed files for a single revision approval. No implementation handoff is active.

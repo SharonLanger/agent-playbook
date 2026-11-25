@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 32 · Updated: 2026-11-25 · Owner: Sharon
+Revision: 33 · Updated: 2026-11-25 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 The [M1 alignment checkpoint](#m1-alignment-checkpoint--2026-11-25) records the resumed detailed design in PR #72. The [November 21 checkpoint](#scope-and-methodology-checkpoint) retains the earlier scope/status record. Dated checkpoints retain the evidence and open questions from their revision.
@@ -89,7 +89,7 @@ No current PR/merge status is inferred from stale handover prose. The decision r
 | Q05 | Are interactive permissions and user questions needed in the first scope? | **Answered for MVP; future interaction deferred** | D16: configured automatic policy or clear failure, with no human prompt or approval wait. |
 | Q06 | Which hooks, cancellation, steering and session controls are required? | **Open** | Capability evidence and concrete first use case needed. |
 | Q07 | Reuse a dependency, copy permitted components, or write thin native wrappers? | **Open** | Study the five projects and licenses; no adoption yet. |
-| Q08 | Mandatory behavioral interfaces, payload models and serialization/versioning needs? | **Partly answered — D26/D37/D54** | Three ABCs/callback and frozen event/result dataclasses are approved. D54 requires construction-time schema validation and propagation of creation errors. D55 selects TypeError/ValueError with model/field/rule diagnostics. Exact constraints, diagnostic formatting, remaining model representations, nested-mutation policy and serialization remain open. |
+| Q08 | Mandatory behavioral interfaces, payload models and serialization/versioning needs? | **Partly answered — D26/D37/D54** | Three ABCs/callback and frozen event/result dataclasses are approved. D54 requires construction-time schema validation and propagation of creation errors. D55 selects TypeError/ValueError with model/field/rule diagnostics. Exact constraints, diagnostic formatting, remaining model representations, D56 settles immutable event snapshots; concrete representation and serialization remain open. |
 | Q09 | How do events connect to run/step context and observability? | **Open** | Coordinate with existing context/logging work; resolve C01. |
 | Q10 | What happens on slow/failed handlers, disconnects or partial evidence? | **Open** | Define ordered delivery and explicit failure policy before implementation. |
 | Q11 | Is a UI needed; which actions may it issue? | **Open / later** | UI references are not a committed UI requirement. |
@@ -1166,6 +1166,20 @@ Q08 is now answered for exception classes and required diagnostic content. Exact
 
 The M1 design, M1-T05/T08/T09 and implementation steps 3–4 are updated together. Main/base and governing documents retain the prior checked revision; #72 was checked at `0555e3fad1a4c8ce36cea7226714706ffb8b06b1`, and #45 remains draft/open at `b9d912fa5a8e984885d1808147cdb10297575ed5`. The complete detailed package remains unapproved; no implementation or merge is authorized.
 
+## Immutable event snapshots and future hooks — revision 33
+
+D56 — **Approved:** event instances are immutable snapshots after construction, including nested JSON data. The original dictionaries/lists retained by a producer must not be able to alter the constructed event; consumers must not be able to mutate nested event data through its supported API. D37's frozen dataclasses remain selected, strengthened by this nested-data guarantee. Exact immutable container representation, helper placement and JSON conversion API remain detailed-design choices; no library is selected.
+
+Evidence: Sharon first selected immutability and requested an effort/risk assessment, then asked that future event enhancements and hooks adding context remain possible. After the explanation distinguishing immutable instances from schema evolution and hook responses, he confirmed “I go with your recomandation”.
+
+Alternatives retained: mutable payloads are simpler but can invalidate a validated event; defensive copying alone prevents mutation through producer aliases but still permits consumers to alter the event's own nested data. Deep immutability was selected to keep observations consistent across consumers. The qualitative effort assessment was small-to-moderate: recursive validation/snapshot construction and meaningful mutation tests, with representation/JSON-conversion and payload-copy cost as the main risks. This is an estimate, not a measured implementation result or an approved generic immutable-object framework.
+
+**Extensibility clarification:** an immutable instance cannot acquire or change fields after construction. A later explicitly reviewed schema revision can add fields and construct new instances. Future execution-affecting hooks may use separate request/response data: a handler can prepare additional context locally and return it in a new response for an adapter to translate through a supported native control point. Immutable events do not prohibit that feature. This preserves the extension direction; it does not select a hook schema, guarantee a particular provider hook, change the current None-returning EventHandler, or approve BC04/P13/P14 implementation. BC04 remains Pending; any actual hook scope change must use the milestone-plan process first.
+
+D54 validation/no silent coercion and D55 constructor exceptions remain in force. Snapshot representation may preserve accepted JSON meaning using immutable containers; it must not repair invalid data by coercion. Mutation-attempt exception details remain to be specified with the representation. M1-T10/T11 and implementation steps 3–4 cover the snapshot guarantee without implementing a stream, hook or provider. Q08 is answered for event nested-mutation policy; representation/serialization and policies for other unselected models remain open.
+
+This is within M1's existing event-data boundary. No milestone scope delta, guarded architecture/structure edit, runtime change or merge is authorized. Current #72 parent is `13fb6241de20d980c2c46dc02be0a68135b19221`; #45 remains unchanged. Prior governing records are reused at the same revisions. Documentation/public-guide/Atlas impact remains stage-local design status only; no executable validation result is claimed.
+
 ## Revision history
 
 | Revision | Date | Change |
@@ -1202,3 +1216,4 @@ The M1 design, M1-T05/T08/T09 and implementation steps 3–4 are updated togethe
 | 30 | 2026-11-21 | D53 authorizes four shared navigation files. Stage requirements and milestone approvals retain their existing status. |
 | 31 | 2026-11-25 | D54 approves construction-time schema validation and propagated creation errors; resumes M1 design in #72 with synchronized design/test/plan and unchanged milestone boundaries. |
 | 32 | 2026-11-25 | D55 approves standard TypeError/ValueError validation exceptions and model/field/rule diagnostics; matching M1 design/test/plan updated. |
+| 33 | 2026-11-25 | D56 approves immutable event snapshots including nested data and preserves schema evolution/future hook responses; BC04 stays Pending. |
