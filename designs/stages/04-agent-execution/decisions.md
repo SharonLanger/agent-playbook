@@ -2,10 +2,10 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 30 · Updated: 2026-11-21 · Owner: Sharon
+Revision: 31 · Updated: 2026-11-25 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
-The [November 21 checkpoint](#scope-and-methodology-checkpoint) records current scope and status. Dated checkpoints retain the evidence and open questions from their revision.
+The [M1 alignment checkpoint](#m1-alignment-checkpoint--2026-11-25) records the resumed detailed design in PR #72. The [November 21 checkpoint](#scope-and-methodology-checkpoint) retains the earlier scope/status record. Dated checkpoints retain the evidence and open questions from their revision.
 
 ## How to read this board
 
@@ -89,7 +89,7 @@ No current PR/merge status is inferred from stale handover prose. The decision r
 | Q05 | Are interactive permissions and user questions needed in the first scope? | **Answered for MVP; future interaction deferred** | D16: configured automatic policy or clear failure, with no human prompt or approval wait. |
 | Q06 | Which hooks, cancellation, steering and session controls are required? | **Open** | Capability evidence and concrete first use case needed. |
 | Q07 | Reuse a dependency, copy permitted components, or write thin native wrappers? | **Open** | Study the five projects and licenses; no adoption yet. |
-| Q08 | Mandatory behavioral interfaces, payload models and serialization/versioning needs? | **Partly answered** | D09/D10/D14/D15/D25/D26 settle all three ABCs and minimal method/callback declarations. Payload models, validation, serialization and behavioral details remain open. |
+| Q08 | Mandatory behavioral interfaces, payload models and serialization/versioning needs? | **Partly answered — D26/D37/D54** | Three ABCs/callback and frozen event/result dataclasses are approved. D54 requires construction-time schema validation and propagation of creation errors. Exact constraints, validation exception representation, remaining model representations, nested-mutation policy and serialization remain open. |
 | Q09 | How do events connect to run/step context and observability? | **Open** | Coordinate with existing context/logging work; resolve C01. |
 | Q10 | What happens on slow/failed handlers, disconnects or partial evidence? | **Open** | Define ordered delivery and explicit failure policy before implementation. |
 | Q11 | Is a UI needed; which actions may it issue? | **Open / later** | UI references are not a committed UI requirement. |
@@ -1131,6 +1131,31 @@ Read both files before progressing the design. Update this board with evidence a
 
 2026-11-21 · D53 · **Approved.** Sharon approved adding Stage 04 navigation to the design index, exploration index, Atlas guide and Atlas catalog. Readers can find the active design from the existing project entry points. D52 continues to govern the rest of the repository. Write the entries against current main. Sharon will regenerate the Atlas HTML. Project-wide progress is reserved for a later discussion.
 
+## M1 alignment checkpoint — 2026-11-25
+
+Sharon resumes detailed M1 design in [PR #72](https://github.com/SharonLanger/agent-playbook/pull/72), targeting PR #45's stage branch. This supersedes the earlier pause as current status; it does not authorize implementation or merging either PR.
+
+- Main is `d17972e4b7f40e9a1e0fbf23afe02c874c2a12b7`; PR #45 is draft/open at `b9d912fa5a8e984885d1808147cdb10297575ed5`; PR #72 starts this iteration at `bf3091b042409f6cd70c9ec42938873c9c66276a`. Main is an ancestor of both design branches. The repository instructions and guarded authorities already read remain unchanged.
+- The complete specification, decision board, milestone boundaries, relevant history/research and all five M1 drafts were reviewed. D42–D49 answer earlier lifecycle/order/failure questions; dated earlier open statements remain history. M1 has draft documents, not a locked contract.
+- Prior research is design evidence only; no new SDK/version, dependency or provider parity finding is claimed. M1 remains standalone; harness/fake implementation is M2, DemoAgent M3, CrewAI integration M4 and native integration Stage 05.
+- C01/Q12 still requires explicit logical amendments to architecture and project structure before their approved meaning changes. Neither file changes in this iteration. Hooks/BC04 and P14 controls remain proposals.
+- Remaining choices include exact request/settings/permissions, data constraints and identity/result semantics, validation exception representation, nested mutation, serialization and concrete cleanup diagnostics. D54 closes validation timing/propagation only.
+- Outcome: continue M1 design one choice at a time. D54 fits the existing meaningful-boundary-validation scope; no milestone boundary delta is needed. Design/test/plan approval at an exact candidate commit remains pending.
+
+## Construction-time schema validation — revision 31
+
+D54 — **Approved:** M1 data models validate their schema during construction. Perform all agreed validation that can be determined from the supplied object data at creation, including nested values and any agreed cross-field constraints. An invalid object must not be successfully returned. A creation-time validation error propagates to the caller; do not swallow it, return a substitute object, or silently coerce invalid values into valid ones.
+
+Evidence: Sharon selects construction-time schema validation, explicitly requires propagation of the error from object creation, and asks for all validations possible at creation. This accepts the preceding construction-time/no-silent-conversion recommendation. It does not approve every still-open field constraint or a particular exception class/library.
+
+Alternative retained: explicit validators called only at execution boundaries would keep constructors simpler but rely on every caller remembering to validate. Construction-time validation establishes the same data contract for standalone callers, future adapters and test fixtures. Frozen event/result dataclasses remain selected under D37; no replacement library is selected.
+
+Scope: validate the object's own agreed schema, not facts requiring execution, external state or provider capability evidence. Real tool permission enforcement, provider compatibility and execution-wide sequencing cannot be established by constructing a data object. Existing D16–D18 permissions distinctions, D17's exclusion of a tool/policy contradiction engine, D38's no-guessed-pairing rule and D42–D49 execution failure rules remain intact. An object created inside a later handler/adapter may raise into those existing failure paths; M1 implements no harness.
+
+Q08 is answered for validation timing, coverage of locally checkable agreed constraints and creation-error propagation. Exact exception types/messages, validation rules for undecided fields and nested-copy/immutability policy remain open. Constructor validation alone is not a deep-immutability guarantee. [M1 design](m1-contracts-models/design.md#construction-time-validation--approved-d54), M1-T05/T08/T09 and implementation step 3 carry this decision together.
+
+Documentation impact: stage-local design/status records only; no runtime, supported command/configuration or public-guide change. Atlas navigation/status remains “design in progress”; no catalog/view change is needed. D53's HTML ownership remains unchanged. No application tests or native checks are claimed for this documentation update.
+
 ## Revision history
 
 | Revision | Date | Change |
@@ -1165,3 +1190,4 @@ Read both files before progressing the design. Update this board with evidence a
 | 28 | 2026-11-16 | D50/D51 record replaceability and real coder/reviewer product acceptance; P14 compares reference contracts without changing stage scope. |
 | 29 | 2026-11-21 | D52 records Stage 04-only PR scope and the methodology reconciliation. Product decisions and milestone boundaries retain their existing approvals. |
 | 30 | 2026-11-21 | D53 authorizes four shared navigation files. Stage requirements and milestone approvals retain their existing status. |
+| 31 | 2026-11-25 | D54 approves construction-time schema validation and propagated creation errors; resumes M1 design in #72 with synchronized design/test/plan and unchanged milestone boundaries. |

@@ -2,10 +2,10 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 30 · Updated: 2026-11-21 · Owner: Sharon
+Revision: 31 · Updated: 2026-11-25 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
-The [milestone table](README.md#canonical-milestone-and-readiness-index) owns current status. The [November 21 checkpoint](decisions.md#scope-and-methodology-checkpoint) identifies questions answered after earlier revisions. Dated sections below preserve their original revision context.
+The [milestone table](README.md#canonical-milestone-and-readiness-index) owns current status. The [M1 alignment checkpoint](decisions.md#m1-alignment-checkpoint--2026-11-25) records resumed detailed design in PR #72; D54 below settles construction-time validation. Dated sections below preserve their original revision context.
 
 ## Status and authority
 
@@ -150,7 +150,7 @@ The planned distinction is about ownership: role-facing execution evidence versu
 | Q05 | Answered for MVP: no human interaction (D16). Automatic policy defaults remain open; interactive permission/input callbacks are future scope. |
 | Q06 | Hooks, interruption/cancellation, steering and session reuse scope. |
 | Q07 | Which reference project's code or dependency, if any, to adopt. |
-| Q08 | All three ABCs and minimal method/callback declarations are settled (D25/D26); payload models, validation and serialization/versioning needs remain open. |
+| Q08 | ABC/callback declarations and frozen event/result dataclasses are settled (D26/D37). D54 settles construction-time schema validation and propagated creation errors. Exact constraints/exception representation, other model representations, nested-mutation policy and serialization/versioning remain open. |
 | Q09 | Correlation and observability integration without duplicating work in the logging/context stream. |
 | Q10 | Backpressure, callback exceptions, stream disconnects and retry behavior. |
 | Q11 | Any UI requirement and separation from the execution core. |
@@ -362,6 +362,14 @@ The event stream alone is not the entire execution API. Current handle_event ret
 
 P14 in the decision board compares reference designs and proposes observation/control separation and portable data. BC04 remains pending; no hook response, cancellation API, network protocol or new required method is selected.
 
+## Construction-time schema validation — revision 31
+
+D54 — **Approved:** validate M1 data models when they are constructed. Check all agreed schema constraints decidable from the supplied object data, including nested values and any agreed cross-field invariants. Invalid construction raises to its caller without returning a substitute object or silently coercing invalid input. Exact exception types/messages and still-undecided field constraints remain detailed-design choices.
+
+This preserves D37 frozen event/result dataclasses and adds no library choice. Validation at creation does not promise deep immutability after creation. It does not prove provider support, actual permission enforcement, event-sequence correctness or missing tool relationships; those remain with their existing owners and decisions. No custom tool/policy contradiction engine is introduced.
+
+M1 expresses and tests the data contract. M2 later implements the harness/fake and applies D42–D49 if object creation fails during execution. Hooks, cancellation controls, runtime implementation and milestone scope are unchanged. The synchronized [M1 design](m1-contracts-models/design.md#construction-time-validation--approved-d54), acceptance cases and implementation plan remain drafts pending remaining choices and approval at a pinned revision.
+
 ## Research status
 
 Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event/result fields and representation are now accepted under D36/D37; validation, lifecycle guarantees and permission settings remain unresolved.
@@ -431,3 +439,4 @@ Maintain both active records in this repository package with matching revision e
 | 28 | 2026-11-16 | D50/D51 add explicit low-coupling constraint and coder/reviewer product target; proposed controls remain open. |
 | 29 | 2026-11-21 | D52 records Stage 04-only PR scope and the methodology reconciliation. Product decisions and milestone boundaries retain their existing approvals. |
 | 30 | 2026-11-21 | D53 authorizes four shared navigation files. Stage requirements and milestone approvals retain their existing status. |
+| 31 | 2026-11-25 | D54 requires construction-time schema validation and propagation of creation errors; exact constraints/exception representation remain open; M1 detailed design resumes in #72. |

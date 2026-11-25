@@ -6,8 +6,8 @@
 
 1. Confirm current main and Stage 04 records, actual package/import locations and guarded ownership changes. Present any needed architecture or structure amendment before implementation.
 2. Implement the three separate abstract behavioral contracts and the callback type. Keep provider-specific types inside eventual adapters.
-3. Implement the five frozen event models/union, result/status types and the approved request/settings/permission data. Validate only the agreed boundary semantics.
-4. Add focused contract tests for the [acceptance cases](test-cases.md) in maintained `app/tests/`. Verify types with the repository's normal static checker. Keep the fake integration for M2.
+3. Implement the five frozen event models/union, result/status types and the approved request/settings/permission data. Apply D54 construction-time validation for all agreed constraints decidable from supplied data, including nested values and agreed cross-field rules. Invalid construction raises to the caller with no silent coercion or substitute object. Settle the exact exception contract, field constraints and nested-mutation policy in design before coding; do not invent provider checks or a tool/policy contradiction engine. Preserve frozen event/result dataclasses.
+4. Add focused contract tests for the [acceptance cases](test-cases.md) in maintained `app/tests/`. M1-T05/T08/T09 exercise direct construction, valid/invalid nested data and propagation to the caller; use the completed field/exception matrix from the approved design. Verify types with the repository's normal static checker. Keep stream delivery/cleanup and fake integration for M2.
 5. Run the required local quality gate and document the actual revision and results, including anything blocked. Open a separate focused implementation PR against main, including the approved design commit link.
 
 ## Handoff and review
