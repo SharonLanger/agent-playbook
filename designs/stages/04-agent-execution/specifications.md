@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 31 · Updated: 2026-11-25 · Owner: Sharon
+Revision: 32 · Updated: 2026-11-25 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 The [milestone table](README.md#canonical-milestone-and-readiness-index) owns current status. The [M1 alignment checkpoint](decisions.md#m1-alignment-checkpoint--2026-11-25) records resumed detailed design in PR #72; D54 below settles construction-time validation. Dated sections below preserve their original revision context.
@@ -150,7 +150,7 @@ The planned distinction is about ownership: role-facing execution evidence versu
 | Q05 | Answered for MVP: no human interaction (D16). Automatic policy defaults remain open; interactive permission/input callbacks are future scope. |
 | Q06 | Hooks, interruption/cancellation, steering and session reuse scope. |
 | Q07 | Which reference project's code or dependency, if any, to adopt. |
-| Q08 | ABC/callback declarations and frozen event/result dataclasses are settled (D26/D37). D54 settles construction-time schema validation and propagated creation errors. Exact constraints/exception representation, other model representations, nested-mutation policy and serialization/versioning remain open. |
+| Q08 | ABC/callback declarations and frozen event/result dataclasses are settled (D26/D37). D54 settles construction-time schema validation and propagated creation errors. D55 selects TypeError/ValueError with model/field/rule diagnostics. Exact constraints/diagnostic formatting, other model representations, nested-mutation policy and serialization/versioning remain open. |
 | Q09 | Correlation and observability integration without duplicating work in the logging/context stream. |
 | Q10 | Backpressure, callback exceptions, stream disconnects and retry behavior. |
 | Q11 | Any UI requirement and separation from the execution core. |
@@ -405,6 +405,12 @@ Read this specification, the complete decision board, milestone plan and relevan
 
 Maintain both active records in this repository package with matching revision entries. Mark questions Answered, Deferred or Open explicitly. Do not promote a recommendation merely because it appears here. History snapshots retain their original bytes. Future sessions must load the active files and plan; a remembered folder diagram is insufficient.
 
+## Standard validation exceptions — revision 32
+
+D55 — **Approved:** a wrong supplied type raises `TypeError`; a correctly typed value violating an agreed constraint raises `ValueError`. Messages identify the model, field and violated rule. These creation errors propagate under D54. No custom validation exception is selected.
+
+This refines Q08's exception representation only. Exact constraints, diagnostic formatting, multiple-error reporting and nested mutation remain open. Existing frozen dataclasses, lifecycle rules and milestone boundaries are unchanged. The M1 design/test/plan remain drafts pending full approval.
+
 ## Revision history
 
 | Revision | Date | Change |
@@ -440,3 +446,4 @@ Maintain both active records in this repository package with matching revision e
 | 29 | 2026-11-21 | D52 records Stage 04-only PR scope and the methodology reconciliation. Product decisions and milestone boundaries retain their existing approvals. |
 | 30 | 2026-11-21 | D53 authorizes four shared navigation files. Stage requirements and milestone approvals retain their existing status. |
 | 31 | 2026-11-25 | D54 requires construction-time schema validation and propagation of creation errors; exact constraints/exception representation remain open; M1 detailed design resumes in #72. |
+| 32 | 2026-11-25 | D55 approves standard TypeError/ValueError validation exceptions and model/field/rule diagnostics; matching M1 design/test/plan updated. |

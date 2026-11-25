@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 31 · Updated: 2026-11-25 · Owner: Sharon
+Revision: 32 · Updated: 2026-11-25 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 The [M1 alignment checkpoint](#m1-alignment-checkpoint--2026-11-25) records the resumed detailed design in PR #72. The [November 21 checkpoint](#scope-and-methodology-checkpoint) retains the earlier scope/status record. Dated checkpoints retain the evidence and open questions from their revision.
@@ -89,7 +89,7 @@ No current PR/merge status is inferred from stale handover prose. The decision r
 | Q05 | Are interactive permissions and user questions needed in the first scope? | **Answered for MVP; future interaction deferred** | D16: configured automatic policy or clear failure, with no human prompt or approval wait. |
 | Q06 | Which hooks, cancellation, steering and session controls are required? | **Open** | Capability evidence and concrete first use case needed. |
 | Q07 | Reuse a dependency, copy permitted components, or write thin native wrappers? | **Open** | Study the five projects and licenses; no adoption yet. |
-| Q08 | Mandatory behavioral interfaces, payload models and serialization/versioning needs? | **Partly answered — D26/D37/D54** | Three ABCs/callback and frozen event/result dataclasses are approved. D54 requires construction-time schema validation and propagation of creation errors. Exact constraints, validation exception representation, remaining model representations, nested-mutation policy and serialization remain open. |
+| Q08 | Mandatory behavioral interfaces, payload models and serialization/versioning needs? | **Partly answered — D26/D37/D54** | Three ABCs/callback and frozen event/result dataclasses are approved. D54 requires construction-time schema validation and propagation of creation errors. D55 selects TypeError/ValueError with model/field/rule diagnostics. Exact constraints, diagnostic formatting, remaining model representations, nested-mutation policy and serialization remain open. |
 | Q09 | How do events connect to run/step context and observability? | **Open** | Coordinate with existing context/logging work; resolve C01. |
 | Q10 | What happens on slow/failed handlers, disconnects or partial evidence? | **Open** | Define ordered delivery and explicit failure policy before implementation. |
 | Q11 | Is a UI needed; which actions may it issue? | **Open / later** | UI references are not a committed UI requirement. |
@@ -1139,7 +1139,7 @@ Sharon resumes detailed M1 design in [PR #72](https://github.com/SharonLanger/ag
 - The complete specification, decision board, milestone boundaries, relevant history/research and all five M1 drafts were reviewed. D42–D49 answer earlier lifecycle/order/failure questions; dated earlier open statements remain history. M1 has draft documents, not a locked contract.
 - Prior research is design evidence only; no new SDK/version, dependency or provider parity finding is claimed. M1 remains standalone; harness/fake implementation is M2, DemoAgent M3, CrewAI integration M4 and native integration Stage 05.
 - C01/Q12 still requires explicit logical amendments to architecture and project structure before their approved meaning changes. Neither file changes in this iteration. Hooks/BC04 and P14 controls remain proposals.
-- Remaining choices include exact request/settings/permissions, data constraints and identity/result semantics, validation exception representation, nested mutation, serialization and concrete cleanup diagnostics. D54 closes validation timing/propagation only.
+- Remaining choices include exact request/settings/permissions, data constraints and identity/result semantics, validation diagnostic details, nested mutation, serialization and concrete cleanup diagnostics. D54 closes validation timing/propagation only.
 - Outcome: continue M1 design one choice at a time. D54 fits the existing meaningful-boundary-validation scope; no milestone boundary delta is needed. Design/test/plan approval at an exact candidate commit remains pending.
 
 ## Construction-time schema validation — revision 31
@@ -1155,6 +1155,16 @@ Scope: validate the object's own agreed schema, not facts requiring execution, e
 Q08 is answered for validation timing, coverage of locally checkable agreed constraints and creation-error propagation. Exact exception types/messages, validation rules for undecided fields and nested-copy/immutability policy remain open. Constructor validation alone is not a deep-immutability guarantee. [M1 design](m1-contracts-models/design.md#construction-time-validation--approved-d54), M1-T05/T08/T09 and implementation step 3 carry this decision together.
 
 Documentation impact: stage-local design/status records only; no runtime, supported command/configuration or public-guide change. Atlas navigation/status remains “design in progress”; no catalog/view change is needed. D53's HTML ownership remains unchanged. No application tests or native checks are claimed for this documentation update.
+
+## Standard validation exceptions — revision 32
+
+D55 — **Approved:** use standard Python `TypeError` for a wrong supplied type and `ValueError` for a correctly typed value that violates an agreed value constraint. Validation messages identify the model, field and violated rule. Creation errors propagate under D54; no custom `SchemaValidationError` or exception hierarchy is introduced.
+
+Evidence: Sharon says “I like your suggestion” in response to the standard-exception recommendation and its diagnostic proposal. Alternative retained: a dedicated validation exception would allow callers to distinguish model validation from unrelated programming failures with one catch type; standard exceptions were selected for simplicity and familiar meaning. Callers cannot identify all model-validation failures solely by catching these broad built-in types.
+
+Q08 is now answered for exception classes and required diagnostic content. Exact field constraints, diagnostic formatting, multiple-error reporting and nested-data mutation remain open. Do not infer constraints from this exception choice. D54's construction timing/no coercion, D37 dataclasses and D42–D49 propagation/cleanup remain unchanged. This stays within M1; no boundary amendment or guarded architecture/structure change is required.
+
+The M1 design, M1-T05/T08/T09 and implementation steps 3–4 are updated together. Main/base and governing documents retain the prior checked revision; #72 was checked at `0555e3fad1a4c8ce36cea7226714706ffb8b06b1`, and #45 remains draft/open at `b9d912fa5a8e984885d1808147cdb10297575ed5`. The complete detailed package remains unapproved; no implementation or merge is authorized.
 
 ## Revision history
 
@@ -1191,3 +1201,4 @@ Documentation impact: stage-local design/status records only; no runtime, suppor
 | 29 | 2026-11-21 | D52 records Stage 04-only PR scope and the methodology reconciliation. Product decisions and milestone boundaries retain their existing approvals. |
 | 30 | 2026-11-21 | D53 authorizes four shared navigation files. Stage requirements and milestone approvals retain their existing status. |
 | 31 | 2026-11-25 | D54 approves construction-time schema validation and propagated creation errors; resumes M1 design in #72 with synchronized design/test/plan and unchanged milestone boundaries. |
+| 32 | 2026-11-25 | D55 approves standard TypeError/ValueError validation exceptions and model/field/rule diagnostics; matching M1 design/test/plan updated. |

@@ -2,7 +2,7 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Updated: 2026-11-25 · Working records revision 31
+Updated: 2026-11-25 · Working records revision 32
 Status: **draft planning PR authorized by Sharon; no runtime implementation, stage activation, locked milestone baseline or merge authorization.**
 
 This is the permanent Stage 04 design workspace on `docs/agent-execution-foundation-planning`. Focused M1 design proceeds in [draft PR #72](https://github.com/SharonLanger/agent-playbook/pull/72), targeting this stage branch; changes recorded there remain on its branch until separately merged. The checked main baseline is [`d17972e4`](https://github.com/SharonLanger/agent-playbook/commit/d17972e4b7f40e9a1e0fbf23afe02c874c2a12b7). The [navigation exception](decisions.md#shared-navigation-exception) adds four shared discovery files to the stage package. Stage 04's boundary and four milestone allocations/gates are approved; detailed milestone designs and implementation are not. PR #45 follows `[Stage 04 Design] Agent execution foundation` and stays draft through stage closeout.
@@ -25,7 +25,7 @@ The accepted architecture direction is small: application agent roles, an inject
 
 | Milestone / bounded outcome | Design readiness and approval | Implementation PR | Review evidence | Acceptance / merge |
 |---|---|---|---|---|
-| S04.M1 — three ABCs, callback, event/request/result/settings/permission data | [Draft package](m1-contracts-models/README.md) in #72; D54 validation timing/propagation approved; detailed design not locked; no approved SHA | Not opened | None | Pending / unmerged |
+| S04.M1 — three ABCs, callback, event/request/result/settings/permission data | [Draft package](m1-contracts-models/README.md) in #72; D54/D55 validation timing, propagation and standard exceptions approved; detailed design not locked; no approved SHA | Not opened | None | Pending / unmerged |
 | S04.M2 — harness and fake adapter/mapper with success/failure | Boundary approved; detailed design waits for M1 contract approval; implementation requires accepted/merged M1 | Not opened | None | Pending / unmerged |
 | S04.M3 — standalone DemoAgent with task/result and handler | Boundary approved; detailed design waits for M2 path; implementation requires accepted/merged M2 | Not opened | None | Pending / unmerged |
 | S04.M4 — one maintained CrewAI integration | Boundary approved; detailed design waits for M3 invocation plus current workflow/context compatibility; implementation requires accepted/merged M3 and concrete external prerequisites | Not opened | None | Pending / unmerged |
@@ -48,7 +48,7 @@ M1 has a [draft detailed package](m1-contracts-models/README.md) in PR #72. Futu
 
 ## Next step
 
-Sharon resumed M1 detailed design in #72. The [current alignment checkpoint](decisions.md#m1-alignment-checkpoint--2026-11-25) records the baseline and remaining choices. D54 settles construction-time validation and propagation; continue exact schema/exception choices one at a time. The milestone table above owns current status. Earlier readiness assessments in the plan and the dated revision sections describe their original checkpoints.
+Sharon resumed M1 detailed design in #72. The [current alignment checkpoint](decisions.md#m1-alignment-checkpoint--2026-11-25) records the baseline and remaining choices. D54/D55 settle construction-time validation, propagation and standard exceptions with model/field/rule diagnostics; continue remaining schema choices one at a time. The milestone table above owns current status. Earlier readiness assessments in the plan and the dated revision sections describe their original checkpoints.
 
 Stage 02 context and tracing, Stage 03 orchestration and the logging refactor have merged. For M4, check the [actual workflow integration](../02-langfuse/m4-workflow-integration/README.md) against M3’s invocation contract. The [progress record](../../progress.md) links the merged evidence.
 
