@@ -2,10 +2,24 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 33 · Updated: 2026-11-25 · Owner: Sharon
+Revision: 34 · Updated: 2026-11-26 · Owner: Sharon
 Companion: [Decision board](decisions.md)
 
 The [milestone table](README.md#canonical-milestone-and-readiness-index) owns current status. The [M1 alignment checkpoint](decisions.md#m1-alignment-checkpoint--2026-11-25) records resumed detailed design in PR #72; D54 below settles construction-time validation. Dated sections below preserve their original revision context.
+
+## Current M1 baseline — 2026-11-26
+
+The [current decision reconciliation](decisions.md#current-m1-decision-reconciliation--2026-11-26) consolidates the accepted foundation, alternatives and the seven remaining-work categories. D57 authorizes this documentation consolidation without changing approved behavior. Dated sections below retain their original state; their earlier “open” wording does not reopen later approvals.
+
+- D24–D26: three separate ABCs and a typed async callback; roles own handling, adapters own provider execution and mappers own native translation.
+- D34/D36–D38: five event variants, accepted fields/status vocabularies, frozen event/result dataclasses, union dispatch and no guessed tool pairing.
+- D42–D49: harness-owned lifecycle, the same returned/finished result, sequential awaited callbacks, exception propagation, terminal suppression and primary/secondary cleanup precedence.
+- D16–D18/D21: autonomous permissions, distinct tool categories and provider-local settings translation; exact settings/permission schema remains open.
+- D54/D55: construction-time validation, no silent coercion, TypeError/ValueError and model/field/rule diagnostics.
+- D56: deep immutable event snapshots; exact immutable representation and JSON conversion remain open.
+- D40/BC03: M1 contracts/data, M2 harness/fake, M3 standalone DemoAgent, M4 CrewAI integration. Real adapters/roles remain Stage 05. BC04 hooks and future control mechanisms remain unapproved.
+
+M1 is ready to continue detailed design, with no approved implementation baseline. Residual choices concern precise request/settings/permission schemas and defaults, ID/field/result invariants, concrete immutable representation/conversion, remaining diagnostics, scoped timeout/cancellation decisions and C01/Q12 guarded amendments. Completing meaningful tests/paths/checks and obtaining approval of one candidate revision remains the design owner's work. The [M1 handover](m1-contracts-models/design-agent-handover.md) points to the current records.
 
 ## Status and authority
 
@@ -143,16 +157,16 @@ The planned distinction is about ownership: role-facing execution evidence versu
 
 | Question | Missing decision |
 |---|---|
-| Q01 | Partly answered by D34: five event names/basic meanings accepted. Payloads, IDs, timing and truthful mapping rules remain open. |
-| Q02 | Minimal declaration shapes are accepted (D26). Request/result fields, terminal-event/result relationship and handler-failure behavior remain open. |
+| Q01 | Five event variants, D36 fields/statuses, no guessed pairing, lifecycle ownership and delivery order are accepted (D34/D36–D38/D42/D49). Exact ID/field constraints and provider-specific evidence handling remain open. |
+| Q02 | ABC/callback shapes, result fields, terminal/result identity and failure/delivery rules are accepted (D26/D36/D42–D49). Exact request schema/defaults and result-field invariants remain open. |
 | Q03 | Codex transport/SDK and supported version; Claude SDK mode/version. |
 | Q04 | Common settings versus provider-specific settings and configuration ownership. |
 | Q05 | Answered for MVP: no human interaction (D16). Automatic policy defaults remain open; interactive permission/input callbacks are future scope. |
 | Q06 | Hooks, interruption/cancellation, steering and session reuse scope. |
 | Q07 | Which reference project's code or dependency, if any, to adopt. |
-| Q08 | ABC/callback declarations and frozen event/result dataclasses are settled (D26/D37). D54 settles construction-time schema validation and propagated creation errors. D55 selects TypeError/ValueError with model/field/rule diagnostics. Exact constraints/diagnostic formatting, other model representations, D56 settles immutable event snapshots; concrete representation and serialization/versioning remain open. |
+| Q08 | Three ABCs/callback, frozen event/result dataclasses, construction validation, standard exceptions/diagnostics and deep event immutability are accepted (D26/D37/D54–D56). Exact constraints, immutable containers/conversion, other model representations and remaining diagnostic details are open. |
 | Q09 | Correlation and observability integration without duplicating work in the logging/context stream. |
-| Q10 | Backpressure, callback exceptions, stream disconnects and retry behavior. |
+| Q10 | D43–D49 settle propagation, terminal suppression, cleanup precedence and sequential awaited delivery. Concrete cleanup diagnostics and scoped slow-handler/cancellation decisions remain open; native transport behavior belongs to integration. |
 | Q11 | Any UI requirement and separation from the execution core. |
 | Q12 | Reconcile canonical guarded architecture/structure wording (C01). |
 | Q17 | What does execution logging include: normalized events, native diagnostics, outputs, storage and failure policy? |
@@ -372,9 +386,9 @@ M1 expresses and tests the data contract. M2 later implements the harness/fake a
 
 ## Research status
 
-Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event/result fields and representation are now accepted under D36/D37; validation, lifecycle guarantees and permission settings remain unresolved.
+Reference review from revision 12 is preserved. Revision 15 adds a focused source refresh for P12; other upstream claims retain their historical verification status. The [decision board](decisions.md#design-proposals-and-acceptance-status) contains the native mapping comparison and proposals P01–P07. P02's Protocol recommendation is historical. D14 accepts P07's displayed structure and responsibilities; D25/D26 accept the three ABCs and minimum declaration shapes. Event/result fields and representation are accepted under D36/D37; D42–D49 settle the recorded lifecycle/delivery/failure rules and D54–D56 settle validation policy and deep event immutability. Only their residual details and concrete permission settings remain open.
 
-The event schema and future control interfaces remain open; P10/P11's minimal ABC/callback declarations are accepted under D25/D26, while execution data and behavioral details remain unresolved. Research confirms that events can cover more than assistant text and that settings/permission responses are different contract categories. Exact SDK versions, payloads and interactive permission support through the chosen Codex surface still require selection and verification.
+The initial event schema and P10/P11 minimal ABC/callback declarations are accepted under D25/D26/D34/D36/D37. Exact residual data constraints and future control interfaces remain open; use the current M1 reconciliation for their scope. Research confirms that events can cover more than assistant text and that settings/permission responses are different contract categories. Exact SDK versions, payloads and interactive permission support through the chosen Codex surface still require selection and verification.
 
 ## References
 
@@ -456,3 +470,4 @@ D54/D55 validation and construction errors remain unchanged. Preserving accepted
 | 31 | 2026-11-25 | D54 requires construction-time schema validation and propagation of creation errors; exact constraints/exception representation remain open; M1 detailed design resumes in #72. |
 | 32 | 2026-11-25 | D55 approves standard TypeError/ValueError validation exceptions and model/field/rule diagnostics; matching M1 design/test/plan updated. |
 | 33 | 2026-11-25 | D56 approves immutable event snapshots including nested data and preserves schema evolution/future hook responses; BC04 stays Pending. |
+| 34 | 2026-11-26 | D57 reconciles current M1 approval/open-choice summaries with D16–D56 and the focused design package; historical reasoning and all boundaries preserved. |

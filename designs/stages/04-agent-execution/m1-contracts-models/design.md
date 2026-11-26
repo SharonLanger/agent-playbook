@@ -1,6 +1,6 @@
 # S04.M1 design — draft
 
-This is a design working document. [Stage-wide approved choices](../decisions.md) and the [M1 boundary](../milestone-plan.md#s04m1--behavioral-contracts-and-typed-data) govern it. D54 approves construction-time schema validation and creation-error propagation. D55 selects standard validation exceptions with model/field/rule diagnostics. Specific field constraints and remaining diagnostic details remain open.
+This is a design working document. [Stage-wide approved choices](../decisions.md) and the [M1 boundary](../milestone-plan.md#s04m1--behavioral-contracts-and-typed-data) govern it. D54 approves construction-time schema validation and creation-error propagation. D55 selects standard validation exceptions with model/field/rule diagnostics. D56 approves deeply immutable event snapshots. Specific field constraints, concrete representation and remaining diagnostic details remain open. The [current decision reconciliation](../decisions.md#current-m1-decision-reconciliation--2026-11-26) distinguishes inherited approvals from the residual work.
 
 ## Goal and ownership
 
@@ -13,7 +13,7 @@ M1 makes incomplete concrete implementations detectable and makes event/request/
 | `EventMapper.map(native_message) -> list[AgentEvent]` | Required mapper method, generic over native message type. | D26 |
 | `EventHandler` | `Callable[[AgentEvent], Awaitable[None]]` signature. | D25/D26 |
 
-The [specification](../specifications.md) records the initial five classes and fields. `ExecutionStarted` has no additional payload. `TextProduced` has `text_id` and `text`. `ToolCallObserved` has nullable `tool_call_id`, `tool_name` and optional input. `ToolResultObserved` has nullable `tool_call_id`, `output` and `status` of succeeded/failed/unknown. `ExecutionFinished` carries `ExecutionResult`. Result data has status, final text and error as accepted in D36. D37 selects frozen dataclasses for shared event/result data, status enums, and a five-class union. D38 forbids fabricating a missing tool relationship.
+The [specification](../specifications.md) records the initial five classes and fields. `ExecutionStarted` has no additional payload. `TextProduced` has `text_id` and `text`. `ToolCallObserved` has nullable `tool_call_id`, `tool_name` and optional input. `ToolResultObserved` has nullable `tool_call_id`, `output` and `status` of succeeded/failed/unknown. `ExecutionFinished` carries `ExecutionResult`. Result data has status of completed/failed/cancelled/indeterminate, final_text: str or None, and error: str or None as accepted in D36. D37 selects frozen dataclasses for shared event/result data, status enums, and a five-class union. D38 forbids fabricating a missing tool relationship.
 
 D42–D49 constrain the later harness contract. It emits start before adapter invocation and finish on normal return, carries the same returned result, awaits event handlers sequentially, and propagates callback/adapter exceptions with the documented terminal and cleanup rules. M1 expresses only the contracts needed for M2 to fulfill those promises.
 
@@ -51,12 +51,16 @@ M1 does not construct a harness, fake/provider adapter, demo role, workflow or r
 
 ## Open contract choices
 
-| Question | Decision required before design lock |
+This table lists residual choices only. The [decision board](../decisions.md#seven-item-remaining-work-list-reconciled) preserves the approved foundations, alternatives and owners. No closed policy is reopened.
+
+| Item | Remaining work before design lock |
 |---|---|
-| Request/result details | Exact required/optional fields, outcome distinctions, defaults and invalid input behavior. Respect D36/D42. |
-| Settings and permissions | Available, allowed and disallowed tool semantics, policy enforcement responsibility, unsupported capability behavior and defaults. Preserve honest provider-specific differences. |
-| Identity and validation | D54 settles construction-time validation and propagated errors. Still open: exact constraints and remaining diagnostic details, JSON details, concrete immutable-event representation/conversion, event-local identity and whether a portable representation is needed now. |
-| Error expression | Contract-level behavior for missing evidence, slow handlers, cleanup diagnostics and cancellation where necessary. D43–D49 already settle the documented primary failure and event order. |
-| Guarded ownership | Exact amendment to architecture and project structure for execution-owned mapping and role placement. Present the logical diff to Sharon first. |
+| Request data | Exact task/instruction/settings fields, required/optional/default rules and agreed constraints. Apply D54/D55 validation without reopening its timing or exception policy. |
+| Settings and permissions | Initial supported tool/policy/settings subset, defaults and explicit unsupported-request outcome. Preserve D16–D18/D21 and native enforcement responsibility; no custom contradiction engine. |
+| Identity and result invariants | Scope/constraints of text_id and tool_call_id, remaining value constraints, valid combinations of status/final_text/error. Keep D36 fields/status vocabularies, D38 no guessing and D42 terminal/result identity. |
+| Immutable representation | Exact read-only containers and accepted JSON/container inputs, freezing/copying and conversion to JSON-compatible data. D56's deep immutability is settled; other model representations still require an explicit choice. |
+| Failure details | Concrete secondary-cleanup diagnostic representation; identify the minimum necessary slow-handler/cancellation decisions and explicitly defer the remainder. D43–D49 already settle fail-fast propagation, terminal suppression, cleanup precedence and delivery order. M2 implements/verifies the harness. |
+| Guarded ownership | Present exact C01/Q12 logical amendments for execution-owned mapping, roles and dependency rules in architecture.md and project-structure.md. Preserve already agreed responsibilities. |
+| Approval package | Complete meaningful assertions, exact implementation paths/steps/checks and traceability; present a concrete candidate SHA and remaining blockers for approval. This preparation is the design owner's responsibility. |
 
 Blocking hooks, control responses, service transport, logging export, real coder/reviewer, tool execution and provider parity remain outside M1. Research references are architecture inputs, not adopted libraries or evidence of parity.

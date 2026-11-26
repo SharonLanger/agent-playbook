@@ -24,4 +24,6 @@ This package is a focused design proposal based on Stage 04 PR #45 at `b9d912fa5
 
 **Current decision:** D54 approves construction-time schema validation and propagation of creation errors. D55 approves TypeError/ValueError with model/field/rule diagnostics. D56 approves immutable event snapshots including nested data while preserving future schema evolution/hook responses. Concrete representation/conversion, field constraints, remaining diagnostic details and the other listed choices remain open; this is not approval of the complete detailed package.
 
-**Next action:** design agent resolves the remaining M1 choices with Sharon one at a time, reconciles affected guarded architecture and structure explicitly, then prepares the three detailed files for a single revision approval. No implementation handoff is active.
+**Continuation checkpoint (2026-11-26):** the [current reconciliation](../decisions.md#current-m1-decision-reconciliation--2026-11-26) collects the earlier approvals, alternatives and the exact residual work from the seven-item list. D57 records Sharon's consolidation request. Continue here with Sharon or from the handover; avoid asking him to decide settled behavior again.
+
+**Next action:** propose the smallest concrete ExecutionRequest, then work through the remaining choices one at a time. Reconcile affected guarded architecture and structure explicitly and complete design/test/plan for one candidate-revision approval. M1 is ready for continued detailed design; no implementation handoff is active.

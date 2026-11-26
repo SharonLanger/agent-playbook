@@ -2,10 +2,65 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 33 · Updated: 2026-11-25 · Owner: Sharon
+Revision: 34 · Updated: 2026-11-26 · Owner: Sharon
 Companion: [Specifications](specifications.md)
 
 The [M1 alignment checkpoint](#m1-alignment-checkpoint--2026-11-25) records the resumed detailed design in PR #72. The [November 21 checkpoint](#scope-and-methodology-checkpoint) retains the earlier scope/status record. Dated checkpoints retain the evidence and open questions from their revision.
+
+## Current M1 decision reconciliation — 2026-11-26
+
+D57 — **Authorized documentation consolidation:** Sharon requests carrying all earlier agreed design choices into the M1 design PR so work can continue with the same history available. He also suggests continuing detailed design in this conversation. Record the existing approvals and their reasons, distinguish unresolved details, and preserve the newer M1 decisions D54–D56. This authorizes documentation maintenance within the current boundary; it does not approve an unresolved schema, complete M1 design, implementation, guarded architecture amendment or merge. D05 remains the existing minimal-reuse decision.
+
+**Readiness correction:** M1 is ready to continue detailed design. It is not ready for implementation. The seven-item remaining-work list combines already-approved foundations, genuine open details and design-package preparation. Earlier broad “open” summaries must not be used to reopen an answered choice. The originating conversation's earlier implementation-readiness claim was premature.
+
+**Sources and placement:** this reconciliation reviews the conversation, full active specification/board, milestone plan and current M1 package. PR #72 at `1097d8869515247b1f7f16e92d4136f59c84d382` contains D54–D56; its base is PR #45 at `b9d912fa5a8e984885d1808147cdb10297575ed5`. Main remains `d17972e4b7f40e9a1e0fbf23afe02c874c2a12b7`. Changes stay on #72's branch under Stage 04; #45 remains open and merges last. This is a continuation aid within the shared decision board, not a second decision authority.
+
+### Approved foundations to carry forward
+
+| Topic | Approved choice and reason | Authority / alternatives retained |
+|---|---|---|
+| Product and replacement | Small robust MVP; application-owned types and replaceable execution. Eventual coder/reviewer workflow grounds requirements; future service extraction remains possible. | D02–D06/D11/D50/D51. No whole-framework/UI adoption, provider parity guarantee or service transport now. |
+| Ownership and wiring | Roles own task interpretation/handling; assembly selects and injects an adapter through the harness. Native runtime keeps its model/tool loop; CrewAI keeps scheduling. | D03/D04/D22 and inherited B02/B03. Provider construction inside role logic and provider switching inside harness.run were not chosen. Exact constructors, selection scope and lifetime remain open. |
+| Behavioral interfaces | Separate Agent, ExecutionAdapter and generic EventMapper ABCs, with required async handle_event, async run and synchronous map respectively. Mapper returns zero/one/many events in a list. EventHandler is Callable[[AgentEvent], Awaitable[None]]. | D09/D15/D21/D23–D26. One-method modules are intentional. No fourth handler ABC, SettingsAdapter hierarchy or extra methods for symmetry. Ordinary ABC checks, static typing and behavioral tests have distinct roles. |
+| Role handling | Each concrete role explicitly implements handle_event; no-op permitted. A handler can inspect the union using match/case. | D24–D26/D37/D42. Per-event mandatory methods and event behavior ABCs were not selected. Provider adapters never implement role-specific handling. |
+| Event/result schema | Five variants and D36 fields/status vocabularies are approved; frozen event/result dataclasses, status enums and AgentEvent union. TextProduced is a completed text unit, not necessarily the end of execution. | D34/D36/D37. Retain tool_call_id, text_id and output. ExecutionResult has completed/failed/cancelled/indeterminate, final_text and error. Extra usage/deltas/reasoning/progress remain future choices. |
+| Missing evidence | Missing tool_call_id and unknown tool status are distinct. Never infer pairing from tool name, proximity or an invented identifier. | D36/D38. A reliable alternate native key can be normalized; provider-specific unsupported evidence handling remains later design. |
+| Lifecycle and delivery | Harness owns local start/finish; start precedes adapter invocation; normal returned result is the same object carried by finish and returned to caller. Await callbacks sequentially per execution, preserving mapper order. | D42/D49. No global ordering, detached callback queue or guarantee that waiting pauses a native runtime. |
+| Failures and cleanup | Stop processing and propagate handler/unexpected adapter exceptions. Failed start prevents adapter invocation. Skip finish after either exception; never retry a failed finish handler. Cleanup is independent. Original failure/traceback remains primary; retain secondary cleanup diagnostics; sole cleanup failure propagates. | D43/D45–D48. No blanket exception-to-result conversion, fabricated terminal result or hidden cleanup failure. Returned unsuccessful runtime outcomes still use normal finish delivery. D44 configurable/injected error policy remains deferred. |
+| Permissions/settings | Autonomous execution or clear failure; no human wait. Distinguish available tools, automatic approval and denial. Adapter translates supported controls; native runtime/sandbox enforces them. Settings conversion begins as a provider-local function. | D16–D18/D21, Q23 and inherited capability rules. No custom contradiction/security engine. Unsupported requirements must not be silently weakened; exact fields/defaults and failure representation remain open. |
+| Validation | Validate agreed, locally decidable schema constraints at construction, including nested values and agreed cross-field rules; propagate errors without substitute objects or silent coercion. Wrong type raises TypeError; invalid correctly typed value raises ValueError; diagnostics identify model, field and rule. | D54/D55. Boundary-only validation and a custom validation exception were considered and not selected. No filesystem/provider capability proof at construction. |
+| Immutability and extension | Events are deep immutable snapshots: producer aliases and consumer operations cannot mutate nested content. Future schemas may add fields/new instances. | D37/D56. Mutable payloads and copying alone were not selected. Future hook responses may carry additional context, but current EventHandler still returns None; BC04 remains Pending. |
+| Delivery boundaries | M1 contracts/data; M2 harness/fake adapter and fake mapper; M3 standalone DemoAgent; M4 maintained CrewAI integration; Stage 05 real providers/roles. M1–M3 need no context/telemetry. | D27–D30/D39–D41/BC03. Fake must exercise mapping, but cannot prove native enforcement. No placeholder context, new logger or scope expansion. |
+
+### Seven-item remaining-work list, reconciled
+
+These are residual tasks, not seven entirely undecided topics. The M1 design owner prepares concrete proposals and traceability; Sharon resolves meaningful new behavior or changes to agreements.
+
+| Item | Settled foundation | Exact remaining work / owner |
+|---|---|---|
+| 1. Request data | Task/instructions plus execution configuration boundary; D54/D55 construction validation and error rules. | M1: choose precise request fields, required/optional/default rules and value constraints. No exact request schema is approved yet. |
+| 2. Settings/permissions | D16–D18/D21 and Q23 fix unattended behavior, category distinctions, native enforcement and simple translation. | M1: select initial supported fields/defaults, representation and unsupported-policy outcome. Do not assume allowed_tools means exclusive availability. Native denial-to-outcome mapping and actual enforcement evidence belong to Stage 05. |
+| 3. Identity/results | D36–D38 fix field names, types/status vocabularies, no guessing; D42 fixes normal terminal/result identity. | M1: exact local-ID scope/constraints and valid combinations of result status/final_text/error. A cancelled enum value alone does not approve a cancel API. Extra envelope/context fields are not implicitly required. |
+| 4. Immutable representation | D37/D56 settle frozen dataclasses and deeply immutable event snapshots; D54/D55 settle validation behavior. | M1: propose exact immutable containers, accepted JSON/container inputs, copying/freezing and JSON-compatible conversion. Decide remaining model representations explicitly. Do not ask again whether events should be immutable. |
+| 5. Failure details | D43–D49 settle propagation, terminal suppression, cleanup precedence and sequential callbacks. | M1: select concrete secondary-cleanup diagnostic representation where needed by the contract; determine and explicitly record which slow-handler/cancellation details are required before lock versus deferred. M2 owns harness verification. New stop/hook/control APIs still require scope approval. |
+| 6. Architecture/structure | D03/D09/D14/D21–D26/D42 fix intended role/execution ownership and separated contracts. | M1: present exact C01/Q12 logical amendments to architecture.md and project-structure.md, including dependency rules, before editing guarded meaning. Reconciliation remains open; it does not justify redesigning the approved ownership. |
+| 7. Approval package | Incremental design approval and D32/BC03 boundaries already apply. | Design owner: complete design/test/plan, exact paths/checks and requirements → decisions → behavior → tests → implementation mapping; present remaining blockers and one concrete candidate SHA for Sharon's approval. No approved whole-package SHA exists. |
+
+Existing test-design anchors: D24–D26 → M1-T01/T02; D34/D36–D38 → M1-T03/T04; D54/D55 → M1-T05/T08/T09; D56 → M1-T10/T11. M1-T06 awaits the concrete permission subset; M1-T07 awaits the guarded dependency reconciliation. D42–D49 are M1 contract obligations with executable harness/mapper/failure evidence assigned to M2. These are planned cases, not passed tests or a completed traceability matrix.
+
+### Continuation and deferred work
+
+Continue M1 here or from [the design handover](m1-contracts-models/design-agent-handover.md), against the same records. Suggested next discussion: the smallest concrete ExecutionRequest, followed by settings/permissions; bring two or three options only for the unresolved behavior, with a recommendation and tradeoffs. This ordering is a working recommendation, not a new approved schema.
+
+Retain hooks/BC04, cancellation controls, future configurable error handling, service extraction, richer events and eventual execution logging as explicitly pending/deferred requirements. Do not turn them into current acceptance merely to keep extension possible. Native SDK choice, versions, licensing/reuse and parity checks remain Stage 05. Research is historical documentation/source evidence; this update performs no fresh upstream validation or library adoption.
+
+When editing any agreement, first surface the conflict and follow D07/D32. Preserve each original decision, alternative and approval record. Current summaries below point to later resolutions; dated revision sections remain history. No active M1 implementation handoff or frozen approved package was found; no code, test acceptance, prerequisite or milestone boundary changes are made by this consolidation.
+
+### Consolidation checks and impact
+
+Checked the eight-file documentation change against parent `1097d8869515247b1f7f16e92d4136f59c84d382`: stage-local scope, Markdown link targets/available anchors, balanced fences, whitespace and unchanged original D42–D49/D54–D56 sections. The first link-check pass treated an inline Python generic as a Markdown link; excluding inline code corrected that checker false positive without altering the source example.
+
+The existing M1-T01–T11 acceptance document is unchanged; no acceptance requirement was added or removed. Milestone boundaries and guarded architecture/structure/governance are unchanged. Public guides have no impact because supported application behavior is unchanged. Atlas navigation, catalogue status and generated views are unchanged; no rebuild or freshness run is claimed for this update, and Sharon retains HTML regeneration ownership under D53. No runtime, application tests, native checks or implementation acceptance are claimed.
 
 ## How to read this board
 
@@ -82,16 +137,16 @@ No current PR/merge status is inferred from stale handover prose. The decision r
 | ID | Question | Status | Answer / next evidence |
 |---|---|---|---|
 | Q00 | Where do role logic and provider execution belong? | **Answered** | D03; approved desired folder structure in specifications. |
-| Q01 | Which events and payloads are necessary first? | **Partly answered by D34** | Five names/basic meanings accepted; payloads, identity/order, detailed evidence and lifecycle ownership remain open. |
-| Q02 | What execution/callback interface, class mechanism and delivery semantics? | **Partly answered (D26)** | Minimal ABC/callback declaration shapes accepted. Request/result fields, terminal-event/result relationship, delivery and failure semantics remain open. |
+| Q01 | Which events and payloads are necessary first? | **Partly answered — D34/D36–D38/D42/D49/D56** | Five variants, fields/status vocabularies, representation, no guessed pairing, lifecycle ownership and local delivery order are accepted. Remaining: exact ID/field constraints and provider-specific evidence mapping; see the current M1 reconciliation. |
+| Q02 | What execution/callback interface, class mechanism and delivery semantics? | **Partly answered — D26/D36/D42–D49** | ABC/callback signatures, result fields, terminal/result identity and recorded exception/delivery rules are accepted. Exact request/schema defaults and remaining result-field invariants are open. |
 | Q03 | Which Codex integration surface and Claude SDK mode/version? | **Open** | SDK versus app-server affects streaming, permissions and controls. |
 | Q04 | Which settings are common and which stay provider-specific? | **Open** | Define a small request/settings model; do not pretend permission/sandbox equivalence. |
 | Q05 | Are interactive permissions and user questions needed in the first scope? | **Answered for MVP; future interaction deferred** | D16: configured automatic policy or clear failure, with no human prompt or approval wait. |
 | Q06 | Which hooks, cancellation, steering and session controls are required? | **Open** | Capability evidence and concrete first use case needed. |
 | Q07 | Reuse a dependency, copy permitted components, or write thin native wrappers? | **Open** | Study the five projects and licenses; no adoption yet. |
-| Q08 | Mandatory behavioral interfaces, payload models and serialization/versioning needs? | **Partly answered — D26/D37/D54** | Three ABCs/callback and frozen event/result dataclasses are approved. D54 requires construction-time schema validation and propagation of creation errors. D55 selects TypeError/ValueError with model/field/rule diagnostics. Exact constraints, diagnostic formatting, remaining model representations, D56 settles immutable event snapshots; concrete representation and serialization remain open. |
+| Q08 | Mandatory behavioral interfaces, payload models and serialization/versioning needs? | **Partly answered — D26/D37/D54–D56** | Three ABCs/callback, frozen event/result dataclasses, construction validation, TypeError/ValueError diagnostics and deep event immutability are accepted. Exact constraints, concrete immutable containers/conversion, remaining model representations and diagnostic formatting remain open. |
 | Q09 | How do events connect to run/step context and observability? | **Open** | Coordinate with existing context/logging work; resolve C01. |
-| Q10 | What happens on slow/failed handlers, disconnects or partial evidence? | **Open** | Define ordered delivery and explicit failure policy before implementation. |
+| Q10 | What happens on slow/failed handlers, disconnects or partial evidence? | **Partly answered — D43–D49** | Fail-fast propagation, terminal suppression, cleanup precedence and sequential awaited delivery are accepted. Concrete cleanup diagnostics and scoped slow-handler/cancellation decisions remain open; native disconnect mapping belongs to provider integration. |
 | Q11 | Is a UI needed; which actions may it issue? | **Open / later** | UI references are not a committed UI requirement. |
 | Q12 | How should canonical ownership wording be reconciled? | **Open** | C01; explain precise canonical changes before implementation. |
 | Q13 | Can these two records replace guarded repository authority silently? | **Answered** | No; D07 and inherited design contract. They record the new working agreement and pending reconciliation. |
@@ -1217,3 +1272,4 @@ This is within M1's existing event-data boundary. No milestone scope delta, guar
 | 31 | 2026-11-25 | D54 approves construction-time schema validation and propagated creation errors; resumes M1 design in #72 with synchronized design/test/plan and unchanged milestone boundaries. |
 | 32 | 2026-11-25 | D55 approves standard TypeError/ValueError validation exceptions and model/field/rule diagnostics; matching M1 design/test/plan updated. |
 | 33 | 2026-11-25 | D56 approves immutable event snapshots including nested data and preserves schema evolution/future hook responses; BC04 stays Pending. |
+| 34 | 2026-11-26 | D57 consolidates inherited M1 approvals and newer D54–D56, reconciles stale current question summaries, and separates residual choices from design-package preparation. No behavior or scope change. |

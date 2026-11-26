@@ -2,6 +2,10 @@
 
 **Entry gate:** Sharon approves the same pinned revision of [design.md](design.md), [test-cases.md](test-cases.md) and this plan after the open choices and any guarded amendments are resolved. The exact approval reference and SHA are pending.
 
+## Decision baseline before implementation planning
+
+Use the [current M1 reconciliation](../decisions.md#current-m1-decision-reconciliation--2026-11-26) to distinguish approved behavior from residual choices. Preserve D24–D49 and D54–D56; complete only the open schemas/constraints, representation, remaining diagnostics and guarded amendments. The reconciliation changes no acceptance cases or runtime scope. Keep the design, test matrix and implementation steps synchronized as each remaining choice is approved.
+
 ## Planned work order
 
 1. Confirm current main and Stage 04 records, actual package/import locations and guarded ownership changes. Present any needed architecture or structure amendment before implementation.

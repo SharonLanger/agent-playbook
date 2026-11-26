@@ -2,12 +2,12 @@
 
 > **DO NOT MERGE PR #45 — MERGE LAST, AFTER ALL STAGE 04 IMPLEMENTATION PRs.** This is the ongoing design workspace. Keep it open through every milestone; reconcile final documentation after the entire Stage 04 implementation is accepted and merged, then merge this PR only with Sharon's explicit final authorization. Individual design/milestone approval does not authorize merging it.
 
-Revision: 14 · 2026-11-16 · Owner: Sharon
+Revision: 15 · 2026-11-26 · Owner: Sharon
 Status: **overall milestone boundaries and BC03 gates approved (D40); detailed milestone design/test/plan not yet locked; no implementation authorization.**
 
 [Start here](README.md) · [Specification](specifications.md) · [Decision board](decisions.md) · [Repository reconciliation](repository-updates.md)
 
-Use the [stage README](README.md#canonical-milestone-and-readiness-index) for current milestone status and the [alignment checkpoint](decisions.md#scope-and-methodology-checkpoint) for current prerequisites. This plan owns boundaries and their change history. Earlier revision checkpoints retain the state known at the time.
+Use the [stage README](README.md#canonical-milestone-and-readiness-index) for current milestone status and the [current M1 reconciliation](decisions.md#current-m1-decision-reconciliation--2026-11-26) for current prerequisites. This plan owns boundaries and their change history. Earlier revision checkpoints retain the state known at the time.
 
 ## Authority and sequence
 
@@ -44,7 +44,7 @@ Different folders reduce textual overlap; shared contracts still create dependen
 
 **Placement:** proposed runtime files under `app/src/agent_playbook/agents/agent.py` and `execution/{contracts,events.py,request.py,result.py,settings.py,permissions.py}`; tests under maintained `app/tests/` owners. Exact test/model choices belong in the detailed M1 design. No empty coder/reviewer/provider folders are required.
 
-**Entry / decisions to close:** Q01/Q02/Q08 for event/data semantics and result/error representation; Q04/Q26 for the initial configuration subset; Q10 for the contract-level failure promises; C01/Q12 for canonical ownership. Resolve only the portions required by M1, explicitly defer the rest. D34 accepts the five initial event names and basic meanings. D36/D37 subsequently accept event/result fields, status vocabulary and frozen dataclasses. Validation, invocation identity/order, request/settings models and abnormal terminal delivery remain open. D42 assigns normal start/finish emission to the common harness. Do not add required context fields now or silently forbid later context integration.
+**Entry / decisions to close:** Q01/Q02/Q08 for event/data semantics and result/error representation; Q04/Q26 for the initial configuration subset; Q10 for the contract-level failure promises; C01/Q12 for canonical ownership. Resolve only the portions required by M1, explicitly defer the rest. D34 accepts the five initial event names and basic meanings. D36/D37 subsequently accept event/result fields, status vocabulary and frozen dataclasses. D42–D49 subsequently settle lifecycle ownership, result reuse, sequential delivery and the recorded failure/cleanup policies. D54–D56 settle construction validation, standard exceptions and deep event immutability. Exact request/settings/permission fields/defaults, ID/result invariants, immutable representation/conversion and remaining cleanup/timeout/cancellation details remain open. Do not add required context fields now or silently forbid later context integration.
 
 **Proposed acceptance:** incomplete ordinary subclasses cannot instantiate; a concrete role can explicitly implement a no-op handler; static checking catches incompatible overrides/callbacks; supported data values and genuinely invalid inputs follow the agreed schema; contracts stay independent of native SDKs and roles. Do not write a test solely to assert each filename exists or add a custom metaclass to police every descendant class.
 
@@ -120,7 +120,7 @@ For later deltas use stable BC02, BC03… entries with the fields in the protoco
 
 ## Next design step
 
-Review these boundaries, then develop **S04.M1** one decision at a time: the payloads for the accepted five event types, request/result data and completion ownership first, followed by the basic settings/permission subset. Prepare its detailed design, meaningful acceptance cases and file-specific canonical amendments before asking to lock or implement it. No detailed M1 design or executable implementation brief is claimed to exist yet.
+Continue the [S04.M1 draft package](m1-contracts-models/README.md) in PR #72 using the [reconciled remaining-work list](decisions.md#seven-item-remaining-work-list-reconciled). Earlier approvals remain in force. Suggested next topic is the exact request schema, followed by the initial settings/permission subset. Complete meaningful acceptance cases and file-specific canonical amendments before requesting approval of the detailed design/test/plan. The draft package exists; no implementation-ready brief or approved candidate SHA exists.
 
 ## Revision 2 checkpoint — 2026-11-14
 
@@ -163,7 +163,7 @@ The stage README owns the canonical milestone/status index. Boundaries and depen
 
 | Milestone / future folder | Design readiness | Resolve in that design | Wait for predecessor / avoid now |
 |---|---|---|---|
-| M1 / m1-contracts-models | Ready to draft now with listed choices | D42 ownership accepted; abnormal terminal/result consistency and callback ordering/error contract; request/settings/permissions; JSON/nested-mutation validation policy; event-local identity; C01 canonical ownership amendment | No Stage 02/03 wait. Do not specify real SDK mapping or build harness code |
+| M1 / m1-contracts-models | Draft in #72; continue remaining choices | Exact request/settings/permissions and ID/result constraints; concrete immutable representation/conversion; remaining diagnostics and scoped timeout/cancellation choices; C01 guarded amendments. D42–D49/D54–D56 are settled | No Stage 02/03 wait. Do not specify real SDK mapping or build harness code |
 | M2 / m2-fake-execution | Boundary ready; detailed design waits for M1 contract approval, with review against merged M1 before implementation | Fake scripts/native fixtures, mapper isolation, harness cleanup/failure behavior and observable acceptance | M1 settles field shape, lifecycle and callback promises; do not reopen them speculatively |
 | M3 / m3-demo-agent | Boundary ready; detailed design waits for M2 design to settle the executable path; implementation waits for accepted/merged M2 | One simple task/input/result, no-op versus useful handler behavior, optional visible delay, repeated invocation evidence | Use M1 request/result and M2 fake behavior. Do not design reviewer prompts, AgentContext or a role framework |
 | M4 / m4-workflow-integration | Boundary/dependencies ready to assess; concrete design waits for M3's invocation contract and current main compatibility review | Workflow input/output and sync/async entry, construction/config selection, context at the integration boundary only where necessary, success/failure CLI evidence | Reuse actual merged context. No Stage 03 parallel/join requirement unless explicitly added; no tracing/logging redesign |
@@ -172,7 +172,7 @@ Detailed design may begin after the prior design is approved without waiting for
 
 Every milestone entry requires: approved design/test/plan at a pinned SHA; its listed prerequisite capabilities accepted/merged and checked; scoped implementation authorization. Every exit requires meaningful tests, reviewed evidence, explicit acceptance and separate implementation merge. Stage Design PR stays open. These are not yet satisfied by this planning update.
 
-First next action: draft M1's four-file package, building on D42 lifecycle ownership and next resolving callback/error semantics. Track its open choices in that draft and resolve them before lock. Later milestone questions stay assigned to their owners; they do not block M1.
+Current next action: continue the existing M1 package from the reconciled residual choices. Preserve approved lifecycle/failure/validation/immutability policy and complete the design/test/plan before lock. Later milestone questions remain with their owners; they do not block M1.
 
 ## Lifecycle checkpoint — revision 20
 
@@ -217,3 +217,7 @@ Owner/trigger/evidence: Stage 04 design owns this pending contract/scope choice;
 D50/D51 record the explicit low-coupling requirement and coder/reviewer product target. Stage 04 remains the deterministic foundation; native adapters and real roles remain Stage 05. No roadmap renumbering or implicit M4 expansion. A fake demonstration alone does not satisfy the real product MVP. BC04 remains Pending: request for assessment and conditional support for a small response shape does not approve its complete hook/failure/capability design.
 
 P14 proposes keeping observations, optional hook responses and cancellation controls distinct, with serializable boundary data and shared adapter contract tests. These are design recommendations, not new required ABC methods or remote transport implementation. If cancellation or hooks are added to M1/M2 acceptance, first amend BC04 or add a separately reviewed boundary delta. The product scenario should inform minimal request/settings/artifact/result design without importing all later-stage work into M1.
+
+## Documentation reconciliation — 2026-11-26
+
+D57 updates current M1 readiness/question summaries using D42–D49 and D54–D56. The older dated checkpoints retain their historical state. This is editorial reconciliation within the approved M1 boundary; BC03 remains accepted and BC04 Pending. No inclusion, exclusion, prerequisite or acceptance boundary changes, so no new BC proposal is introduced.
